@@ -1,4 +1,23 @@
+import { FrontMatter } from '../plugins/Plugin';
+
 const HEADING_INDEXING_LEVEL_DEFAULT = 3;
+
+export type SiteConfigPage = {
+  glob?: string,
+  layout?: string,
+  src?: string[],
+  title?: string,
+  externalScripts?: string[],
+  globExclude?: string,
+  searchable?: string | boolean,
+  frontmatter?: FrontMatter,
+};
+
+export type SiteConfigStyle = {
+  bootstrapTheme?: string;
+  codeTheme: 'dark' | 'light';
+  codeLineNumbers: boolean; // Default hide display of line numbers for code blocks
+};
 
 /**
  * Represents a read only site config read from the site configuration file,
@@ -10,16 +29,9 @@ export class SiteConfig {
   faviconPath?: string;
   headingIndexingLevel: number;
 
-  style: {
-    bootstrapTheme?: string;
-    codeTheme: string;
-    /**
-     * Default hide display of line numbers for code blocks
-     */
-    codeLineNumbers: boolean;
-  };
+  style: SiteConfigStyle;
 
-  pages: string[];
+  pages: SiteConfigPage[];
   pagesExclude: string[];
   ignore: string[];
 
@@ -40,6 +52,7 @@ export class SiteConfig {
     message?: string;
     repo?: string;
     branch?: string;
+    baseDir?: string;
   };
 
   intrasiteLinkValidation: {
@@ -87,5 +100,3 @@ export class SiteConfig {
       ? siteConfigJson.plantumlCheck : true; // check PlantUML's prerequisite by default
   }
 }
-
-module.exports = SiteConfig;

@@ -92,7 +92,12 @@ export class VariableProcessor {
    * Renders the variable in addition to adding it, unlike {@link addUserDefinedVariable}.
    * This is to allow using previously declared site variables in site variables declared later on.
    */
-  renderAndAddUserDefinedVariable(site: string, name: string, value: any) {
+  renderAndAddUserDefinedVariable(site: string, name: string | undefined, value: any) {
+    if (name === undefined) {
+      logger.warn('You have a variable with no name! This variable will be ignored.');
+      return;
+    }
+
     const renderedVal = this.variableRendererMap[site].renderString(value, this.userDefinedVariablesMap[site],
                                                                     new PageSources());
     this.addUserDefinedVariable(site, name, renderedVal);
