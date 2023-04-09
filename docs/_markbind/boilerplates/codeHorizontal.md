@@ -7,6 +7,7 @@
 <!-- `codeRight` - The MarkBind code content in this variable will appear in a code block on RHS -->
 
 <table style="width: 100%;">
+<tbody>
 <tr>
 <th style="width: 45%; padding-right: 5%">{{ headingLeft }}</th>
 <th style="width: 45%; padding-left: 5%;">{{ headingRight }}</th>
@@ -25,4 +26,5 @@
 ```
 </td>
 </tr>
+</tbody>
 </table>
