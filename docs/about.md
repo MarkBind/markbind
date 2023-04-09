@@ -119,6 +119,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/lhw-1"><img src="https://avatars.githubusercontent.com/u/25716529?v=4?s=100" width="100px;" alt="Lee Hyung Woon / 이형운"/><br /><sub><b>Lee Hyung Woon / 이형운</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=lhw-1" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/yucheng11122017"><img src="https://avatars.githubusercontent.com/u/77204346?v=4?s=100" width="100px;" alt="Chan Yu Cheng"/><br /><sub><b>Chan Yu Cheng</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=yucheng11122017" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Yvad60"><img src="https://avatars.githubusercontent.com/u/54445417?v=4?s=100" width="100px;" alt="Ivad Yves HABIMANA"/><br /><sub><b>Ivad Yves HABIMANA</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=Yvad60" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
