@@ -91,40 +91,6 @@ Check that the following are true:
 
 </box>
 
-## Adding Intra-Site Links to Documentation
-
-Due to the way MarkBind's documentation is deployed, links from the developer guide that refer to the user guide, or vice versa, have to be differentiated with tags. MarkBind's documentation currently has 3 tags:
-
-- `environment--combined` for locally served documentation
-- `environment--ug` for deployed User Guide
-- `environment--dg` for deployed Developer Guide
-
-Using tags ensures that the correct link is created in each environment.
-
-#### Developer Guide
-%%LINK:%%
-```markdown
-[Link Title](/userGuide/newPage.html)
-```
-
-%%REPLACED WITH:%%
-```html
-<a tags="environment--combined" href="/userGuide/newPage.html">Link Title</a>
-<a tags="environment--dg" href="https://markbind.org/userGuide/newPage.html">Link Title</a>
-```
-
-#### User Guide
-%%LINK:%%
-```markdown
-[Link Title](/devGuide/newPage.html)
-```
-
-%%REPLACED WITH:%%
-```html
-<a tags="environment--combined" href="/devGuide/newPage.html">Link Title</a>
-<a tags="environment--ug" href="https://markbind.org/devdocs/devGuide/newPage.html">Link Title</a>
-```
-
 ## Make a Pull Request & Verify the PR Preview
 
 Once you have made the changes, commit them and push them to your forked repository.

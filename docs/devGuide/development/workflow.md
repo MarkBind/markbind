@@ -258,6 +258,42 @@ Once you're done, be sure to run the `updatetest` script mentioned [above](#upda
 
 </div>
 
+## Documenting
+
+#### Adding Intra-Site Links to Documentation
+
+Due to the way MarkBind's documentation is deployed, links from the developer guide that refer to the user guide, or vice versa, have to be differentiated with <a tags="environment--combined" href="/userGuide/tweakingThePageStructure.html#plugin-tags">tags</a><a tags="environment--dg" href="https://markbind.org/userGuide/tweakingThePageStructure.html#plugin-tags">tags</a>. Intra-site links within the developer guide or user guide need not have tags. MarkBind's documentation currently has 3 tags:
+
+- `environment--combined` for deploying the User Guide and Developer Guide together
+- `environment--ug` for deployed User Guide
+- `environment--dg` for deployed Developer Guide
+
+Tags allow you to selectively filter content when building a site. Using them with the links helps to filter the correct link to be rendered for the right environment, ensuring that the correct link is created.
+
+##### Developer Guide
+%%LINK:%%
+```markdown
+[Link Title](/userGuide/newPage.html)
+```
+
+%%REPLACED WITH:%%
+```html
+<a tags="environment--combined" href="/userGuide/newPage.html">Link Title</a>
+<a tags="environment--dg" href="https://markbind.org/userGuide/newPage.html">Link Title</a>
+```
+
+##### User Guide
+%%LINK:%%
+```markdown
+[Link Title](/devGuide/newPage.html)
+```
+
+%%REPLACED WITH:%%
+```html
+<a tags="environment--combined" href="/devGuide/newPage.html">Link Title</a>
+<a tags="environment--ug" href="https://markbind.org/devdocs/devGuide/newPage.html">Link Title</a>
+```
+
 ## Linting
 
 We follow [our style guides](../styleGuides.html). Using a linter will help check and fix some of the code style errors in your code. It will save time for both you and your code reviewer. The linting tool we use is [ESLint](https://eslint.org/) and [StyleLint](https://stylelint.io/). Here is a [gist](https://gist.github.com/nicholaschuayunzhi/bfe53dbb5f1a0f02d545d55956f9ab7e) with an explanation of the ESLint rules chosen in markbind-cli.
