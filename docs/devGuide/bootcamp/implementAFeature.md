@@ -51,6 +51,12 @@ _(Same as what we mentioned in the previous task)_
 
 By this time, you should have a good idea about how tests and documentation are written. Where possible, unit tests should also be added to ensure that the feature works as expected. Utilizing the new feature in our documentation is also encouraged so that we can get a better idea of how the feature can be used.
 
+<box type="important" light>
+
+When adding intra-site links, do remember to use tags to differentiate between the deployment environment when appropriate as mentioned in [Adding Intra-Site Links to Documentation](/devGuide/bootcamp/contributeToDocs.html#adding-intra-site-links-to-documentation)!
+
+</box>
+
 ## Create PR & Follow up with the Reviews
 
 _(Same as what we mentioned in the previous task)_
