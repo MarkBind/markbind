@@ -53,7 +53,7 @@ By this time, you should have a good idea about how tests and documentation are 
 
 <box type="important" light>
 
-When adding intra-site links, do remember to use tags to differentiate between the deployment environment when appropriate as mentioned in [Adding Intra-Site Links to Documentation](/devGuide/bootcamp/contributeToDocs.html#adding-intra-site-links-to-documentation)!
+When adding intra-site links, do remember to use tags to differentiate between the deployment environment when appropriate as mentioned in [Adding Intra-Site Links to Documentation](/devGuide/development/workflow.html#adding-intra-site-links-to-documentation)!
 
 </box>
 
