@@ -61,6 +61,7 @@ Here is a typical `site.json` file:
     "*.json",
     "*.md",
     ".git/*",
+    ".gitignore",
     "node_modules/*"
   ],
   "plugins" : [
