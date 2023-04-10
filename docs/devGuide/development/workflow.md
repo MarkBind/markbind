@@ -258,6 +258,44 @@ Once you're done, be sure to run the `updatetest` script mentioned [above](#upda
 
 </div>
 
+## Documenting
+
+### Adding Intra-Site Links to Documentation
+
+In MarkBind, we use <a tags="environment--combined" href="/userGuide/tweakingThePageStructure.html#plugin-tags">tags</a><a tags="environment--dg" href="https://markbind.org/userGuide/tweakingThePageStructure.html#plugin-tags">tags</a> to differentiate between links in the developer guide referring to the user guide versus links in the user guide referring to the developer guide. Note that intra-site links within either guides need not have tags. 
+
+MarkBind's documentation currently has 3 tags:
+
+- `environment--combined` for deploying the User Guide and Developer Guide together
+- `environment--ug` for deployed User Guide
+- `environment--dg` for deployed Developer Guide
+
+To ensure that correct links are created, use tags with the links to selectively filter the correct link to be rendered for the right environment. When both the User Guide and the Developer Guide are deployed together, they have access to the files from each other, allowing the relative link to work. However, when they are deployed individually, this is not the case. Using absolute links creates the same effect as the relative link without having to have access to the files from the other guide.
+
+#### Developer Guide
+%%LINK:%%
+```markdown
+[Link Title](/userGuide/newPage.html)
+```
+
+%%REPLACED WITH:%%
+```html
+<a tags="environment--combined" href="/userGuide/newPage.html">Link Title</a>
+<a tags="environment--dg" href="https://markbind.org/userGuide/newPage.html">Link Title</a>
+```
+
+#### User Guide
+%%LINK:%%
+```markdown
+[Link Title](/devGuide/newPage.html)
+```
+
+%%REPLACED WITH:%%
+```html
+<a tags="environment--combined" href="/devGuide/newPage.html">Link Title</a>
+<a tags="environment--ug" href="https://markbind.org/devdocs/devGuide/newPage.html">Link Title</a>
+```
+
 ## Linting
 
 We follow [our style guides](../styleGuides.html). Using a linter will help check and fix some of the code style errors in your code. It will save time for both you and your code reviewer. The linting tool we use is [ESLint](https://eslint.org/) and [StyleLint](https://stylelint.io/). Here is a [gist](https://gist.github.com/nicholaschuayunzhi/bfe53dbb5f1a0f02d545d55956f9ab7e) with an explanation of the ESLint rules chosen in markbind-cli.
