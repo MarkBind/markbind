@@ -268,7 +268,7 @@ Due to the way MarkBind's documentation is deployed, links from the developer gu
 - `environment--ug` for deployed User Guide
 - `environment--dg` for deployed Developer Guide
 
-Tags allow you to selectively filter content when building a site. Using them with the links helps to filter the correct link to be rendered for the right environment, ensuring that the correct link is created. When the User Guide and Developer Guide are deployed together, both guides have access to the files from the other, allowing the relative link to work. However, when they are deployed individually, this is not the case. Using absolute links creates the same effect as the relative link without having to have access to the files from the other guide.
+To ensure that correct links are created, use tags with the links to selectively filter the correct link to be rendered for the right environment. When both the User Guide and the Developer Guide are deployed together, they have access to the files from each other, allowing the relative link to work. However, when they are deployed individually, this is not the case. Using absolute links creates the same effect as the relative link without having to have access to the files from the other guide.
 
 #### Developer Guide
 %%LINK:%%
