@@ -17,7 +17,6 @@ const { ExternalManager } = require('../External/ExternalManager');
 const { LayoutManager, LAYOUT_DEFAULT_NAME, LAYOUT_FOLDER_PATH } = require('../Layout');
 const { SiteLinkManager } = require('../html/SiteLinkManager');
 const { PluginManager } = require('../plugins/PluginManager');
-const { Template } = require('./template');
 
 const { sequentialAsyncForEach } = require('../utils/async');
 const { delay } = require('../utils/delay');
@@ -167,21 +166,6 @@ class Site {
       await Promise.all(removeFolders.map(folder => fs.remove(folder)));
     } catch (err) {
       logger.error(`Failed to remove generated files after error!\n${err.message}`);
-    }
-  }
-
-  /**
-   * Static method for initializing a markbind site.
-   * Generate the site.json and an index.md file.
-   *
-   * @param rootPath
-   * @param templatePath
-   */
-  static async initSite(rootPath, templatePath) {
-    try {
-      return await new Template(rootPath, templatePath).initTemplate();
-    } catch (err) {
-      return new Error(`Failed to initialize site with given template with error: ${err.message}`);
     }
   }
 

@@ -38,9 +38,13 @@ export class Template {
     });
   }
 
-  initTemplate() {
+  /**
+   * A method for initializing a markbind site according to the given template.
+   * Generate the site.json and an index.md file.
+   */
+  async init() {
     if (!this.validateTemplateFromPath()) {
-      throw new Error('Template validation failed. Required files does not exist');
+      throw new Error('Template validation failed. Required files does not exist.');
     }
 
     return new Promise((resolve, reject) => {
