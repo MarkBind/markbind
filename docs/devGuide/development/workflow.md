@@ -262,7 +262,9 @@ Once you're done, be sure to run the `updatetest` script mentioned [above](#upda
 
 ### Adding Intra-Site Links to Documentation
 
-Due to the way MarkBind's documentation is deployed, links from the developer guide that refer to the user guide, or vice versa, have to be differentiated with <a tags="environment--combined" href="/userGuide/tweakingThePageStructure.html#plugin-tags">tags</a><a tags="environment--dg" href="https://markbind.org/userGuide/tweakingThePageStructure.html#plugin-tags">tags</a>. Intra-site links within the developer guide or user guide need not have tags. MarkBind's documentation currently has 3 tags:
+In MarkBind, we use <a tags="environment--combined" href="/userGuide/tweakingThePageStructure.html#plugin-tags">tags</a><a tags="environment--dg" href="https://markbind.org/userGuide/tweakingThePageStructure.html#plugin-tags">tags</a> to differentiate between links in the developer guide referring to the user guide versus links in the user guide referring to the developer guide. Note that intra-site links within either guides need not have tags. 
+
+MarkBind's documentation currently has 3 tags:
 
 - `environment--combined` for deploying the User Guide and Developer Guide together
 - `environment--ug` for deployed User Guide
