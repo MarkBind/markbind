@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-const { Site } = require('@markbind/core');
+const { Site, Template } = require('@markbind/core');
 
 const logger = require('../util/logger');
 
@@ -15,7 +15,8 @@ function init(root, options) {
     }
   }
 
-  Site.initSite(rootFolder, options.template)
+  const template = new Template(rootFolder, options.template);
+  template.init()
     .then(() => {
       logger.info('Initialization success.');
     })
@@ -34,7 +35,7 @@ function init(root, options) {
       }
     })
     .catch((error) => {
-      logger.error(error.message);
+      logger.error(`Failed to initialize site with given template with error: ${error.message}`);
       process.exitCode = 1;
     });
 }

@@ -10,6 +10,7 @@
     "*.md",
     "*.njk",
     ".git/*",
+    ".gitignore",
     "node_modules/*"
   ],
   "pagesExclude": ["node_modules/*"],

@@ -22,20 +22,20 @@
 
 Initialize a MarkBind site:
 
-```{.line-numbers}
+```
 npx markbind-cli init mySite
 ```
 
 Preview the site:
 
-```{.line-numbers}
+```
 cd mySite
 npx markbind-cli serve
 ```
 
 See usage information:
 
-```{.line-numbers}
+```
 npx markbind-cli --help
 ```
 
