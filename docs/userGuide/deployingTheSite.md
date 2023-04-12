@@ -493,7 +493,7 @@ jobs:
           path: .
       - name: Extract PR number
         id: pr-number
-        run: echo '::set-output name=ACTIONS_PR_NUMBER::'$(cat ./pr/NUMBER)
+        run: echo "ACTIONS_PR_NUMBER=$(cat ./pr/NUMBER)" >> $GITHUB_OUTPUT
       - name: Install Node
         uses: actions/setup-node@v3
         with:
@@ -502,7 +502,7 @@ jobs:
         id: pr-url
         run: |
           PR_URL="https://pr-${{ steps.pr-number.outputs.ACTIONS_PR_NUMBER }}-<YOUR_BASE_URL>.surge.sh/"
-          echo '::set-output name=ACTIONS_PREVIEW_URL::'$PR_URL
+          echo "ACTIONS_PREVIEW_URL=${PR_URL}" >> $GITHUB_OUTPUT
       - name: Install surge and deploy PR to surge
         run: |
           npm i -g surge
