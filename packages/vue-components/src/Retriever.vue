@@ -65,8 +65,11 @@ export default {
           if (this.hash) {
             const htmlResult = document.implementation.createHTMLDocument('');
             htmlResult.body.innerHTML = result;
+
+            // Script tags are removed to prevent Vue warnings about side effects in Vue template
             const allScriptChildren = htmlResult.querySelectorAll('script');
             allScriptChildren.forEach(child => child.remove());
+
             const appContainer = htmlResult.querySelector(`#${this.hash}`);
             result = appContainer.innerHTML;
           }
