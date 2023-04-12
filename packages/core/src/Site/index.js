@@ -366,7 +366,7 @@ class Site {
     let footer;
     if (fs.existsSync(wikiFooterPath)) {
       logger.info(`Copied over the existing ${WIKI_FOOTER_PATH} file to the converted layout`);
-      footer = fs.readFileSync(wikiFooterPath, 'utf8');
+      footer = `\n${fs.readFileSync(wikiFooterPath, 'utf8')}`;
     }
 
     const wikiSiteNavPath = path.join(this.rootPath, WIKI_SITE_NAV_PATH);
