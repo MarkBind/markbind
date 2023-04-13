@@ -10,6 +10,7 @@
     "build:ug": "cd docs && ../packages/cli/index.js build -s ug-site.json",
     "deploy:dg": "cd docs && ../packages/cli/index.js deploy -s dg-site.json --ci",
     "deploy:ug": "cd docs && ../packages/cli/index.js deploy -s ug-site.json --ci",
+    "deploy:netlify": "npm run setup && npm run build:web && cd docs && node ../packages/cli/index.js build --baseUrl",
     "clean": "node ./scripts/clean.js",
     "csslint": "stylelint **/*.css **/*.vue",
     "csslintfix": "stylelint **/*.css **/*.vue --fix",

@@ -1,0 +1,3 @@
+[build]
+  command = "npm run deploy:netlify"
+  environment = { NODE_VERSION = "16.19.1"}
