@@ -66,9 +66,10 @@ export default {
             const htmlResult = document.implementation.createHTMLDocument('');
             htmlResult.body.innerHTML = result;
 
-            // Script tags are removed to prevent Vue warnings about side effects in Vue template
+            // Script tags injected by live server in SVG tags are removed
+            // to prevent Vue warnings about side effects in Vue template
             // Ok to remove because Vue will not process the script tags to avoid side effects
-            const allScriptChildren = htmlResult.querySelectorAll('script');
+            const allScriptChildren = htmlResult.querySelectorAll('svg > script');
             allScriptChildren.forEach(child => child.remove());
 
             const appContainer = htmlResult.querySelector(`#${this.hash}`);
