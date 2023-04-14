@@ -54,12 +54,7 @@ module.exports = {
     Array.from(el.children).forEach(child => content.append(child));
     el.replaceChildren();
     el.append(content);
-
-    if (el.className === '') {
-      el.classList.add('closeable-wrapper');
-    } else {
-      el.classList.add(`${el.className} closeable-wrapper`);
-    }
+    el.classList.add('closeable-wrapper');
 
     const closeButton = createCloseButton();
     el.append(closeButton);
