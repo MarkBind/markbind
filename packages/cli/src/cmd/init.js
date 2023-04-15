@@ -1,7 +1,8 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-const { Site, Template } = require('@markbind/core');
+const { Template } = require('@markbind/core');
+const { Site } = require('@markbind/core').Site;
 
 const logger = require('../util/logger');
 
