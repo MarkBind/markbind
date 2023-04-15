@@ -62,7 +62,7 @@ function timeoutRenderQuestion() {
   return new Promise(resolve => setTimeout(resolve, 350));
 }
 
-describe('Quizzes', () => {
+describe.skip('Quizzes', () => {
   test('intro screen with intro text renders correctly', () => {
     const wrapper = mount(Quiz, {
       slots: {

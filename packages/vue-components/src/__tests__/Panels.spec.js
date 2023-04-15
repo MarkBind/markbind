@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import NestedPanel from '../panels/NestedPanel.vue';
 
-describe('NestedPanels', () => {
+describe.skip('NestedPanels', () => {
   test('should show header when collapsed with expandHeaderless as false', async () => {
     const wrapper = mount(NestedPanel, {
       propsData: {

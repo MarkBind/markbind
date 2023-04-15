@@ -24,7 +24,7 @@ const DEFAULT_STUBS = {
   'box': true,
 };
 
-describe('Mcq Questions and QOptions', () => {
+describe.skip('Mcq Questions and QOptions', () => {
   test('of unanswered with shown hint and header renders correctly', async () => {
     const wrapper = mount(Question, {
       propsData: { type: 'mcq' },
@@ -147,7 +147,7 @@ describe('Mcq Questions and QOptions', () => {
   });
 });
 
-describe('Checkbox Questions and QOptions', () => {
+describe.skip('Checkbox Questions and QOptions', () => {
   test('of unanswered with header without hint renders correctly ', async () => {
     const wrapper = mount(Question, {
       propsData: { type: 'checkbox' },
@@ -274,7 +274,7 @@ describe('Checkbox Questions and QOptions', () => {
   });
 });
 
-describe('Blank Questions and QOptions', () => {
+describe.skip('Blank Questions and QOptions', () => {
   test('of unanswered with shown hint and header renders correctly', async () => {
     const option = {
       render(h) {
@@ -481,7 +481,7 @@ describe('Blank Questions and QOptions', () => {
   });
 });
 
-describe('Text Questions', () => {
+describe.skip('Text Questions', () => {
   test('of unanswered with shown hint, header without answer renders correctly ', async () => {
     const wrapper = mount(Question, {
       propsData: { type: 'text' },

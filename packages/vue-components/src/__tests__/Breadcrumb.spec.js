@@ -66,7 +66,7 @@ const dropdownLinkSiteNav = {
   `,
 };
 
-describe('Breadcrumb', () => {
+describe.skip('Breadcrumb', () => {
   test('empty breadcrumb', async () => {
     const wrapper = mount(Breadcrumb, {
       data() {

@@ -106,11 +106,10 @@ exports[`Breadcrumb empty breadcrumb 1`] = `
       <li
         class="notlink breadcrumb-marker"
       >
-        
-        ››  
-      
+         ››   
       </li>
-       
+      
+      
     </ol>
   </nav>
 </div>
@@ -128,11 +127,10 @@ exports[`Breadcrumb no sitenav 1`] = `
       <li
         class="notlink breadcrumb-marker"
       >
-        
-        ››  
-      
+         ››   
       </li>
-       
+      
+      
     </ol>
   </nav>
 </div>
@@ -150,11 +148,9 @@ exports[`Breadcrumb one link 1`] = `
       <li
         class="notlink breadcrumb-marker"
       >
-        
-        ››  
-      
+         ››   
       </li>
-       
+      
       <li
         aria-current="[object Object]"
         class="breadcrumb-item"
@@ -162,11 +158,10 @@ exports[`Breadcrumb one link 1`] = `
         <a
           href="#link"
         >
-          
           link one
-        
         </a>
       </li>
+      
     </ol>
   </nav>
 </div>
@@ -218,21 +213,18 @@ exports[`Breadcrumb one non-link 1`] = `
       <li
         class="notlink breadcrumb-marker"
       >
-        
-        ››  
-      
+         ››   
       </li>
-       
+      
       <li
         aria-current="[object Object]"
         class="breadcrumb-item notlink"
       >
         <a>
-          
           non-link one
-        
         </a>
       </li>
+      
     </ol>
   </nav>
 </div>
@@ -250,11 +242,9 @@ exports[`Breadcrumb two link 1`] = `
       <li
         class="notlink breadcrumb-marker"
       >
-        
-        ››  
-      
+         ››   
       </li>
-       
+      
       <li
         aria-current="[object Object]"
         class="breadcrumb-item"
@@ -262,9 +252,7 @@ exports[`Breadcrumb two link 1`] = `
         <a
           href="#linkone"
         >
-          
           link one
-        
         </a>
       </li>
       <li
@@ -274,11 +262,10 @@ exports[`Breadcrumb two link 1`] = `
         <a
           href="#linktwo"
         >
-          
           link two
-        
         </a>
       </li>
+      
     </ol>
   </nav>
 </div>
@@ -296,19 +283,15 @@ exports[`Breadcrumb two non-link 1`] = `
       <li
         class="notlink breadcrumb-marker"
       >
-        
-        ››  
+         ››   
+      </li>
       
-      </li>
-       
       <li
         aria-current="[object Object]"
         class="breadcrumb-item notlink"
       >
         <a>
-          
           link one
-        
         </a>
       </li>
       <li
@@ -316,11 +299,10 @@ exports[`Breadcrumb two non-link 1`] = `
         class="breadcrumb-item notlink"
       >
         <a>
-          
           link two
-        
         </a>
       </li>
+      
     </ol>
   </nav>
 </div>

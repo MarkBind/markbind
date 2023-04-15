@@ -4,47 +4,65 @@ exports[`Quizzes intro screen with intro text renders correctly 1`] = `
 <div
   class="quiz-container"
 >
-  <div
-    class="card intro-outro-card"
+  <transition-stub
+    appear="false"
+    css="true"
+    name="intro-outro-card"
+    persisted="false"
   >
     <div
-      class="card-body"
+      class="card intro-outro-card"
     >
-      <h1>
-        Intro
-      </h1>
-       
-      <h5>
-        0 questions
-      </h5>
-       
-      <hr />
-       
-      <button
-        class="btn btn-primary d-inline-block"
-        type="button"
+      <div
+        class="card-body"
       >
         
-          Start
+        <h1>
+          Intro
+        </h1>
         
-      </button>
+        <h5>
+          0 questions
+        </h5>
+        <hr />
+        <button
+          class="btn btn-primary d-inline-block"
+          type="button"
+        >
+           Start 
+        </button>
+      </div>
     </div>
-  </div>
-   
-  <div
-    class="progress intro-outro-card"
-    style="height: 1px; display: none;"
+  </transition-stub>
+  <transition-stub
+    appear="false"
+    css="true"
+    name="intro-outro-card"
+    persisted="true"
   >
     <div
-      aria-valuemax="0"
-      aria-valuemin="0"
-      aria-valuenow="0"
-      class="progress-bar progress-bar-z"
-      role="progressbar"
-    />
-  </div>
-    
-  <!---->
+      class="progress intro-outro-card"
+      style="height: 1px; display: none;"
+    >
+      <div
+        aria-valuemax="0"
+        aria-valuemin="0"
+        aria-valuenow="0"
+        class="progress-bar progress-bar-z"
+        role="progressbar"
+      />
+    </div>
+  </transition-stub>
+  
+  
+  <transition-stub
+    appear="false"
+    css="true"
+    name="intro-outro-card"
+    persisted="false"
+  >
+    <!--v-if-->
+  </transition-stub>
 </div>
 `;
 

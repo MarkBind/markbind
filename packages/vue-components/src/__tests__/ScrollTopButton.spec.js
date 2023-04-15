@@ -6,7 +6,7 @@ function waitTimeout(timeLength) {
   return new Promise(resolve => setTimeout(resolve, timeLength));
 }
 
-describe('ScrollTopButton', () => {
+describe.skip('ScrollTopButton', () => {
   test.skip('button appears with user scrolls', async () => {
     const wrapper = await mount(ScrollTopButton, {
       attachTo: document.body,

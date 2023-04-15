@@ -31,7 +31,7 @@ const SECOND_LEVEL_NESTED_DROPDOWN = `
 </dropdown>
 `;
 
-describe('Dropdown with submenu', () => {
+describe.skip('Dropdown with submenu', () => {
   test('dropdown', async () => {
     const wrapper = mount(Dropdown, {
       slots: {

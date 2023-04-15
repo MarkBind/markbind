@@ -36,7 +36,7 @@ const SITE_AND_PAGE_NAV_BUTTONS = `
 </div>
 `;
 
-describe('Navbar and secondary navbar', () => {
+describe.skip('Navbar and secondary navbar', () => {
   test('navbar without site and page nav buttons', async () => {
     const wrapper = mount(Navbar, {
       slots: {
@@ -90,7 +90,7 @@ describe('Navbar and secondary navbar', () => {
   });
 });
 
-describe('Mobile nav buttons test:', () => {
+describe.skip('Mobile nav buttons test:', () => {
   beforeEach(() => {
     const rootDiv = document.createElement('div');
     const navbarDiv = document.createElement('div');

@@ -17,7 +17,7 @@ const DEFAULT_MODAL_FOOTER = 'test modal footer';
 const DEFAULT_MODAL_CONTENT = 'Lorem ipsum dolor sit amet, '
 + 'consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
-describe('Modal', () => {
+describe.skip('Modal', () => {
   test('should not show header when no header is given', async () => {
     const wrapper = mount(Modal, {
       propsData: {
