@@ -352,6 +352,7 @@ export class Site {
         vue: this.dev
           ? 'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js'
           : path.posix.join(baseAssetsPath, 'js', 'vue.min.js'),
+        layoutUserScriptsAndStyles: [],
       },
       baseUrlMap: this.baseUrlMap,
       dev: this.dev,
