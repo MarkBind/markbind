@@ -66,11 +66,6 @@ export function transformOldSlotSyntax(node: MbNode) {
   });
 }
 
-export function renameSlot(node: MbNode, originalName: string, newName: string) {
-  if (!node.children) {
-    return;
-  }
-
   node.children.forEach((child) => {
     const vslotShorthandName = getVslotShorthandName(child);
     if (vslotShorthandName && vslotShorthandName === originalName) {
