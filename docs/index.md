@@ -173,6 +173,6 @@ As MarkBind is also optimized for project documentation, it can easily [integrat
 
 This is the latest Developer Guide for MarkBind.
 
-For contributors: please access the Developer Guide [here](devGuide/indx.html)
+For contributors: please access the Developer Guide [here](devGuide/index.html)
 
 </div>
