@@ -29,7 +29,7 @@
 <body>
   <div id="app">
     <header sticky>
-      <navbar placement="top" type="inverse">
+      <navbar placement="top" type="dark">
         <template #brand><a href="/index.html" title="Home" class="navbar-brand">
             <i class="far fa-file-image"></i></a></template>
         <li><a href="/index.html" class="nav-link">HOME</a></li>
@@ -56,14 +56,17 @@
             </overlay-source>
           </site-nav>
         </div>
+        <collapse-expand-buttons></collapse-expand-buttons>
       </overlay-source>
       <div id="content-wrapper">
+        <breadcrumb></breadcrumb>
         <h1 id="page-1">Page 1<a class="fa fa-anchor" href="#page-1" onclick="event.stopPropagation()"></a></h1>
       </div>
       <overlay-source id="page-nav" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
         </div>
       </overlay-source>
+      <scroll-top-button></scroll-top-button>
     </div>
     <footer>
       Custom footer.

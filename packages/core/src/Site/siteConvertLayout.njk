@@ -3,7 +3,7 @@
 </head-bottom>
 
 <header sticky>
-  <navbar placement="top" type="inverse">
+  <navbar placement="top" type="dark">
     <a slot="brand" href="{% raw %}{{baseUrl}}{% endraw %}/index.html" title="Home" class="navbar-brand">
       <i class="far fa-file-image"></i>
     </a>
@@ -27,8 +27,10 @@
 {{ siteNav }}
       </site-nav>
     </div>
+    <collapse-expand-buttons />
   </nav>
   <div id="content-wrapper">
+    <breadcrumb />
     {% raw %}{{ content }}{% endraw %}
   </div>
   <nav id="page-nav">
@@ -36,6 +38,7 @@
       <page-nav />
     </div>
   </nav>
+  <scroll-top-button></scroll-top-button>
 </div>
 
 <footer>
