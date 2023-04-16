@@ -53,9 +53,12 @@ jobs:
         run: npm run build:docs
       - name: Check build log for warnings
         run: |
-          if grep -q "warn" docs/_markbind/logs/markbind-$(date +'%Y-%m-%d').log; then
-            echo "The following warnings were found when building the documentation:"
-            echo $(grep "warn" docs/_markbind/logs/markbind-$(date +'%Y-%m-%d').log)
+          log_file="docs/_markbind/logs/markbind-$(date +'%Y-%m-%d').log"
+          pattern="warn"
+          
+          if grep -q "$pattern" "$log_file"; then
+            printf "The following warnings were found when building the documentation:\n"
+            grep "$pattern" "$log_file"
             exit 1
           fi
   deploy-docs:
