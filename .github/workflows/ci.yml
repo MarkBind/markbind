@@ -32,6 +32,32 @@ jobs:
           distribution: 'temurin'
       - run: npm run setup
       - run: npm run test
+  check-docs:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Install Graphviz
+        uses: tlylt/install-graphviz@v1
+      - name: Install Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - run: npm run setup
+      - run: npm run build:web
+      - name: Build MarkBind docs (UG + DG)
+        run: npm run build:docs
+      - name: Check build log for warnings
+        run: |
+          if grep -q "warn" docs/_markbind/logs/markbind-$(date +'%Y-%m-%d').log; then
+            echo "The following warnings were found when building the documentation:"
+            echo $(grep "warn" docs/_markbind/logs/markbind-$(date +'%Y-%m-%d').log)
+            exit 1
+          fi
   deploy-docs:
     needs: test
     # disabled on forks
