@@ -58,13 +58,22 @@ export default {
       if (this.hasFetchedCopy) {
         return;
       }
-      jQuery.get(this.srcWithoutHash)
-        .done((response) => {
-          let result = response;
+      fetch(this.srcWithoutHash)
+        .then(response => response.text())
+        .then((htmlText) => {
+          let result = htmlText;
           if (this.hash) {
-            const tempDom = jQuery('<temp>').append(jQuery.parseHTML(result));
-            const appContainer = jQuery(`#${this.hash}`, tempDom);
-            result = appContainer.html();
+            const htmlResult = document.implementation.createHTMLDocument('');
+            htmlResult.body.innerHTML = result;
+
+            // Script tags injected by live server in SVG tags are removed
+            // to prevent Vue warnings about side effects in Vue template
+            // Ok to remove because Vue will not process the script tags to avoid side effects
+            const allScriptChildren = htmlResult.querySelectorAll('svg > script');
+            allScriptChildren.forEach(child => child.remove());
+
+            const appContainer = htmlResult.querySelector(`#${this.hash}`);
+            result = appContainer.innerHTML;
           }
           this.hasFetchedCopy = true;
           // result is empty / undefined
@@ -92,9 +101,9 @@ export default {
           new TempComponent().$mount(this.$el);
           this.$emit('src-loaded');
         })
-        .fail((error) => {
+        .catch((error) => {
           // eslint-disable-next-line no-console
-          console.error(error.responseText);
+          console.error(error);
           this.$el.innerHTML = '<strong>Error</strong>: Failed to retrieve content from source: '
               + `<em>${this.srcWithoutHash}</em>`;
           this.$emit('src-loaded');

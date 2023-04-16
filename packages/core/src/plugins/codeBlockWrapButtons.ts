@@ -39,9 +39,12 @@ function getButtonHTML() {
 const wrapCodeBlockScript = `<script>
     function toggleCodeBlockWrap(element) {
       const pre = element.parentElement.parentElement;
-      const codeElement = $(pre.querySelector('code'));
-
-      codeElement.toggleClass('wrap');
+      const classList = pre.querySelector('code').classList; 
+      if (classList.contains('wrap')) {
+          classList.remove('wrap');
+      } else {
+          classList.add('wrap')
+      }
     }
     </script>`;
 

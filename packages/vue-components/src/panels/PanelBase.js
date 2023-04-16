@@ -138,7 +138,15 @@ export default {
         requestAnimationFrame(() => {
           // To enable behaviour of auto window scrolling during panel collapse
           if (this.$el.getBoundingClientRect().top < 0) {
-            const headerHeight = jQuery('header[sticky]').height() || 0;
+            const headerEl = document.querySelector('header[sticky]');
+            let headerHeight;
+            if (headerEl == null) {
+              headerHeight = 0;
+            } else {
+              const headerComputedStyle = window.getComputedStyle(headerEl, null);
+              headerHeight = headerEl.clientHeight - parseFloat(headerComputedStyle.paddingTop)
+                  - parseFloat(headerComputedStyle.paddingBottom) || 0;
+            }
             window.scrollTo({
               top: window.scrollY + this.$el.getBoundingClientRect().top - headerHeight - 3,
               left: 0,
