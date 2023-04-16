@@ -24,36 +24,42 @@ function scrollToUrlAnchorHeading() {
 window.onload = scrollToUrlAnchorHeading;
 
 function detectAndApplyHeaderStyles() {
-  const headerSelector = jQuery('header[sticky]');
-  if (headerSelector.length === 0) {
+  const headerEl = document.querySelector('header[sticky]');
+  if (headerEl === null) {
     return;
   }
-  const [headerEl] = headerSelector;
 
-  let headerHeight = headerSelector.height();
+  function getHeaderHeight() {
+    const headerComputedStyle = window.getComputedStyle(headerEl, null);
+    return headerEl.clientHeight - parseFloat(headerComputedStyle.paddingTop)
+        - parseFloat(headerComputedStyle.paddingBottom);
+  }
+
+  let headerHeight = getHeaderHeight();
+
   function updateHeaderHeight() {
-    headerHeight = headerSelector.height();
+    headerHeight = getHeaderHeight();
     document.documentElement.style.setProperty('--sticky-header-height', `${headerHeight}px`);
   }
 
   let isHidden = false;
   function showHeader() {
     isHidden = false;
-    headerSelector.removeClass('hide-header');
+    headerEl.classList.remove('hide-header');
   }
   headerEl.addEventListener('transitionend', () => {
     // reset overflow when header shows again to allow content
     // in the header such as search dropdown etc. to overflow
     if (!isHidden) {
-      headerSelector.css('overflow', '');
+      headerEl.style.overflow = '';
     }
   });
 
   function hideHeader() {
     isHidden = true;
     // hide header overflow when user scrolls to support transition effect
-    headerSelector.css('overflow', 'hidden');
-    headerSelector.addClass('hide-header');
+    headerEl.style.overflow = 'hidden';
+    headerEl.classList.add('hide-header');
   }
 
   // Handles window resizes + dynamic content (e.g. dismissing a box within)
@@ -124,7 +130,8 @@ function detectAndApplyHeaderStyles() {
 }
 
 function updateSearchData(vm) {
-  jQuery.getJSON(`${baseUrl}/siteData.json`)
+  fetch(`${baseUrl}/siteData.json`)
+    .then(response => response.json())
     .then((siteData) => {
       vm.searchData = siteData.pages;
     });

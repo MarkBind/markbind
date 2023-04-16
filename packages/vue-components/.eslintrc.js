@@ -4,7 +4,6 @@ module.exports = {
     'plugin:vue/recommended',
   ],
   'globals': {
-    'jQuery': 'readonly',
     'Vue': 'readonly',
   },
   'rules': {
