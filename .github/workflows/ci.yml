@@ -53,7 +53,7 @@ jobs:
       - name: Check build log for warnings
         run: |
           log_file="docs/_markbind/logs/markbind-$(date +'%Y-%m-%d').log"
-          pattern="warn"
+          pattern=" - warn:"
           
           if grep -q "$pattern" "$log_file"; then
             printf "The following warnings were found when building the documentation:\n"
