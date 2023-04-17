@@ -30,7 +30,7 @@
 <body>
   <div id="app">
     <header sticky>
-      <navbar placement="top" type="inverse">
+      <navbar placement="top" type="dark">
         <template #brand><a href="/index.html" title="Home" class="navbar-brand">
             <i class="far fa-file-image"></i></a></template>
         <li><a href="/index.html" class="nav-link">HOME</a></li>
@@ -47,7 +47,7 @@
     <div id="flex-body">
       <overlay-source id="site-nav" tag-name="nav" to="site-nav">
         <div class="site-nav-top">
-          <div class="fw-bold mb-2" style="font-size: 1.25rem;">Template</div>
+          <div class="fw-bold mb-2" style="font-size: 1.25rem;">Contents</div>
         </div>
         <div class="nav-component slim-scroll">
           <site-nav>
@@ -91,8 +91,10 @@
             </overlay-source>
           </site-nav>
         </div>
+        <collapse-expand-buttons></collapse-expand-buttons>
       </overlay-source>
       <div id="content-wrapper">
+        <breadcrumb></breadcrumb>
 
         <p>
         <div class="text-center">
@@ -107,6 +109,7 @@
         <div class="nav-component slim-scroll">
         </div>
       </overlay-source>
+      <scroll-top-button></scroll-top-button>
     </div>
     <footer>
 
