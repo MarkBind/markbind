@@ -108,7 +108,6 @@
 </template>
 
 <script>
-import { computed } from 'vue';
 import { classifyBootstrapStyle } from './utils/utils';
 
 export default {
@@ -178,10 +177,10 @@ export default {
       default: '',
     },
   },
-  setup(props) {
-    return {
-      bootStrapStyle: computed(() => classifyBootstrapStyle(props.type, props.theme)),
-    };
+  computed: {
+    bootStrapStyle() {
+      return classifyBootstrapStyle(this.type, this.theme);
+    },
   },
   methods: {
     isSeamless() {
@@ -194,11 +193,11 @@ export default {
       return this.isSeamless() && this.headerBool();
     },
     headerBool() {
-      return !!this.$slots.header;
+      return !!this.$scopedSlots.header;
     },
     iconBool() {
       // this.$scopedSlots.icon is either undefined or an object
-      const isIconSlotFilled = !!this.$slots.icon;
+      const isIconSlotFilled = !!this.$scopedSlots.icon;
       return (!this.noIcon && this.type) || isIconSlotFilled;
     },
     containerStyle() {

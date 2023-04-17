@@ -9,7 +9,7 @@
 import closeable from './directives/Closeable';
 // import dropdown from './Dropdown.vue';
 // import collapseExpandButtons from './CollapseExpandButtons.vue';
-// import navbar from './Navbar.vue';
+import navbar from './Navbar.vue';
 // import panel from './Panel.vue';
 // import annotate from './annotations/Annotate.vue';
 // import aPoint from './annotations/AnnotatePoint.vue';
@@ -40,7 +40,7 @@ const components = {
   // breadcrumb,
   // collapseExpandButtons,
   // dropdown,
-  // navbar,
+  navbar,
   // panel,
   // annotate,
   // aPoint,

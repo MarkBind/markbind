@@ -42,6 +42,8 @@ import normalizeUrl from './utils/urls';
 import SiteNavButton from './SiteNavButton.vue';
 import PageNavButton from './PageNavButton.vue';
 
+const isCSR = typeof window !== 'undefined';
+
 export default {
   components: {
     SiteNavButton,
@@ -72,66 +74,76 @@ export default {
     };
   },
   setup(props, { slots }) {
-    const _navbar = true;
-
-    onBeforeMount(() => {
-      const $dropdown = $('.dropdown>[data-bs-toggle="dropdown"]', this.$el).parent();
-      $dropdown.on('click', '.dropdown-toggle', (e) => {
-        e.preventDefault();
-        $dropdown.each((content) => {
-          if (content.contains(e.target)) content.classList.toggle('open');
-        });
-      }).on('click', '.dropdown-menu>li>a', (e) => {
-        $dropdown.each((content) => {
-          if (content.contains(e.target)) content.classList.remove('open');
-        });
-      }).onBlur((e) => {
-        $dropdown.each((content) => {
-          if (!content.contains(e.target)) content.classList.remove('open');
-        });
-      });
-
-      // highlight current nav link
-      this.highlightLink(window.location.href);
-
-      // scroll default navbar horizontally to current link if it is beyond the current scroll
-      const currentNavlink = $(this.$refs.navbarDefault).find('.current')[0];
-      if (currentNavlink && window.innerWidth < 768
-          && currentNavlink.offsetLeft + currentNavlink.offsetWidth > window.innerWidth) {
-        this.$refs.navbarDefault.scrollLeft = currentNavlink.offsetLeft + currentNavlink.offsetWidth
-            - window.innerWidth;
-      }
-
-      this.toggleLowerNavbar();
-      $(window).on('resize', this.toggleLowerNavbar);
-
-      // scroll default navbar horizontally when mousewheel is scrolled
-      $(this.$refs.navbarDefault).on('wheel', (e) => {
-        const isDropdown = (nodes) => {
-          for (let i = 0; i < nodes.length; i += 1) {
-            if (nodes[i].classList && nodes[i].classList.contains('dropdown-menu')) {
-              return true;
-            }
-          }
-          return false;
-        };
-
-        // prevent horizontal scrolling if the scroll is on dropdown menu
-        if (window.innerWidth < 768 && !isDropdown(e.path)) {
+    if (isCSR) {
+      onBeforeMount(() => {
+        const $dropdown = $('.dropdown>[data-bs-toggle="dropdown"]', this.$el)
+          .parent();
+        $dropdown.on('click', '.dropdown-toggle', (e) => {
           e.preventDefault();
-          this.$refs.navbarDefault.scrollLeft += e.deltaY;
-        }
-      });
-    });
+          $dropdown.each((content) => {
+            if (content.contains(e.target)) content.classList.toggle('open');
+          });
+        })
+          .on('click', '.dropdown-menu>li>a', (e) => {
+            $dropdown.each((content) => {
+              if (content.contains(e.target)) content.classList.remove('open');
+            });
+          })
+          .onBlur((e) => {
+            $dropdown.each((content) => {
+              if (!content.contains(e.target)) content.classList.remove('open');
+            });
+          });
 
-    onBeforeUnmount(() => {
-      $('.dropdown', this.$el).off('click').offBlur();
-      $(window).off('resize', this.toggleLowerNavbar);
-      $(this.$refs.navbarDefault).off('wheel');
-    });
+        // highlight current nav link
+        this.highlightLink(window.location.href);
+
+        // scroll default navbar horizontally to current link if it is beyond the current scroll
+        const currentNavlink = $(this.$refs.navbarDefault)
+          .find('.current')[0];
+        if (currentNavlink && window.innerWidth < 768
+          && currentNavlink.offsetLeft + currentNavlink.offsetWidth > window.innerWidth) {
+          this.$refs.navbarDefault.scrollLeft = currentNavlink.offsetLeft + currentNavlink.offsetWidth
+            - window.innerWidth;
+        }
+
+        this.toggleLowerNavbar();
+        $(window)
+          .on('resize', this.toggleLowerNavbar);
+
+        // scroll default navbar horizontally when mousewheel is scrolled
+        $(this.$refs.navbarDefault)
+          .on('wheel', (e) => {
+            const isDropdown = (nodes) => {
+              for (let i = 0; i < nodes.length; i += 1) {
+                if (nodes[i].classList && nodes[i].classList.contains('dropdown-menu')) {
+                  return true;
+                }
+              }
+              return false;
+            };
+
+            // prevent horizontal scrolling if the scroll is on dropdown menu
+            if (window.innerWidth < 768 && !isDropdown(e.path)) {
+              e.preventDefault();
+              this.$refs.navbarDefault.scrollLeft += e.deltaY;
+            }
+          });
+      });
+
+      onBeforeUnmount(() => {
+        $('.dropdown', this.$el)
+          .off('click')
+          .offBlur();
+        $(window)
+          .off('resize', this.toggleLowerNavbar);
+        $(this.$refs.navbarDefault)
+          .off('wheel');
+      });
+    }
 
     return {
-      _navbar,
+      _navbar: true,
       id: ref('bs-example-navbar-collapse-1'),
       styles: ref({}),
       isLowerNavbarShowing: ref(false),
@@ -338,12 +350,12 @@ export default {
         }
 
         .navbar-default a,
-        >>> .dropdown-toggle {
+        :deep(.dropdown-toggle) {
             margin: 0 auto;
             width: max-content;
         }
 
-        >>> .dropdown {
+        :deep(.dropdown) {
             display: flex;
             align-items: center;
         }
@@ -388,7 +400,7 @@ export default {
         align-items: center;
     }
 
-    >>> .dropdown-current {
+    :deep(.dropdown-current) {
         color: #fff !important;
         background: #007bff;
     }
@@ -402,13 +414,13 @@ export default {
     }
 
     /* Navbar link highlight for current page */
-    .navbar.navbar-dark .navbar-nav >>> .current:not(.dropdown) a,
-    .navbar.navbar-dark .navbar-nav >>> .dropdown.current > a {
+    .navbar.navbar-dark .navbar-nav :deep(.current:not(.dropdown)) a,
+    .navbar.navbar-dark .navbar-nav :deep(.dropdown.current) > a {
         color: #fff;
     }
 
-    .navbar.navbar-light .navbar-nav >>> .current:not(.dropdown) a,
-    .navbar.navbar-light .navbar-nav >>> .dropdown.current > a {
+    .navbar.navbar-light .navbar-nav :deep(.current:not(.dropdown)) a,
+    .navbar.navbar-light .navbar-nav :deep(.dropdown.current) > a {
         color: #000;
     }
 </style>

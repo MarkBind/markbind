@@ -4,6 +4,12 @@ module.exports = {
     "indentation": [ 4, { baseIndentLevel: 1 } ],
     // MarkBind generates some blank CSS files when initialising a site,
     // which violates the no-empty-source rule
-    "no-empty-source": null
+    "no-empty-source": null,
+    'selector-pseudo-class-no-unknown': [
+      true,
+      {
+        ignorePseudoClasses: ['deep'],
+      },
+    ],
   }
 };
