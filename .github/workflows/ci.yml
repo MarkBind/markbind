@@ -56,7 +56,7 @@ jobs:
           pattern="^[0-9T:.Z-]+ - (warn|error):"
           
           if grep -q -E "$pattern" "$log_file"; then
-            printf "The following warnings were found when building the documentation:\n"
+            printf "The following issues were found when building the documentation:\n"
             grep -E "$pattern" "$log_file"
             exit 1
           fi
