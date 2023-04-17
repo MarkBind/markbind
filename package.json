@@ -8,6 +8,7 @@
     "build:web": "cd packages/core-web && npm run build",
     "build:dg": "cd docs && ../packages/cli/index.js build -s dg-site.json",
     "build:ug": "cd docs && ../packages/cli/index.js build -s ug-site.json",
+    "build:docs": "cd docs && node ../packages/cli/index.js build --baseUrl",
     "deploy:dg": "cd docs && ../packages/cli/index.js deploy -s dg-site.json --ci",
     "deploy:ug": "cd docs && ../packages/cli/index.js deploy -s ug-site.json --ci",
     "deploy:netlify": "npm run setup && npm run build:web && cd docs && node ../packages/cli/index.js build --baseUrl",

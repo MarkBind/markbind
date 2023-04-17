@@ -32,6 +32,34 @@ jobs:
           distribution: 'temurin'
       - run: npm run setup
       - run: npm run test
+  check-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Install Graphviz
+        uses: tlylt/install-graphviz@v1
+      - name: Install Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - run: npm run setup
+      - run: npm run build:web
+      - name: Build MarkBind docs (UG + DG)
+        run: npm run build:docs
+      - name: Check build log
+        run: |
+          log_file="docs/_markbind/logs/markbind-$(date +'%Y-%m-%d').log"
+          pattern="^[0-9T:.Z-]+ - (warn|error):"
+          
+          if grep -q -E "$pattern" "$log_file"; then
+            printf "The following issues were found when building the documentation:\n"
+            grep -E "$pattern" "$log_file"
+            exit 1
+          fi
   deploy-docs:
     needs: test
     # disabled on forks
