@@ -50,7 +50,7 @@ jobs:
       - run: npm run build:web
       - name: Build MarkBind docs (UG + DG)
         run: npm run build:docs
-      - name: Check build log for warnings
+      - name: Check build log
         run: |
           log_file="docs/_markbind/logs/markbind-$(date +'%Y-%m-%d').log"
           pattern="^[0-9T:.Z-]+ - (warn|error):"
