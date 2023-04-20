@@ -349,9 +349,6 @@ export class Site {
         bootstrapUtilityJs: path.posix.join(baseAssetsPath, 'js', 'bootstrap-utility.min.js'),
         polyfillJs: path.posix.join(baseAssetsPath, 'js', 'polyfill.min.js'),
         // We use development Vue when MarkBind is served in 'dev' mode so that hydration issues are reported
-        vue: this.dev
-          ? 'https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.min.js'
-          : path.posix.join(baseAssetsPath, 'js', 'vue.min.js'),
         layoutUserScriptsAndStyles: [],
       },
       baseUrlMap: this.baseUrlMap,

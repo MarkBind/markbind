@@ -1,13 +1,13 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import MarkBindVue from '@markbind/vue-components/src';
-import { Vue } from '../asset/js/vue.min';
+import { reactive } from 'vue';
 /*
   VueCommonAppFactory provides common data to both the Vue App on server-side and client-side.
   This is to ensure that our Vue App is a universal application.
 */
 
 const appFactory = () => {
-  const searchData = Vue.reactive({
+  const searchData = reactive({
     searchData: [],
   });
 

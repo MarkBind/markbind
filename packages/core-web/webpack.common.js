@@ -13,6 +13,9 @@ module.exports = {
   },
   resolve: {
     modules: [path.resolve(__dirname), 'node_modules'],
+    alias: {
+      'vue$': 'vue/dist/vue.esm-bundler.js',
+    },
   },
   module: {
     rules: [

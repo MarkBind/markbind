@@ -5,7 +5,6 @@
 import vueCommonAppFactory from './VueCommonAppFactory';
 import './styles/index.css';
 import './print';
-import { Vue } from '../asset/js/vue.min';
 
 const { MarkBindVue, appFactory } = vueCommonAppFactory;
 function scrollToUrlAnchorHeading() {
@@ -168,29 +167,28 @@ window.handleSiteNavClick = function (elem, useAnchor = true) {
 };
 
 function setup() {
-  const createApp = MarkBindVue.plugin.install(Vue);
-
+  const createApp = MarkBindVue.plugin.install();
   const app = createApp({
     template: pageContent,
     mounted() {
       executeAfterMountedRoutines();
     },
-    ...appFactory(Vue),
+    ...appFactory(),
   });
-  app.mount();
+  app.mount('#app');
 }
 
 function setupWithSearch() {
-  const createApp = MarkBindVue.plugin.install(Vue);
+  const createApp = MarkBindVue.plugin.install();
   const app = createApp({
     template: pageContent,
     mounted() {
       executeAfterMountedRoutines();
       updateSearchData(this);
     },
-    ...appFactory(Vue),
+    ...appFactory(),
   });
-  app.mount();
+  app.mount('#app');
 }
 
 export default { setup, setupWithSearch };

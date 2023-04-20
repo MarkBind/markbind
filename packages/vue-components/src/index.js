@@ -4,6 +4,7 @@
 /* eslint-enable import/no-extraneous-dependencies */
 
 // Custom / modified components and components from yuche/vue-strap
+import { createApp } from 'vue';
 // import box from './Box.vue';
 // import breadcrumb from './Breadcrumb.vue';
 import closeable from './directives/Closeable';
@@ -73,19 +74,8 @@ const directives = {
   closeable,
 };
 
-function install(Vue) {
-  return (createAppProps) => {
-    const app = Vue.createApp(createAppProps);
-    Object.keys(directives)
-      .forEach((key) => {
-        app.directive(key, directives[key]);
-      });
-    Object.keys(components)
-      .forEach((key) => {
-        app.component(key, components[key]);
-      });
-    return app;
-  };
+function install() {
+  return createAppProps => createApp({ ...createAppProps, components, directives });
 }
 
 const plugin = { install };

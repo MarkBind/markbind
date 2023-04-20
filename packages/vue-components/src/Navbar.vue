@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="el">
     <nav
       ref="navbar"
       :class="['navbar', 'navbar-expand-md', 'd-print-none', themeOptions, addClass, fixedOptions]"
@@ -34,7 +34,7 @@
 
 <script>
 import {
-  ref, computed, onBeforeMount, onBeforeUnmount,
+  ref, computed, onMounted, onBeforeUnmount, getCurrentInstance,
 } from 'vue';
 import $ from './utils/NodeList';
 import { toBoolean } from './utils/utils';
@@ -74,9 +74,12 @@ export default {
     };
   },
   setup(props, { slots }) {
+    const el = ref(null);
+    const navbarDefault = ref(null);
     if (isCSR) {
-      onBeforeMount(() => {
-        const $dropdown = $('.dropdown>[data-bs-toggle="dropdown"]', this.$el)
+      onMounted(() => {
+        const currInstanceCtx = getCurrentInstance().ctx;
+        const $dropdown = $('.dropdown>[data-bs-toggle="dropdown"]', el.value)
           .parent();
         $dropdown.on('click', '.dropdown-toggle', (e) => {
           e.preventDefault();
@@ -96,10 +99,10 @@ export default {
           });
 
         // highlight current nav link
-        this.highlightLink(window.location.href);
+        currInstanceCtx.highlightLink(window.location.href);
 
         // scroll default navbar horizontally to current link if it is beyond the current scroll
-        const currentNavlink = $(this.$refs.navbarDefault)
+        const currentNavlink = $(navbarDefault)
           .find('.current')[0];
         if (currentNavlink && window.innerWidth < 768
           && currentNavlink.offsetLeft + currentNavlink.offsetWidth > window.innerWidth) {
@@ -107,12 +110,12 @@ export default {
             - window.innerWidth;
         }
 
-        this.toggleLowerNavbar();
+        currInstanceCtx.toggleLowerNavbar();
         $(window)
-          .on('resize', this.toggleLowerNavbar);
+          .on('resize', currInstanceCtx.toggleLowerNavbar);
 
         // scroll default navbar horizontally when mousewheel is scrolled
-        $(this.$refs.navbarDefault)
+        $(navbarDefault)
           .on('wheel', (e) => {
             const isDropdown = (nodes) => {
               for (let i = 0; i < nodes.length; i += 1) {
@@ -132,7 +135,7 @@ export default {
       });
 
       onBeforeUnmount(() => {
-        $('.dropdown', this.$el)
+        $('.dropdown', el)
           .off('click')
           .offBlur();
         $(window)
@@ -143,7 +146,8 @@ export default {
     }
 
     return {
-      _navbar: true,
+      isNavbar: true,
+      el,
       id: ref('bs-example-navbar-collapse-1'),
       styles: ref({}),
       isLowerNavbarShowing: ref(false),
@@ -217,7 +221,7 @@ export default {
     highlightLink(url) {
       const defHlMode = this.defaultHighlightOn;
       const navLis = [];
-      this.$el.querySelectorAll('.navbar-nav').forEach(nav => navLis.push(...Array.from(nav.children)));
+      this.el.querySelectorAll('.navbar-nav').forEach(nav => navLis.push(...Array.from(nav.children)));
       // attempt an exact match first
       for (let i = 0; i < navLis.length; i += 1) {
         const li = navLis[i];

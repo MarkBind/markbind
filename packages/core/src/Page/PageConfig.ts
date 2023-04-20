@@ -18,7 +18,6 @@ export interface PageAssets {
   siteNavCss: string;
   bootstrapUtilityJs: string;
   polyfillJs: string;
-  vue: string;
   pageContent?: string;
   layoutUserScriptsAndStyles: string[];
   pluginScripts?: string[],

@@ -130,7 +130,7 @@ export default {
       show: ref(false),
       btnType: computed(() => `btn-${props.type}`),
       disabledBool: computed(() => toBoolean(props.disabled)),
-      isLi: computed(() => this.$parent._navbar || this.$parent.menu || this.$parent._tabset),
+      isLi: computed(() => this.$parent.isNavbar || this.$parent.menu || this.$parent._tabset),
       isSubmenu: computed(() => this.hasParentDropdown),
       menu: computed(() => !this.$parent || this.$parent.navbar),
       submenu: computed(() => this.$parent && (this.$parent.menu || this.$parent.submenu)),

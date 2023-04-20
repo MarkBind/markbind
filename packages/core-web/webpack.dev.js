@@ -13,6 +13,9 @@ module.exports = {
   clientEntry: (publicPath) => {
     const webpackClientDevConfig = merge(clientConfig, {
       mode: 'development',
+      devServer: {
+        hot: true,
+      },
       entry: {
         markbind: ['webpack-hot-middleware/client', path.join(__dirname, 'src', 'index.js')],
       },
@@ -33,6 +36,9 @@ module.exports = {
       plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.DefinePlugin({
+          __VUE_PROD_DEVTOOLS__: true,
+        }),
       ],
     });
 

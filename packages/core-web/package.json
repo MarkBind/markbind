@@ -25,6 +25,9 @@
     "build:client": "cross-env ENTRY_POINT=client webpack --progress --no-stats --config webpack.build.js",
     "build:server": "cross-env ENTRY_POINT=server webpack --progress --no-stats --config webpack.build.js"
   },
+  "dependencies": {
+    "vue": "3.2.47"
+  },
   "devDependencies": {
     "@babel/core": "^7.10.5",
     "@babel/plugin-transform-runtime": "^7.10.5",
