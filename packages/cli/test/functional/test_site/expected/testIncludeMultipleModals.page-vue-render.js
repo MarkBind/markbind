@@ -1,19 +1,113 @@
+const pageContent =  `<div id="app">
 
-    var pageVueRenderFn = function anonymous(
-) {
-with(this){return _c('div',{attrs:{"id":"app"}},[_c('div',[_c('header',[_c('navbar',{attrs:{"type":"dark","default-highlight-on":"sibling-or-child"},scopedSlots:_u([{key:"brand",fn:function(){return [_c('a',{staticClass:"navbar-brand",attrs:{"href":"/","title":"Home"}},[_v("MarkBind Test Site")])]},proxy:true}])},[_v(" "),_c('li',[_c('a',{staticClass:"nav-link",attrs:{"href":"/test_site/bugs/index.html"}},[_v("Open Bugs")])])]),_v(" "),_m(0)],1),_v(" "),_m(1)]),_v(" "),_c('div',{attrs:{"id":"flex-body"}},[_c('overlay-source',{attrs:{"id":"site-nav","tag-name":"nav","to":"site-nav"}},[_c('div',{staticClass:"site-nav-top"},[_c('div',{staticClass:"fw-bold mb-2",staticStyle:{"font-size":"1.25rem"}},[_c('div',[_c('h2',{attrs:{"id":"default-layout"}},[_v("Default Layout"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#default-layout","onclick":"event.stopPropagation()"}})])])])]),_v(" "),_c('div',{staticClass:"nav-component slim-scroll"},[_c('div',[_c('site-nav',[_c('overlay-source',{staticClass:"site-nav-list site-nav-list-root",attrs:{"tag-name":"ul","to":"mb-site-nav"}},[_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"/test_site/index.html"}},[_v("Home 🏠")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"/test_site/bugs/index.html"}},[_v("Open Bugs 🐛")])])]),_v(" "),_c('li',{staticClass:"site-nav-custom-list-item site-nav-list-item-0"},[_c('h3',{attrs:{"id":"testing-site-nav"}},[_v("Testing Site-Nav"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#testing-site-nav","onclick":"event.stopPropagation()"}})])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('strong',[_v("Dropdown ")]),_v(" "),_c('span',{staticClass:"glyphicon glyphicon-search",attrs:{"aria-hidden":"true"}}),_v(" title ✏️ "),_v(" "),_c('div',{staticClass:"site-nav-dropdown-btn-container"},[_c('i',{staticClass:"site-nav-dropdown-btn-icon site-nav-rotate-icon",attrs:{"onclick":"handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();"}},[_c('span',{staticClass:"glyphicon glyphicon-menu-down",attrs:{"aria-hidden":"true"}})])])]),_c('ul',{staticClass:"site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list"},[_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-1",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"https://www.google.com/"}},[_v("Dropdown link one")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-1",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"https://www.google.com/"}},[_v("Html within site-nav "),_c('span',{staticStyle:{"color":"red"}},[_v("should")]),_v(" be displayed properly")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-1",attrs:{"onclick":"handleSiteNavClick(this)"}},[_v("Nested Dropdown title 📐\n\n"),_c('div',{staticClass:"site-nav-dropdown-btn-container"},[_c('i',{staticClass:"site-nav-dropdown-btn-icon",attrs:{"onclick":"handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();"}},[_c('span',{staticClass:"glyphicon glyphicon-menu-down",attrs:{"aria-hidden":"true"}})])])]),_c('ul',{staticClass:"site-nav-dropdown-container site-nav-list"},[_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-2",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"https://www.google.com/"}},[_c('strong',[_v("Nested")]),_v(" Dropdown link one")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-2",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"https://www.google.com/"}},[_c('strong',[_v("Nested")]),_v(" Dropdown link two")])])])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-1",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"https://www.google.com/"}},[_v("Dropdown link two")])])])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"https://www.google.com/"}},[_c('mark',[_v("Third Link")]),_v(" 📋")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_v("Filler text "),_c('a',{attrs:{"href":"https://www.youtube.com/"}},[_c('span',{staticClass:"glyphicon glyphicon-facetime-video",attrs:{"aria-hidden":"true"}}),_v(" Youtube 📺")]),_v(" filler text"),_v(" "),_c('div',{staticClass:"site-nav-dropdown-btn-container"},[_c('i',{staticClass:"site-nav-dropdown-btn-icon",attrs:{"onclick":"handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();"}},[_c('span',{staticClass:"glyphicon glyphicon-menu-down",attrs:{"aria-hidden":"true"}})])])]),_c('ul',{staticClass:"site-nav-dropdown-container site-nav-list"},[_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-1",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"https://www.youtube.com/watch?v=dQw4w9WgXcQ"}},[_v("The answer to everything in the universe")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-1",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('mark',[_v("Dropdown title")]),_v(" "),_c('span',{staticClass:"glyphicon glyphicon-comment",attrs:{"aria-hidden":"true"}}),_v(" ✏️ "),_v(" "),_c('div',{staticClass:"site-nav-dropdown-btn-container"},[_c('i',{staticClass:"site-nav-dropdown-btn-icon site-nav-rotate-icon",attrs:{"onclick":"handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();"}},[_c('span',{staticClass:"glyphicon glyphicon-menu-down",attrs:{"aria-hidden":"true"}})])])]),_c('ul',{staticClass:"site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list"},[_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-2",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"https://www.google.com/"}},[_c('strong',[_v("Nested")]),_v(" Dropdown link one")])])])])])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_v("Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown\n\n"),_c('div',{staticClass:"site-nav-dropdown-btn-container"},[_c('i',{staticClass:"site-nav-dropdown-btn-icon",attrs:{"onclick":"handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();"}},[_c('span',{staticClass:"glyphicon glyphicon-menu-down",attrs:{"aria-hidden":"true"}})])])]),_c('ul',{staticClass:"site-nav-dropdown-container site-nav-list"},[_c('li',{staticClass:"site-nav-custom-list-item site-nav-list-item-1"},[_v("Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text")]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-1",attrs:{"onclick":"handleSiteNavClick(this)"}},[_v("Nested Dropdown Title\n\n"),_c('div',{staticClass:"site-nav-dropdown-btn-container"},[_c('i',{staticClass:"site-nav-dropdown-btn-icon",attrs:{"onclick":"handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();"}},[_c('span',{staticClass:"glyphicon glyphicon-menu-down",attrs:{"aria-hidden":"true"}})])])]),_c('ul',{staticClass:"site-nav-dropdown-container site-nav-list"},[_c('li',{staticClass:"site-nav-custom-list-item site-nav-list-item-2"},[_v("Hello Doge Hello Doge 🐶")]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-2",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"/test_site/index.html"}},[_c('strong',[_v("NESTED LINK")]),_v(" Home 🏠")])])]),_v(" "),_c('li',{staticClass:"site-nav-custom-list-item site-nav-list-item-2"},[_v("Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit")])])])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_v("Test line break in navigation layout\n\n"),_c('div',{staticClass:"site-nav-dropdown-btn-container"},[_c('i',{staticClass:"site-nav-dropdown-btn-icon",attrs:{"onclick":"handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();"}},[_c('span',{staticClass:"glyphicon glyphicon-menu-down",attrs:{"aria-hidden":"true"}})])])]),_c('ul',{staticClass:"site-nav-dropdown-container site-nav-list"},[_c('li',{staticClass:"site-nav-custom-list-item site-nav-list-item-1"},[_v("Nested line break text ✂️")]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-1",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"/test_site/index.html"}},[_v("Nested line break href")]),_v(" "),_c('div',{staticClass:"site-nav-dropdown-btn-container"},[_c('i',{staticClass:"site-nav-dropdown-btn-icon",attrs:{"onclick":"handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();"}},[_c('span',{staticClass:"glyphicon glyphicon-menu-down",attrs:{"aria-hidden":"true"}})])])]),_c('ul',{staticClass:"site-nav-dropdown-container site-nav-list"},[_c('li',{staticClass:"site-nav-custom-list-item site-nav-list-item-2"},[_v("Nested Nested line break text ✂️")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-1",attrs:{"onclick":"handleSiteNavClick(this)"}},[_v("Nested line break dropdown menu\n\n"),_c('div',{staticClass:"site-nav-dropdown-btn-container"},[_c('i',{staticClass:"site-nav-dropdown-btn-icon",attrs:{"onclick":"handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();"}},[_c('span',{staticClass:"glyphicon glyphicon-menu-down",attrs:{"aria-hidden":"true"}})])])]),_c('ul',{staticClass:"site-nav-dropdown-container site-nav-list"},[_c('li',{staticClass:"site-nav-custom-list-item site-nav-list-item-2"},[_v("Line break item 2 📘")])])])])])])],1)],1)])]),_v(" "),_c('div',{attrs:{"id":"content-wrapper"}},[_c('breadcrumb'),_v(" "),_m(2),_v(" "),_c('div',[_c('modal',{attrs:{"large":"","id":"modal:bugRepro"},scopedSlots:_u([{key:"header",fn:function(){return [_v("Establishing Requirements")]},proxy:true}])},[_v(" "),_c('div',[_v("Requirements gathering, requirements elicitation, requirements analysis,\nrequirements capture are some of the terms commonly "),_c('strong',[_v("and")]),_v(" interchangeably used to represent the activity\nof understanding what a software product should do.")])])],1),_v(" "),_c('div')],1),_v(" "),_c('overlay-source',{attrs:{"id":"page-nav","tag-name":"nav","to":"page-nav"}},[_c('div',{staticClass:"nav-component slim-scroll"})]),_v(" "),_c('scroll-top-button')],1),_v(" "),_m(3)])}
-};
-    var pageVueStaticRenderFns = [function anonymous(
-) {
-with(this){return _c('div',{staticClass:"bg-info display-4 text-center text-white"},[_c('br'),_v("\n      Test Jumbotron"),_c('br'),_v(" "),_c('br')])}
-},function anonymous(
-) {
-with(this){return _c('p',[_c('strong',[_v("Relative Link Test")]),_v(" This is a relative Intra-Site link in a layout (see "),_c('a',{attrs:{"href":"/test_site/index.html#heading-with-hidden-keyword"}},[_v("link")]),_v(")")])}
-},function anonymous(
-) {
-with(this){return _c('p',[_c('strong',[_v("For modals with non-unique id, only the first modal will be shown")])])}
-},function anonymous(
-) {
-with(this){return _c('div',[_c('footer',[_c('h1',{attrs:{"id":"heading-in-footer-should-not-be-indexed"}},[_v("Heading in footer should not be indexed"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#heading-in-footer-should-not-be-indexed","onclick":"event.stopPropagation()"}})]),_v(" "),_c('div',{staticClass:"text-center"},[_v("\n    This is a dynamic height footer that supports markdown "),_c('span',[_v("😄")]),_v("!\n  ")])])])}
-}];
-  
+<div><header>
+  <navbar type="dark" default-highlight-on="sibling-or-child">
+    <template #brand><a href="/" title="Home" class="navbar-brand">MarkBind Test Site</a></template>
+    <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li></navbar>
+  <div class="bg-info display-4 text-center text-white">
+      <br>
+      Test Jumbotron<br>
+      <br></div></header>
+<p><strong>Relative Link Test</strong> This is a relative Intra-Site link in a layout (see <a href="/test_site/index.html#heading-with-hidden-keyword">link</a>)</p></div>
+<div id="flex-body">
+  <overlay-source id="site-nav" tag-name="nav" to="site-nav">
+    <div class="site-nav-top">
+      <div class="fw-bold mb-2" style="font-size: 1.25rem;"><div><h2 id="default-layout">Default Layout<a class="fa fa-anchor" href="#default-layout" onclick="event.stopPropagation()"></a></h2></div></div></div>
+    <div class="nav-component slim-scroll">
+      <div><site-nav><overlay-source class="site-nav-list site-nav-list-root" tag-name="ul" to="mb-site-nav">
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html">Home 🏠</a></div></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/test_site/bugs/index.html">Open Bugs 🐛</a></div></li>
+<li class="site-nav-custom-list-item site-nav-list-item-0">
+<h3 id="testing-site-nav">Testing Site-Nav<a class="fa fa-anchor" href="#testing-site-nav" onclick="event.stopPropagation()"></a></h3>
+</li>
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><strong>Dropdown </strong> <span aria-hidden="true" class="glyphicon glyphicon-search"></span> title ✏️ <!-- Nested list items will be placed inside a Dropdown menu -->
+
+<div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+</i></div></div><ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+<li><div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/">Dropdown link one</a></div></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/">Html within site-nav <span style="color: red;">should</span> be displayed properly</a></div></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested Dropdown title 📐
+
+<div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+</i></div></div><ul class="site-nav-dropdown-container site-nav-list">
+<li><div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></div></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link two</a></div></li>
+</ul></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/">Dropdown link two</a></div></li>
+</ul></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><mark>Third Link</mark> 📋</a></div></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Filler text <a href="https://www.youtube.com/"><span aria-hidden="true" class="glyphicon glyphicon-facetime-video"></span> Youtube 📺</a> filler text<!-- Using a link as a Dropdown title will not render a Dropdown menu -->
+
+<div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+</i></div></div><ul class="site-nav-dropdown-container site-nav-list">
+<li><div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">The answer to everything in the universe</a></div></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><mark>Dropdown title</mark> <span aria-hidden="true" class="glyphicon glyphicon-comment"></span> ✏️ <!-- Dropdown menus in are still supported inside, as long as the title is not a link -->
+
+<div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+</i></div></div><ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+<li><div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="https://www.google.com/"><strong>Nested</strong> Dropdown link one</a></div></li>
+</ul></li>
+</ul></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown Title Really Long Dropdown
+
+<div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+</i></div></div><ul class="site-nav-dropdown-container site-nav-list">
+<li class="site-nav-custom-list-item site-nav-list-item-1">Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text Really Really Long Text</li>
+<li><div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested Dropdown Title
+
+<div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+</i></div></div><ul class="site-nav-dropdown-container site-nav-list">
+<li class="site-nav-custom-list-item site-nav-list-item-2">Hello Doge Hello Doge 🐶</li>
+<li><div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html"><strong>NESTED LINK</strong> Home 🏠</a></div></li>
+<li class="site-nav-custom-list-item site-nav-list-item-2">Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit Text cut off from height limit</li>
+</ul></li>
+</ul></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Test line break in navigation layout
+
+<div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+</i></div></div><ul class="site-nav-dropdown-container site-nav-list">
+<li class="site-nav-custom-list-item site-nav-list-item-1">Nested line break text ✂️</li>
+<li><div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/test_site/index.html">Nested line break href</a>
+
+<div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+</i></div></div><ul class="site-nav-dropdown-container site-nav-list">
+<li class="site-nav-custom-list-item site-nav-list-item-2">Nested Nested line break text ✂️</li>
+</ul></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Nested line break dropdown menu
+
+<div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+</i></div></div><ul class="site-nav-dropdown-container site-nav-list">
+<li class="site-nav-custom-list-item site-nav-list-item-2">Line break item 2 📘</li>
+</ul></li>
+</ul></li>
+</overlay-source>
+</site-nav></div></div></overlay-source>
+  <div id="content-wrapper">
+    <breadcrumb></breadcrumb>
+    <p><strong>For modals with non-unique id, only the first modal will be shown</strong></p>
+<div>
+<modal large id="modal:bugRepro"><template #header>Establishing Requirements</template>
+<div>Requirements gathering, requirements elicitation, requirements analysis,
+requirements capture are some of the terms commonly <strong>and</strong> interchangeably used to represent the activity
+of understanding what a software product should do.</div></modal></div>
+<div>
+</div>
+  </div>
+  <overlay-source id="page-nav" tag-name="nav" to="page-nav">
+    <div class="nav-component slim-scroll">
+      </div></overlay-source>    
+  <scroll-top-button></scroll-top-button></div>
+<div><footer>
+<h1 id="heading-in-footer-should-not-be-indexed">Heading in footer should not be indexed<a class="fa fa-anchor" href="#heading-in-footer-should-not-be-indexed" onclick="event.stopPropagation()"></a></h1>
+  <div class="text-center">
+    This is a dynamic height footer that supports markdown <span>😄</span>!
+  </div></footer></div></div>`;

@@ -1,16 +1,48 @@
+const pageContent =  `<div id="app">
+<header sticky>
+  <navbar type="dark">
+    <template #brand><a href="/index.html" title="Home" class="navbar-brand">Your Logo</a></template>
+    <li><a href="/contents/topic1.html" class="nav-link">Topic 1</a></li>
+    <li><a href="/contents/topic2.html" class="nav-link">Topic 2</a></li>
+    <dropdown class="nav-link"><template #header>Topic 3</template>
+      <li><a href="/contents/topic3a.html" class="dropdown-item">Topic 3a</a></li>
+      <li><a href="/contents/topic3b.html" class="dropdown-item">Topic 3b</a></li></dropdown>
+    <template #right><li>
+      <form class="navbar-form">
+        <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right></searchbar></form></li></template></navbar></header>
+<div id="flex-body">
+  <overlay-source id="site-nav" tag-name="nav" to="site-nav">
+    <div class="site-nav-top">
+      <div class="fw-bold mb-2" style="font-size: 1.25rem;">Contents</div></div>
+    <div class="nav-component slim-scroll">
+      <site-nav><overlay-source class="site-nav-list site-nav-list-root" tag-name="ul" to="mb-site-nav">
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/index.html">Home 🏠</a></div></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/contents/topic1.html">Topic 1</a></div></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/contents/topic2.html">Topic 2</a></div></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Topic 3 
 
-    var pageVueRenderFn = function anonymous(
-) {
-with(this){return _c('div',{attrs:{"id":"app"}},[_c('header',{attrs:{"sticky":""}},[_c('navbar',{attrs:{"type":"dark"},scopedSlots:_u([{key:"brand",fn:function(){return [_c('a',{staticClass:"navbar-brand",attrs:{"href":"/index.html","title":"Home"}},[_v("Your Logo")])]},proxy:true},{key:"right",fn:function(){return [_c('li',[_c('form',{staticClass:"navbar-form"},[_c('searchbar',{attrs:{"data":searchData,"placeholder":"Search","on-hit":searchCallback,"menu-align-right":""}})],1)])]},proxy:true}])},[_v(" "),_c('li',[_c('a',{staticClass:"nav-link",attrs:{"href":"/contents/topic1.html"}},[_v("Topic 1")])]),_v(" "),_c('li',[_c('a',{staticClass:"nav-link",attrs:{"href":"/contents/topic2.html"}},[_v("Topic 2")])]),_v(" "),_c('dropdown',{staticClass:"nav-link",scopedSlots:_u([{key:"header",fn:function(){return [_v("Topic 3")]},proxy:true}])},[_v(" "),_c('li',[_c('a',{staticClass:"dropdown-item",attrs:{"href":"/contents/topic3a.html"}},[_v("Topic 3a")])]),_v(" "),_c('li',[_c('a',{staticClass:"dropdown-item",attrs:{"href":"/contents/topic3b.html"}},[_v("Topic 3b")])])])],1)],1),_v(" "),_c('div',{attrs:{"id":"flex-body"}},[_c('overlay-source',{attrs:{"id":"site-nav","tag-name":"nav","to":"site-nav"}},[_c('div',{staticClass:"site-nav-top"},[_c('div',{staticClass:"fw-bold mb-2",staticStyle:{"font-size":"1.25rem"}},[_v("Contents")])]),_v(" "),_c('div',{staticClass:"nav-component slim-scroll"},[_c('site-nav',[_c('overlay-source',{staticClass:"site-nav-list site-nav-list-root",attrs:{"tag-name":"ul","to":"mb-site-nav"}},[_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"/index.html"}},[_v("Home 🏠")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"/contents/topic1.html"}},[_v("Topic 1")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"/contents/topic2.html"}},[_v("Topic 2")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_v("Topic 3 \n\n"),_c('div',{staticClass:"site-nav-dropdown-btn-container"},[_c('i',{staticClass:"site-nav-dropdown-btn-icon site-nav-rotate-icon",attrs:{"onclick":"handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();"}},[_c('span',{staticClass:"glyphicon glyphicon-menu-down",attrs:{"aria-hidden":"true"}})])])]),_c('ul',{staticClass:"site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list"},[_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-1",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"/contents/topic3a.html"}},[_v("Topic 3a")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-1",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"/contents/topic3b.html"}},[_v("Topic 3b")])])])])])])],1)],1),_v(" "),_c('collapse-expand-buttons')],1),_v(" "),_c('div',{attrs:{"id":"content-wrapper"}},[_c('breadcrumb'),_v(" "),_c('br'),_v(" "),_m(0),_v(" "),_m(1)],1),_v(" "),_c('overlay-source',{attrs:{"id":"page-nav","tag-name":"nav","to":"page-nav"}},[_c('div',{staticClass:"nav-component slim-scroll"})]),_v(" "),_c('scroll-top-button')],1),_v(" "),_m(2)])}
-};
-    var pageVueStaticRenderFns = [function anonymous(
-) {
-with(this){return _c('h1',{attrs:{"id":"topic-2"}},[_v("Topic 2"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#topic-2","onclick":"event.stopPropagation()"}})])}
-},function anonymous(
-) {
-with(this){return _c('blockquote',[_c('p',[_v("This is a placeholder page - more content to be added.")])])}
-},function anonymous(
-) {
-with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("[Generated by "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 4.1.0")]),_v("]")])])])}
-}];
+<div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+</i></div></div><ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+<li><div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/contents/topic3a.html">Topic 3a</a></div></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/contents/topic3b.html">Topic 3b</a></div></li>
+</ul></li>
+</overlay-source>
+</site-nav></div>
+    <collapse-expand-buttons></collapse-expand-buttons></overlay-source>
+  <div id="content-wrapper">
+    <breadcrumb></breadcrumb>
+    
+<br>
+<h1 id="topic-2">Topic 2<a class="fa fa-anchor" href="#topic-2" onclick="event.stopPropagation()"></a></h1>
+<blockquote>
+<p>This is a placeholder page - more content to be added.</p></blockquote>
+  </div>
+  <overlay-source id="page-nav" tag-name="nav" to="page-nav">
+    <div class="nav-component slim-scroll">
+      </div></overlay-source>
+  <scroll-top-button></scroll-top-button></div>
+<footer>
   
+  <div class="text-center">
+    <small>[Generated by <a href="https://markbind.org/">MarkBind 4.1.0</a>]</small></div></footer></div>`;

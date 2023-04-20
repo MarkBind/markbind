@@ -1,31 +1,87 @@
+const pageContent =  `<div id="app">
+<header sticky>
+  <navbar type="dark">
+    <template #brand><a href="/index.html" title="Home" class="navbar-brand">Your Logo</a></template>
+    <li><a href="/contents/topic1.html" class="nav-link">Topic 1</a></li>
+    <li><a href="/contents/topic2.html" class="nav-link">Topic 2</a></li>
+    <dropdown class="nav-link"><template #header>Topic 3</template>
+      <li><a href="/contents/topic3a.html" class="dropdown-item">Topic 3a</a></li>
+      <li><a href="/contents/topic3b.html" class="dropdown-item">Topic 3b</a></li></dropdown>
+    <template #right><li>
+      <form class="navbar-form">
+        <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right></searchbar></form></li></template></navbar></header>
+<div id="flex-body">
+  <overlay-source id="site-nav" tag-name="nav" to="site-nav">
+    <div class="site-nav-top">
+      <div class="fw-bold mb-2" style="font-size: 1.25rem;">Contents</div></div>
+    <div class="nav-component slim-scroll">
+      <site-nav><overlay-source class="site-nav-list site-nav-list-root" tag-name="ul" to="mb-site-nav">
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/index.html">Home 🏠</a></div></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/contents/topic1.html">Topic 1</a></div></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/contents/topic2.html">Topic 2</a></div></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Topic 3 
 
-    var pageVueRenderFn = function anonymous(
-) {
-with(this){return _c('div',{attrs:{"id":"app"}},[_c('header',{attrs:{"sticky":""}},[_c('navbar',{attrs:{"type":"dark"},scopedSlots:_u([{key:"brand",fn:function(){return [_c('a',{staticClass:"navbar-brand",attrs:{"href":"/index.html","title":"Home"}},[_v("Your Logo")])]},proxy:true},{key:"right",fn:function(){return [_c('li',[_c('form',{staticClass:"navbar-form"},[_c('searchbar',{attrs:{"data":searchData,"placeholder":"Search","on-hit":searchCallback,"menu-align-right":""}})],1)])]},proxy:true}])},[_v(" "),_c('li',[_c('a',{staticClass:"nav-link",attrs:{"href":"/contents/topic1.html"}},[_v("Topic 1")])]),_v(" "),_c('li',[_c('a',{staticClass:"nav-link",attrs:{"href":"/contents/topic2.html"}},[_v("Topic 2")])]),_v(" "),_c('dropdown',{staticClass:"nav-link",scopedSlots:_u([{key:"header",fn:function(){return [_v("Topic 3")]},proxy:true}])},[_v(" "),_c('li',[_c('a',{staticClass:"dropdown-item",attrs:{"href":"/contents/topic3a.html"}},[_v("Topic 3a")])]),_v(" "),_c('li',[_c('a',{staticClass:"dropdown-item",attrs:{"href":"/contents/topic3b.html"}},[_v("Topic 3b")])])])],1)],1),_v(" "),_c('div',{attrs:{"id":"flex-body"}},[_c('overlay-source',{attrs:{"id":"site-nav","tag-name":"nav","to":"site-nav"}},[_c('div',{staticClass:"site-nav-top"},[_c('div',{staticClass:"fw-bold mb-2",staticStyle:{"font-size":"1.25rem"}},[_v("Contents")])]),_v(" "),_c('div',{staticClass:"nav-component slim-scroll"},[_c('site-nav',[_c('overlay-source',{staticClass:"site-nav-list site-nav-list-root",attrs:{"tag-name":"ul","to":"mb-site-nav"}},[_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"/index.html"}},[_v("Home 🏠")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"/contents/topic1.html"}},[_v("Topic 1")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"/contents/topic2.html"}},[_v("Topic 2")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-0",attrs:{"onclick":"handleSiteNavClick(this)"}},[_v("Topic 3 \n\n"),_c('div',{staticClass:"site-nav-dropdown-btn-container"},[_c('i',{staticClass:"site-nav-dropdown-btn-icon site-nav-rotate-icon",attrs:{"onclick":"handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();"}},[_c('span',{staticClass:"glyphicon glyphicon-menu-down",attrs:{"aria-hidden":"true"}})])])]),_c('ul',{staticClass:"site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list"},[_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-1",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"/contents/topic3a.html"}},[_v("Topic 3a")])])]),_v(" "),_c('li',[_c('div',{staticClass:"site-nav-default-list-item site-nav-list-item-1",attrs:{"onclick":"handleSiteNavClick(this)"}},[_c('a',{attrs:{"href":"/contents/topic3b.html"}},[_v("Topic 3b")])])])])])])],1)],1),_v(" "),_c('collapse-expand-buttons')],1),_v(" "),_c('div',{attrs:{"id":"content-wrapper"}},[_c('breadcrumb'),_v(" "),_c('br'),_v(" "),_m(0),_v(" "),_c('hr'),_v(" "),_m(1),_v(" "),_m(2),_v(" "),_c('box',{attrs:{"type":"tip"}},[_c('p',[_v("If you were intending to convert an existing GitHub wiki or a docs folder into MarkBind, use the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("--convert")]),_v(" flag instead. See "),_c('a',{attrs:{"href":"https://markbind.org/userGuide/markBindInTheProjectWorkflow.html#converting-existing-project-documentation-wiki","target":"_blank"}},[_v("User Guide: MarkBind in the Project Workflow")]),_v(" for more information.")]),_v(" "),_c('p',[_v("If you want to start with a "),_c('tooltip',{scopedSlots:_u([{key:"content",fn:function(){return [_v("i.e. without any content")]},proxy:true}])},[_c('em',[_v("minimal")])]),_v(" template instead, use the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("--template")]),_v(" flag with the \"minimal\" option to initialize a minimal site instead of the default. See "),_c('a',{attrs:{"href":"https://markbind.org/userGuide/templates.html","target":"_blank"}},[_v("User Guide: Templates")]),_v(" for more information.")],1)]),_v(" "),_c('hr'),_v(" "),_m(3),_v(" "),_c('p',[_v("This "),_c('em',[_v("default")]),_v(" site comes pre-configured with the core "),_c('a',{attrs:{"href":"https://markbind.org/userGuide/components/navigation.html#navigation-components","target":"_blank"}},[_v("Navigation components")]),_v(": a "),_c('tooltip',{scopedSlots:_u([{key:"content",fn:function(){return [_v("Site Navigation")]},proxy:true}])},[_c('strong',[_v("siteNav")])]),_v(", a "),_c('tooltip',{scopedSlots:_u([{key:"content",fn:function(){return [_v("Page Navigation")]},proxy:true}])},[_c('strong',[_v("pageNav")])]),_v(", a "),_c('tooltip',{scopedSlots:_u([{key:"content",fn:function(){return [_v("Navigation Bar")]},proxy:true}])},[_c('strong',[_v("NavBar")])]),_v(", and a "),_c('strong',[_v("Search Bar")]),_v(". To help you get started with the "),_c('strong',[_v("siteNav")]),_v(", we have included "),_c('tooltip',{scopedSlots:_u([{key:"content",fn:function(){return [_v("Topic 1, Topic 2, Topic 3, Topic 3a, Topic 3b")]},proxy:true}])},[_v("five dummy placeholder pages")]),_v(". The "),_c('strong',[_v("NavBar")]),_v(" also comes with a placeholder slot for your custom Logo.")],1),_v(" "),_c('hr'),_v(" "),_m(4),_v(" "),_m(5),_v(" "),_m(6),_v(" "),_c('box',{attrs:{"type":"info"}},[_c('p',[_v("If you are interested in contributing to MarkBind, you can refer to our "),_c('a',{attrs:{"href":"https://markbind.org/devdocs/devGuide/devGuide.html","target":"_blank"}},[_v("Developer Guide")]),_v(" as well!")])]),_v(" "),_c('panel',{attrs:{"expanded":"","no-close":""},scopedSlots:_u([{key:"header",fn:function(){return [_c('p',[_c('strong',[_v("Good starting points in our User Guide")])])]},proxy:true}])},[_v(" "),_c('h5',{attrs:{"id":"user-guide-authoring-contents"}},[_c('strong',[_v("User Guide: Authoring Contents")]),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#user-guide-authoring-contents","onclick":"event.stopPropagation()"}})]),_v(" "),_c('blockquote',[_c('p',[_v("Learn about the variety of syntax schemes, formats, and custom MarkBind components that you can use in your MarkBind site.")])]),_v(" "),_c('p',[_v("More info in: "),_c('em',[_c('a',{attrs:{"href":"https://markbind.org/userGuide/authoringContents.html","target":"_blank"}},[_v("User Guide → Authoring Contents")])])]),_v(" "),_c('hr'),_v(" "),_c('h5',{attrs:{"id":"user-guide-working-with-sites"}},[_c('strong',[_v("User Guide: Working with Sites")]),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#user-guide-working-with-sites","onclick":"event.stopPropagation()"}})]),_v(" "),_c('blockquote',[_c('p',[_v("Learn how to modify site properties, apply themes, and enable/disable plugins for your MarkBind site.")])]),_v(" "),_c('p',[_v("More info in: "),_c('em',[_c('a',{attrs:{"href":"https://markbind.org/userGuide/workingWithSites.html","target":"_blank"}},[_v("User Guide → Working with Sites")])])]),_v(" "),_c('hr'),_v(" "),_c('h5',{attrs:{"id":"user-guide-full-syntax-reference"}},[_c('strong',[_v("User Guide: Full Syntax Reference")]),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#user-guide-full-syntax-reference","onclick":"event.stopPropagation()"}})]),_v(" "),_c('blockquote',[_c('p',[_v("Refer to our Full Syntax Reference page to find a specific feature or component that you want to use in your MarkBind site.")])]),_v(" "),_c('p',[_v("More info in: "),_c('em',[_c('a',{attrs:{"href":"https://markbind.org/userGuide/fullSyntaxReference.html","target":"_blank"}},[_v("User Guide → Full Syntax Reference")])])])]),_v(" "),_c('hr')],1),_v(" "),_c('overlay-source',{attrs:{"id":"page-nav","tag-name":"nav","to":"page-nav"}},[_c('div',{staticClass:"nav-component slim-scroll"},[_c('a',{pre:true,attrs:{"class":"navbar-brand page-nav-title","href":"#"}},[_v("Topics")]),_v(" "),_c('overlay-source',{staticClass:"nav nav-pills flex-column my-0 small no-flex-wrap",attrs:{"id":"mb-page-nav","tag-name":"nav","to":"mb-page-nav"}},[_c('a',{pre:true,attrs:{"class":"nav-link py-1","href":"#what-just-happened"}},[_v("What just happened?‎")]),_v(" "),_c('a',{pre:true,attrs:{"class":"nav-link py-1","href":"#navigating-this-site"}},[_v("Navigating this site‎")]),_v(" "),_c('a',{pre:true,attrs:{"class":"nav-link py-1","href":"#guide-to-markbind"}},[_v("Guide to MarkBind‎")])])],1)]),_v(" "),_c('scroll-top-button')],1),_v(" "),_m(7)])}
-};
-    var pageVueStaticRenderFns = [function anonymous(
-) {
-with(this){return _c('div',{staticClass:"bg-primary text-white px-2 py-5 mb-4"},[_c('div',{staticClass:"container"},[_c('h1',{staticClass:"display-5 no-index",attrs:{"id":"great-you-ve-just-initialized-a-markbind-site"}},[_v("Great!"),_c('br'),_v("You've just initialized a MarkBind site."),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#great-you-ve-just-initialized-a-markbind-site","onclick":"event.stopPropagation()"}})]),_v(" "),_c('p',{staticClass:"lead"},[_v("Let's get started...")])])])}
-},function anonymous(
-) {
-with(this){return _c('h2',{attrs:{"id":"what-just-happened"}},[_v("What just happened?"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#what-just-happened","onclick":"event.stopPropagation()"}})])}
-},function anonymous(
-) {
-with(this){return _c('p',[_v("You have just initialized a "),_c('em',[_v("default")]),_v(" MarkBind site! It is equipped with a set of core features, including site and page navigation. Additionally, we have included some convenient links to our User Guide, to help you get started quickly and easily.")])}
-},function anonymous(
-) {
-with(this){return _c('h2',{attrs:{"id":"navigating-this-site"}},[_v("Navigating this site"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#navigating-this-site","onclick":"event.stopPropagation()"}})])}
-},function anonymous(
-) {
-with(this){return _c('h2',{attrs:{"id":"guide-to-markbind"}},[_v("Guide to MarkBind"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#guide-to-markbind","onclick":"event.stopPropagation()"}})])}
-},function anonymous(
-) {
-with(this){return _c('p',[_v("To see the capability of MarkBind in action, feel free to take a look at some of the websites built using MarkBind on our "),_c('a',{attrs:{"href":"https://markbind.org/showcase.html","target":"_blank"}},[_v("Showcase")]),_v(" page.")])}
-},function anonymous(
-) {
-with(this){return _c('p',[_v("For more information on how to work with MarkBind sites and to add content, refer to our comprehensive "),_c('a',{attrs:{"href":"https://markbind.org/userGuide/gettingStarted.html","target":"_blank"}},[_v("User Guide")]),_v(".")])}
-},function anonymous(
-) {
-with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("[Generated by "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 4.1.0")]),_v("]")])])])}
-}];
+<div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+</i></div></div><ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+<li><div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/contents/topic3a.html">Topic 3a</a></div></li>
+<li><div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/contents/topic3b.html">Topic 3b</a></div></li>
+</ul></li>
+</overlay-source>
+</site-nav></div>
+    <collapse-expand-buttons></collapse-expand-buttons></overlay-source>
+  <div id="content-wrapper">
+    <breadcrumb></breadcrumb>
+    
+<br>
+<div class="bg-primary text-white px-2 py-5 mb-4">
+  <div class="container">
+    <h1 class="display-5 no-index" id="great-you-ve-just-initialized-a-markbind-site">Great!<br>You've just initialized a MarkBind site.<a class="fa fa-anchor" href="#great-you-ve-just-initialized-a-markbind-site" onclick="event.stopPropagation()"></a></h1>
+    <p class="lead">Let's get started...</p></div></div>
+<hr>
+<h2 id="what-just-happened">What just happened?<a class="fa fa-anchor" href="#what-just-happened" onclick="event.stopPropagation()"></a></h2>
+<p>You have just initialized a <em>default</em> MarkBind site! It is equipped with a set of core features, including site and page navigation. Additionally, we have included some convenient links to our User Guide, to help you get started quickly and easily.</p>
+<box type="tip">
+<p>If you were intending to convert an existing GitHub wiki or a docs folder into MarkBind, use the <code class="hljs inline no-lang" v-pre>--convert</code> flag instead. See <a href="https://markbind.org/userGuide/markBindInTheProjectWorkflow.html#converting-existing-project-documentation-wiki" target="_blank">User Guide: MarkBind in the Project Workflow</a> for more information.</p>
+<p>If you want to start with a <tooltip><template #content>i.e. without any content</template><em>minimal</em></tooltip> template instead, use the <code class="hljs inline no-lang" v-pre>--template</code> flag with the &quot;minimal&quot; option to initialize a minimal site instead of the default. See <a href="https://markbind.org/userGuide/templates.html" target="_blank">User Guide: Templates</a> for more information.</p></box>
+<hr>
+<h2 id="navigating-this-site">Navigating this site<a class="fa fa-anchor" href="#navigating-this-site" onclick="event.stopPropagation()"></a></h2>
+<p>This <em>default</em> site comes pre-configured with the core <a href="https://markbind.org/userGuide/components/navigation.html#navigation-components" target="_blank">Navigation components</a>: a <tooltip><template #content>Site Navigation</template><strong>siteNav</strong></tooltip>, a <tooltip><template #content>Page Navigation</template><strong>pageNav</strong></tooltip>, a <tooltip><template #content>Navigation Bar</template><strong>NavBar</strong></tooltip>, and a <strong>Search Bar</strong>. To help you get started with the <strong>siteNav</strong>, we have included <tooltip><template #content>Topic 1, Topic 2, Topic 3, Topic 3a, Topic 3b</template>five dummy placeholder pages</tooltip>. The <strong>NavBar</strong> also comes with a placeholder slot for your custom Logo.</p>
+<hr>
+<h2 id="guide-to-markbind">Guide to MarkBind<a class="fa fa-anchor" href="#guide-to-markbind" onclick="event.stopPropagation()"></a></h2>
+<p>To see the capability of MarkBind in action, feel free to take a look at some of the websites built using MarkBind on our <a href="https://markbind.org/showcase.html" target="_blank">Showcase</a> page.</p>
+<p>For more information on how to work with MarkBind sites and to add content, refer to our comprehensive <a href="https://markbind.org/userGuide/gettingStarted.html" target="_blank">User Guide</a>.</p>
+<box type="info">
+<p>If you are interested in contributing to MarkBind, you can refer to our <a href="https://markbind.org/devdocs/devGuide/devGuide.html" target="_blank">Developer Guide</a> as well!</p></box>
+<panel expanded no-close><template #header><p><strong>Good starting points in our User Guide</strong></p></template>
+<h5 id="user-guide-authoring-contents"><strong>User Guide: Authoring Contents</strong><a class="fa fa-anchor" href="#user-guide-authoring-contents" onclick="event.stopPropagation()"></a></h5>
+<blockquote>
+<p>Learn about the variety of syntax schemes, formats, and custom MarkBind components that you can use in your MarkBind site.</p></blockquote>
+<p>More info in: <em><a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">User Guide → Authoring Contents</a></em></p>
+<hr>
+<h5 id="user-guide-working-with-sites"><strong>User Guide: Working with Sites</strong><a class="fa fa-anchor" href="#user-guide-working-with-sites" onclick="event.stopPropagation()"></a></h5>
+<blockquote>
+<p>Learn how to modify site properties, apply themes, and enable/disable plugins for your MarkBind site.</p></blockquote>
+<p>More info in: <em><a href="https://markbind.org/userGuide/workingWithSites.html" target="_blank">User Guide → Working with Sites</a></em></p>
+<hr>
+<h5 id="user-guide-full-syntax-reference"><strong>User Guide: Full Syntax Reference</strong><a class="fa fa-anchor" href="#user-guide-full-syntax-reference" onclick="event.stopPropagation()"></a></h5>
+<blockquote>
+<p>Refer to our Full Syntax Reference page to find a specific feature or component that you want to use in your MarkBind site.</p></blockquote>
+<p>More info in: <em><a href="https://markbind.org/userGuide/fullSyntaxReference.html" target="_blank">User Guide → Full Syntax Reference</a></em></p></panel>
+<hr>
+  </div>
+  <overlay-source id="page-nav" tag-name="nav" to="page-nav">
+    <div class="nav-component slim-scroll">
+      <a class="navbar-brand page-nav-title" href="#" v-pre>Topics</a>
+<overlay-source id="mb-page-nav" tag-name="nav" to="mb-page-nav" class="nav nav-pills flex-column my-0 small no-flex-wrap">
+<a class="nav-link py-1" href="#what-just-happened" v-pre>What just happened?&#x200E;</a>
+<a class="nav-link py-1" href="#navigating-this-site" v-pre>Navigating this site&#x200E;</a>
+<a class="nav-link py-1" href="#guide-to-markbind" v-pre>Guide to MarkBind&#x200E;</a>
+
+</overlay-source>
+</div></overlay-source>
+  <scroll-top-button></scroll-top-button></div>
+<footer>
   
+  <div class="text-center">
+    <small>[Generated by <a href="https://markbind.org/">MarkBind 4.1.0</a>]</small></div></footer></div>`;

@@ -1,10 +1,8 @@
-
-    var pageVueRenderFn = function anonymous(
-) {
-with(this){return _c('div',{attrs:{"id":"app"}},[_c('header'),_v(" "),_c('div',{attrs:{"id":"flex-body"}},[_m(0),_v(" "),_c('scroll-top-button')],1),_v(" "),_c('footer')])}
-};
-    var pageVueStaticRenderFns = [function anonymous(
-) {
-with(this){return _c('div',{attrs:{"id":"content-wrapper"}},[_c('h1',{attrs:{"id":"welcome-to-markbind"}},[_v("Welcome to MarkBind"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#welcome-to-markbind","onclick":"event.stopPropagation()"}})]),_v(" "),_c('p',[_v("This is a minimalistic template. To learn more about authoring contents in MarkBind, visit the "),_c('a',{attrs:{"href":"https://markbind.org/userGuide/authoringContents.html"}},[_v("User Guide")]),_v(".")])])}
-}];
-  
+const pageContent =  `<div id="app"><header></header>
+<div id="flex-body">
+  <div id="content-wrapper">
+    <h1 id="welcome-to-markbind">Welcome to MarkBind<a class="fa fa-anchor" href="#welcome-to-markbind" onclick="event.stopPropagation()"></a></h1>
+<p>This is a minimalistic template. To learn more about authoring contents in MarkBind, visit the <a href="https://markbind.org/userGuide/authoringContents.html">User Guide</a>.</p>
+  </div>
+  <scroll-top-button></scroll-top-button></div>
+<footer></footer></div>`;
