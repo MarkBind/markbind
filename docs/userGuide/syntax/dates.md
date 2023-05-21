@@ -36,10 +36,10 @@ The default output format is `"ddd D MMM"` e.g. Fri 6 Mar
 {{ njcode('base1 | date(format2, 0)') }} :glyphicon-arrow-right: {{ base1 | date(format2, 0) }}<br/>
 {{ njcode('base1 | date(format2, 10)') }} :glyphicon-arrow-right: {{ base1 | date(format2, 10) }}<br/>
 
-#### Page variables
-Dates can be supplied using [page variables](../reusingContents.html#variables) for convenience.
+#### Nunjucks variables
+Dates can be supplied using [Nunjucks variables](../reusingContents.html#variables) for convenience.
 
-Inside `variables.md` or referencing page:
+Inside the `.md` file of a page:
 ```
 {% raw %}{% set date_pagevar = "2020-03-06" %}{% endraw %}
 ```

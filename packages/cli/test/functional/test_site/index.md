@@ -71,6 +71,10 @@ Page Variable with {{ global_variable }}
 
 **Test Page Variable and Included Variable Integrations**
 
+{% set outerNunjucksVariable %}
+Outer Nunjucks Variable
+{% endset %}
+
 <include src="testPageVariablesInInclude.md" />
 
 # Heading with multiple keywords
