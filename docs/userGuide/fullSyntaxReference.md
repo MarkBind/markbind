@@ -52,7 +52,7 @@
   siteNavigationMenus : ['Site Navigation Menus', ['navigation', 'reader-facing']],
   pageNavigationMenus : ['Page Navigation Menus', ['navigation', 'reader-facing']],
   scrollTopButton : ['Scroll To Top Button', ['navigation', 'reader-facing']],
-  questions : ['Questions and Quizzes', ['others', 'reader-facing']],
+  questions : ['Questions and Quizzes', ['others', 'reader-facing']]
 } %}
 
 {% for topic in syntax_topics | dictsort %}
