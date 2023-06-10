@@ -26,7 +26,8 @@
     "CNAME"
   ],
   "plugins" : [
-    "filterTags"
+    "filterTags",
+    "codeBlockCopyButtons"
   ],
   "pluginsContext" : {
     "filterTags" : {

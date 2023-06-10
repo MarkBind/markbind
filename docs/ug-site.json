@@ -21,7 +21,8 @@
   ],
   "plugins" : [
     "filterTags",
-    "mathDelimiters"
+    "mathDelimiters",
+    "codeBlockCopyButtons"
   ],
   "pluginsContext" : {
     "filterTags" : {
