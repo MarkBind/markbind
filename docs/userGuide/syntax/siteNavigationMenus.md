@@ -36,8 +36,4 @@ You can **append the `:expanded:` to a <tooltip content="a menu item with sub me
 
 </div>
 
-****Collapse/Expand All Buttons****
-
-You can make expanding and collapsing dropdowns in the siteNav more accessible by using the [Collapse/Expand All Buttons]({{baseURl}}/userGuide/components/others.html#collapse-expand-all-buttons). These buttons are the `+` and `-` icons at the top right of the siteNav.
-
 <div id="examples"></div>
