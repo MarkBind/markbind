@@ -18,16 +18,26 @@ function init(root, options) {
 
   const template = new Template(rootFolder, options.template);
   template.init()
-    .then(() => {
+    .then((templateConfig) => {
       logger.info('Initialization success.');
+      return templateConfig;
     })
-    .then(() => {
+    .then((templateConfig) => {
+      const outputRoot = path.join(rootFolder, '_site');
       if (options.convert) {
         logger.info('Converting to MarkBind website.');
-        const outputRoot = path.join(rootFolder, '_site');
-        new Site(rootFolder, outputRoot).convert()
+        new Site(rootFolder, outputRoot).convert(templateConfig)
           .then(() => {
             logger.info('Conversion success.');
+          })
+          .catch((error) => {
+            logger.error(error.message);
+            process.exitCode = 1;
+          });
+      } else {
+        new Site(rootFolder, outputRoot).generateTemplateDefault(templateConfig)
+          .then(() => {
+            logger.info('default.md generated.');
           })
           .catch((error) => {
             logger.error(error.message);

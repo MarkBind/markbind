@@ -1,6 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 import * as fsUtil from '../utils/fsUtil';
+import { getTemplateConfig } from './TemplateConfig';
 
 const requiredFiles = ['index.md', 'site.json', '_markbind/'];
 
@@ -8,17 +9,19 @@ const PATH_TO_TEMPLATE = '../../template';
 
 export class Template {
   root: string;
-  template: string;
+  templatePath: string;
+  templateName: string;
 
   constructor(rootPath: string, templatePath: string) {
     this.root = rootPath;
-    this.template = path.join(__dirname, PATH_TO_TEMPLATE, templatePath);
+    this.templateName = templatePath;
+    this.templatePath = path.join(__dirname, PATH_TO_TEMPLATE, templatePath);
   }
 
   validateTemplateFromPath() {
     for (let i = 0; i < requiredFiles.length; i += 1) {
       const requiredFile = requiredFiles[i];
-      const requiredFilePath = path.join(this.template, requiredFile);
+      const requiredFilePath = path.join(this.templatePath, requiredFile);
 
       if (!fs.existsSync(requiredFilePath)) {
         return false;
@@ -32,7 +35,7 @@ export class Template {
     return new Promise((resolve, reject) => {
       fs.access(this.root)
         .catch(() => fs.mkdirSync(this.root))
-        .then(() => fsUtil.copySyncWithOptions(this.template, this.root, { overwrite: false }))
+        .then(() => fsUtil.copySyncWithOptions(this.templatePath, this.root, { overwrite: false }))
         .then(resolve)
         .catch(reject);
     });
@@ -49,6 +52,7 @@ export class Template {
 
     return new Promise((resolve, reject) => {
       this.generateSiteWithTemplate()
+        .then(() => getTemplateConfig(this.templateName))
         .then(resolve)
         .catch(reject);
     });
