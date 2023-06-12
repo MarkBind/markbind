@@ -1,4 +1,6 @@
 {% set title = "Templates" %}
+{% set filename = "templates" %}
+
 <span id="title" class="d-none">{{ title }}</span>
 
 <frontmatter>
@@ -6,9 +8,15 @@
   layout: userGuide.md
 </frontmatter>
 
-# Templates
+<span id="link" class="d-none">
+<md>[_User Guide → {{ title }}_]({{ filename }}.html)</md>
+</span>
 
-MarkBind allows you to start off your new project with different templates.
+# {{ title }}
+
+<div class="lead" id="overview">
+  MarkBind allows you to start off your new project with different templates.
+</div>
 
 During initialization you can add a flag `--template <template-key>` to select a different template to initialize with. For example:
 
