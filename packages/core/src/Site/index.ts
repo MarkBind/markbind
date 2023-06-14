@@ -418,26 +418,25 @@ export class Site {
   /**
    * Adds default layout files based on the template.
    */
-  addDefaultLayoutFiles(njkFile: string, njkObjects: NunjuckObj | undefined) {
+  addDefaultLayoutFiles(njkFile: string, njkObject: NunjuckObj | undefined) {
     const convertedLayoutTemplate = VariableRenderer.compile(
       fs.readFileSync(path.join(__dirname, njkFile), 'utf8'));
-    const renderedLayout = convertedLayoutTemplate.render(njkObjects);
+    const renderedLayout = convertedLayoutTemplate.render(njkObject);
     const layoutOutputPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH, LAYOUT_DEFAULT_NAME);
 
     fs.writeFileSync(layoutOutputPath, renderedLayout, 'utf-8');
   }
 
   /**
-   * Copies over the contents of substitution files and assigns the to njk variables.
-   * Returns an NunjuckObj with all njk variables in the layout.
+   * Copies over the contents of substitution files and assigns them to njk variables.
    *
    * @param njkSubs The njk variables and their possible file substitutions.
-   * @returns A NunjuckObj with all njk variables in the layout.
+   * @returns A NunjuckObj with all nunjucks variables in the layout.
    */
   createNjkObjects(templateConfig: TemplateConfig) {
     const { njkSubs, hasAutoSiteNav, siteNavIgnore } = templateConfig;
 
-    const njkObjects: NunjuckObj = {};
+    const njkObject: NunjuckObj = {};
     njkSubs.forEach((njkSub) => {
       let fileCopy;
       njkSub.fileSubstitutes.forEach((fileName) => {
@@ -447,14 +446,14 @@ export class Site {
           fileCopy = `\n${fs.readFileSync(subFilePath, 'utf8')}`;
         }
       });
-      njkObjects[njkSub.variableName] = fileCopy;
+      njkObject[njkSub.variableName] = fileCopy;
     });
 
-    if (hasAutoSiteNav && isUndefined(njkObjects.siteNav)) {
-      njkObjects.siteNav = this.buildSiteNav(siteNavIgnore !== undefined ? siteNavIgnore : []);
+    if (hasAutoSiteNav && isUndefined(njkObject.siteNav)) {
+      njkObject.siteNav = this.buildSiteNav(siteNavIgnore !== undefined ? siteNavIgnore : []);
     }
 
-    return njkObjects;
+    return njkObject;
   }
 
   /**
