@@ -30,13 +30,6 @@
       "headingKeywords": {}
     },
     {
-      "src": "about.md",
-      "headings": {
-        "about": "About"
-      },
-      "headingKeywords": {}
-    },
-    {
       "src": "contents/topic1.md",
       "headings": {
         "topic-1": "Topic 1"

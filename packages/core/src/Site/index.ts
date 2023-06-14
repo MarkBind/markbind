@@ -415,31 +415,40 @@ export class Site {
   }
 
   /**
-   * Adds a footer to default layout of site.
+   * Adds default layout files based on the template.
    */
   addDefaultLayoutFiles(templateConfig: TemplateConfig) {
-    const nunjuckObjs: NunjuckObj = {};
-    templateConfig.nunjuckVars.forEach((nunjuckVar) => {
-      let temp;
-      nunjuckVar.fileSubstitutes.forEach((fileName) => {
-        const substitutionPath = path.join(this.rootPath, fileName);
-        if (fs.existsSync(substitutionPath)) {
-          logger.info(`Copied over the existing ${fileName} file to the converted layout`);
-          temp = `\n${fs.readFileSync(fileName, 'utf8')}`;
-        }
-      });
-      nunjuckObjs[nunjuckVar.variableName] = temp;
-      if (nunjuckVar.variableName === 'siteNav' && isUndefined(temp)) {
-        nunjuckObjs.siteNav = this.buildSiteNav(templateConfig.existingPageNames);
-      }
-    });
+    const njkObjects = this.copyExistingFiles(templateConfig.njkSubs);
+
+    if (templateConfig.hasAutoSiteNav && isUndefined(njkObjects.siteNav)) {
+      njkObjects.siteNav = this.buildSiteNav(templateConfig.siteNavIgnore !== undefined
+        ? templateConfig.siteNavIgnore : []);
+    }
 
     const convertedLayoutTemplate = VariableRenderer.compile(
-      fs.readFileSync(path.join(__dirname, templateConfig.layoutNunjuck), 'utf8'));
-    const renderedLayout = convertedLayoutTemplate.render(nunjuckObjs);
+      fs.readFileSync(path.join(__dirname, templateConfig.njkFile), 'utf8'));
+    const renderedLayout = convertedLayoutTemplate.render(njkObjects);
     const layoutOutputPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH, LAYOUT_DEFAULT_NAME);
 
     fs.writeFileSync(layoutOutputPath, renderedLayout, 'utf-8');
+  }
+
+  copyExistingFiles(njkSubs: TemplateConfig['njkSubs']) {
+    const njkObjects: NunjuckObj = {};
+
+    njkSubs.forEach((njkSub) => {
+      let fileCopy;
+      njkSub.fileSubstitutes.forEach((fileName) => {
+        const subFilePath = path.join(this.rootPath, fileName);
+        if (fs.existsSync(subFilePath)) {
+          logger.info(`Copied over the existing ${fileName} file to the converted layout`);
+          fileCopy = `\n${fs.readFileSync(subFilePath, 'utf8')}`;
+        }
+      });
+      njkObjects[njkSub.variableName] = fileCopy;
+    });
+
+    return njkObjects;
   }
 
   /**

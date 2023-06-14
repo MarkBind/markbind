@@ -1,19 +1,20 @@
 import { SiteConfigPage } from './SiteConfig';
 
-type NunjuckVars = {
+type NjkVars = {
   variableName: string,
   fileSubstitutes: string[]
 };
 
 export type TemplateConfig = {
-  nunjuckVars: NunjuckVars[],
-  layoutNunjuck: string,
+  njkSubs: NjkVars[],
+  njkFile: string,
   layoutObjs: SiteConfigPage[],
-  existingPageNames: string[]
+  hasAutoSiteNav: boolean,
+  siteNavIgnore?: string[]
 };
 
 const defaultTemplate: TemplateConfig = {
-  nunjuckVars: [
+  njkSubs: [
     {
       variableName: 'siteNav',
       fileSubstitutes: ['_Sidebar.md'],
@@ -23,19 +24,20 @@ const defaultTemplate: TemplateConfig = {
       fileSubstitutes: ['_Footer.md'],
     },
   ],
-  layoutNunjuck: 'siteConvertLayout.njk',
+  njkFile: 'defaultLayout.njk',
   layoutObjs: [
     { glob: '**/*.md', layout: 'default.md' },
     { glob: '404.md', layout: '404.md' },
   ],
-  existingPageNames: ['Index', '404', 'Topic 1', 'Topic 2', 'Topic 3 A', 'Topic 3 B'],
+  hasAutoSiteNav: true,
+  siteNavIgnore: ['Index', '404', 'Topic 1', 'Topic 2', 'Topic 3 A', 'Topic 3 B'],
 };
 
 const minimalTemplate: TemplateConfig = {
-  nunjuckVars: [],
-  layoutNunjuck: 'siteConvertLayout.njk',
+  njkSubs: [],
+  njkFile: 'minimalLayout.njk',
   layoutObjs: [{ glob: '**/*.md', layout: 'default.md' }],
-  existingPageNames: ['Index'],
+  hasAutoSiteNav: false,
 };
 
 export const getTemplateConfig = (name: string) => {
