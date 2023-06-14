@@ -382,19 +382,20 @@ export class Site {
     await this.readSiteConfig();
     this.collectAddressablePages();
     await this.addIndexPage();
-    this.addDefaultLayoutFiles(templateConfig);
-    await this.addDefaultLayoutToSiteConfig(templateConfig);
+    const njkObjects = this.createNjkObjects(templateConfig);
+    this.addDefaultLayoutFiles(templateConfig.njkFile, njkObjects);
+    await this.addTemplateLayoutSettingsToSiteConfig(templateConfig);
     Site.printBaseUrlMessage();
   }
 
   /**
-   * Create the default layout of the website based on a template.
+   * Creates the default layout of the website based on a template.
    */
   async generateTemplateDefault(templateConfig: TemplateConfig) {
     await this.readSiteConfig();
     this.collectAddressablePages();
-    this.addDefaultLayoutFiles(templateConfig);
-    await this.addDefaultLayoutToSiteConfig(templateConfig);
+    this.addDefaultLayoutFiles(templateConfig.njkFile, undefined);
+    await this.addTemplateLayoutSettingsToSiteConfig(templateConfig);
     Site.printBaseUrlMessage();
   }
 
@@ -417,25 +418,26 @@ export class Site {
   /**
    * Adds default layout files based on the template.
    */
-  addDefaultLayoutFiles(templateConfig: TemplateConfig) {
-    const njkObjects = this.copyExistingFiles(templateConfig.njkSubs);
-
-    if (templateConfig.hasAutoSiteNav && isUndefined(njkObjects.siteNav)) {
-      njkObjects.siteNav = this.buildSiteNav(templateConfig.siteNavIgnore !== undefined
-        ? templateConfig.siteNavIgnore : []);
-    }
-
+  addDefaultLayoutFiles(njkFile: string, njkObjects: NunjuckObj | undefined) {
     const convertedLayoutTemplate = VariableRenderer.compile(
-      fs.readFileSync(path.join(__dirname, templateConfig.njkFile), 'utf8'));
+      fs.readFileSync(path.join(__dirname, njkFile), 'utf8'));
     const renderedLayout = convertedLayoutTemplate.render(njkObjects);
     const layoutOutputPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH, LAYOUT_DEFAULT_NAME);
 
     fs.writeFileSync(layoutOutputPath, renderedLayout, 'utf-8');
   }
 
-  copyExistingFiles(njkSubs: TemplateConfig['njkSubs']) {
-    const njkObjects: NunjuckObj = {};
+  /**
+   * Copies over the contents of substitution files and assigns the to njk variables.
+   * Returns an NunjuckObj with all njk variables in the layout.
+   *
+   * @param njkSubs The njk variables and their possible file substitutions.
+   * @returns A NunjuckObj with all njk variables in the layout.
+   */
+  createNjkObjects(templateConfig: TemplateConfig) {
+    const { njkSubs, hasAutoSiteNav, siteNavIgnore } = templateConfig;
 
+    const njkObjects: NunjuckObj = {};
     njkSubs.forEach((njkSub) => {
       let fileCopy;
       njkSub.fileSubstitutes.forEach((fileName) => {
@@ -448,34 +450,41 @@ export class Site {
       njkObjects[njkSub.variableName] = fileCopy;
     });
 
+    if (hasAutoSiteNav && isUndefined(njkObjects.siteNav)) {
+      njkObjects.siteNav = this.buildSiteNav(siteNavIgnore !== undefined ? siteNavIgnore : []);
+    }
+
     return njkObjects;
   }
 
   /**
    * Builds a site navigation file from the directory structure of the site.
+   *
+   * @param ignoreFiles The relative path of the files to ignore when building the navigation file.
    */
-  buildSiteNav(ignorePageNames: string[]) {
+  buildSiteNav(ignoreFiles: string[]) {
     let siteNavContent = '';
     this.addressablePages
-      .filter(addressablePage => !addressablePage.src.startsWith('_'))
+      .filter(({ src }) => !src.startsWith('_') && !ignoreFiles.includes(src))
       .forEach((page) => {
         const addressablePagePath = path.join(this.rootPath, page.src);
         const relativePagePathWithoutExt = fsUtil.removeExtensionPosix(
           path.relative(this.rootPath, addressablePagePath));
         const pageName = _.startCase(fsUtil.removeExtension(path.basename(addressablePagePath)));
-        if (!ignorePageNames.includes(pageName)) {
-          const pageUrl = `{{ baseUrl }}/${relativePagePathWithoutExt}.html`;
-          siteNavContent += `* [${pageName}](${pageUrl})\n`;
-        }
+        const pageUrl = `{{ baseUrl }}/${relativePagePathWithoutExt}.html`;
+        siteNavContent += `* [${pageName}](${pageUrl})\n`;
       });
 
     return siteNavContent.trimEnd();
   }
 
   /**
-   * Applies the default layout to all addressable pages by modifying the site config file.
+   * Applies the layout settings to addressable pages as dictated in the TemplateConfig
+   * by modifying the site config file.
+   *
+   * @param templateConfig The configuration that dictates what layout settings are added.
    */
-  async addDefaultLayoutToSiteConfig(templateConfig: TemplateConfig) {
+  async addTemplateLayoutSettingsToSiteConfig(templateConfig: TemplateConfig) {
     const configPath = path.join(this.rootPath, SITE_CONFIG_NAME);
     const config = await fs.readJson(configPath);
     await Site.writeToSiteConfig(config, configPath, templateConfig.layoutObjs);
@@ -486,7 +495,7 @@ export class Site {
    */
   static async writeToSiteConfig(config: SiteConfig, configPath: string, layoutObjs: SiteConfigPage[]) {
     layoutObjs.forEach(layoutObj => config.pages.push(layoutObj));
-    await fs.outputJson(configPath, config);
+    await fs.writeFile(configPath, JSON.stringify(config, null, 2));
   }
 
   static printBaseUrlMessage() {

@@ -30,7 +30,10 @@ const defaultTemplate: TemplateConfig = {
     { glob: '404.md', layout: '404.md' },
   ],
   hasAutoSiteNav: true,
-  siteNavIgnore: ['Index', '404', 'Topic 1', 'Topic 2', 'Topic 3 A', 'Topic 3 B'],
+  siteNavIgnore: [
+    'index.md', '404.md',
+    'contents/topic1.md', 'contents/topic2.md', 'contents/topic3a.md', 'contents/topic3b.md',
+  ],
 };
 
 const minimalTemplate: TemplateConfig = {
@@ -40,6 +43,12 @@ const minimalTemplate: TemplateConfig = {
   hasAutoSiteNav: false,
 };
 
+/**
+ * Retrieves a pre-defined template configuration based on the name.
+ *
+ * @param name The name of a template configuration
+ * @returns The pre-defined template configuration based on the name.
+ */
 export const getTemplateConfig = (name: string) => {
   switch (name) {
   case 'default':

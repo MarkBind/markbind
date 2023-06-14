@@ -19,10 +19,6 @@ function init(root, options) {
   const template = new Template(rootFolder, options.template);
   template.init()
     .then((templateConfig) => {
-      logger.info('Initialization success.');
-      return templateConfig;
-    })
-    .then((templateConfig) => {
       const outputRoot = path.join(rootFolder, '_site');
       if (options.convert) {
         logger.info('Converting to MarkBind website.');
@@ -36,9 +32,7 @@ function init(root, options) {
           });
       } else {
         new Site(rootFolder, outputRoot).generateTemplateDefault(templateConfig)
-          .then(() => {
-            logger.info('default.md generated.');
-          })
+          .then(() => logger.info('Initialization success.'))
           .catch((error) => {
             logger.error(error.message);
             process.exitCode = 1;
