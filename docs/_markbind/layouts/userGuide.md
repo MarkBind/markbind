@@ -35,6 +35,7 @@
   * [MarkBind in the Project Workflow]({{baseUrl}}/userGuide/markBindInTheProjectWorkflow.html)
   * [Redirecting to a Custom 404 Page]({{baseUrl}}/userGuide/redirectingToACustom404Page.html)
   * [Adding Navigation Buttons]({{baseUrl}}/userGuide/addingNavigationButtons.html)
+  * [Templates]({{baseUrl}}/userGuide/templates.html)
 * References :expanded:
   * [CLI Commands]({{baseUrl}}/userGuide/cliCommands.html)
   * [Reader-Facing Features]({{baseUrl}}/userGuide/readerFacingFeatures.html)

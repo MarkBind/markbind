@@ -15,7 +15,9 @@
   ['Applying Themes', 'themes'],
   ['Deploying the Site', 'deployingTheSite'],
   ['MarkBind in the Project Workflow', 'markBindInTheProjectWorkflow'],
-  ['Redirecting to a Custom 404 Page', 'redirectingToACustom404Page']
+  ['Redirecting to a Custom 404 Page', 'redirectingToACustom404Page'],
+  ['Adding Navigation Buttons', 'addingNavigationButtons'],
+  ['Templates', 'templates']
 ] %}
 
 {% for page in pages %}
