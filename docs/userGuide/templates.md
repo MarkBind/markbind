@@ -15,7 +15,8 @@
 # {{ title }}
 
 <div class="lead" id="overview">
-  MarkBind allows you to start off your new project with different templates.
+
+MarkBind allows you to start off your new project with different templates.
 </div>
 
 During initialization you can add a flag `--template <template-key>` to select a different template to initialize with. For example:
