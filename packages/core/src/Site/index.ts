@@ -376,25 +376,21 @@ export class Site {
   }
 
   /**
-   * Converts an existing GitHub wiki or docs folder to a MarkBind website.
-   */
-  async convert(templateConfig: TemplateConfig) {
-    await this.readSiteConfig();
-    this.collectAddressablePages();
-    await this.addIndexPage();
-    const njkObjects = this.createNjkObjects(templateConfig);
-    this.addDefaultLayoutFiles(templateConfig.njkFile, njkObjects);
-    await this.addTemplateLayoutSettingsToSiteConfig(templateConfig);
-    Site.printBaseUrlMessage();
-  }
-
-  /**
    * Creates the default layout of the website based on a template.
    */
-  async generateTemplateDefault(templateConfig: TemplateConfig) {
+  async generateTemplateDefault(templateConfig: TemplateConfig, isConversion: boolean) {
     await this.readSiteConfig();
     this.collectAddressablePages();
-    this.addDefaultLayoutFiles(templateConfig.njkFile, undefined);
+
+    if (isConversion) {
+      await this.addIndexPage();
+      const njkObjects = this.createNjkObjects(templateConfig);
+      this.addDefaultLayoutFile(templateConfig.njkFile, njkObjects);
+      logger.info('Conversion success.');
+    } else {
+      this.addDefaultLayoutFile(templateConfig.njkFile);
+    }
+
     await this.addTemplateLayoutSettingsToSiteConfig(templateConfig);
     Site.printBaseUrlMessage();
   }
@@ -410,15 +406,20 @@ export class Site {
     if (_.isUndefined(filePath)) return;
     try {
       await fs.copy(path.join(this.rootPath, filePath), indexPagePath);
+      logger.info(`Copied over the existing ${filePath} file to ${INDEX_MARKDOWN_FILE}`);
     } catch (error) {
       throw new Error(`Failed to copy over ${filePath}`);
     }
   }
 
   /**
-   * Adds default layout files based on the template.
+   * Creates and adds a default layout
+   * by rendering the specified nunjucks file with nunjucks variables.
+   *
+   * @param njkFile The nunjucks template to create a default layout from.
+   * @param {NunjuckObj=} [njkObject] The object containing the nunjucks variables of the template.
    */
-  addDefaultLayoutFiles(njkFile: string, njkObject: NunjuckObj | undefined) {
+  addDefaultLayoutFile(njkFile: string, njkObject?: NunjuckObj) {
     const convertedLayoutTemplate = VariableRenderer.compile(
       fs.readFileSync(path.join(__dirname, njkFile), 'utf8'));
     const renderedLayout = convertedLayoutTemplate.render(njkObject);
@@ -431,11 +432,11 @@ export class Site {
    * Copies over the contents of substitution files and assigns them to njk variables.
    *
    * @param njkSubs The njk variables and their possible file substitutions.
+   * @param hasAutoSiteNav Creates navigation links if true.
+   * @param siteNavIgnore Files to ignore when creating navigation links.
    * @returns A NunjuckObj with all nunjucks variables in the layout.
    */
-  createNjkObjects(templateConfig: TemplateConfig) {
-    const { njkSubs, hasAutoSiteNav, siteNavIgnore } = templateConfig;
-
+  createNjkObjects({ njkSubs, hasAutoSiteNav, siteNavIgnore }: TemplateConfig) {
     const njkObject: NunjuckObj = {};
     njkSubs.forEach((njkSub) => {
       let fileCopy;
@@ -449,8 +450,8 @@ export class Site {
       njkObject[njkSub.variableName] = fileCopy;
     });
 
-    if (hasAutoSiteNav && isUndefined(njkObject.siteNav)) {
-      njkObject.siteNav = this.buildSiteNav(siteNavIgnore !== undefined ? siteNavIgnore : []);
+    if (hasAutoSiteNav && _.isUndefined(njkObject.siteNav)) {
+      njkObject.siteNav = this.buildSiteNav(siteNavIgnore);
     }
 
     return njkObject;
@@ -459,9 +460,9 @@ export class Site {
   /**
    * Builds a site navigation file from the directory structure of the site.
    *
-   * @param ignoreFiles The relative path of the files to ignore when building the navigation file.
+   * @param [ignoreFiles=[]] The relative path of the files to ignore when building the navigation file.
    */
-  buildSiteNav(ignoreFiles: string[]) {
+  buildSiteNav(ignoreFiles: string[] = []) {
     let siteNavContent = '';
     this.addressablePages
       .filter(({ src }) => !src.startsWith('_') && !ignoreFiles.includes(src))
@@ -481,12 +482,11 @@ export class Site {
    * Applies the layout settings to addressable pages as dictated in the TemplateConfig
    * by modifying the site config file.
    *
-   * @param templateConfig The configuration that dictates what layout settings are added.
    */
-  async addTemplateLayoutSettingsToSiteConfig(templateConfig: TemplateConfig) {
+  async addTemplateLayoutSettingsToSiteConfig({ layoutObjs }: TemplateConfig) {
     const configPath = path.join(this.rootPath, SITE_CONFIG_NAME);
     const config = await fs.readJson(configPath);
-    await Site.writeToSiteConfig(config, configPath, templateConfig.layoutObjs);
+    await Site.writeToSiteConfig(config, configPath, layoutObjs);
   }
 
   /**

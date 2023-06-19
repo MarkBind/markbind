@@ -12,10 +12,10 @@ export class Template {
   templatePath: string;
   templateName: string;
 
-  constructor(rootPath: string, templatePath: string) {
+  constructor(rootPath: string, templateName: string) {
     this.root = rootPath;
-    this.templateName = templatePath;
-    this.templatePath = path.join(__dirname, PATH_TO_TEMPLATE, templatePath);
+    this.templateName = templateName;
+    this.templatePath = path.join(__dirname, PATH_TO_TEMPLATE, templateName);
   }
 
   validateTemplateFromPath() {

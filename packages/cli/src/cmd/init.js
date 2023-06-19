@@ -19,25 +19,13 @@ function init(root, options) {
   const template = new Template(rootFolder, options.template);
   template.init()
     .then((templateConfig) => {
+      logger.info('Initialization success.');
       const outputRoot = path.join(rootFolder, '_site');
-      if (options.convert) {
-        logger.info('Converting to MarkBind website.');
-        new Site(rootFolder, outputRoot).convert(templateConfig)
-          .then(() => {
-            logger.info('Conversion success.');
-          })
-          .catch((error) => {
-            logger.error(error.message);
-            process.exitCode = 1;
-          });
-      } else {
-        new Site(rootFolder, outputRoot).generateTemplateDefault(templateConfig)
-          .then(() => logger.info('Initialization success.'))
-          .catch((error) => {
-            logger.error(error.message);
-            process.exitCode = 1;
-          });
-      }
+      new Site(rootFolder, outputRoot).generateTemplateDefault(templateConfig, options.convert)
+        .catch((error) => {
+          logger.error(`Failed to generate template default with error: ${error.message}`);
+          process.exitCode = 1;
+        });
     })
     .catch((error) => {
       logger.error(`Failed to initialize site with given template with error: ${error.message}`);
