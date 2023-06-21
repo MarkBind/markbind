@@ -6,7 +6,6 @@
     v-model="show"
     ssr
     :name="id"
-    classes="allow-overflow"
     :content-class="['modal-dialog', optionalModalSize, optionalCentering]"
     overlay-transition="none"
     :transition="effectClass"
@@ -14,7 +13,7 @@
     esc-to-close
     z-index-base="2000"
   >
-    <div class="modal-content">
+    <div class="modal-content allow-overflow max-height">
       <div v-if="hasHeader" class="modal-header">
         <h5 class="modal-title">
           <slot name="header"></slot>
@@ -129,6 +128,10 @@ export default {
 <style>
     .allow-overflow {
         overflow: auto;
+    }
+
+    .max-height {
+        max-height: 90vh;
     }
 
     .modal-zoom {
