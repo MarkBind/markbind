@@ -302,7 +302,7 @@ export default {
     }
 
     .card-body > .collapse-button {
-        margin-bottom: 13px;
+        margin-bottom: 5px;
         margin-top: 5px;
         opacity: 0.2;
     }
@@ -358,7 +358,7 @@ export default {
         }
 
         .card-collapse > hr {
-            margin-top: 1.5rem;
+            margin-top: 1rem;
         }
 
         .card-header {
