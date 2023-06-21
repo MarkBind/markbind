@@ -21,7 +21,7 @@ function init(root, options) {
     .then((templateConfig) => {
       logger.info('Initialization success.');
       const outputRoot = path.join(rootFolder, '_site');
-      new Site(rootFolder, outputRoot).generateTemplateDefault(templateConfig, options.convert)
+      new Site(rootFolder, outputRoot).initSite(templateConfig, options.convert)
         .catch((error) => {
           logger.error(`Failed to generate template default with error: ${error.message}`);
           process.exitCode = 1;

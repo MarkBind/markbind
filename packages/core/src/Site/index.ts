@@ -378,7 +378,7 @@ export class Site {
   /**
    * Creates the default layout of the website based on a template.
    */
-  async generateTemplateDefault(templateConfig: TemplateConfig, isConversion: boolean) {
+  async initSite(templateConfig: TemplateConfig, isConversion: boolean) {
     await this.readSiteConfig();
     this.collectAddressablePages();
 
