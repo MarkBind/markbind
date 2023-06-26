@@ -4,7 +4,6 @@ import markdownItImport, { Options } from 'markdown-it';
 import lodashConstant from 'lodash/constant';
 import Renderer from 'markdown-it/lib/renderer';
 import Token from 'markdown-it/lib/token';
-import qrCodePlugin from './plugins/qrPlugin';
 import qrCodeComponent from './qrCodeComponent';
 
 import * as logger from '../../utils/logger';

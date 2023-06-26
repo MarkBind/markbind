@@ -22,23 +22,30 @@ export default function customTagPlugin(md: MarkdownIt, options: PluginOptions) 
             state.pos = state.posMax;
             return false;
         }
-
         if (!silent) {
             const token = state.push(options.name, '', 0);
             const rawContent = state.src.slice(contentStart, contentEnd);
 
-            const contentArr = rawContent.split(' ');
-            const contentObj = contentArr.reduce((acc: { [key: string]: string }, current) => {
-                if (current.includes('=')) {
-                    const [key, value] = current.split('=');
-                    acc[key] = value.replace(/"/g, '');  // removes quotes from value
+            const contentArr: string[] = rawContent.match(/(?:[^\s"']+|"[^"]*"|'[^']*')+/g) || [];
+            const contentObj = contentArr.reduce((acc: { [key: string]: string }, current: string) => {
+                const keyValue = current.match(/(.*?)=(.*)/);
+                if (keyValue) {
+                    const [_, key, value] = keyValue;
+                    const match = value.match(/"([^"]*)"|'([^']*)'/);
+                    if (match) {
+                        // match[1] is for double quotes, match[2] is for single quotes
+                        acc[key] = match[1] ? match[1] : match[2];
+                    }
                 }
                 return acc;
-            }, {});
+            }, {} as { [key: string]: string });
 
             token.attrs = Object.entries(contentObj);
             token.info = rawContent;  // For render rule
         }
+
+
+
 
         state.pos = contentEnd + options.endDelimiter.length;
         return true;
