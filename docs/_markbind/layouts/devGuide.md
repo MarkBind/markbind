@@ -34,7 +34,6 @@
   * [Style guides]({{baseUrl}}/devGuide/styleGuides.html)
       </site-nav>
     </div>
-  <collapse-expand-buttons />
   </nav>
   <div id="content-wrapper">
     <breadcrumb />

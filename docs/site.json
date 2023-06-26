@@ -25,7 +25,8 @@
     "filterTags",
     "mathDelimiters",
     "codeBlockWrapButtons",
-    "web3Form"
+    "web3Form",
+    "codeBlockCopyButtons"
   ],
   "pluginsContext" : {
     "filterTags" : {
