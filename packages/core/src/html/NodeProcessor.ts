@@ -219,9 +219,6 @@ export class NodeProcessor {
         case 'box':
           this.mdAttributeRenderer.processBoxAttributes(node);
           break;
-        case 'qrcode':
-          QrCodeProcessor.process(node);
-          break;
         case 'dropdown':
           this.mdAttributeRenderer.processDropdownAttributes(node);
           break;
