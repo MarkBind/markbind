@@ -4,6 +4,7 @@ import markdownItImport, { Options } from 'markdown-it';
 import lodashConstant from 'lodash/constant';
 import Renderer from 'markdown-it/lib/renderer';
 import Token from 'markdown-it/lib/token';
+import qrPlugin from './plugins/qrPlugin';
 
 import * as logger from '../../utils/logger';
 
@@ -40,7 +41,8 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('./plugins/markdown-it-footnotes'))
   .use(require('./plugins/markdown-it-center-text'))
   .use(require('./plugins/markdown-it-colour-text'))
-  .use(require('./plugins/markdown-it-alt-frontmatter'));
+  .use(require('./plugins/markdown-it-alt-frontmatter'))
+  .use(qrPlugin);
 
 // fix table style
 markdownIt.renderer.rules.table_open = _.constant(
