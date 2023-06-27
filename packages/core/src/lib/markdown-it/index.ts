@@ -238,7 +238,7 @@ markdownIt.core.ruler.push('modify_tokens', (state: any) => { // Replace 'any' w
 
     } else if (token.type === "inline") {
       if (ulList.length > 0) {  // check that ulList is not empty
-        if (ulList[ulList.length - 1].map[0] == token.map[0]) {
+        if (ulList[ulList.length - 1].map[0] >= token.map[0]) {
           ulList[ulList.length - 1].map[0] = token.map[1];
         } else {
           ulList[ulList.length - 1].pTag = true;
