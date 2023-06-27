@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.customTagPlugin = void 0;
 function customTagPlugin(md, options) {
-    md.inline.ruler.before('text', options.name, function (state, silent) {
-        const start = state.src.indexOf(options.startDelimiter + options.name + ':', state.pos);
+    md.inline.ruler.before('text', options.name, (state, silent) => {
+        const start = state.src.indexOf(`${options.startDelimiter}${options.name}:`, state.pos);
         if (start !== state.pos)
             return false;
         const contentStart = start + options.startDelimiter.length + options.name.length + 1;
         const contentEnd = state.src.indexOf(options.endDelimiter, contentStart);
         if (contentEnd === -1) {
-            // if closing delimiter is not found, do not process the tag and move the state position to the end of the line
             state.pos = state.posMax;
             return false;
         }
@@ -19,31 +19,29 @@ function customTagPlugin(md, options) {
             const contentObj = contentArr.reduce((acc, current) => {
                 const keyValue = current.match(/(.*?)=(.*)/);
                 if (keyValue) {
-                    const [_, key, value] = keyValue;
+                    const [, key, value] = keyValue;
                     const match = value.match(/"([^"]*)"|'([^']*)'/);
                     if (match) {
-                        // match[1] is for double quotes, match[2] is for single quotes
-                        acc[key] = match[1] ? match[1] : match[2];
+                        acc[key] = match[1] || match[2];
                     }
                 }
                 return acc;
             }, {});
             token.attrs = Object.entries(contentObj);
-            token.info = rawContent; // For render rule
+            token.info = rawContent;
         }
         state.pos = contentEnd + options.endDelimiter.length;
         return true;
     });
-    // The new render function uses the component option to generate HTML
-    md.renderer.rules[options.name] = function (tokens, idx) {
+    md.renderer.rules[options.name] = (tokens, idx) => {
         var _a;
         const attrs = (_a = tokens[idx].attrs) !== null && _a !== void 0 ? _a : [];
         const attrObj = attrs.reduce((acc, [key, value]) => {
             acc[key] = value;
             return acc;
         }, {});
-        return options.component(attrObj); // Generate HTML using the component option
+        return options.component(attrObj);
     };
 }
-exports.default = customTagPlugin;
+exports.customTagPlugin = customTagPlugin;
 //# sourceMappingURL=customTagPlugin.js.map

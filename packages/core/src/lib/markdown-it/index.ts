@@ -4,19 +4,18 @@ import markdownItImport, { Options } from 'markdown-it';
 import lodashConstant from 'lodash/constant';
 import Renderer from 'markdown-it/lib/renderer';
 import Token from 'markdown-it/lib/token';
-import qrCodeComponent from './qrCodeComponent';
+import { QrCodeComponent } from './qrCodeComponent';
 
 import * as logger from '../../utils/logger';
 
 import { HighlightRule } from './highlight/HighlightRule';
-import customTagPlugin from './customTagPlugin';
+import { customTagPlugin } from './customTagPlugin';
 
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
 const markdownIt = markdownItImport({ html: true, linkify: true });
 
 markdownIt.linkify.set({ fuzzyLink: false });
-const qrCodeInstance = new qrCodeComponent();
 
 const _ = {
   constant: lodashConstant,
@@ -48,7 +47,7 @@ markdownIt.use(require('markdown-it-mark'))
     name: 'qrcode',
     startDelimiter: '[',
     endDelimiter: ']',
-    component: qrCodeInstance.render.bind(qrCodeInstance)
+    component: QrCodeComponent.render,
   });
 
 // fix table style
