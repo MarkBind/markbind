@@ -50,7 +50,7 @@ class qrCodeComponent {
         // Map from layer types to their SVG elements
         const layers = {
             backgroundColor: attrs.backgroundColor ? `<rect width="100%" height="100%" fill="${attrs.backgroundColor}"></rect>` : null,
-            image: attrs.image ? `<image href="${attrs.image}" width="100%" height="100%"></image>` : null,
+            image: attrs.image ? `<image href="${attrs.image}" style="opacity:${attrs.imageOpacity || 1}" width="100%" height="100%"></image>` : null,
         };
         // Get the new layers, filter out the null ones, and join them into a string
         const newLayers = Object.values(layers).filter(Boolean).join('');
