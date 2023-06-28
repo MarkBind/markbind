@@ -1,20 +1,44 @@
 import { NodeOrText } from "../utils/node";
 import { EmojiConvertor } from 'emoji-js';
 
+interface IconAttributes {
+  icon?: string;
+  iconSize?: string;
+  className?: string;
+}
+
 export function processUlNode(node: NodeOrText): NodeOrText {
   if ('name' in node && node.name === 'ul') {
-    const iconInUl = node.attribs?.['icon'];
-    const iconSize = node.attribs?.['size'];
-    const className = node.attribs?.['class'];
-    const hasIconInChildren = node.children?.some((child: NodeOrText) => child.name === 'li' && child.attribs?.['icon']);
+    const iconAttributes: IconAttributes = {
+      icon: node.attribs?.['icon'],
+      iconSize: node.attribs?.['size'],
+      className: node.attribs?.['class']
+    };
 
-    if (iconInUl || hasIconInChildren) {
+    // Delete the attributes after getting their values
+    if (iconAttributes.icon) delete node.attribs?.['icon'];
+    if (iconAttributes.iconSize) delete node.attribs?.['size'];
+    if (iconAttributes.className) delete node.attribs?.['class'];
+
+
+    const hasIconInChildren = node.children?.find((child: NodeOrText) => child.name === 'li' && child.attribs?.['icon']);
+
+    let defaultLiIcon: IconAttributes = {};
+    if (hasIconInChildren) {
+      defaultLiIcon = {
+        icon: hasIconInChildren.attribs?.['icon'],
+        iconSize: hasIconInChildren.attribs?.['size'],
+        className: hasIconInChildren.attribs?.['class']
+      };
+    }
+
+    if (iconAttributes.icon || hasIconInChildren) {
       updateNodeStyle(node);
 
       // Update children based on the conditions
       node.children = node.children?.map((child: NodeOrText) => {
-        if (child.name === 'li' && (iconInUl || child.attribs?.['icon'])) {
-          updateLiChildren(child, iconInUl, iconSize, className  );
+        if (child.name === 'li') {
+          updateLiChildren(child, iconAttributes, defaultLiIcon  );
         }
         return child;
       }) || [];
@@ -39,7 +63,17 @@ function updateNodeStyle(node: NodeOrText) {
   node.attribs['style'] = createStyleString(styleObject);
 }
 
-function updateLiChildren(child: NodeOrText, icon: string, iconSize: string, className?: string) {
+function updateLiChildren(child: NodeOrText, parentIconAttributes: IconAttributes, defaultLiIconAttributes: IconAttributes) {
+  // Get the child's attributes, these will override the parent's attributes
+  const icon = child.attribs?.['icon'] || parentIconAttributes.icon || defaultLiIconAttributes.icon || 'fire';
+  const iconSize = child.attribs?.['size'] || parentIconAttributes.iconSize || defaultLiIconAttributes.iconSize;
+  const className = child.attribs?.['class'] || parentIconAttributes.className || defaultLiIconAttributes.className;
+
+  // Delete the child's attributes after getting their values
+  if (child.attribs?.['icon']) delete child.attribs['icon'];
+  if (child.attribs?.['size']) delete child.attribs['size'];
+  if (child.attribs?.['class']) delete child.attribs['class'];
+
   const iChild: NodeOrText = createIChild(child, icon, iconSize, className);
   const divChild: NodeOrText = createDivChild(child, child.children || []);
   child.children = [iChild, divChild];
@@ -47,6 +81,7 @@ function updateLiChildren(child: NodeOrText, icon: string, iconSize: string, cla
   if (!child.attribs) child.attribs = {};
   child.attribs['style'] = 'display: flex;';
 }
+
 
 function createIChild(parent: NodeOrText, icon: string, iconSize: string, className?: string): NodeOrText {
   const emoji = new EmojiConvertor();
@@ -67,7 +102,7 @@ function createIChild(parent: NodeOrText, icon: string, iconSize: string, classN
   if (isEmoji) {
     child = {
       type: 'tag',
-      name: 'i',
+      name: 'span',
       attribs: {
         ...className && { class: className },
         'aria-hidden': 'true',
@@ -121,13 +156,13 @@ function getSize(iconSize :string) {
 
   switch (iconSize) {
     case 's':
-      return { fontSize: '12px', imageSize: '30px' };
+      return { fontSize: '30px', imageSize: '30px' };
     case 'm':
-      return { fontSize: '18px', imageSize: '35px' };
+      return { fontSize: '35px', imageSize: '35px' };
     case 'l':
-      return { fontSize: '24px', imageSize: '50px' };
+      return { fontSize: '50px', imageSize: '50px' };
     case 'xl':
-      return { fontSize: '30px', imageSize: '65px' };
+      return { fontSize: '65px', imageSize: '65px' };
     default: // 'xs'
       return { fontSize: undefined, imageSize: '25px' };
   }
