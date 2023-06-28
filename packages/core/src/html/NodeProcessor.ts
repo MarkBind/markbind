@@ -27,6 +27,7 @@ import { highlightCodeBlock, setCodeLineNumbers } from './codeblockProcessor';
 import { setHeadingId, assignPanelId } from './headerProcessor';
 import { FootnoteProcessor } from './FootnoteProcessor';
 import { MbNode, NodeOrText, TextElement } from '../utils/node';
+import { processUlNode } from './UlNodeProcessor';
 
 const fm = require('fastmatter');
 
@@ -56,6 +57,7 @@ export type NodeProcessorConfig = {
     [id: string]: number,
   },
 };
+
 
 export class NodeProcessor {
   frontmatter: Record<string, string> = {};
@@ -223,6 +225,14 @@ export class NodeProcessor {
         break;
       case 'thumbnail':
         this.mdAttributeRenderer.processThumbnailAttributes(node);
+        break;
+        case "ul":
+          
+          // let $ = cheerio(this.processCheerioObject(node));
+          // console.log($);
+          processUlNode(node);
+          console.log(node);
+
         break;
       case 'page-nav':
         this.pageNavProcessor.renderPageNav(node);
