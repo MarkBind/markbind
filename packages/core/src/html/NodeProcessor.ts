@@ -227,12 +227,7 @@ export class NodeProcessor {
         this.mdAttributeRenderer.processThumbnailAttributes(node);
         break;
         case "ul":
-          
-          // let $ = cheerio(this.processCheerioObject(node));
-          // console.log($);
-          processUlNode(node);
-          console.log(node);
-
+        processUlNode(node);
         break;
       case 'page-nav':
         this.pageNavProcessor.renderPageNav(node);
