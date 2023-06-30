@@ -134,6 +134,7 @@ The list icons can be customized by adding an {icon="..."} at the end of a list 
 2. A blank line preceding the content is crucial.
 3. It's important to insert a blank line before list-level specifications.
 4. It is possible to any of the icons supported by MarkBind (e.g., Font Awesome, Octicons, Glyphicons, Images and etc.) as the icon of a list item.
+5. Images will maintain a 1 rem bottom margin.
 </box>
 
 <box type="tip" seamless>
@@ -187,6 +188,38 @@ You can adjust the size of the icon by using the size attribute, which accepts t
 * item 2  
 
 * item 3 
+
+{icon="/images/deer.jpg" size="xl" class="rounded"}
+</variable>
+</include>
+</div>
+
+<box type="tip" seamless>
+
+You can craft a media list using Markdown's heading and paragraph syntax.
+</box>
+<div id="main-example-markbind">
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
+
+* ### item 1
+  
+   This is the content for item 1. 
+   Here we discuss the key aspects and details related to this specific item. 
+   Information is comprehensive, well-organized, 
+   and presented in a clear, concise manner.  
+* ### item 2  
+
+  For item 2, the content delves deeper into the topic, 
+  providing a robust analysis and extensive insights. 
+  The goal is to offer a thorough understanding of the subject matter.
+
+* ### item 3 
+
+  The content for item 3 takes a different angle, offering fresh perspectives and innovative ideas. 
+  The objective is to stimulate thought and inspire creative solutions.
+
 
 {icon="/images/deer.jpg" size="xl" class="rounded"}
 </variable>
