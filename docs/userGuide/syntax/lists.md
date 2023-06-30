@@ -121,8 +121,8 @@ The list icons can be customized by adding an {icon="..."} at the end of a list 
 
 * item 1 {icon="x"}
 * item 2 {icon="heavy_check_mark"}
-* item 3 {icon="/images/deer.jpg"}
-* item 4
+* item 3
+* item 4 {icon="/images/deer.jpg"}
   
 {icon="fas fa-check"}
 </variable>

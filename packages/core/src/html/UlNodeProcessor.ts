@@ -101,7 +101,7 @@ function createIChild(parent: NodeOrText, icon: string, iconSize: string, classN
   const size = getSize(iconSize);
 
   let child: NodeOrText;
-  const defaultSize = `width: ${size.imageSize}; height: ${size.imageSize}; margin-right: 5px;`;
+  const defaultSize = `width: ${size.imageSize}; height: ${size.imageSize}; margin-right: 5px; margin-bottom: 1rem;`;
 
   if (isEmoji) {
     child = {
@@ -110,7 +110,7 @@ function createIChild(parent: NodeOrText, icon: string, iconSize: string, classN
       attribs: {
         ...className && { class: className },
         'aria-hidden': 'true',
-        style: defaultSize + size.fontSize ? `font-size:${size.fontSize}; margin-right: 5px;` : 'margin-right: 5px;'
+        style: defaultSize + (size.fontSize ? `font-size:${size.fontSize}; margin-right: 5px;` : 'margin-right: 5px;'),
       },
       children: [{
         type: 'text',
