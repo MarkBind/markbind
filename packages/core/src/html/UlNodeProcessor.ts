@@ -1,3 +1,4 @@
+import { IconSize } from "@primer/octicons";
 import { NodeOrText } from "../utils/node";
 import { EmojiConvertor } from 'emoji-js';
 
@@ -77,7 +78,9 @@ function updateLiChildren(child: NodeOrText, parentIconAttributes: IconAttribute
   if (child.attribs?.['size']) delete child.attribs['size'];
   if (child.attribs?.['class']) delete child.attribs['class'];
 
-  const iChild: NodeOrText = createIChild(child, icon, iconSize, className);
+  const size = getSize(iconSize);
+
+  const iChild: NodeOrText = createIChild(child, icon, size, className);
   const divChild: NodeOrText = createDivChild(child, child.children || []);
   child.children = [iChild, divChild];
   updateNodeRelations(iChild, divChild, child.children || []);
@@ -86,7 +89,7 @@ function updateLiChildren(child: NodeOrText, parentIconAttributes: IconAttribute
 }
 
 
-function createIChild(parent: NodeOrText, icon: string, iconSize: string, className?: string): NodeOrText {
+function createIChild(parent: NodeOrText, icon: string, size: Size, className?: string): NodeOrText {
   const emoji = new EmojiConvertor();
   emoji.replace_mode = 'unified';
   emoji.allow_native = true;
@@ -98,10 +101,10 @@ function createIChild(parent: NodeOrText, icon: string, iconSize: string, classN
   const localFileRegex = /^(\.\/)?[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=%]+\.(jpg|png|gif|bmp|svg|jpeg)$/;
   const urlRegex = /^(http(s)?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
   const isImage = !isEmoji && (localFileRegex.test(icon) || urlRegex.test(icon));
-  const size = getSize(iconSize);
 
   let child: NodeOrText;
-  const defaultSize = `width: ${size.imageSize}; height: ${size.imageSize}; margin-right: 5px; margin-bottom: 1rem;`;
+  const defaultSize = `width: ${size.squareSize}; height: ${size.squareSize}; 
+          margin-right:5px;text-align:center;display:flex;align-items:center;`;
 
   if (isEmoji) {
     child = {
@@ -129,7 +132,7 @@ function createIChild(parent: NodeOrText, icon: string, iconSize: string, classN
         ...className && { class: className },
         src: icon,
         alt: altText,
-        style: defaultSize,
+        style: defaultSize + "margin-bottom: 1rem;",
       },
       children: [],
       next: undefined,
@@ -153,21 +156,26 @@ function createIChild(parent: NodeOrText, icon: string, iconSize: string, classN
   }
   return child;
 }
+type Size = {
+  fontSize: string;
+  imageSize: string;
+  squareSize: string;
+};
 
 function getSize(iconSize: string) {
   iconSize = (iconSize || 'xs').toLowerCase();
 
   switch (iconSize) {
     case 's':
-      return { fontSize: '30px', imageSize: '30px' };
+      return { fontSize: '18px', imageSize: '30px', squareSize: '30px' };
     case 'm':
-      return { fontSize: '35px', imageSize: '35px' };
+      return { fontSize: '20px', imageSize: '40px', squareSize: '40px' };
     case 'l':
-      return { fontSize: '50px', imageSize: '50px' };
+      return { fontSize: '24px', imageSize: '50px', squareSize: '50px' };
     case 'xl':
-      return { fontSize: '65px', imageSize: '65px' };
+      return { fontSize: '28px', imageSize: '60px', squareSize: '60px' };
     default: // 'xs'
-      return { fontSize: '25px', imageSize: '25px' };
+      return { fontSize: '16px', imageSize: '25px', squareSize: '25px' };
   }
 }
 
