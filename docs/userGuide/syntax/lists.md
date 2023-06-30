@@ -114,11 +114,13 @@ first number
 <box type="tip" seamless>
 The list icons can be customized by adding an {icon="..."} at the end of a list item or a list itself.
 </box>
+
+
 <div id="main-example-markbind">
+
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-
 * item 1 {icon="x"}
 * item 2 {icon="heavy_check_mark"}
 * item 3
@@ -127,7 +129,9 @@ The list icons can be customized by adding an {icon="..."} at the end of a list 
 {icon="fas fa-check"}
 </variable>
 </include>
+
 </div>
+
 <box type="warning">
 
 1. Item-level specifications should only be attached to the list heading or list item, not the list content.
@@ -141,10 +145,10 @@ The list icons can be customized by adding an {icon="..."} at the end of a list 
 It is possible to specify icons for nested levels using the icons attribute.
 </box>
 <div id="main-example-markbind">
+
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-
 * item 1
 * item 2 
   * item 2.1
@@ -155,16 +159,17 @@ It is possible to specify icons for nested levels using the icons attribute.
 {icon="fas fa-check"}
 </variable>
 </include>
+
 </div>
 
 <box type="tip" seamless>
 The icon appearance can be customized further a class attribute.
 </box>
 <div id="main-example-markbind">
+
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-
 * item 1 {icon="fas fa-check" class="text-warning"}
 * item 2 {icon="fas fa-check" class="text-danger"}
 * item 3 
@@ -172,12 +177,14 @@ The icon appearance can be customized further a class attribute.
 {icon="fas fa-check" class="text-primary"}
 </variable>
 </include>
+
 </div>
 <box type="tip" seamless>
 
 You can adjust the size of the icon by using the size attribute, which accepts the following options: 's', 'm', 'l', 'xl'.
 </box>
 <div id="main-example-markbind">
+
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
@@ -189,6 +196,7 @@ You can adjust the size of the icon by using the size attribute, which accepts t
 * item 4 {icon="/images/deer.jpg" size="xl"}
 </variable>
 </include>
+
 </div>
 
 <box type="tip" seamless>
@@ -196,6 +204,7 @@ You can adjust the size of the icon by using the size attribute, which accepts t
 You can craft a media list using Markdown's heading and paragraph syntax.
 </box>
 <div id="main-example-markbind">
+
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
@@ -221,4 +230,5 @@ You can craft a media list using Markdown's heading and paragraph syntax.
 {icon="/images/deer.jpg" size="xl" class="rounded"}
 </variable>
 </include>
+
 </div>
