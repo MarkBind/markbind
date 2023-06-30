@@ -149,7 +149,6 @@ It is possible to specify icons for nested levels using the icons attribute.
 * item 2 
   * item 2.1
   * item 2.2
-  
   {icon="x"}
 * item 3
   
@@ -183,13 +182,11 @@ You can adjust the size of the icon by using the size attribute, which accepts t
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
-* item 1
-  
-* item 2  
-
-* item 3 
-
-{icon="/images/deer.jpg" size="xl" class="rounded"}
+* item 1 {icon="/images/deer.jpg" size="xs"}
+* item 1 {icon="/images/deer.jpg" size="s"}
+* item 2 {icon="/images/deer.jpg" size="m"}
+* item 3 {icon="/images/deer.jpg" size="l"}
+* item 4 {icon="/images/deer.jpg" size="xl"}
 </variable>
 </include>
 </div>

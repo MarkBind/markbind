@@ -13,7 +13,7 @@ export function processUlNode(node: NodeOrText): NodeOrText {
   const hasIconInChildren = node.children?.find((child: NodeOrText) => child.name === 'li' && child.attribs?.['icon']);
   if (iconUl == undefined && hasIconInChildren == undefined) return node;
 
-  if ('name' in node && node.name === 'ul' && iconUl !== undefined) {
+  if ('name' in node && node.name === 'ul') {
     const iconAttributes: IconAttributes = {
       icon: iconUl,
       iconSize: node.attribs?.['size'],
@@ -69,7 +69,7 @@ function updateNodeStyle(node: NodeOrText) {
 
 function updateLiChildren(child: NodeOrText, parentIconAttributes: IconAttributes, defaultLiIconAttributes: IconAttributes) {
   // Get the child's attributes, these will override the parent's attributes
-  const icon = child.attribs?.['icon'] || parentIconAttributes.icon || defaultLiIconAttributes.icon || 'fire';
+  const icon = child.attribs?.['icon'] || parentIconAttributes.icon || defaultLiIconAttributes.icon;
   const iconSize = child.attribs?.['size'] || parentIconAttributes.iconSize || defaultLiIconAttributes.iconSize;
   const className = child.attribs?.['class'] || parentIconAttributes.className || defaultLiIconAttributes.className;
 
