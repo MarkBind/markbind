@@ -8,9 +8,13 @@ interface IconAttributes {
 }
 
 export function processUlNode(node: NodeOrText): NodeOrText {
-  if ('name' in node && node.name === 'ul') {
+  const iconUl = node.attribs?.['icon'];
+  const hasIconInChildren = node.children?.find((child: NodeOrText) => child.name === 'li' && child.attribs?.['icon']);
+  if (iconUl == undefined && hasIconInChildren == undefined) return node;
+
+  if ('name' in node && node.name === 'ul' && iconUl !== undefined) {
     const iconAttributes: IconAttributes = {
-      icon: node.attribs?.['icon'],
+      icon: iconUl,
       iconSize: node.attribs?.['size'],
       className: node.attribs?.['class']
     };
@@ -21,7 +25,6 @@ export function processUlNode(node: NodeOrText): NodeOrText {
     if (iconAttributes.className) delete node.attribs?.['class'];
 
 
-    const hasIconInChildren = node.children?.find((child: NodeOrText) => child.name === 'li' && child.attribs?.['icon']);
 
     let defaultLiIcon: IconAttributes = {};
     if (hasIconInChildren) {
@@ -38,7 +41,7 @@ export function processUlNode(node: NodeOrText): NodeOrText {
       // Update children based on the conditions
       node.children = node.children?.map((child: NodeOrText) => {
         if (child.name === 'li') {
-          updateLiChildren(child, iconAttributes, defaultLiIcon  );
+          updateLiChildren(child, iconAttributes, defaultLiIcon);
         }
         return child;
       }) || [];
@@ -98,6 +101,7 @@ function createIChild(parent: NodeOrText, icon: string, iconSize: string, classN
   const size = getSize(iconSize);
 
   let child: NodeOrText;
+  const defaultSize = `width: ${size.imageSize}; height: ${size.imageSize}; margin-right: 5px;`;
 
   if (isEmoji) {
     child = {
@@ -106,7 +110,7 @@ function createIChild(parent: NodeOrText, icon: string, iconSize: string, classN
       attribs: {
         ...className && { class: className },
         'aria-hidden': 'true',
-        style: size.fontSize ? `font-size:${size.fontSize}; margin-right: 5px;` : 'margin-right: 5px;'
+        style: defaultSize + size.fontSize ? `font-size:${size.fontSize}; margin-right: 5px;` : 'margin-right: 5px;'
       },
       children: [{
         type: 'text',
@@ -118,7 +122,6 @@ function createIChild(parent: NodeOrText, icon: string, iconSize: string, classN
     };
   } else if (isImage) {
     const altText = icon.split('/').pop()?.split('.')[0] || '';
-
     child = {
       type: 'tag',
       name: 'img',
@@ -126,7 +129,7 @@ function createIChild(parent: NodeOrText, icon: string, iconSize: string, classN
         ...className && { class: className },
         src: icon,
         alt: altText,
-        style: `width: ${size.imageSize}; height: ${size.imageSize}; margin-right: 5px;`
+        style: defaultSize,
       },
       children: [],
       next: undefined,
@@ -140,7 +143,7 @@ function createIChild(parent: NodeOrText, icon: string, iconSize: string, classN
       attribs: {
         class: className ? `${icon} ${className}` : icon,
         'aria-hidden': 'true',
-        style: `padding:5px;margin-right:5px;${size.fontSize ? `font-size:${size.fontSize};` : ''}`
+        style: defaultSize + `margin-right:5px;${size.fontSize ? `font-size:${size.fontSize};` : ''}`
       },
       children: [],
       next: undefined,
@@ -151,7 +154,7 @@ function createIChild(parent: NodeOrText, icon: string, iconSize: string, classN
   return child;
 }
 
-function getSize(iconSize :string) {
+function getSize(iconSize: string) {
   iconSize = (iconSize || 'xs').toLowerCase();
 
   switch (iconSize) {
@@ -164,7 +167,7 @@ function getSize(iconSize :string) {
     case 'xl':
       return { fontSize: '65px', imageSize: '65px' };
     default: // 'xs'
-      return { fontSize: undefined, imageSize: '25px' };
+      return { fontSize: '25px', imageSize: '25px' };
   }
 }
 
