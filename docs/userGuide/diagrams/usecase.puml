@@ -3,7 +3,7 @@ left to right direction
 skinparam packageStyle rectangle
 actor customer
 actor clerk
-rectangle checkout {
+rectangle checkout as c {
   customer -- (checkout)
   (checkout) .> (payment) : include
   (help) .> (checkout) : extends
