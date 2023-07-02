@@ -125,20 +125,34 @@ function createIChild(parent: NodeOrText, icon: string, size: Size, className?: 
     };
   } else if (isImage) {
     const altText = icon.split('/').pop()?.split('.')[0] || '';
-    child = {
+    const divNode: NodeOrText = {
       type: 'tag',
-      name: 'img',
+      name: 'div',
       attribs: {
-        ...className && { class: className },
-        src: icon,
-        alt: altText,
-        style: defaultSize + "margin-bottom: 1rem;",
+        style: "padding: 0.2rem;",
       },
       children: [],
       next: undefined,
       prev: undefined,
       parent: parent,
     };
+
+    const imgNode: NodeOrText = {
+      type: 'tag',
+      name: 'img',
+      attribs: {
+        ...className && { class: className },
+        src: icon,
+        alt: altText,
+        style: defaultSize,
+      },
+      children: [],
+      next: undefined,
+      prev: undefined,
+      parent: divNode,
+    };
+    divNode.children?.push(imgNode);
+    child = divNode;
   } else {
     child = {
       type: 'tag',
@@ -162,22 +176,31 @@ type Size = {
   squareSize: string;
 };
 
-function getSize(iconSize: string) {
-  iconSize = (iconSize || 'xs').toLowerCase();
-
-  switch (iconSize) {
-    case 's':
-      return { fontSize: '18px', imageSize: '30px', squareSize: '30px' };
-    case 'm':
-      return { fontSize: '20px', imageSize: '40px', squareSize: '40px' };
-    case 'l':
-      return { fontSize: '24px', imageSize: '50px', squareSize: '50px' };
-    case 'xl':
-      return { fontSize: '28px', imageSize: '60px', squareSize: '60px' };
-    default: // 'xs'
-      return { fontSize: '16px', imageSize: '25px', squareSize: '25px' };
+function getSize(iconSize = "25px") {
+  if (typeof iconSize === 'number') {
+    // If iconSize is a number, convert it to a string and add 'px'
+    iconSize = `${iconSize}px`;
+  } else if (typeof iconSize !== 'string' || !/^\d+px$/.test(iconSize)) {
+    // If iconSize is not a string in the format 'nnnpx', default to '25px'
+    iconSize = '25px';
   }
+  // Remove 'px' from the end and convert to a number
+  let n = Number(iconSize.slice(0, -2));
+
+  // Calculate fontSize based on the size of the square and image. 
+  // The multiplier (0.64) is approximated from the relationship in the provided sizes.
+  let fontSize = 16 + (n - 25) * 0.64;
+
+  // Make sure fontSize doesn't go below 16
+  fontSize = Math.max(fontSize, 16);
+
+  return {
+    fontSize: `${fontSize}px`,
+    imageSize: iconSize,
+    squareSize: iconSize,
+  };
 }
+
 
 
 

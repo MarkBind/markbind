@@ -152,17 +152,17 @@ first number
 
 </div>
 
-**You can adjust the icon's size by using the `width` attribute.**
+**You can adjust the icon's size by using the `size` attribute.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
-* item 1 {icon="/images/deer.jpg" size="xs"}
-* item 1 {icon="/images/deer.jpg" size="s"}
-* item 2 {icon="/images/deer.jpg" size="m"}
-* item 3 {icon="/images/deer.jpg" size="l"}
-* item 4 {icon="/images/deer.jpg" size="xl"}
+* item 1 {icon="/images/deer.jpg" size="25px"}
+* item 1 {icon="/images/deer.jpg" size="35px"}
+* item 2 {icon="/images/deer.jpg" size="45px"}
+* item 3 {icon="/images/deer.jpg" size="55px"}
+* item 4 {icon="/images/deer.jpg" size="65px"}
 </variable>
 </include>
 
@@ -172,7 +172,7 @@ first number
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
-* ### item 1 Planning {icon="/images/planning.png" size="xl" class="rounded"}
+* ### item 1 Planning {icon="/images/planning.png" size="65px" class="rounded"}
   
    This is the content for item 1. 
    Here we discuss the key aspects and details related to this specific item. 
@@ -185,13 +185,13 @@ first number
   providing a robust analysis and extensive insights. 
   The goal is to offer a thorough understanding of the subject matter.
 
-* ### item 3 Perspective {icon="/images/angle.png" size="xl" class="rounded"}
+* ### item 3 Perspective {icon="/images/angle.png" size="65px" class="rounded"}
 
   The content for item 3 takes a different angle, offering fresh perspectives and innovative ideas. 
   The objective is to stimulate thought and inspire creative solutions.
 
 
-{icon="/images/ideas.png" size="xl" class="rounded"}
+{icon="/images/ideas.png" size="65px" class="rounded"}
 </variable>
 </include>
 
