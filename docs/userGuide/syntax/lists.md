@@ -172,24 +172,23 @@ first number
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
-* ### item 1 Planning {icon="/images/planning.png" size="65px" class="rounded"}
+* ### Heading 1 Planning {icon="/images/planning.png" size="65px" class="rounded"}
   
    This is the content for item 1. 
    Here we discuss the key aspects and details related to this specific item. 
    Information is comprehensive, well-organized, 
    and presented in a clear, concise manner.  
    
-* ### item 2 Detail
+* ### Heading 2 Detail
 
   For item 2, the content delves deeper into the topic, 
   providing a robust analysis and extensive insights. 
   The goal is to offer a thorough understanding of the subject matter.
 
-* ### item 3 Perspective {icon="/images/angle.png" size="65px" class="rounded"}
+* ### Heading 3 Perspective {icon="/images/angle.png" size="65px" class="rounded"}
 
   The content for item 3 takes a different angle, offering fresh perspectives and innovative ideas. 
   The objective is to stimulate thought and inspire creative solutions.
-
 
 {icon="/images/ideas.png" size="65px" class="rounded"}
 </variable>
