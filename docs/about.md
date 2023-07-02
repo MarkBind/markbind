@@ -123,6 +123,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/bibhu107"><img src="https://avatars.githubusercontent.com/u/23478853?v=4?s=100" width="100px;" alt="Bibhu"/><br /><sub><b>Bibhu</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=bibhu107" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/WillCWX"><img src="https://avatars.githubusercontent.com/u/55905659?v=4?s=100" width="100px;" alt="WillCWX"/><br /><sub><b>WillCWX</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=WillCWX" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://esswhyy.github.io"><img src="https://avatars.githubusercontent.com/u/39799639?v=4?s=100" width="100px;" alt="Sven Tang"/><br /><sub><b>Sven Tang</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=EssWhyy" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.lesterong.com"><img src="https://avatars.githubusercontent.com/u/84223259?v=4?s=100" width="100px;" alt="lesterong"/><br /><sub><b>lesterong</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=lesterong" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
