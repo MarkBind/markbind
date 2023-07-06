@@ -1,4 +1,4 @@
-const { filter } = require('../../../../src/lib/nunjucks-extensions/nunjucks-date');
+import { filter } from '../../../../src/lib/nunjucks-extensions/nunjucks-date';
 
 test('without format and days to add', () => {
   const actual = filter('2020-01-01');
