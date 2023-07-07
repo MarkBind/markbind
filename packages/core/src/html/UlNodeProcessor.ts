@@ -1,7 +1,8 @@
-import { EmojiConvertor } from 'emoji-js';
 import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
 import { NodeOrText } from '../utils/node';
+import emojiData from '../../src/lib/markdown-it/patches/markdown-it-emoji-fixed';
+import octicons, { IconName as OctName } from '@primer/octicons';
 
 interface IconAttributes {
   icon?: string;
@@ -41,6 +42,73 @@ function createStyleString(styleObject: { [key: string]: string }): string {
   return Object.entries(styleObject).map(
     ([property, value]: [string, string]) => `${property}: ${value}`).join('; ');
 }
+function classifyIcon(icon: string) {
+  const isEmoji = Object.prototype.hasOwnProperty.call(emojiData, icon);
+  const localFileRegex = /^(\.\/)?[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=%]+\.(jpg|png|gif|bmp|svg|jpeg)$/;
+  const urlRegex = /^(http(s)?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
+  const isImage = !isEmoji && (localFileRegex.test(icon) || urlRegex.test(icon));
+
+  let iconClass;
+  let iconName;
+  let isOcticon = false;
+  let octiconColor = undefined;
+  let octiconClass = undefined;
+  if (!isEmoji && !isImage) {
+    const materialIconsRegex = /^(mif|mio|mir|mis|mit)-(.*)/;
+    // Updated regex to handle both 'octicon-' and 'octiconlight-' prefixes
+    const octiconRegex = /^(octiconlight-)?(octicon-)?([a-z-]+)(~[\w-]+)?/;
+    const materialIconsMatch = icon.match(materialIconsRegex);
+    const octiconMatch = icon.match(octiconRegex);
+    if (materialIconsMatch) {
+      const [, prefix, name] = materialIconsMatch;
+      switch (prefix) {
+        case 'mif':
+          iconClass = 'material-icons align-middle';
+          break;
+        case 'mio':
+          iconClass = 'material-icons-outlined align-middle';
+          break;
+        case 'mir':
+          iconClass = 'material-icons-round align-middle';
+          break;
+        case 'mis':
+          iconClass = 'material-icons-sharp align-middle';
+          break;
+        case 'mit':
+          iconClass = 'material-icons-two-tone align-middle';
+          break;
+      }
+      iconName = name.replace(/-/g, '_');
+    } else if (octiconMatch) {
+      const [, , , name, classMatch] = octiconMatch;
+      isOcticon = true;
+      iconName = name;
+      octiconClass = classMatch ? classMatch.slice(1) : undefined;
+      octiconColor = octiconMatch[1] ? '#fff' : undefined;
+    } else {
+      const prefixRegex = /^(fas-|far-|fab-|glyphicon-)/;
+      iconClass = icon.replace(prefixRegex, (match, p1) => {
+        switch (p1) {
+          case 'glyphicon-':
+            return 'glyphicon ' + match;
+          default:
+            return p1.slice(0, -1) + ' ';
+        }
+      });
+    }
+  }
+
+  return { isEmoji, isImage, unicodeEmoji: isEmoji ? emojiData[icon] : undefined, iconClass, iconName, isOcticon, octiconColor, octiconClass };
+}
+
+
+
+
+function getOcticonIcon(iconName: string) {
+  return octicons[iconName as OctName] ?? null;
+}
+
+
 
 function createIChild(
   parent: NodeOrText,
@@ -48,17 +116,8 @@ function createIChild(
   size: Size,
   className?: string,
 ): NodeOrText {
-  const emoji = new EmojiConvertor();
-  emoji.replace_mode = 'unified';
-  emoji.allow_native = true;
-
-  const emojiString = `:${icon}:`;
-  const unicodeEmoji = emoji.replace_colons(emojiString);
-
-  const isEmoji = unicodeEmoji !== emojiString;
-  const localFileRegex = /^(\.\/)?[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=%]+\.(jpg|png|gif|bmp|svg|jpeg)$/;
-  const urlRegex = /^(http(s)?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
-  const isImage = !isEmoji && (localFileRegex.test(icon) || urlRegex.test(icon));
+  const { isEmoji, isImage, unicodeEmoji, iconClass, iconName, isOcticon, octiconColor, octiconClass } = classifyIcon(icon);
+  icon = iconClass || icon;
 
   let child: NodeOrText;
   const defaultSize = `width: ${size.squareSize}; height: ${size.squareSize}; 
@@ -114,16 +173,46 @@ function createIChild(
     };
     divNode.children?.push(imgNode);
     child = divNode;
-  } else {
+  } else if (isOcticon) {
+    const octiconIcon = getOcticonIcon(iconName!);
+    let svgStr = octiconIcon.toSVG({
+      class: octiconClass ? `${iconClass} ${octiconClass}` : iconClass,
+    });
+
+    if (octiconColor) {
+      svgStr = svgStr.replace('<path', `<path fill="${octiconColor}"`);
+    }
     child = {
       type: 'tag',
-      name: 'i',
+      name: 'span',
       attribs: {
         class: className ? `${icon} ${className}` : icon,
         'aria-hidden': 'true',
         style: `${defaultSize}margin-right:5px;${size.fontSize ? `font-size:${size.fontSize};` : ''}`,
       },
-      children: [],
+      children: [
+        {
+          type: 'text',
+          data: svgStr,
+        },
+      ],
+      next: undefined,
+      prev: undefined,
+      parent,
+    };
+  } else {
+    child = {
+      type: 'tag',
+      name: 'span',
+      attribs: {
+        class: className ? `${icon} ${className}` : icon,
+        'aria-hidden': 'true',
+        style: `${defaultSize}margin-right:5px;${size.fontSize ? `font-size:${size.fontSize};` : ''}`,
+      },
+      children: iconName ? [{
+        type: 'text',
+        data: iconName,
+      }] : [],
       next: undefined,
       prev: undefined,
       parent,
@@ -180,12 +269,12 @@ function updateNodeStyle(node: NodeOrText) {
 }
 
 function updateLiChildren(child: NodeOrText, parentIconAttributes:
-IconAttributes, defaultLiIconAttributes: IconAttributes) {
+  IconAttributes, defaultLiIconAttributes: IconAttributes) {
   const icon = child.attribs?.icon || parentIconAttributes.icon || defaultLiIconAttributes.icon;
   const iconSize = child.attribs?.size || parentIconAttributes.iconSize || defaultLiIconAttributes.iconSize;
   const className = child.attribs?.class
-                        || parentIconAttributes.className
-                        || defaultLiIconAttributes.className;
+    || parentIconAttributes.className
+    || defaultLiIconAttributes.className;
 
   if (child.attribs?.icon) delete child.attribs.icon;
   if (child.attribs?.size) delete child.attribs.size;
