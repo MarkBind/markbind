@@ -56,7 +56,7 @@ function classifyIcon(icon: string) {
   if (!isEmoji && !isImage) {
     const materialIconsRegex = /^(mif|mio|mir|mis|mit)-(.*)/;
     // Updated regex to handle both 'octicon-' and 'octiconlight-' prefixes
-    const octiconRegex = /^(octiconlight-)?(octicon-)?([a-z-]+)(~[\w-]+)?/;
+    const octiconRegex = /^(octiconlight-octicon-|octicon-)([a-z-]+)(~[\w-]+)?/;
     const materialIconsMatch = icon.match(materialIconsRegex);
     const octiconMatch = icon.match(octiconRegex);
     if (materialIconsMatch) {
@@ -80,11 +80,11 @@ function classifyIcon(icon: string) {
       }
       iconName = name.replace(/-/g, '_');
     } else if (octiconMatch) {
-      const [, , , name, classMatch] = octiconMatch;
+      const [, prefix, name, classMatch] = octiconMatch;
       isOcticon = true;
       iconName = name;
       octiconClass = classMatch ? classMatch.slice(1) : undefined;
-      octiconColor = octiconMatch[1] ? '#fff' : undefined;
+      octiconColor = prefix === 'octiconlight-octicon-' ? '#fff' : undefined;
     } else {
       const prefixRegex = /^(fas-|far-|fab-|glyphicon-)/;
       iconClass = icon.replace(prefixRegex, (match, p1) => {
@@ -176,7 +176,7 @@ function createIChild(
   } else if (isOcticon) {
     const octiconIcon = getOcticonIcon(iconName!);
     let svgStr = octiconIcon.toSVG({
-      class: octiconClass ? `${iconClass} ${octiconClass}` : iconClass,
+      class: octiconClass ? `${iconClass} ${octiconClass} ${className}` : `${iconClass} ${className}`,
     });
 
     if (octiconColor) {
@@ -186,7 +186,6 @@ function createIChild(
       type: 'tag',
       name: 'span',
       attribs: {
-        class: className ? `${icon} ${className}` : icon,
         'aria-hidden': 'true',
         style: `${defaultSize}margin-right:5px;${size.fontSize ? `font-size:${size.fontSize};` : ''}`,
       },

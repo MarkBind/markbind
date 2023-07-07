@@ -128,6 +128,7 @@ first number
 * item 6 {icon="mif-perm-media"}
 * item 7 {icon="zzz"}
 * item 8 {icon="glyphicon-education"}
+* item 9 {icon="octicon-git-pull-request"}
   
 {icon="fas-fa-check"}
 </variable>
@@ -151,6 +152,7 @@ first number
 * item 6 {icon="mif-perm-media"}
 * item 7 {icon="zzz"}
 * item 8 {icon="glyphicon-education"}
+* item 9 {icon="octicon-git-pull-request"}
 
 {icon="fas-fa-check" class="text-primary"}
 </variable>
