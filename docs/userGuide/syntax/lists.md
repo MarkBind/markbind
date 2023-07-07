@@ -117,16 +117,19 @@ first number
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-* item 1 {icon="fas fa-times"}
+* item 1 {icon="fas-fa-times"}
 * item 2 a default icon
-  * item 2.1 {icon="fas fa-check"}
+  * item 2.1 {icon="fas-fa-check"}
   * item 2.2
-  {icon="fas fa-times"}
-* item 3 {icon="fa fa-home"}
-* item 4 {icon="fa fa-trophy"}
-* item 5 {icon="glyphicon glyphicon-education"}
+  {icon="fas-fa-times"}
+* item 3 {icon="fas-fa-home"}
+* item 4 {icon="fas-fa-trophy"}
+* item 5 {icon="glyphicon-education"}
+* item 6 {icon="mif-perm-media"}
+* item 7 {icon="zzz"}
+* item 8 {icon="glyphicon-education"}
   
-{icon="fas fa-check"}
+{icon="fas-fa-check"}
 </variable>
 </include>
 
@@ -137,16 +140,19 @@ first number
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-* item 1 {icon="fas fa-times" class="text-danger"}
+* item 1 {icon="fas-fa-times" class="text-danger"}
 * item 2 a default icon
-  * item 2.1 {icon="fas fa-check" class="text-primary"}
+  * item 2.1 {icon="fas-fa-check" class="text-primary"}
   * item 2.2
   {icon="fas fa-times" class="text-danger"}
-* item 3 {icon="fa fa-home"}
-* item 4 {icon="fa fa-trophy"}
-* item 5 {icon="glyphicon glyphicon-education"}
-  
-{icon="fas fa-check" class="text-primary"}
+* item 3 {icon="fas-fa-home"}
+* item 4 {icon="fas-fa-trophy"}
+* item 5 {icon="glyphicon-education"}
+* item 6 {icon="mif-perm-media"}
+* item 7 {icon="zzz"}
+* item 8 {icon="glyphicon-education"}
+
+{icon="fas-fa-check" class="text-primary"}
 </variable>
 </include>
 
