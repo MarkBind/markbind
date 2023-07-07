@@ -55,7 +55,6 @@ function classifyIcon(icon: string) {
   let octiconClass = undefined;
   if (!isEmoji && !isImage) {
     const materialIconsRegex = /^(mif|mio|mir|mis|mit)-(.*)/;
-    // Updated regex to handle both 'octicon-' and 'octiconlight-' prefixes
     const octiconRegex = /^(octiconlight-octicon-|octicon-)([a-z-]+)(~[\w-]+)?/;
     const materialIconsMatch = icon.match(materialIconsRegex);
     const octiconMatch = icon.match(octiconRegex);
@@ -87,19 +86,25 @@ function classifyIcon(icon: string) {
       octiconColor = prefix === 'octiconlight-octicon-' ? '#fff' : undefined;
     } else {
       const prefixRegex = /^(fas-|far-|fab-|glyphicon-)/;
-      iconClass = icon.replace(prefixRegex, (match, p1) => {
-        switch (p1) {
-          case 'glyphicon-':
-            return 'glyphicon ' + match;
-          default:
-            return p1.slice(0, -1) + ' ';
-        }
-      });
+      if (prefixRegex.test(icon)) {
+        iconClass = icon.replace(prefixRegex, (match, p1) => {
+          switch (p1) {
+            case 'glyphicon-':
+              return 'glyphicon ' + match;
+            default:
+              return p1.slice(0, -1) + ' ';
+          }
+        });
+      } else {
+        // if the icon does not match any category, return it as it is
+        iconClass = icon;
+      }
     }
   }
 
   return { isEmoji, isImage, unicodeEmoji: isEmoji ? emojiData[icon] : undefined, iconClass, iconName, isOcticon, octiconColor, octiconClass };
 }
+
 
 
 
