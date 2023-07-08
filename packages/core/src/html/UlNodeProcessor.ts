@@ -1,6 +1,6 @@
 import octicons, { IconName as OctName } from '@primer/octicons';
 import { NodeOrText } from '../utils/node';
-import emojiData from '../lib/markdown-it/patches/markdown-it-emoji-fixed';
+import { content as emojiData } from '../lib/markdown-it/patches/markdown-it-emoji-fixed';
 
 interface IconAttributes {
   icon?: string;
