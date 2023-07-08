@@ -358,8 +358,8 @@ export default {
         }
 
         .card-collapse > hr {
-            margin-top: 0.5rem !important;
-            margin-bottom: 0.5rem !important;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
         }
 
         .card-header {
