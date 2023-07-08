@@ -1,10 +1,6 @@
-import isNumber from 'lodash/isNumber';
-import isString from 'lodash/isString';
-import { NodeOrText } from '../utils/node';
-import emojiData from '../../src/lib/markdown-it/patches/markdown-it-emoji-fixed';
 import octicons, { IconName as OctName } from '@primer/octicons';
-import { is } from 'bluebird';
-import { escapeRE } from 'markdown-it/lib/common/utils';
+import { NodeOrText } from '../utils/node';
+import * as emojiData from '../lib/markdown-it/patches/markdown-it-emoji-fixed';
 
 interface IconAttributes {
   icon?: string;
@@ -54,8 +50,8 @@ function classifyIcon(icon: string) {
   let iconClass;
   let iconName;
   let isOcticon = false;
-  let octiconColor = undefined;
-  let octiconClass = undefined;
+  let octiconColor;
+  let octiconClass;
   if (!isEmoji && !isImage) {
     const materialIconsRegex = /^(mif|mio|mir|mis|mit)-(.*)/;
     const octiconRegex = /^(octiconlight-octicon-|octicon-)([a-z-]+)(~[\w-]+)?/;
@@ -64,21 +60,23 @@ function classifyIcon(icon: string) {
     if (materialIconsMatch) {
       const [, prefix, name] = materialIconsMatch;
       switch (prefix) {
-        case 'mif':
-          iconClass = 'material-icons align-middle';
-          break;
-        case 'mio':
-          iconClass = 'material-icons-outlined align-middle';
-          break;
-        case 'mir':
-          iconClass = 'material-icons-round align-middle';
-          break;
-        case 'mis':
-          iconClass = 'material-icons-sharp align-middle';
-          break;
-        case 'mit':
-          iconClass = 'material-icons-two-tone align-middle';
-          break;
+      case 'mif':
+        iconClass = 'material-icons align-middle';
+        break;
+      case 'mio':
+        iconClass = 'material-icons-outlined align-middle';
+        break;
+      case 'mir':
+        iconClass = 'material-icons-round align-middle';
+        break;
+      case 'mis':
+        iconClass = 'material-icons-sharp align-middle';
+        break;
+      case 'mit':
+        iconClass = 'material-icons-two-tone align-middle';
+        break;
+      default:
+        iconClass = 'material-icons align-middle';
       }
       iconName = name.replace(/-/g, '_');
     } else if (octiconMatch) {
@@ -92,10 +90,10 @@ function classifyIcon(icon: string) {
       if (prefixRegex.test(icon)) {
         iconClass = icon.replace(prefixRegex, (match, p1) => {
           switch (p1) {
-            case 'glyphicon-':
-              return 'glyphicon ' + match;
-            default:
-              return p1.slice(0, -1) + ' ';
+          case 'glyphicon-':
+            return `glyphicon ${match}`;
+          default:
+            return `${p1.slice(0, -1)} `;
           }
         });
       } else {
@@ -105,27 +103,41 @@ function classifyIcon(icon: string) {
     }
   }
 
-  return { isEmoji, isImage, unicodeEmoji: isEmoji ? emojiData[icon] : undefined, iconClass, iconName, isOcticon, octiconColor, octiconClass };
+  return {
+    isEmoji,
+    isImage,
+    unicodeEmoji: isEmoji
+      ? emojiData[icon]
+      : undefined,
+    iconClass,
+    iconName,
+    isOcticon,
+    octiconColor,
+    octiconClass,
+  };
 }
-
-
-
-
 
 function getOcticonIcon(iconName: string) {
   return octicons[iconName as OctName] ?? null;
 }
 
-
-
 function createIChild(
   parent: NodeOrText,
-  icon: string,
+  iIcon: string,
   size: Size,
   className?: string,
 ): NodeOrText {
-  const { isEmoji, isImage, unicodeEmoji, iconClass, iconName, isOcticon, octiconColor, octiconClass } = classifyIcon(icon);
-  icon = iconClass || icon;
+  const {
+    isEmoji,
+    isImage,
+    unicodeEmoji,
+    iconClass,
+    iconName,
+    isOcticon,
+    octiconColor,
+    octiconClass,
+  } = classifyIcon(iIcon);
+  const icon = iconClass || iIcon;
 
   let child: NodeOrText;
   const defaultSize = `width: ${size.width}; height: ${size.height}; 
@@ -216,10 +228,12 @@ function createIChild(
         'aria-hidden': 'true',
         style: `${defaultSize}margin-right:5px;${size.fontSize ? `font-size:${size.fontSize};` : ''}`,
       },
-      children: iconName ? [{
-        type: 'text',
-        data: iconName,
-      }] : [],
+      children: iconName ? [
+        {
+          type: 'text',
+          data: iconName,
+        },
+      ] : [],
       next: undefined,
       prev: undefined,
       parent,
@@ -228,20 +242,22 @@ function createIChild(
   return child;
 }
 
-function getSize(width: string, height: string) {
-  width = width || height || '25px';
-  height = height || width || '25px';
+function getSize(widthPar: string, heightPar: string) {
+  const width = widthPar || heightPar || '25px';
+  const height = heightPar || widthPar || '25px';
   const sizeUnitRegexp = /(\d+)(px|em|rem|%|vw|vh|vmin|vmax|ex|ch)/;
-  let widthMatch = width.match(sizeUnitRegexp);
-  let heightMatch = height.match(sizeUnitRegexp);
+  const widthMatch = width.match(sizeUnitRegexp);
+  const heightMatch = height.match(sizeUnitRegexp);
 
   if (!widthMatch || !heightMatch) {
-    throw new Error("Invalid width or height format. Expected format is number followed by unit (px|em|rem|%|vw|vh|vmin|vmax|ex|ch).");
+    throw new Error(`Invalid width or height format. 
+                    Expected format is number followed by unit
+                    (px | em | rem |%| vw | vh | vmin | vmax | ex | ch).`);
   }
 
   // Ensure both width and height are using the same unit
   if (widthMatch[2] !== heightMatch[2]) {
-    throw new Error("The units of width and height should be the same.");
+    throw new Error('The units of width and height should be the same.');
   }
 
   let fontSize = Math.min(parseFloat(widthMatch[1]), parseFloat(heightMatch[1]));
@@ -251,8 +267,8 @@ function getSize(width: string, height: string) {
 
   return {
     fontSize: `${fontSize}${widthMatch[2]}`, // fontSize in the same unit as width and height
-    width: width,
-    height: height,
+    width,
+    height,
   };
 }
 
@@ -277,7 +293,7 @@ function updateNodeStyle(node: NodeOrText) {
   node.attribs.style = createStyleString(styleObject);
 }
 
-function updateLiChildren(child: NodeOrText,  defaultLiIconAttributes: IconAttributes) {
+function updateLiChildren(child: NodeOrText, defaultLiIconAttributes: IconAttributes) {
   const icon = child.attribs?.icon || defaultLiIconAttributes.icon;
   const width = child.attribs?.width || defaultLiIconAttributes.width;
   const height = child.attribs?.height || defaultLiIconAttributes.height;
@@ -298,20 +314,15 @@ function updateLiChildren(child: NodeOrText,  defaultLiIconAttributes: IconAttri
 }
 
 export function processUlNode(node: NodeOrText): NodeOrText {
-  
- 
   if ('name' in node && node.name === 'ul') {
-    
     let defaultLi;
-
     let isFirst = true;
-
     // Ensure that node.children is defined before iterating
     if (node.children) {
       // Iterate over node.children to find the first li
       let defaultLiIcon: IconAttributes = {};
 
-      for (let i = 0; i < node.children.length; i++) {
+      for (let i = 0; i < node.children.length; i += 1) {
         if (node.children[i].name === 'li') {
           defaultLi = node.children[i];
           let curLiIcon: IconAttributes = {};
@@ -322,21 +333,17 @@ export function processUlNode(node: NodeOrText): NodeOrText {
             className: defaultLi.attribs?.class,
           };
 
-
           if (isFirst) {
-            if (!curLiIcon.icon) {
+            if (!curLiIcon.icon || curLiIcon.icon === undefined) {
               return node;
-            } else {
-              updateNodeStyle(node);
-              defaultLiIcon = curLiIcon;
             }
             isFirst = false;
+            updateNodeStyle(node);
+            defaultLiIcon = curLiIcon;
           } else if (curLiIcon.icon) {
             defaultLiIcon = curLiIcon;
           }
-
           updateLiChildren(node.children[i], defaultLiIcon);
-
         }
       }
     }
