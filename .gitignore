@@ -68,6 +68,7 @@ packages/cli/test/functional/test_site/expected/sub_site/inline-output/inline-pu
 *.d.ts
 *.d.ts.map
 *.tsbuildinfo
+!packages/core/src/lib/markdown-it/patches/markdown-it-emoji-fixed.d.ts
 
 # --- packages/core ---
 
