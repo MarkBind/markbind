@@ -198,9 +198,9 @@ first number
 <box type="warning">
 
 1. Item-level specifications should be attached only to the list heading or list item, not the list content.
-2. Ensuring a blank line precedes the content is crucial.
-3. Inserting a blank line before list-level specifications is important.
-4. Use any of the icons supported by MarkBind (e.g., Font Awesome, Octicons, Glyphicons, Images, etc.) as the icon of a list item.
-5. When using emojis, omit the `::` around the icon name (e.g., use `{icon="emoji"}` instead of `{icon=":emoji:"}`).
-
+1. Ensuring a blank line precedes the content is crucial.
+1. Use any of the icons supported by MarkBind (e.g., Font Awesome, Octicons, Glyphicons, Images, etc.) as the icon of a list item.
+1. When using emojis, omit the `::` around the icon name (e.g., use `{icon="emoji"}` instead of `{icon=":emoji:"}`).
+1. If an item has a specified icon, that icon will be used for it and for subsequent items at that level. 
+1. If any item at a level is customized, the first item at that level must also be customized. If not, the list will be invalidated.
 </box>
