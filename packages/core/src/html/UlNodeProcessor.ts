@@ -6,14 +6,15 @@ import octicons, { IconName as OctName } from '@primer/octicons';
 
 interface IconAttributes {
   icon?: string;
-  iconSize?: string;
   className?: string;
+  width?: string;
+  height?: string;
 }
 
 type Size = {
   fontSize: string;
-  imageSize: string;
-  squareSize: string;
+  width: string;
+  height: string;
 };
 
 function updateNodeRelations(iChild: NodeOrText, divChild: NodeOrText, children: NodeOrText[]): void {
@@ -125,7 +126,7 @@ function createIChild(
   icon = iconClass || icon;
 
   let child: NodeOrText;
-  const defaultSize = `width: ${size.squareSize}; height: ${size.squareSize}; 
+  const defaultSize = `width: ${size.width}; height: ${size.height}; 
           margin-right:5px;text-align:center;display:flex;align-items:center;`;
 
   if (isEmoji) {
@@ -225,29 +226,31 @@ function createIChild(
   return child;
 }
 
-function getSize(iconSizeInput = '25px') {
-  let iconSize = iconSizeInput;
-  if (isNumber(iconSize)) {
-    // If iconSize is a number, convert it to a string and add 'px'
-    iconSize = `${iconSize}px`;
-  } else if (!isString(iconSize) || !/^\d+px$/.test(iconSize)) {
-    // If iconSize is not a string in the format 'nnnpx', default to '25px'
-    iconSize = '25px';
+function getSize(width: string, height: string) {
+  width = width || height || '25px';
+  height = height || width || '25px';
+  const sizeUnitRegexp = /(\d+)(px|em|rem|%|vw|vh|vmin|vmax|ex|ch)/;
+  let widthMatch = width.match(sizeUnitRegexp);
+  let heightMatch = height.match(sizeUnitRegexp);
+
+  if (!widthMatch || !heightMatch) {
+    throw new Error("Invalid width or height format. Expected format is number followed by unit (px|em|rem|%|vw|vh|vmin|vmax|ex|ch).");
   }
-  // Remove 'px' from the end and convert to a number
-  const n = Number(iconSize.slice(0, -2));
 
-  // Calculate fontSize based on the size of the square and image.
-  // The multiplier (0.64) is approximated from the relationship in the provided sizes.
-  let fontSize = 16 + (n - 25) * 0.64;
+  // Ensure both width and height are using the same unit
+  if (widthMatch[2] !== heightMatch[2]) {
+    throw new Error("The units of width and height should be the same.");
+  }
 
-  // Make sure fontSize doesn't go below 16
-  fontSize = Math.max(fontSize, 16);
+  let fontSize = Math.min(parseFloat(widthMatch[1]), parseFloat(heightMatch[1]));
+
+  // Assuming the single character font will take up approximately 70% of the container's smaller dimension
+  fontSize *= 0.7;
 
   return {
-    fontSize: `${fontSize}px`,
-    imageSize: iconSize,
-    squareSize: iconSize,
+    fontSize: `${fontSize}${widthMatch[2]}`, // fontSize in the same unit as width and height
+    width: width,
+    height: height,
   };
 }
 
@@ -275,7 +278,8 @@ function updateNodeStyle(node: NodeOrText) {
 function updateLiChildren(child: NodeOrText, parentIconAttributes:
   IconAttributes, defaultLiIconAttributes: IconAttributes) {
   const icon = child.attribs?.icon || parentIconAttributes.icon || defaultLiIconAttributes.icon;
-  const iconSize = child.attribs?.size || parentIconAttributes.iconSize || defaultLiIconAttributes.iconSize;
+  const width = child.attribs?.width || parentIconAttributes.width || defaultLiIconAttributes.width;
+  const height = child.attribs?.height || parentIconAttributes.height || defaultLiIconAttributes.height;
   const className = child.attribs?.class
     || parentIconAttributes.className
     || defaultLiIconAttributes.className;
@@ -284,7 +288,7 @@ function updateLiChildren(child: NodeOrText, parentIconAttributes:
   if (child.attribs?.size) delete child.attribs.size;
   if (child.attribs?.class) delete child.attribs.class;
 
-  const size = getSize(iconSize);
+  const size = getSize(width, height);
 
   const iChild: NodeOrText = createIChild(child, icon, size, className);
   const divChild: NodeOrText = createDivChild(child, child.children || []);
@@ -304,19 +308,22 @@ export function processUlNode(node: NodeOrText): NodeOrText {
   if ('name' in node && node.name === 'ul') {
     const iconAttributes: IconAttributes = {
       icon: iconUl,
-      iconSize: node.attribs?.size,
+      width: node.attribs?.width,
+      height: node.attribs?.height,
       className: node.attribs?.class,
     };
 
     if (iconAttributes.icon) delete node.attribs?.icon;
-    if (iconAttributes.iconSize) delete node.attribs?.size;
+    if (iconAttributes.width) delete node.attribs?.width;
+    if (iconAttributes.height) delete node.attribs?.height;
     if (iconAttributes.className) delete node.attribs?.class;
 
     let defaultLiIcon: IconAttributes = {};
     if (hasIconInChildren) {
       defaultLiIcon = {
         icon: hasIconInChildren.attribs?.icon,
-        iconSize: hasIconInChildren.attribs?.size,
+        width: hasIconInChildren.attribs?.width,
+        height: hasIconInChildren.attribs?.height,
         className: hasIconInChildren.attribs?.class,
       };
     }

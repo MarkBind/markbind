@@ -166,11 +166,12 @@ first number
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
-* item 1 {icon="/images/deer.jpg" size="25px"}
-* item 1 {icon="/images/deer.jpg" size="35px"}
-* item 2 {icon="/images/deer.jpg" size="45px"}
-* item 3 {icon="/images/deer.jpg" size="55px"}
-* item 4 {icon="/images/deer.jpg" size="65px"}
+* item 1 {icon="/images/deer.jpg" width="30px" height="17px"}
+* item 2 {icon="/images/deer.jpg" width="60px" height="34px"}
+* item 3 {icon="/images/deer.jpg" width="90px" height="51px"}
+* item 4 {icon="/images/deer.jpg" width="120px" height="68px"}
+* item 5 {icon="/images/deer.jpg" width="150px" height="84px"}
+
 </variable>
 </include>
 
@@ -180,7 +181,7 @@ first number
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
-* ### Heading 1 Planning {icon="/images/planning.png" size="65px" class="rounded"}
+* ### Heading 1 Planning {icon="/images/planning.png" width="65px" class="rounded"}
   
    This is the content for item 1. 
    Here we discuss the key aspects and details related to this specific item. 
@@ -193,12 +194,12 @@ first number
   providing a robust analysis and extensive insights. 
   The goal is to offer a thorough understanding of the subject matter.
 
-* ### Heading 3 Perspective {icon="/images/angle.png" size="65px" class="rounded"}
+* ### Heading 3 Perspective {icon="/images/angle.png" width="65px" class="rounded"}
 
   The content for item 3 takes a different angle, offering fresh perspectives and innovative ideas. 
   The objective is to stimulate thought and inspire creative solutions.
 
-{icon="/images/ideas.png" size="65px" class="rounded"}
+{icon="/images/ideas.png" width="65px" class="rounded"}
 </variable>
 </include>
 
