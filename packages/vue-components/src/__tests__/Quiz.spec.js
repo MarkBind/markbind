@@ -242,4 +242,29 @@ describe('Quizzes', () => {
     await timeoutRenderQuestion();
     expect(wrapper.element).toMatchSnapshot();
   });
+
+  test.skip('with 3 questions 2 clicks on next goes to the second question', async () => {
+    const wrapper = mount(Quiz, {
+      slots: {
+        default: [MCQ_QUESTION, TEXT_QUESTION, CHECKBOX_QUESTION],
+      },
+      stubs: DEFAULT_STUBS,
+    });
+
+    // Click 'begin'
+    await wrapper.find('button').trigger('click');
+
+    await timeoutRenderQuestion();
+    // Click option 1 of mcq question
+    await wrapper.findAllComponents(QOption).at(0).find('div').trigger('click');
+    // Click check of mcq question
+    await wrapper.find('button.btn-primary').trigger('click');
+
+    // Click next twice
+    wrapper.find('button.btn-primary').trigger('click');
+    await wrapper.find('button.btn-primary').trigger('click');
+
+    await timeoutRenderQuestion();
+    expect(wrapper.element).toMatchSnapshot();
+  });
 });
