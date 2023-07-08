@@ -3,6 +3,8 @@ import isString from 'lodash/isString';
 import { NodeOrText } from '../utils/node';
 import emojiData from '../../src/lib/markdown-it/patches/markdown-it-emoji-fixed';
 import octicons, { IconName as OctName } from '@primer/octicons';
+import { is } from 'bluebird';
+import { escapeRE } from 'markdown-it/lib/common/utils';
 
 interface IconAttributes {
   icon?: string;
@@ -275,14 +277,11 @@ function updateNodeStyle(node: NodeOrText) {
   node.attribs.style = createStyleString(styleObject);
 }
 
-function updateLiChildren(child: NodeOrText, parentIconAttributes:
-  IconAttributes, defaultLiIconAttributes: IconAttributes) {
-  const icon = child.attribs?.icon || parentIconAttributes.icon || defaultLiIconAttributes.icon;
-  const width = child.attribs?.width || parentIconAttributes.width || defaultLiIconAttributes.width;
-  const height = child.attribs?.height || parentIconAttributes.height || defaultLiIconAttributes.height;
-  const className = child.attribs?.class
-    || parentIconAttributes.className
-    || defaultLiIconAttributes.className;
+function updateLiChildren(child: NodeOrText,  defaultLiIconAttributes: IconAttributes) {
+  const icon = child.attribs?.icon || defaultLiIconAttributes.icon;
+  const width = child.attribs?.width || defaultLiIconAttributes.width;
+  const height = child.attribs?.height || defaultLiIconAttributes.height;
+  const className = child.attribs?.class || defaultLiIconAttributes.className;
 
   if (child.attribs?.icon) delete child.attribs.icon;
   if (child.attribs?.size) delete child.attribs.size;
@@ -299,43 +298,47 @@ function updateLiChildren(child: NodeOrText, parentIconAttributes:
 }
 
 export function processUlNode(node: NodeOrText): NodeOrText {
-  const iconUl = node.attribs?.icon;
-  const hasIconInChildren = node.children?.find(
-    (child: NodeOrText) => child.name === 'li' && child.attribs?.icon,
-  );
-  if (iconUl === undefined && hasIconInChildren === undefined) return node;
-
+  
+ 
   if ('name' in node && node.name === 'ul') {
-    const iconAttributes: IconAttributes = {
-      icon: iconUl,
-      width: node.attribs?.width,
-      height: node.attribs?.height,
-      className: node.attribs?.class,
-    };
+    
+    let defaultLi;
 
-    if (iconAttributes.icon) delete node.attribs?.icon;
-    if (iconAttributes.width) delete node.attribs?.width;
-    if (iconAttributes.height) delete node.attribs?.height;
-    if (iconAttributes.className) delete node.attribs?.class;
+    let isFirst = true;
 
-    let defaultLiIcon: IconAttributes = {};
-    if (hasIconInChildren) {
-      defaultLiIcon = {
-        icon: hasIconInChildren.attribs?.icon,
-        width: hasIconInChildren.attribs?.width,
-        height: hasIconInChildren.attribs?.height,
-        className: hasIconInChildren.attribs?.class,
-      };
-    }
+    // Ensure that node.children is defined before iterating
+    if (node.children) {
+      // Iterate over node.children to find the first li
+      let defaultLiIcon: IconAttributes = {};
 
-    if (iconAttributes.icon || hasIconInChildren) {
-      updateNodeStyle(node);
-      node.children = node.children?.map((child: NodeOrText) => {
-        if (child.name === 'li') {
-          updateLiChildren(child, iconAttributes, defaultLiIcon);
+      for (let i = 0; i < node.children.length; i++) {
+        if (node.children[i].name === 'li') {
+          defaultLi = node.children[i];
+          let curLiIcon: IconAttributes = {};
+          curLiIcon = {
+            icon: defaultLi.attribs?.icon,
+            width: defaultLi.attribs?.width,
+            height: defaultLi.attribs?.height,
+            className: defaultLi.attribs?.class,
+          };
+
+
+          if (isFirst) {
+            if (!curLiIcon.icon) {
+              return node;
+            } else {
+              updateNodeStyle(node);
+              defaultLiIcon = curLiIcon;
+            }
+            isFirst = false;
+          } else if (curLiIcon.icon) {
+            defaultLiIcon = curLiIcon;
+          }
+
+          updateLiChildren(node.children[i], defaultLiIcon);
+
         }
-        return child;
-      }) || [];
+      }
     }
   }
   return node;

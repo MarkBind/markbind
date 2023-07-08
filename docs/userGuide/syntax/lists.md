@@ -118,20 +118,16 @@ first number
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 * item 1 {icon="fas-fa-times"}
-* item 2 a default icon
+* item 2
   * item 2.1 {icon="fas-fa-check"}
   * item 2.2
-  {icon="fas-fa-times"}
-* item 3 {icon="fas-fa-home"}
 * item 4 {icon="fas-fa-trophy"}
 * item 5 {icon="glyphicon-education"}
 * item 6 {icon="mif-perm-media"}
 * item 7 {icon="zzz"}
 * item 8 {icon="glyphicon-education"}
 * item 9 {icon="octicon-git-pull-request"}
-  
-{icon="fas-fa-check"}
-</variable>
+  </variable>
 </include>
 
 **The icon's appearance can be further customized by adding a `class` attribute.**
@@ -142,19 +138,16 @@ first number
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 * item 1 {icon="fas-fa-times" class="text-danger"}
-* item 2 a default icon
+* item 2 
   * item 2.1 {icon="fas-fa-check" class="text-primary"}
   * item 2.2
-  {icon="fas fa-times" class="text-danger"}
-* item 3 {icon="fas-fa-home"}
-* item 4 {icon="fas-fa-trophy"}
-* item 5 {icon="glyphicon-education"}
-* item 6 {icon="mif-perm-media"}
+* item 3 {icon="fas-fa-home" class="text-warning"}
+* item 4 {icon="fas-fa-trophy" class="text-warning"}
+* item 5 {icon="glyphicon-education" class="text-warning"}
+* item 6 {icon="mif-perm-media" class="text-warning"}
 * item 7 {icon="zzz"}
-* item 8 {icon="glyphicon-education"}
-* item 9 {icon="octicon-git-pull-request"}
-
-{icon="fas-fa-check" class="text-primary"}
+* item 8 {icon="glyphicon-education" class="text-warning"}
+* item 9 {icon="octicon-git-pull-request" class="text-warning"}
 </variable>
 </include>
 
@@ -188,7 +181,7 @@ first number
    Information is comprehensive, well-organized, 
    and presented in a clear, concise manner.  
    
-* ### Heading 2 Detail
+* ### Heading 2 Detail {icon="/images/ideas.png" width="65px" class="rounded"}
 
   For item 2, the content delves deeper into the topic, 
   providing a robust analysis and extensive insights. 
@@ -199,7 +192,6 @@ first number
   The content for item 3 takes a different angle, offering fresh perspectives and innovative ideas. 
   The objective is to stimulate thought and inspire creative solutions.
 
-{icon="/images/ideas.png" width="65px" class="rounded"}
 </variable>
 </include>
 
