@@ -13,7 +13,7 @@
     esc-to-close
     z-index-base="2000"
   >
-    <div class="modal-content allow-overflow max-height">
+    <div class="modal-content allow-overflow">
       <div v-if="hasHeader" class="modal-header">
         <h5 class="modal-title">
           <slot name="header"></slot>
@@ -130,8 +130,8 @@ export default {
         overflow: auto;
     }
 
-    .max-height {
-        max-height: 90vh;
+    .modal-content {
+        max-height: 100vh;
     }
 
     .modal-zoom {

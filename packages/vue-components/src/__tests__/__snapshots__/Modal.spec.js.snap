@@ -38,7 +38,7 @@ exports[`Modal can be centered 1`] = `
         data-v-1cd72822=""
       >
         <div
-          class="modal-content allow-overflow max-height"
+          class="modal-content allow-overflow"
         >
           <div
             class="modal-header"
@@ -110,7 +110,7 @@ exports[`Modal can be large 1`] = `
         data-v-1cd72822=""
       >
         <div
-          class="modal-content allow-overflow max-height"
+          class="modal-content allow-overflow"
         >
           <div
             class="modal-header"
@@ -182,7 +182,7 @@ exports[`Modal can be small 1`] = `
         data-v-1cd72822=""
       >
         <div
-          class="modal-content allow-overflow max-height"
+          class="modal-content allow-overflow"
         >
           <div
             class="modal-header"
@@ -254,7 +254,7 @@ exports[`Modal should be closable by clicking the backdrop by default 1`] = `
         data-v-1cd72822=""
       >
         <div
-          class="modal-content allow-overflow max-height"
+          class="modal-content allow-overflow"
         >
           <div
             class="modal-header"
@@ -326,7 +326,7 @@ exports[`Modal should be closable using the ok-text button 1`] = `
         data-v-1cd72822=""
       >
         <div
-          class="modal-content allow-overflow max-height"
+          class="modal-content allow-overflow"
         >
           <!---->
            
@@ -394,7 +394,7 @@ exports[`Modal should not be closable by clicking the backdrop if backdrop is se
         data-v-1cd72822=""
       >
         <div
-          class="modal-content allow-overflow max-height"
+          class="modal-content allow-overflow"
         >
           <div
             class="modal-header"
@@ -466,7 +466,7 @@ exports[`Modal should not show footer when no footer is given 1`] = `
         data-v-1cd72822=""
       >
         <div
-          class="modal-content allow-overflow max-height"
+          class="modal-content allow-overflow"
         >
           <div
             class="modal-header"
@@ -538,7 +538,7 @@ exports[`Modal should not show header when no header is given 1`] = `
         data-v-1cd72822=""
       >
         <div
-          class="modal-content allow-overflow max-height"
+          class="modal-content allow-overflow"
         >
           <!---->
            
@@ -600,7 +600,7 @@ exports[`Modal should show footer when both footer and ok-text are given 1`] = `
         data-v-1cd72822=""
       >
         <div
-          class="modal-content allow-overflow max-height"
+          class="modal-content allow-overflow"
         >
           <!---->
            
@@ -660,7 +660,7 @@ exports[`Modal supports fade effect 1`] = `
         data-v-1cd72822=""
       >
         <div
-          class="modal-content allow-overflow max-height"
+          class="modal-content allow-overflow"
         >
           <!---->
            
