@@ -1,12 +1,12 @@
 import { SiteConfigPage } from './SiteConfig';
 
-type NjkVars = {
+type NjkFileVars = {
   variableName: string,
   fileSubstitutes: string[]
 };
 
 export type TemplateConfig = {
-  njkSubs: NjkVars[],
+  njkSubs: NjkFileVars[],
   njkFile: string,
   layoutObjs: SiteConfigPage[],
   hasAutoSiteNav: boolean,
