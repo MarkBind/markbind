@@ -196,6 +196,9 @@ export class NodeProcessor {
       case 'question':
         this.mdAttributeRenderer.processQuestion(node);
         break;
+      case 'ul':
+        processUlNode(node);
+        break;
       case 'q-option':
         this.mdAttributeRenderer.processQOption(node);
         break;
@@ -225,9 +228,6 @@ export class NodeProcessor {
       case 'thumbnail':
         this.mdAttributeRenderer.processThumbnailAttributes(node);
         break;
-      case 'ul':
-        processUlNode(node);
-        break;
       case 'page-nav':
         this.pageNavProcessor.renderPageNav(node);
         break;
@@ -249,17 +249,17 @@ export class NodeProcessor {
         break;
       case 'code':
         setCodeLineNumbers(node, this.config.codeLineNumbers);
-      // fall through
+        // fall through
       case 'annotation': // Annotations are added automatically by KaTeX when rendering math formulae.
       case 'eq': // markdown-it-texmath html tag
       case 'eqn': // markdown-it-texmath html tag
       case 'thumb': // image
         /*
-          * These are not components from MarkBind Vue components.
-          * We have to add 'v-pre' to let Vue know to ignore this tag and not compile it.
-          *
-          * Although there won't be warnings if we use production Vue, it is still good to add this.
-          */
+         * These are not components from MarkBind Vue components.
+         * We have to add 'v-pre' to let Vue know to ignore this tag and not compile it.
+         *
+         * Although there won't be warnings if we use production Vue, it is still good to add this.
+         */
         if (!_.has(node.attribs, 'v-pre')) { node.attribs['v-pre'] = ''; }
         break;
       default:
