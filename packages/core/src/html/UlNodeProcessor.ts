@@ -148,7 +148,7 @@ function createIChild(
 
   let child: NodeOrText;
   const defaultSize = `width: ${size.width}; height: ${size.height}; 
-          margin-right:5px;text-align:center;display:flex;align-items:center;`;
+          margin-right:5px;text-align:center;display:flex;align-items:center;justify-content:center;flex-shrink:0;`;
 
   if (isEmoji) {
     child = {
@@ -317,7 +317,7 @@ function updateLiChildren(child: NodeOrText, defaultLiIconAttributes: IconAttrib
   child.children = [iChild, divChild];
   updateNodeRelations(iChild, divChild, child.children || []);
   if (!child.attribs) child.attribs = {};
-  child.attribs.style = 'display: flex;';
+  child.attribs.style = 'display:flex;';
 }
 
 export function processUlNode(node: NodeOrText): NodeOrText {
