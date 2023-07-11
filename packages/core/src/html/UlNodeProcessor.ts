@@ -148,7 +148,8 @@ function createIChild(
 
   let child: NodeOrText;
   const defaultSize = `width: ${size.width}; height: ${size.height}; 
-          margin-right:5px;text-align:center;display:flex;align-items:center;justify-content:center;flex-shrink:0;`;
+          margin-right:5px;text-align:center;display:
+          flex;align-items:center;justify-content:center;flex-shrink:0;`;
 
   if (isEmoji) {
     child = {
