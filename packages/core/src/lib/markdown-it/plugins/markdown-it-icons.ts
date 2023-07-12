@@ -72,7 +72,12 @@ const getIconHtml = (match: string[]) => {
 };
 
 const processIconString = (iconStr: string) => {
-  const icon = ":" + iconStr + ":"; 
+  let icon = iconStr;
+
+  if (!iconStr.startsWith(':') && !iconStr.endsWith(':')) {
+    icon = `:${iconStr}:`;
+  }
+
   const match = icon.match(ICON_REGEXP);
   return match ? getIconHtml(match) : null;
 };
