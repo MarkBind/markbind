@@ -117,18 +117,16 @@ first number
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-* item 1 {icon="fas-fa-times"}
-* item 2
-  * item 2.1 {icon="fas-fa-check"}
-  * item 2.2
-  * item 2.3
-* item 4 {icon="fas-fa-trophy"}
-* item 5 {icon="glyphicon-education"}
-* item 6 {icon="mif-perm-media"}
-* item 7 {icon="glyphicon-education"}
-  * item 7.1 {icon="notebook_with_decorative_cover"}
-* item 8 {icon="glyphicon-education"}
-* item 9 {icon="octicon-git-pull-request"}
+* Item 1 {icon="glyphicon-education"}
+* Item 2
+  * Item 2.1 {icon="fas-file-code"}
+  * Item 2.2
+* Item 3 {icon="fas-code-branch"}
+  * Item 3.1 
+* Item 4 {icon="octicon-git-pull-request"}
+  * Item 4.1 {icon="mif-perm-media"}
+* Item 5 {icon="glyphicon-education"}
+  * Item 5.1 {icon="notebook_with_decorative_cover"}
   </variable>
 </include>
 <box type="definition" seamless>
@@ -146,12 +144,14 @@ first number
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-* item 1 <br>
-  item 1 line 2  {icon="fas-fa-times" class="rounded-pill bg-danger text-white"}
-* item 2 
-  item 2 line 1 continue 
-  * item 2.1 {icon="fas-fa-check" class="rounded bg-warning text-white"}
-  * item 2.2 {class="rounded bg-danger text-white"}
+* Item 1 <br>
+  Item 1 line 2  {icon="fas-file-code" class="text-warning"}
+* Item 2 
+  Item 2 line 1 continue 
+  * Item 2.1 {icon="fas-code-branch" class="text-success"}
+  * Item 2.2 {class="text-white"}
+* Item 3
+  * Item 3 {icon="/images/deer.jpg" width="30px" height="17px" class="rounded text-white"}
 </variable>
 </include>
 
@@ -167,11 +167,11 @@ Each item level attribute supersedes the default one. For instance, the class at
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
-* item 1 {icon="/images/deer.jpg" width="30px" height="17px"}
-* item 2 {icon="/images/deer.jpg" width="60px" height="34px"}
-* item 3 {icon="/images/deer.jpg" width="90px" height="51px"}
-* item 4 {icon="/images/deer.jpg" width="120px" height="68px"}
-* item 5 {icon="/images/deer.jpg" width="150px" height="84px"}
+* Item 1 {icon="/images/deer.jpg" width="30px" height="17px"}
+* Item 2 {icon="/images/deer.jpg" width="60px" height="34px"}
+* Item 3 {icon="/images/deer.jpg" width="90px" height="51px"}
+* Item 4 {icon="/images/deer.jpg" width="120px" height="68px"}
+* Item 5 {icon="/images/deer.jpg" width="150px" height="84px"}
 
 </variable>
 </include>
@@ -188,17 +188,17 @@ Each item level attribute supersedes the default one. For instance, the class at
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
-* Heading 1 MarkBind Overview {icon="/images/list.png" width="65px" class="rounded"}
+* ## Heading 1: MarkBind Overview {icon="/images/list.png" width="65px" class="rounded"}
   
-  MarkBind is a tool for generating dynamic, text-heavy websites from Markdown. It supports various syntax schemes for enhanced content dynamism.
+  Content 1: MarkBind is a tool for generating dynamic, text-heavy websites from Markdown. It supports various syntax schemes for enhanced content dynamism.
 
-* Heading 2 Features {icon="/images/toolbox.png" width="65px" class="rounded"}
+* ## Heading 2 Features {icon="/images/toolbox.png" width="65px" class="rounded"}
   
-  MarkBind offers built-in features like icons, emoji, and search functionality. It also supports content reuse and multiple organization methods.
+  Content 2: MarkBind offers built-in features like icons, emoji, and search functionality. It also supports content reuse and multiple organization methods.
 
-* Heading 3 Setup and Integration {icon="/images/setup.png" width="65px" class="rounded"}
+* ## Heading 3 Setup and Integration {icon="/images/setup.png" width="65px" class="rounded"}
   
-  MarkBind is easy to install, modify, and deploy. It integrates seamlessly with software project workflows and offers a live preview feature.
+  Content 3: MarkBind is easy to install, modify, and deploy. It integrates seamlessly with software project workflows and offers a live preview feature.
 
 </variable>
 </include>
