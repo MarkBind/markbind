@@ -1,7 +1,6 @@
 import octicons, { IconName as OctName } from '@primer/octicons';
 import { NodeOrText } from '../utils/node';
 
-const { processIconString } = require('../lib/markdown-it/plugins/markdown-it-icons');
 const emojiDictionary = require('../lib/markdown-it/patches/markdown-it-emoji-fixed');
 
 interface EmojiData {
@@ -50,7 +49,6 @@ function createStyleString(styleObject: { [key: string]: string }): string {
     ([property, value]: [string, string]) => `${property}: ${value}`).join('; ');
 }
 function classifyIcon(icon: string) {
-  console.log('classifyIcon: ', processIconString(icon));
   const isEmoji = Object.prototype.hasOwnProperty.call(emojiData, icon);
   const localFileRegex = /^(\.\/)?[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=%]+\.(jpg|png|gif|bmp|svg|jpeg)$/;
   const urlRegex = /^(http(s)?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
