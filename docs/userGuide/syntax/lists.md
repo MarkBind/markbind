@@ -129,39 +129,28 @@ first number
   * Item 5.1 {icon="notebook_with_decorative_cover"}
   </variable>
 </include>
-<box type="definition" seamless>
 
-1. You can use any of the icons supported by MarkBind (e.g., Font Awesome, Octicons, Glyphicons, Images, etc.) as the icon of a list item.
-1. When using emojis, omit the `::` around the icon name (e.g., use `{icon="emoji"}` instead of `{icon=":emoji:"}`).
-1. If an item has a specified icon, that icon will be used for it and for subsequent items at that level. 
+1. If an item has a specified icon, that icon will be used for it and for subsequent items at that level.
 1. If any item at a level is customized, the first item at that level must also be customized. If not, the list will be invalidated.
-</box>
+1. You can use any of the icons supported by MarkBind (e.g., Font Awesome, Octicons, Glyphicons and Emojis) as the icon of a list item.
+1. When using Emojis, omit the `::` around the icon name (e.g., use `{icon="emoji"}` instead of `{icon=":emoji:"}`).
 
-**The icon's appearance can be further customized by adding a `class` attribute.**
-
-<div id="main-example-markbind">
+**You can adjust the icon's size by using the `size` attribute.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-* Item 1 <br>
-  Item 1 line 2  {icon="fas-file-code" class="text-warning"}
-* Item 2 
-  Item 2 line 1 continue 
-  * Item 2.1 {icon="fas-code-branch" class="text-success"}
-  * Item 2.2 {class="text-danger"}
-* Item 3
-  * Item 3 {icon="/images/deer.jpg" width="30px" height="17px" class="rounded text-white"}
+
+* Item 1 {icon="glyphicon-education" size="35px"}
+* Item 2 {icon="glyphicon-education" size="4rem"}
+* Item 3 {icon="glyphicon-education" size="5em"}
+
 </variable>
 </include>
 
-<box type="definition" seamless>
-Each item level attribute supersedes the default one. For instance, the class attribute of item 2.2 overrides the default attribute of item 2.1.
-</box>
+More info on the css size units: [CSS Units](https://www.w3schools.com/cssref/css_units.php)
 
-</div>
-
-**You can adjust the icon's size by using the `size` attribute.**
+**You can use image as icon.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
@@ -176,11 +165,35 @@ Each item level attribute supersedes the default one. For instance, the class at
 </variable>
 </include>
 
-<box type="definition" seamless>
+The `Width` and `height` is use to specific the dimension for the image icon, similar to size it support all css size units: [CSS Units](https://www.w3schools.com/cssref/css_units.php)
 
-1. All CSS units are acceptable for size. 
-2. If height is omitted, width will be used instead, and vice versa. If both are omitted, the size defaults to the smallest icon size.
-</box>
+
+**The icon's appearance can be further customized by adding a `class` attribute.**
+
+<div id="main-example-markbind">
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
+* Item 1 <br>
+  Item 1 line 2  {icon="fas-file-code" class="text-warning"}
+* Item 2 
+  Item 2 line 1 continue 
+  * Item 2.1 {icon="fas-code-branch" class="text-success"}
+  * Item 2.2 {class="text-danger"}
+  * Item 2.3 {class="text-danger"}
+* Item 3
+  * Item 3.1 
+  * Item 3.2 {class="text-primary"}
+  * Item 3.3 {icon="fas-file-code" class="text-warning"}
+  * Item 3.4
+</variable>
+</include>
+
+Once a `class` attribute is specified for an icon, it will continue to apply for icons at the same level, until overridden by another `class` attribute.
+</div>
+
+
 
 **You can apply Markdown's heading and paragraph syntax within the list.**
 
@@ -188,29 +201,28 @@ Each item level attribute supersedes the default one. For instance, the class at
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
-* #### Heading 1: MarkBind Overview {icon="/images/list.png" width="65px" class="rounded"}
+* #### Heading 1: Overview {icon="/images/list.png" width="65px" class="rounded"}
   
-  Content 1: MarkBind is a tool for generating dynamic, text-heavy websites from Markdown. It supports various syntax schemes for enhanced content dynamism.
-  * ##### Heading 3 Setup and Integration {icon="/images/setup.png" width="65px" class="rounded"}
-  
-  Content 3: MarkBind is easy to install, modify, and deploy. It integrates seamlessly with software project workflows and offers a live preview feature.
+  Content 1: This section provides a summary of the document or topic. It sets the context and purpose of the content to follow.
 
-* #### Heading 2 Features {icon="/images/toolbox.png" width="65px" class="rounded"}
+  * ##### Heading 1.1: Highlights {icon="/images/setup.png" width="65px" class="rounded"}
   
-  Content 2: MarkBind offers built-in features like icons, emoji, and search functionality. It also supports content reuse and multiple organization methods.
+  Content 1.1: Here we summarize the key points, findings, or features of the main topic. This could include important data, outcomes, or insights.
 
-* #### Heading 3 Setup and Integration {icon="/images/setup.png" width="65px" class="rounded"}
+* #### Heading 2: Detailed Description {icon="/images/toolbox.png" width="65px" class="rounded"}
   
-  Content 3: MarkBind is easy to install, modify, and deploy. It integrates seamlessly with software project workflows and offers a live preview feature.
-  * ##### Heading 3 Setup and Integration
+  Content 2: This section delves deeper into the topic, offering comprehensive information and detailed explanations. It might also include evidence, examples, or justifications.
+
+* #### Heading 3: Conclusion {icon="/images/setup.png" width="65px" class="rounded"}
   
-  Content 3: MarkBind is easy to install, modify, and deploy. It integrates seamlessly with software project workflows and offers a live preview feature.
+  Content 3: The conclusion draws together the main threads of the topic, summarizing the central points and their implications.
+
+  * ##### Heading 3.1: Final Thoughts
+  
+  Content 3.1: This is a place for final reflections, recommendations, or a look towards future developments or trends.
 
 </variable>
 </include>
 
-<box type="definition">
-
-1. Item-level specifications should be attached only to the list heading or list item, not the list content.
-2. Ensuring a blank line precedes the content is crucial.
-</box>
+1. Icon specifications should be attached only to the first element of a list item (for the example above, the icon specification should be attached to the heading, not the block of text below the heading).
+2. A blank line must separate a heading from the content that follows it.

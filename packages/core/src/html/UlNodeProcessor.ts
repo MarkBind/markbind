@@ -46,16 +46,16 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
     spanNode = cheerio(span).css({ 'font-size': iconAttrs.size });
     spanNode.addClass(iconAttrs.className || '');
   } else if (isImage) {
-    const img = cheerio(`<img src="${iconAttrs.icon}" alt="Icon">`).css({ width: iconAttrs.width, height: iconAttrs.height });
+    const img = cheerio(`<img src="${iconAttrs.icon}" alt="Icon">`)
+      .css({ width: iconAttrs.width, height: iconAttrs.height });
     img.addClass(iconAttrs.className || '');
 
     spanNode = cheerio('<span></span>').append(img).css({ 'padding-bottom': '0.3em' });
   } else {
     const span = processIconString(iconAttrs.icon);
-    spanNode = cheerio(span).css({ 'font-size': 'unset', 'min-width': '16px'});
+    spanNode = cheerio(span).css({ 'font-size': 'unset', 'min-width': '16px' });
     spanNode = spanNode.css({ 'font-size': iconAttrs.size });
     spanNode.addClass(iconAttrs.className || '');
-
   }
 
   return spanNode.css({
@@ -75,21 +75,6 @@ function updateNodeStyle(node: NodeOrText) {
   });
 }
 
-// // Helper function to get icon attributes
-// const getIconAttributes = (node: MbNode, defaultIcon: IconAttributes): IconAttributes | null => {
-//   if (node.attribs && defaultIcon.icon !== undefined) {
-//     return {
-//       icon: node.attribs.icon || defaultIcon.icon,
-//       width: node.attribs.width || defaultIcon.width,
-//       height: node.attribs.height || defaultIcon.height,
-//       size: node.attribs.size || defaultIcon.size,
-//       className: node.attribs.class || defaultIcon.className,
-//     };
-//   }
-
-//   return null;
-// };
-
 const getIconAttributes = (node: MbNode, defaultIcon?: IconAttributes): IconAttributes | null => {
   // If node.attribs doesn't exist, return null immediately
   if (!node.attribs || (defaultIcon?.icon === undefined && node.attribs.icon === undefined)) {
@@ -102,7 +87,7 @@ const getIconAttributes = (node: MbNode, defaultIcon?: IconAttributes): IconAttr
     width: defaultIcon?.width,
     height: defaultIcon?.height,
     size: defaultIcon?.size,
-    className: defaultIcon?.className
+    className: defaultIcon?.className,
   };
 
   // Overwrite defaults with the actual attributes from node if they exist
@@ -115,7 +100,6 @@ const getIconAttributes = (node: MbNode, defaultIcon?: IconAttributes): IconAttr
     className: node.attribs.class !== undefined ? node.attribs.class : iconAttributes.className,
   };
 };
-
 
 // Helper function to update UL node
 const updateUlNode = (node: MbNode, icon: IconAttributes) => {
