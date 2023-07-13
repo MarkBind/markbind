@@ -149,7 +149,7 @@ first number
 * Item 2 
   Item 2 line 1 continue 
   * Item 2.1 {icon="fas-code-branch" class="text-success"}
-  * Item 2.2 {class="text-white"}
+  * Item 2.2 {class="text-danger"}
 * Item 3
   * Item 3 {icon="/images/deer.jpg" width="30px" height="17px" class="rounded text-white"}
 </variable>
@@ -188,15 +188,21 @@ Each item level attribute supersedes the default one. For instance, the class at
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
-* ## Heading 1: MarkBind Overview {icon="/images/list.png" width="65px" class="rounded"}
+* #### Heading 1: MarkBind Overview {icon="/images/list.png" width="65px" class="rounded"}
   
   Content 1: MarkBind is a tool for generating dynamic, text-heavy websites from Markdown. It supports various syntax schemes for enhanced content dynamism.
+  * ##### Heading 3 Setup and Integration {icon="/images/setup.png" width="65px" class="rounded"}
+  
+  Content 3: MarkBind is easy to install, modify, and deploy. It integrates seamlessly with software project workflows and offers a live preview feature.
 
-* ## Heading 2 Features {icon="/images/toolbox.png" width="65px" class="rounded"}
+* #### Heading 2 Features {icon="/images/toolbox.png" width="65px" class="rounded"}
   
   Content 2: MarkBind offers built-in features like icons, emoji, and search functionality. It also supports content reuse and multiple organization methods.
 
-* ## Heading 3 Setup and Integration {icon="/images/setup.png" width="65px" class="rounded"}
+* #### Heading 3 Setup and Integration {icon="/images/setup.png" width="65px" class="rounded"}
+  
+  Content 3: MarkBind is easy to install, modify, and deploy. It integrates seamlessly with software project workflows and offers a live preview feature.
+  * ##### Heading 3 Setup and Integration
   
   Content 3: MarkBind is easy to install, modify, and deploy. It integrates seamlessly with software project workflows and offers a live preview feature.
 

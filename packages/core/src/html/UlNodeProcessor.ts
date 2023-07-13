@@ -44,15 +44,19 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
   if (isEmoji) {
     const span = `<span aria-hidden="true">${unicodeEmoji}</span>`;
     spanNode = cheerio(span).css({ 'font-size': iconAttrs.size });
+    spanNode.addClass(iconAttrs.className || '');
   } else if (isImage) {
-    const span = `<img src="${iconAttrs.icon}" alt="Icon">`;
-    spanNode = cheerio(span).css({ width: iconAttrs.width, height: iconAttrs.height, padding: '0.3em' });
+    const img = cheerio(`<img src="${iconAttrs.icon}" alt="Icon">`).css({ width: iconAttrs.width, height: iconAttrs.height });
+    img.addClass(iconAttrs.className || '');
+
+    spanNode = cheerio('<span></span>').append(img).css({ 'padding-bottom': '0.3em' });
   } else {
     const span = processIconString(iconAttrs.icon);
-    spanNode = cheerio(span).css({ 'font-size': iconAttrs.size });
-  }
+    spanNode = cheerio(span).css({ 'font-size': 'unset', 'min-width': '16px'});
+    spanNode = spanNode.css({ 'font-size': iconAttrs.size });
+    spanNode.addClass(iconAttrs.className || '');
 
-  spanNode.addClass(iconAttrs.className || '');
+  }
 
   return spanNode.css({
     'line-height': 'unset',
@@ -71,20 +75,47 @@ function updateNodeStyle(node: NodeOrText) {
   });
 }
 
-// Helper function to get icon attributes
-const getIconAttributes = (node: MbNode): IconAttributes | null => {
-  if (node.attribs && node.attribs.icon) {
-    return {
-      icon: node.attribs.icon,
-      width: node.attribs.width,
-      height: node.attribs.height,
-      size: node.attribs.size,
-      className: node.attribs.class,
-    };
+// // Helper function to get icon attributes
+// const getIconAttributes = (node: MbNode, defaultIcon: IconAttributes): IconAttributes | null => {
+//   if (node.attribs && defaultIcon.icon !== undefined) {
+//     return {
+//       icon: node.attribs.icon || defaultIcon.icon,
+//       width: node.attribs.width || defaultIcon.width,
+//       height: node.attribs.height || defaultIcon.height,
+//       size: node.attribs.size || defaultIcon.size,
+//       className: node.attribs.class || defaultIcon.className,
+//     };
+//   }
+
+//   return null;
+// };
+
+const getIconAttributes = (node: MbNode, defaultIcon?: IconAttributes): IconAttributes | null => {
+  // If node.attribs doesn't exist, return null immediately
+  if (!node.attribs || (defaultIcon?.icon === undefined && node.attribs.icon === undefined)) {
+    return null;
   }
 
-  return null;
+  // Prepare an object with default properties
+  const iconAttributes: IconAttributes = {
+    icon: defaultIcon?.icon,
+    width: defaultIcon?.width,
+    height: defaultIcon?.height,
+    size: defaultIcon?.size,
+    className: defaultIcon?.className
+  };
+
+  // Overwrite defaults with the actual attributes from node if they exist
+  return {
+    ...iconAttributes,
+    icon: node.attribs.icon !== undefined ? node.attribs.icon : iconAttributes.icon,
+    width: node.attribs.width !== undefined ? node.attribs.width : iconAttributes.width,
+    height: node.attribs.height !== undefined ? node.attribs.height : iconAttributes.height,
+    size: node.attribs.size !== undefined ? node.attribs.size : iconAttributes.size,
+    className: node.attribs.class !== undefined ? node.attribs.class : iconAttributes.className,
+  };
 };
+
 
 // Helper function to update UL node
 const updateUlNode = (node: MbNode, icon: IconAttributes) => {
@@ -100,7 +131,7 @@ const updateUlNode = (node: MbNode, icon: IconAttributes) => {
 function updateLiChildren(child: NodeOrText, defaultLiIconAttributes: IconAttributes) {
   const childNode = child as MbNode;
 
-  const curLiIcon = getIconAttributes(childNode) || defaultLiIconAttributes;
+  const curLiIcon = getIconAttributes(childNode, defaultLiIconAttributes);
 
   ['icon', 'width', 'height', 'size', 'class'].forEach((attr) => {
     delete childNode.attribs[attr];
@@ -110,7 +141,7 @@ function updateLiChildren(child: NodeOrText, defaultLiIconAttributes: IconAttrib
 
   // Create a new div and span
   const div = cheerio('<div></div>');
-  const iconSpan = createIconSpan(curLiIcon);
+  const iconSpan = createIconSpan(curLiIcon!);
 
   // Append each child to the div
   children.each((index, elem) => {
@@ -159,7 +190,7 @@ export function waterfallModel(node: NodeOrText): NodeOrText {
         }) as MbNode;
 
         if (iconLi) {
-          const iconAttr = getIconAttributes(iconLi);
+          const iconAttr = getIconAttributes(iconLi, defaultIcon);
 
           if (iconAttr) {
             defaultIcon = iconAttr;
@@ -206,7 +237,7 @@ export function processUlNode(node: NodeOrText): NodeOrText {
 
     if (child.name === 'li') {
       const curLi = child as MbNode;
-      const curLiIcon = getIconAttributes(curLi);
+      const curLiIcon = getIconAttributes(curLi, defaultIcon);
 
       if (isFirst && !curLiIcon && !defaultIcon.icon) return ulNode;
 
