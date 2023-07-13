@@ -1,4 +1,3 @@
-import octicons, { IconName as OctName } from '@primer/octicons';
 import cheerio from 'cheerio';
 import { MbNode, NodeOrText } from '../utils/node';
 
@@ -20,7 +19,6 @@ interface IconAttributes {
 }
 
 function classifyIcon(icon: string) {
-
   const isEmoji = Object.prototype.hasOwnProperty.call(emojiData, icon);
   const localFileRegex = /^(\.\/)?[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=%]+\.(jpg|png|gif|bmp|svg|jpeg)$/;
   const urlRegex = /^(http(s)?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
@@ -34,41 +32,34 @@ function classifyIcon(icon: string) {
   };
 }
 
-function createIconSpan(
-  iconAttrs: IconAttributes,
-): cheerio.Cheerio {
+function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
   const {
     isEmoji,
     isImage,
     unicodeEmoji,
   } = classifyIcon(iconAttrs.icon!);
 
-  let span = '<span></span>';
-  let spanNode = cheerio(span);
-  if (isEmoji) {
-    span = `<span aria-hidden="true">${unicodeEmoji}</span>`;
-    spanNode = cheerio(span);
-    spanNode.css({ 'font-size': iconAttrs.size });
-  } else if (isImage) {
-    span = `<img src="${iconAttrs.icon}" alt="Icon">`;
-    spanNode = cheerio(span);
-    spanNode.css({ 'width': iconAttrs.width, 'height': iconAttrs.height, 'padding': '0.3em' });
-  }
-  else {
-    span = processIconString(iconAttrs.icon);
-    spanNode = cheerio(span);
-    spanNode.css({ 'font-size': iconAttrs.size });
-  }
-  spanNode.addClass(iconAttrs.className!);
+  let spanNode;
 
+  if (isEmoji) {
+    const span = `<span aria-hidden="true">${unicodeEmoji}</span>`;
+    spanNode = cheerio(span).css({ 'font-size': iconAttrs.size });
+  } else if (isImage) {
+    const span = `<img src="${iconAttrs.icon}" alt="Icon">`;
+    spanNode = cheerio(span).css({ width: iconAttrs.width, height: iconAttrs.height, padding: '0.3em' });
+  } else {
+    const span = processIconString(iconAttrs.icon);
+    spanNode = cheerio(span).css({ 'font-size': iconAttrs.size });
+  }
+
+  spanNode.addClass(iconAttrs.className || '');
 
   return spanNode.css({
     'line-height': 'unset',
     'margin-inline-end': '0.3em',
-    'height': '100%',
+    height: '100%',
     'flex-shrink': '0',
   });
-
 }
 
 function updateNodeStyle(node: NodeOrText) {
@@ -80,30 +71,46 @@ function updateNodeStyle(node: NodeOrText) {
   });
 }
 
+// Helper function to get icon attributes
+const getIconAttributes = (node: MbNode): IconAttributes | null => {
+  if (node.attribs && node.attribs.icon) {
+    return {
+      icon: node.attribs.icon,
+      width: node.attribs.width,
+      height: node.attribs.height,
+      size: node.attribs.size,
+      className: node.attribs.class,
+    };
+  }
+
+  return null;
+};
+
+// Helper function to update UL node
+const updateUlNode = (node: MbNode, icon: IconAttributes) => {
+  if (node.attribs) {
+    node.attribs.icon = icon.icon;
+    node.attribs.width = icon.width;
+    node.attribs.height = icon.height;
+    node.attribs.size = icon.size;
+    node.attribs.class = icon.className;
+  }
+};
+
 function updateLiChildren(child: NodeOrText, defaultLiIconAttributes: IconAttributes) {
-  const childNode = child as MbNode
+  const childNode = child as MbNode;
 
-  let curLiIcon: IconAttributes = {
-    icon: childNode.attribs.icon,
-    width: childNode.attribs.width,
-    height: childNode.attribs.height,
-    size: childNode.attribs.size,
-    className: childNode.attribs.class,
-  };
+  const curLiIcon = getIconAttributes(childNode) || defaultLiIconAttributes;
 
-  curLiIcon = curLiIcon.icon ? curLiIcon : defaultLiIconAttributes;
+  ['icon', 'width', 'height', 'size', 'class'].forEach((attr) => {
+    delete childNode.attribs[attr];
+  });
 
-  delete childNode.attribs.icon;
-  delete childNode.attribs.size;
-  delete childNode.attribs.width;
-  delete childNode.attribs.height;
-  delete childNode.attribs.class;
-
-  let children = cheerio(child.children);
+  const children = cheerio(child.children);
 
   // Create a new div and span
-  let div = cheerio('<div></div>');
-  let iconSpan = createIconSpan(curLiIcon);
+  const div = cheerio('<div></div>');
+  const iconSpan = createIconSpan(curLiIcon);
 
   // Append each child to the div
   children.each((index, elem) => {
@@ -118,71 +125,100 @@ function updateLiChildren(child: NodeOrText, defaultLiIconAttributes: IconAttrib
   cheerio(child).append(div);
 
   cheerio(child).css({
-    'display': 'flex',
+    display: 'flex',
   });
-
 }
 
+export function waterfallModel(node: NodeOrText): NodeOrText {
+  if (!('name' in node && node.name === 'ul') && !node.children) {
+    return node;
+  }
 
+  const ulNode = node as MbNode;
+  let isFirstUl = true;
+  let defaultIcon: IconAttributes = {};
+
+  for (let i = 0; i < ulNode.children.length; i += 1) {
+    const liNode = ulNode.children[i];
+    if (liNode.name === 'li') {
+      // Find first 'ul' in 'li'
+      const firstUl = liNode.children?.find(child => child.name === 'ul') as MbNode;
+
+      if (firstUl) {
+        if (!firstUl.children && isFirstUl) {
+          return node;
+        }
+
+        // Find first 'li' in 'ul' that has an icon
+        const iconLi = firstUl.children?.find((child) => {
+          if (child.name === 'li') {
+            const innerNode = child as MbNode;
+            return innerNode.attribs && innerNode.attribs.icon !== undefined;
+          }
+          return false;
+        }) as MbNode;
+
+        if (iconLi) {
+          const iconAttr = getIconAttributes(iconLi);
+
+          if (iconAttr) {
+            defaultIcon = iconAttr;
+          }
+        } else if (isFirstUl) {
+          // No 'li' with icon in the first 'ul'
+          return node;
+        }
+
+        if (!isFirstUl) {
+          updateUlNode(firstUl, defaultIcon);
+        }
+
+        isFirstUl = false;
+      }
+    }
+  }
+
+  return node;
+}
 
 export function processUlNode(node: NodeOrText): NodeOrText {
   if (!('name' in node && node.name === 'ul') && !node.children) {
     return node;
   }
+
   const ulNode = node as MbNode;
+  waterfallModel(ulNode);
 
-  let defaultLi;
+  let defaultIcon = getIconAttributes(ulNode);
   let isFirst = true;
-  let defaultIcon: IconAttributes = {};
-  const curUlIcon: IconAttributes = {
-    icon: ulNode.attribs.icon,
-    width: ulNode.attribs.width,
-    height: ulNode.attribs.height,
-    size: ulNode.attribs.size,
-    className: ulNode.attribs.class,
-  };
 
-
-  delete ulNode.attribs.icon;
-  delete ulNode.attribs.size;
-  delete ulNode.attribs.width;
-  delete ulNode.attribs.height;
-  delete ulNode.attribs.class;
-
-  if (curUlIcon.icon) {
-    defaultIcon = curUlIcon;
+  if (defaultIcon) {
+    // Remove the icon-related attributes
+    ['icon', 'width', 'height', 'size', 'class'].forEach((attr) => {
+      delete ulNode.attribs[attr];
+    });
+  } else {
+    defaultIcon = {};
   }
 
   for (let i = 0; i < ulNode.children.length; i += 1) {
+    const child = ulNode.children[i];
 
-    if (ulNode.children[i].name !== 'li') {
-      continue;
-    }
+    if (child.name === 'li') {
+      const curLi = child as MbNode;
+      const curLiIcon = getIconAttributes(curLi);
 
-    defaultLi = ulNode.children[i] as MbNode;
-    let curLiIcon: IconAttributes = {
-      icon: defaultLi.attribs.icon,
-      width: defaultLi.attribs.width,
-      height: defaultLi.attribs.height,
-      size: defaultLi.attribs.size,
-      className: defaultLi.attribs.class,
-    };
+      if (isFirst && !curLiIcon && !defaultIcon.icon) return ulNode;
 
-    if (isFirst) {
-      if (!curLiIcon.icon && !defaultIcon.icon) {
-        return ulNode;
+      if (isFirst) {
+        isFirst = false;
+        updateNodeStyle(ulNode);
       }
-      isFirst = false;
-      updateNodeStyle(ulNode);
-      defaultIcon = curLiIcon.icon ? curLiIcon : defaultIcon;
-    } 
 
-    defaultIcon = curLiIcon.icon ? curLiIcon : defaultIcon;
-
-    updateLiChildren(ulNode.children[i], defaultIcon);
+      defaultIcon = curLiIcon || defaultIcon;
+      updateLiChildren(curLi, defaultIcon);
+    }
   }
-
-  //TODO activate waterfall for nested levels
 
   return ulNode;
 }
