@@ -172,4 +172,4 @@ Whenever you create a new page, be sure to include the following code below and 
 </box>
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('redirectingToACustom404Page', '') }}
+{{ previous_next('redirectingToACustom404Page', 'templates') }}

@@ -84,7 +84,7 @@
             key="active"
             type="button"
             class="btn btn-primary q-btn ms-1"
-            @click="gotoNextQuestion"
+            @click.once="gotoNextQuestion"
           >
             Next
           </button>
