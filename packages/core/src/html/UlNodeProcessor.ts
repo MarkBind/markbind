@@ -144,62 +144,73 @@ function updateLiChildren(child: NodeOrText, defaultLiIconAttributes: IconAttrib
   });
 }
 
-export function waterfallModel(node: NodeOrText): NodeOrText {
-  if (!('name' in node && node.name === 'ul') && !node.children) {
-    return node;
-  }
+function isRelevantNode(node: NodeOrText): boolean {
+  return 'name' in node && node.name === 'ul' && Boolean(node.children);
+}
 
-  const ulNode = node as MbNode;
-  let isFirstUl = true;
-  let defaultIcon: IconAttributes = {};
+function updateFirstUl(ulNode: MbNode): IconAttributes | null {
+  let isFirstUlLiChild = true;
+  let defaultIcon: IconAttributes | null = null;
 
   for (let i = 0; i < ulNode.children.length; i += 1) {
-    const liNode = ulNode.children[i];
-    if (liNode.name === 'li') {
-      // Find first 'ul' in 'li'
-      const firstUl = liNode.children?.find(child => child.name === 'ul') as MbNode;
-
-      if (firstUl) {
-        if (!firstUl.children && isFirstUl) {
-          return node;
-        }
-
-        // Find first 'li' in 'ul' that has an icon
-        const iconLi = firstUl.children?.find((child) => {
-          if (child.name === 'li') {
-            const innerNode = child as MbNode;
-            return innerNode.attribs && innerNode.attribs.icon !== undefined;
-          }
-          return false;
-        }) as MbNode;
-
-        if (iconLi) {
-          const iconAttr = getIconAttributes(iconLi, defaultIcon);
-
-          if (iconAttr) {
-            defaultIcon = iconAttr;
-          }
-        } else if (isFirstUl) {
-          // No 'li' with icon in the first 'ul'
-          return node;
-        }
-
-        if (!isFirstUl) {
-          updateUlNode(firstUl, defaultIcon);
-        }
-
-        isFirstUl = false;
+    const ulChild = ulNode.children[i];
+    if (ulChild.name === 'li') {
+      if (isFirstUlLiChild) {
+        const iconAttr = getIconAttributes(ulChild as MbNode);
+        if (iconAttr) {
+          defaultIcon = iconAttr;
+          isFirstUlLiChild = false;
+        } else return null;
+      } else if (defaultIcon) {
+        defaultIcon = getIconAttributes(ulChild as MbNode, defaultIcon);
       }
     }
   }
 
+  return defaultIcon;
+}
+
+function updateRestUl(ulNode: MbNode, defaultIcon: IconAttributes): IconAttributes {
+  updateUlNode(ulNode, defaultIcon);
+
+  const updatedIcon = ulNode.children
+    .filter(ulChild => ulChild.name === 'li')
+    .reduce((icon, ulChild) => getIconAttributes(ulChild as MbNode, icon)!, defaultIcon);
+
+  return updatedIcon;
+}
+
+export function waterfallModel(node: NodeOrText): NodeOrText {
+  if (!isRelevantNode(node)) return node;
+
+  const ulNode = node as MbNode;
+  let defaultIcon: IconAttributes | null = {};
+  let isFirstUl = true;
+
+  const liNodes = ulNode.children.filter(child => child.name === 'li');
+
+  for (let i = 0; i < liNodes.length; i += 1) {
+    const ulChildren = liNodes[i].children?.filter(child => child.name === 'ul');
+
+    if (ulChildren) {
+      for (let j = 0; j < ulChildren.length; j += 1) {
+        const ulChildNode = ulChildren[j] as MbNode;
+
+        if (isFirstUl) {
+          defaultIcon = updateFirstUl(ulChildNode);
+          if (!defaultIcon) return node;
+          isFirstUl = false;
+        } else {
+          defaultIcon = updateRestUl(ulChildNode, defaultIcon);
+        }
+      }
+    }
+  }
   return node;
 }
 
 export function processUlNode(node: NodeOrText): NodeOrText {
-  if (!('name' in node && node.name === 'ul') && !node.children) {
-    return node;
-  }
+  if (!isRelevantNode(node)) return node;
 
   const ulNode = node as MbNode;
   waterfallModel(ulNode);
