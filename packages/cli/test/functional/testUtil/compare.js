@@ -49,7 +49,8 @@ function compare(root, expectedSiteRelativePath = 'expected', siteRelativePath =
   let error = false;
   if (expectedPaths.length !== actualPaths.length) {
     throw new Error('Unequal number of files! '
-      + `Expected: ${expectedPaths.length}, Actual: ${actualPaths.length}`);
+      + `Expected: ${expectedPaths.length} ${expectedDirectory}, 
+      Actual: ${actualPaths.length} ${actualDirectory}`);
   }
 
   /* eslint-disable no-continue */
