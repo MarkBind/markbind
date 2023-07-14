@@ -1,10 +1,9 @@
 <frontmatter>
-  header: header.md
-  siteNav: site-nav.md
+  title: Topic 1
 </frontmatter>
 
 <br>
 
 # Topic 1
 
-> More content to be added
+> This is a placeholder page - more content to be added.

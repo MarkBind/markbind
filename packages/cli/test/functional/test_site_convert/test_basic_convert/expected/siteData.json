@@ -8,28 +8,6 @@
       "headingKeywords": {}
     },
     {
-      "src": "Home.md",
-      "headings": {},
-      "headingKeywords": {}
-    },
-    {
-      "src": "Page-1.md",
-      "headings": {
-        "page-1": "Page 1"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "_Footer.md",
-      "headings": {},
-      "headingKeywords": {}
-    },
-    {
-      "src": "_Sidebar.md",
-      "headings": {},
-      "headingKeywords": {}
-    },
-    {
       "src": "about.md",
       "headings": {
         "about": "About"
@@ -38,6 +16,7 @@
     },
     {
       "src": "contents/topic1.md",
+      "title": "Topic 1",
       "headings": {
         "topic-1": "Topic 1"
       },
@@ -45,22 +24,36 @@
     },
     {
       "src": "contents/topic2.md",
-      "headings": {},
+      "title": "Topic 2",
+      "headings": {
+        "topic-2": "Topic 2"
+      },
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3a.md",
-      "headings": {},
+      "title": "Topic 3a",
+      "headings": {
+        "topic-3a": "Topic 3a"
+      },
       "headingKeywords": {}
     },
     {
       "src": "contents/topic3b.md",
-      "headings": {},
+      "title": "Topic 3b",
+      "headings": {
+        "topic-3b": "Topic 3b"
+      },
       "headingKeywords": {}
     },
     {
       "src": "index.md",
-      "headings": {},
+      "title": "Home Page",
+      "headings": {
+        "what-just-happened": "What just happened?",
+        "navigating-this-site": "Navigating this site",
+        "guide-to-markbind": "Guide to MarkBind"
+      },
       "headingKeywords": {}
     }
   ]

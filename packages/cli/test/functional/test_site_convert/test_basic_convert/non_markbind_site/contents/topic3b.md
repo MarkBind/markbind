@@ -1,9 +1,9 @@
 <frontmatter>
-  header: header.md
-  siteNav: site-nav.md
+  title: Topic 3b
 </frontmatter>
 
 <br>
-<box>
-    <span class="fas fa-tools"></span><span> This is a placeholder page</span>
-</box>
+
+# Topic 3b
+
+> This is a placeholder page - more content to be added.
