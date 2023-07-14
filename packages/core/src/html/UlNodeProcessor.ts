@@ -39,25 +39,28 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
     unicodeEmoji,
   } = classifyIcon(iconAttrs.icon!);
 
-  let spanNode;
+  let spanContent;
 
   if (isEmoji) {
-    const span = `<span aria-hidden="true">${unicodeEmoji}</span>`;
-    spanNode = cheerio(span).css({ 'font-size': iconAttrs.size });
-    spanNode.addClass(iconAttrs.className || '');
+    spanContent = `<span aria-hidden="true">${unicodeEmoji}</span>`;
   } else if (isImage) {
     const img = cheerio(`<img src="${iconAttrs.icon}" alt="Icon">`)
-      .css({ width: iconAttrs.width, height: iconAttrs.height });
-    img.addClass(iconAttrs.className || '');
+      .css({ width: iconAttrs.width, height: iconAttrs.height, display: 'inline-block'})
+      .addClass(iconAttrs.className || '');
+    img.append("\u200B");
 
-    spanNode = cheerio('<span></span>').append(img).css({ 'padding-bottom': '0.3em' });
+    spanContent = cheerio('<span></span>').append(img).css({ 'padding-bottom': '0.3em' });
   } else {
-    const span = processIconString(iconAttrs.icon);
-    spanNode = cheerio(span).css({ 'font-size': 'unset', 'min-width': '16px' });
-    spanNode = spanNode.css({ 'font-size': iconAttrs.size });
-    spanNode.addClass(iconAttrs.className || '');
+    spanContent = processIconString(iconAttrs.icon);
   }
 
+  let spanNode = cheerio(spanContent).css({ 'font-size': 'unset', 'min-width': '16px' });
+
+  if (!isImage) {
+    spanNode = spanNode.css({ 'font-size': iconAttrs.size }).addClass(iconAttrs.className || '');
+  }
+  // Add invisible character to avoid the element from being empty
+  spanNode.append("\u200B");
   return spanNode.css({
     'line-height': 'unset',
     'margin-inline-end': '0.3em',

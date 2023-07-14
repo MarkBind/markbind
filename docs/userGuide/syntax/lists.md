@@ -112,7 +112,7 @@ first number
 
 ****Customizing the list appearance:****
 
-**To customize list icons, add the configuration `{icon="icon-name"}` either after a specific list item or at the end of the entire list.**
+**To customize list icons, add the configuration `{icon="icon-name"}` after a specific list item**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
@@ -131,9 +131,9 @@ first number
 </include>
 
 1. If an item has a specified icon, that icon will be used for it and for subsequent items at that level.
-1. If any item at a level is customized, the first item at that level must also be customized. If not, the list will be invalidated.
-1. You can use any of the icons supported by MarkBind (e.g., Font Awesome, Octicons, Glyphicons and Emojis) as the icon of a list item.
-1. When using Emojis, omit the `::` around the icon name (e.g., use `{icon="emoji"}` instead of `{icon=":emoji:"}`).
+2. If any item at a level is customized, the first item at that level must also be customized. If not, the list will be invalidated.
+3. You can use any of the icons supported by MarkBind (e.g., Font Awesome, Octicons, Glyphicons and Emojis) as the icon of a list item.
+4. When using icons, omit the `::` around the icon name (e.g., use `{icon="emoji"}` instead of `{icon=":emoji:"}`).
 
 **You can adjust the icon's size by using the `size` attribute.**
 
@@ -148,7 +148,7 @@ first number
 </variable>
 </include>
 
-More info on the css size units: [CSS Units](https://www.w3schools.com/cssref/css_units.php)
+You can utilize any CSS size unit. For more details, refer to the guide on [CSS size units.](https://www.w3schools.com/cssref/css_units.php).
 
 **You can use image as icon.**
 
@@ -166,7 +166,7 @@ More info on the css size units: [CSS Units](https://www.w3schools.com/cssref/cs
 </include>
 
 The `Width` and `height` is use to specific the dimension for the image icon, similar to size it support all css size units: [CSS Units](https://www.w3schools.com/cssref/css_units.php)
-
+If the width and height are unspecified, the image's default dimensions will be used.
 
 **The icon's appearance can be further customized by adding a `class` attribute.**
 
@@ -176,23 +176,26 @@ The `Width` and `height` is use to specific the dimension for the image icon, si
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 * Item 1 <br>
-  Item 1 line 2  {icon="fas-file-code" class="text-warning"}
-* Item 2 
-  Item 2 line 1 continue 
+  Item 1 line 2{icon="/images/deer.jpg" width="60px" height="60px" height="17px" class="rounded"}
+* Item 2
+  Item 2 Continue
   * Item 2.1 {icon="fas-code-branch" class="text-success"}
   * Item 2.2 {class="text-danger"}
-  * Item 2.3 {class="text-danger"}
+  * Item 2.3 
 * Item 3
   * Item 3.1 
   * Item 3.2 {class="text-primary"}
   * Item 3.3 {icon="fas-file-code" class="text-warning"}
   * Item 3.4
+* Item 4
+  * Item 4.1 {icon="x" class="badge border border-primary rounded-pill mb-1 border-danger"}
+  * Item 4.2 {icon="exclamation"}
 </variable>
 </include>
 
-Once a `class` attribute is specified for an icon, it will continue to apply for icons at the same level, until overridden by another `class` attribute.
+1. Once a class attribute is assigned to an icon, it will continue apply to icons at the same level, until it is overridden by a different class attribute (e.g., from Item 2.1 to Item 2.2, and so on to Item 3.2).
+2. All standard Markdown rules will apply to the icon list (e.g., Item 1 and Item 2 to create a single item using multiple lines).
 </div>
-
 
 
 **You can apply Markdown's heading and paragraph syntax within the list.**
@@ -201,21 +204,25 @@ Once a `class` attribute is specified for an icon, it will continue to apply for
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
-* #### Heading 1: Overview {icon="/images/list.png" width="65px" class="rounded"}
+* #### Heading 1: Overview {icon="/images/overview-d.png" width="65px" class="rounded"}
   
-  Content 1: This section provides a summary of the document or topic. It sets the context and purpose of the content to follow.
+  Content 1: This section provides a summary of the document or topic. 
+  It sets the context and purpose of the content to follow.
 
-  * ##### Heading 1.1: Highlights {icon="/images/setup.png" width="65px" class="rounded"}
+  * ##### Heading 1.1: Highlights {icon="/images/highlights-d.png" width="65px" class="rounded"}
   
-  Content 1.1: Here we summarize the key points, findings, or features of the main topic. This could include important data, outcomes, or insights.
+  Content 1.1: Here we summarize the key points, findings, or features of the main topic. 
+  This could include important data, outcomes, or insights.
 
-* #### Heading 2: Detailed Description {icon="/images/toolbox.png" width="65px" class="rounded"}
+* #### Heading 2: Detailed Description {icon="/images/detailed-d.png" width="65px" class="rounded"}
   
-  Content 2: This section delves deeper into the topic, offering comprehensive information and detailed explanations. It might also include evidence, examples, or justifications.
+  Content 2: This section delves deeper into the topic, offering comprehensive information and detailed explanations.
+  It might also include evidence, examples, or justifications.
 
-* #### Heading 3: Conclusion {icon="/images/setup.png" width="65px" class="rounded"}
+* #### Heading 3: Conclusion {icon="/images/conclusion-d.png" width="65px" class="rounded"}
   
-  Content 3: The conclusion draws together the main threads of the topic, summarizing the central points and their implications.
+  Content 3: The conclusion draws together the main threads of the topic, 
+  summarizing the central points and their implications.
 
   * ##### Heading 3.1: Final Thoughts
   
