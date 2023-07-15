@@ -92,11 +92,11 @@ Here we showcase some use cases of the Annotate feature.
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 
-<annotate src="https://markbind.org/userGuide/diagrams/object.png" height="500" alt="Sample Image">
+<annotate src="../../images/annotateSampleObject.png" height="500" alt="Sample Image">
   <a-point x="6%" y="50%" content="You can use a triangle and a solid line (not to be confused with an arrow) to indicate class inheritance." label="1" header="Class inheritance" legend="both"/>
-  <a-point x="25%" y="50%" content="UML uses a solid diamond symbol to denote composition." label="2" header="Composition" color="red"  legend="both"/>
-  <a-point x="44%" y="50%" content="UML uses a hollow diamond to indicate an aggregation."  label="3" header="Aggregation" color="blue" legend="both"/>
-  <a-point x="63%" y="50%" content="Association labels describe the meaning of the association."  label="4" header="Association labels" color="yellow"  legend="both"/>
+  <a-point x="25.5%" y="50%" content="UML uses a solid diamond symbol to denote composition." label="2" header="Composition" color="red"  legend="both"/>
+  <a-point x="45%" y="50%" content="UML uses a hollow diamond to indicate an aggregation."  label="3" header="Aggregation" color="blue" legend="both"/>
+  <a-point x="64.5%" y="50%" content="Association labels describe the meaning of the association."  label="4" header="Association labels" color="yellow"  legend="both"/>
 </annotate>
 </variable>
 </include>
@@ -107,10 +107,10 @@ Here we showcase some use cases of the Annotate feature.
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 
-<annotate src="https://markbind.org/userGuide/diagrams/sequence.png" height="500" alt="Sample Image">
-  <a-point x="34%" y="18.5%" content="Operation is invoked" header="Operation"  opacity="0.2" size="30"/>
+<annotate src="../../images/annotateSampleSequence.png" height="500" alt="Sample Image">
+  <a-point x="35%" y="18.5%" content="Operation is invoked" header="Operation"  opacity="0.2" size="30"/>
   <a-point x="65%" y="50%" content="This is the period during which the method is being executed" header="Activation Bar" opacity="0.3" size="50" color="yellow"/>
-  <a-point x="12%" y="86%" content="Return control and possibly some return value" header="Return Value" opacity="0.2" size="30" color="blue"/>
+  <a-point x="14%" y="85%" content="Return control and possibly some return value" header="Return Value" opacity="0.2" size="30" color="blue"/>
 </annotate>
 </variable>
 </include>
