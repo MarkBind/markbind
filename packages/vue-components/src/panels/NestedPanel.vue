@@ -275,6 +275,10 @@ export default {
         margin-top: 5px;
     }
 
+    .card-collapse > hr {
+        margin-top: 0;
+    }
+
     .card-group > .card-container > .expandable-card {
         margin-top: 0 !important;
     }
@@ -358,7 +362,7 @@ export default {
         }
 
         .card-collapse > hr {
-            margin-top: 1.5rem;
+            margin-top: 0.5rem;
         }
 
         .card-header {
