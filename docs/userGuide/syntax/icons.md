@@ -19,7 +19,7 @@ The advantage of font icons over emojis is font icons can be _styled_ to fit you
    * _Solid_ (prefix: `fa-solid-`) e.g., :fa-solid-file-code: (actual name `file-code`, MarkBind name `fa-solid-file-code`)
    * _Brands_ (prefix: `fa-brands-`): e.g., :fa-brands-github-alt: (actual name `github-alt`, MarkBind name `fa-brands-github-alt`)
 
-2. Insert MarkBind name for the icon enclosed within colons to get the icon in your page.<br>
+1. Insert MarkBind name for the icon enclosed within colons to get the icon in your page.<br>
   `Create a **branch**`<code>:<span></span>fas-code-branch: now!</code> → Create a **branch** :fas-code-branch: now!
 
 
