@@ -6,7 +6,6 @@
     v-model="show"
     ssr
     :name="id"
-    classes="allow-overflow"
     :content-class="['modal-dialog', optionalModalSize, optionalCentering]"
     overlay-transition="none"
     :transition="effectClass"
@@ -27,7 +26,7 @@
         >
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body overflow-auto">
         <slot></slot>
       </div>
       <div v-if="hasFooter || hasOk" class="modal-footer">
@@ -127,8 +126,13 @@ export default {
 };
 </script>
 <style>
-    .allow-overflow {
-        overflow: auto;
+    .modal-dialog {
+        inset: 0;
+        position: absolute;
+    }
+
+    .modal-content {
+        max-height: 100%;
     }
 
     .modal-zoom {
