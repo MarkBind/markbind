@@ -13,7 +13,7 @@
     esc-to-close
     z-index-base="2000"
   >
-    <div class="modal-content allow-overflow">
+    <div class="modal-content">
       <div v-if="hasHeader" class="modal-header">
         <h5 class="modal-title">
           <slot name="header"></slot>
@@ -26,7 +26,7 @@
         >
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body overflow-auto">
         <slot></slot>
       </div>
       <div v-if="hasFooter || hasOk" class="modal-footer">
@@ -126,12 +126,13 @@ export default {
 };
 </script>
 <style>
-    .allow-overflow {
-        overflow: auto;
+    .modal-dialog {
+        inset: 0;
+        position: absolute;
     }
 
     .modal-content {
-        max-height: 100vh;
+        max-height: 100%;
     }
 
     .modal-zoom {

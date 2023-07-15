@@ -88,7 +88,7 @@ describe('Modal', () => {
     // click on trigger
     await trigger.find('span.trigger-click').trigger('click');
     // then click on backdrop
-    await wrapper.find('div.allow-overflow').trigger('click');
+    await wrapper.find('div[role=dialog]').trigger('click');
 
     expect(wrapper.element).toMatchSnapshot();
   });
@@ -109,7 +109,7 @@ describe('Modal', () => {
     // click on trigger
     await trigger.find('span.trigger-click').trigger('click');
     // then click on backdrop
-    await wrapper.find('div.allow-overflow').trigger('click');
+    await wrapper.find('div[role=dialog]').trigger('click');
 
     expect(wrapper.element).toMatchSnapshot();
   });
