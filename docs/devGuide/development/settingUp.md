@@ -20,7 +20,7 @@ This page explains how to set up your development environment to start contribut
 
 1. **Java** 8 or later, and<br>
    **Graphviz** v2.38 or later<br>
-   %%(The above two are required for one of the third-party libraries used by MarkBind)%%
+   %%(The above two are required for one of the third-party libraries used by MarkBind, Graphviz is optional on Windows)%%
 
 1. **Python** 3 or later, and<br>
    %%(Required if using python pre-commit hooks)%%
