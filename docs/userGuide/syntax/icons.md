@@ -15,7 +15,7 @@ The advantage of font icons over emojis is font icons can be _styled_ to fit you
 ###### Using Font Awesome Icons
 1. Decide which icon you want to use from the [list of available icons](https://fontawesome.com/icons?d=gallery&m=free).
 1. Construct the MarkBind name for the selected icon by adding the _type prefix_.
-   Note: Font Awesome has three different styles for their icons, each with their own type prefix. Here is an example from each type:
+   Note: Font Awesome has two different styles for their icons, each with their own type prefix. Here is an example from each type:
    * _Solid_ (prefix: `fa-solid-`) e.g., :fa-solid-file-code: (actual name `file-code`, MarkBind name `fa-solid-file-code`)
    * _Brands_ (prefix: `fa-brands-`): e.g., :fa-brands-github-alt: (actual name `github-alt`, MarkBind name `fa-brands-github-alt`)
 
