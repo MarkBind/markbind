@@ -49,7 +49,8 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
       .addClass(iconAttrs.className || '');
     img.append('\u200B');
 
-    spanContent = cheerio('<span></span>').append(img).css({ 'padding-bottom': '0.3em' });
+    spanContent = cheerio('<span></span>').append(img).css({ 
+    'padding-bottom': '0.3em', 'padding-top': '0.3em' });
   } else {
     spanContent = processIconString(iconAttrs.icon);
   }
