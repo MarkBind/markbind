@@ -363,7 +363,7 @@ export default {
         }
 
         .card-collapse > hr {
-            margin-top: 1rem;
+            margin-top: 0.5rem;
         }
 
         .card-header {
