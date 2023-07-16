@@ -13,6 +13,13 @@ The advantage of font icons over emojis is font icons can be _styled_ to fit you
 </include>
 
 ###### Using Font Awesome Icons
+
+<box type="info" seamless>
+
+MarkBind currently supports Version 6 of Font Awesome (Free plan). For detailed changes between versions, refer to [Font Awesome's documentation](https://fontawesome.com/docs/web/setup/upgrade/whats-changed).
+
+</box>
+
 1. Decide which icon you want to use from the [list of available icons](https://fontawesome.com/icons?d=gallery&m=free).
 1. Construct the MarkBind name for the selected icon by adding the _type prefix_.
    Note: Font Awesome has two different styles for their icons, each with their own type prefix. Here is an example from each type:
