@@ -367,5 +367,23 @@ As the choice is highly dependent on context and details of the implementation, 
 Find out more about the key external libraries used in MarkBind from the [project structure](../design/projectStructure.md) section. Also, the rationales behind most existing patches are documented in their respective files, read them (and their respective PRs/issues) for more context!
 </box>
 
+### Updating PlantUML
+
+PlantUML is a third-party library used by MarkBind to create UML diagrams. MarkBind runs the PlantUML JAR file found in `packages/core/src/plugins/default` when building the site to generate the diagrams.
+
+To update PlantUML to a newer version:
+
+1. Download the JAR file from [PlantUML's website](https://plantuml.com/download).
+1. Rename the file to `plantuml.jar` (if required), and replace the existing JAR file located in `packages/core/src/plugins/default`.
+1. Generate the image files for the `.puml` files listed in `docs/userGuide/diagrams`. 
+
+<box type="tip" seamless header="Here are the recommended steps to generate the image files:">
+
+1. Add a new `.md` file in `userGuide`, e.g. `plantuml.md`, containing `<puml>` tags of all diagrams to be generated. 
+1. Serve the documentation site using `markbind serve -d`.
+1. Access the corresponding HTML page with the generated diagrams, i.e. `/userGuide/plantuml.html`.
+1. Right-click on each image and save the image in `docs/userGuide/diagrams`.
+</box>
+
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('settingUp', 'writingComponents') }}
