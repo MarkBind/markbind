@@ -7,10 +7,8 @@ function getOcticonIcon(iconName: string) {
   return octicons[iconName as IconName] ?? null;
 }
 
-const ICON_REGEXP = new RegExp(
-  ':(fa[brs]|fa-brands|fa-solid|glyphicon|octicon|octiconlight|mi[forst])-'
-  + '([a-z-]+)~?([a-z-]+)?:',
-);
+const ICON_REGEXP
+  = /:(fa[brs]|fa-brands|fa-solid|glyphicon|octicon|octiconlight|mi[forst])-([a-z-]+)~?([a-z-]+)?:/;
 
 export = markdownItRegExp(
   ICON_REGEXP,
