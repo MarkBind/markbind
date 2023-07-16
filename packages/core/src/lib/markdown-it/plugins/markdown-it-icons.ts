@@ -7,8 +7,11 @@ function getOcticonIcon(iconName: string) {
   return octicons[iconName as IconName] ?? null;
 }
 
+const ICON_REGEXP
+  = /:(fa[brs]|fa-brands|fa-solid|glyphicon|octicon|octiconlight|mi[forst])-([a-z-]+)~?([a-z-]+)?:/;
+
 export = markdownItRegExp(
-  /:(fa[brs]|glyphicon|octicon|octiconlight|mi[forst])-([a-z-]+)~?([a-z-]+)?:/,
+  ICON_REGEXP,
   (match: string[]) => {
     const iconFontType = match[1];
     const iconFontName = match[2];
@@ -53,12 +56,12 @@ export = markdownItRegExp(
         materialIconsClass += '-two-tone';
         break;
       default:
-        // .material-icons generates 'Filled' style icons; hence, no suffix is needed for 'mif'.
+      // .material-icons generates 'Filled' style icons; hence, no suffix is needed for 'mif'.
       }
       // Use .align-middle by default to vertically-align the icon with its surrounding text (if any).
       // Also, replace dashes (-) with underscores (_) to format the icon name properly.
       return `<span aria-hidden="true" class="${materialIconsClass} align-middle">`
-      + `${iconFontName.split('-').join('_')}</span>`;
+        + `${iconFontName.split('-').join('_')}</span>`;
     } // If icon is a Font Awesome icon
     return `<span aria-hidden="true" class="${iconFontType} fa-${iconFontName}"></span>`;
   },

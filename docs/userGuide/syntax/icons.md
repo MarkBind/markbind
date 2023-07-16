@@ -8,17 +8,23 @@ MarkBind supports using Font Icons provided by Font Awesome, Glyphicons and GitH
 <span id="tip_body">
 The advantage of font icons over emojis is font icons can be _styled_ to fit your needs. e.g.,
 * emoji: <span style="color: purple">Don't judge the :book: by its cover! :-1:</span>
-* font icons: <span style="color: purple">Don't judge the :fas-book: by its cover! {{ icon_dislike }}</span>
+* font icons: <span style="color: purple">Don't judge the :fa-solid-book: by its cover! {{ icon_dislike }}</span>
 </span>
 </include>
 
 ###### Using Font Awesome Icons
+
+<box type="info" seamless>
+
+MarkBind currently supports Version 6 of Font Awesome (Free plan). For detailed changes between versions, refer to [Font Awesome's documentation](https://fontawesome.com/docs/web/setup/upgrade/whats-changed).
+
+</box>
+
 1. Decide which icon you want to use from the [list of available icons](https://fontawesome.com/icons?d=gallery&m=free).
 1. Construct the MarkBind name for the selected icon by adding the _type prefix_.
-   Note: Font Awesome has three different styles for their icons, each with their own type prefix. Here is an example from each type:
-   * _Solid_ (prefix: `fas-`) e.g., :fas-file-code: (actual name `file-code`, MarkBind name `fas-file-code`)
-   * _Regular_ (prefix: `far-`) e.g., :far-file-code: (actual name `file-code`, MarkBind name `far-file-code`)
-   * _Brands_ (prefix: `fab-`): e.g., :fab-github-alt: (actual name `github-alt`, MarkBind name `fab-github-alt`)
+   Note: Font Awesome has two different styles for their icons, each with their own type prefix. Here is an example from each type:
+   * _Solid_ (prefix: `fa-solid-`) e.g., :fa-solid-file-code: (actual name `file-code`, MarkBind name `fa-solid-file-code`)
+   * _Brands_ (prefix: `fa-brands-`): e.g., :fa-brands-github-alt: (actual name `github-alt`, MarkBind name `fa-brands-github-alt`)
 
 1. Insert MarkBind name for the icon enclosed within colons to get the icon in your page.<br>
   `Create a **branch**`<code>:<span></span>fas-code-branch: now!</code> → Create a **branch** :fas-code-branch: now!
@@ -32,13 +38,13 @@ The advantage of font icons over emojis is font icons can be _styled_ to fit you
 
 <div id="short" class="d-none">
 
-<code>:<span></span>glyphicon-hand-right:</code> <code>:<span></span>fab-github:</code> <code>:<span></span>fas-home:</code>
+<code>:<span></span>glyphicon-hand-right:</code> <code>:<span></span>fa-brands-github:</code> <code>:<span></span>fa-solid-home:</code>
 
 </div>
 
 <div id="examples" class="d-none">
 
-:glyphicon-hand-right: :fab-github: :fas-home: %%:glyphicon-hand-right: :fab-github: :fas-home:%% <span style="color: red">:glyphicon-hand-right: :fab-github: :fas-home:</span>
+:glyphicon-hand-right: :fa-brands-github: :fa-solid-home: %%:glyphicon-hand-right: :fa-brands-github: :fa-solid-home:%% <span style="color: red">:glyphicon-hand-right: :fa-brands-github: :fa-solid-home:</span>
 </div>
 
 ###### Using Octicons
