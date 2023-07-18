@@ -20,7 +20,12 @@ interface IconAttributes {
 
 function classifyIcon(icon: string) {
   const isEmoji = Object.prototype.hasOwnProperty.call(emojiData, icon);
-  const localFileRegex = /^(\.\/)?[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=%]+\.(jpg|png|gif|bmp|svg|jpeg)$/;
+  const localFileRegex = new RegExp([
+    '^(./)?',
+    '[a-zA-Z0-9-._~:/?#[@!$&\'()*+,;=%]+',
+    '.(jpg|png|gif|bmp|svg|jpeg|webp|avif)$',
+  ].join(''));
+
   const urlRegex = /^(http(s)?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
   const isImage = !isEmoji && (localFileRegex.test(icon) || urlRegex.test(icon));
   return {
@@ -67,8 +72,8 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
   return spanNode.css({
     'line-height': 'unset',
     'margin-inline-end': '0.3em',
-    height: '100%',
     'flex-shrink': '0',
+    height: '100%',
   });
 }
 
@@ -118,28 +123,20 @@ const updateUlNode = (node: MbNode, icon: IconAttributes) => {
   }
 };
 
-function updateLiChildren(child: NodeOrText, defaultLiIconAttributes: IconAttributes) {
+function updateLi(child: NodeOrText, iconAttributes: IconAttributes) {
   const childNode = child as MbNode;
 
-  const curLiIcon = getIconAttributes(childNode, defaultLiIconAttributes);
+  const curLiIcon = getIconAttributes(childNode, iconAttributes);
 
   ['icon', 'width', 'height', 'size', 'class'].forEach((attr) => {
     delete childNode.attribs[attr];
   });
 
-  const children = cheerio(child.children);
-
   // Create a new div and span
   const div = cheerio('<div></div>');
   const iconSpan = createIconSpan(curLiIcon!);
 
-  // Append each child to the div
-  children.each((index, elem) => {
-    div.append(cheerio(elem));
-  });
-
-  // Empty the child
-  cheerio(child).empty();
+  div.append(cheerio(child.children).remove());
 
   // Append iconSpan and div to the child
   cheerio(child).append(iconSpan);
@@ -248,7 +245,7 @@ export function processUlNode(node: NodeOrText): NodeOrText {
       }
 
       defaultIcon = curLiIcon || defaultIcon;
-      updateLiChildren(curLi, defaultIcon);
+      updateLi(curLi, defaultIcon);
     }
   }
 
