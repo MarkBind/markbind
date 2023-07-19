@@ -128,7 +128,7 @@ export default {
     };
   },
   methods: {
-    toggle() {
+    toggle(hasAnimation) {
       if (!this.wasRetrieverLoaded) {
         this.open();
         return;
@@ -150,7 +150,7 @@ export default {
             window.scrollTo({
               top: window.scrollY + this.$el.getBoundingClientRect().top - headerHeight - 3,
               left: 0,
-              behavior: 'instant',
+              behavior: hasAnimation ? 'smooth' : 'instant',
             });
           }
           this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
