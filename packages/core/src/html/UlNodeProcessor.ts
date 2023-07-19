@@ -1,5 +1,8 @@
 import cheerio from 'cheerio';
 import { MbNode, NodeOrText } from '../utils/node';
+import { number } from '@primer/octicons';
+import { first } from 'lodash';
+import { level } from 'winston';
 
 const { processIconString } = require('../lib/markdown-it/plugins/markdown-it-icons');
 const emojiDictionary = require('../lib/markdown-it/patches/markdown-it-emoji-fixed');
@@ -114,14 +117,42 @@ const getIconAttributes = (node: MbNode, defaultIcon?: IconAttributes): IconAttr
 
 // Helper function to update UL node
 const updateUlNode = (node: MbNode, icon: IconAttributes) => {
-  if (node.attribs) {
-    node.attribs.icon = icon.icon;
-    node.attribs.width = icon.width;
-    node.attribs.height = icon.height;
-    node.attribs.size = icon.size;
-    node.attribs.class = icon.className;
+  // Check if node and icon are not null
+  if (node && node.attribs && icon) {
+    if (icon.icon) {
+      node.attribs.icon = icon.icon;
+    } else {
+      console.warn('icon.icon is null or undefined!');
+    }
+
+    if (icon.width) {
+      node.attribs.width = icon.width;
+    } else {
+      console.warn('icon.width is null or undefined!');
+    }
+
+    if (icon.height) {
+      node.attribs.height = icon.height;
+    } else {
+      console.warn('icon.height is null or undefined!');
+    }
+
+    if (icon.size) {
+      node.attribs.size = icon.size;
+    } else {
+      console.warn('icon.size is null or undefined!');
+    }
+
+    if (icon.className) {
+      node.attribs.class = icon.className;
+    } else {
+      console.warn('icon.className is null or undefined!');
+    }
+  } else {
+    console.error('Either node or icon is null!');
   }
 };
+
 
 function updateLi(child: NodeOrText, iconAttributes: IconAttributes) {
   const childNode = child as MbNode;
@@ -183,34 +214,55 @@ function updateRestUl(ulNode: MbNode, defaultIcon: IconAttributes): IconAttribut
   return updatedIcon;
 }
 
-export function waterfallModel(node: NodeOrText): NodeOrText {
-  if (!isRelevantNode(node)) return node;
+export function waterfallModel(node: NodeOrText) {
+  const iconAttrs: { key: number, value: { isFirst: boolean, iconAttr: IconAttributes | null, level: number } }[] = [];
 
-  const ulNode = node as MbNode;
-  let defaultIcon: IconAttributes | null = {};
-  let isFirstUl = true;
-
-  const liNodes = ulNode.children.filter(child => child.name === 'li');
-
-  for (let i = 0; i < liNodes.length; i += 1) {
-    const ulChildren = liNodes[i].children?.filter(child => child.name === 'ul');
-
-    if (ulChildren) {
-      for (let j = 0; j < ulChildren.length; j += 1) {
-        const ulChildNode = ulChildren[j] as MbNode;
-
-        if (isFirstUl) {
-          defaultIcon = updateFirstUl(ulChildNode);
-          if (!defaultIcon) return node;
-          isFirstUl = false;
-        } else {
-          defaultIcon = updateRestUl(ulChildNode, defaultIcon);
-        }
+  function handleChild(child: MbNode, iconAttrValue: { isFirst: boolean, iconAttr: IconAttributes | null, level: number }) {
+    if (child.name === 'li') {
+      const liChild = child as MbNode;
+      if (iconAttrValue.isFirst) {
+        iconAttrValue.iconAttr = getIconAttributes(liChild);
+        iconAttrValue.isFirst = false;
+      } else if (iconAttrValue.iconAttr) {
+        iconAttrValue.iconAttr = getIconAttributes(liChild, iconAttrValue.iconAttr);
       }
     }
   }
-  return node;
+
+  function dfs(currentNode: NodeOrText, level: number = 0) {
+    if (!isRelevantNode(currentNode)) return;
+
+    if (!iconAttrs[level]) {
+      iconAttrs[level] = { key: level, value: { isFirst: true, iconAttr: null, level: level } };
+    }
+
+    const ulNode = currentNode as MbNode;
+    const liNodes = ulNode.children.filter(child => child.name === 'li');
+
+    for (const liNode of liNodes) {
+      const ulLiChildren = liNode.children?.filter(child => child.name === 'ul');
+      if (!ulLiChildren) continue;
+
+      for (const ulLiChildNode of ulLiChildren) {
+        const iconAttrValue = iconAttrs[level].value;
+
+        if (ulLiChildNode.children) {
+          ulLiChildNode.children.forEach(child => handleChild(child as MbNode, iconAttrValue));
+        }
+
+        if (iconAttrValue.iconAttr) {
+          updateUlNode(ulLiChildNode as MbNode, iconAttrValue.iconAttr);
+        }
+
+        // Traverse the children if any
+        dfs(ulLiChildNode, level + 1);
+      }
+    }
+  }
+
+  dfs(node, 1);
 }
+
 
 export function processUlNode(node: NodeOrText): NodeOrText {
   if (!isRelevantNode(node)) return node;
