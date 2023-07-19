@@ -160,6 +160,13 @@ function isRelevantNode(node: NodeOrText): boolean {
 }
 
 export function waterfallModel(node: NodeOrText) {
+  // Check if the node has `isIconListProcessed`. If yes, delete it and return.
+  const nodeAsMbNode = node as MbNode;
+  if (nodeAsMbNode.attribs.isIconListProcessed === 'true') {
+    delete nodeAsMbNode.attribs.isIconListProcessed;
+    return;
+  }
+
   const iconAttrs: {
     key: number, value: {
       isFirst: boolean, iconAttr: IconAttributes | null, level: number
@@ -206,6 +213,11 @@ export function waterfallModel(node: NodeOrText) {
 
           // Traverse the children if any
           dfs(ulLiChildNode, level + 1);
+
+          // Insert an `isIconListProcessed` flag attribute to the node.
+          if (ulLiChildNode.attribs) {
+            ulLiChildNode.attribs.isIconListProcessed = 'true';
+          }
         });
       }
     });
