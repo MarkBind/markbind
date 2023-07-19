@@ -94,7 +94,10 @@ export class VariableProcessor {
    */
   renderAndAddUserDefinedVariable(site: string, name: string | undefined, value: any) {
     if (name === undefined) {
-      logger.warn('You have a variable with no name! This variable will be ignored.');
+      logger.warn(
+        `Variable with no name detected! It will be ignored. Value: ${value}. Site: ${site}.`,
+      );
+      logger.warn('Check _markbind/variables.md for variable declarations.');
       return;
     }
 
