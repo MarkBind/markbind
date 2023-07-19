@@ -1,8 +1,6 @@
 import cheerio from 'cheerio';
+import get from 'lodash/get';
 import { MbNode, NodeOrText } from '../utils/node';
-import { number } from '@primer/octicons';
-import { first } from 'lodash';
-import { level } from 'winston';
 
 const { processIconString } = require('../lib/markdown-it/plugins/markdown-it-icons');
 const emojiDictionary = require('../lib/markdown-it/patches/markdown-it-emoji-fixed');
@@ -12,6 +10,8 @@ interface EmojiData {
 }
 
 const emojiData = emojiDictionary as unknown as EmojiData;
+
+const ICON_ATTRIBUTES = ['icon', 'i-width', 'i-height', 'i-size', 'i-class'];
 
 interface IconAttributes {
   icon?: string;
@@ -108,60 +108,37 @@ const getIconAttributes = (node: MbNode, defaultIcon?: IconAttributes): IconAttr
   return {
     ...iconAttributes,
     icon: node.attribs.icon !== undefined ? node.attribs.icon : iconAttributes.icon,
-    width: node.attribs.width !== undefined ? node.attribs.width : iconAttributes.width,
-    height: node.attribs.height !== undefined ? node.attribs.height : iconAttributes.height,
-    size: node.attribs.size !== undefined ? node.attribs.size : iconAttributes.size,
-    className: node.attribs.class !== undefined ? node.attribs.class : iconAttributes.className,
+    width: node.attribs['i-width'] !== undefined ? node.attribs['i-width'] : iconAttributes.width,
+    height: node.attribs['i-height'] !== undefined ? node.attribs['i-height'] : iconAttributes.height,
+    size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttributes.size,
+    className: node.attribs['i-class'] !== undefined
+      ? node.attribs['i-class']
+      : iconAttributes.className,
   };
 };
 
-// Helper function to update UL node
 const updateUlNode = (node: MbNode, icon: IconAttributes) => {
-  // Check if node and icon are not null
-  if (node && node.attribs && icon) {
-    if (icon.icon) {
-      node.attribs.icon = icon.icon;
-    } else {
-      console.warn('icon.icon is null or undefined!');
-    }
-
-    if (icon.width) {
-      node.attribs.width = icon.width;
-    } else {
-      console.warn('icon.width is null or undefined!');
-    }
-
-    if (icon.height) {
-      node.attribs.height = icon.height;
-    } else {
-      console.warn('icon.height is null or undefined!');
-    }
-
-    if (icon.size) {
-      node.attribs.size = icon.size;
-    } else {
-      console.warn('icon.size is null or undefined!');
-    }
-
-    if (icon.className) {
-      node.attribs.class = icon.className;
-    } else {
-      console.warn('icon.className is null or undefined!');
-    }
-  } else {
-    console.error('Either node or icon is null!');
+  if (get(node, 'attribs') && icon) {
+    node.attribs.icon = icon.icon ?? node.attribs.icon;
+    node.attribs['i-width'] = icon.width ?? node.attribs['i-width'];
+    node.attribs['i-height'] = icon.height ?? node.attribs['i-height'];
+    node.attribs['i-size'] = icon.size ?? node.attribs['i-size'];
+    node.attribs['i-class'] = icon.className ?? node.attribs['i-class'];
   }
 };
 
+const deleteAttributes = (node: MbNode, attributes: string[]) => {
+  attributes.forEach((attr) => {
+    delete node.attribs[attr];
+  });
+};
 
 function updateLi(child: NodeOrText, iconAttributes: IconAttributes) {
   const childNode = child as MbNode;
 
   const curLiIcon = getIconAttributes(childNode, iconAttributes);
 
-  ['icon', 'width', 'height', 'size', 'class'].forEach((attr) => {
-    delete childNode.attribs[attr];
-  });
+  deleteAttributes(childNode, ICON_ATTRIBUTES);
 
   // Create a new div and span
   const div = cheerio('<div></div>');
@@ -182,42 +159,16 @@ function isRelevantNode(node: NodeOrText): boolean {
   return 'name' in node && node.name === 'ul' && Boolean(node.children);
 }
 
-function updateFirstUl(ulNode: MbNode): IconAttributes | null {
-  let isFirstUlLiChild = true;
-  let defaultIcon: IconAttributes | null = null;
-
-  for (let i = 0; i < ulNode.children.length; i += 1) {
-    const ulChild = ulNode.children[i];
-    if (ulChild.name === 'li') {
-      if (isFirstUlLiChild) {
-        const iconAttr = getIconAttributes(ulChild as MbNode);
-        if (iconAttr) {
-          defaultIcon = iconAttr;
-          isFirstUlLiChild = false;
-        } else return null;
-      } else if (defaultIcon) {
-        defaultIcon = getIconAttributes(ulChild as MbNode, defaultIcon);
-      }
-    }
-  }
-
-  return defaultIcon;
-}
-
-function updateRestUl(ulNode: MbNode, defaultIcon: IconAttributes): IconAttributes {
-  updateUlNode(ulNode, defaultIcon);
-
-  const updatedIcon = ulNode.children
-    .filter(ulChild => ulChild.name === 'li')
-    .reduce((icon, ulChild) => getIconAttributes(ulChild as MbNode, icon)!, defaultIcon);
-
-  return updatedIcon;
-}
-
 export function waterfallModel(node: NodeOrText) {
-  const iconAttrs: { key: number, value: { isFirst: boolean, iconAttr: IconAttributes | null, level: number } }[] = [];
+  const iconAttrs: {
+    key: number, value: {
+      isFirst: boolean, iconAttr: IconAttributes | null, level: number
+    }
+  }[] = [];
 
-  function handleChild(child: MbNode, iconAttrValue: { isFirst: boolean, iconAttr: IconAttributes | null, level: number }) {
+  function handleChild(child: MbNode, iconAttrValue: {
+    isFirst: boolean, iconAttr: IconAttributes | null, level: number
+  }) {
     if (child.name === 'li') {
       const liChild = child as MbNode;
       if (iconAttrValue.isFirst) {
@@ -233,36 +184,35 @@ export function waterfallModel(node: NodeOrText) {
     if (!isRelevantNode(currentNode)) return;
 
     if (!iconAttrs[level]) {
-      iconAttrs[level] = { key: level, value: { isFirst: true, iconAttr: null, level: level } };
+      iconAttrs[level] = { key: level, value: { isFirst: true, iconAttr: null, level } };
     }
 
     const ulNode = currentNode as MbNode;
     const liNodes = ulNode.children.filter(child => child.name === 'li');
 
-    for (const liNode of liNodes) {
+    liNodes.forEach((liNode) => {
       const ulLiChildren = liNode.children?.filter(child => child.name === 'ul');
-      if (!ulLiChildren) continue;
+      if (ulLiChildren && ulLiChildren.length > 0) {
+        ulLiChildren.forEach((ulLiChildNode) => {
+          const iconAttrValue = iconAttrs[level].value;
 
-      for (const ulLiChildNode of ulLiChildren) {
-        const iconAttrValue = iconAttrs[level].value;
+          if (ulLiChildNode.children) {
+            ulLiChildNode.children.forEach(child => handleChild(child as MbNode, iconAttrValue));
+          }
 
-        if (ulLiChildNode.children) {
-          ulLiChildNode.children.forEach(child => handleChild(child as MbNode, iconAttrValue));
-        }
+          if (iconAttrValue.iconAttr) {
+            updateUlNode(ulLiChildNode as MbNode, iconAttrValue.iconAttr);
+          }
 
-        if (iconAttrValue.iconAttr) {
-          updateUlNode(ulLiChildNode as MbNode, iconAttrValue.iconAttr);
-        }
-
-        // Traverse the children if any
-        dfs(ulLiChildNode, level + 1);
+          // Traverse the children if any
+          dfs(ulLiChildNode, level + 1);
+        });
       }
-    }
+    });
   }
 
   dfs(node, 1);
 }
-
 
 export function processUlNode(node: NodeOrText): NodeOrText {
   if (!isRelevantNode(node)) return node;
@@ -275,9 +225,7 @@ export function processUlNode(node: NodeOrText): NodeOrText {
 
   if (defaultIcon) {
     // Remove the icon-related attributes
-    ['icon', 'width', 'height', 'size', 'class'].forEach((attr) => {
-      delete ulNode.attribs[attr];
-    });
+    deleteAttributes(ulNode, ICON_ATTRIBUTES);
   } else {
     defaultIcon = {};
   }
