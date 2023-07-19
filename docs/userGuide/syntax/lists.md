@@ -87,6 +87,7 @@ If either the `i-width` or the `i-height` of an image is not specified, the unsp
   * Item 2.1 {icon="fas-question-circle" i-class="badge rounded-pill mb-1 bg-success text-white"}
   * Item 2.2 {i-class="badge rounded-pill mb-1 bg-danger text-white"}
   * Item 2.3 
+    * Item 2.3.1 {icon="fas-question-circle" i-class="badge rounded mb-1 bg-danger text-white"}
 * Item 3
   * Item 3.1 
   * Item 3.2 {i-class="badge rounded-pill mb-1 bg-primary text-white"}
@@ -94,6 +95,7 @@ If either the `i-width` or the `i-height` of an image is not specified, the unsp
   * Item 3.4
 * Item 4
   * Item 4.1
+    * Item 4.1.1
   * Item 4.2 
 </variable>
 </include>
