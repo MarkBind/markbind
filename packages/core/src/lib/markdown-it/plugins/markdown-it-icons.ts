@@ -4,7 +4,8 @@ const cheerio = require('cheerio');
 const markdownItRegExp = require('markdown-it-regexp');
 
 // regular expression to match the icon patterns
-const ICON_REGEXP = /:(fa[brs]|glyphicon|octicon|octiconlight|mi[forst])-([a-z-]+)~?([a-z-]+)?:/;
+const ICON_REGEXP
+  = /:(fa[brs]|fa-brands|fa-solid|glyphicon|octicon|octiconlight|mi[forst])-([a-z-]+)~?([a-z-]+)?:/;
 
 // function to get the octicon icons
 function getOcticonIcon(iconName: string) {

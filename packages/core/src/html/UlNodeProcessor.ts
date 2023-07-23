@@ -23,17 +23,9 @@ interface IconAttributes {
 
 function classifyIcon(icon: string) {
   const isEmoji = Object.prototype.hasOwnProperty.call(emojiData, icon);
-  const localFileRegex = new RegExp([
-    '^(./)?',
-    '[a-zA-Z0-9-._~:/?#[@!$&\'()*+,;=%]+',
-    '.(jpg|png|gif|bmp|svg|jpeg|webp|avif)$',
-  ].join(''));
 
-  const urlRegex = /^(http(s)?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
-  const isImage = !isEmoji && (localFileRegex.test(icon) || urlRegex.test(icon));
   return {
     isEmoji,
-    isImage,
     unicodeEmoji: isEmoji
       ? emojiData[icon]
       : undefined,
@@ -43,15 +35,18 @@ function classifyIcon(icon: string) {
 function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
   const {
     isEmoji,
-    isImage,
     unicodeEmoji,
   } = classifyIcon(iconAttrs.icon!);
 
   let spanContent;
-
   if (isEmoji) {
     spanContent = `<span aria-hidden="true">${unicodeEmoji}</span>`;
-  } else if (isImage) {
+  } else {
+    spanContent = processIconString(iconAttrs.icon);
+  }
+
+  let spanNode;
+  if (spanContent === null) {
     const img = cheerio(`<img src='${iconAttrs.icon}' alt='Icon'>`)
       .css({ width: iconAttrs.width, height: iconAttrs.height, display: 'inline-block' })
       .addClass(iconAttrs.className || '');
@@ -61,13 +56,9 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
       'padding-bottom': '0.3em',
       'padding-top': '0.3em',
     });
+    spanNode = cheerio(spanContent).css({ 'font-size': 'unset' });
   } else {
-    spanContent = processIconString(iconAttrs.icon);
-  }
-
-  let spanNode = cheerio(spanContent).css({ 'font-size': 'unset', 'min-width': '16px' });
-
-  if (!isImage) {
+    spanNode = cheerio(spanContent).css({ 'font-size': 'unset' });
     spanNode = spanNode.css({ 'font-size': iconAttrs.size }).addClass(iconAttrs.className || '');
   }
   // Add invisible character to avoid the element from being empty
@@ -76,7 +67,7 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
     'line-height': 'unset',
     'margin-inline-end': '0.3em',
     'flex-shrink': '0',
-    height: '100%',
+    'align-self': 'flex-start',
   });
 }
 
@@ -155,10 +146,6 @@ function updateLi(child: NodeOrText, iconAttributes: IconAttributes) {
   });
 }
 
-function isRelevantNode(node: NodeOrText): boolean {
-  return 'name' in node && node.name === 'ul' && Boolean(node.children);
-}
-
 export function waterfallModel(node: NodeOrText) {
   // Check if the node has `isIconListProcessed`. If yes, delete it and return.
   const nodeAsMbNode = node as MbNode;
@@ -188,8 +175,6 @@ export function waterfallModel(node: NodeOrText) {
   }
 
   function dfs(currentNode: NodeOrText, level: number = 0) {
-    if (!isRelevantNode(currentNode)) return;
-
     if (!iconAttrs[level]) {
       iconAttrs[level] = { key: level, value: { isFirst: true, iconAttr: null, level } };
     }
@@ -227,8 +212,6 @@ export function waterfallModel(node: NodeOrText) {
 }
 
 export function processUlNode(node: NodeOrText): NodeOrText {
-  if (!isRelevantNode(node)) return node;
-
   const ulNode = node as MbNode;
   waterfallModel(ulNode);
 
