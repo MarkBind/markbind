@@ -103,8 +103,7 @@ const markdownItPlugin = markdownItRegExp(
   (match: string[]) => getIconHtml(match),
 );
 
-// Attach `getIconHtml` to the exported function
-markdownItPlugin.processIconString = processIconString;
-
-// export the markdown-it plugin
-module.exports = markdownItPlugin;
+module.exports = {
+  markdownItPlugin,
+  processIconString,
+};

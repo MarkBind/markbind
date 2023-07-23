@@ -81,7 +81,7 @@ If either the `i-width` or the `i-height` of an image is not specified, the unsp
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 * Item 1 <br>
-  Item 1 line 2{icon="/images/deer.jpg" i-width="60px" height="17px" class="rounded"}
+  Item 1 line 2{icon="/images/deer.jpg" i-width="60px" height="17px" i-class="rounded"}
 * Item 2
   Item 2 Continue
   * Item 2.1 {icon="fas-question-circle" i-class="badge rounded-pill mb-1 bg-success text-white"}
