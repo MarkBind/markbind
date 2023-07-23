@@ -1,5 +1,4 @@
 import cheerio from 'cheerio';
-import get from 'lodash/get';
 import { MbNode, NodeOrText } from '../utils/node';
 
 const { processIconString } = require('../lib/markdown-it/plugins/markdown-it-icons');
@@ -20,6 +19,17 @@ interface IconAttributes {
   width?: string;
   height?: string;
 }
+
+type IconAttributeDetail = {
+  isFirst: boolean;
+  iconAttr: IconAttributes | null;
+  level: number;
+};
+
+type IconAttributeWrapper = {
+  key: number;
+  value: IconAttributeDetail;
+};
 
 function classifyIcon(icon: string) {
   const isEmoji = Object.prototype.hasOwnProperty.call(emojiData, icon);
@@ -95,16 +105,6 @@ const getIconAttributes = (node: MbNode, defaultIcon?: IconAttributes): IconAttr
   };
 };
 
-const updateUlNode = (node: MbNode, icon: IconAttributes) => {
-  if (get(node, 'attribs') && icon) {
-    node.attribs.icon = icon.icon ?? node.attribs.icon;
-    node.attribs['i-width'] = icon.width ?? node.attribs['i-width'];
-    node.attribs['i-height'] = icon.height ?? node.attribs['i-height'];
-    node.attribs['i-size'] = icon.size ?? node.attribs['i-size'];
-    node.attribs['i-class'] = icon.className ?? node.attribs['i-class'];
-  }
-};
-
 const deleteAttributes = (node: MbNode, attributes: string[]) => {
   attributes.forEach((attr) => {
     delete node.attribs[attr];
@@ -113,7 +113,9 @@ const deleteAttributes = (node: MbNode, attributes: string[]) => {
 
 function updateLi(child: NodeOrText, iconAttributes: IconAttributes) {
   const childNode = child as MbNode;
-
+  if (
+    iconAttributes.icon === undefined
+  ) return;
   const curLiIcon = getIconAttributes(childNode, iconAttributes);
 
   deleteAttributes(childNode, ICON_ATTRIBUTES);
@@ -133,35 +135,29 @@ function updateLi(child: NodeOrText, iconAttributes: IconAttributes) {
   });
 }
 
-export function waterfallModel(node: NodeOrText) {
-  // Check if the node has `isIconListProcessed`. If yes, delete it and return.
+function handleChild(child: MbNode, iconAttrValue: IconAttributeDetail) {
+  if (child.name === 'li') {
+    const liChild = child as MbNode;
+    if (iconAttrValue.isFirst) {
+      iconAttrValue.iconAttr = getIconAttributes(liChild);
+      iconAttrValue.isFirst = false;
+    } else if (iconAttrValue.iconAttr) {
+      iconAttrValue.iconAttr = getIconAttributes(liChild, iconAttrValue.iconAttr);
+    }
+    updateLi(child, iconAttrValue.iconAttr ?? {});
+  }
+}
+
+export function processUlNode(node: NodeOrText) {
   const nodeAsMbNode = node as MbNode;
   if (nodeAsMbNode.attribs.isIconListProcessed === 'true') {
     delete nodeAsMbNode.attribs.isIconListProcessed;
     return;
   }
 
-  const iconAttrs: {
-    key: number, value: {
-      isFirst: boolean, iconAttr: IconAttributes | null, level: number
-    }
-  }[] = [];
+  const iconAttrs: IconAttributeWrapper[] = [];
 
-  function handleChild(child: MbNode, iconAttrValue: {
-    isFirst: boolean, iconAttr: IconAttributes | null, level: number
-  }) {
-    if (child.name === 'li') {
-      const liChild = child as MbNode;
-      if (iconAttrValue.isFirst) {
-        iconAttrValue.iconAttr = getIconAttributes(liChild);
-        iconAttrValue.isFirst = false;
-      } else if (iconAttrValue.iconAttr) {
-        iconAttrValue.iconAttr = getIconAttributes(liChild, iconAttrValue.iconAttr);
-      }
-    }
-  }
-
-  function dfs(currentNode: NodeOrText, level: number = 0) {
+  function dfs(currentNode: NodeOrText, level: number) {
     if (!iconAttrs[level]) {
       iconAttrs[level] = { key: level, value: { isFirst: true, iconAttr: null, level } };
     }
@@ -170,66 +166,24 @@ export function waterfallModel(node: NodeOrText) {
     const liNodes = ulNode.children.filter(child => child.name === 'li');
 
     liNodes.forEach((liNode) => {
-      const ulLiChildren = liNode.children?.filter(child => child.name === 'ul');
-      if (ulLiChildren && ulLiChildren.length > 0) {
-        ulLiChildren.forEach((ulLiChildNode) => {
-          const iconAttrValue = iconAttrs[level].value;
+      const ulChildren = liNode.children?.filter(child => child.name === 'ul');
+      handleChild(liNode as MbNode, iconAttrs[level].value);
 
-          if (ulLiChildNode.children) {
-            ulLiChildNode.children.forEach(child => handleChild(child as MbNode, iconAttrValue));
-          }
-
-          if (iconAttrValue.iconAttr) {
-            updateUlNode(ulLiChildNode as MbNode, iconAttrValue.iconAttr);
-          }
-
+      if (ulChildren && ulChildren.length > 0) {
+        ulChildren.forEach((ulChildNode) => {
           // Traverse the children if any
-          dfs(ulLiChildNode, level + 1);
+          dfs(ulChildNode, level + 1);
 
           // Insert an `isIconListProcessed` flag attribute to the node.
-          if (ulLiChildNode.attribs) {
-            ulLiChildNode.attribs.isIconListProcessed = 'true';
+          if (ulChildNode.attribs) {
+            ulChildNode.attribs.isIconListProcessed = 'true';
           }
         });
       }
     });
-  }
-
-  dfs(node, 1);
-}
-
-export function processUlNode(node: NodeOrText): NodeOrText {
-  const ulNode = node as MbNode;
-  waterfallModel(ulNode);
-
-  let defaultIcon = getIconAttributes(ulNode);
-  let isFirst = true;
-
-  if (defaultIcon) {
-    // Remove the icon-related attributes
-    deleteAttributes(ulNode, ICON_ATTRIBUTES);
-  } else {
-    defaultIcon = {};
-  }
-
-  for (let i = 0; i < ulNode.children.length; i += 1) {
-    const child = ulNode.children[i];
-
-    if (child.name === 'li') {
-      const curLi = child as MbNode;
-      const curLiIcon = getIconAttributes(curLi, defaultIcon);
-
-      if (isFirst && !curLiIcon && !defaultIcon.icon) return ulNode;
-
-      if (isFirst) {
-        isFirst = false;
-        updateNodeStyle(ulNode);
-      }
-
-      defaultIcon = curLiIcon || defaultIcon;
-      updateLi(curLi, defaultIcon);
+    if (iconAttrs[level].value.iconAttr !== null) {
+      updateNodeStyle(ulNode);
     }
   }
-
-  return ulNode;
+  dfs(node, 0);
 }
