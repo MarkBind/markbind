@@ -86,25 +86,12 @@ const getIconAttributes = (node: MbNode, defaultIcon?: IconAttributes): IconAttr
     return null;
   }
 
-  // Prepare an object with default properties
-  const iconAttributes: IconAttributes = {
-    icon: defaultIcon?.icon,
-    width: defaultIcon?.width,
-    height: defaultIcon?.height,
-    size: defaultIcon?.size,
-    className: defaultIcon?.className,
-  };
-
-  // Overwrite defaults with the actual attributes from node if they exist
   return {
-    ...iconAttributes,
-    icon: node.attribs.icon !== undefined ? node.attribs.icon : iconAttributes.icon,
-    width: node.attribs['i-width'] !== undefined ? node.attribs['i-width'] : iconAttributes.width,
-    height: node.attribs['i-height'] !== undefined ? node.attribs['i-height'] : iconAttributes.height,
-    size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttributes.size,
-    className: node.attribs['i-class'] !== undefined
-      ? node.attribs['i-class']
-      : iconAttributes.className,
+    icon: node.attribs.icon !== undefined ? node.attribs.icon : defaultIcon?.icon,
+    width: node.attribs['i-width'] !== undefined ? node.attribs['i-width'] : defaultIcon?.width,
+    height: node.attribs['i-height'] !== undefined ? node.attribs['i-height'] : defaultIcon?.height,
+    size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : defaultIcon?.size,
+    className: node.attribs['i-class'] !== undefined ? node.attribs['i-class'] : defaultIcon?.className,
   };
 };
 
