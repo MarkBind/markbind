@@ -158,10 +158,6 @@ type DeployOptions = {
   user?: { name: string; email: string; },
 };
 
-type NunjuckObj = {
-  [key: string]: string | undefined,
-};
-
 export class Site {
   dev: boolean;
   rootPath: string;
@@ -417,9 +413,9 @@ export class Site {
    * by rendering the specified nunjucks file with nunjucks variables.
    *
    * @param njkFile The nunjucks template to create a default layout from.
-   * @param {NunjuckObj=} [njkObject] The object containing the nunjucks variables of the template.
+   * @param {Record<string, any>=} [njkObject] The object containing the nunjucks variables of the template.
    */
-  addDefaultLayoutFile(njkFile: string, njkObject?: NunjuckObj) {
+  addDefaultLayoutFile(njkFile: string, njkObject?: Record<string, any>) {
     const convertedLayoutTemplate = VariableRenderer.compile(
       fs.readFileSync(path.join(__dirname, njkFile), 'utf8'));
     const renderedLayout = convertedLayoutTemplate.render(njkObject);
@@ -437,7 +433,7 @@ export class Site {
    * @returns A NunjuckObj with all nunjucks variables in the layout.
    */
   createNjkObjects({ njkSubs, hasAutoSiteNav, siteNavIgnore }: TemplateConfig) {
-    const njkObject: NunjuckObj = {};
+    const njkObject: Record<string, any> = {};
     njkSubs.forEach((njkSub) => {
       let fileCopy;
       njkSub.fileSubstitutes.forEach((fileName) => {
@@ -483,17 +479,17 @@ export class Site {
    * by modifying the site config file.
    *
    */
-  async addTemplateLayoutSettingsToSiteConfig({ layoutObjs }: TemplateConfig) {
+  async addTemplateLayoutSettingsToSiteConfig({ pageConfigs }: TemplateConfig) {
     const configPath = path.join(this.rootPath, SITE_CONFIG_NAME);
     const config = await fs.readJson(configPath);
-    await Site.writeToSiteConfig(config, configPath, layoutObjs);
+    await Site.writeToSiteConfig(config, configPath, pageConfigs);
   }
 
   /**
-   * Helper function for addDefaultLayoutToSiteConfig().
+   * Helper function for addTemplateLayoutSettingsToSiteConfig
    */
-  static async writeToSiteConfig(config: SiteConfig, configPath: string, layoutObjs: SiteConfigPage[]) {
-    layoutObjs.forEach(layoutObj => config.pages.push(layoutObj));
+  static async writeToSiteConfig(config: SiteConfig, configPath: string, pageConfigs: SiteConfigPage[]) {
+    pageConfigs.forEach(pageConfig => config.pages.push(pageConfig));
     await fs.writeFile(configPath, JSON.stringify(config, null, 2));
   }
 

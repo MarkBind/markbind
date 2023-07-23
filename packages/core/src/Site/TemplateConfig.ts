@@ -8,7 +8,7 @@ type NjkFileVars = {
 export type TemplateConfig = {
   njkSubs: NjkFileVars[],
   njkFile: string,
-  layoutObjs: SiteConfigPage[],
+  pageConfigs: SiteConfigPage[],
   hasAutoSiteNav: boolean,
   siteNavIgnore?: string[]
 };
@@ -25,7 +25,7 @@ const defaultTemplate: TemplateConfig = {
     },
   ],
   njkFile: 'defaultLayout.njk',
-  layoutObjs: [
+  pageConfigs: [
     { glob: '**/*.md', layout: 'default.md' },
     { glob: '404.md', layout: '404.md' },
   ],
@@ -39,7 +39,7 @@ const defaultTemplate: TemplateConfig = {
 const minimalTemplate: TemplateConfig = {
   njkSubs: [],
   njkFile: 'minimalLayout.njk',
-  layoutObjs: [{ glob: '**/*.md', layout: 'default.md' }],
+  pageConfigs: [{ glob: '**/*.md', layout: 'default.md' }],
   hasAutoSiteNav: false,
 };
 
