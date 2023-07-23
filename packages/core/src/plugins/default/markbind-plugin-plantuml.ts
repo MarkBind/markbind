@@ -6,7 +6,7 @@
 import cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
-import { exec } from 'child_process';
+import { execSync } from 'child_process';
 import cryptoJS from 'crypto-js';
 
 import * as fsUtil from '../../utils/fsUtil';
@@ -40,33 +40,14 @@ function generateDiagram(imageOutputPath: string, content: string) {
 
   // Java command to launch PlantUML jar
   const cmd = `java -jar "${JAR_PATH}" -nometadata -pipe > "${imageOutputPath}"`;
-  const childProcess = exec(cmd);
 
-  let errorLog = '';
-  childProcess.stdin?.write(
-    content,
-    (e) => {
-      if (e) {
-        logger.debug(e as unknown as string);
-        logger.error(`Error generating ${imageOutputPath}`);
-      }
-      childProcess.stdin?.end();
-    },
-  );
-
-  childProcess.on('error', (error) => {
+  try {
+    execSync(cmd, { input: content });
+    // You can log stdout if you want
+  } catch (error) {
     logger.debug(error as unknown as string);
     logger.error(`Error generating ${imageOutputPath}`);
-  });
-
-  childProcess.stderr?.on('data', (errorMsg) => {
-    errorLog += errorMsg;
-  });
-
-  childProcess.on('exit', () => {
-    // This goes to the log file, but not shown on the console
-    logger.debug(errorLog);
-  });
+  }
 }
 
 export = {
@@ -97,14 +78,17 @@ export = {
       return;
     }
     if (config.plantumlCheck && !graphvizCheckCompleted) {
-      exec(`java -jar "${JAR_PATH}" -testdot`, (_error, _stdout, stderr) => {
-        if (stderr.includes('Error: No dot executable found')) {
+      try {
+        const stderr = execSync(`java -jar "${JAR_PATH}" -testdot`);
+        if (stderr.toString().includes('Error: No dot executable found')) {
           logger.warn('You are using PlantUML diagrams but Graphviz is not installed!');
         }
-      });
+      } catch (error) {
+        logger.debug(error as unknown as string);
+        logger.error('Error checking Graphviz installation');
+      }
       graphvizCheckCompleted = true;
     }
-
     node.name = 'pic';
 
     let pumlContent;
