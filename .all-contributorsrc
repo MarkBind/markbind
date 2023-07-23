@@ -629,7 +629,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/55905659?v=4",
       "profile": "https://github.com/WillCWX",
       "contributions": [
-        "doc"
+        "doc",
+        "code"
       ]
     },
     {
@@ -638,7 +639,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/39799639?v=4",
       "profile": "http://esswhyy.github.io",
       "contributions": [
-        "doc"
+        "doc",
+        "code"
       ]
     },
     {
@@ -647,6 +649,16 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/84223259?v=4",
       "profile": "http://www.lesterong.com",
       "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "SPWwj",
+      "name": "SPWwj",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30100720?v=4",
+      "profile": "https://github.com/SPWwj",
+      "contributions": [
+        "doc",
         "code"
       ]
     }

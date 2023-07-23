@@ -18,8 +18,8 @@ This page explains how to set up your development environment to start contribut
 1. **Node.js** ({{ node_dev_version }} or higher) with<br>
    **npm** v8 or higher
 
-1. **Java** 8 or later, and<br>
-   **Graphviz** v2.38 or later<br>
+1. **Java** 8 or higher, and<br>
+   **Graphviz** ({{ graphviz_version }} or higher, _installation is optional on Windows_) <br>
    %%(The above two are required for one of the third-party libraries used by MarkBind)%%
 
 1. **Python** 3 or later, and<br>
@@ -29,7 +29,7 @@ This page explains how to set up your development environment to start contribut
    * `node --version`
    * `npm --version`
    * `java --version`
-   * `dot -V` (for Graphviz)
+   * `dot -V` (for Graphviz - optional on Windows)
    * `python3 -V`
 
 <box type="tip" seamless>
