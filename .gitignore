@@ -89,6 +89,7 @@ packages/core/src/Site/*.js
 packages/core/src/utils/*.js
 packages/core/src/variables/*.js
 packages/core/test/unit/**/*.js
+packages/core/_site/*
 
 # TODO: remove when migrated to TS
 !packages/core/src/Layout/*.js

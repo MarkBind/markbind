@@ -15,6 +15,7 @@ import * as urlUtil from '../../utils/urlUtil';
 import { PluginContext } from '../Plugin';
 import { NodeProcessorConfig } from '../../html/NodeProcessor';
 import { MbNode } from '../../utils/node';
+import { createLockFile, deleteLockFile } from '../../utils/lockFileManager';
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
@@ -37,7 +38,6 @@ function generateDiagram(imageOutputPath: string, content: string) {
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
-
   // Java command to launch PlantUML jar
   const cmd = `java -jar "${JAR_PATH}" -nometadata -pipe > "${imageOutputPath}"`;
 
@@ -48,6 +48,19 @@ function generateDiagram(imageOutputPath: string, content: string) {
     logger.debug(error as unknown as string);
     logger.error(`Error generating ${imageOutputPath}`);
   }
+    deleteLockFile(lockFileName);
+  });
+
+  childProcess.stderr?.on('data', (errorMsg) => {
+    errorLog += errorMsg;
+  });
+
+  childProcess.on('exit', () => {
+    // This goes to the log file, but not shown on the console
+    logger.debug(errorLog);
+    // Delete the lock file after generating the diagram
+    deleteLockFile(lockFileName);
+  });
 }
 
 export = {
