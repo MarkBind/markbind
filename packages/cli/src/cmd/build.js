@@ -1,6 +1,6 @@
 const path = require('path');
 
-const { Site } = require('@markbind/core');
+const { Site } = require('@markbind/core').Site;
 
 const cliUtil = require('../util/cliUtil');
 const logger = require('../util/logger');
