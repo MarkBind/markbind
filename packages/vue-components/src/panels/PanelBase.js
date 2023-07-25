@@ -135,6 +135,14 @@ export default {
       }
 
       if (this.localExpanded) {
+        if (hasAnimation) {
+          /*
+            Collapse panel.
+            Panel's maxHeight is 'none' at the moment, as event listener set it to 'none' after expansion.
+            Thus, we need to reset the maxHeight to its current height for collapse transition to work.
+          */
+          this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+        }
         requestAnimationFrame(() => {
           // To enable behaviour of auto window scrolling during panel collapse
           if (this.$el.getBoundingClientRect().top < 0) {
