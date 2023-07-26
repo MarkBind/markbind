@@ -21,7 +21,9 @@ export function createLockFile(): string {
 
 export function deleteLockFile(fileName: string): void {
   const filePath = path.join(directoryPath, fileName);
-  fs.unlinkSync(filePath);
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  }
 }
 
 export function deleteAllLockFiles(): void {
@@ -33,14 +35,23 @@ export function deleteAllLockFiles(): void {
 export function waitForLockRelease(): Promise<void> {
   return new Promise<void>((resolve) => {
     const checkDirectory = async () => {
-      const files = await fsp.readdir(directoryPath);
-      if (files.length === 0) {
-        // If there are no files in the directory, resolve the Promise
-        deleteAllLockFiles();
-        resolve();
-      } else {
-        // If there are still files, check again after 1 second
-        setTimeout(checkDirectory, 1000);
+      try {
+        await fsp.access(directoryPath);
+        const files = await fsp.readdir(directoryPath);
+        if (files.length === 0) {
+          deleteAllLockFiles();
+          resolve();
+        } else {
+          setTimeout(checkDirectory, 100);
+        }
+      } catch (err) {
+        const error = err as NodeJS.ErrnoException;
+        if (error.code === 'ENOENT') {
+          // ENOENT error is thrown if directory does not exist
+          resolve();
+        } else {
+          throw error;
+        }
       }
     };
     checkDirectory();
