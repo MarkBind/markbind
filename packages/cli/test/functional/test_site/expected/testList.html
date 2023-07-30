@@ -209,6 +209,44 @@
       <div id="content-wrapper">
         <breadcrumb></breadcrumb>
         <ol>
+          <li>One item</li>
+        </ol>
+        <ul>
+          <li>Only 1 item</li>
+        </ul>
+        <ol>
+          <li>One item with customization</li>
+        </ol>
+        <ul style="list-style-type: none; padding-inline-start: 0px;">
+          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education" style="font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
+            <div>Only 1 item</div>
+          </li>
+        </ul>
+        <ol>
+          <li>One item + nested list</li>
+        </ol>
+        <ul>
+          <li>Only 1 item
+            <ul>
+              <li>Only 1 item</li>
+            </ul>
+          </li>
+        </ul>
+        <ol>
+          <li>One item + nested list with customization</li>
+        </ol>
+        <ul style="list-style-type: none; padding-inline-start: 0px;">
+          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education" style="font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
+            <div>Only 1 item
+              <ul style="list-style-type: none; padding-inline-start: 0px;">
+                <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education" style="font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
+                  <div>Only 1 item</div>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+        <ol>
           <li>Basic structure</li>
         </ol>
         <ul>
@@ -231,29 +269,29 @@
             </ul>
           </li>
         </ul>
-        <ol start="2">
+        <ol>
           <li>Icon inheritance test</li>
         </ol>
         <ul style="list-style-type: none; padding-inline-start: 0px;">
-          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education" style="font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education" style="font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
             <div>Item A</div>
           </li>
-          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education" style="font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education" style="font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
             <div>Item B
               <ul style="list-style-type: none; padding-inline-start: 0px;">
-                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                   <div>Sub-item B1</div>
                 </li>
-                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                   <div>Sub-item B2</div>
                 </li>
-                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                   <div>Sub-item B3
                     <ul style="list-style-type: none; padding-inline-start: 0px;">
-                      <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;"><img src="/test_site/images/deer.png" alt="Icon" style="width: 50px; display: inline-block;">​​</span>
+                      <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;"><img src="/test_site/images/deer.jpg" alt="Icon" style="width: 50px; display: inline-block;">​​</span>
                         <div>Sub-sub-item B3.1</div>
                       </li>
-                      <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;"><img src="/test_site/images/deer.png" alt="Icon" style="width: 50px; display: inline-block;">​​</span>
+                      <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;"><img src="/test_site/images/deer.jpg" alt="Icon" style="width: 50px; display: inline-block;">​​</span>
                         <div>Sub-sub-item B3.2
                           <ul>
                             <li>Sub-sub-sub-item B3.2.1</li>
@@ -263,26 +301,26 @@
                     </ul>
                   </div>
                 </li>
-                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                   <div>Sub-item B4</div>
                 </li>
               </ul>
             </div>
           </li>
         </ul>
-        <ol start="3">
+        <ol>
           <li>First item no customization test</li>
         </ol>
         <ul>
           <li>Item A</li>
-          <li icon="./images/deer.png">Item B
+          <li icon="./images/deer.jpg">Item B
             <ul>
               <li>Sub-item B1</li>
               <li icon="fas-file-code">Sub-item B2</li>
               <li>Sub-item B3
                 <ul>
                   <li>Sub-sub-item B3.1</li>
-                  <li icon="./images/deer.png" i-width="50px">Sub-sub-item B3.2</li>
+                  <li icon="./images/deer.jpg" i-width="50px">Sub-sub-item B3.2</li>
                   <li>Sub-sub-sub-item B3.2.1</li>
                 </ul>
               </li>
@@ -290,29 +328,29 @@
             </ul>
           </li>
         </ul>
-        <ol start="4">
+        <ol>
           <li>Correct first item customization test</li>
         </ol>
         <ul style="list-style-type: none; padding-inline-start: 0px;">
-          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education" style="font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education" style="font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
             <div>Item A</div>
           </li>
-          <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;"><img src="/test_site/images/deer.png" alt="Icon" style="display: inline-block;">​​</span>
+          <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;"><img src="/test_site/images/deer.jpg" alt="Icon" style="display: inline-block;">​​</span>
             <div>Item B
               <ul style="list-style-type: none; padding-inline-start: 0px;">
-                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                   <div>Sub-item B1</div>
                 </li>
-                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                   <div>Sub-item B2</div>
                 </li>
-                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                   <div>Sub-item B3
                     <ul style="list-style-type: none; padding-inline-start: 0px;">
-                      <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;"><img src="/test_site/images/deer.png" alt="Icon" style="width: 50px; display: inline-block;">​​</span>
+                      <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;"><img src="/test_site/images/deer.jpg" alt="Icon" style="width: 50px; display: inline-block;">​​</span>
                         <div>Sub-sub-item B3.1</div>
                       </li>
-                      <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;"><img src="/test_site/images/deer.png" alt="Icon" style="width: 50px; display: inline-block;">​​</span>
+                      <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;"><img src="/test_site/images/deer.jpg" alt="Icon" style="width: 50px; display: inline-block;">​​</span>
                         <div>Sub-sub-item B3.2
                           <ul>
                             <li>Sub-sub-sub-item B3.2.1</li>
@@ -322,36 +360,36 @@
                     </ul>
                   </div>
                 </li>
-                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                   <div>Sub-item B4</div>
                 </li>
               </ul>
             </div>
           </li>
         </ul>
-        <ol start="5">
+        <ol>
           <li>Testing with various attributes</li>
         </ol>
         <ul style="list-style-type: none; padding-inline-start: 0px;">
-          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education text-primary" style="font-size: 20px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education text-primary" style="font-size: 20px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
             <div>Item A</div>
           </li>
-          <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;"><img src="/test_site/images/deer.png" alt="Icon" style="width: 200px; height: 100px; display: inline-block;" class="text-warning">​​</span>
+          <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;"><img src="/test_site/images/deer.jpg" alt="Icon" style="width: 200px; height: 100px; display: inline-block;" class="text-warning">​​</span>
             <div>Item B
               <ul style="list-style-type: none; padding-inline-start: 0px;">
-                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: 30px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code" style="font-size: 30px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                   <div>Sub-item B1</div>
                 </li>
-                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 30px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 30px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                   <div>Sub-item B2</div>
                 </li>
-                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 30px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 30px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                   <div>Sub-item B3
                     <ul style="list-style-type: none; padding-inline-start: 0px;">
-                      <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;"><img src="/test_site/images/deer.png" alt="Icon" style="width: 50px; height: 50px; display: inline-block;">​​</span>
+                      <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;"><img src="/test_site/images/deer.jpg" alt="Icon" style="width: 50px; height: 50px; display: inline-block;">​​</span>
                         <div>Sub-sub-item B3.1</div>
                       </li>
-                      <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;"><img src="/test_site/images/deer.png" alt="Icon" style="width: 50px; height: 50px; display: inline-block;">​​</span>
+                      <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;"><img src="/test_site/images/deer.jpg" alt="Icon" style="width: 50px; height: 50px; display: inline-block;">​​</span>
                         <div>Sub-sub-item B3.2
                           <ul>
                             <li i-class="text-danger">Sub-sub-sub-item B3.2.1</li>
@@ -361,34 +399,11 @@
                     </ul>
                   </div>
                 </li>
-                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 30px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 30px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                   <div>Sub-item B4</div>
                 </li>
               </ul>
             </div>
-          </li>
-        </ul>
-        <ol start="6">
-          <li>Test for absence of icon</li>
-        </ol>
-        <ul>
-          <li>Item A</li>
-          <li>Item B
-            <ul>
-              <li>Sub-item B1</li>
-              <li>Sub-item B2</li>
-              <li>Sub-item B3
-                <ul>
-                  <li>Sub-sub-item B3.1</li>
-                  <li>Sub-sub-item B3.2
-                    <ul>
-                      <li>Sub-sub-sub-item B3.2.1</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li>Sub-item B4</li>
-            </ul>
           </li>
         </ul>
         <ol>
@@ -398,22 +413,22 @@
           <li>Item A</li>
           <li>Item B
             <ul style="list-style-type: none; padding-inline-start: 0px;">
-              <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 20px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+              <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 20px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                 <div>Sub-item B1</div>
               </li>
-              <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 20px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+              <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 20px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                 <div>Sub-item B2</div>
               </li>
-              <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 20px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+              <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 20px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                 <div>Sub-item B3
                   <ul style="list-style-type: none; padding-inline-start: 0px;">
-                    <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education text-danger" style="font-size: 30px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                    <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education text-danger" style="font-size: 30px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                       <div>Sub-sub-item B3.1</div>
                     </li>
-                    <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education text-danger" style="font-size: 30px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                    <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education text-danger" style="font-size: 30px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                       <div>Sub-sub-item B3.2
                         <ul style="list-style-type: none; padding-inline-start: 0px;">
-                          <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;"><img src="/test_site/images/deer.png" alt="Icon" style="width: 200px; height: 100px; display: inline-block;" class="text-warning">​​</span>
+                          <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;"><img src="/test_site/images/deer.jpg" alt="Icon" style="width: 200px; height: 100px; display: inline-block;" class="text-warning">​​</span>
                             <div>Sub-sub-sub-item B3.2.1</div>
                           </li>
                         </ul>
@@ -422,20 +437,20 @@
                   </ul>
                 </div>
               </li>
-              <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 20px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+              <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 20px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                 <div>Sub-item B4</div>
               </li>
             </ul>
           </li>
         </ul>
-        <ol start="2">
+        <ol>
           <li>Reverse mixing basic and customized lists</li>
         </ol>
         <ul style="list-style-type: none; padding-inline-start: 0px;">
-          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education text-primary" style="font-size: 20px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education text-primary" style="font-size: 20px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
             <div>Item A</div>
           </li>
-          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education text-primary" style="font-size: 20px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education text-primary" style="font-size: 20px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
             <div>Item B
               <ul>
                 <li>Sub-item B1</li>
@@ -459,22 +474,22 @@
           <li>Every second list item customized</li>
         </ol>
         <ul style="list-style-type: none; padding-inline-start: 0px;">
-          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education text-primary" style="font-size: 20px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education text-primary" style="font-size: 20px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
             <div>Item A</div>
           </li>
-          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education text-primary" style="font-size: 20px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+          <li style="display: flex;"><span aria-hidden="true" class="glyphicon glyphicon-education text-primary" style="font-size: 20px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
             <div>Item B
               <ul style="list-style-type: none; padding-inline-start: 0px;">
-                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 30px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 30px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                   <div>Sub-item B1</div>
                 </li>
-                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 30px; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;">​</span>
+                <li style="display: flex;"><span aria-hidden="true" class="fas fa-file-code text-success" style="font-size: 30px; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;">​</span>
                   <div>Sub-item B2</div>
                 </li>
-                <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;"><img src="/test_site/images/deer.png" alt="Icon" style="width: 200px; height: 100px; display: inline-block;" class="text-warning">​​</span>
+                <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;"><img src="/test_site/images/deer.jpg" alt="Icon" style="width: 200px; height: 100px; display: inline-block;" class="text-warning">​​</span>
                   <div>Sub-item B3</div>
                 </li>
-                <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; line-height: unset; margin-inline-end: 0.35em; flex-shrink: 0; align-self: flex-start;"><img src="/test_site/images/deer.png" alt="Icon" style="width: 200px; height: 100px; display: inline-block;" class="text-warning">​​</span>
+                <li style="display: flex;"><span style="padding-bottom: 0.3em; padding-top: 0.3em; font-size: unset; min-width: 16px; line-height: unset; margin-inline-end: 0.35em; align-self: flex-start;"><img src="/test_site/images/deer.jpg" alt="Icon" style="width: 200px; height: 100px; display: inline-block;" class="text-warning">​​</span>
                   <div>Sub-item B4</div>
                 </li>
               </ul>

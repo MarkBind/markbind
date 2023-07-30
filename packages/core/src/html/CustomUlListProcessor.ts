@@ -60,9 +60,9 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
       'padding-bottom': '0.3em',
       'padding-top': '0.3em',
     });
-    spanNode = cheerio(spanContent).css({ 'font-size': 'unset' });
+    spanNode = cheerio(spanContent).css({ 'font-size': 'unset', 'min-width': '16px' });
   } else {
-    spanNode = cheerio(spanContent).css({ 'font-size': 'unset' });
+    spanNode = cheerio(spanContent).css({ 'font-size': 'unset', 'min-width': '16px' });
     spanNode = spanNode.css({ 'font-size': iconAttrs.size }).addClass(iconAttrs.className || '');
   }
   // Add invisible character to avoid the element from being empty
@@ -70,7 +70,6 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
   return spanNode.css({
     'line-height': 'unset',
     'margin-inline-end': '0.35em',
-    'flex-shrink': '0',
     'align-self': 'flex-start',
   });
 }
@@ -84,6 +83,7 @@ function updateNodeStyle(node: NodeOrText) {
   });
 }
 
+// If an item has a specified icon, that icon will be used for it and for subsequent items at that level.
 const getIconAttributes = (node: MbNode, iconAttrsSoFar?: IconAttributes):
 IconAttributes | null => {
   if (iconAttrsSoFar?.icon === undefined && node.attribs.icon === undefined) {
@@ -128,14 +128,8 @@ function updateLi(node: MbNode, iconAttributes: IconAttributes) {
   });
 }
 
-/**
- * Handles a li node. If icon attributes are specified, updates the node;
- * otherwise, leaves the node untouched. This function is designed to prevent
- * any modifications to the original ul list.
- *
- * @param {MbNode} node - The child li node to process.
- * @param {IconAttributeDetail} iconAttrValue - The icon attribute detail.
- */
+// This function ensure the first item of at that level must also be customized.
+// If not, the list will be invalidated and default bullets will be used.
 function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail) {
   if (iconAttrValue.isFirst) {
     iconAttrValue.iconAttrs = getIconAttributes(node);
@@ -154,7 +148,6 @@ export function processUlNode(node: NodeOrText) {
   }
 
   const iconAttrs: IconAttributeDetail[] = [];
-
   function dfs(currentNode: NodeOrText, level: number) {
     if (!iconAttrs[level]) {
       iconAttrs[level] = { isFirst: true, iconAttrs: null };
