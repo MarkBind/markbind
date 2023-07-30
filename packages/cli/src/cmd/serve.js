@@ -1,7 +1,7 @@
 const chokidar = require('chokidar');
 const path = require('path');
 
-const { Site } = require('@markbind/core');
+const { Site } = require('@markbind/core').Site;
 const { pageVueServerRenderer } = require('@markbind/core/src/Page/PageVueServerRenderer');
 
 const fsUtil = require('@markbind/core/src/utils/fsUtil');

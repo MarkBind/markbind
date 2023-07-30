@@ -95,7 +95,7 @@
           <panel-switch
             v-show="isExpandableCard && bottomSwitchBool"
             :is-open="localExpanded"
-            @click.native.stop.prevent="toggle()"
+            @click.native.stop.prevent="toggle(true)"
           />
         </div>
         <hr v-show="isSeamless" />
