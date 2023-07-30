@@ -91,8 +91,8 @@ packages/core/src/variables/*.js
 packages/core/test/unit/**/*.js
 
 # TODO: remove when migrated to TS
+!packages/core/src/Layout/*.js
 !markdown-it-icons.test.js
 !Site.test.js
-!packages/core/src/Site/index.js
 
 # --- packages/core end ---

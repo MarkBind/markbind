@@ -147,7 +147,7 @@ export default {
         // This is an expansion. Set isHeaderAtBottom to true *immediately*.
         this.isHeaderAtBottom = true;
       }
-      this.toggle();
+      this.toggle(true);
     },
     minimalOpen() {
       this.open();
