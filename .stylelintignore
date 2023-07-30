@@ -2,3 +2,5 @@
 **/_site/**/*.css
 packages/cli/test/functional/**/expected/**/*.css
 packages/vue-components/**/*.css
+packages/cli/coverage/**/*.css
+packages/core/coverage/**/*.css
