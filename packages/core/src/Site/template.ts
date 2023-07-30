@@ -137,35 +137,14 @@ export class Template {
    */
   collectNavigablePages() {
     const { pages, pagesExclude } = this.siteConfig;
-    const pagesFromSrc = _.flatMap(pages.filter(page => page.src), page => (Array.isArray(page.src)
-      ? page.src.map(pageSrc => ({ ...page, src: pageSrc }))
-      : [page])) as unknown as NaviagablePage[];
-    const set = new Set();
-    const duplicatePages = pagesFromSrc
-      .filter(page => set.size === set.add(page.src).size)
-      .map(page => page.src);
-    if (duplicatePages.length > 0) {
-      throw new Error(`Duplicate page entries found in site config: ${_.uniq(duplicatePages).join(', ')}`);
-    }
     const pagesFromGlobs = _.flatMap(pages.filter(page => page.glob),
                                      page => this.getPageGlobPaths(page, pagesExclude)
                                        .map(filePath => ({
                                          src: filePath,
                                          title: page.title,
                                        }))) as NaviagablePage[];
-    /*
-     Add pages collected from globs and merge properties for pages
-     Page properties collected from src have priority over page properties from globs,
-     while page properties from later entries take priority over earlier ones.
-     */
-    const filteredPages: Record<string, NaviagablePage> = {};
-    pagesFromGlobs.concat(pagesFromSrc).forEach((page) => {
-      const filteredPage = _.omitBy(page, _.isUndefined) as NaviagablePage;
-      filteredPages[page.src] = page.src in filteredPages
-        ? { ...filteredPages[page.src], ...filteredPage }
-        : filteredPage;
-    });
-    this.navigablePages = Object.values(filteredPages);
+
+    this.navigablePages = pagesFromGlobs;
   }
 
   /**
