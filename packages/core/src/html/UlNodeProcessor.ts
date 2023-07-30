@@ -22,13 +22,7 @@ interface IconAttributes {
 
 type IconAttributeDetail = {
   isFirst: boolean;
-  iconAttr: IconAttributes | null;
-  level: number;
-};
-
-type IconAttributeWrapper = {
-  key: number;
-  value: IconAttributeDetail;
+  iconAttrs: IconAttributes | null;
 };
 
 function classifyIcon(icon: string) {
@@ -75,7 +69,7 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
   spanNode.append('\u200B');
   return spanNode.css({
     'line-height': 'unset',
-    'margin-inline-end': '0.3em',
+    'margin-inline-end': '0.35em',
     'flex-shrink': '0',
     'align-self': 'flex-start',
   });
@@ -90,18 +84,18 @@ function updateNodeStyle(node: NodeOrText) {
   });
 }
 
-const getIconAttributes = (node: MbNode, defaultIcon?: IconAttributes): IconAttributes | null => {
-  // If node.attribs doesn't exist, return null immediately
-  if (!node.attribs || (defaultIcon?.icon === undefined && node.attribs.icon === undefined)) {
+const getIconAttributes = (node: MbNode, iconAttrsSoFar?: IconAttributes):
+IconAttributes | null => {
+  if (iconAttrsSoFar?.icon === undefined && node.attribs.icon === undefined) {
     return null;
   }
 
   return {
-    icon: node.attribs.icon !== undefined ? node.attribs.icon : defaultIcon?.icon,
-    width: node.attribs['i-width'] !== undefined ? node.attribs['i-width'] : defaultIcon?.width,
-    height: node.attribs['i-height'] !== undefined ? node.attribs['i-height'] : defaultIcon?.height,
-    size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : defaultIcon?.size,
-    className: node.attribs['i-class'] !== undefined ? node.attribs['i-class'] : defaultIcon?.className,
+    icon: node.attribs.icon !== undefined ? node.attribs.icon : iconAttrsSoFar?.icon,
+    width: node.attribs['i-width'] !== undefined ? node.attribs['i-width'] : iconAttrsSoFar?.width,
+    height: node.attribs['i-height'] !== undefined ? node.attribs['i-height'] : iconAttrsSoFar?.height,
+    size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttrsSoFar?.size,
+    className: node.attribs['i-class'] !== undefined ? node.attribs['i-class'] : iconAttrsSoFar?.className,
   };
 };
 
@@ -111,41 +105,45 @@ const deleteAttributes = (node: MbNode, attributes: string[]) => {
   });
 };
 
-function updateLi(child: NodeOrText, iconAttributes: IconAttributes) {
-  const childNode = child as MbNode;
+function updateLi(node: MbNode, iconAttributes: IconAttributes) {
   if (
     iconAttributes.icon === undefined
   ) return;
-  const curLiIcon = getIconAttributes(childNode, iconAttributes);
+  const curLiIcon = getIconAttributes(node, iconAttributes);
 
-  deleteAttributes(childNode, ICON_ATTRIBUTES);
+  deleteAttributes(node, ICON_ATTRIBUTES);
 
   // Create a new div and span
   const div = cheerio('<div></div>');
   const iconSpan = createIconSpan(curLiIcon!);
 
-  div.append(cheerio(child.children).remove());
+  div.append(cheerio(node.children).remove());
 
   // Append iconSpan and div to the child
-  cheerio(child).append(iconSpan);
-  cheerio(child).append(div);
+  cheerio(node).append(iconSpan);
+  cheerio(node).append(div);
 
-  cheerio(child).css({
+  cheerio(node).css({
     display: 'flex',
   });
 }
 
-function handleChild(child: MbNode, iconAttrValue: IconAttributeDetail) {
-  if (child.name === 'li') {
-    const liChild = child as MbNode;
-    if (iconAttrValue.isFirst) {
-      iconAttrValue.iconAttr = getIconAttributes(liChild);
-      iconAttrValue.isFirst = false;
-    } else if (iconAttrValue.iconAttr) {
-      iconAttrValue.iconAttr = getIconAttributes(liChild, iconAttrValue.iconAttr);
-    }
-    updateLi(child, iconAttrValue.iconAttr ?? {});
+/**
+ * Handles a li node. If icon attributes are specified, updates the node;
+ * otherwise, leaves the node untouched. This function is designed to prevent
+ * any modifications to the original ul list.
+ *
+ * @param {MbNode} node - The child li node to process.
+ * @param {IconAttributeDetail} iconAttrValue - The icon attribute detail.
+ */
+function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail) {
+  if (iconAttrValue.isFirst) {
+    iconAttrValue.iconAttrs = getIconAttributes(node);
+    iconAttrValue.isFirst = false;
+  } else if (iconAttrValue.iconAttrs) {
+    iconAttrValue.iconAttrs = getIconAttributes(node, iconAttrValue.iconAttrs);
   }
+  updateLi(node, iconAttrValue.iconAttrs ?? {});
 }
 
 export function processUlNode(node: NodeOrText) {
@@ -155,11 +153,11 @@ export function processUlNode(node: NodeOrText) {
     return;
   }
 
-  const iconAttrs: IconAttributeWrapper[] = [];
+  const iconAttrs: IconAttributeDetail[] = [];
 
   function dfs(currentNode: NodeOrText, level: number) {
     if (!iconAttrs[level]) {
-      iconAttrs[level] = { key: level, value: { isFirst: true, iconAttr: null, level } };
+      iconAttrs[level] = { isFirst: true, iconAttrs: null };
     }
 
     const ulNode = currentNode as MbNode;
@@ -167,21 +165,19 @@ export function processUlNode(node: NodeOrText) {
 
     liNodes.forEach((liNode) => {
       const ulChildren = liNode.children?.filter(child => child.name === 'ul');
-      handleChild(liNode as MbNode, iconAttrs[level].value);
+      handleLiNode(liNode as MbNode, iconAttrs[level]);
 
-      if (ulChildren && ulChildren.length > 0) {
-        ulChildren.forEach((ulChildNode) => {
-          // Traverse the children if any
-          dfs(ulChildNode, level + 1);
+      ulChildren?.forEach((ulChildNode) => {
+        // Traverse the children if any
+        dfs(ulChildNode, level + 1);
 
-          // Insert an `isIconListProcessed` flag attribute to the node.
-          if (ulChildNode.attribs) {
-            ulChildNode.attribs.isIconListProcessed = 'true';
-          }
-        });
-      }
+        // Insert an `isIconListProcessed` flag attribute to the node.
+        if (ulChildNode.attribs) {
+          ulChildNode.attribs.isIconListProcessed = 'true';
+        }
+      });
     });
-    if (iconAttrs[level].value.iconAttr !== null) {
+    if (iconAttrs[level].iconAttrs !== null) {
       updateNodeStyle(ulNode);
     }
   }
