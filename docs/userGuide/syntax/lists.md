@@ -23,16 +23,16 @@
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-* Item 1 {icon="glyphicon-education"}
+* Item 1 { icon="glyphicon-education" }
 * Item 2
-  * Item 2.1 {icon="fas-file-code"}
+  * Item 2.1 { icon="fas-file-code" }
   * Item 2.2
-* Item 3 {icon="fas-code-branch"}
+* Item 3 { icon="fas-code-branch" }
   * Item 3.1 
-* Item 4 {icon="octicon-git-pull-request"}
-  * Item 4.1 {icon="mif-perm-media"}
-* Item 5 {icon="glyphicon-education"}
-  * Item 5.1 {icon="notebook_with_decorative_cover"}
+* Item 4 { icon="octicon-git-pull-request" }
+  * Item 4.1 { icon="mif-perm-media" }
+* Item 5 { icon="glyphicon-education" }
+  * Item 5.1 { icon="notebook_with_decorative_cover" }
   </variable>
 </include>
 
@@ -47,9 +47,9 @@
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
-* Item 1 {icon="fas-file-code" i-size="35px"}
-* Item 2 {icon="fas-file-code" i-size="4rem"}
-* Item 3 {icon="fas-file-code" i-size="5em"}
+* Item 1 { icon="fas-file-code" i-size="35px" }
+* Item 2 { icon="fas-file-code" i-size="4rem" }
+* Item 3 { icon="fas-file-code" i-size="5em" }
 
 </variable>
 </include>
@@ -62,11 +62,11 @@ You can utilize any [CSS size unit](https://www.w3schools.com/cssref/css_units.p
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
-* Item 1 {icon="/images/deer.jpg" i-width="30px"}
-* Item 2 {icon="/images/deer.jpg" i-width="60px" i-height="34px"}
-* Item 3 {icon="/images/deer.jpg" i-width="90px" i-height="51px"}
-* Item 4 {icon="/images/deer.jpg" i-width="120px" i-height="68px"}
-* Item 5 {icon="/images/deer.jpg" i-width="150px" i-height="84px"}
+* Item 1 { icon="/images/deer.jpg" i-width="30px" }
+* Item 2 { i-width="60px" i-height="34px" }
+* Item 3 { i-width="90px" i-height="51px" }
+* Item 4 { i-width="120px" i-height="68px" }
+* Item 5 { i-width="150px" i-height="84px" }
 
 </variable>
 </include>
@@ -81,17 +81,17 @@ If either the `i-width` or the `i-height` of an image is not specified, the unsp
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 * Item 1 <br>
-  Item 1 line 2{icon="/images/deer.jpg" i-width="60px" height="17px" i-class="rounded"}
+  Item 1 line 2{ icon="/images/deer.jpg" i-width="60px" height="17px" i-class="rounded" }
 * Item 2
   Item 2 Continue
-  * Item 2.1 {icon="fas-question-circle" i-class="badge rounded-pill mb-1 bg-success text-white"}
-  * Item 2.2 {i-class="badge rounded-pill mb-1 bg-danger text-white"}
+  * Item 2.1 { icon="fas-question-circle" i-class="badge rounded-pill my-1 bg-success text-white" }
+  * Item 2.2 { i-class="badge rounded-pill my-1 bg-danger text-white" }
   * Item 2.3 
-    * Item 2.3.1 {icon="fas-question-circle" i-class="badge rounded mb-1 bg-danger text-white"}
+    * Item 2.3.1 { icon="fas-question-circle" i-class="badge rounded my-1 bg-danger text-white" }
 * Item 3
   * Item 3.1 
-  * Item 3.2 {i-class="badge rounded-pill mb-1 bg-primary text-white"}
-  * Item 3.3 {icon="fas-compass" i-class="badge rounded-pill mb-1 bg-warning text-white}
+  * Item 3.2 { i-class="badge rounded-pill my-1 bg-primary text-white"}
+  * Item 3.3 { icon="fas-compass" i-class="badge rounded-pill my-1 bg-warning text-white }
   * Item 3.4
 * Item 4
   * Item 4.1
@@ -111,22 +111,22 @@ If either the `i-width` or the `i-height` of an image is not specified, the unsp
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 
-* #### Heading 1: Overview {icon="/images/overview-d.png" i-width="65px" i-class="rounded"}
+* #### Heading 1: Overview {icon="/images/overview-d.png" i-width="65px" i-class="rounded" }
   
    Content 1: This section provides a summary of the document or topic. 
    It sets the context and purpose of the content to follow.
 
-   * ##### Heading 1.1: Highlights {icon="/images/highlights-d.png" i-width="65px" i-class="rounded"}
+   * ##### Heading 1.1: Highlights { icon="/images/highlights-d.png" i-width="65px" i-class="rounded" }
   
       Content 1.1: Here we summarize the key points, findings, or features of the main topic. 
       This could include important data, outcomes, or insights.
 
-* #### Heading 2: Detailed Description {icon="/images/detailed-d.png" i-width="65px" i-class="rounded"}
+* #### Heading 2: Detailed Description { icon="/images/detailed-d.png" i-width="65px" i-class="rounded" }
     
    Content 2: This section delves deeper into the topic, offering comprehensive information and detailed explanations.
    It might also include evidence, examples, or justifications.
 
-* #### Heading 3: Conclusion {icon="/images/conclusion-d.png" i-width="65px" i-class="rounded"}
+* #### Heading 3: Conclusion { icon="/images/conclusion-d.png" i-width="65px" i-class="rounded" }
   
     Content 3: The conclusion draws together the main threads of the topic, 
     summarizing the central points and their implications.
