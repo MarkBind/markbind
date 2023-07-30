@@ -35,11 +35,11 @@ import { delay } from '../utils/delay';
 import * as fsUtil from '../utils/fsUtil';
 import * as gitUtil from '../utils/git';
 import * as logger from '../utils/logger';
-import { SITE_CONFIG_NAME, INDEX_MARKDOWN_FILE, LAZY_LOADING_SITE_FILE_NAME } from './constants';
+import { SITE_CONFIG_NAME, LAZY_LOADING_SITE_FILE_NAME } from './constants';
 
 // Change when they are migrated to TypeScript
 const ProgressBar = require('../lib/progress');
-const { LayoutManager, LAYOUT_DEFAULT_NAME, LAYOUT_FOLDER_PATH } = require('../Layout');
+const { LayoutManager } = require('../Layout');
 require('../patches/htmlparser2');
 
 const _ = {
@@ -70,15 +70,11 @@ const TEMP_FOLDER_NAME = '.temp';
 const TEMPLATE_SITE_ASSET_FOLDER_NAME = 'markbind';
 const LAYOUT_SITE_FOLDER_NAME = 'layouts';
 
-const ABOUT_MARKDOWN_FILE = 'about.md';
 const FAVICON_DEFAULT_PATH = 'favicon.ico';
 const USER_VARIABLES_PATH = '_markbind/variables.md';
 
 const PAGE_TEMPLATE_NAME = 'page.njk';
 const SITE_DATA_NAME = 'siteData.json';
-
-const WIKI_SITE_NAV_PATH = '_Sidebar.md';
-const WIKI_FOOTER_PATH = '_Footer.md';
 
 const MAX_CONCURRENT_PAGE_GENERATION_PROMISES = 4;
 
@@ -113,9 +109,6 @@ const HIGHLIGHT_ASSETS = {
   dark: 'codeblock-dark.min.css',
   light: 'codeblock-light.min.css',
 };
-
-const ABOUT_MARKDOWN_DEFAULT = '# About\n'
-  + 'Welcome to your **About Us** page.\n';
 
 const MARKBIND_WEBSITE_URL = 'https://markbind.org/';
 const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${MARKBIND_VERSION}</a>`;
@@ -376,120 +369,6 @@ export class Site {
       layoutManager: this.layoutManager,
     });
     return new Page(pageConfig, this.siteConfig);
-  }
-
-  /**
-   * Converts an existing GitHub wiki or docs folder to a MarkBind website.
-   */
-  async convert() {
-    await this.readSiteConfig();
-    this.collectAddressablePages();
-    await this.addIndexPage();
-    await this.addAboutPage();
-    this.addDefaultLayoutFiles();
-    await this.addDefaultLayoutToSiteConfig();
-    Site.printBaseUrlMessage();
-  }
-
-  /**
-   * Copies over README.md or Home.md to default index.md if present.
-   */
-  async addIndexPage() {
-    const indexPagePath = path.join(this.rootPath, INDEX_MARKDOWN_FILE);
-    const fileNames = ['README.md', 'Home.md'];
-    const filePath = fileNames.find(fileName => fs.existsSync(path.join(this.rootPath, fileName)));
-    // if none of the files exist, do nothing
-    if (_.isUndefined(filePath)) return;
-    try {
-      await fs.copy(path.join(this.rootPath, filePath), indexPagePath);
-    } catch (error) {
-      throw new Error(`Failed to copy over ${filePath}`);
-    }
-  }
-
-  /**
-   * Adds an about page to site if not present.
-   */
-  async addAboutPage() {
-    const aboutPath = path.join(this.rootPath, ABOUT_MARKDOWN_FILE);
-    try {
-      await fs.access(aboutPath);
-    } catch (error) {
-      if (fs.existsSync(aboutPath)) {
-        return;
-      }
-      await fs.outputFile(aboutPath, ABOUT_MARKDOWN_DEFAULT);
-    }
-  }
-
-  /**
-   * Adds a footer to default layout of site.
-   */
-  addDefaultLayoutFiles() {
-    const wikiFooterPath = path.join(this.rootPath, WIKI_FOOTER_PATH);
-    let footer;
-    if (fs.existsSync(wikiFooterPath)) {
-      logger.info(`Copied over the existing ${WIKI_FOOTER_PATH} file to the converted layout`);
-      footer = `\n${fs.readFileSync(wikiFooterPath, 'utf8')}`;
-    }
-
-    const wikiSiteNavPath = path.join(this.rootPath, WIKI_SITE_NAV_PATH);
-    let siteNav;
-    if (fs.existsSync(wikiSiteNavPath)) {
-      logger.info(`Copied over the existing ${WIKI_SITE_NAV_PATH} file to the converted layout\n`
-        + 'Check https://markbind.org/userGuide/tweakingThePageStructure.html#site-navigation-menus\n'
-        + 'for information on site navigation menus.');
-      siteNav = fs.readFileSync(wikiSiteNavPath, 'utf8');
-    } else {
-      siteNav = this.buildSiteNav();
-    }
-
-    const convertedLayoutTemplate = VariableRenderer.compile(
-      fs.readFileSync(path.join(__dirname, 'siteConvertLayout.njk'), 'utf8'));
-    const renderedLayout = convertedLayoutTemplate.render({
-      footer,
-      siteNav,
-    });
-    const layoutOutputPath = path.join(this.rootPath, LAYOUT_FOLDER_PATH, LAYOUT_DEFAULT_NAME);
-
-    fs.writeFileSync(layoutOutputPath, renderedLayout, 'utf-8');
-  }
-
-  /**
-   * Builds a site navigation file from the directory structure of the site.
-   */
-  buildSiteNav() {
-    let siteNavContent = '';
-    this.addressablePages
-      .filter(addressablePage => !addressablePage.src.startsWith('_'))
-      .forEach((page) => {
-        const addressablePagePath = path.join(this.rootPath, page.src);
-        const relativePagePathWithoutExt = fsUtil.removeExtensionPosix(
-          path.relative(this.rootPath, addressablePagePath));
-        const pageName = _.startCase(fsUtil.removeExtension(path.basename(addressablePagePath)));
-        const pageUrl = `{{ baseUrl }}/${relativePagePathWithoutExt}.html`;
-        siteNavContent += `* [${pageName}](${pageUrl})\n`;
-      });
-
-    return siteNavContent.trimEnd();
-  }
-
-  /**
-   * Applies the default layout to all addressable pages by modifying the site config file.
-   */
-  async addDefaultLayoutToSiteConfig() {
-    const configPath = path.join(this.rootPath, SITE_CONFIG_NAME);
-    const config = await fs.readJson(configPath);
-    await Site.writeToSiteConfig(config, configPath);
-  }
-
-  /**
-   * Helper function for addDefaultLayoutToSiteConfig().
-   */
-  static async writeToSiteConfig(config: SiteConfig, configPath: string) {
-    const layoutObj: SiteConfigPage = { glob: '**/*.md', layout: LAYOUT_DEFAULT_NAME };
-    config.pages.push(layoutObj);
-    await fs.outputJson(configPath, config);
   }
 
   static printBaseUrlMessage() {
