@@ -1,13 +1,8 @@
 import fs from 'fs-extra';
 import path from 'path';
-import startCase from 'lodash/startCase';
-import isUndefined from 'lodash/isUndefined';
-import flatMap from 'lodash/flatMap';
-import uniq from 'lodash/uniq';
-import omitBy from 'lodash/omitBy';
 import walkSync from 'walk-sync';
 import * as fsUtil from '../utils/fsUtil';
-import { INDEX_MARKDOWN_FILE, SITE_CONFIG_NAME } from './constants';
+import { INDEX_MARKDOWN_FILE, SITE_CONFIG_NAME, _ } from './constants';
 import { SiteConfig, SiteConfigPage } from './SiteConfig';
 import { VariableRenderer } from '../variables/VariableRenderer';
 import * as logger from '../utils/logger';
@@ -24,14 +19,6 @@ const CONFIG_FOLDER_NAME = '_markbind';
 const SITE_FOLDER_NAME = '_site';
 const WIKI_SITE_NAV_PATH = '_Sidebar.md';
 const WIKI_FOOTER_PATH = '_Footer.md';
-
-const _ = {
-  startCase,
-  flatMap,
-  uniq,
-  omitBy,
-  isUndefined,
-};
 
 type NaviagablePage = {
   src: string,

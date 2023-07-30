@@ -6,19 +6,6 @@ import walkSync from 'walk-sync';
 import simpleGit, { SimpleGit } from 'simple-git';
 import Bluebird from 'bluebird';
 import ghpages from 'gh-pages';
-import difference from 'lodash/difference';
-import differenceWith from 'lodash/differenceWith';
-import flatMap from 'lodash/flatMap';
-import has from 'lodash/has';
-import isBoolean from 'lodash/isBoolean';
-import isEmpty from 'lodash/isEmpty';
-import isEqual from 'lodash/isEqual';
-import isUndefined from 'lodash/isUndefined';
-import noop from 'lodash/noop';
-import omitBy from 'lodash/omitBy';
-import startCase from 'lodash/startCase';
-import union from 'lodash/union';
-import uniq from 'lodash/uniq';
 
 import { Template as NunjucksTemplate } from 'nunjucks';
 import { SiteConfig, SiteConfigPage, SiteConfigStyle } from './SiteConfig';
@@ -35,28 +22,12 @@ import { delay } from '../utils/delay';
 import * as fsUtil from '../utils/fsUtil';
 import * as gitUtil from '../utils/git';
 import * as logger from '../utils/logger';
-import { SITE_CONFIG_NAME, LAZY_LOADING_SITE_FILE_NAME } from './constants';
+import { SITE_CONFIG_NAME, LAZY_LOADING_SITE_FILE_NAME, _ } from './constants';
 
 // Change when they are migrated to TypeScript
 const ProgressBar = require('../lib/progress');
 const { LayoutManager } = require('../Layout');
 require('../patches/htmlparser2');
-
-const _ = {
-  difference,
-  differenceWith,
-  flatMap,
-  has,
-  isUndefined,
-  isEqual,
-  isEmpty,
-  isBoolean,
-  noop,
-  omitBy,
-  startCase,
-  union,
-  uniq,
-};
 
 const url = {
   join: path.posix.join,
