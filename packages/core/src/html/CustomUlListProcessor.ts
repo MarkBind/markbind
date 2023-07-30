@@ -71,6 +71,7 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
     'line-height': 'unset',
     'margin-inline-end': '0.35em',
     'align-self': 'flex-start',
+    'flex-shrink': '0',
   });
 }
 
