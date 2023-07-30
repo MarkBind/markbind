@@ -1,3 +1,5 @@
+import fs from 'fs-extra';
+import path from 'path';
 import { FrontMatter } from '../plugins/Plugin';
 
 const HEADING_INDEXING_LEVEL_DEFAULT = 3;
@@ -98,5 +100,23 @@ export class SiteConfig {
     // TODO this should probably be in pluginsContext
     this.plantumlCheck = siteConfigJson.plantumlCheck !== undefined
       ? siteConfigJson.plantumlCheck : true; // check PlantUML's prerequisite by default
+  }
+
+  /**
+   * Read and store the site config from site.json, overwrite the default base URL
+   * if it's specified by the user.
+   * @param baseUrl user defined base URL (if exists)
+   */
+  static async readSiteConfig(rootPath: string, siteConfigPath: string, baseUrl?: string): Promise<any> {
+    try {
+      const absoluteSiteConfigPath = path.join(rootPath, siteConfigPath);
+      const siteConfigJson = fs.readJsonSync(absoluteSiteConfigPath);
+      const siteConfig = new SiteConfig(siteConfigJson, baseUrl);
+
+      return siteConfig;
+    } catch (err) {
+      throw (new Error(`Failed to read the site config file '${siteConfigPath}' at`
+        + `${rootPath}:\n${(err as Error).message}\nPlease ensure the file exist or is valid`));
+    }
   }
 }

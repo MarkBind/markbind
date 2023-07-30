@@ -93,30 +93,12 @@ export class Template {
    * Converts an existing GitHub wiki or docs folder to a MarkBind website.
    */
   async convert() {
-    await this.readSiteConfig();
+    this.siteConfig = await SiteConfig.readSiteConfig(this.rootPath, this.siteConfigPath);
     this.collectNavigablePages();
     await this.addIndexPage();
     await this.addAboutPage();
     this.addDefaultLayoutFiles();
     await this.addDefaultLayoutToSiteConfig();
-  }
-
-  /**
-   * Read and store the site config from site.json, overwrite the default base URL
-   * if it's specified by the user.
-   * @param baseUrl user defined base URL (if exists)
-   */
-  async readSiteConfig(baseUrl?: string): Promise<any> {
-    try {
-      const siteConfigPath = path.join(this.rootPath, this.siteConfigPath);
-      const siteConfigJson = fs.readJsonSync(siteConfigPath);
-      this.siteConfig = new SiteConfig(siteConfigJson, baseUrl);
-
-      return this.siteConfig;
-    } catch (err) {
-      throw (new Error(`Failed to read the site config file '${this.siteConfigPath}' at`
-        + `${this.rootPath}:\n${(err as Error).message}\nPlease ensure the file exist or is valid`));
-    }
   }
 
   getPageGlobPaths(page: SiteConfigPage, pagesExclude: string[]) {

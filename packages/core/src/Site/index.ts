@@ -297,17 +297,9 @@ export class Site {
    * if it's specified by the user.
    * @param baseUrl user defined base URL (if exists)
    */
-  async readSiteConfig(baseUrl?: string): Promise<any> {
-    try {
-      const siteConfigPath = path.join(this.rootPath, this.siteConfigPath);
-      const siteConfigJson = fs.readJsonSync(siteConfigPath);
-      this.siteConfig = new SiteConfig(siteConfigJson, baseUrl);
-
-      return this.siteConfig;
-    } catch (err) {
-      throw (new Error(`Failed to read the site config file '${this.siteConfigPath}' at`
-        + `${this.rootPath}:\n${(err as Error).message}\nPlease ensure the file exist or is valid`));
-    }
+  async readSiteConfig(baseUrl?: string) {
+    this.siteConfig = await SiteConfig.readSiteConfig(this.rootPath, this.siteConfigPath, baseUrl);
+    return this.siteConfig;
   }
 
   listAssets(fileIgnore: Ignore) {
