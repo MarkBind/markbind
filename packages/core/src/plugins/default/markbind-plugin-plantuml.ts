@@ -15,7 +15,7 @@ import * as urlUtil from '../../utils/urlUtil';
 import { PluginContext } from '../Plugin';
 import { NodeProcessorConfig } from '../../html/NodeProcessor';
 import { MbNode } from '../../utils/node';
-import { createLockFile, deleteLockFile } from '../../utils/lockFileManager';
+const LockManager = require('../../utils/LockManager');
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
@@ -29,8 +29,13 @@ let graphvizCheckCompleted = false;
  * @param content puml dsl used to generate the puml diagram
  */
 function generateDiagram(imageOutputPath: string, content: string) {
+  const lockId = LockManager.createLock();
+
   // Avoid generating twice
-  if (processedDiagrams.has(imageOutputPath)) { return; }
+  if (processedDiagrams.has(imageOutputPath)) {
+    LockManager.deleteLock(lockId);
+    return;
+  }
   processedDiagrams.add(imageOutputPath);
 
   // Creates output dir if it doesn't exist
@@ -49,6 +54,7 @@ function generateDiagram(imageOutputPath: string, content: string) {
     logger.error(`Error generating ${imageOutputPath}`);
   }
     deleteLockFile(lockFileName);
+    LockManager.deleteLock(lockId);
   });
 
   childProcess.stderr?.on('data', (errorMsg) => {
@@ -59,7 +65,7 @@ function generateDiagram(imageOutputPath: string, content: string) {
     // This goes to the log file, but not shown on the console
     logger.debug(errorLog);
     // Delete the lock file after generating the diagram
-    deleteLockFile(lockFileName);
+    LockManager.deleteLock(lockId);
   });
 }
 
