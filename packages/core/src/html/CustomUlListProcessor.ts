@@ -84,7 +84,7 @@ function updateNodeStyle(node: NodeOrText) {
   });
 }
 
-// If an item has a specified icon, that icon will be used for it and for subsequent 
+// If an item has a specified icon, that icon will be used for it and for subsequent
 // items at that level to prevent duplication of icons attribute declarations.
 const getIconAttributes = (node: MbNode, iconAttrsSoFar?: IconAttributes):
 IconAttributes | null => {
@@ -131,7 +131,7 @@ function updateLi(node: MbNode, iconAttributes: IconAttributes) {
 }
 
 // This function ensure the first item of at that level must also be customized.
-// If not, the list will be invalidated and default bullets will be used. 
+// If not, the list will be invalidated and default bullets will be used.
 // This is to prevent unintentional mixing of standard and customized lists.
 function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail) {
   if (iconAttrValue.isFirst) {
