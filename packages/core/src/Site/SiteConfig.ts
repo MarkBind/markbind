@@ -103,8 +103,11 @@ export class SiteConfig {
   }
 
   /**
-   * Read and store the site config from site.json, overwrite the default base URL
+   * Read and returns the site config from site.json, overwrites the default base URL
    * if it's specified by the user.
+   *
+   * @param rootPath The absolute path to the site folder
+   * @param siteConfigPath The relative path to the siteConfig
    * @param baseUrl user defined base URL (if exists)
    */
   static async readSiteConfig(rootPath: string, siteConfigPath: string, baseUrl?: string): Promise<any> {
