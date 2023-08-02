@@ -735,10 +735,8 @@ export class Site {
    * Adds all pages except the viewed pages to toRebuild, flagging them for lazy building later.
    */
   async lazyBuildAllPagesNotViewed(viewedPages: string | string[]) {
-
     const viewedPagesArray = Array.isArray(viewedPages) ? viewedPages : [viewedPages];
     this.pages.forEach((page) => {
-      
       const normalizedUrl = fsUtil.removeExtension(page.pageConfig.sourcePath);
       if (!viewedPagesArray.some(viewedPage => normalizedUrl === viewedPage)) {
         this.toRebuild.add(normalizedUrl);
