@@ -6,7 +6,7 @@
 import cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
-import { execSync } from 'child_process';
+import { exec } from 'child_process';
 import cryptoJS from 'crypto-js';
 
 import * as fsUtil from '../../utils/fsUtil';
@@ -15,6 +15,7 @@ import * as urlUtil from '../../utils/urlUtil';
 import { PluginContext } from '../Plugin';
 import { NodeProcessorConfig } from '../../html/NodeProcessor';
 import { MbNode } from '../../utils/node';
+
 const LockManager = require('../../utils/LockManager');
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
@@ -22,6 +23,7 @@ const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 const processedDiagrams = new Set();
 
 let graphvizCheckCompleted = false;
+// Generate a lock file
 
 /**
  * Generates diagram and returns the file name of the diagram
@@ -45,15 +47,23 @@ function generateDiagram(imageOutputPath: string, content: string) {
   }
   // Java command to launch PlantUML jar
   const cmd = `java -jar "${JAR_PATH}" -nometadata -pipe > "${imageOutputPath}"`;
+  const childProcess = exec(cmd);
 
-  try {
-    execSync(cmd, { input: content });
-    // You can log stdout if you want
-  } catch (error) {
+  let errorLog = '';
+  childProcess.stdin?.write(
+    content,
+    (e) => {
+      if (e) {
+        logger.debug(e as unknown as string);
+        logger.error(`Error generating ${imageOutputPath}`);
+      }
+      childProcess.stdin?.end();
+    },
+  );
+
+  childProcess.on('error', (error) => {
     logger.debug(error as unknown as string);
     logger.error(`Error generating ${imageOutputPath}`);
-  }
-    deleteLockFile(lockFileName);
     LockManager.deleteLock(lockId);
   });
 
@@ -96,18 +106,16 @@ export = {
     if (node.name !== 'puml') {
       return;
     }
+
     if (config.plantumlCheck && !graphvizCheckCompleted) {
-      try {
-        const stderr = execSync(`java -jar "${JAR_PATH}" -testdot`);
-        if (stderr.toString().includes('Error: No dot executable found')) {
+      exec(`java -jar "${JAR_PATH}" -testdot`, (_error, _stdout, stderr) => {
+        if (stderr.includes('Error: No dot executable found')) {
           logger.warn('You are using PlantUML diagrams but Graphviz is not installed!');
         }
-      } catch (error) {
-        logger.debug(error as unknown as string);
-        logger.error('Error checking Graphviz installation');
-      }
+      });
       graphvizCheckCompleted = true;
     }
+
     node.name = 'pic';
 
     let pumlContent;
