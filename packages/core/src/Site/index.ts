@@ -39,6 +39,7 @@ import { SITE_CONFIG_NAME, INDEX_MARKDOWN_FILE, LAZY_LOADING_SITE_FILE_NAME } fr
 
 // Change when they are migrated to TypeScript
 const ProgressBar = require('../lib/progress');
+const LockManager = require('../utils/LockManager');
 const { LayoutManager, LAYOUT_DEFAULT_NAME, LAYOUT_FOLDER_PATH } = require('../Layout');
 require('../patches/htmlparser2');
 
@@ -676,6 +677,7 @@ export class Site {
       startTime.toLocaleTimeString()}`);
 
     try {
+      LockManager.deleteAllLocks();
       await this.readSiteConfig(baseUrl);
       this.collectAddressablePages();
       this.collectBaseUrl();
@@ -1019,6 +1021,7 @@ export class Site {
     const assetsToRemove = _.difference(this.siteConfig.ignore, oldIgnore);
 
     if (!_.isEqual(oldIgnore, this.siteConfig.ignore)) {
+      LockManager.deleteAllLocks();
       await this._removeMultipleAssets(assetsToRemove);
       this.buildManagers();
       await this.buildAssets();
@@ -1357,6 +1360,7 @@ export class Site {
     }
 
     try {
+      await LockManager.waitForLockRelease();
       await this.runPageGenerationTasks(pageGenerationTasks);
       await this.writeSiteData();
       logger.info('Pages rebuilt');
