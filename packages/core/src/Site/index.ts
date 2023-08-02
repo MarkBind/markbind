@@ -722,6 +722,7 @@ export class Site {
     logger.info('Generating pages...');
 
     try {
+      await LockManager.waitForLockRelease();
       await this.generatePages();
       await fs.remove(this.tempPath);
       logger.info('Pages built');
@@ -734,13 +735,16 @@ export class Site {
    * Adds all pages except the viewed pages to toRebuild, flagging them for lazy building later.
    */
   async lazyBuildAllPagesNotViewed(viewedPages: string | string[]) {
+
     const viewedPagesArray = Array.isArray(viewedPages) ? viewedPages : [viewedPages];
     this.pages.forEach((page) => {
+      
       const normalizedUrl = fsUtil.removeExtension(page.pageConfig.sourcePath);
       if (!viewedPagesArray.some(viewedPage => normalizedUrl === viewedPage)) {
         this.toRebuild.add(normalizedUrl);
       }
     });
+    await LockManager.waitForLockRelease();
   }
 
   /**
@@ -1363,6 +1367,7 @@ export class Site {
       await LockManager.waitForLockRelease();
       await this.runPageGenerationTasks(pageGenerationTasks);
       await this.writeSiteData();
+
       logger.info('Pages rebuilt');
       this.calculateBuildTimeForRegenerateAffectedPages(startTime);
     } catch (error) {

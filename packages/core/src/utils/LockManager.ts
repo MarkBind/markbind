@@ -34,7 +34,6 @@ class LockManager {
     return new Promise((resolve) => {
       const checkLocks = () => {
         if (this.locks.size === 0) {
-          this.deleteAllLocks();
           resolve();
         } else {
           setTimeout(checkLocks, 100);
