@@ -95,10 +95,74 @@ function add(a, b) {
 You can add the `highlight-lines` attribute to add highlighting to your code block. Refer to the example code block
 below for a visual demonstration of all the possible ways of highlighting a code block.
 
+**Full text highlight**
 <include src="codeAndOutputCode.md" boilerplate >
-
 <variable name="code">
-```java {.line-numbers highlight-lines="1[:],3['Inventory'],4['It\'s designed'],5,6[8:18],8[0::2],12[:]-14,16-18,20[12:]-22,24[1::]-26"}
+```js {start-from=6 .line-numbers highlight-lines="7, 9"}
+function add(a, b) {
+    const sum = a + b;
+    console.log(`${a} + ${b} = ${sum}`);
+    return sum;
+}
+```
+</variable>
+</include>
+
+**Substring highlight**
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
+```js {.line-numbers highlight-lines="1['function'], 4['diff']"}
+function subtract(a, b) {
+    const diff = a - b;
+    console.log(`${a} + ${b} = ${diff}`);
+    return diff;
+}
+```
+</variable>
+</include>
+
+**Character-bounded highlight**
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
+```js {.line-numbers highlight-lines="1[0:3], 1[6:10], 2[5:], 3[:6]"}
+function multiply(a, b) {
+    const product = a * b;
+    console.log('Product = ${product}');
+    return product;
+}
+```
+</variable>
+</include>
+
+**Word-bounded highlight**
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
+```js {.line-numbers highlight-lines="1[1::3], 1[5::7], 2[2::], 3[::3]"}
+// Function returns the distance travelled assuming constant speed
+function calculateDistance(speed, time) {
+    const distance = speed * time;
+    console.log(`Distance travelled = ${distance}`);
+    return distance;
+}
+```
+</variable>
+</include>
+
+**Full-line highlight**
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
+```js {start-from=10 .line-numbers highlight-lines="11[:]"}
+function add(a, b) {
+    return a + b;
+}
+```
+</variable>
+</include>
+
+**Sample Usage**
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
+```java {.line-numbers highlight-lines="1[:],3['Inventory'],4['It\'s designed'],5,6[8:15],6[18:],8[0::2],12[:]-14,16-18,20[12:]-22,24[1::]-26"}
 import java.util.List;
 
 // Inventory is a class that stores inventory items in a list.
@@ -126,7 +190,6 @@ public class Inventory {
         return items.remove(item);
     }
 }
-
 ```
 </variable>
 </include>
