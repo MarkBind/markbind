@@ -30,7 +30,11 @@ export class HighlightRuleComponent {
       const linePart = linePartWithQuotes.replace(/\\'/g, '\'').replace(/\\"/g, '"'); // unescape quotes
       const boundaries = HighlightRuleComponent.computeLinePartBounds(linePart, lines[lineNumber - 1]);
 
-      return new HighlightRuleComponent(lineNumber, true, boundaries);
+      if (boundaries != null) {
+        return new HighlightRuleComponent(lineNumber, true, boundaries);
+      } else {
+        return null;
+      }
     }
 
     // Match line-slice (character and word variant) syntax
@@ -190,7 +194,7 @@ export class HighlightRuleComponent {
     let start = contentRemaining.indexOf(linePart);
 
     if (linePart === '' || start === -1) {
-      return [{ index: 0, type: BOUNDARY_TYPE.Start }, { index: 0, type: BOUNDARY_TYPE.End }];
+      return null;
     }
 
     const boundaries = [];
