@@ -7,7 +7,9 @@ import Token from 'markdown-it/lib/token';
 
 import * as logger from '../../utils/logger';
 
-import { HighlightRule } from './highlight/HighlightRule';
+import { HighlightRule, HIGHLIGHT_TYPES } from './highlight/HighlightRule';
+import { Highlighter } from './highlight/Highlighter';
+import { Boundary } from './highlight/helper'
 
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
@@ -144,14 +146,33 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
   // wrap all lines with <span> so we can number them
   str = lines.map((line, index) => {
     const currentLineNumber = index + 1;
-    const rule = highlightRules.find(highlightRule =>
-      highlightRule.shouldApplyHighlight(currentLineNumber));
-    if (rule) {
-      return rule.applyHighlight(line, currentLineNumber);
+    // Rules that affects this line
+    const rules = highlightRules.filter(
+      highlightRule => highlightRule.shouldApplyHighlight(currentLineNumber));
+    if (rules.length === 0) {
+      // not highlighted
+      return `<span>${line}\n</span>`;
+    }
+    // FIXME: Reason why two rules cannot be applied on the same line
+    const rawBoundaries: Boundary[] = [];
+    let lineHighlightType = HIGHLIGHT_TYPES.PartialText;
+    // Per line WholeLine override WholeText overrides PartialText
+    for (let i = 0; i < rules.length; i += 1) {
+      const {highlightType, boundaries} = rules[i].getHighlightType(currentLineNumber);
+      if (highlightType === HIGHLIGHT_TYPES.WholeLine) {
+        lineHighlightType = HIGHLIGHT_TYPES.WholeLine;
+        return Highlighter.highlightWholeLine(line);
+      } else if (highlightType === HIGHLIGHT_TYPES.WholeText) {
+        lineHighlightType = HIGHLIGHT_TYPES.WholeText;
+      } else if (boundaries !== null) {
+        boundaries.forEach(boundary => rawBoundaries.push(boundary));
+      }
     }
 
-    // not highlighted
-    return `<span>${line}\n</span>`;
+    if (lineHighlightType === HIGHLIGHT_TYPES.WholeText) {
+      return Highlighter.highlightWholeText(line);
+    }
+    return Highlighter.highlightPartOfText(line, rawBoundaries);
   }).join('');
 
   token.attrJoin('class', 'hljs');

@@ -1,4 +1,4 @@
-import { splitCodeAndIndentation } from './helper';
+import { splitCodeAndIndentation, Boundary, BOUNDARY_TYPE } from './helper';
 
 const LINESLICE_CHAR_REGEX = /(\d+)\[(\d*):(\d*)]/;
 const LINESLICE_WORD_REGEX = /(\d+)\[(\d*)::(\d*)]/;
@@ -8,11 +8,11 @@ const UNBOUNDED = -1;
 export class HighlightRuleComponent {
   lineNumber: number;
   isSlice: boolean;
-  bounds: number[][];
-  constructor(lineNumber: number, isSlice: boolean = false, bounds: number[][] = []) {
+  boundaries: Boundary[];
+  constructor(lineNumber: number, isSlice: boolean = false, boundaries: Boundary[] = []) {
     this.lineNumber = lineNumber;
     this.isSlice = isSlice;
-    this.bounds = bounds;
+    this.boundaries = boundaries;
   }
 
   static parseRuleComponent(compString: string, lineNumberOffset: number, lines: string[]) {
@@ -28,9 +28,9 @@ export class HighlightRuleComponent {
       lineNumber += lineNumberOffset;
 
       const linePart = linePartWithQuotes.replace(/\\'/g, '\'').replace(/\\"/g, '"'); // unescape quotes
-      const bounds = HighlightRuleComponent.computeLinePartBounds(linePart, lines[lineNumber - 1]);
+      const boundaries = HighlightRuleComponent.computeLinePartBounds(linePart, lines[lineNumber - 1]);
 
-      return new HighlightRuleComponent(lineNumber, true, bounds);
+      return new HighlightRuleComponent(lineNumber, true, boundaries);
     }
 
     // Match line-slice (character and word variant) syntax
@@ -52,13 +52,13 @@ export class HighlightRuleComponent {
         return new HighlightRuleComponent(lineNumber, true, []);
       }
 
-      let bound = groups.map(x => (x !== '' ? parseInt(x, 10) : UNBOUNDED));
+      const bound = groups.map(x => (x !== '' ? parseInt(x, 10) : UNBOUNDED));
       const isCharSlice = sliceMatch === linesliceCharMatch;
-      bound = isCharSlice
+      const boundaries = isCharSlice
         ? HighlightRuleComponent.computeCharBounds(bound, lines[lineNumber - 1])
         : HighlightRuleComponent.computeWordBounds(bound, lines[lineNumber - 1]);
 
-      return new HighlightRuleComponent(lineNumber, true, [bound]);
+      return new HighlightRuleComponent(lineNumber, true, boundaries);
     }
 
     // Match line-number syntax
@@ -83,7 +83,7 @@ export class HighlightRuleComponent {
   }
 
   isUnboundedSlice() {
-    return this.isSlice && this.bounds.length === 0;
+    return this.isSlice && this.boundaries.length === 0;
   }
 
   /**
@@ -125,7 +125,7 @@ export class HighlightRuleComponent {
       }
     }
 
-    return [start, end];
+    return [{ index: start, type: BOUNDARY_TYPE.Start }, { index: end, type: BOUNDARY_TYPE.End }];
   }
 
   /**
@@ -137,7 +137,7 @@ export class HighlightRuleComponent {
    *
    * @param bound The user-defined bound
    * @param line The given line
-   * @returns {[number, number]} The actual bound computed
+   * @returns {Array<Boundary>} The actual bound computed
    */
   static computeWordBounds(bound: number[], line: string) {
     const [indents, content] = splitCodeAndIndentation(line);
@@ -173,7 +173,7 @@ export class HighlightRuleComponent {
       end = wordEnd;
     }
 
-    return [start, end];
+    return [{ index: start, type: BOUNDARY_TYPE.Start }, { index: end, type: BOUNDARY_TYPE.End }];
   }
 
   /**
@@ -181,7 +181,7 @@ export class HighlightRuleComponent {
    *
    * @param linePart The user-defined line part
    * @param line The given line
-   * @returns {Array<[number, number]>} The bounds computed, each indicates the range of each
+   * @returns {Array<Boundary>} The bounds computed, each indicates the range of each
    * occurrences of the line part in the line
    */
   static computeLinePartBounds(linePart: string, line: string) {
@@ -190,19 +190,20 @@ export class HighlightRuleComponent {
     let start = contentRemaining.indexOf(linePart);
 
     if (linePart === '' || start === -1) {
-      return [[0, 0]];
+      return [{ index: 0, type: BOUNDARY_TYPE.Start }, { index: 0, type: BOUNDARY_TYPE.End }];
     }
 
-    const bounds = [];
+    const boundaries = [];
     let curr = indents.length;
     while (start !== -1) {
       const end = start + linePart.length;
-      bounds.push([curr + start, curr + end]);
+      boundaries.push({ index: curr + start, type: BOUNDARY_TYPE.Start });
+      boundaries.push({ index: curr + end, type: BOUNDARY_TYPE.End });
       curr += end;
       contentRemaining = contentRemaining.substring(end);
       start = contentRemaining.indexOf(linePart);
     }
 
-    return bounds;
+    return boundaries;
   }
 }
