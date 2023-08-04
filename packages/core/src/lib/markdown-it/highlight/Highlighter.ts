@@ -21,7 +21,3 @@ export class Highlighter {
     return `<span hl-data=${dataStr}>${codeStr}\n</span>`;
   }
 }
-
-module.exports = {
-  Highlighter,
-};

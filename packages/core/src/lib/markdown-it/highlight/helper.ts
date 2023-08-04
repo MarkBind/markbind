@@ -9,8 +9,8 @@ export function splitCodeAndIndentation(codeStr: string) {
 
 export enum BOUNDARY_TYPE {
   Start,
-  End
-};
+  End,
+}
 
 export interface Boundary {
   index: number;

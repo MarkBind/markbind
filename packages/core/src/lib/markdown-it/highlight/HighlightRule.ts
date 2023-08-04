@@ -1,11 +1,10 @@
 import { HighlightRuleComponent } from './HighlightRuleComponent';
-import { Boundary } from './helper'
 
 export enum HIGHLIGHT_TYPES {
   WholeLine,
   WholeText,
   PartialText,
-};
+}
 
 export class HighlightRule {
   ruleComponents: HighlightRuleComponent[];
@@ -71,13 +70,13 @@ export class HighlightRule {
     let [appliedRule] = this.ruleComponents;
     if (this.isLineRange()) {
       if (this.ruleComponents.some(comp => comp.isUnboundedSlice())) {
-        return {highlightType: HIGHLIGHT_TYPES.WholeLine, boundaries: null};
+        return { highlightType: HIGHLIGHT_TYPES.WholeLine, boundaries: null };
       }
 
       const [startCompare, endCompare] = this.ruleComponents.map(comp => comp.compareLine(lineNumber));
       if (startCompare < 0 && endCompare > 0) {
         // In-between range
-        return {highlightType: HIGHLIGHT_TYPES.WholeText, boundaries: null};
+        return { highlightType: HIGHLIGHT_TYPES.WholeText, boundaries: null };
       }
 
       const [startRule, endRule] = this.ruleComponents;
@@ -86,11 +85,11 @@ export class HighlightRule {
 
     if (appliedRule.isSlice) {
       return appliedRule.isUnboundedSlice()
-        ? {highlightType: HIGHLIGHT_TYPES.WholeLine, boundaries: null}
-        : {highlightType: HIGHLIGHT_TYPES.PartialText, boundaries: appliedRule.boundaries};
+        ? { highlightType: HIGHLIGHT_TYPES.WholeLine, boundaries: null }
+        : { highlightType: HIGHLIGHT_TYPES.PartialText, boundaries: appliedRule.boundaries };
     }
     // Line number only
-    return {highlightType: HIGHLIGHT_TYPES.WholeText, boundaries: null};
+    return { highlightType: HIGHLIGHT_TYPES.WholeText, boundaries: null };
   }
 
   isLineRange() {
