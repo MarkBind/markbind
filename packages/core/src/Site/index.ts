@@ -722,8 +722,8 @@ export class Site {
     logger.info('Generating pages...');
 
     try {
-      await LockManager.waitForLockRelease();
       await this.generatePages();
+      await LockManager.waitForLockRelease();
       await fs.remove(this.tempPath);
       logger.info('Pages built');
     } catch (error) {

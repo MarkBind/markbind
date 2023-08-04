@@ -31,11 +31,8 @@ let graphvizCheckCompleted = false;
  * @param content puml dsl used to generate the puml diagram
  */
 function generateDiagram(imageOutputPath: string, content: string) {
-  const lockId = LockManager.createLock();
-
   // Avoid generating twice
   if (processedDiagrams.has(imageOutputPath)) {
-    LockManager.deleteLock(lockId);
     return;
   }
   processedDiagrams.add(imageOutputPath);
@@ -45,6 +42,7 @@ function generateDiagram(imageOutputPath: string, content: string) {
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
+  const lockId = LockManager.createLock();
   // Java command to launch PlantUML jar
   const cmd = `java -jar "${JAR_PATH}" -nometadata -pipe > "${imageOutputPath}"`;
   const childProcess = exec(cmd);
