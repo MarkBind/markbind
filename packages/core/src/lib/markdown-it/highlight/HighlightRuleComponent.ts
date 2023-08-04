@@ -32,9 +32,9 @@ export class HighlightRuleComponent {
 
       if (boundaries != null) {
         return new HighlightRuleComponent(lineNumber, true, boundaries);
-      } else {
-        return null;
       }
+
+      return null;
     }
 
     // Match line-slice (character and word variant) syntax

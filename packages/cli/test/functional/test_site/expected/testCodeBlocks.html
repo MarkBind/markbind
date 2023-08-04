@@ -270,7 +270,7 @@
 </span></code></pre>
         <p><strong><code class="line-numbers hljs inline no-lang" v-pre>highlight-lines</code> attr with full character-variant line-slice syntax should highlight only at specified range</strong></p>
         <pre><code class="line-numbers hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name highlighted">foo</span>&gt;</span>
-</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string"><span><span class="highlighted">&quot;na</span>me&quot;</span></span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr"><span><span class="highlighted">typ</span>e</span></span>=<span class="hljs-string"><span>&quot;n<span class="highlighted">ame&quot;</span></span></span><span class="highlighted">&gt;</span></span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name"><span>b<span class="highlighted">az</span></span></span><span class="highlighted"> </span><span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">baz</span>&gt;</span>
 </span><span>  <span class="highlighted"><span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">qux</span>&gt;</span></span>
 </span><span>  <span class="highlighted"><span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span></span>
@@ -278,7 +278,7 @@
 </span></code></pre>
         <p><strong><code class="line-numbers hljs inline no-lang" v-pre>highlight-lines</code> attr with partial character-variant line-slice syntax should default highlight to start/end of line</strong></p>
         <pre><code class="line-numbers hljs xml" v-pre><span><span class="hljs-tag">&lt;<span class="hljs-name highlighted">foo</span><span class="highlighted">&gt;</span></span>
-</span><span>  <span class="hljs-tag"><span class="highlighted">&lt;</span><span class="hljs-name highlighted">bar</span><span class="highlighted"> </span><span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string"><span><span class="highlighted">&quot;na</span>me&quot;</span></span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span>  <span class="hljs-tag"><span class="highlighted">&lt;</span><span class="hljs-name highlighted">bar</span><span class="highlighted"> </span><span class="hljs-attr"><span>typ<span class="highlighted">e</span></span></span><span class="highlighted">=</span><span class="hljs-string highlighted">&quot;name&quot;</span><span class="highlighted">&gt;</span></span><span class="highlighted">goo</span><span class="hljs-tag highlighted">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name"><span>b<span class="highlighted">az</span></span></span><span class="highlighted"> </span><span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string highlighted">&quot;name&quot;</span><span class="highlighted">&gt;</span></span><span class="highlighted">goo</span><span class="hljs-tag highlighted">&lt;/<span class="hljs-name">baz</span>&gt;</span>
 </span><span>  <span class="highlighted"><span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">qux</span>&gt;</span></span>
 </span><span>  <span class="highlighted"><span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>goo<span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span></span>
@@ -296,7 +296,7 @@
 </span></code></pre>
         <p><strong><code class="line-numbers hljs inline no-lang" v-pre>highlight-lines</code> attr with full word-variant line-slice syntax should highlight only at specified word ranges</strong></p>
         <pre><code class="line-numbers hljs xml" v-pre><span><span class="hljs-tag highlighted">&lt;<span class="hljs-name">foo</span>&gt;</span>
-</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span> goo <span class="hljs-tag highlighted">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span>  <span class="hljs-tag"><span class="highlighted">&lt;</span><span class="hljs-name highlighted">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span><span> <span class="highlighted">goo</span> </span><span class="hljs-tag">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span>  <span class="hljs-tag highlighted">&lt;<span class="hljs-name">baz</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span> goo <span class="hljs-tag">&lt;/<span class="hljs-name">baz</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span><span> <span class="highlighted">goo </span></span><span class="hljs-tag highlighted">&lt;/<span class="hljs-name">qux</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr highlighted">type</span><span class="highlighted">=</span><span class="hljs-string highlighted">&quot;name&quot;</span><span class="highlighted">&gt;</span></span><span><span class="highlighted"> goo</span> </span><span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span>
@@ -304,11 +304,40 @@
 </span></code></pre>
         <p><strong><code class="line-numbers hljs inline no-lang" v-pre>highlight-lines</code> attr with partial word-variant line-slice syntax should default highlight to start/end of line</strong></p>
         <pre><code class="line-numbers hljs xml" v-pre><span><span class="hljs-tag highlighted">&lt;<span class="hljs-name">foo</span>&gt;</span>
-</span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span> goo <span class="hljs-tag highlighted">&lt;/<span class="hljs-name">bar</span>&gt;</span>
+</span><span>  <span class="hljs-tag highlighted">&lt;<span class="hljs-name">bar</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span> goo <span class="hljs-tag highlighted">&lt;/<span class="hljs-name">bar</span>&gt;</span>
 </span><span>  <span class="hljs-tag highlighted">&lt;<span class="hljs-name">baz</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span> goo <span class="hljs-tag">&lt;/<span class="hljs-name">baz</span>&gt;</span>
 </span><span>  <span class="hljs-tag">&lt;<span class="hljs-name">qux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span><span> <span class="highlighted">goo </span></span><span class="hljs-tag highlighted">&lt;/<span class="hljs-name">qux</span>&gt;</span>
 </span><span>  <span class="hljs-tag highlighted">&lt;<span class="hljs-name">quux</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span><span><span class="highlighted"> goo</span> </span><span class="hljs-tag">&lt;/<span class="hljs-name">quux</span>&gt;</span>
 </span><span><span class="hljs-tag">&lt;/<span class="hljs-name">foo</span>&gt;</span>
+</span></code></pre>
+        <p><strong><code class="line-numbers hljs inline no-lang" v-pre>highlight-lines</code> all attr should behave as expected</strong></p>
+        <pre><code class="line-numbers hljs java" v-pre><span class="highlighted"><span class="hljs-keyword">import</span> java.util.List;
+</span><span>
+</span><span><span class="hljs-comment"><span>// <span class="highlighted">Inventory</span><span> <span class="highlighted">is a</span><span> class that stores inventory <span class="highlighted">items</span><span> in a list. Big <span class="highlighted">Inventory</span>.</span></span></span></span></span>
+</span><span><span class="hljs-comment"><span>// <span class="highlighted">It's designed</span><span> as a <span class="highlighted">thin wrapper on the List interface.</span></span></span></span>
+</span><span><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Inventory</span> </span>{
+</span><span class="highlighted">    <span class="hljs-keyword">private</span> List&lt;Item&gt; items;
+</span><span class="highlighted">
+</span><span class="highlighted">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getItemCount</span><span class="hljs-params">()</span></span>{
+</span><span>        <span class="hljs-keyword">return</span> items.size();
+</span><span>    }
+</span><span>
+</span><span class="highlighted">    <span class="hljs-function"><span class="hljs-keyword">public</span> bool <span class="hljs-title">isEmpty</span><span class="hljs-params">()</span> </span>{
+</span><span class="highlighted">        <span class="hljs-keyword">return</span> items.isEmpty();
+</span><span class="highlighted">    }
+</span><span>
+</span><span>    <span class="highlighted"><span class="hljs-function"><span class="hljs-keyword">public</span> Item <span class="hljs-title">getItem</span><span class="hljs-params">(idx: <span class="hljs-keyword">int</span>)</span> </span>{</span>
+</span><span>        <span class="highlighted"><span class="hljs-keyword">return</span> items.get(idx);</span>
+</span><span>    <span class="highlighted">}</span>
+</span><span>
+</span><span>    <span class="hljs-function"><span class="hljs-keyword highlighted">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title highlighted">addItem</span><span class="hljs-params highlighted">(item: Item)</span><span class="highlighted"> </span></span><span><span class="highlighted">{</span>
+</span></span><span>        <span class="hljs-keyword highlighted">return</span><span><span class="highlighted"> items.add(item);</span>
+</span></span><span>    }
+</span><span>
+</span><span>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword highlighted">void</span><span class="highlighted"> </span><span class="hljs-title highlighted">removeItem</span><span class="hljs-params highlighted">(item: Item)</span><span class="highlighted"> </span></span><span><span class="highlighted">{</span>
+</span></span><span>        <span class="highlighted"><span class="hljs-keyword">return</span> items.remove(item);</span>
+</span><span>    <span class="highlighted">}</span>
+</span><span>}
 </span></code></pre>
         <p><strong>Should render correctly with heading</strong></p>
         <div class="code-block">
