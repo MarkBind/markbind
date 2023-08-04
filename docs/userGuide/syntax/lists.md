@@ -93,7 +93,7 @@ If either the `i-width` or the `i-height` of an image is not specified, the unsp
   
 <box type=tip seamless>
 
-Similar to the `icon` attribute, other icon attributes such as `i-class`, `i-width`, `i-height` apply for subsequent list items at the same level, until they are overridden by the same attribute. For example, Item 2.3's `i-class` overrides Item 2.2's and applies up to Item 3.1.
+Similar to the `icon` attribute, other icon attributes such as `i-class`, `i-width`, `i-height` apply for subsequent list items at the same level, until they are overridden by the same attribute. For example, Item 2.3's `i-class` overrides Item 2.1's and applies up to Item 3.1.
 </box>
 
 </div>
