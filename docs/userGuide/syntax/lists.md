@@ -105,14 +105,24 @@ Similar to the `icon` attribute, other icon attributes such as `i-class`, `i-wid
 <variable name="code">
 
 * #### Heading 1: Overview {icon="/images/overview-d.png" i-width="65px" i-class="rounded" }
-  
    Content 1: This section provides a summary of the document or topic. 
    It sets the context and purpose of the content to follow.
+   * ##### Heading 1.1: Highlights { icon="/images/highlights-d.png" i-width="65px" i-class="rounded" }
+      Content 1.1: Here we summarize the key points, findings, or features of the main topic. 
+      This could include important data, outcomes, or insights.
+* #### Heading 2: Detailed Description { icon="/images/detailed-d.png" i-width="65px" i-class="rounded" }
+   Content 2: This section delves deeper into the topic, offering comprehensive information and detailed explanations.
+   It might also include evidence, examples, or justifications.
+* #### Heading 3: Conclusion { icon="/images/conclusion-d.png" i-width="65px" i-class="rounded" }
+    Content 3: The conclusion draws together the main threads of the topic, 
+    summarizing the central points and their implications.
+   * ##### Heading 3.1: Final Thoughts
+     Content 3.1: This is a place for final reflections, recommendations, or a look towards future developments or trends.
 
 </variable>
 </include>
 
-Always leave a blank line between the heading and the content that comes after it.
+Icon specifications should be attached only to the first element of a list item (for the example above, the icon specification should be attached to the heading, not the content below the heading).
 
 ****Ordered lists:****
 
