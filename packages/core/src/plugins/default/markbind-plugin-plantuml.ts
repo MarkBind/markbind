@@ -23,7 +23,6 @@ const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 const processedDiagrams = new Set();
 
 let graphvizCheckCompleted = false;
-// Generate a lock file
 
 /**
  * Generates diagram and returns the file name of the diagram
@@ -72,7 +71,6 @@ function generateDiagram(imageOutputPath: string, content: string) {
   childProcess.on('exit', () => {
     // This goes to the log file, but not shown on the console
     logger.debug(errorLog);
-    // Delete the lock file after generating the diagram
     LockManager.deleteLock(lockId);
   });
 }

@@ -16,12 +16,12 @@ class LockManager {
     return LockManager._instance;
   }
 
-  createLock(): string {
-    const lockId = uuidv4();
+  createLock(id?: string): string {
+    const lockId = id ?? uuidv4();
     this.locks.set(lockId, true);
     return lockId;
   }
-
+  
   deleteLock(lockId: string): void {
     this.locks.delete(lockId);
   }
