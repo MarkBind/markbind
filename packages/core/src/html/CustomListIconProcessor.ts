@@ -130,9 +130,10 @@ function updateLi(node: MbNode, iconAttributes: IconAttributes) {
   });
 }
 
-// This function ensure the first item of at that level must also be customized.
+// This function ensures the first item at that level must also be customized.
 // If not, the list will be invalidated and default bullets will be used.
 // This is to prevent unintentional mixing of standard and customized lists.
+// See https://github.com/MarkBind/markbind/pull/2316#discussion_r1255364486 for more details.
 function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail) {
   if (iconAttrValue.isFirst) {
     iconAttrValue.iconAttrs = getIconAttributes(node);

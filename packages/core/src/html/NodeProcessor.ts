@@ -27,7 +27,7 @@ import { highlightCodeBlock, setCodeLineNumbers } from './codeblockProcessor';
 import { setHeadingId, assignPanelId } from './headerProcessor';
 import { FootnoteProcessor } from './FootnoteProcessor';
 import { MbNode, NodeOrText, TextElement } from '../utils/node';
-import { processUlNode } from './CustomUlListProcessor';
+import { processUlNode } from './CustomListIconProcessor';
 
 const fm = require('fastmatter');
 
