@@ -27,6 +27,7 @@ import { highlightCodeBlock, setCodeLineNumbers } from './codeblockProcessor';
 import { setHeadingId, assignPanelId } from './headerProcessor';
 import { FootnoteProcessor } from './FootnoteProcessor';
 import { MbNode, NodeOrText, TextElement } from '../utils/node';
+import { processUlNode } from './CustomListIconProcessor';
 
 const fm = require('fastmatter');
 
@@ -194,6 +195,9 @@ export class NodeProcessor {
         return processPanelSrc(node, context, this.pageSources, this.config);
       case 'question':
         this.mdAttributeRenderer.processQuestion(node);
+        break;
+      case 'ul':
+        processUlNode(node);
         break;
       case 'q-option':
         this.mdAttributeRenderer.processQOption(node);
