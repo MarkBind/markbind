@@ -44,7 +44,9 @@ function generateDiagram(imageOutputPath: string, content: string) {
   const lockId = LockManager.createLock();
   // Java command to launch PlantUML jar
   const cmd = `java -jar "${JAR_PATH}" -nometadata -pipe > "${imageOutputPath}"`;
-  const childProcess = exec(cmd);
+  const childProcess = exec(cmd, {
+    cwd: outputDir, // Invoke image generation in the same directory to avoid file inclusion issues
+  });
 
   let errorLog = '';
   childProcess.stdin?.write(
