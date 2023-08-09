@@ -34,7 +34,7 @@ exports[`Modal can be centered 1`] = `
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog modal-dialog-centered"
+        class="vfm__content modal-dialog modal modal-dialog-centered"
         data-v-1cd72822=""
       >
         <div
@@ -106,7 +106,7 @@ exports[`Modal can be large 1`] = `
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog modal-lg"
+        class="vfm__content modal-dialog modal modal-lg"
         data-v-1cd72822=""
       >
         <div
@@ -178,7 +178,7 @@ exports[`Modal can be small 1`] = `
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog modal-sm"
+        class="vfm__content modal-dialog modal modal-sm"
         data-v-1cd72822=""
       >
         <div
@@ -250,7 +250,7 @@ exports[`Modal should be closable by clicking the backdrop by default 1`] = `
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog"
+        class="vfm__content modal-dialog modal"
         data-v-1cd72822=""
       >
         <div
@@ -322,7 +322,7 @@ exports[`Modal should be closable using the ok-text button 1`] = `
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog"
+        class="vfm__content modal-dialog modal"
         data-v-1cd72822=""
       >
         <div
@@ -390,7 +390,7 @@ exports[`Modal should not be closable by clicking the backdrop if backdrop is se
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog"
+        class="vfm__content modal-dialog modal"
         data-v-1cd72822=""
       >
         <div
@@ -462,7 +462,7 @@ exports[`Modal should not show footer when no footer is given 1`] = `
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog"
+        class="vfm__content modal-dialog modal"
         data-v-1cd72822=""
       >
         <div
@@ -534,7 +534,7 @@ exports[`Modal should not show header when no header is given 1`] = `
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog"
+        class="vfm__content modal-dialog modal"
         data-v-1cd72822=""
       >
         <div
@@ -596,7 +596,7 @@ exports[`Modal should show footer when both footer and ok-text are given 1`] = `
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog"
+        class="vfm__content modal-dialog modal"
         data-v-1cd72822=""
       >
         <div
@@ -656,7 +656,7 @@ exports[`Modal supports fade effect 1`] = `
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog"
+        class="vfm__content modal-dialog modal"
         data-v-1cd72822=""
       >
         <div
