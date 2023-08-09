@@ -4,6 +4,7 @@
   "titlePrefix": "",
   "titleSuffix": "",
   "style": {
+    "bootstrapTheme": "bootswatch-sketchy",
     "codeLineNumbers": true
   },
   "pages": [

@@ -6,7 +6,7 @@
     v-model="show"
     ssr
     :name="id"
-    :content-class="['modal-dialog', optionalModalSize, optionalCentering]"
+    :content-class="['modal-dialog', 'modal', optionalModalSize, optionalCentering]"
     overlay-transition="none"
     :transition="effectClass"
     :click-to-close="backdrop !== 'false'"
@@ -129,6 +129,7 @@ export default {
     .modal-dialog {
         inset: 0;
         position: absolute;
+        display: block;
     }
 
     .modal-content {
