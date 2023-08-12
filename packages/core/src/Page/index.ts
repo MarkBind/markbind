@@ -18,6 +18,7 @@ import type { SiteConfig } from '../Site/SiteConfig';
 import type { FrontMatter } from '../plugins/Plugin';
 import type { ExternalManager } from '../External/ExternalManager';
 import { MbNode } from '../utils/node';
+const LockManager = require('../utils/LockManager');
 
 require('../patches/htmlparser2');
 
@@ -533,6 +534,10 @@ export class Page {
     };
     // Each source path will only contain 1 copy of build/re-build page (the latest one)
     pageVueServerRenderer.pageEntries[this.pageConfig.sourcePath] = builtPage;
+
+    // Wait for all pages resources to be generated before writing to disk
+    await LockManager.waitForLockRelease();
+
 
     /*
      * Server-side render Vue page app into actual html.
