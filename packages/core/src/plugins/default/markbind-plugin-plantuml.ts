@@ -96,7 +96,6 @@ export = {
   },
 
   beforeSiteGenerate: () => {
-    processedDiagrams.clear();
     graphvizCheckCompleted = false;
   },
 
