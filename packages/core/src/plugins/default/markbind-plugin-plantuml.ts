@@ -22,7 +22,6 @@ const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
 const processedDiagrams = new Set();
 
-
 let graphvizCheckCompleted = false;
 
 /**
@@ -143,7 +142,7 @@ export = {
         const nameWithoutLeadingSlash = nameWithoutBaseUrl.startsWith('/')
           ? nameWithoutBaseUrl.substring(1)
           : nameWithoutBaseUrl;
-        pathFromRootToImage = fsUtil.ensurePosix(fsUtil.setExtension(nameWithoutLeadingSlash, '.png'));    
+        pathFromRootToImage = fsUtil.ensurePosix(fsUtil.setExtension(nameWithoutLeadingSlash, '.png'));
 
         delete node.attribs.name;
       } else {
