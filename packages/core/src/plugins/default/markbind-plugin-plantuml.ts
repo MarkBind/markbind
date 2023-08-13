@@ -22,6 +22,7 @@ const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
 const processedDiagrams = new Set();
 
+
 let graphvizCheckCompleted = false;
 
 /**
@@ -29,12 +30,12 @@ let graphvizCheckCompleted = false;
  * @param imageOutputPath output path of the diagram to be generated
  * @param content puml dsl used to generate the puml diagram
  */
-function generateDiagram(imageOutputPath: string, content: string) {
+function generateDiagram(imageOutputPath: string, content: string, hashKey: string) {
   // Avoid generating twice
-  if (processedDiagrams.has(imageOutputPath)) {
+  if (processedDiagrams.has(hashKey)) {
     return;
   }
-  processedDiagrams.add(imageOutputPath);
+  processedDiagrams.add(hashKey);
 
   // Creates output dir if it doesn't exist
   const outputDir = path.dirname(imageOutputPath);
@@ -142,7 +143,7 @@ export = {
         const nameWithoutLeadingSlash = nameWithoutBaseUrl.startsWith('/')
           ? nameWithoutBaseUrl.substring(1)
           : nameWithoutBaseUrl;
-        pathFromRootToImage = fsUtil.ensurePosix(fsUtil.setExtension(nameWithoutLeadingSlash, '.png'));
+        pathFromRootToImage = fsUtil.ensurePosix(fsUtil.setExtension(nameWithoutLeadingSlash, '.png'));    
 
         delete node.attribs.name;
       } else {
@@ -155,8 +156,9 @@ export = {
     }
 
     node.children = [];
+    const hashKey = cryptoJS.MD5(pathFromRootToImage + pumlContent).toString();
 
     const imageOutputPath = path.resolve(config.outputPath, pathFromRootToImage);
-    generateDiagram(imageOutputPath, pumlContent);
+    generateDiagram(imageOutputPath, pumlContent, hashKey);
   },
 };
