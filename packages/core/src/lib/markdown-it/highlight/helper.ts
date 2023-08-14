@@ -1,9 +1,9 @@
 // Common helper functions to be used in HighlightRule or HighlightRuleComponent
 
-export function splitCodeAndIndentation(codeStr: string) {
-  const codeStartIdx = codeStr.search(/\S|$/);
-  const indents = codeStr.substring(0, codeStartIdx);
-  const content = codeStr.substring(codeStartIdx);
+export function splitCodeAndIndentation(code: string) {
+  const codeStartIdx = code.search(/\S|$/);
+  const indents = code.substring(0, codeStartIdx);
+  const content = code.substring(codeStartIdx);
   return [indents, content];
 }
 
@@ -17,12 +17,8 @@ export interface Boundary {
   type: BOUNDARY_TYPE;
 }
 
-// Simplifies multiple bounds applied on a single line to an array of disjointed bounds
-// boundaryCollection:
-// e.g [{index: 1, type: BOUNDARY_TYPE.Start},
-//      {index:3, type: BOUNDARY_TYPE.End},
-//      {index: 5, type: BOUNDARY_TYPE.Start},
-//      {index: 7, type: BOUNDARY_TYPE.End}]
+// Simplifies and collates multiple bounds applied on a single line to an array of disjointed bounds
+// e.g. [[0, 2], [1, 3], [8, 10]] -> [[0, 3], [8, 10]]
 export function collateAllIntervals(boundaryCollection: Boundary[]) {
   let startCount = 0;
   let endCount = 0;
@@ -55,12 +51,3 @@ export function collateAllIntervals(boundaryCollection: Boundary[]) {
   }
   return output;
 }
-
-// console.log(collateAllIntervals([
-//   { index: 1, type: BOUNDARY_TYPE.Start },
-//   { index: 3, type: BOUNDARY_TYPE.End },
-//   { index: 5, type: BOUNDARY_TYPE.Start },
-//   { index: 8, type: BOUNDARY_TYPE.End },
-//   { index: 7, type: BOUNDARY_TYPE.Start },
-//   { index: 13, type: BOUNDARY_TYPE.End },
-// ]));
