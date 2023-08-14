@@ -169,6 +169,10 @@
     {
       "src": "testWeb3FormPlugin.md",
       "title": "web 3 forms"
+    },
+    {
+      "src": "testList.md",
+      "title": "web 3 forms"
     }
   ],
   "pagesExclude": ["**/*-fragment.md"],
