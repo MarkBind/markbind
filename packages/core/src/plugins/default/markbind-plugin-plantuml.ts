@@ -19,8 +19,27 @@ import { MbNode } from '../../utils/node';
 const LockManager = require('../../utils/LockManager');
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
+interface DiagramStatus {
+  isAlive: boolean;
+}
+const processedDiagrams = new Map<string, DiagramStatus>();
 
-const processedDiagrams = new Set();
+function clearDeadDiagrams(diagrams: Map<string, { isAlive: boolean }>) {
+  Array.from(diagrams.entries())
+    .filter(([, value]) => !value.isAlive)
+    .forEach(([key]) => diagrams.delete(key));
+}
+
+function initDiagrams(diagrams: Map<string, { isAlive: boolean }>) {
+  Array.from(diagrams.values()).forEach((value) => {
+    value.isAlive = false;
+  });
+}
+
+function cleanDiagrams(diagrams: Map<string, { isAlive: boolean }>) {
+  clearDeadDiagrams(diagrams);
+  initDiagrams(diagrams);
+}
 
 let graphvizCheckCompleted = false;
 
@@ -32,9 +51,12 @@ let graphvizCheckCompleted = false;
 function generateDiagram(imageOutputPath: string, content: string, hashKey: string) {
   // Avoid generating twice
   if (processedDiagrams.has(hashKey)) {
+    const diagramStatus = processedDiagrams.get(hashKey) as { isAlive: boolean };
+    diagramStatus.isAlive = true;
     return;
   }
-  processedDiagrams.add(hashKey);
+
+  processedDiagrams.set(hashKey, { isAlive: true });
 
   // Creates output dir if it doesn't exist
   const outputDir = path.dirname(imageOutputPath);
@@ -96,6 +118,7 @@ export = {
   },
 
   beforeSiteGenerate: () => {
+    cleanDiagrams(processedDiagrams);
     graphvizCheckCompleted = false;
   },
 
