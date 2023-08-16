@@ -12,6 +12,7 @@
     :click-to-close="backdrop !== 'false'"
     esc-to-close
     z-index-base="2000"
+    @opened="opened"
   >
     <div class="modal-content">
       <div v-if="hasHeader" class="modal-header">
@@ -45,7 +46,7 @@
 
 <script>
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { VueFinalModal } from 'vue-final-modal';
+import { $vfm, VueFinalModal } from 'vue-final-modal';
 
 export default {
   name: 'Modal',
@@ -91,6 +92,10 @@ export default {
       type: String,
       default: '',
     },
+    scrollBehavior: {
+      type: String,
+      default: 'outside',
+    },
   },
   computed: {
     hasHeader() {
@@ -114,10 +119,39 @@ export default {
     effectClass() {
       return this.effect === 'zoom' ? this.zoomEffect : 'vfm';
     },
+    getModalContentHeight() {
+      return document.getElementsByClassName('modal-content')[0].clientHeight;
+    },
   },
   methods: {
     close() {
       this.show = false;
+    },
+    opened() {
+      // To adjust modal styles according to scrollBehavior
+
+      const modal = $vfm.get(this.id)[0].$el;
+      const modalContainer = modal.querySelector('.vfm__container');
+      const modalOverlay = modal.querySelector('.vfm--overlay');
+      const modalContent = modal.querySelector('.modal-content');
+
+      if (this.scrollBehavior === 'inside') {
+        modalContent.style.setProperty('max-height', '100%');
+      } else {
+        const isOverflow = modal.scrollHeight > modal.clientHeight;
+        if (!isOverflow) {
+          // no need to adjust any styles
+          return;
+        }
+        const modalContentHeight = modalContent.offsetHeight;
+        const modalContentTop = modalContent.getBoundingClientRect().top;
+        const modalContainerHeight = modalContentHeight + modalContentTop;
+        modal.style.setProperty('overflow-y', 'scroll');
+        modalOverlay.style.setProperty('background-color', 'transparent', 'important');
+        modalContainer.style.setProperty('background-color', 'rgba(0,0,0,.5)');
+        modalContainer.style.setProperty('height', `${modalContainerHeight}px`);
+        modalContent.style.setProperty('max-height', 'none');
+      }
     },
   },
   mounted() {
@@ -129,10 +163,6 @@ export default {
     .modal-dialog {
         inset: 0;
         position: absolute;
-    }
-
-    .modal-content {
-        max-height: 100%;
     }
 
     .modal-zoom {
