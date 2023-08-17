@@ -191,9 +191,6 @@ export class Site {
   currentOpenedPages: string[];
   toRebuild: Set<string>;
   externalManager!: ExternalManager;
-  // buildAsset?: (this: any, arg: unknown) => Bluebird<unknown>;
-  // rebuildAffectedSourceFiles?: (this: any, arg: unknown) => Bluebird<unknown>;
-  // rebuildSourceFiles?: (this: any, arg: unknown) => Bluebird<unknown>;
   // TODO: add LayoutManager when it has been migrated
   layoutManager: any;
 
