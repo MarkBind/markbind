@@ -32,6 +32,10 @@ jobs:
           distribution: 'temurin'
       - run: npm run setup
       - run: npm run test
+      - name: Upload coverage report to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   check-docs:
     runs-on: ubuntu-latest
     steps:
