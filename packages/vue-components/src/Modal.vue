@@ -14,7 +14,7 @@
     z-index-base="2000"
     @opened="opened"
   >
-    <div class="modal-content">
+    <div :class="['modal-content', modalContentClass]">
       <div v-if="hasHeader" class="modal-header">
         <h5 class="modal-title">
           <slot name="header"></slot>
@@ -94,7 +94,7 @@ export default {
     },
     scrollBehavior: {
       type: String,
-      default: 'outside',
+      default: 'inside',
     },
   },
   computed: {
@@ -114,13 +114,14 @@ export default {
       return this.small ? 'modal-sm' : 'modal-lg';
     },
     optionalCentering() {
-      return this.center ? 'modal-dialog-centered' : '';
+      return this.center && this.scrollBehavior === 'inside' ? 'modal-dialog-centered' : '';
     },
     effectClass() {
       return this.effect === 'zoom' ? this.zoomEffect : 'vfm';
     },
-    getModalContentHeight() {
-      return document.getElementsByClassName('modal-content')[0].clientHeight;
+    modalContentClass() {
+      return this.scrollBehavior === 'outside'
+        ? 'modal-content-scroll-outside' : 'modal-content-scroll-inside';
     },
   },
   methods: {
@@ -134,15 +135,9 @@ export default {
       const modalContainer = modal.querySelector('.vfm__container');
       const modalOverlay = modal.querySelector('.vfm--overlay');
       const modalContent = modal.querySelector('.modal-content');
+      const isOverflow = modal.scrollHeight > modal.clientHeight;
 
-      if (this.scrollBehavior === 'inside') {
-        modalContent.style.setProperty('max-height', '100%');
-      } else {
-        const isOverflow = modal.scrollHeight > modal.clientHeight;
-        if (!isOverflow) {
-          // no need to adjust any styles
-          return;
-        }
+      if (this.scrollBehavior === 'outside' && isOverflow) {
         const modalContentHeight = modalContent.offsetHeight;
         const modalContentTop = modalContent.getBoundingClientRect().top;
         const modalContainerHeight = modalContentHeight + modalContentTop;
@@ -150,7 +145,6 @@ export default {
         modalOverlay.style.setProperty('background-color', 'transparent', 'important');
         modalContainer.style.setProperty('background-color', 'rgba(0,0,0,.5)');
         modalContainer.style.setProperty('height', `${modalContainerHeight}px`);
-        modalContent.style.setProperty('max-height', 'none');
       }
     },
   },
@@ -163,6 +157,14 @@ export default {
     .modal-dialog {
         inset: 0;
         position: absolute;
+    }
+
+    .modal-content-scroll-inside {
+        max-height: 100%;
+    }
+
+    .modal-content-scroll-outside {
+        max-height: none;
     }
 
     .modal-zoom {
