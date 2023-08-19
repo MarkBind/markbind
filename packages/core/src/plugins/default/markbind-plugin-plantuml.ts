@@ -24,7 +24,6 @@ const LockManager = require('../../utils/LockManager');
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
-
 // On first generation, all the diagrams will be added to the map, and whenever a diagram is generated,
 // it will be marked as fresh.
 // Upon editing a PUML file or a non-PUML file that triggers a hot reload on the site,
