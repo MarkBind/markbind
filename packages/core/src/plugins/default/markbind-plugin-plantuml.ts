@@ -16,27 +16,29 @@ import { PluginContext } from '../Plugin';
 import { NodeProcessorConfig } from '../../html/NodeProcessor';
 import { MbNode } from '../../utils/node';
 
-const LockManager = require('../../utils/LockManager');
-
-const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 interface DiagramStatus {
   isAlive: boolean;
 }
+
+const LockManager = require('../../utils/LockManager');
+
+const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
+
 const processedDiagrams = new Map<string, DiagramStatus>();
 
-function clearDeadDiagrams(diagrams: Map<string, { isAlive: boolean }>) {
+function clearDeadDiagrams(diagrams: Map<string, DiagramStatus>) {
   Array.from(diagrams.entries())
     .filter(([, value]) => !value.isAlive)
     .forEach(([key]) => diagrams.delete(key));
 }
 
-function initDiagrams(diagrams: Map<string, { isAlive: boolean }>) {
+function initDiagrams(diagrams: Map<string, DiagramStatus>) {
   Array.from(diagrams.values()).forEach((value) => {
     value.isAlive = false;
   });
 }
 
-function cleanDiagrams(diagrams: Map<string, { isAlive: boolean }>) {
+function cleanDiagrams(diagrams: Map<string, DiagramStatus>) {
   clearDeadDiagrams(diagrams);
   initDiagrams(diagrams);
 }
@@ -48,10 +50,12 @@ let graphvizCheckCompleted = false;
  * @param imageOutputPath output path of the diagram to be generated
  * @param content puml dsl used to generate the puml diagram
  */
-function generateDiagram(imageOutputPath: string, content: string, hashKey: string) {
+function generateDiagram(imageOutputPath: string, content: string) {
+  const hashKey = cryptoJS.MD5(imageOutputPath + content).toString();
+
   // Avoid generating twice
   if (processedDiagrams.has(hashKey)) {
-    const diagramStatus = processedDiagrams.get(hashKey) as { isAlive: boolean };
+    const diagramStatus = processedDiagrams.get(hashKey) as DiagramStatus;
     diagramStatus.isAlive = true;
     return;
   }
@@ -177,9 +181,8 @@ export = {
     }
 
     node.children = [];
-    const hashKey = cryptoJS.MD5(pathFromRootToImage + pumlContent).toString();
 
     const imageOutputPath = path.resolve(config.outputPath, pathFromRootToImage);
-    generateDiagram(imageOutputPath, pumlContent, hashKey);
+    generateDiagram(imageOutputPath, pumlContent);
   },
 };
