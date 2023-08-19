@@ -74,7 +74,7 @@ class LockManager {
         if (this.locks.size === 0) {
           resolve();
         } else {
-          setTimeout(checkLocks, 1);
+          setTimeout(checkLocks, 100);
         }
       };
       checkLocks();
