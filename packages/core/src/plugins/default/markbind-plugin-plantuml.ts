@@ -24,6 +24,13 @@ const LockManager = require('../../utils/LockManager');
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
+
+// On first generation, all the diagrams will be added to the map, and whenever a diagram is generated,
+// it will be marked as fresh.
+// Upon editing a PUML file or a non-PUML file that triggers a hot reload on the site,
+// the stale diagram will be removed from the map, and the map will be reset to all stale.
+// If the diagram is inside the map, the generateDiagram function will not regenerate the diagram.
+// This is to prevent generating the same diagram twice.
 const processedDiagrams = new Map<string, DiagramStatus>();
 
 // Remove diagrams that are no longer used in the tracking hash map
@@ -33,16 +40,16 @@ function clearDeadDiagrams(diagrams: Map<string, DiagramStatus>) {
     .forEach(([key]) => diagrams.delete(key));
 }
 
-// Set all diagrams to be stale (isAlive = false)
+// Set all diagrams to be stale (isFresh = false)
 function initDiagrams(diagrams: Map<string, DiagramStatus>) {
   Array.from(diagrams.values()).forEach((value) => {
     value.isFresh = false;
   });
 }
 
-// Clear all stale diagrams and set all diagrams to be stale (isAlive = false)
+// Clear all stale diagrams (isFresh = false) and set all diagrams to be stale
 // This is called before site generation
-// The fresh diagrams will be marked as alive during site generation
+// The fresh diagrams will be marked as isFresh during site generation
 function cleanDiagrams(diagrams: Map<string, DiagramStatus>) {
   clearDeadDiagrams(diagrams);
   initDiagrams(diagrams);
