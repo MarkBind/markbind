@@ -30,7 +30,7 @@ class LockManager {
    * If it doesn't exist, it creates one.
    * @returns {LockManager} The single instance of LockManager.
    */
-  public static get instance(): LockManager {
+  public static get instance() {
     if (!LockManager._instance) {
       LockManager._instance = new LockManager();
     }
