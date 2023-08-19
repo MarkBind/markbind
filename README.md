@@ -3,6 +3,7 @@
 [![CI](https://github.com/MarkBind/markbind/actions/workflows/ci.yml/badge.svg)](https://github.com/MarkBind/markbind/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/markbind-cli)](https://www.npmjs.com/package/markbind-cli)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9a8095bf-b582-4dce-9631-98c5754ba199/deploy-status)](https://app.netlify.com/sites/markbind-master/deploys)
+[![codecov](https://codecov.io/gh/MarkBind/markbind/branch/master/graph/badge.svg?token=AfVbuV77yg)](https://codecov.io/gh/MarkBind/markbind)
 
 **A tool for generating static websites from Markdown-like syntax**. Optimized for content-heavy instructional websites, e.g. course websites, tutorials, project/product documentation, textbooks.
 
