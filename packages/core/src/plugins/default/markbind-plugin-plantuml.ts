@@ -126,7 +126,6 @@ export = {
     if (node.name !== 'puml') {
       return;
     }
-
     if (config.plantumlCheck && !graphvizCheckCompleted) {
       exec(`java -jar "${JAR_PATH}" -testdot`, (_error, _stdout, stderr) => {
         if (stderr.includes('Error: No dot executable found')) {

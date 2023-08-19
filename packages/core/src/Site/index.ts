@@ -1359,7 +1359,6 @@ export class Site {
     try {
       await this.runPageGenerationTasks(pageGenerationTasks);
       await this.writeSiteData();
-
       logger.info('Pages rebuilt');
       this.calculateBuildTimeForRegenerateAffectedPages(startTime);
     } catch (error) {
