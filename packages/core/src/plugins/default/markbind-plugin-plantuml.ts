@@ -17,7 +17,7 @@ import { NodeProcessorConfig } from '../../html/NodeProcessor';
 import { MbNode } from '../../utils/node';
 
 interface DiagramStatus {
-  isStale: boolean;
+  isFresh: boolean;
 }
 
 const LockManager = require('../../utils/LockManager');
@@ -29,14 +29,14 @@ const processedDiagrams = new Map<string, DiagramStatus>();
 // Remove diagrams that are no longer used in the tracking hash map
 function clearDeadDiagrams(diagrams: Map<string, DiagramStatus>) {
   Array.from(diagrams.entries())
-    .filter(([, value]) => !value.isStale)
+    .filter(([, value]) => !value.isFresh)
     .forEach(([key]) => diagrams.delete(key));
 }
 
 // Set all diagrams to be stale (isAlive = false)
 function initDiagrams(diagrams: Map<string, DiagramStatus>) {
   Array.from(diagrams.values()).forEach((value) => {
-    value.isStale = false;
+    value.isFresh = false;
   });
 }
 
@@ -61,11 +61,11 @@ function generateDiagram(imageOutputPath: string, content: string) {
   // Avoid generating twice
   if (processedDiagrams.has(hashKey)) {
     const diagramStatus = processedDiagrams.get(hashKey) as DiagramStatus;
-    diagramStatus.isStale = true;
+    diagramStatus.isFresh = true;
     return;
   }
 
-  processedDiagrams.set(hashKey, { isStale: true });
+  processedDiagrams.set(hashKey, { isFresh: true });
 
   // Creates output dir if it doesn't exist
   const outputDir = path.dirname(imageOutputPath);
