@@ -17,7 +17,7 @@ import { NodeProcessorConfig } from '../../html/NodeProcessor';
 import { MbNode } from '../../utils/node';
 
 interface DiagramStatus {
-  isAlive: boolean;
+  isStale: boolean;
 }
 
 const LockManager = require('../../utils/LockManager');
@@ -26,18 +26,23 @@ const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
 const processedDiagrams = new Map<string, DiagramStatus>();
 
+// Remove diagrams that are no longer used in the tracking hash map
 function clearDeadDiagrams(diagrams: Map<string, DiagramStatus>) {
   Array.from(diagrams.entries())
-    .filter(([, value]) => !value.isAlive)
+    .filter(([, value]) => !value.isStale)
     .forEach(([key]) => diagrams.delete(key));
 }
 
+// Set all diagrams to be stale (isAlive = false)
 function initDiagrams(diagrams: Map<string, DiagramStatus>) {
   Array.from(diagrams.values()).forEach((value) => {
-    value.isAlive = false;
+    value.isStale = false;
   });
 }
 
+// Clear all stale diagrams and set all diagrams to be stale (isAlive = false)
+// This is called before site generation
+// The fresh diagrams will be marked as alive during site generation
 function cleanDiagrams(diagrams: Map<string, DiagramStatus>) {
   clearDeadDiagrams(diagrams);
   initDiagrams(diagrams);
@@ -56,11 +61,11 @@ function generateDiagram(imageOutputPath: string, content: string) {
   // Avoid generating twice
   if (processedDiagrams.has(hashKey)) {
     const diagramStatus = processedDiagrams.get(hashKey) as DiagramStatus;
-    diagramStatus.isAlive = true;
+    diagramStatus.isStale = true;
     return;
   }
 
-  processedDiagrams.set(hashKey, { isAlive: true });
+  processedDiagrams.set(hashKey, { isStale: true });
 
   // Creates output dir if it doesn't exist
   const outputDir = path.dirname(imageOutputPath);
