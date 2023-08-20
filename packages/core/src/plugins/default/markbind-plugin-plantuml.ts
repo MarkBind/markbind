@@ -18,6 +18,7 @@ import { MbNode } from '../../utils/node';
 
 interface DiagramStatus {
   isFresh: boolean;
+  filePath: string;
 }
 
 const LockManager = require('../../utils/LockManager');
@@ -36,7 +37,14 @@ const processedDiagrams = new Map<string, DiagramStatus>();
 function clearDeadDiagrams(diagrams: Map<string, DiagramStatus>) {
   Array.from(diagrams.entries())
     .filter(([, value]) => !value.isFresh)
-    .forEach(([key]) => diagrams.delete(key));
+    .forEach(([key, value]) => {
+      if (fs.existsSync(value.filePath)) {
+        fs.unlink(value.filePath, (err) => {
+          if (err) logger.error(`Error generating ${value.filePath}`);
+        });
+      }
+      diagrams.delete(key);
+    });
 }
 
 // Set all diagrams to be stale (isFresh = false)
@@ -71,14 +79,16 @@ function generateDiagram(imageOutputPath: string, content: string) {
     return;
   }
 
-  processedDiagrams.set(hashKey, { isFresh: true });
-
   // Creates output dir if it doesn't exist
   const outputDir = path.dirname(imageOutputPath);
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
   const lockId = LockManager.createLock();
+
+  // Add the diagram to the map
+  processedDiagrams.set(hashKey, { isFresh: true, filePath: imageOutputPath });
+
   // Java command to launch PlantUML jar
   const cmd = `java -jar "${JAR_PATH}" -nometadata -pipe > "${imageOutputPath}"`;
   const childProcess = exec(cmd, {
