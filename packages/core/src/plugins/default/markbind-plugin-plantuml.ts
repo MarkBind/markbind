@@ -25,41 +25,47 @@ const LockManager = require('../../utils/LockManager');
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
-// On first generation, all the diagrams will be added to the map, and whenever a diagram is generated,
-// it will be marked as fresh.
-// Upon editing a PUML file or a non-PUML file that triggers a hot reload on the site,
-// the stale diagram will be removed from the map, and the map will be reset to all stale.
-// If the diagram is inside the map, the generateDiagram function will not regenerate the diagram.
-// This is to prevent generating the same diagram twice.
+/**
+ * On first generation, all the diagrams will be added to the map.
+ * Whenever a diagram is generated, it will be marked as fresh.
+ * Upon editing a PUML file or a non-PUML file that triggers a hot reload on the site,
+ * the stale diagram will (later) be removed from the map, and the map will be reset to all stale.
+ * If the diagram is inside the map, the generateDiagram function will not regenerate the diagram.
+ * This is to prevent generating the same diagram twice.
+ */
 const processedDiagrams = new Map<string, DiagramStatus>();
 
-// Remove diagrams that are no longer used in the tracking hash map
-function clearDeadDiagrams(diagrams: Map<string, DiagramStatus>) {
+/**
+ * Removes all stale diagrams from the `processedDiagrams` map and deletes the files
+ */
+function clearStaleDiagrams(diagrams: Map<string, DiagramStatus>) {
   Array.from(diagrams.entries())
     .filter(([, value]) => !value.isFresh)
     .forEach(([key, value]) => {
       if (fs.existsSync(value.filePath)) {
-        fs.unlink(value.filePath, (err) => {
-          if (err) logger.error(`Error generating ${value.filePath}`);
-        });
+        try {
+          fs.unlinkSync(value.filePath);
+        } catch (error) {
+          logger.error(`Error deleting ${value.filePath}: ${error}`);
+        }
       }
       diagrams.delete(key);
     });
 }
 
-// Set all diagrams to be stale (isFresh = false)
-function initDiagrams(diagrams: Map<string, DiagramStatus>) {
+/**
+ * Performs cleanup before site generation.
+ * Deletes all known stale diagrams (isFresh = false)
+ * and prepares the map for the next site generation/hot reload.
+ */
+function cleanDiagrams(diagrams: Map<string, DiagramStatus>) {
+  clearStaleDiagrams(diagrams);
+
+  // Set all existing diagrams to be stale.
+  // If they are not edited or deleted, they will be marked as fresh in `generateDiagram`.
   Array.from(diagrams.values()).forEach((value) => {
     value.isFresh = false;
   });
-}
-
-// Clear all stale diagrams (isFresh = false) and set all diagrams to be stale
-// This is called before site generation
-// The fresh diagrams will be marked as isFresh during site generation
-function cleanDiagrams(diagrams: Map<string, DiagramStatus>) {
-  clearDeadDiagrams(diagrams);
-  initDiagrams(diagrams);
 }
 
 let graphvizCheckCompleted = false;
