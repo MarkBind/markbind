@@ -14,8 +14,12 @@ More about <trigger for="modal:loremipsum">trigger</trigger>.
   consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
   Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 </modal>
+
 <br>
+
 This is the same <trigger for="modal:loremipsum">trigger</trigger> as last one.
+
+<br>
 
 <trigger for="modal:centered">This is a trigger for a centered modal</trigger>.
 
@@ -23,11 +27,51 @@ This is the same <trigger for="modal:loremipsum">trigger</trigger> as last one.
   Centered
 </modal>
 
+<br>
+
 <trigger for="modal:ok-text">This is a trigger for a modal with a custom OK button</trigger>.
 
 <modal header="OK button visible!" id="modal:ok-text" ok-text="Custom OK">
   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
   magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</modal>
+
+<br>
+
+<trigger for="modal:scroll-inside">This is a trigger for a modal with scrollbar positioned inside.</trigger>.
+
+<modal header="Scrollbar is inside!" id="modal:scroll-inside">
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</modal>
+
+<br>
+
+<trigger for="modal:scroll-outside">This is a trigger for a modal with scrollbar positioned outside.</trigger>.
+
+<modal header="Scrollbar is outside!" id="modal:scroll-outside" scroll-behavior="outside">
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
   consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
   Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 </modal>
@@ -48,8 +92,9 @@ effect | `String` | `zoom` | Supports: `zoom`, `fade`.
 id | `String` | | Used by [Trigger](#trigger) to activate the Modal by id.<br>**Note: Ensure id for each Modal is unique.**
 small | `Boolean` | `false` | Creates a small Modal.
 large | `Boolean` | `false` | Creates a large Modal.
-center | `Boolean` | `false` | Vertically centers the modal (in addition to the horizontal centering by default).
+center | `Boolean` | `false` | Vertically centers the modal (in addition to the horizontal centering by default). Only takes effect if `scroll-behavior` attribute is set to `inside`.
 backdrop | `Boolean` | `true` | Enables closing the Modal by clicking on the backdrop.
+scroll-behavior | `String` | `inside` | Specifies the position of the scrollbar (`inside` or `outside` the modal box) when the modal content overflows. Supports: `inside`, `outside`.
 
 <div id="short" class="d-none">
 
