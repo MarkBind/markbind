@@ -16,24 +16,24 @@ async function init(root, options) {
   }
 
   const template = new Template(rootFolder, options.template);
-  await template.init()
-    .then(() => {
-      logger.info('Initialization success.');
-    })
-    .catch((error) => {
-      logger.error(`Failed to initialize site with given template with error: ${error.message}`);
-      process.exitCode = 1;
-    });
+
+  try {
+    await template.init();
+    logger.info('Initialization success.');
+  } catch (error) {
+    logger.error(`Failed to initialize site with given template with error: ${error.message}`);
+    process.exitCode = 1;
+  }
+
   if (options.convert) {
     logger.info('Converting to MarkBind website.');
-    await template.convert()
-      .then(() => {
-        logger.info('Conversion success.');
-      })
-      .catch((error) => {
-        logger.error(error.message);
-        process.exitCode = 1;
-      });
+    try {
+      await template.convert();
+      logger.info('Conversion success.');
+    } catch (error) {
+      logger.error(error.message);
+      process.exitCode = 1;
+    }
   }
 }
 
