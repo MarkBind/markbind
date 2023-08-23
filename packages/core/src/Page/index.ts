@@ -169,6 +169,27 @@ export class Page {
   }
 
   /**
+   * Filters out icon asset files that are not used in a page.
+   * @param content html content of the page.
+   */
+  filterIconAssets(content: string) {
+    const $ = cheerio.load(content);
+
+    if ($('[class^=fa]').length === 0) {
+      delete this.asset.fontAwesome;
+    }
+    if ($('[class^=octicon]').length === 0) {
+      delete this.asset.octicons;
+    }
+    if ($('[class^=glyphicon]').length === 0) {
+      delete this.asset.glyphicons;
+    }
+    if ($('[class^=material-icons]').length === 0) {
+      delete this.asset.materialIcons;
+    }
+  }
+
+  /**
    * Checks if page.frontmatter has a valid page navigation specifier
    */
   isPageNavigationSpecifierValid() {
@@ -506,6 +527,7 @@ export class Page {
     await layoutManager.generateLayoutIfNeeded(this.layout);
     const pageNav = this.buildPageNav(content);
     content = layoutManager.combineLayoutWithPage(this.layout, content, pageNav, this.includedFiles);
+    this.filterIconAssets(content);
     this.asset = {
       ...this.asset,
       ...layoutManager.getLayoutPageNjkAssets(this.layout),
