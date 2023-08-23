@@ -27,20 +27,20 @@ type NaviagablePage = {
 
 export class Template {
   rootPath: string;
-  template: string;
+  templatePath: string;
   siteConfig!: SiteConfig;
   siteConfigPath: string = SITE_CONFIG_NAME;
   navigablePages!: NaviagablePage[];
 
   constructor(rootPath: string, templatePath: string) {
     this.rootPath = rootPath;
-    this.template = path.join(__dirname, PATH_TO_TEMPLATE, templatePath);
+    this.templatePath = path.join(__dirname, PATH_TO_TEMPLATE, templatePath);
   }
 
   validateTemplateFromPath() {
     for (let i = 0; i < requiredFiles.length; i += 1) {
       const requiredFile = requiredFiles[i];
-      const requiredFilePath = path.join(this.template, requiredFile);
+      const requiredFilePath = path.join(this.templatePath, requiredFile);
 
       if (!fs.existsSync(requiredFilePath)) {
         return false;
@@ -54,7 +54,7 @@ export class Template {
     return new Promise((resolve, reject) => {
       fs.access(this.rootPath)
         .catch(() => fs.mkdirSync(this.rootPath))
-        .then(() => fsUtil.copySyncWithOptions(this.template, this.rootPath, { overwrite: false }))
+        .then(() => fsUtil.copySyncWithOptions(this.templatePath, this.rootPath, { overwrite: false }))
         .then(resolve)
         .catch(reject);
     });
