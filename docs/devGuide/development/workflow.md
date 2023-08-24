@@ -385,12 +385,9 @@ To update PlantUML to a newer version:
 1. Right-click on each image and save the image in `docs/userGuide/diagrams`.
 </box>
 
+### Updating Bootstrap and Bootswatch
+
+As Bootswatch is built on Bootstrap, ensure that the versions of both are in sync to avoid unexpected differences in styling behavior between default and other themes. Both are currently using version 5.1.3.
+
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('settingUp', 'writingComponents') }}
-
-
-### Coupling of Bootstrap and Bootswatch
-
-<box type="info" theme="warning">
-    As Bootswatch is built on Bootstrap, ensure that the versions of both are in sync to avoid unexpected differences in styling behavior between default and other themes. Both are currently using version 5.1.3.
-</box>
