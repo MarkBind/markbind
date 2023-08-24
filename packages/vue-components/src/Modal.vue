@@ -6,7 +6,7 @@
     v-model="show"
     ssr
     :name="id"
-    :content-class="['modal-dialog', optionalModalSize, optionalCentering]"
+    :content-class="['modal-dialog', modalContentClass, optionalModalSize, optionalCentering]"
     :classes="[modalContainerClass]"
     :overlay-class="[modalOverlayClass]"
     :styles="modalContainerStyles"
@@ -17,7 +17,7 @@
     z-index-base="2000"
     @opened="opened"
   >
-    <div :class="['modal-content', modalContentClass]">
+    <div :class="['modal-content']">
       <div v-if="hasHeader" class="modal-header">
         <h5 class="modal-title">
           <slot name="header"></slot>
@@ -30,7 +30,7 @@
         >
         </button>
       </div>
-      <div class="modal-body overflow-auto">
+      <div class="modal-body">
         <slot></slot>
       </div>
       <div v-if="hasFooter || hasOk" class="modal-footer">
@@ -125,8 +125,8 @@ export default {
       return this.effect === 'zoom' ? this.zoomEffect : 'vfm';
     },
     modalContentClass() {
-      return this.scrollBehavior === 'outside'
-        ? 'modal-content-scroll-outside' : 'modal-content-scroll-inside';
+      return this.scrollBehavior === 'inside'
+        ? 'modal-dialog-scrollable' : '';
     },
     modalContainerClass() {
       return this.scrollBehavior === 'outside' && this.isContentOverflow
@@ -175,19 +175,6 @@ export default {
 
     .modal-overlay-scroll-outside {
         background-color: transparent !important;
-    }
-
-    .modal-dialog {
-        inset: 0;
-        position: absolute;
-    }
-
-    .modal-content-scroll-inside {
-        max-height: 100%;
-    }
-
-    .modal-content-scroll-outside {
-        max-height: none;
     }
 
     .modal-zoom {
