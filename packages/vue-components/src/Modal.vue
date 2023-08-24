@@ -7,6 +7,9 @@
     ssr
     :name="id"
     :content-class="['modal-dialog', optionalModalSize, optionalCentering]"
+    :classes="[modalContainerClass]"
+    :overlay-class="[modalOverlayClass]"
+    :styles="modalContainerStyles"
     overlay-transition="none"
     :transition="effectClass"
     :click-to-close="backdrop !== 'false'"
@@ -62,6 +65,8 @@ export default {
       'leave-to-class': 'modal-zoom',
       'leave-class': 'modal-zoom-show',
     },
+    isContentOverflow: false,
+    containerHeight: 'auto',
   }),
   props: {
     okText: {
@@ -123,6 +128,17 @@ export default {
       return this.scrollBehavior === 'outside'
         ? 'modal-content-scroll-outside' : 'modal-content-scroll-inside';
     },
+    modalContainerClass() {
+      return this.scrollBehavior === 'outside' && this.isContentOverflow
+        ? 'modal-container-scroll-outside' : '';
+    },
+    modalOverlayClass() {
+      return this.scrollBehavior === 'outside' && this.isContentOverflow
+        ? 'modal-overlay-scroll-outside' : '';
+    },
+    modalContainerStyles() {
+      return { height: this.containerHeight };
+    },
   },
   methods: {
     close() {
@@ -131,20 +147,19 @@ export default {
     opened() {
       // To adjust modal styles according to scrollBehavior
 
-      const modal = $vfm.get(this.id)[0].$el;
-      const modalContainer = modal.querySelector('.vfm__container');
-      const modalOverlay = modal.querySelector('.vfm--overlay');
-      const modalContent = modal.querySelector('.modal-content');
-      const isOverflow = modal.scrollHeight > modal.clientHeight;
+      const modalVueComponent = $vfm.get(this.id)[0];
+      const modalHtmlComponent = modalVueComponent.$el; // The outermost div
+      const modalContent = modalHtmlComponent.querySelector('.modal-content');
 
-      if (this.scrollBehavior === 'outside' && isOverflow) {
-        const modalContentHeight = modalContent.offsetHeight;
-        const modalContentTop = modalContent.getBoundingClientRect().top;
-        const modalContainerHeight = modalContentHeight + modalContentTop;
-        modal.style.setProperty('overflow-y', 'scroll');
-        modalOverlay.style.setProperty('background-color', 'transparent', 'important');
-        modalContainer.style.setProperty('background-color', 'rgba(0,0,0,.5)');
-        modalContainer.style.setProperty('height', `${modalContainerHeight}px`);
+      this.isContentOverflow = modalHtmlComponent.scrollHeight > modalHtmlComponent.clientHeight;
+
+      if (this.scrollBehavior === 'outside' && this.isContentOverflow) {
+        modalHtmlComponent.style.setProperty('overflow-y', 'scroll');
+
+        // Adjust the modal container height according to the overflowed content
+        const contentHeight = modalContent.offsetHeight;
+        const contentTop = modalContent.getBoundingClientRect().top;
+        this.containerHeight = `${contentHeight + contentTop}px`;
       }
     },
   },
@@ -154,6 +169,14 @@ export default {
 };
 </script>
 <style>
+    .modal-container-scroll-outside {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-overlay-scroll-outside {
+        background-color: transparent !important;
+    }
+
     .modal-dialog {
         inset: 0;
         position: absolute;
