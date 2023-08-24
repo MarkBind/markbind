@@ -8,7 +8,7 @@
     :name="id"
     :class="modalClass"
     :content-class="['modal-dialog', modalContentClass, optionalModalSize, optionalCentering]"
-    :classes="[modalContainerClass]"
+    :classes="[modalContainerClass, 'modal']"
     :overlay-class="[modalOverlayClass]"
     :styles="modalContainerStyles"
     overlay-transition="none"
@@ -172,6 +172,10 @@ export default {
 };
 </script>
 <style>
+    .modal {
+        display: block; /* to disable the display toggling provided by bootstrap. */
+    }
+
     .modal-scroll-outside {
         overflow-y: scroll;
     }
