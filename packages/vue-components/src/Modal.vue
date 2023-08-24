@@ -6,6 +6,7 @@
     v-model="show"
     ssr
     :name="id"
+    :class="modalClass"
     :content-class="['modal-dialog', modalContentClass, optionalModalSize, optionalCentering]"
     :classes="[modalContainerClass]"
     :overlay-class="[modalOverlayClass]"
@@ -124,6 +125,10 @@ export default {
     effectClass() {
       return this.effect === 'zoom' ? this.zoomEffect : 'vfm';
     },
+    modalClass() {
+      return this.scrollBehavior === 'outside' && this.isContentOverflow
+        ? 'modal-scroll-outside' : '';
+    },
     modalContentClass() {
       return this.scrollBehavior === 'inside'
         ? 'modal-dialog-scrollable' : '';
@@ -154,8 +159,6 @@ export default {
       this.isContentOverflow = modalHtmlComponent.scrollHeight > modalHtmlComponent.clientHeight;
 
       if (this.scrollBehavior === 'outside' && this.isContentOverflow) {
-        modalHtmlComponent.style.setProperty('overflow-y', 'scroll');
-
         // Adjust the modal container height according to the overflowed content
         const contentHeight = modalContent.offsetHeight;
         const contentTop = modalContent.getBoundingClientRect().top;
@@ -169,6 +172,10 @@ export default {
 };
 </script>
 <style>
+    .modal-scroll-outside {
+        overflow-y: scroll;
+    }
+
     .modal-container-scroll-outside {
         background-color: rgba(0, 0, 0, 0.5);
     }
