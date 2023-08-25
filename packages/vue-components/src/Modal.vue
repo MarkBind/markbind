@@ -6,6 +6,7 @@
     v-model="show"
     ssr
     :name="id"
+    :classes="['modal']"
     :content-class="['modal-dialog', optionalModalSize, optionalCentering]"
     overlay-transition="none"
     :transition="effectClass"
@@ -126,6 +127,10 @@ export default {
 };
 </script>
 <style>
+    .modal {
+        display: block; /* to disable the display toggling provided by bootstrap. */
+    }
+
     .modal-dialog {
         inset: 0;
         position: absolute;
