@@ -16,17 +16,21 @@ import { PluginContext } from '../Plugin';
 import { NodeProcessorConfig } from '../../html/NodeProcessor';
 import { MbNode } from '../../utils/node';
 
+interface DiagramStatus {
+  hashKey: string;
+}
+
 const LockManager = require('../../utils/LockManager');
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
 const PUML_EXT = '.png';
 
-// On first generation, all the diagrams will be added to the set, and whenever a diagram is generated,
+// On first generation, all the diagrams will be added to the map, and whenever a diagram is generated,
 // Upon editing a PUML file or a non-PUML file that triggers a hot reload on the site,
-// If the diagram is inside the set, the generateDiagram function will not regenerate the diagram.
+// If the diagram is inside the map, the generateDiagram function will not regenerate the diagram.
 // This is to prevent generating the same diagram twice.
-const processedDiagrams = new Set<string>();
+const processedDiagrams = new Map<string, DiagramStatus>();
 
 let graphvizCheckCompleted = false;
 
@@ -39,7 +43,7 @@ function generateDiagram(imageOutputPath: string, content: string) {
   const hashKey = cryptoJS.MD5(imageOutputPath + content).toString();
 
   // Avoid generating twice
-  if (processedDiagrams.has(hashKey)) {
+  if (processedDiagrams.has(imageOutputPath) && processedDiagrams.get(imageOutputPath)?.hashKey === hashKey) {
     return;
   }
 
@@ -51,7 +55,7 @@ function generateDiagram(imageOutputPath: string, content: string) {
   const lockId = LockManager.createLock();
 
   // Add the diagram to the map
-  processedDiagrams.add(hashKey);
+  processedDiagrams.set(imageOutputPath, { hashKey });
 
   // Java command to launch PlantUML jar
   const cmd = `java -jar "${JAR_PATH}" -nometadata -pipe > "${imageOutputPath}"`;
