@@ -16,57 +16,17 @@ import { PluginContext } from '../Plugin';
 import { NodeProcessorConfig } from '../../html/NodeProcessor';
 import { MbNode } from '../../utils/node';
 
-interface DiagramStatus {
-  isFresh: boolean;
-  filePath: string;
-}
-
 const LockManager = require('../../utils/LockManager');
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
-/**
- * On first generation, all the diagrams will be added to the map.
- * Whenever a diagram is generated, it will be marked as fresh.
- * Upon editing a PUML file or a non-PUML file that triggers a hot reload on the site,
- * the stale diagram will (later) be removed from the map, and the map will be reset to all stale.
- * If the diagram is inside the map, the generateDiagram function will not regenerate the diagram.
- * This is to prevent generating the same diagram twice.
- */
-const processedDiagrams = new Map<string, DiagramStatus>();
+const PUML_EXT = '.png';
 
-/**
- * Removes all stale diagrams from the `processedDiagrams` map and deletes the files
- */
-function clearStaleDiagrams(diagrams: Map<string, DiagramStatus>) {
-  Array.from(diagrams.entries())
-    .filter(([, value]) => !value.isFresh)
-    .forEach(([key, value]) => {
-      if (fs.existsSync(value.filePath)) {
-        try {
-          fs.unlinkSync(value.filePath);
-        } catch (error) {
-          logger.error(`Error deleting ${value.filePath}: ${error}`);
-        }
-      }
-      diagrams.delete(key);
-    });
-}
-
-/**
- * Performs cleanup before site generation.
- * Deletes all known stale diagrams (isFresh = false)
- * and prepares the map for the next site generation/hot reload.
- */
-function cleanDiagrams(diagrams: Map<string, DiagramStatus>) {
-  clearStaleDiagrams(diagrams);
-
-  // Set all existing diagrams to be stale.
-  // If they are not edited or deleted, they will be marked as fresh in `generateDiagram`.
-  Array.from(diagrams.values()).forEach((value) => {
-    value.isFresh = false;
-  });
-}
+// On first generation, all the diagrams will be added to the set, and whenever a diagram is generated,
+// Upon editing a PUML file or a non-PUML file that triggers a hot reload on the site,
+// If the diagram is inside the set, the generateDiagram function will not regenerate the diagram.
+// This is to prevent generating the same diagram twice.
+const processedDiagrams = new Set<string>();
 
 let graphvizCheckCompleted = false;
 
@@ -80,8 +40,6 @@ function generateDiagram(imageOutputPath: string, content: string) {
 
   // Avoid generating twice
   if (processedDiagrams.has(hashKey)) {
-    const diagramStatus = processedDiagrams.get(hashKey) as DiagramStatus;
-    diagramStatus.isFresh = true;
     return;
   }
 
@@ -93,7 +51,7 @@ function generateDiagram(imageOutputPath: string, content: string) {
   const lockId = LockManager.createLock();
 
   // Add the diagram to the map
-  processedDiagrams.set(hashKey, { isFresh: true, filePath: imageOutputPath });
+  processedDiagrams.add(hashKey);
 
   // Java command to launch PlantUML jar
   const cmd = `java -jar "${JAR_PATH}" -nometadata -pipe > "${imageOutputPath}"`;
@@ -149,7 +107,6 @@ export = {
   },
 
   beforeSiteGenerate: () => {
-    cleanDiagrams(processedDiagrams);
     graphvizCheckCompleted = false;
   },
 
@@ -170,6 +127,7 @@ export = {
 
     let pumlContent;
     let pathFromRootToImage;
+
     if (node.attribs.src) {
       const srcWithoutBaseUrl = urlUtil.stripBaseUrl(node.attribs.src, config.baseUrl);
       const srcWithoutLeadingSlash = srcWithoutBaseUrl.startsWith('/')
@@ -185,8 +143,8 @@ export = {
         return;
       }
 
-      pathFromRootToImage = fsUtil.setExtension(srcWithoutLeadingSlash, '.png');
-      node.attribs.src = fsUtil.ensurePosix(fsUtil.setExtension(node.attribs.src, '.png'));
+      pathFromRootToImage = fsUtil.setExtension(srcWithoutLeadingSlash, PUML_EXT);
+      node.attribs.src = fsUtil.ensurePosix(fsUtil.setExtension(node.attribs.src, PUML_EXT));
     } else {
       pumlContent = cheerio(node).text();
 
@@ -195,13 +153,13 @@ export = {
         const nameWithoutLeadingSlash = nameWithoutBaseUrl.startsWith('/')
           ? nameWithoutBaseUrl.substring(1)
           : nameWithoutBaseUrl;
-        pathFromRootToImage = fsUtil.ensurePosix(fsUtil.setExtension(nameWithoutLeadingSlash, '.png'));
+        pathFromRootToImage = fsUtil.ensurePosix(fsUtil.setExtension(nameWithoutLeadingSlash, PUML_EXT));
 
         delete node.attribs.name;
       } else {
         const normalizedContent = pumlContent.replace(/\r\n/g, '\n');
         const hashedContent = cryptoJS.MD5(normalizedContent).toString();
-        pathFromRootToImage = `${hashedContent}.png`;
+        pathFromRootToImage = `${hashedContent}${PUML_EXT}`;
       }
 
       node.attribs.src = `${config.baseUrl}/${pathFromRootToImage}`;
