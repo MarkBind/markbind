@@ -115,6 +115,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 1. **Increment the version number** by running `npx lerna version --no-push --exact`. Which to increment (`patch`, `minor` or `major`) depends on what PRs are merged for the new version, which means you must know beforehand about the changes.
 
    <box type="info" seamless>
+
    * Double check that the PRs are correctly set to the milestone for the new version. Review the definition of [SEMVER](https://semver.org/) and the impact of the PRs.
    * We will specify updated version numbers exactly to ensure that each version will consistently fetch the same versioned internal packages.
    * The end result of this command is version commit with an appropriate tag. We will make use of the generated tag and commit message later.
