@@ -161,7 +161,6 @@ export default {
       const overflowContainerHeight = contentHeight + contentTop;
 
       this.isContentOverflow = overflowContainerHeight > modal.clientHeight;
-      console.log(modal.clientHeight, overflowContainerHeight);
 
       if (this.scrollBehavior === 'outside' && this.isContentOverflow) {
         // Adjust the modal container height according to the overflowed content
@@ -177,6 +176,11 @@ export default {
 <style>
     .modal {
         display: block; /* to disable the display toggling provided by bootstrap. */
+    }
+
+    .modal-dialog {
+        position: absolute; /* to remove unwanted behavior of inner container's scrollbar appearing */
+        inset: 0;
     }
 
     .modal-scroll-outside {
