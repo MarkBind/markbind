@@ -56,7 +56,7 @@ function generateDiagram(imageOutputPath: string, content: string) {
   }
   const lockId = LockManager.createLock();
 
-  // Add the diagram to the map
+  // Add new diagram to the map
   processedDiagrams.set(imageOutputPath, { hashKey });
 
   // Java command to launch PlantUML jar
