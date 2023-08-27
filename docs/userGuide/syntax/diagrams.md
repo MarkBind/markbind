@@ -36,10 +36,9 @@ See [Deploying via Github Actions](../deployingTheSite.html#deploying-via-github
 </box>
 
 <div id="main-example">
-<include src="outputBox.md" boilerplate>
+<include src="codeAndOutput.md" boilerplate>
 <variable name="code">
 
-```
 <puml width="300">
 @startuml
 alice -> bob ++ : hello
@@ -52,11 +51,6 @@ bob -> george !! : delete
 return success
 @enduml
 </puml>
-```
-</variable>
-
-<variable name="output">
-<pic src="../diagrams/sequence.png" width="300" />
 </variable>
 
 </include>
