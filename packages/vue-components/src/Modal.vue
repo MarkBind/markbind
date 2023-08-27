@@ -152,17 +152,20 @@ export default {
     opened() {
       // To adjust modal styles according to scrollBehavior
 
+      const modal = $vfm.get(this.id)[0].$el;
       const modalVueComponent = $vfm.get(this.id)[0];
       const modalHtmlComponent = modalVueComponent.$el; // The outermost div
       const modalContent = modalHtmlComponent.querySelector('.modal-content');
+      const contentHeight = modalContent.offsetHeight;
+      const contentTop = modalContent.getBoundingClientRect().top;
+      const overflowContainerHeight = contentHeight + contentTop;
 
-      this.isContentOverflow = modalHtmlComponent.scrollHeight > modalHtmlComponent.clientHeight;
+      this.isContentOverflow = overflowContainerHeight > modal.clientHeight;
+      console.log(modal.clientHeight, overflowContainerHeight);
 
       if (this.scrollBehavior === 'outside' && this.isContentOverflow) {
         // Adjust the modal container height according to the overflowed content
-        const contentHeight = modalContent.offsetHeight;
-        const contentTop = modalContent.getBoundingClientRect().top;
-        this.containerHeight = `${contentHeight + contentTop}px`;
+        this.containerHeight = `${overflowContainerHeight}px`;
       }
     },
   },
