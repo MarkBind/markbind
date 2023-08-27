@@ -15,21 +15,23 @@ import * as urlUtil from '../../utils/urlUtil';
 import { PluginContext } from '../Plugin';
 import { NodeProcessorConfig } from '../../html/NodeProcessor';
 import { MbNode } from '../../utils/node';
+import LockManager from '../../utils/LockManager';
 
 interface DiagramStatus {
   hashKey: string;
 }
 
-const LockManager = require('../../utils/LockManager');
-
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
 const PUML_EXT = '.png';
 
-// On first generation, all the diagrams will be added to the map, and whenever a diagram is generated,
-// Upon editing a PUML file or a non-PUML file that triggers a hot reload on the site,
-// If the diagram is inside the map, the generateDiagram function will not regenerate the diagram.
-// This is to prevent generating the same diagram twice.
+/**
+* This Map maintains a record of processed diagrams. When a diagram is generated or regenerated,
+* it's added to this map. Subsequently, if a PUML or non-PUML file is edited, leading to a hot reload,
+* the generateDiagram function can avoid redundant regeneration by checking this map.
+* If the diagram's identifier is present in the map,
+* the generation process is bypassed, thus preventing duplicates.
+ */
 const processedDiagrams = new Map<string, DiagramStatus>();
 
 let graphvizCheckCompleted = false;
