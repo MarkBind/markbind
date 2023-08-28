@@ -7,7 +7,7 @@
     ssr
     :name="id"
     :classes="['modal']"
-    :content-class="['modal-dialog', optionalModalSize, optionalCentering]"
+    :content-class="['modal-dialog', 'modal-dialog-scrollable', optionalModalSize, optionalCentering]"
     overlay-transition="none"
     :transition="effectClass"
     :click-to-close="backdrop !== 'false'"
@@ -27,7 +27,7 @@
         >
         </button>
       </div>
-      <div class="modal-body overflow-auto">
+      <div class="modal-body">
         <slot></slot>
       </div>
       <div v-if="hasFooter || hasOk" class="modal-footer">
@@ -129,15 +129,6 @@ export default {
 <style>
     .modal {
         display: block; /* to disable the display toggling provided by bootstrap. */
-    }
-
-    .modal-dialog {
-        inset: 0;
-        position: absolute;
-    }
-
-    .modal-content {
-        max-height: 100%;
     }
 
     .modal-zoom {
