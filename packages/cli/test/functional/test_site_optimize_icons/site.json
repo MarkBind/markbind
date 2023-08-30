@@ -1,0 +1,19 @@
+{
+  "baseUrl": "",
+  "ignore": [
+    "_markbind/layouts/*",
+    "_markbind/logs/*",
+    "_site/*",
+    "site.json",
+    "*.md",
+    "*.njk",
+    ".git/*",
+    "expected/*"
+  ],
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Landing Page"
+    }
+  ]
+}
