@@ -527,7 +527,6 @@ export class Page {
     await layoutManager.generateLayoutIfNeeded(this.layout);
     const pageNav = this.buildPageNav(content);
     content = layoutManager.combineLayoutWithPage(this.layout, content, pageNav, this.includedFiles);
-    this.filterIconAssets(content);
     this.asset = {
       ...this.asset,
       ...layoutManager.getLayoutPageNjkAssets(this.layout),
@@ -566,6 +565,7 @@ export class Page {
       await this.outputPageHtml(content);
     } else {
       const vueSsrHtml = await pageVueServerRenderer.renderVuePage(compiledVuePage);
+      this.filterIconAssets(vueSsrHtml);
       await this.outputPageHtml(vueSsrHtml);
     }
   }
