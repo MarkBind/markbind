@@ -2,7 +2,6 @@ const testSites = [
   'test_site',
   'test_site_algolia_plugin',
   'test_site_special_tags',
-  'test_site_optimize_icons',
 ];
 
 const testConvertSites = [
@@ -13,6 +12,11 @@ const testConvertSites = [
 const testTemplateSites = [
   'minimal,test_site_templates/test_minimal',
   'default,test_site_templates/test_default',
+];
+
+const testOptimizeIconsSites = [
+  'test_site_optimize_icons/test_with_icons',
+  'test_site_optimize_icons/test_with_no_icons',
 ];
 
 // These files will be generated within test_site/expected/
@@ -37,5 +41,6 @@ module.exports = {
   testSites,
   testConvertSites,
   testTemplateSites,
+  testOptimizeIconsSites,
   plantumlGeneratedFiles,
 };
