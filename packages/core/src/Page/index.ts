@@ -23,6 +23,8 @@ require('../patches/htmlparser2');
 
 const _ = { cloneDeep, isObject, isArray };
 
+const LockManager = require('../utils/LockManager');
+
 const PACKAGE_VERSION = require('../../package.json').version;
 
 const {
@@ -554,6 +556,9 @@ export class Page {
     };
     // Each source path will only contain 1 copy of build/re-build page (the latest one)
     pageVueServerRenderer.pageEntries[this.pageConfig.sourcePath] = builtPage;
+
+    // Wait for all pages resources to be generated before writing to disk
+    await LockManager.waitForLockRelease();
 
     /*
      * Server-side render Vue page app into actual html.

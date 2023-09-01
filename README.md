@@ -122,6 +122,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/SPWwj"><img src="https://avatars.githubusercontent.com/u/30100720?v=4?s=100" width="100px;" alt="SPWwj"/><br /><sub><b>SPWwj</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=SPWwj" title="Documentation">📖</a> <a href="https://github.com/MarkBind/markbind/commits?author=SPWwj" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://jmestxr.github.io/my-portfolio/"><img src="https://avatars.githubusercontent.com/u/87931905?v=4?s=100" width="100px;" alt="James"/><br /><sub><b>James</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=jmestxr" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=jmestxr" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
