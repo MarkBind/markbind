@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 5.0.1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Site with glyphicon</title>
+  <title>Site with glyphicon, page with octicon</title>
   <link rel="stylesheet" href="/markbind/css/bootstrap.min.css">
   <link rel="stylesheet" href="/markbind/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
@@ -21,7 +21,7 @@
   <script src="/markbind/js/polyfill.min.js"></script>
   <script src="/markbind/js/vue.min.js"></script>
   <script src="/markbind/js/markbind.min.js"></script>
-  <script src="index.page-vue-render.js"></script>
+  <script src="testOcticons.page-vue-render.js"></script>
   <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
 
@@ -58,8 +58,11 @@
       </overlay-source>
       <div id="content-wrapper">
         <breadcrumb></breadcrumb>
-        <p><strong>There is one glyphicon icon in the site-nav and no icons in this page content.</strong></p>
-        <p><strong>Open up console. Only glyphicon stylesheet should be loaded!</strong></p>
+        <p><strong>There is one glyphicon icon in the site-nav and one octicon icon in this page content.</strong></p>
+        <p><strong>Open up console. Only glyphicon, octicon stylesheets should be loaded!</strong></p>
+        <p>An octicon icon is supposed to appear here ---&gt; <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-git-pull-request" aria-hidden="true">
+            <path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z" />
+          </svg></p>
       </div>
       <overlay-source id="page-nav" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">

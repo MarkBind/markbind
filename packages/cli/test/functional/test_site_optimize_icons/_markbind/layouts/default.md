@@ -12,9 +12,6 @@
 
 <div id="flex-body">
   <nav id="site-nav">
-    <div class="site-nav-top">
-      <div class="fw-bold mb-2" style="font-size: 1.25rem;"><markdown>## {{ layoutName or "Default Layout" }}</markdown></div>
-    </div>
     <div class="nav-component slim-scroll">
       <include src="navigation/site-nav.md" />
     </div>
@@ -29,5 +26,3 @@
     </div>
   </nav>
 </div>
-
-<include src="footers/footer.md" />

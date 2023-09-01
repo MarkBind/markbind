@@ -13,7 +13,19 @@
   "pages": [
     {
       "src": "index.md",
-      "title": "Landing Page"
+      "title": "Site with glyphicon"
+    },
+    {
+      "src": "testFontAwesome.md",
+      "title": "Site with glyphicon, page with font-awesome"
+    },
+    {
+      "src": "testMaterialIcons.md",
+      "title": "Site with glyphicon, page with material-icons"
+    },
+    {
+      "src": "testOcticons.md",
+      "title": "Site with glyphicon, page with octicon"
     }
   ]
 }

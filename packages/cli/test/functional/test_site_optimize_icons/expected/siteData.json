@@ -3,7 +3,25 @@
   "pages": [
     {
       "src": "index.md",
-      "title": "Landing Page",
+      "title": "Site with glyphicon",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testFontAwesome.md",
+      "title": "Site with glyphicon, page with font-awesome",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testMaterialIcons.md",
+      "title": "Site with glyphicon, page with material-icons",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testOcticons.md",
+      "title": "Site with glyphicon, page with octicon",
       "headings": {},
       "headingKeywords": {}
     }
