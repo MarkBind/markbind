@@ -10,6 +10,7 @@ const {
   testSites,
   testConvertSites,
   testTemplateSites,
+  testOptimizeIconsSites,
   plantumlGeneratedFiles,
 } = require('./testSites');
 
@@ -69,6 +70,17 @@ testTemplateSites.forEach((templateAndSitePath) => {
     process.exit(1);
   }
   fs.removeSync(path.resolve(__dirname, siteCreationTempPath));
+});
+
+testOptimizeIconsSites.forEach((siteName) => {
+  console.log(`Running ${siteName} tests`);
+  try {
+    execSync(`node ../../index.js build ${siteName}`, execOptions);
+    compare(siteName, 'expected', '_site');
+  } catch (err) {
+    printFailedMessage(err, siteName);
+    process.exit(1);
+  }
 });
 
 console.log('Test result: PASSED');
