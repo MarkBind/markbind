@@ -1686,6 +1686,7 @@ export class Site {
    * @param filePaths a single path or an array of paths corresponding to the assets to remove
    */
   removeAsset = delay(this._removeMultipleAssets as () => Bluebird<unknown>, 1000);
+
   rebuildPagesBeingViewed = delay(this._rebuildPagesBeingViewed as () => Bluebird<unknown>, 1000);
 
   /**
