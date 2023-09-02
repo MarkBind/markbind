@@ -1680,22 +1680,26 @@ export class Site {
    * @param filePaths a single path or an array of paths corresponding to the assets to build
    */
   buildAsset = delay(this._buildMultipleAssets as () => Bluebird<unknown>, 1000);
+
   /**
    * Remove assets that are specified in filePaths
    * @param filePaths a single path or an array of paths corresponding to the assets to remove
    */
   removeAsset = delay(this._removeMultipleAssets as () => Bluebird<unknown>, 1000);
   rebuildPagesBeingViewed = delay(this._rebuildPagesBeingViewed as () => Bluebird<unknown>, 1000);
+
   /**
    * Rebuild pages that are affected by changes in filePaths
    * @param filePaths a single path or an array of paths corresponding to the files that have changed
    */
   rebuildAffectedSourceFiles = delay(this._rebuildAffectedSourceFiles as () => Bluebird<unknown>, 1000);
+
   /**
    * Rebuild all pages
-   * @param filePaths a single path or an array of paths corresponding to the files that have changed
    */
-  rebuildSourceFiles = delay(this._rebuildSourceFiles as () => Bluebird<unknown>, 1000);
+  rebuildSourceFiles
+  = delay(this._rebuildSourceFiles as () => Bluebird<unknown>, 1000) as () => Bluebird<unknown>;
+
   /**
    * Builds pages that are yet to build/rebuild in the background
    */
