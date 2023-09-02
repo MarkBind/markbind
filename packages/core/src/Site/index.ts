@@ -687,7 +687,6 @@ export class Site {
       await this.writeSiteData();
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
-        // @ts-ignore
         this.backgroundBuildNotViewedFiles();
       }
     } catch (error) {
@@ -781,7 +780,6 @@ export class Site {
       await this.regenerateAffectedPages(uniquePaths);
       await fs.remove(this.tempPath);
       if (this.backgroundBuildMode) {
-        // @ts-ignore
         this.backgroundBuildNotViewedFiles();
       }
     } catch (error) {
@@ -869,7 +867,6 @@ export class Site {
       await this.removeAsset(removedPageFilePaths);
       await this.rebuildRequiredPages();
       if (this.backgroundBuildMode) {
-        // @ts-ignore
         this.backgroundBuildNotViewedFiles();
       }
     } catch (error) {
@@ -947,7 +944,6 @@ export class Site {
     await this.handlePageReload(oldAddressablePages, oldPagesSrc, oldSiteConfig);
     await this.handleStyleReload(oldSiteConfig.style);
     if (this.backgroundBuildMode) {
-      // @ts-ignore
       this.backgroundBuildNotViewedFiles();
     }
   }
@@ -1703,5 +1699,6 @@ export class Site {
   /**
    * Builds pages that are yet to build/rebuild in the background
    */
-  backgroundBuildNotViewedFiles = delay(this._backgroundBuildNotViewedFiles as () => Bluebird<unknown>, 1000);
+  backgroundBuildNotViewedFiles
+  = delay(this._backgroundBuildNotViewedFiles as () => Bluebird<unknown>, 1000) as () => Bluebird<unknown>;
 }
