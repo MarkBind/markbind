@@ -191,9 +191,6 @@ export class Site {
   currentOpenedPages: string[];
   toRebuild: Set<string>;
   externalManager!: ExternalManager;
-  buildAsset?: (this: any, arg: unknown) => Bluebird<unknown>;
-  rebuildAffectedSourceFiles?: (this: any, arg: unknown) => Bluebird<unknown>;
-  rebuildSourceFiles?: (this: any, arg: unknown) => Bluebird<unknown>;
   // TODO: add LayoutManager when it has been migrated
   layoutManager: any;
 
@@ -1678,58 +1675,35 @@ export class Site {
     this.variableProcessor.addUserDefinedVariableForAllSites('timestamp', time);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this
-  async rebuildPagesBeingViewed(_currentPageViewed: string) {
-    throw new Error('Method not implemented.');
-  }
+  /**
+   * Build/copy assets that are specified in filePaths
+   * @param filePaths a single path or an array of paths corresponding to the assets to build
+   */
+  buildAsset = delay(this._buildMultipleAssets as () => Bluebird<unknown>, 1000);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this
-  async removeAsset(_removedPageFilePaths: string | string[]) {
-    throw new Error('Method not implemented.');
-  }
+  /**
+   * Remove assets that are specified in filePaths
+   * @param filePaths a single path or an array of paths corresponding to the assets to remove
+   */
+  removeAsset = delay(this._removeMultipleAssets as () => Bluebird<unknown>, 1000);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this
-  async backgroundBuildNotViewedFiles(_arg0?: any, _arg1?: any) {
-    throw new Error('Method not implemented.');
-  }
+  rebuildPagesBeingViewed = delay(this._rebuildPagesBeingViewed as () => Bluebird<unknown>, 1000);
+
+  /**
+   * Rebuild pages that are affected by changes in filePaths
+   * @param filePaths a single path or an array of paths corresponding to the files that have changed
+   */
+  rebuildAffectedSourceFiles = delay(this._rebuildAffectedSourceFiles as () => Bluebird<unknown>, 1000);
+
+  /**
+   * Rebuild all pages
+   */
+  rebuildSourceFiles
+  = delay(this._rebuildSourceFiles as () => Bluebird<unknown>, 1000) as () => Bluebird<unknown>;
+
+  /**
+   * Builds pages that are yet to build/rebuild in the background
+   */
+  backgroundBuildNotViewedFiles
+  = delay(this._backgroundBuildNotViewedFiles as () => Bluebird<unknown>, 1000) as () => Bluebird<unknown>;
 }
-
-/**
- * Below are functions that are not compatible with the ES6 class syntax.
- */
-
-/**
- * Build/copy assets that are specified in filePaths
- * @param filePaths a single path or an array of paths corresponding to the assets to build
- */
-Site.prototype.buildAsset = delay(Site.prototype._buildMultipleAssets as () => Bluebird<unknown>, 1000);
-
-Site.prototype.rebuildPagesBeingViewed = delay(
-  Site.prototype._rebuildPagesBeingViewed as () => Bluebird<unknown>, 1000);
-
-/**
- * Rebuild pages that are affected by changes in filePaths
- * @param filePaths a single path or an array of paths corresponding to the files that have changed
- */
-Site.prototype.rebuildAffectedSourceFiles = delay(
-  Site.prototype._rebuildAffectedSourceFiles as () => Bluebird<unknown>, 1000);
-
-/**
- * Rebuild all pages
- * @param filePaths a single path or an array of paths corresponding to the files that have changed
- */
-Site.prototype.rebuildSourceFiles = delay(
-  Site.prototype._rebuildSourceFiles as () => Bluebird<unknown>, 1000);
-
-/**
- * Remove assets that are specified in filePaths
- * @param filePaths a single path or an array of paths corresponding to the assets to remove
- */
-Site.prototype.removeAsset = delay(
-  Site.prototype._removeMultipleAssets as () => Bluebird<unknown>, 1000);
-
-/**
- * Builds pages that are yet to build/rebuild in the background
- */
-Site.prototype.backgroundBuildNotViewedFiles = delay(
-  Site.prototype._backgroundBuildNotViewedFiles as () => Bluebird<unknown>, 1000);
