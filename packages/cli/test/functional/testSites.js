@@ -14,11 +14,6 @@ const testTemplateSites = [
   'default,test_site_templates/test_default',
 ];
 
-const testOptimizeIconsSites = [
-  'test_site_optimize_icons/test_with_icons',
-  'test_site_optimize_icons/test_with_no_icons',
-];
-
 // These files will be generated within test_site/expected/
 // after running `npm run updatetest`. Due to the fact that
 // these files create git diffs every time they are generated,
@@ -41,6 +36,5 @@ module.exports = {
   testSites,
   testConvertSites,
   testTemplateSites,
-  testOptimizeIconsSites,
   plantumlGeneratedFiles,
 };

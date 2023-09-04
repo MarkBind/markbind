@@ -8,7 +8,6 @@ const {
   testSites,
   testConvertSites,
   testTemplateSites,
-  testOptimizeIconsSites,
 } = require('./testSites');
 
 /* eslint-disable no-console */
@@ -66,16 +65,6 @@ testTemplateSites.forEach((templateAndSitePath) => {
     process.exit(1);
   }
   fs.removeSync(path.resolve(__dirname, siteCreationTempPath));
-});
-
-testOptimizeIconsSites.forEach((siteName) => {
-  console.log(`Updating ${siteName}`);
-  try {
-    execSync(`node ../../index.js build ${siteName} ${siteName}/expected`, execOptions);
-  } catch (err) {
-    printFailedMessage(err, siteName);
-    process.exit(1);
-  }
 });
 
 console.log('Updated all test sites');

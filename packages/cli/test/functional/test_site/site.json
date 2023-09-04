@@ -173,6 +173,26 @@
     {
       "src": "testList.md",
       "title": "web 3 forms"
+    },
+    {
+      "src": "testFontAwesomeInPage.md",
+      "title": "font-awesome icon in page, only font-awesome stylesheet should be loaded"
+    },
+    {
+      "src": "testGlyphiconInPage.md",
+      "title": "glyphicon icon in page, only glyphicon stylesheet should be loaded"
+    },
+    {
+      "src": "testMaterialIconsInPage.md",
+      "title": "material-icons icon in page, only material-icons stylesheet should be loaded"
+    },
+    {
+      "src": "testOcticonInPage.md",
+      "title": "octicon icon in page, only octicon stylesheet should be loaded"
+    },
+    {
+      "src": "testIconsInSiteLayout.md",
+      "title": "glyphicon & octicon icon in page, only glyphicon & octicon stylesheets should be loaded"
     }
   ],
   "pagesExclude": ["**/*-fragment.md"],
