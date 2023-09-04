@@ -226,7 +226,7 @@
       "pre": "\n\n# Markbind Plugin Pre-render",
       "post": "<p>Node Modules Plugin Post-render</p>"
     },
-    "filterTacgs": {
+    "filterTags": {
       "tags": [
         "tag-site-shown",
         "+tag-site-override-shown",
