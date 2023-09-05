@@ -26,7 +26,7 @@ const addHandler = (site, onePagePath) => (filePath) => {
   }
   Promise.resolve('').then(async () => {
     if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
-      return site.rebuildSourceFiles(filePath);
+      return site.rebuildSourceFiles();
     }
     return site.buildAsset(filePath);
   }).catch((err) => {
@@ -59,7 +59,7 @@ const removeHandler = (site, onePagePath) => (filePath) => {
   }
   Promise.resolve('').then(async () => {
     if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
-      return site.rebuildSourceFiles(filePath);
+      return site.rebuildSourceFiles();
     }
     return site.removeAsset(filePath);
   }).catch((err) => {
