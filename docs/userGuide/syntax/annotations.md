@@ -145,7 +145,6 @@ This is effectively the same as the options used for the [picture](#pictures) co
 | src    | `string`  |         | **This must be specified.**<br>The URL of the image.<br>The URL can be specified as absolute or relative references. More info in: _[Intra-Site Links]({{baseUrl}}/userGuide/formattingContents.html#intraSiteLinks)_ |
 | height | `string`  |`''`| The height of the image in pixels.                                                                                                                                                                                    |
 | width  | `string`  |`''`| The width of the image in pixels.<br>If both width and height are specified, width takes priority over height. It is to maintain the image's aspect ratio.                                                            |
-| eager  | `boolean` | false   | The `<pic>` component lazy loads its images by default.<br>If you want to eagerly load the images, simply specify this attribute.                                                                                     |
 
 </div>
 
