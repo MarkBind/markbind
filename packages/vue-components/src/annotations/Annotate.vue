@@ -6,7 +6,6 @@
       :alt="alt"
       :width="computedWidth"
       class="annotate-image"
-      :loading="computedLoadType"
       @load.once="getWidth"
     />
     <div style="top: 0; left: 0; height: 0;">
@@ -36,10 +35,6 @@ export default {
       type: String,
       default: '',
     },
-    eager: {
-      type: Boolean,
-      default: false,
-    },
     addClass: {
       type: String,
       default: '',
@@ -57,9 +52,6 @@ export default {
         return this.width;
       }
       return this.widthFromHeight;
-    },
-    computedLoadType() {
-      return this.eager ? 'eager' : 'lazy';
     },
   },
   data() {
