@@ -8,10 +8,6 @@
 <pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo">
   MarkBind Logo
 </pic>
-
-<pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo" eager>
-  MarkBind Logo
-</pic>
 </variable>
 </include>
 
