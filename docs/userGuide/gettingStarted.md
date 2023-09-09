@@ -4,6 +4,7 @@
 <frontmatter>
   title: "User Guide - {{ title }}"
   layout: userGuide.md
+  pageNav: 2
 </frontmatter>
 
 # {{ title }}
@@ -17,6 +18,15 @@
   %%{{ icon_ticked }}%% a recent version of [npm](https://www.npmjs.com/get-npm) installed<br>
   %%{{ icon_ticked }}%% [Node.js](https://nodejs.org) {{ node_version }} or higher installed
 </div>
+
+There are a few ways to install MarkBind, select one that is most suitable for your use case. If you are unsure, we recommend using the first method.
+
+## Method 1: Install MarkBind globally with npm
+
+<box type="info" seamless>
+
+This method is recommended for most users. It allows you to use MarkBind commands directly in your terminal, particularly useful if you have multiple MarkBind sites.
+</box>
 
 ++**1. Install MarkBind**++
 
@@ -39,86 +49,6 @@ $ markbind
  v5.x.y
 Usage: ...
 ```
-
-<panel header="Alternative installation: using npx" >
-
-Initialize a MarkBind site:
-
-```
-npx markbind-cli init mySite
-```
-
-Preview the site:
-
-```
-cd mySite
-npx markbind-cli serve
-```
-
-See usage information:
-
-```
-npx markbind-cli --help
-```
-
-</panel>
-
-<panel header="Alternative installation: as a local dev-dependency with `package.json`">
-
-++**1. Initialize a `package.json` file**++
-
-:glyphicon-hand-right: _If you already have a `package.json` file, skip to the next step._
-
-To initialize a npm project in your current working directory, run the following command.
-
-```
-$ npm init
-```
-You will need to answer the prompts to create a `package.json` file.
-
-<box type="tip" light>
-
-To get a default `package.json` file, run the following command.
-
-```
-$ npm init -y
-```
-
-You can always adjust the content of your `package.json` later.
-
-</box>
-
-++**2. Install markbind-cli locally as a dev-dependency**++
-
-```
-$ npm install markbind-cli --save-dev
-```
-
-++**3. Add scripts in the `package.json` file**++
-
-To make the commands available via `npm run`, add the following scripts to your `package.json`.
-
-```json
-"scripts": {
-  "init": "markbind init",
-  "build": "markbind build",
-  "serve": "markbind serve",
-  "deploy": "markbind deploy"
-}
-```
-
-You are now ready to run MarkBind commands with `npm run xxx` (e.g. `npm run init` for `markbind init`).
-
-* Alternatively, you can use `npx` to run the commands with `npx markbind-cli xxx` (e.g. `npx markbind-cli init` for `markbind init`).
-
-<box type="info" seamless>
-
-If you are using Git to version control your source files, view the [_User Guide: .gitignore File_](gitignoreFile.html) section for more info.
-</box>
-
-</panel>
-
-<br>
 
 ++**2. Initialize a new Project (or Start with an existing Project)**++
 
@@ -167,10 +97,111 @@ Do some changes to the `index.md` and save the file. The live preview in the Bro
 
 To stop the web server, go to the console running the `serve` command and press <kbd>CTRL</kbd> + <kbd>C</kbd> (or the equivalent in your OS).
 
+<div id="instruction-next-steps">
+
 ++**4. Next steps**++
 
 1. **Update the content of your site**. More info can be found in the [_User Guide: Authoring Contents_](authoringContents.html) section
 1. **Deploy your site**. More info can be found in the [_User Guide: Deploying the Site_](deployingTheSite.html) section.
+
+</div>
+
+---
+
+## Method 2: Install MarkBind locally as a dev-dependency in `package.json`
+
+<box type="info" seamless>
+
+This method is recommended if you
+- are creating a documentation site that more than one person will be working on
+- want to specify the version of MarkBind to use in your project and manage it via `package.json`
+</box>
+
+++**1. Initialize a `package.json` file**++
+
+:glyphicon-hand-right: _If you already have a `package.json` file, skip to step 2._
+
+:glyphicon-hand-right: _If you are working on a MarkBind project that is set up with this method, run `npm ci` to install the dependencies and refer to step 3 for how to run MarkBind commands._
+
+To initialize a npm project in your current working directory, run the following command.
+
+```
+$ npm init
+```
+You will need to answer the prompts to create a `package.json` file.
+
+<box type="tip" light>
+
+To get a default `package.json` file, run the following command.
+
+```
+$ npm init -y
+```
+
+You can always adjust the content of your `package.json` later.
+
+</box>
+
+++**2. Install markbind-cli locally as a dev-dependency**++
+
+```
+$ npm install markbind-cli --save-dev
+```
+
+++**3. Add scripts in the `package.json` file**++
+
+To make the commands available via `npm run`, add the following scripts to your `package.json`.
+
+```json
+"scripts": {
+  "init": "markbind init",
+  "build": "markbind build",
+  "serve": "markbind serve",
+  "deploy": "markbind deploy"
+}
+```
+
+You are now ready to run MarkBind commands with `npm run xxx` (e.g. `npm run init` for `markbind init`).
+
+* Alternatively, you can use `npx` to run the commands with `npx markbind-cli xxx` (e.g. `npx markbind-cli init` for `markbind init`).
+
+<box type="info" seamless>
+
+If you are using Git to version control your source files, view the [_User Guide: .gitignore File_](gitignoreFile.html) section for more info.
+</box>
+
+<include src="gettingStarted.md#instruction-next-steps" />
+
+---
+
+## Method 3: Install MarkBind via npx
+
+<box type="info" seamless>
+
+This method is recommended if you want to try out MarkBind without installing it (by using <tooltip content="NPX stands for Node Package eXecute. It is simply an NPM package runner. It allows developers to execute any Javascript Package available on the NPM registry without even installing it.">[npx](https://docs.npmjs.com/cli/commands/npx)</tooltip>).
+</box>
+
+++**1. Initialize a MarkBind site**++
+
+```
+npx markbind-cli init mySite
+```
+
+++**2. Preview the site**++
+
+```
+cd mySite
+npx markbind-cli serve
+```
+
+++**3. See usage information**++
+
+
+```
+npx markbind-cli --help
+```
+
+<include src="gettingStarted.md#instruction-next-steps" />
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('', 'authoringContents') }}
