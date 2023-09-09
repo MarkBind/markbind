@@ -33,7 +33,7 @@ This method is recommended for most users. It allows you to use MarkBind command
 Run the following command to install MarkBind globally. This will make the `markbind` command available in your terminal.
 
 ```
-$ npm install -g markbind-cli
+npm install -g markbind-cli
 ```
 
 Next, run the command `markbind`. If MarkBind has been installed correctly, you should see the MarkBind ascii logo followed by a summary of MarkBind commands as the output.
@@ -58,7 +58,7 @@ Usage: ...
 Navigate into an empty directory and run the following command to initialize a skeletal MarkBind site in that directory. It will create several new files in the directory e.g., `index.md`, `site.json`.
 
 ```
-$ markbind init
+markbind init
 ```
 
 <include src="tip.md" boilerplate >
@@ -90,7 +90,7 @@ Run the following command in the same directory. It will generate a website from
 </modal>
 
 ```
-$ markbind serve
+markbind serve
 ```
 
 Do some changes to the `index.md` and save the file. The live preview in the Browser should update automatically to reflect your changes.
@@ -105,6 +105,23 @@ To stop the web server, go to the console running the `serve` command and press 
 1. **Deploy your site**. More info can be found in the [_User Guide: Deploying the Site_](deployingTheSite.html) section.
 
 </div>
+
+++**5. Updating your MarkBind version**++
+
+After you have installed MarkBind, you may want to update to the latest version of MarkBind in the future.
+
+```
+npm install -g markbind-cli@latest
+```
+
+To update to a specific version of MarkBind, replace `latest` with the version number e.g., `5.0.2`.
+
+```
+npm install -g markbind-cli@5.0.2
+```
+
+If you are using any CI/CD tools, ensure the version of MarkBind is updated in the CI/CD pipeline as well.
+- For example, update your GitHub Actions workflow file to use the correct version of MarkBind, if you are using [markbind-action](https://github.com/MarkBind/markbind-action).
 
 ---
 
@@ -126,7 +143,7 @@ This method is recommended if you
 To initialize a npm project in your current working directory, run the following command.
 
 ```
-$ npm init
+npm init
 ```
 You will need to answer the prompts to create a `package.json` file.
 
@@ -135,7 +152,7 @@ You will need to answer the prompts to create a `package.json` file.
 To get a default `package.json` file, run the following command.
 
 ```
-$ npm init -y
+npm init -y
 ```
 
 You can always adjust the content of your `package.json` later.
@@ -145,7 +162,7 @@ You can always adjust the content of your `package.json` later.
 ++**2. Install markbind-cli locally as a dev-dependency**++
 
 ```
-$ npm install markbind-cli --save-dev
+npm install markbind-cli --save-dev
 ```
 
 ++**3. Add scripts in the `package.json` file**++
@@ -172,6 +189,27 @@ If you are using Git to version control your source files, view the [_User Guide
 
 <include src="gettingStarted.md#instruction-next-steps" />
 
+++**5. Updating your MarkBind version**++
+
+After you have installed MarkBind, you may want to update to the latest version of MarkBind in the future.
+
+Go to your project directory that contains the `package.json` file and run the following command.
+
+```
+npm install markbind-cli@latest --save-dev
+```
+
+To update to a specific version of MarkBind, replace `latest` with the version number e.g., `5.0.2`.
+
+```
+npm install markbind-cli@5.0.2 --save-dev
+```
+
+If you are using any CI/CD tools, ensure the version of MarkBind is updated in the CI/CD pipeline as well.
+- For example, update your GitHub Actions workflow file to use the correct version of MarkBind, if you are using [markbind-action](https://github.com/MarkBind/markbind-action).
+
+The command will modify your `package.json` and `package-lock.json` file to update the version of MarkBind.
+
 ---
 
 ## Method 3: Install MarkBind via npx
@@ -196,12 +234,25 @@ npx markbind-cli serve
 
 ++**3. See usage information**++
 
-
 ```
 npx markbind-cli --help
 ```
 
 <include src="gettingStarted.md#instruction-next-steps" />
+
+++**5. Updating your MarkBind version**++
+
+To use the latest version of MarkBind in the future, specify `latest` in the command.
+
+```
+npx markbind-cli@latest init mySite
+```
+
+Or, specify the version number.
+
+```
+npx markbind-cli@5.0.2 init mySite
+```
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('', 'authoringContents') }}
