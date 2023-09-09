@@ -18,7 +18,29 @@
   %%{{ icon_ticked }}%% [Node.js](https://nodejs.org) {{ node_version }} or higher installed
 </div>
 
-<box type="tip" header="##### Quick Start :rocket:" >
+++**1. Install MarkBind**++
+
+Run the following command to install MarkBind globally. This will make the `markbind` command available in your terminal.
+
+```
+$ npm install -g markbind-cli
+```
+
+Next, run the command `markbind`. If MarkBind has been installed correctly, you should see the MarkBind ascii logo followed by a summary of MarkBind commands as the output.
+
+```
+$ markbind
+  __  __                  _      ____    _               _
+ |  \/  |   __ _   _ __  | | __ | __ )  (_)  _ __     __| |
+ | |\/| |  / _` | | '__| | |/ / |  _ \  | | | '_ \   / _` |
+ | |  | | | (_| | | |    |   <  | |_) | | | | | | | | (_| |
+ |_|  |_|  \__,_| |_|    |_|\_\ |____/  |_| |_| |_|  \__,_|
+
+ v5.x.y
+Usage: ...
+```
+
+<panel header="Alternative installation: using npx" >
 
 Initialize a MarkBind site:
 
@@ -39,28 +61,7 @@ See usage information:
 npx markbind-cli --help
 ```
 
-</box>
-
-++**1. Install MarkBind**++
-
-Run the following command to install MarkBind.
-```
-$ npm install -g markbind-cli
-```
-
-Next, run the command `markbind`. If MarkBind has been installed correctly, you should see the MarkBind ascii logo followed by a summary of MarkBind commands as the output.
-
-```
-$ markbind
-  __  __                  _      ____    _               _
- |  \/  |   __ _   _ __  | | __ | __ )  (_)  _ __     __| |
- | |\/| |  / _` | | '__| | |/ / |  _ \  | | | '_ \   / _` |
- | |  | | | (_| | | |    |   <  | |_) | | | | | | | | (_| |
- |_|  |_|  \__,_| |_|    |_|\_\ |____/  |_| |_| |_|  \__,_|
-
- v3.x.y
-Usage: ...
-```
+</panel>
 
 <panel header="Alternative installation: as a local dev-dependency with `package.json`">
 
