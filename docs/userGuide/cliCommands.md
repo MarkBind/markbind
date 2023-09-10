@@ -10,6 +10,13 @@
 
 ### Overview
 
+<box type="info" seamless>
+
+If you do not have MarkBind installed globally, you can still use MarkBind commands by prefixing the commands with `npx`. For example, `markbind init` becomes `npx markbind-cli init`.
+
+If you have MarkBind installed locally, you may also refer to the scripts section of your `package.json` file for the commands you can use. For example, `npm run init` for `markbind init`.
+</box>
+
 An overview of MarkBind's Command Line Interface (CLI) can be referenced with `markbind --help`:
 ```
 $ markbind --help
