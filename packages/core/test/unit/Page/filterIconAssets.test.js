@@ -1,5 +1,4 @@
 const { Page } = require('../../../src/Page/index')
-const { isNullOrUndefined } = require('util');
 const { PageConfig } = require('../../../src/Page/PageConfig');
 
 jest.mock('../../../src/Page/PageConfig', () => {
