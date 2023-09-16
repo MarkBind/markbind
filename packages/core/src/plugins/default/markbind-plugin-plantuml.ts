@@ -120,7 +120,7 @@ export = {
     if (node.name !== 'puml') {
       return;
     }
-    if (config.plantumlCheck && !graphvizCheckCompleted) {
+    if (process.platform !== 'win32' && config.plantumlCheck && !graphvizCheckCompleted) {
       exec(`java -jar "${JAR_PATH}" -testdot`, (_error, _stdout, stderr) => {
         if (stderr.includes('Error: No dot executable found')) {
           logger.warn('You are using PlantUML diagrams but Graphviz is not installed!');
