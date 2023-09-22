@@ -302,7 +302,7 @@ To disable this validation **entirely**, you may add the following to `site.json
 
 #### **`plantumlCheck`**
 
-**Toggle whether to display a warning about PlantUML's prerequisite.** By default, MarkBind will check if you have Graphviz installed when you are using PlantUML diagrams.
+**Toggle whether to display a warning about PlantUML's prerequisite. Only applicable for non-Windows users.** By default, MarkBind will check if you have Graphviz installed when you are using PlantUML diagrams.
 To disable this validation and the display of the warning, you may add the following to `site.json`:
 <div id="plantuml-check">
 

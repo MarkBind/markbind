@@ -8,7 +8,7 @@ You can use the [PlantUML](http://plantuml.com/) syntax to add diagrams.
 
 * Java 8 or higher (required - to run the PlantUML JAR executable)
 * [Graphviz](https://www.graphviz.org/download/) {{ graphviz_version }} or higher (optional - you don't need this if you are on Windows, or only need [sequence diagrams](https://plantuml.com/sequence-diagram) and [activity (beta) diagrams](https://plantuml.com/activity-diagram-beta))
-  * A warning will be displayed if you don't have Graphviz installed (ignore this warning if you are on Windows). To disable this warning, you may modify your `site.json` like <trigger for="pop:prerequisite-disable" placement="bottom" trigger="click">this</trigger>.
+  * A warning will be displayed if you are using a non-Windows platform and don't have Graphviz installed. To disable this warning, you may modify your `site.json` like <trigger for="pop:prerequisite-disable" placement="bottom" trigger="click">this</trigger>.
   * An alternative layout engine, [Smetana](https://plantuml.com/smetana02), is integrated into PlantUML and can be used to generate diagrams without a Graphviz installation. However, as the Smetana engine is a work in progress, certain layouts may not render correctly. 
 
 <modal header="Disabling PlantUML's prerequisite check in `site.json`" id="pop:prerequisite-disable" backdrop>
