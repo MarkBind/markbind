@@ -11,11 +11,11 @@
     <meta name="generator" content="{{ markBindVersion }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {%- if title -%} <title>{{ title }}</title> {%- endif -%}
-    <link rel="stylesheet" href="{{ asset.bootstrap }}">
-    <link rel="stylesheet" href="{{ asset.fontAwesome }}">
-    <link rel="stylesheet" href="{{ asset.glyphicons }}">
-    <link rel="stylesheet" href="{{ asset.octicons }}">
-    <link rel="stylesheet" href="{{ asset.materialIcons }}">
+    {% if asset.bootstrap %} <link rel="stylesheet" href="{{ asset.bootstrap }}"> {%- endif -%}
+    {% if asset.fontAwesome %} <link rel="stylesheet" href="{{ asset.fontAwesome }}"> {%- endif -%}
+    {% if asset.glyphicons %} <link rel="stylesheet" href="{{ asset.glyphicons }}"> {%- endif -%}
+    {% if asset.octicons %} <link rel="stylesheet" href="{{ asset.octicons }}"> {%- endif -%}
+    {% if asset.materialIcons %} <link rel="stylesheet" href="{{ asset.materialIcons }}"> {%- endif -%}
     <link rel="stylesheet" href="{{ asset.highlight }}">
     {%- if not dev -%}<link rel="stylesheet" href="{{ asset.markBindCss }}">{%- endif -%}
     <script src="{{ asset.polyfillJs }}"></script>
