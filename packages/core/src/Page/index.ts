@@ -172,21 +172,27 @@ export class Page {
 
   /**
    * Filters out icon asset files that are not used in a page.
-   * @param content html content of the page.
+   * @param preVueSsrHtml html content of the page before processing Vue components
+   * @param postVueSsrHtml html content of the page after processing Vue components
    */
-  filterIconAssets(content: string) {
-    const $ = cheerio.load(content);
+  filterIconAssets(preVueSsrHtml: string, postVueSsrHtml: string) {
+    const $preVueHtml = cheerio.load(preVueSsrHtml);
+    const $postVueHtml = cheerio.load(postVueSsrHtml);
 
-    if ($('[class^=fa]').length === 0) {
+    if ($preVueHtml('[class^=fa]').length === 0
+        && $postVueHtml('[class^=fa]').length === 0) {
       delete this.asset.fontAwesome;
     }
-    if ($('[class^=octicon]').length === 0) {
+    if ($preVueHtml('[class^=octicon]').length === 0
+        && $postVueHtml('[class^=octicon]').length === 0) {
       delete this.asset.octicons;
     }
-    if ($('[class^=glyphicon]').length === 0) {
+    if ($preVueHtml('[class^=glyphicon]').length === 0
+        && $postVueHtml('[class^=glyphicon]').length === 0) {
       delete this.asset.glyphicons;
     }
-    if ($('[class^=material-icons]').length === 0) {
+    if ($preVueHtml('[class^=material-icons]').length === 0
+        && $postVueHtml('[class^=material-icons]').length === 0) {
       delete this.asset.materialIcons;
     }
   }
@@ -541,7 +547,7 @@ export class Page {
 
     content = `<div id="app">${content}</div>`;
 
-    this.filterIconAssets(content);
+    // this.filterIconAssets(content);
 
     // Compile the page into Vue application and outputs the render function into script for browser
     const compiledVuePage = await pageVueServerRenderer.compileVuePageAndCreateScript(
@@ -572,6 +578,7 @@ export class Page {
       await this.outputPageHtml(content);
     } else {
       const vueSsrHtml = await pageVueServerRenderer.renderVuePage(compiledVuePage);
+      this.filterIconAssets(content, vueSsrHtml);
       await this.outputPageHtml(vueSsrHtml);
     }
   }

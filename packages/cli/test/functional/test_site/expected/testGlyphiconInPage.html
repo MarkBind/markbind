@@ -11,7 +11,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>glyphicon icon in page, only glyphicon stylesheet should be loaded</title>
   <link rel="stylesheet" href="/test_site/markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/test_site/markbind/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="/test_site/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="/test_site/markbind/css/octicons.css">
+  <link rel="stylesheet" href="/test_site/markbind/material-icons/material-icons.css">
   <link rel="stylesheet" href="/test_site/markbind/css/codeblock-dark.min.css">
   <link rel="stylesheet" href="/test_site/markbind/css/markbind.min.css">
   <script src="/test_site/markbind/js/polyfill.min.js"></script>
@@ -56,11 +59,9 @@
         <breadcrumb></breadcrumb>
 
         <panel><template #header>
-            <p>There is a glyphicon icon in this panel.</p>
-          </template>
-          <p>An glyphicon icon is supposed to appear here ---&gt; <span aria-hidden="true" class="glyphicon glyphicon-hand-right"></span></p>
-        </panel>
-        <p><strong>There is one glyphicon icon in this page content.</strong></p>
+            <p>There are glyphicon icons on this panel.</p>
+          </template></panel>
+        <p><strong>There is are glyphicon icons in this page content.</strong></p>
         <p><strong>Open up console. Only glyphicon stylesheet should be loaded!</strong></p>
       </div>
       <overlay-source id="page-nav" tag-name="nav" to="page-nav">
