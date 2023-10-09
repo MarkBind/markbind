@@ -547,8 +547,6 @@ export class Page {
 
     content = `<div id="app">${content}</div>`;
 
-    // this.filterIconAssets(content);
-
     // Compile the page into Vue application and outputs the render function into script for browser
     const compiledVuePage = await pageVueServerRenderer.compileVuePageAndCreateScript(
       content, this.pageConfig, this.asset);
