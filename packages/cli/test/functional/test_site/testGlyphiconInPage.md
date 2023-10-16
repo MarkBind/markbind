@@ -5,6 +5,6 @@ layout: simpleLayoutWithoutIcons.md
 
 <panel header="There are glyphicon icons on this panel."></panel>
 
-**There is are glyphicon icons in this page content.**
+**There are glyphicon icons in this page content.**
 
 **Open up console. Only glyphicon stylesheet should be loaded!**

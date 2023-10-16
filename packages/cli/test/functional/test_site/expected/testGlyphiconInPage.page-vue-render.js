@@ -11,7 +11,7 @@ with(this){return _c('div',{staticClass:"bg-info display-4 text-center text-whit
 with(this){return _c('p',[_c('strong',[_v("Relative Link Test")]),_v(" This is a relative Intra-Site link in a layout (see "),_c('a',{attrs:{"href":"/test_site/index.html#heading-with-hidden-keyword"}},[_v("link")]),_v(")")])}
 },function anonymous(
 ) {
-with(this){return _c('p',[_c('strong',[_v("There is are glyphicon icons in this page content.")])])}
+with(this){return _c('p',[_c('strong',[_v("There are glyphicon icons in this page content.")])])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_c('strong',[_v("Open up console. Only glyphicon stylesheet should be loaded!")])])}
