@@ -573,6 +573,7 @@ export class Page {
      * unrendered DOM for easier reference and checking.
      */
     if (process.env.TEST_MODE) {
+      this.filterIconAssets(content, '');
       await this.outputPageHtml(content);
     } else {
       const vueSsrHtml = await pageVueServerRenderer.renderVuePage(compiledVuePage);
