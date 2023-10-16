@@ -172,6 +172,9 @@ export class Page {
 
   /**
    * Filters out icon asset files that are not used in a page.
+   * Pre-vue HTML does not include the actual HTML of vue components after rendering,
+   * and post-vue HTML does not include HTML of popups (e.g. trigger, modals).
+   * Hence, we need to process both HTML content here.
    * @param preVueSsrHtml html content of the page before processing Vue components
    * @param postVueSsrHtml html content of the page after processing Vue components
    */
