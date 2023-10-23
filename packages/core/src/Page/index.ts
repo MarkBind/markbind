@@ -572,15 +572,14 @@ export class Page {
     /*
      * Server-side render Vue page app into actual html.
      *
-     * However, for automated testings (e.g. snapshots), we will not do SSR as we want to retain the
-     * unrendered DOM for easier reference and checking.
+     * However, for automated testings (e.g. snapshots), we will output the pre SSR-processed HTML content
+     * as we want to retain the unrendered DOM for easier reference and checking.
      */
+    const vueSsrHtml = await pageVueServerRenderer.renderVuePage(compiledVuePage);
+    this.filterIconAssets(content, vueSsrHtml);
     if (process.env.TEST_MODE) {
-      this.filterIconAssets(content, '');
       await this.outputPageHtml(content);
     } else {
-      const vueSsrHtml = await pageVueServerRenderer.renderVuePage(compiledVuePage);
-      this.filterIconAssets(content, vueSsrHtml);
       await this.outputPageHtml(vueSsrHtml);
     }
   }
