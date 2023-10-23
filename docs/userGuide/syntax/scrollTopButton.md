@@ -8,7 +8,7 @@ The ```scroll-top-button``` component allows users to move to the top of the pag
 
 ****Adding a scroll-top-button****
 
-Add ```<scroll-top-button><scroll-top-button/>``` to layout file.
+Add ```<scroll-top-button></scroll-top-button>``` to layout file.
 
 ****Options****
 
