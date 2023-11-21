@@ -95,3 +95,13 @@ jobs:
         run: >-
           npm run build:ug &&
           npm run deploy:ug
+      - name: Check deploy log
+        run: |
+          log_file="docs/_markbind/logs/markbind-$(date +'%Y-%m-%d').log"
+          pattern="^[0-9T:.Z-]+ - error:"
+          
+          if grep -q -E "$pattern" "$log_file"; then
+            printf "The following issues were found when deploying the documentation:\n"
+            grep -E "$pattern" "$log_file"
+            exit 1
+          fi
