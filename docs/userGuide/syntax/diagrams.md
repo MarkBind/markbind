@@ -8,7 +8,7 @@ You can use the [PlantUML](http://plantuml.com/) syntax to add diagrams.
 
 * Java 8 or higher (required - to run the PlantUML JAR executable)
 * [Graphviz](https://www.graphviz.org/download/) {{ graphviz_version }} or higher (optional - you don't need this if you are on Windows, or only need [sequence diagrams](https://plantuml.com/sequence-diagram) and [activity (beta) diagrams](https://plantuml.com/activity-diagram-beta))
-  * A warning will be displayed if you don't have Graphviz installed (ignore this warning if you are on Windows). To disable this warning, you may modify your `site.json` like <trigger for="pop:prerequisite-disable" placement="bottom" trigger="click">this</trigger>.
+  * A warning will be displayed if you are using a non-Windows platform and don't have Graphviz installed. To disable this warning, you may modify your `site.json` like <trigger for="pop:prerequisite-disable" placement="bottom" trigger="click">this</trigger>.
   * An alternative layout engine, [Smetana](https://plantuml.com/smetana02), is integrated into PlantUML and can be used to generate diagrams without a Graphviz installation. However, as the Smetana engine is a work in progress, certain layouts may not render correctly. 
 
 <modal header="Disabling PlantUML's prerequisite check in `site.json`" id="pop:prerequisite-disable" backdrop>
@@ -36,10 +36,9 @@ See [Deploying via Github Actions](../deployingTheSite.html#deploying-via-github
 </box>
 
 <div id="main-example">
-<include src="outputBox.md" boilerplate>
+<include src="codeAndOutput.md" boilerplate>
 <variable name="code">
 
-```
 <puml width="300">
 @startuml
 alice -> bob ++ : hello
@@ -52,11 +51,6 @@ bob -> george !! : delete
 return success
 @enduml
 </puml>
-```
-</variable>
-
-<variable name="output">
-<pic src="../diagrams/sequence.png" width="300" />
 </variable>
 
 </include>
@@ -88,7 +82,7 @@ in another file:
 </variable>
 
 <variable id="output">
-<pic src="../diagrams/sequence.png" width="300" />
+<puml src="../diagrams/sequence.puml" width=300 />
 </variable>
 
 </include>
@@ -103,50 +97,50 @@ The full PlantUML syntax reference can be found at plantuml.com/guide
 <div id="puml-examples">
 
 **Sequence Diagram**:<br>
-<pic src="../diagrams/sequence.png" />
+<puml src="../diagrams/sequence.puml" />
 
 **Use Case Diagram**:<br>
-<pic src="../diagrams/usecase.png" />
+<puml src="../diagrams/usecase.puml" />
 
 **Class Diagram**:<br>
-<pic src="../diagrams/class.png" />
+<puml src="../diagrams/class.puml" />
 
 **Activity Diagram**:<br>
-<pic src="../diagrams/activity.png" />
+<puml src="../diagrams/activity.puml" />
 
 **Component Diagram**:<br>
-<pic src="../diagrams/component.png" />
+<puml src="../diagrams/component.puml" />
 
 **State Diagram**:<br>
-<pic src="../diagrams/state.png" />
+<puml src="../diagrams/state.puml" />
 
 **Object Diagram**:<br>
-<pic src="../diagrams/object.png" />
+<puml src="../diagrams/object.puml" />
 
 **Gantt Diagram**:<br>
-<pic src="../diagrams/gantt.png" />
+<puml src="../diagrams/gantt.puml" />
 
 **Entity Relation Diagram**:<br>
-<pic src="../diagrams/entityrelation.png" />
+<puml src="../diagrams/entityrelation.puml" />
 
 **Ditaa Diagram**:<br>
-<pic src="../diagrams/ditaa.png" />
+<puml src="../diagrams/ditaa.puml" />
 
 **Archimate Diagram**:<br>
-<pic src="../diagrams/archimate.png" />
+<puml src="../diagrams/archimate.puml" />
 
 </div>
 </panel>
 <p/>
 
 ****Options****
-Name | Type | Description
---- | --- | ---
-alt | `string` | The alternative text of the diagram.
+Name | Type     | Description
+-----|----------|-------------------------------------
+alt  | `string` | The alternative text of the diagram.
 height | `string` | The height of the diagram in pixels.
-name | `string` | The name of the output file.
-src | `string` | The URL of the diagram if your diagram is in another `.puml` file.<br>The URL can be specified as absolute or relative references. More info in: _[Intra-Site Links]({{baseUrl}}/userGuide/formattingContents.html#intraSiteLinks)_
-width | `string` | The width of the diagram in pixels.<br>If both width and height are specified, width takes priority over height. It is to maintain the diagram's aspect ratio.
+name   | `string` | The name of the output file.<br>Avoid using the same name for different diagrams to prevent overwriting.
+src    | `string` | The URL of the diagram if your diagram is in another `.puml` file.<br>The URL can be specified as absolute or relative references. More info in: _[Intra-Site Links]({{baseUrl}}/userGuide/formattingContents.html#intraSiteLinks)_
+width  | `string` | The width of the diagram in pixels.<br>If both width and height are specified, width takes priority over height. It is to maintain the diagram's aspect ratio.
 
 <div id="short" class="d-none">
 

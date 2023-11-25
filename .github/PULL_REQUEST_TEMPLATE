@@ -56,3 +56,22 @@
   We'll try our best to get to your PR within a week.
   If we haven't gotten to it then, or if your pull request resolves an urgent item, feel free to give us a ping!
 -->
+
+---
+
+**Reviewer checklist:**
+
+Indicate the [SEMVER](https://semver.org/) impact of the PR:
+- [ ] Major (when you make incompatible API changes)
+- [ ] Minor (when you add functionality in a backward compatible manner)
+- [ ] Patch (when you make backward compatible bug fixes)
+
+At the end of the review, please label the PR with the appropriate label: `r.Major`, `r.Minor`, `r.Patch`.
+
+Breaking change release note preparation (if applicable):
+- To be included in the release note for any feature that is made obsolete/breaking
+
+> Give a brief explanation note about:
+>   - what was the old feature that was made obsolete
+>   - any replacement feature (if any), and
+>   - how the author should modify his website to migrate from the old feature to the replacement feature (if possible).

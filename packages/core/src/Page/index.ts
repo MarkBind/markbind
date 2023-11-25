@@ -23,6 +23,8 @@ require('../patches/htmlparser2');
 
 const _ = { cloneDeep, isObject, isArray };
 
+const LockManager = require('../utils/LockManager');
+
 const PACKAGE_VERSION = require('../../package.json').version;
 
 const {
@@ -166,6 +168,36 @@ export class Page {
       title,
       enableSearch: this.siteConfig.enableSearch,
     };
+  }
+
+  /**
+   * Filters out icon asset files that are not used in a page.
+   * Pre-vue HTML does not include the actual HTML of vue components after rendering,
+   * and post-vue HTML does not include HTML of popups (e.g. trigger, modals).
+   * Hence, we need to process both HTML content here.
+   * @param preVueSsrHtml html content of the page before processing Vue components
+   * @param postVueSsrHtml html content of the page after processing Vue components
+   */
+  filterIconAssets(preVueSsrHtml: string, postVueSsrHtml: string) {
+    const $preVueHtml = cheerio.load(preVueSsrHtml);
+    const $postVueHtml = cheerio.load(postVueSsrHtml);
+
+    if ($preVueHtml('[class^=fa]').length === 0
+        && $postVueHtml('[class^=fa]').length === 0) {
+      delete this.asset.fontAwesome;
+    }
+    if ($preVueHtml('[class^=octicon]').length === 0
+        && $postVueHtml('[class^=octicon]').length === 0) {
+      delete this.asset.octicons;
+    }
+    if ($preVueHtml('[class^=glyphicon]').length === 0
+        && $postVueHtml('[class^=glyphicon]').length === 0) {
+      delete this.asset.glyphicons;
+    }
+    if ($preVueHtml('[class^=material-icons]').length === 0
+        && $postVueHtml('[class^=material-icons]').length === 0) {
+      delete this.asset.materialIcons;
+    }
   }
 
   /**
@@ -534,16 +566,20 @@ export class Page {
     // Each source path will only contain 1 copy of build/re-build page (the latest one)
     pageVueServerRenderer.pageEntries[this.pageConfig.sourcePath] = builtPage;
 
+    // Wait for all pages resources to be generated before writing to disk
+    await LockManager.waitForLockRelease();
+
     /*
      * Server-side render Vue page app into actual html.
      *
-     * However, for automated testings (e.g. snapshots), we will not do SSR as we want to retain the
-     * unrendered DOM for easier reference and checking.
+     * However, for automated testings (e.g. snapshots), we will output the pre SSR-processed HTML content
+     * as we want to retain the unrendered DOM for easier reference and checking.
      */
+    const vueSsrHtml = await pageVueServerRenderer.renderVuePage(compiledVuePage);
+    this.filterIconAssets(content, vueSsrHtml);
     if (process.env.TEST_MODE) {
       await this.outputPageHtml(content);
     } else {
-      const vueSsrHtml = await pageVueServerRenderer.renderVuePage(compiledVuePage);
       await this.outputPageHtml(vueSsrHtml);
     }
   }

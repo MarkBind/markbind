@@ -375,15 +375,11 @@ To update PlantUML to a newer version:
 
 1. Download the JAR file from [PlantUML's website](https://plantuml.com/download).
 1. Rename the file to `plantuml.jar` (if required), and replace the existing JAR file located in `packages/core/src/plugins/default`.
-1. Generate the image files for the `.puml` files listed in `docs/userGuide/diagrams`. 
+1. Check the HTML pages that contain PlantUML diagrams, i.e. `/userGuide/components/imagesAndDiagrams.html`.
 
-<box type="tip" seamless header="Here are the recommended steps to generate the image files:">
+### Updating Bootstrap and Bootswatch
 
-1. Add a new `.md` file in `userGuide`, e.g. `plantuml.md`, containing `<puml>` tags of all diagrams to be generated. 
-1. Serve the documentation site using `markbind serve -d`.
-1. Access the corresponding HTML page with the generated diagrams, i.e. `/userGuide/plantuml.html`.
-1. Right-click on each image and save the image in `docs/userGuide/diagrams`.
-</box>
+As Bootswatch is built on Bootstrap, ensure that the versions of both are in sync to avoid unexpected differences in styling behavior between default and other themes. Both are currently using version 5.1.3.
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('settingUp', 'writingComponents') }}

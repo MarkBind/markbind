@@ -7,10 +7,10 @@ import { VariableProcessor } from '../variables/VariableProcessor';
 export interface PageAssets {
   bootstrap: string;
   externalScripts: string[];
-  fontAwesome: string;
-  glyphicons: string;
-  octicons: string;
-  materialIcons: string;
+  fontAwesome?: string;
+  glyphicons?: string;
+  octicons?: string;
+  materialIcons?: string;
   highlight: string;
   markBindCss: string;
   markBindJs: string;

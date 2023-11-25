@@ -27,14 +27,14 @@ exports[`Modal can be centered 1`] = `
     <div
       aria-expanded="false"
       aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none"
+      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
       data-v-1cd72822=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog modal-dialog-centered"
+        class="vfm__content modal-dialog modal-dialog-scrollable modal-dialog-centered"
         data-v-1cd72822=""
       >
         <div
@@ -57,7 +57,7 @@ exports[`Modal can be centered 1`] = `
           </div>
            
           <div
-            class="modal-body overflow-auto"
+            class="modal-body"
           >
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </div>
@@ -99,14 +99,14 @@ exports[`Modal can be large 1`] = `
     <div
       aria-expanded="false"
       aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none"
+      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
       data-v-1cd72822=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog modal-lg"
+        class="vfm__content modal-dialog modal-dialog-scrollable modal-lg"
         data-v-1cd72822=""
       >
         <div
@@ -129,7 +129,7 @@ exports[`Modal can be large 1`] = `
           </div>
            
           <div
-            class="modal-body overflow-auto"
+            class="modal-body"
           >
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </div>
@@ -171,14 +171,14 @@ exports[`Modal can be small 1`] = `
     <div
       aria-expanded="false"
       aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none"
+      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
       data-v-1cd72822=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog modal-sm"
+        class="vfm__content modal-dialog modal-dialog-scrollable modal-sm"
         data-v-1cd72822=""
       >
         <div
@@ -201,7 +201,7 @@ exports[`Modal can be small 1`] = `
           </div>
            
           <div
-            class="modal-body overflow-auto"
+            class="modal-body"
           >
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </div>
@@ -243,14 +243,14 @@ exports[`Modal should be closable by clicking the backdrop by default 1`] = `
     <div
       aria-expanded="false"
       aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none"
+      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
       data-v-1cd72822=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog"
+        class="vfm__content modal-dialog modal-dialog-scrollable"
         data-v-1cd72822=""
       >
         <div
@@ -273,7 +273,7 @@ exports[`Modal should be closable by clicking the backdrop by default 1`] = `
           </div>
            
           <div
-            class="modal-body overflow-auto"
+            class="modal-body"
           >
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </div>
@@ -315,14 +315,14 @@ exports[`Modal should be closable using the ok-text button 1`] = `
     <div
       aria-expanded="false"
       aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none"
+      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
       data-v-1cd72822=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog"
+        class="vfm__content modal-dialog modal-dialog-scrollable"
         data-v-1cd72822=""
       >
         <div
@@ -331,7 +331,7 @@ exports[`Modal should be closable using the ok-text button 1`] = `
           <!---->
            
           <div
-            class="modal-body overflow-auto"
+            class="modal-body"
           >
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </div>
@@ -383,14 +383,14 @@ exports[`Modal should not be closable by clicking the backdrop if backdrop is se
     <div
       aria-expanded="false"
       aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none"
+      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
       data-v-1cd72822=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog"
+        class="vfm__content modal-dialog modal-dialog-scrollable"
         data-v-1cd72822=""
       >
         <div
@@ -413,7 +413,7 @@ exports[`Modal should not be closable by clicking the backdrop if backdrop is se
           </div>
            
           <div
-            class="modal-body overflow-auto"
+            class="modal-body"
           >
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </div>
@@ -455,14 +455,14 @@ exports[`Modal should not show footer when no footer is given 1`] = `
     <div
       aria-expanded="false"
       aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none"
+      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
       data-v-1cd72822=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog"
+        class="vfm__content modal-dialog modal-dialog-scrollable"
         data-v-1cd72822=""
       >
         <div
@@ -485,7 +485,7 @@ exports[`Modal should not show footer when no footer is given 1`] = `
           </div>
            
           <div
-            class="modal-body overflow-auto"
+            class="modal-body"
           >
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </div>
@@ -527,14 +527,14 @@ exports[`Modal should not show header when no header is given 1`] = `
     <div
       aria-expanded="false"
       aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none"
+      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
       data-v-1cd72822=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog"
+        class="vfm__content modal-dialog modal-dialog-scrollable"
         data-v-1cd72822=""
       >
         <div
@@ -543,7 +543,7 @@ exports[`Modal should not show header when no header is given 1`] = `
           <!---->
            
           <div
-            class="modal-body overflow-auto"
+            class="modal-body"
           >
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </div>
@@ -589,14 +589,14 @@ exports[`Modal should show footer when both footer and ok-text are given 1`] = `
     <div
       aria-expanded="false"
       aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none"
+      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
       data-v-1cd72822=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog"
+        class="vfm__content modal-dialog modal-dialog-scrollable"
         data-v-1cd72822=""
       >
         <div
@@ -605,7 +605,7 @@ exports[`Modal should show footer when both footer and ok-text are given 1`] = `
           <!---->
            
           <div
-            class="modal-body overflow-auto"
+            class="modal-body"
           >
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </div>
@@ -649,14 +649,14 @@ exports[`Modal supports fade effect 1`] = `
     <div
       aria-expanded="false"
       aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none"
+      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
       data-v-1cd72822=""
       role="dialog"
       style="display: none;"
       tabindex="-1"
     >
       <div
-        class="vfm__content modal-dialog"
+        class="vfm__content modal-dialog modal-dialog-scrollable"
         data-v-1cd72822=""
       >
         <div
@@ -665,7 +665,7 @@ exports[`Modal supports fade effect 1`] = `
           <!---->
            
           <div
-            class="modal-body overflow-auto"
+            class="modal-body"
           >
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </div>
