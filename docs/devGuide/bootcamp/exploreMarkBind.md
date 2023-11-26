@@ -218,9 +218,6 @@ $ markbind init
 info: Initialization success.
 ```
 
-4. With the site generated, create a `.gitignore` file in the root directory and add the <a tags="environment--combined" href="/userGuide/gitignoreFile.html">recommended content</a><a tags="environment--dg" href="https://markbind.org/userGuide/gitignoreFile.html">recommended content</a> to it. This is to ensure log files etc are not committed to the repository.
-
-
 <box type="important" light>
 
 **Checkpoint**
