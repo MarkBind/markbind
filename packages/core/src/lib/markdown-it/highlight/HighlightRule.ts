@@ -66,17 +66,20 @@ export class HighlightRule {
     return atLineNumber;
   }
 
-  getHighlightType(lineNumber: number) {
+  getHighlightType(lineNumber: number): {
+    highlightType: HIGHLIGHT_TYPES,
+    bounds: Array<[number, number]> | null
+  } {
     let [appliedRule] = this.ruleComponents;
     if (this.isLineRange()) {
       if (this.ruleComponents.some(comp => comp.isUnboundedSlice())) {
-        return { highlightType: HIGHLIGHT_TYPES.WholeLine, boundaries: null };
+        return { highlightType: HIGHLIGHT_TYPES.WholeLine, bounds: null };
       }
 
       const [startCompare, endCompare] = this.ruleComponents.map(comp => comp.compareLine(lineNumber));
       if (startCompare < 0 && endCompare > 0) {
         // In-between range
-        return { highlightType: HIGHLIGHT_TYPES.WholeText, boundaries: null };
+        return { highlightType: HIGHLIGHT_TYPES.WholeText, bounds: null };
       }
 
       const [startRule, endRule] = this.ruleComponents;
@@ -85,11 +88,11 @@ export class HighlightRule {
 
     if (appliedRule.isSlice) {
       return appliedRule.isUnboundedSlice()
-        ? { highlightType: HIGHLIGHT_TYPES.WholeLine, boundaries: null }
-        : { highlightType: HIGHLIGHT_TYPES.PartialText, boundaries: appliedRule.boundaries };
+        ? { highlightType: HIGHLIGHT_TYPES.WholeLine, bounds: null }
+        : { highlightType: HIGHLIGHT_TYPES.PartialText, bounds: appliedRule.bounds };
     }
     // Line number only
-    return { highlightType: HIGHLIGHT_TYPES.WholeText, boundaries: null };
+    return { highlightType: HIGHLIGHT_TYPES.WholeText, bounds: null };
   }
 
   isLineRange() {

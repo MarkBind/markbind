@@ -9,7 +9,6 @@ import * as logger from '../../utils/logger';
 
 import { HighlightRule, HIGHLIGHT_TYPES } from './highlight/HighlightRule';
 import { Highlighter } from './highlight/Highlighter';
-import { Boundary } from './highlight/helper';
 
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
@@ -154,18 +153,18 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
       return `<span>${line}\n</span>`;
     }
 
-    const rawBoundaries: Boundary[] = [];
+    const rawBounds: Array<[number, number]> = [];
     let lineHighlightType = HIGHLIGHT_TYPES.PartialText;
     // Per line WholeLine override WholeText overrides PartialText
     for (let i = 0; i < rules.length; i += 1) {
-      const { highlightType, boundaries } = rules[i].getHighlightType(currentLineNumber);
+      const { highlightType, bounds } = rules[i].getHighlightType(currentLineNumber);
 
       if (highlightType === HIGHLIGHT_TYPES.WholeLine) {
         return Highlighter.highlightWholeLine(line);
       } else if (highlightType === HIGHLIGHT_TYPES.WholeText) {
         lineHighlightType = HIGHLIGHT_TYPES.WholeText;
-      } else if (boundaries !== null) {
-        boundaries.forEach(boundary => rawBoundaries.push(boundary));
+      } else if (bounds !== null) {
+        bounds.forEach(bound => rawBounds.push(bound));
       }
     }
 
@@ -173,7 +172,7 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
       return Highlighter.highlightWholeText(line);
     }
 
-    return Highlighter.highlightPartOfText(line, rawBoundaries);
+    return Highlighter.highlightPartOfText(line, rawBounds);
   }).join('');
 
   token.attrJoin('class', 'hljs');

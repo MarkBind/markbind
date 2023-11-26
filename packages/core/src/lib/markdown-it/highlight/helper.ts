@@ -7,47 +7,23 @@ export function splitCodeAndIndentation(code: string) {
   return [indents, content];
 }
 
-export enum BOUNDARY_TYPE {
-  Start,
-  End,
-}
-
-export interface Boundary {
-  index: number;
-  type: BOUNDARY_TYPE;
-}
-
 // Simplifies and collates multiple bounds applied on a single line to an array of disjointed bounds
 // e.g. [[0, 2], [1, 3], [8, 10]] -> [[0, 3], [8, 10]]
-export function collateAllIntervals(boundaryCollection: Boundary[]) {
-  let startCount = 0;
-  let endCount = 0;
-  let boundStart;
-  let boundEnd;
-  const output = [];
-  boundaryCollection.sort((boundaryA, boundaryB) => boundaryA.index - boundaryB.index);
-  for (let i = 0; i < boundaryCollection.length; i += 1) {
-    const currBoundary = boundaryCollection[i];
-
-    if (currBoundary.type === BOUNDARY_TYPE.Start) {
-      startCount += 1;
-      if (startCount === 1) {
-        // First start point that will anchor this interval
-        boundStart = currBoundary.index;
-      }
+export function collateAllIntervals(bounds: Array<[number, number]>) {
+  const output: Array<[number, number]> = [];
+  bounds.sort((boundA, boundB) => boundA[0] - boundB[0]);
+  let currStart = bounds[0][0];
+  let currEnd = bounds[0][1];
+  for (let i = 1; i < bounds.length; i += 1) {
+    const [start, end] = bounds[i];
+    if (start <= currEnd) {
+      currEnd = Math.max(currEnd, end);
     } else {
-      endCount += 1;
-      if (endCount === startCount) {
-        // Last end point that will conclude this interval
-        boundEnd = currBoundary.index;
-        if (boundEnd !== boundStart) {
-          // boundEnd should not be equal to boundStart
-          output.push([boundStart, boundEnd]);
-        }
-        endCount = 0;
-        startCount = 0;
-      }
+      output.push([currStart, currEnd]);
+      currStart = start;
+      currEnd = end;
     }
   }
+  output.push([currStart, currEnd]);
   return output;
 }

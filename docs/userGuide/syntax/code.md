@@ -92,7 +92,7 @@ function add(a, b) {
 
 ##### Line highlighting
 
-You can add the `highlight-lines` attribute to add highlighting to your code block. Refer to the example code block
+You can add the `highlight-lines` attribute to add highlighting to your code block. Refer to the examples
 below for a visual demonstration of all the possible ways of highlighting a code block.
 
 **Full text highlight**
@@ -111,7 +111,7 @@ function add(a, b) {
 **Substring highlight**
 <include src="codeAndOutputCode.md" boilerplate >
 <variable name="code">
-```js {.line-numbers highlight-lines="1['function'], 4['diff']"}
+```js {.line-numbers highlight-lines="1['function'], 2['a'], 2['b'], 4['diff']"}
 function subtract(a, b) {
     const diff = a - b;
     console.log(`${a} + ${b} = ${diff}`);
@@ -159,10 +159,10 @@ function add(a, b) {
 </variable>
 </include>
 
-**Sample Usage**
+**Sample Combined Usage**
 <include src="codeAndOutputCode.md" boilerplate >
 <variable name="code">
-```java {.line-numbers highlight-lines="1[:],3['Inventory'],4['It\'s designed'],5,6[8:15],6[18:],8[0::2],12[:]-14,16-18,20[12:]-22,24[1::]-26"}
+```java {.line-numbers highlight-lines="1[:],3['Inventory'],3[4::6],4['It\'s designed'],5,6[8:15],6[18:],8[0::2],12[:]-14,16-18,20[12:]-22,24[1::]-26"}
 import java.util.List;
 
 // Inventory is a class that stores inventory items in a list.

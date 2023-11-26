@@ -1,4 +1,4 @@
-import { Boundary, collateAllIntervals, splitCodeAndIndentation } from './helper';
+import { collateAllIntervals, splitCodeAndIndentation } from './helper';
 
 export class Highlighter {
   static highlightWholeLine(codeStr: string) {
@@ -10,13 +10,13 @@ export class Highlighter {
     return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`;
   }
 
-  static highlightPartOfText(codeStr: string, boundaries: Boundary[]) {
+  static highlightPartOfText(codeStr: string, bounds: Array<[number, number]>) {
     /*
-        * Note: As part-of-text highlighting requires walking over the node of the generated
-        * html by highlight.js, highlighting will be applied in NodeProcessor instead.
-        * hl-data is used to pass over the bounds.
-        */
-    const mergedBounds = collateAllIntervals(boundaries);
+      * Note: As part-of-text highlighting requires walking over the node of the generated
+      * html by highlight.js, highlighting will be applied in NodeProcessor instead.
+      * hl-data is used to pass over the bounds.
+    */
+    const mergedBounds = collateAllIntervals(bounds);
     const dataStr = mergedBounds.map(bound => bound.join('-')).join(',');
     return `<span hl-data=${dataStr}>${codeStr}\n</span>`;
   }
