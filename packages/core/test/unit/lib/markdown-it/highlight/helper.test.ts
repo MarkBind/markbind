@@ -15,8 +15,6 @@ test('splitCodeAndIndentation with no leading spaces', () => {
   expect(content).toEqual('var x = 1;');
 });
 
-// Add more test cases as needed
-
 test('collateAllIntervals with overlapping intervals', () => {
   const actual = collateAllIntervals([[0, 2], [1, 3], [8, 10]]);
   const expected = [[0, 3], [8, 10]];

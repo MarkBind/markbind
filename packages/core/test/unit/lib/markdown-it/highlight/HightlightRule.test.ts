@@ -54,7 +54,6 @@ describe('shouldApplyHighlight', () => {
 });
 
 describe('getHighlightType', () => {
-  // Assuming rules are parsed correctly in these tests
   const rules = HighlightRule.parseAllRules('3,4[1:5]', 0, 'line1\nline2\nline3\nline4\nline5');
   const wholeLineRule = rules[0];
   const partialTextRule = rules[1];
