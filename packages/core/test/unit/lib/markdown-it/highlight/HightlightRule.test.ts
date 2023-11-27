@@ -13,7 +13,7 @@ describe('parseAllRules', () => {
   test('ignores invalid rules', () => {
     const allRules = 'invalid,3-4';
     const rules = HighlightRule.parseAllRules(allRules, 0, 'line1\nline2\nline3\nline4');
-    expect(rules).toHaveLength(1); // Only one valid rule
+    expect(rules).toHaveLength(1);
   });
 });
 

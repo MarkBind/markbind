@@ -199,7 +199,6 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    The deployment is automated. However, if it doesn't deploy properly for the release, do the following:
 
    ```sh
-   $ npm run build:ug
    $ npm run deploy:ug
    ```
 
