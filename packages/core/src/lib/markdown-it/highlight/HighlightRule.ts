@@ -83,6 +83,7 @@ export class HighlightRule {
       }
 
       const [startRule, endRule] = this.ruleComponents;
+      // At the range boundaries
       appliedRule = startCompare === 0 ? startRule : endRule;
     }
 
