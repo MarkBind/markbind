@@ -155,7 +155,7 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
 
     const rawBounds: Array<[number, number]> = [];
     let lineHighlightType = HIGHLIGHT_TYPES.PartialText;
-    // Per line WholeLine override WholeText overrides PartialText
+    // Priority: WholeLine > WholeText > PartialText
     for (let i = 0; i < rules.length; i += 1) {
       const { highlightType, bounds } = rules[i].getHighlightType(currentLineNumber);
 
