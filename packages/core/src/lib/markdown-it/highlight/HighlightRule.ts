@@ -70,8 +70,11 @@ export class HighlightRule {
     highlightType: HIGHLIGHT_TYPES,
     bounds: Array<[number, number]> | null
   } {
+    // Applied rule is the first component until deduced otherwise
     let [appliedRule] = this.ruleComponents;
     if (this.isLineRange()) {
+      // For cases like 2[:]-3 (or 2-3[:]), the highlight would be line highlight
+      // across all the ranges
       if (this.ruleComponents.some(comp => comp.isUnboundedSlice())) {
         return { highlightType: HIGHLIGHT_TYPES.WholeLine, bounds: null };
       }

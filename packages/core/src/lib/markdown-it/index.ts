@@ -163,7 +163,11 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
         return Highlighter.highlightWholeLine(line);
       } else if (highlightType === HIGHLIGHT_TYPES.WholeText) {
         lineHighlightType = HIGHLIGHT_TYPES.WholeText;
-      } else if (bounds !== null) {
+      } else if (
+        highlightType === HIGHLIGHT_TYPES.PartialText
+        && lineHighlightType === HIGHLIGHT_TYPES.PartialText
+        && bounds !== null
+      ) {
         bounds.forEach(bound => rawBounds.push(bound));
       }
     }

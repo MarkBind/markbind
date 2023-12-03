@@ -16,21 +16,25 @@ export class HighlightRuleComponent {
     this.bounds = bounds;
   }
 
+  static isValidLineNumber(lineNumStr: string, min: number, max: number, offset: number) {
+    let lineNum = Number(lineNumStr);
+    if (Number.isNaN(lineNum) || !Number.isInteger(lineNum)) return null;
+    lineNum += offset;
+    return lineNum >= min && lineNum <= max ? lineNum : null;
+  }
+
   static parseRuleComponent(compString: string, lineNumberOffset: number, lines: string[]) {
     // Match line-part syntax
     const linepartMatch = compString.match(LINEPART_REGEX);
     if (linepartMatch) {
       // There are four capturing groups: [full match, line number, quote type, line part]
       const [, lineNumberString, , linePartWithQuotes] = linepartMatch;
-      let lineNumber = parseInt(lineNumberString, 10);
-      if (Number.isNaN(lineNumber)) {
-        return null;
-      }
-      lineNumber += lineNumberOffset;
-      if (lineNumber > lines.length) return null;
+      const lineNumber = HighlightRuleComponent
+        .isValidLineNumber(lineNumberString, 1, lines.length, lineNumberOffset);
+      if (!lineNumber) return null;
+
       const linePart = linePartWithQuotes.replace(/\\'/g, '\'').replace(/\\"/g, '"'); // unescape quotes
       const bounds = HighlightRuleComponent.computeLinePartBounds(linePart, lines[lineNumber - 1]);
-
       return new HighlightRuleComponent(lineNumber, true, bounds);
     }
 
@@ -42,13 +46,9 @@ export class HighlightRuleComponent {
       // There are four capturing groups: [full match, line number, start bound, end bound]
       const groups = sliceMatch.slice(1); // discard full match
 
-      let lineNumber = Number(groups.shift() ?? '');
-      if (Number.isNaN(lineNumber)
-        || !Number.isInteger(lineNumber)
-        || lineNumber < 1 || lineNumber > lines.length) {
-        return null;
-      }
-      lineNumber += lineNumberOffset;
+      const lineNumber = HighlightRuleComponent
+        .isValidLineNumber(groups.shift() ?? '', 1, lines.length, lineNumberOffset);
+      if (!lineNumber) return null;
 
       const isUnbounded = groups.every(x => x === '');
       if (isUnbounded) {
@@ -65,13 +65,10 @@ export class HighlightRuleComponent {
     }
 
     // Match line-number syntax
-    const lineNumberBeforeOffset = Number(compString);
-    // ensure the whole string can be converted to number
-    if (!Number.isNaN(lineNumberBeforeOffset) && Number.isInteger(lineNumberBeforeOffset)) {
-      const lineNumber = lineNumberBeforeOffset + lineNumberOffset;
-      if (lineNumber > 0 && lineNumber <= lines.length) {
-        return new HighlightRuleComponent(lineNumber);
-      }
+    const lineNumber = HighlightRuleComponent
+      .isValidLineNumber(compString, 1, lines.length, lineNumberOffset);
+    if (lineNumber) {
+      return new HighlightRuleComponent(lineNumber);
     }
 
     // the string is an improperly written rule

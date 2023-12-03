@@ -7,13 +7,18 @@ describe('parseAllRules', () => {
     const rules = HighlightRule.parseAllRules(allRules, 0, 'line1\nline2\nline3\nline4\nline5');
     expect(rules).toHaveLength(2);
     expect(rules[0]).toBeInstanceOf(HighlightRule);
+    expect(rules[0].getHighlightType(3).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
     expect(rules[1]).toBeInstanceOf(HighlightRule);
+    expect(rules[1].getHighlightType(4).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
+    expect(rules[1].getHighlightType(5).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
   });
 
   test('ignores invalid rules', () => {
     const allRules = 'invalid,3-4';
     const rules = HighlightRule.parseAllRules(allRules, 0, 'line1\nline2\nline3\nline4');
     expect(rules).toHaveLength(1);
+    expect(rules[0].getHighlightType(3).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
+    expect(rules[0].getHighlightType(4).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
   });
 });
 
