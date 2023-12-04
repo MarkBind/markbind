@@ -59,12 +59,25 @@ describe('shouldApplyHighlight', () => {
 });
 
 describe('getHighlightType', () => {
-  const rules = HighlightRule.parseAllRules('3,4[1:5]', 0, 'line1\nline2\nline3\nline4\nline5');
-  const wholeLineRule = rules[0];
+  const rules = HighlightRule.parseAllRules(
+    '3,4[1:5],1[:]-2, 6-8', 0, 'line1\nline2\nline3\nline4\nline5\nline6\nline7\nline8',
+  );
+  const wholeTextRule = rules[0];
   const partialTextRule = rules[1];
+  const wholeLinesRule = rules[2];
+  const wholeTextsRule = rules[3];
+
+  test('returns WholeLine for two lines', () => {
+    expect(wholeLinesRule.getHighlightType(1).highlightType).toBe(HIGHLIGHT_TYPES.WholeLine);
+    expect(wholeLinesRule.getHighlightType(2).highlightType).toBe(HIGHLIGHT_TYPES.WholeLine);
+  });
+
+  test('returns WholeText for in between lines', () => {
+    expect(wholeTextsRule.getHighlightType(7).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
+  });
 
   test('returns WholeText for single line', () => {
-    const { highlightType } = wholeLineRule.getHighlightType(3);
+    const { highlightType } = wholeTextRule.getHighlightType(3);
     expect(highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
   });
 
