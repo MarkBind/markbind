@@ -60,12 +60,13 @@ describe('shouldApplyHighlight', () => {
 
 describe('getHighlightType', () => {
   const rules = HighlightRule.parseAllRules(
-    '3,4[1:5],1[:]-2, 6-8', 0, 'line1\nline2\nline3\nline4\nline5\nline6\nline7\nline8',
+    '3,4[1:5],1[:]-2,6-8,9[:]', 0, 'line1\nline2\nline3\nline4\nline5\nline6\nline7\nline8\nline9',
   );
   const wholeTextRule = rules[0];
   const partialTextRule = rules[1];
   const wholeLinesRule = rules[2];
   const wholeTextsRule = rules[3];
+  const wholeLineRule = rules[4];
 
   test('returns WholeLine for two lines', () => {
     expect(wholeLinesRule.getHighlightType(1).highlightType).toBe(HIGHLIGHT_TYPES.WholeLine);
@@ -79,6 +80,10 @@ describe('getHighlightType', () => {
   test('returns WholeText for single line', () => {
     const { highlightType } = wholeTextRule.getHighlightType(3);
     expect(highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
+  });
+
+  test('returns WholeLine for single line', () => {
+    expect(wholeLineRule.getHighlightType(9).highlightType).toBe(HIGHLIGHT_TYPES.WholeLine);
   });
 
   test('returns PartialText for bounded slice', () => {
