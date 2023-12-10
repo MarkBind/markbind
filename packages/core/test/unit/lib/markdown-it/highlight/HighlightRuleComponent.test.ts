@@ -126,3 +126,35 @@ describe('computeLinePartBounds', () => {
     expect(bounds).toEqual([[0, 0]]);
   });
 });
+
+describe('isValidLineNumber', () => {
+  test('returns valid line number within range', () => {
+    const result = HighlightRuleComponent.isValidLineNumber('3', 1, 5, 0);
+    expect(result).toEqual(3);
+  });
+
+  test('returns null for NaN line number', () => {
+    const result = HighlightRuleComponent.isValidLineNumber('abc', 1, 5, 0);
+    expect(result).toBeNull();
+  });
+
+  test('returns null for non-integer line number', () => {
+    const result = HighlightRuleComponent.isValidLineNumber('2.5', 1, 5, 0);
+    expect(result).toBeNull();
+  });
+
+  test('returns null for line number below minimum', () => {
+    const result = HighlightRuleComponent.isValidLineNumber('0', 1, 5, 0);
+    expect(result).toBeNull();
+  });
+
+  test('returns null for line number above maximum', () => {
+    const result = HighlightRuleComponent.isValidLineNumber('6', 1, 5, 0);
+    expect(result).toBeNull();
+  });
+
+  test('returns valid line number with offset', () => {
+    const result = HighlightRuleComponent.isValidLineNumber('3', 1, 5, 2);
+    expect(result).toEqual(5);
+  });
+});
