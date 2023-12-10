@@ -8,11 +8,19 @@ const UNBOUNDED = -1;
 export class HighlightRuleComponent {
   lineNumber: number;
   isSlice: boolean;
-  bounds: number[][];
-  constructor(lineNumber: number, isSlice: boolean = false, bounds: number[][] = []) {
+  bounds: Array<[number, number]>;
+
+  constructor(lineNumber: number, isSlice: boolean = false, bounds: Array<[number, number]> = []) {
     this.lineNumber = lineNumber;
     this.isSlice = isSlice;
     this.bounds = bounds;
+  }
+
+  static isValidLineNumber(lineNumStr: string, min: number, max: number, offset: number) {
+    let lineNum = Number(lineNumStr);
+    if (Number.isNaN(lineNum) || !Number.isInteger(lineNum)) return null;
+    lineNum += offset;
+    return lineNum >= min && lineNum <= max ? lineNum : null;
   }
 
   static parseRuleComponent(compString: string, lineNumberOffset: number, lines: string[]) {
@@ -21,15 +29,12 @@ export class HighlightRuleComponent {
     if (linepartMatch) {
       // There are four capturing groups: [full match, line number, quote type, line part]
       const [, lineNumberString, , linePartWithQuotes] = linepartMatch;
-      let lineNumber = parseInt(lineNumberString, 10);
-      if (Number.isNaN(lineNumber)) {
-        return null;
-      }
-      lineNumber += lineNumberOffset;
+      const lineNumber = HighlightRuleComponent
+        .isValidLineNumber(lineNumberString, 1, lines.length, lineNumberOffset);
+      if (!lineNumber) return null;
 
       const linePart = linePartWithQuotes.replace(/\\'/g, '\'').replace(/\\"/g, '"'); // unescape quotes
       const bounds = HighlightRuleComponent.computeLinePartBounds(linePart, lines[lineNumber - 1]);
-
       return new HighlightRuleComponent(lineNumber, true, bounds);
     }
 
@@ -41,18 +46,16 @@ export class HighlightRuleComponent {
       // There are four capturing groups: [full match, line number, start bound, end bound]
       const groups = sliceMatch.slice(1); // discard full match
 
-      let lineNumber = parseInt(groups.shift() ?? '', 10);
-      if (Number.isNaN(lineNumber)) {
-        return null;
-      }
-      lineNumber += lineNumberOffset;
+      const lineNumber = HighlightRuleComponent
+        .isValidLineNumber(groups.shift() ?? '', 1, lines.length, lineNumberOffset);
+      if (!lineNumber) return null;
 
       const isUnbounded = groups.every(x => x === '');
       if (isUnbounded) {
         return new HighlightRuleComponent(lineNumber, true, []);
       }
 
-      let bound = groups.map(x => (x !== '' ? parseInt(x, 10) : UNBOUNDED));
+      let bound = groups.map(x => (x !== '' ? parseInt(x, 10) : UNBOUNDED)) as [number, number];
       const isCharSlice = sliceMatch === linesliceCharMatch;
       bound = isCharSlice
         ? HighlightRuleComponent.computeCharBounds(bound, lines[lineNumber - 1])
@@ -62,8 +65,9 @@ export class HighlightRuleComponent {
     }
 
     // Match line-number syntax
-    if (!Number.isNaN(compString)) { // ensure the whole string can be converted to number
-      const lineNumber = parseInt(compString, 10) + lineNumberOffset;
+    const lineNumber = HighlightRuleComponent
+      .isValidLineNumber(compString, 1, lines.length, lineNumberOffset);
+    if (lineNumber) {
       return new HighlightRuleComponent(lineNumber);
     }
 
@@ -78,7 +82,7 @@ export class HighlightRuleComponent {
    * @returns {number} A negative number, zero, or a positive number when the given line number
    *  is after, at, or before the component's line number
    */
-  compareLine(lineNumber: number) {
+  compareLine(lineNumber: number): number {
     return this.lineNumber - lineNumber;
   }
 
@@ -97,7 +101,7 @@ export class HighlightRuleComponent {
    * @param line The given line
    * @returns {[number, number]} The actual bound computed
    */
-  static computeCharBounds(bound: number[], line: string) {
+  static computeCharBounds(bound: [number, number], line: string): [number, number] {
     const [indents] = splitCodeAndIndentation(line);
     let [start, end] = bound;
 
@@ -139,7 +143,7 @@ export class HighlightRuleComponent {
    * @param line The given line
    * @returns {[number, number]} The actual bound computed
    */
-  static computeWordBounds(bound: number[], line: string) {
+  static computeWordBounds(bound: [number, number], line: string): [number, number] {
     const [indents, content] = splitCodeAndIndentation(line);
     const words = content.split(/\s+/);
     const wordPositions: number[][] = [];
@@ -184,7 +188,7 @@ export class HighlightRuleComponent {
    * @returns {Array<[number, number]>} The bounds computed, each indicates the range of each
    * occurrences of the line part in the line
    */
-  static computeLinePartBounds(linePart: string, line: string) {
+  static computeLinePartBounds(linePart: string, line: string): Array<[number, number]> {
     const [indents, content] = splitCodeAndIndentation(line);
     let contentRemaining = content;
     let start = contentRemaining.indexOf(linePart);
@@ -193,7 +197,7 @@ export class HighlightRuleComponent {
       return [[0, 0]];
     }
 
-    const bounds = [];
+    const bounds: Array<[number, number]> = [];
     let curr = indents.length;
     while (start !== -1) {
       const end = start + linePart.length;
