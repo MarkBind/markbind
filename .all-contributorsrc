@@ -671,6 +671,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "zlimez",
+      "name": "Nisemono",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39835365?v=4",
+      "profile": "https://github.com/zlimez",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
