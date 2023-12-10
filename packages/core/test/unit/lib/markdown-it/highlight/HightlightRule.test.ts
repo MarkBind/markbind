@@ -4,7 +4,7 @@ import { HighlightRuleComponent } from '../../../../../src/lib/markdown-it/highl
 describe('parseAllRules', () => {
   test('parses multiple rules correctly', () => {
     const allRules = '3,4-5';
-    const rules = HighlightRule.parseAllRules(allRules, 0, 'line1\nline2\nline3\nline4\nline5');
+    const rules = HighlightRule.parseAllRules(allRules, 0, 'line1\nline2\nline3\nline4\nline5\n');
     expect(rules).toHaveLength(2);
     expect(rules[0]).toBeInstanceOf(HighlightRule);
     expect(rules[0].getHighlightType(3).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
@@ -15,7 +15,7 @@ describe('parseAllRules', () => {
 
   test('ignores invalid rules', () => {
     const allRules = 'invalid,3-4';
-    const rules = HighlightRule.parseAllRules(allRules, 0, 'line1\nline2\nline3\nline4');
+    const rules = HighlightRule.parseAllRules(allRules, 0, 'line1\nline2\nline3\nline4\n');
     expect(rules).toHaveLength(1);
     expect(rules[0].getHighlightType(3).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
     expect(rules[0].getHighlightType(4).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
@@ -44,7 +44,7 @@ describe('parseRule', () => {
 });
 
 describe('shouldApplyHighlight', () => {
-  const rules = HighlightRule.parseAllRules('3-4', 0, 'line1\nline2\nline3\nline4\nline5');
+  const rules = HighlightRule.parseAllRules('3-4', 0, 'line1\nline2\nline3\nline4\nline5\n');
   const rule = rules[0];
 
   test('returns true within the line range', () => {
@@ -60,7 +60,7 @@ describe('shouldApplyHighlight', () => {
 
 describe('getHighlightType', () => {
   const rules = HighlightRule.parseAllRules(
-    '3,4[1:5],1[:]-2,6-8,9[:]', 0, 'line1\nline2\nline3\nline4\nline5\nline6\nline7\nline8\nline9',
+    '3,4[1:5],1[:]-2,6-8,9[:]', 0, 'line1\nline2\nline3\nline4\nline5\nline6\nline7\nline8\nline9\n',
   );
   const wholeTextRule = rules[0];
   const partialTextRule = rules[1];

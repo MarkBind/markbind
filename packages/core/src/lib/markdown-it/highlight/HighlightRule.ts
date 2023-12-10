@@ -15,6 +15,7 @@ export class HighlightRule {
   static parseAllRules(allRules: string, lineOffset: number, tokenContent: string) {
     const highlightLines = this.splitByChar(allRules, ',');
     const strArray = tokenContent.split('\n');
+    strArray.pop(); // removes the last empty string
     return highlightLines
       .map(ruleStr => HighlightRule.parseRule(ruleStr, lineOffset, strArray))
       .filter(rule => rule) as HighlightRule[]; // discards invalid rules
