@@ -33,6 +33,7 @@ import popover from './Popover.vue';
 import tooltip from './Tooltip.vue';
 import modal from './Modal.vue';
 import scrollTopButton from './ScrollTopButton.vue';
+import inlineTextExpansion from './InlineTextExpansion.vue';
 
 const components = {
   box,
@@ -65,6 +66,7 @@ const components = {
   'VPopover': Dropdown,
   'VTooltip': Tooltip,
   scrollTopButton,
+  inlineTextExpansion,
 };
 
 const directives = {
