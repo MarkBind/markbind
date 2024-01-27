@@ -9,6 +9,7 @@
 
 {% macro show_topic(filename, heading) %}
 <panel type="seamless">
+
   <div slot="header">
     <md>**{{ heading }}**</md>
     <include src="syntax/{{ filename }}.md#short" />
@@ -18,7 +19,6 @@
   </div>
 </panel>
 {% endmacro %}
-
 
 {% for k,v in topics | dictsort %}
 {{ show_topic( k, v[0]) }}

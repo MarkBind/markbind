@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic as LogicPackage {
+
+Class AddressBookParser
+Class XYZCommand
+Class CommandResult
+Class "{abstract}\nCommand" as Command
+
+
+Class "<<interface>>\nLogic" as Logic
+Class LogicManager
+}
+
+package Model {
+Class HiddenModel #FFFFFF
+}
+
+package Storage {
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Logic
+
+LogicManager .right.|> Logic
+LogicManager -right->"1" AddressBookParser
+AddressBookParser ..> XYZCommand : creates >
+
+XYZCommand -up-|> Command
+LogicManager .left.> Command : executes >
+
+LogicManager --> Model
+LogicManager --> Storage
+Storage --[hidden] Model
+Command .[hidden]up.> Storage
+Command .right.> Model
+note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+
+Logic ..> CommandResult
+LogicManager .down.> CommandResult
+Command .up.> CommandResult : produces >
+@enduml
