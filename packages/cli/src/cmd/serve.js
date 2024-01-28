@@ -63,6 +63,7 @@ function serve(userSpecifiedRoot, options) {
     logLevel: 0,
     root: outputFolder,
     port: options.port || 8080,
+    host: options.address || '127.0.0.1',
     middleware: [],
     mount: [],
   };
@@ -111,8 +112,9 @@ function serve(userSpecifiedRoot, options) {
       const server = liveServer.start(serverConfig);
       server.addListener('listening', () => {
         const address = server.address();
-        const serveHost = address.address === '0.0.0.0' ? '127.0.0.1' : address.address;
-        const serveURL = `http://${serveHost}:${address.port}`;
+        const serveHost = address.address;
+        const servePort = address.port;
+        const serveURL = `http://${serveHost}:${servePort}`;
         logger.info(`Serving "${outputFolder}" at ${serveURL}`);
         logger.info('Press CTRL+C to stop ...');
       });
