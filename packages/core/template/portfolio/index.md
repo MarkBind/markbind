@@ -52,7 +52,7 @@ This is where you can add a picture of yourself and a brief introduction
 
 ## Navigating this site
 
-This __ site comes pre-configured with the core <a href="https://markbind.org/userGuide/components/navigation.html#navigation-components" target="_blank">Navigation components</a>: a <tooltip content="Site Navigation">**siteNav**</tooltip>, a <tooltip content="Page Navigation">**pageNav**</tooltip>, a <tooltip content="Navigation Bar">**NavBar**</tooltip>, and a **Search Bar**. To help you get started with the **siteNav**, we have included <tooltip content="experience, skills, projects, project1, project2">five dummy placeholder pages</tooltip>. The **NavBar** also comes with a placeholder slot for your name.
+This site comes pre-configured with the core <a href="https://markbind.org/userGuide/components/navigation.html#navigation-components" target="_blank">Navigation components</a>: a <tooltip content="Site Navigation">**siteNav**</tooltip>, a <tooltip content="Page Navigation">**pageNav**</tooltip>, a <tooltip content="Navigation Bar">**NavBar**</tooltip>, and a **Search Bar**. To help you get started with the **siteNav**, we have included <tooltip content="experience, skills, projects, project1, project2">five dummy placeholder pages</tooltip>. The **NavBar** also comes with a placeholder slot for your name.
 
 ---
 
