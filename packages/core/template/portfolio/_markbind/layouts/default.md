@@ -4,12 +4,12 @@
 
 <header sticky>
   <navbar type="dark">
-    <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">Your Logo</a>
-    <li><a href="{{baseUrl}}/contents/topic1.html" class="nav-link">Topic 1</a></li>
-    <li><a href="{{baseUrl}}/contents/topic2.html" class="nav-link">Topic 2</a></li>
-    <dropdown header="Topic 3" class="nav-link">
-      <li><a href="{{baseUrl}}/contents/topic3a.html" class="dropdown-item">Topic 3a</a></li>
-      <li><a href="{{baseUrl}}/contents/topic3b.html" class="dropdown-item">Topic 3b</a></li>
+    <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">Your Name</a>
+    <li><a href="{{baseUrl}}/contents/topic1.html" class="nav-link">Experience</a></li>
+    <li><a href="{{baseUrl}}/contents/topic2.html" class="nav-link">Skills</a></li>
+    <dropdown header="Projects" class="nav-link">
+      <li><a href="{{baseUrl}}/contents/topic3a.html" class="dropdown-item">Project1</a></li>
+      <li><a href="{{baseUrl}}/contents/topic3b.html" class="dropdown-item">Project2</a></li>
     </dropdown>
     <li slot="right">
       <form class="navbar-form">
