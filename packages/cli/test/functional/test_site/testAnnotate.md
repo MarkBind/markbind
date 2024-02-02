@@ -70,3 +70,16 @@
   <a-point x="50%" y="50%" content="some test text"  label="5" legend="both" header="some test text"/>
   <a-point x="75%" y="50%" content="some test text"  label="6" legend="both" header="some test text"/>
 </annotate>
+
+**Annotate Point customised shapes**
+<annotate src="./images/annotateSampleImage.png" width="1500" alt="sampleImage">
+    <a-point x="25%" y="25%">
+        <span class="badge rounded-pill bg-primary">Label</span>
+    </a-point>
+    <a-point x="50%" y="25%">
+        <pic src="./images/deer.jpg" width="50" height="50" />
+    </a-point>
+    <a-point x="75%" y="25%">
+        <div style="background-color: black; color: white; width: 100px; height: 50px;">Text label</div>
+    </a-point>
+</annotate>

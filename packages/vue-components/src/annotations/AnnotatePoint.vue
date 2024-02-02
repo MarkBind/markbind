@@ -26,8 +26,10 @@
             shift-cross-axis
           >
             <div class="hover-wrapper">
-              <button class="hover-point" :style="pointStyle">
-              </button>
+              <slot>
+                <button class="hover-point" :style="pointStyle">
+                </button>
+              </slot>
               <div class="hover-label" :style="labelStyle">
                 {{ label }}
               </div>
