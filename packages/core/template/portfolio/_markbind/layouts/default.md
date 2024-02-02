@@ -5,11 +5,11 @@
 <header sticky>
   <navbar type="dark">
     <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">Your Name</a>
-    <li><a href="{{baseUrl}}/contents/topic1.html" class="nav-link">Experience</a></li>
-    <li><a href="{{baseUrl}}/contents/topic2.html" class="nav-link">Skills</a></li>
+    <li><a href="{{baseUrl}}/contents/experience.html" class="nav-link">Experience</a></li>
+    <li><a href="{{baseUrl}}/contents/skills.html" class="nav-link">Skills</a></li>
     <dropdown header="Projects" class="nav-link">
-      <li><a href="{{baseUrl}}/contents/topic3a.html" class="dropdown-item">Project1</a></li>
-      <li><a href="{{baseUrl}}/contents/topic3b.html" class="dropdown-item">Project2</a></li>
+      <li><a href="{{baseUrl}}/contents/project1.html" class="dropdown-item">Project1</a></li>
+      <li><a href="{{baseUrl}}/contents/project2.html" class="dropdown-item">Project2</a></li>
     </dropdown>
     <li slot="right">
       <form class="navbar-form">
@@ -27,11 +27,11 @@
     <div class="nav-component slim-scroll">
       <site-nav>
 * [Home :house:]({{ baseUrl }}/index.html)
-* [Topic 1]({{baseUrl}}/contents/topic1.html)
-* [Topic 2]({{baseUrl}}/contents/topic2.html)
-* Topic 3 :expanded:
-  * [Topic 3a]({{baseUrl}}/contents/topic3a.html)
-  * [Topic 3b]({{baseUrl}}/contents/topic3b.html)
+* [Experience]({{baseUrl}}/contents/experience.html)
+* [Skills]({{baseUrl}}/contents/skills.html)
+* Projects :expanded:
+  * [Project 1]({{baseUrl}}/contents/project1.html)
+  * [Project 2]({{baseUrl}}/contents/project2.html)
       </site-nav>
     </div>
   </nav>
