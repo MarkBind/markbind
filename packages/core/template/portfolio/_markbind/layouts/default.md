@@ -11,6 +11,15 @@
       <li><a href="{{baseUrl}}/contents/project1.html" class="dropdown-item">Project1</a></li>
       <li><a href="{{baseUrl}}/contents/project2.html" class="dropdown-item">Project2</a></li>
     </dropdown>
+    <li><a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
+      <i class="fa-brands fa-github fa-lg"></i>
+    </a>
+    </li>
+    <li>
+    <a href="https://www.linkedin.com/school/national-university-of-singapore/" target="_blank" class="nav-link">
+      <i class="fa-brands fa-linkedin fa-lg"></i>
+    </a>
+    </li>
     <li slot="right">
       <form class="navbar-form">
         <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right></searchbar>
