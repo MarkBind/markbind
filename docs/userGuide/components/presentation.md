@@ -31,7 +31,7 @@ More specifically, you should use either:
 - use the `<markdown>` or `<md>`
   tag to wrap the markdown content
 
-For more information, please refer to this [section](../usingHtmlJavascriptCss.html#markdown-in-html).
+For more information, please refer to this [section]({{baseUrl}}/userGuide/usingHtmlJavaScriptCss.html#markdown-in-html).
 
 </box>
 
