@@ -8,7 +8,8 @@
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 <panel header="This is your header for a Panel, click me to expand!">
-  Lorem ipsum ...
+  <markdown>_markdown_</markdown>
+  plain text ...
 </panel>
 </variable>
 </include>
@@ -103,7 +104,6 @@
 </variable>
 </include>
 
-
 **Show/Hide buttons using `no-switch`, `no-close`, or `no-minimized-switch`.**
 
 <include src="codeAndOutput.md" boilerplate >
@@ -189,7 +189,7 @@
 </variable>
 </include>
 
-****Options****
+\***\*Options\*\***
 Name | Type | Default | Description
 --- | --- | --- | ---
 header{{slot_info_trigger}} | `String` | `''` | The clickable text on the Panel's header. Supports MarkDown text.
@@ -210,10 +210,9 @@ type | `String` | `light` | The type or color scheme of the panel (single).<br>S
 <div id="short" class="d-none">
 
 ```html
-<panel header="primary type panel" type="primary" >
-  ...
-</panel>
+<panel header="primary type panel" type="primary"> ... </panel>
 ```
+
 </div>
 
 <div id="examples" class="d-none">
@@ -248,6 +247,5 @@ type | `String` | `light` | The type or color scheme of the panel (single).<br>S
 <panel header="secondary type panel" type="secondary" minimized>
   ...
 </panel>
-
 
 </div>

@@ -5,7 +5,8 @@
 <variable name="code">
 <tabs>
   <tab header="First tab">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis.
+    Text in the first tab
+    <markdown>_some markdown_</markdown>
   </tab>
   <tab header="Disabled second tab :x:" disabled>
   </tab>
@@ -28,7 +29,7 @@
 </variable>
 </include>
 
-****Options****
+\***\*Options\*\***
 
 `tabs`:
 Name | Type | Default | Description
@@ -56,22 +57,15 @@ Tabs, tab group and individual tab can be omitted during printing by adding Boot
 
 ```html
 <tabs>
-  <tab header="First tab">
-    Content of the first tab
-  </tab>
-  <tab header="Second tab">
-    Contents of the second tab
-  </tab>
+  <tab header="First tab"> Content of the first tab </tab>
+  <tab header="Second tab"> Contents of the second tab </tab>
   <tab-group header="Third tab group :tv:">
-    <tab header="Stars :star:">
-      Some stuff about stars ...
-    </tab>
-    <tab header="Moon">
-      Some stuff about the moon ...
-    </tab>
+    <tab header="Stars :star:"> Some stuff about stars ... </tab>
+    <tab header="Moon"> Some stuff about the moon ... </tab>
   </tab-group>
 </tabs>
 ```
+
 </div>
 
 <div id="examples" class="d-none">

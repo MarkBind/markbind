@@ -1,5 +1,14 @@
 ## Badges
-
+Example:
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<span class="badge bg-primary">
+<markdown>**Heading**</markdown>
+</span>
+</variable>
+</include>
+You can choose from a variety of colors for your badges.  You can also use the `rounded-pill` class to make the badges pill-shaped.
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
@@ -35,22 +44,23 @@ Links:
 
 Buttons:
 <button type="button" class="btn btn-primary">
-  Difficulty Level <span class="badge bg-light text-dark">4</span>
+Difficulty Level <span class="badge bg-light text-dark">4</span>
 </button>
 
 Headings:
 
 ### Feature X <span class="badge bg-danger">beta</span> {.no-index}
+
 ##### Feature Y <span class="badge rounded-pill bg-success">stable</span> {.no-index}
+
 </variable>
 </include>
-
 
 <div class="indented">
 
 %%{{ icon_info }} You can refer to [Bootstrap documentation](https://getbootstrap.com/docs/5.1/components/badge/) to find more information about Badges.%%
-</div>
 
+</div>
 
 <div id="short" class="d-none">
 
@@ -58,9 +68,10 @@ Headings:
 <span class="badge bg-primary">Primary</span>
 <span class="badge rounded-pill bg-success">Success</span>
 <button type="button" class="btn btn-primary">
-  Difficulty Level <span class="badge bg-light text-dark">4</span>
+Difficulty Level <span class="badge bg-light text-dark">4</span>
 </button>
 ```
+
 </div>
 
 <div id="examples" class="d-none">
@@ -68,7 +79,9 @@ Headings:
 <span class="badge bg-primary">Primary</span>
 <span class="badge rounded-pill bg-success">Success</span>
 <button type="button" class="btn btn-primary">
-  Difficulty Level <span class="badge bg-light text-dark">4</span>
+Difficulty Level <span class="badge bg-light text-dark">4</span>
+
 ##### Feature Y <span class="badge rounded-pill bg-warning text-dark">stable</span> {.no-index}
+
 </button>
 </div>

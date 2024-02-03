@@ -27,8 +27,12 @@ The components in this page are the core **presentational** components you may w
 <include src="../syntax/{{ filename }}.md" />
 <hr>
 {% endmacro %}
-
 {% for k,v in topics %}
+<!-- intended for extracting the following topics out of the list:
+  badges : ['Badges', ['presentation', 'reader-facing']],
+  boxes : ['Boxes', ['presentation', 'reader-facing']],
+  panels : ['Panels', ['presentation', 'reader-facing']],
+  tabs : ['Tabs', ['presentation', 'reader-facing']], -->
 {% if 'presentation' in v[1] %}
 {{ show_topic(k) }}
 {% endif %}
