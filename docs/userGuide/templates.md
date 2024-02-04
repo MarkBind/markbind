@@ -31,7 +31,7 @@ Name    | Template key | Description | Quick Deploy
 ----    | -------      | ----------- | ------------
 Default | `default`    | Default template if `--template` is unspecified. Includes core features such as site and page navigation for a more convenient quick start. | <a href="https://app.netlify.com/start/deploy?repository=https://github.com/MarkBind/init-typical-netlify"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>
 Minimal | `minimal`    | Minimalistic template that gets you started quickly. | <a href="https://app.netlify.com/start/deploy?repository=https://github.com/MarkBind/init-minimal-netlify"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>
-AB3     | `ab3`        | [AB3](https://se-education.org/addressbook-level3) template which is under [SE-EDU](https://se-education.org) initiative. | <a href="https://65b4b64e61304e76b972f3cd--shimmering-douhua-d6ca81.netlify.app/"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>
+Project     | `project`        | Project documentation template as a starting point for project developers, which includes a template user guide and developer guide. | <a href="https://markbind-template-project.netlify.app/"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('addingNavigationButtons', '') }}
