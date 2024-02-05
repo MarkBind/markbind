@@ -282,9 +282,9 @@ LiveServer.start = function(options) {
         server.listen(0, host);
       }, 1000);
     } else if (e.code === 'EADDRNOTAVAIL') {
-      console.log('address(host) %s is not available. Trying another address'.yellow, host);
+      console.log('%s is not available. Trying another address'.yellow, host);
       setTimeout(function() {
-        server.listen(port, '0.0.0.0');
+        server.listen(port, '127.0.0.1');
       }, 1000);
     }
      else {

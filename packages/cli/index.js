@@ -56,7 +56,7 @@ program
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .option('-d, --dev', 'development mode, enabling live & hot reload for frontend source files.')
-  .option('-a, --address <address>', 'specify the server address/host (Default is localhost')
+  .option('-a, --address <address>', 'specify the server address/host (Default is 127.0.0.1)')
   .description('build then serve a website from a directory')
   .action((userSpecifiedRoot, options) => {
     serve(userSpecifiedRoot, options);
