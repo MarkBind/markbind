@@ -85,12 +85,12 @@ function serve(userSpecifiedRoot, options) {
     .then(async (config) => {
       if (serverConfig.host === '0.0.0.0') {
         const response = await questionAsync(
-          'Using the address \'0.0.0.0\' may pose vulnerabilities and is generally discouraged.'
+          'WARNING: Using the address \'0.0.0.0\' may pose vulnerabilities and is generally discouraged.'
           + 'Proceed with caution? [y/N] ');
         if (response.toLowerCase() === 'y') {
-          console.log('Proceeding...');
+          logger.info('Proceeding to generate website');
         } else {
-          console.log('Operation is cancelled.');
+          logger.info('Website generation is cancelled.');
           process.exit();
         }
       }
