@@ -54,3 +54,4 @@ export = {
   postRender: (_pluginContext: PluginContext,
                _frontmatter: FrontMatter, content: string) => addNoIndexClasses(content),
 };
+
