@@ -5,7 +5,11 @@ Example:
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 <span class="badge bg-primary">
-<markdown>**Heading**</markdown>
+Some Plain Text
+</span>
+
+<span class="badge bg-primary">
+<md>**Some Markdown**</md>
 </span>
 </variable>
 </include>

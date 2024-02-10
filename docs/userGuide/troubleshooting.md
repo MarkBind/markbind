@@ -50,42 +50,37 @@ A possible fix for the above situation is to wrap the table in a `<div>` element
 
 ##### Markdown Rendering Issues
 
-If you encounter issues of failure in rendering markdown in a component, it is likely that the markdown is not being properly recognized due to syntax errors. Sign posting is required to inform markdown to parse content of a presentation component as markdown rather than plain text.
+If you encounter issues in rendering Markdown in a component, it is likely that the Markdown is not being properly recognized due to syntax errors. Signposting is required to inform Markdown to parse the content of a presentation component as Markdown rather than plain text.
 
-You could sign post markdown either by:
+You could signpost Markdown either by:
 
-- using the `markdown` tag
+- using the `markdown`(block level elements) or `md`(inline level elements) tags
 - using an empty line without any indentation before the markdown content
+Example: correct markdown rendering using Tags or newline:
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<box>
 
-<panel header="Markdown rendering (Example)" type="seamless">
-Both using the `markdown` tag and adding line breaks will render the markdown content.Example:
-
-```html
-<box> <markdown> **Hello World** <markdown> </box>
-```
-
-and
-
-```html
-<box> 
-  
-**Hello World**
+**Example1**
 </box>
-```
-will render as:
-<box> 
-  
-**Hello World** 
-</box>
-</panel>
 
-<panel header="No markdown rendering (Example)" type="seamless">
-If you do not sign post markdown, the content will be rendered as plain text.
-Example:
-  
-  ```html
-  <box> **Hello World** </box>
-  ```
-  will render as:
-  <box> **Hello World** </box>
+<box> 
+<md> **Example2** </md> 
+</box>
+
+<box> 
+<markdown> **Example3** </markdown> 
+</box>
+
+
+</variable>
+</include>
+<panel header="Markdown not rendered without singposting(Example)" type="seamless">
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<box> **This will be rendered as plain text**</box>
+</variable>
+</include>
 </panel>

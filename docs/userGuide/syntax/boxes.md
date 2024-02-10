@@ -8,7 +8,10 @@
 <variable name="code">
 <box>
 plain text
-<markdown>_markdown_</markdown>
+</box>
+
+<box>
+<md>_markdown_</md>
 </box>
 </variable>
 </include>
