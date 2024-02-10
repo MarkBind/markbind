@@ -61,6 +61,7 @@ Headings:
 %%{{ icon_info }} You can refer to [Bootstrap documentation](https://getbootstrap.com/docs/5.1/components/badge/) to find more information about Badges.%%
 </div>
 
+
 <div id="short" class="d-none">
 
 ```markdown
@@ -70,7 +71,6 @@ Headings:
   Difficulty Level <span class="badge bg-light text-dark">4</span>
 </button>
 ```
-
 </div>
 
 <div id="examples" class="d-none">
