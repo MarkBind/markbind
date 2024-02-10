@@ -217,7 +217,7 @@ Custom styles **(** `background-color`, `border-color`, `border-left-color`, `ic
 </variable>
 </include>
 
-\***\*Options\*\***
+****Options****
 Name | Type | Default | Description
 --- | --- | --- | ---
 background-color | `String` | `null` |
@@ -237,12 +237,12 @@ no-border | `Boolean` | `false` | Removes border, except if styled by `border-co
 no-background | `Boolean` | `false` | Removes background, except if styled by `background-color` option.
 no-icon | `Boolean` | `false` | Removes icon, except if icon is displayed via `icon` option.
 
+
 <div id="short" class="d-none">
 
 ```html
 <box type="warning"> warning </box>
 ```
-
 </div>
 <div id="examples" class="d-none">
 

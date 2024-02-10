@@ -104,6 +104,7 @@
 </variable>
 </include>
 
+
 **Show/Hide buttons using `no-switch`, `no-close`, or `no-minimized-switch`.**
 
 <include src="codeAndOutput.md" boilerplate >
@@ -189,7 +190,7 @@
 </variable>
 </include>
 
-\***\*Options\*\***
+****Options****
 Name | Type | Default | Description
 --- | --- | --- | ---
 header{{slot_info_trigger}} | `String` | `''` | The clickable text on the Panel's header. Supports MarkDown text.
@@ -247,5 +248,4 @@ type | `String` | `light` | The type or color scheme of the panel (single).<br>S
 <panel header="secondary type panel" type="secondary" minimized>
   ...
 </panel>
-
 </div>

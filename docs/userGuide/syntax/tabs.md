@@ -29,7 +29,7 @@
 </variable>
 </include>
 
-\***\*Options\*\***
+****Options****
 
 `tabs`:
 Name | Type | Default | Description
@@ -65,7 +65,6 @@ Tabs, tab group and individual tab can be omitted during printing by adding Boot
   </tab-group>
 </tabs>
 ```
-
 </div>
 
 <div id="examples" class="d-none">

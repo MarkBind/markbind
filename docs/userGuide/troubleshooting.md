@@ -14,13 +14,12 @@
 Unexpected behavior can occur in rendered pages due to a number of different reasons. One of these reasons is when the rendered pages are not valid HTML.
 
 Incorrect HTML markup can be due to:
-
 - nesting block-level elements inside `<p>` or `<span>` elements
 - missing `<tbody>` tags
 
 ###### Example: block-level elements inside `<span>` elements
-
 ```html
+
 <span id="example">
   Animal | Trainable? | Price | Remarks :------|:----------:|------:|--------
   Ants | no | 5 | Bees | no | 20 | Cats | yes | 100 |
@@ -37,7 +36,6 @@ This is likely caused by incorrect HTML markup, for example nesting block-level 
 or missing `<tbody>`.
 Bailing hydration and performing full client-side render.
 ```
-
 See [SSR guide for Vue](https://vuejs.org/guide/scaling-up/ssr.html#hydration-mismatch) for more details on hydration mismatch.
 </panel>
 
