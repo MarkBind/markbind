@@ -24,7 +24,7 @@ The components in this page are the core **presentational** components you may w
 
 As presentational components are HTML-based, you need to follow the HTML syntax when using markdown in the content of the components.
 More specifically, you should use either:
-- add a line break with no indentation beforethe markdown content
+- add a line break with no indentation before the markdown content
 - use the `<markdown>` or `<md>`
   tag to wrap the markdown content.
 For more information, please refer to this [section]({{baseUrl}}/userGuide/usingHtmlJavaScriptCss.html#markdown-in-html).
