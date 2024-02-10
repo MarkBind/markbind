@@ -27,7 +27,7 @@ As presentational components are HTML-based, you need to follow the HTML syntax 
 
 More specifically, you should use either:
 
-- add a line break with no indentation beforethe markdown content
+- add a line break with no indentation before the markdown content
 - use the `<markdown>` or `<md>`
   tag to wrap the markdown content
 
