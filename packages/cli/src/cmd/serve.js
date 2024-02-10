@@ -85,7 +85,7 @@ function serve(userSpecifiedRoot, options) {
     .then(async (config) => {
       if (serverConfig.host === '0.0.0.0') {
         const response = await questionAsync(
-          'WARNING: Using the address \'0.0.0.0\' may pose vulnerabilities and is generally discouraged.'
+          'WARNING: Using the address \'0.0.0.0\' could potentially expose your server to the internet, which may pose security risks. \n'
           + 'Proceed with caution? [y/N] ');
         if (response.toLowerCase() === 'y') {
           logger.info('Proceeding to generate website');
