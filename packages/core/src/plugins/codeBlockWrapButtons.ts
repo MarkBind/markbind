@@ -37,16 +37,25 @@ function getButtonHTML() {
 }
 
 const wrapCodeBlockScript = `<script>
-    function toggleCodeBlockWrap(element) {
-      const pre = element.parentElement.parentElement;
-      const classList = pre.querySelector('code').classList; 
-      if (classList.contains('wrap')) {
-          classList.remove('wrap');
-      } else {
-          classList.add('wrap')
-      }
+function toggleCodeBlockWrap(element) {
+  const pre = element.parentElement.parentElement;
+  const code = pre.querySelector('code');
+  const classList = code.classList; 
+
+  if (classList.contains('wrap')) {
+    classList.remove('wrap');
+    if (code.dataset.addedLineNumbers) { 
+      classList.remove('line-numbers');
     }
-    </script>`;
+  } else {
+    classList.add('wrap');
+    if (!code.dataset.originalLineNumbers) { 
+      classList.add('line-numbers'); 
+      code.dataset.addedLineNumbers = true;
+    }
+  }
+}
+</script>`;
 
 export = {
   getScripts: () => [wrapCodeBlockScript],
