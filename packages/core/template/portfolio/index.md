@@ -16,7 +16,7 @@
 
 ---
 
-## Hello there! I'm [YOUR NAME]
+## Hello there! I'm {{name}}
 
 This is where you can add a picture of yourself and a brief introduction
 
@@ -56,42 +56,3 @@ This site comes pre-configured with the core <a href="https://markbind.org/userG
 
 ---
 
-## Guide to MarkBind
-
-To see the capability of MarkBind in action, feel free to take a look at some of the websites built using MarkBind on our <a href="https://markbind.org/showcase.html" target="_blank">Showcase</a> page. 
-
-For more information on how to work with MarkBind sites and to add content, refer to our comprehensive <a href="https://markbind.org/userGuide/gettingStarted.html" target="_blank">User Guide</a>. 
-
-<box type="info">
-
-If you are interested in contributing to MarkBind, you can refer to our <a href="https://markbind.org/devdocs/devGuide/devGuide.html" target="_blank">Developer Guide</a> as well!
-
-</box>
-
-<panel header="**Good starting points in our User Guide**" expanded no-close>
-
-##### **User Guide: Authoring Contents**
-
-> Learn about the variety of syntax schemes, formats, and custom MarkBind components that you can use in your MarkBind site.
-
-More info in: _<a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">User Guide → Authoring Contents</a>_
-
----
-
-##### **User Guide: Working with Sites**
-
-> Learn how to modify site properties, apply themes, and enable/disable plugins for your MarkBind site.
-
-More info in: _<a href="https://markbind.org/userGuide/workingWithSites.html" target="_blank">User Guide → Working with Sites</a>_
-
----
-
-##### **User Guide: Full Syntax Reference**
-
-> Refer to our Full Syntax Reference page to find a specific feature or component that you want to use in your MarkBind site.
-
-More info in: _<a href="https://markbind.org/userGuide/fullSyntaxReference.html" target="_blank">User Guide → Full Syntax Reference</a>_
-
-</panel>
-
----
