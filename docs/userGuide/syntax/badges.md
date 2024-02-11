@@ -1,6 +1,6 @@
 ## Badges
 
-Example:
+**Example:**
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
@@ -9,11 +9,11 @@ Some Plain Text
 </span>
 
 <span class="badge bg-primary">
-<md>**Some Markdown**</md>
+<md>_Some Markdown_</md>
 </span>
 </variable>
 </include>
-You can choose from a variety of colors for your badges.  You can also use the `rounded-pill` class to make the badges pill-shaped.
+**You can choose from a variety of colors for your badges.  You can also use the `rounded-pill` class to make the badges pill-shaped.**
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">

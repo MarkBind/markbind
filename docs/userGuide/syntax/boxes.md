@@ -236,7 +236,7 @@ type | `String` | `''` | Supports: `info`, `warning`, `success`, `important`, `w
 theme | `String` | `''` | Supports: `primary`, `secondary`, `success`, `danger`, `warning`, `tip`, `light`, `dark` or empty for default.
 light | `Boolean` | `false` | Uses a light color scheme for the box.
 seamless | `Boolean` | `false` | Uses a seamless style for the box. If `light` is specified, this style will not be activated.
-no-border | `Boolean` | `false` | Removes border, except if styled by `border-color` or `border-left-color`.
+no-border | `Boolean` | `false` | Removes border, except if styled by `border-color` or `border-left-color`. 
 no-background | `Boolean` | `false` | Removes background, except if styled by `background-color` option.
 no-icon | `Boolean` | `false` | Removes icon, except if icon is displayed via `icon` option.
 
@@ -244,7 +244,9 @@ no-icon | `Boolean` | `false` | Removes icon, except if icon is displayed via `i
 <div id="short" class="d-none">
 
 ```html
-<box type="warning"> warning </box>
+<box type="warning">
+  warning 
+</box>
 ```
 </div>
 <div id="examples" class="d-none">
