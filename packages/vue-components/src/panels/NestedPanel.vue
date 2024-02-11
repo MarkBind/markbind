@@ -283,28 +283,6 @@ export default {
         margin-top: 0 !important;
     }
 
-    .card-seamless {
-        padding: 0;
-    }
-
-    .card.card-seamless {
-        box-shadow: none;
-        border: none;
-    }
-
-    .card-seamless > .card-heading {
-        padding: 0;
-    }
-
-    .card-seamless > .card-collapse > hr {
-        margin: 0;
-        width: calc(100% - 27px);
-    }
-
-    .card-seamless > .card-collapse > .card-body {
-        padding: 10px 0;
-    }
-
     .card-body > .collapse-button {
         margin-bottom: 13px;
         margin-top: 5px;
@@ -313,11 +291,6 @@ export default {
 
     .card-body > .collapse-button:hover {
         opacity: 1;
-    }
-
-    .card-seamless > .card-collapse > .card-body > .collapse-button {
-        position: relative;
-        top: 22px;
     }
 
     .close-button {
