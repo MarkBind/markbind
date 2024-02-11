@@ -698,6 +698,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "KevinEyo1",
+      "name": "Kevin Eyo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/105847348?v=4",
+      "profile": "https://github.com/KevinEyo1",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
