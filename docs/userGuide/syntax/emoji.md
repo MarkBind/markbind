@@ -11,7 +11,7 @@
 
 <div class="indented">
 
-%%{{ icon_info }} The list of supported [emoji](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md) and [emoticon shortcuts](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/shortcuts.js).%%
+%%{{ icon_info }} The list of supported [emoji](https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md) and [emoticon shortcuts](https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/shortcuts.mjs).%%
 </div>
 
 <div id="short" class="d-none">
