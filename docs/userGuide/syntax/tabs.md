@@ -57,8 +57,12 @@ Tabs, tab group and individual tab can be omitted during printing by adding Boot
 
 ```html
 <tabs>
-  <tab header="First tab"> Content of the first tab </tab>
-  <tab header="Second tab"> Contents of the second tab </tab>
+  <tab header="First tab">
+     Content of the first tab
+  </tab>
+  <tab header="Second tab">
+     Contents of the second tab
+  </tab>
   <tab-group header="Third tab group :tv:">
     <tab header="Stars :star:">
       Some stuff about stars ...
