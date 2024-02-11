@@ -245,7 +245,7 @@ no-icon | `Boolean` | `false` | Removes icon, except if icon is displayed via `i
 
 ```html
 <box type="warning">
-  warning 
+  warning
 </box>
 ```
 </div>

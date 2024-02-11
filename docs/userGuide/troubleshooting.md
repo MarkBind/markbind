@@ -46,6 +46,7 @@ See [SSR guide for Vue](https://vuejs.org/guide/scaling-up/ssr.html#hydration-mi
 A possible fix for the above situation is to wrap the table in a `<div>` element instead:
 
 ```html
+
 <div id="example">
 
 Animal | Trainable? | Price | Remarks
