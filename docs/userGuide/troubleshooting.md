@@ -21,8 +21,12 @@ Incorrect HTML markup can be due to:
 ```html
 
 <span id="example">
-  Animal | Trainable? | Price | Remarks :------|:----------:|------:|--------
-  Ants | no | 5 | Bees | no | 20 | Cats | yes | 100 |
+
+Animal | Trainable? | Price | Remarks
+:------|:----------:|------:|--------
+Ants   |     no     |     5 |
+Bees   |     no     |    20 |
+Cats   |    yes     |   100 |
 </span>
 ```
 
@@ -43,8 +47,12 @@ A possible fix for the above situation is to wrap the table in a `<div>` element
 
 ```html
 <div id="example">
-  Animal | Trainable? | Price | Remarks :------|:----------:|------:|--------
-  Ants | no | 5 | Bees | no | 20 | Cats | yes | 100 |
+
+Animal | Trainable? | Price | Remarks
+:------|:----------:|------:|--------
+Ants   |     no     |     5 |
+Bees   |     no     |    20 |
+Cats   |    yes     |   100 |
 </div>
 ```
 
@@ -54,9 +62,9 @@ If you encounter issues in rendering Markdown in a component, it is likely that 
 
 You could signpost Markdown either by:
 
-- using the `markdown`(block level elements) or `md`(inline level elements) tags
+- using the `<markdown>`(block level elements) or `<md>`(inline level elements) tags wrap the markdown content.
 - using an empty line without any indentation before the markdown content
-Example: correct markdown rendering using Tags or newline:
+Example: correct markdown rendering using tags or newline:
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
@@ -76,7 +84,7 @@ Example: correct markdown rendering using Tags or newline:
 
 </variable>
 </include>
-<panel header="Markdown not rendered without singposting(Example)" type="seamless">
+<panel header="Example: Markdown not rendered without singposting" type="seamless">
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
