@@ -211,7 +211,7 @@ type | `String` | `light` | The type or color scheme of the panel (single).<br>S
 <div id="short" class="d-none">
 
 ```html
-<panel header="primary type panel" type="primary">
+<panel header="primary type panel" type="primary" >
   ...
 </panel>
 ```
