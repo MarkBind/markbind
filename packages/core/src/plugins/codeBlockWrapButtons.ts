@@ -42,16 +42,19 @@ function toggleCodeBlockWrap(element) {
   const code = pre.querySelector('code');
   const classList = code.classList; 
 
+  if (code.dataset.originalLineNumbers === undefined) {
+    code.dataset.originalLineNumbers = classList.contains('line-numbers').toString();
+  }
+
   if (classList.contains('wrap')) {
     classList.remove('wrap');
-    if (code.dataset.addedLineNumbers) { 
+    if (code.dataset.originalLineNumbers === 'false') {
       classList.remove('line-numbers');
     }
   } else {
     classList.add('wrap');
-    if (!code.dataset.originalLineNumbers) { 
-      classList.add('line-numbers'); 
-      code.dataset.addedLineNumbers = true;
+    if (code.dataset.originalLineNumbers === 'false') {
+      classList.add('line-numbers');
     }
   }
 }
