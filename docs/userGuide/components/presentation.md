@@ -26,6 +26,7 @@ As presentational components are HTML-based, you need to follow the HTML syntax 
 More specifically, you should use either:
 - add a line break with no indentation before the markdown content
 - use the `<markdown>` (block level elements) or `<md>` (inline level elements) tags to wrap the markdown content.
+
 For more information, please refer to this [section]({{baseUrl}}/userGuide/usingHtmlJavaScriptCss.html#markdown-in-html).
 </box>
 
