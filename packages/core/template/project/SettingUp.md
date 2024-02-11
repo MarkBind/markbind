@@ -62,5 +62,5 @@ First, **fork** the project repo, and **clone** the fork into your computer.
    These tutorials will help you get acquainted with the codebase.
 
    * [Tracing code](tutorials/TracingCode.md)
-   * [Adding a new command](tutorials/AddRemark.md)
-   * [Removing fields](tutorials/RemovingFields.md)
+   * [Adding feature](tutorials/AddingFeature.md)
+   * [Removing feature](tutorials/RemovingFeature.md)

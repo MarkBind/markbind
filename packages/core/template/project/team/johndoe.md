@@ -7,21 +7,19 @@
 
 ProjectEx is an example project application used for showcasing a default MarkBind template specifically for project domentaion. It can be taken as a reference for users to base their own MarkBind sites off of.
 
-<box type="tip">
+<box type="tip" seamless>
     Content can be easily be replaced by with the user's project information and context.
 </box>
 
-Given below are my (example) contributions to the project.
+Given below are my (example) contributions to the project involving calling commands.
 
-* **New Feature**: Added the ability to undo/redo previous commands.
-  * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+* **New Feature**: Added the ability to undo previous commands.
+  * What it does: allows the user to undo all previous commands one at a time.
   * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
   * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
   * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
 
-* **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* **Code contributed**: [Github repo]()
+* **Code contributed**: [Github Repo]()
 
 * **Project management**:
   * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
@@ -32,10 +30,10 @@ Given below are my (example) contributions to the project.
 
 * **Documentation**:
   * User Guide:
-    * Added documentation for the features `delete` and `find` [\#72]()
-    * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
+    * Added documentation for the `delete` and `find` commands [\#72]()
+    * Did cosmetic tweaks to existing documentation of `clear` and `exit` commands: [\#74]()
   * Developer Guide:
-    * Added implementation details of the `delete` feature.
+    * Added implementation details of the `delete` command.
 
 * **Community**:
   * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()

@@ -8,7 +8,9 @@
 [![CI Status](https://github.com/MarkBind/markbind/workflows/CI/badge.svg)](https://github.com/MarkBind/markbind/actions)
 [![codecov](https://codecov.io/gh/MarkBind/markbind/branch/master/graph/badge.svg)](https://codecov.io/gh/MarkBind/markbind)
 
-<box type="tip">
+<img src="images/johndoe.png" width="200px">
+
+<box type="tip" seamless>
 Can insert your app's onboarding screen or representative picture here.
 </box>
 
