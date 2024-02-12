@@ -17,6 +17,9 @@ export function processScriptAndStyleTag(node: DomElement, userScriptsAndStyles:
     || node.parent.name === 'head-bottom' || node.parent.name === 'script-bottom');
   // Do not process script/style tags that are from External
   const isExternal = userScriptsAndStyles === undefined;
+  if(isExternal) {
+    console.log("is external");
+  }
   if (isHeadOrBottom || isExternal) {
     return;
   }

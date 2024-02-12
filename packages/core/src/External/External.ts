@@ -16,11 +16,13 @@ export class External {
   externalManager: ExternalManager;
   sourceFilePath: string;
   includedFiles: Set<string>;
+  userScriptsAndStyles: string[];
 
-  constructor(em: ExternalManager, srcFilePath: string) {
+  constructor(em: ExternalManager, srcFilePath: string, userScriptsAndStyles: string[]) {
     this.externalManager = em;
     this.sourceFilePath = srcFilePath;
     this.includedFiles = new Set([srcFilePath]);
+    this.userScriptsAndStyles = userScriptsAndStyles;
   }
 
   /**
@@ -41,8 +43,12 @@ export class External {
 
     const pageSources = new PageSources();
     const docId = `ext-${fsUtil.removeExtension(path.basename(asIfAtFilePath))}`;
+    console.log("new nodePRocessor in external.ts");
+    console.log("this include files are: ");
+    console.log(this.includedFiles);
+    console.log("new nodeprocessor in external's resolve dependency method");
     const nodeProcessor = new NodeProcessor(fileConfig, pageSources, variableProcessor,
-                                            pluginManager, siteLinkManager, undefined, docId);
+                                            pluginManager, siteLinkManager, this.userScriptsAndStyles, docId);
 
     const nunjucksProcessed = variableProcessor.renderWithSiteVariables(this.sourceFilePath, pageSources);
     const mdHtmlProcessed = await nodeProcessor.process(this.sourceFilePath, nunjucksProcessed,
@@ -57,7 +63,7 @@ export class External {
 
     pageSources.addAllToSet(this.includedFiles);
 
-    await this.externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles);
+    await this.externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles, this.userScriptsAndStyles);
 
     return this;
   }
