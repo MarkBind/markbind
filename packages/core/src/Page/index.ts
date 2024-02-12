@@ -144,7 +144,6 @@ export class Page {
     return this.includedFiles && this.includedFiles.has(filePath);
   }
 
-  // happen before this method is called
   prepareTemplateData(content: string) {
     let { title } = this;
     if (this.siteConfig.titlePrefix) {
@@ -545,7 +544,9 @@ export class Page {
     };
 
     pageSources.addAllToSet(this.includedFiles);
-    await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles, this.pageUserScriptsAndStyles);
+    await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(),
+                                               this.includedFiles,
+                                               this.pageUserScriptsAndStyles);
 
     this.collectHeadingsAndKeywords(pageContent);
 

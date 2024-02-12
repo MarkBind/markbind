@@ -42,7 +42,9 @@ export class ExternalManager {
    * @param {Set<string>} includedFiles
    * @return {Promise<unknown[]>}
    */
-  async generateDependencies(dependencies: DynamicSrc[], includedFiles: Set<string>, userScriptsAndStyles: string[]) {
+  async generateDependencies(dependencies: DynamicSrc[],
+                             includedFiles: Set<string>,
+                             userScriptsAndStyles: string[]) {
     const resolvingExternals: Promise<External>[] = [];
 
     _.uniqBy(dependencies, d => d.asIfTo).forEach((src) => {

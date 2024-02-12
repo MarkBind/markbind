@@ -59,7 +59,9 @@ export class External {
 
     pageSources.addAllToSet(this.includedFiles);
 
-    await this.externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles, this.userScriptsAndStyles);
+    await this.externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(),
+                                                    this.includedFiles,
+                                                    this.userScriptsAndStyles);
 
     return this;
   }
