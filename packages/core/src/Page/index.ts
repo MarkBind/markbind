@@ -146,9 +146,6 @@ export class Page {
 
   // happen before this method is called
   prepareTemplateData(content: string) {
-    console.log("prepare template data called from: " + this.title);
-    console.log(`this: page user script and styles are:`);
-    console.log(this.pageUserScriptsAndStyles.join('\n'));
     let { title } = this;
     if (this.siteConfig.titlePrefix) {
       title = this.siteConfig.titlePrefix + (title ? TITLE_PREFIX_SEPARATOR + title : '');
@@ -528,16 +525,11 @@ export class Page {
       variableProcessor, layoutManager, pluginManager, siteLinkManager,
     } = this.pageConfig;
     const pageSources = new PageSources();
-    console.log("new nodeprocessor created by Page, index.ts");
     const nodeProcessor = new NodeProcessor(fileConfig, pageSources, variableProcessor,
                                             pluginManager, siteLinkManager, this.pageUserScriptsAndStyles);
 
     let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
-    console.log("line 536: ");
-    console.log(this.pageUserScriptsAndStyles);
     content = await nodeProcessor.process(this.pageConfig.sourcePath, content) as string;
-    console.log("line 539");
-    console.log(this.pageUserScriptsAndStyles);
     this.processFrontmatter(nodeProcessor.frontmatter);
     content = pluginManager.postRender(this.frontmatter, content);
     const pageContent = content;

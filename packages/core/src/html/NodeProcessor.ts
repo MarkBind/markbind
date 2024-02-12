@@ -81,7 +81,6 @@ export class NodeProcessor {
     private userScriptsAndStyles: string[] | undefined,
     docId = '',
   ) {
-    console.log("node provessor constructor called, docId is: " + docId);
     this.markdownProcessor = new MarkdownProcessor(docId);
     this.mdAttributeRenderer = new MdAttributeRenderer(this.markdownProcessor);
   }

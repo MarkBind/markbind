@@ -43,10 +43,6 @@ export class External {
 
     const pageSources = new PageSources();
     const docId = `ext-${fsUtil.removeExtension(path.basename(asIfAtFilePath))}`;
-    console.log("new nodePRocessor in external.ts");
-    console.log("this include files are: ");
-    console.log(this.includedFiles);
-    console.log("new nodeprocessor in external's resolve dependency method");
     const nodeProcessor = new NodeProcessor(fileConfig, pageSources, variableProcessor,
                                             pluginManager, siteLinkManager, this.userScriptsAndStyles, docId);
 

@@ -55,7 +55,6 @@ export class ExternalManager {
       const resultPathWithExternalExt = fsUtil.setExtension(resultPath, '._include_.html');
 
       if (!(resultPathWithExternalExt in this.builtFiles)) {
-        console.log("external created in the resultPath with external ext == false branch in external manager's generate dependencies method");
         const external = new External(this, src.to, userScriptsAndStyles);
         this.builtFiles[resultPathWithExternalExt] = external.resolveDependency(src.asIfTo,
                                                                                 resultPathWithExternalExt,
