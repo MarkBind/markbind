@@ -1,5 +1,20 @@
 ## Badges
 
+**Example:**
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<span class="badge bg-primary">
+Some Plain Text
+</span>
+
+<span class="badge bg-primary">
+<md>_Some Markdown_</md>
+</span>
+</variable>
+</include>
+
+**You can choose from a variety of colors for your badges.  You can also use the `rounded-pill` class to make the badges pill-shaped.**
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
@@ -24,7 +39,7 @@ Normal:
 </variable>
 </include>
 
-You can use Badges in combination with headings, buttons, links, etc.
+**You can use Badges in combination with headings, buttons, links, etc.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
