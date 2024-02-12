@@ -1,0 +1,175 @@
+{
+  "enableSearch": true,
+  "pages": [
+    {
+      "src": "AboutUs.md",
+      "title": "About Us",
+      "headings": {
+        "about-us": "About Us",
+        "project-team": "Project team",
+        "john-doe": "John Doe",
+        "jane-doe": "Jane Doe",
+        "johnny-doe": "Johnny Doe",
+        "jean-doe": "Jean Doe",
+        "james-doe": "James Doe"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "Configuration.md",
+      "title": "Configuration guide",
+      "headings": {
+        "configuration-guide": "Configuration guide"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "DevOps.md",
+      "title": "DevOps guide",
+      "headings": {
+        "devops-guide": "DevOps guide",
+        "build-automation": "Build automation",
+        "continuous-integration-ci": "Continuous integration (CI)",
+        "code-coverage": "Code coverage",
+        "repository-wide-checks": "Repository-wide checks",
+        "making-a-release": "Making a release"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "DeveloperGuide.md",
+      "title": "Developer Guide",
+      "headings": {
+        "projectex-developer-guide": "ProjectEx Developer Guide",
+        "acknowledgements": "Acknowledgements",
+        "setting-up-getting-started": "Setting up, getting started",
+        "design": "Design",
+        "architecture": "Architecture",
+        "ui-component": "UI component",
+        "logic-component": "Logic component",
+        "model-component": "Model component",
+        "storage-component": "Storage component",
+        "implementation": "Implementation",
+        "proposed-featurex": "[Proposed] FeatureX",
+        "proposed-data-archiving": "[Proposed] Data archiving",
+        "project-guides": "Project Guides",
+        "appendix-requirements": "Appendix: Requirements",
+        "product-scope": "Product scope",
+        "user-stories": "User stories",
+        "use-cases": "Use cases",
+        "non-functional-requirements": "Non-Functional Requirements",
+        "glossary": "Glossary",
+        "appendix-instructions-for-manual-testing": "Appendix: Instructions for manual testing",
+        "launch-and-shutdown": "Launch and shutdown",
+        "feature-x": "Feature X",
+        "saving-data": "Saving data"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "Documentation.md",
+      "title": "Documentation guide",
+      "headings": {
+        "documentation-guide": "Documentation Guide"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "Logging.md",
+      "title": "Logging guide",
+      "headings": {
+        "logging-guide": "Logging guide"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "SettingUp.md",
+      "title": "Setting up and getting started",
+      "headings": {
+        "setting-up-and-getting-started": "Setting up and getting started",
+        "setting-up-the-project-in-your-computer": "Setting up the project in your computer",
+        "before-writing-code": "Before writing code"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "Testing.md",
+      "title": "Testing guide",
+      "headings": {
+        "testing-guide": "Testing guide",
+        "running-tests": "Running tests",
+        "types-of-tests": "Types of tests"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "UserGuide.md",
+      "title": "User Guide",
+      "headings": {
+        "projectex-user-guide": "ProjectEx User Guide",
+        "quick-start": "Quick start",
+        "features": "Features",
+        "x-feature": "X Feature",
+        "y-feature": "Y Feature",
+        "future-feature-z-coming-in-v2-0": "Future Feature Z [coming in v2.0]",
+        "faq": "FAQ",
+        "known-issues": "Known issues"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "index.md",
+      "title": "",
+      "headings": {
+        "projectex": "ProjectEx"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "team/johndoe.md",
+      "title": "John Doe's Project Portfolio Page",
+      "headings": {
+        "project-projectex": "Project: ProjectEx"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "tutorials/AddingFeature.md",
+      "title": "Tutorial: Adding feature",
+      "headings": {
+        "tutorial-adding-feature": "Tutorial: Adding feature",
+        "create-a-new-feature": "Create a new feature",
+        "add-a-new-featurex-class": "Add a new FeatureX class",
+        "modify-featurea-to-support-the-new-featurex-feature": "Modify FeatureA to support the new FeatureX feature",
+        "writing-tests": "Writing tests",
+        "automatically-generating-tests": "Automatically generating tests",
+        "conclusion": "Conclusion"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "tutorials/RemovingFeature.md",
+      "title": "Tutorial: Removing feature",
+      "headings": {
+        "tutorial-removing-feature": "Tutorial: Removing Feature",
+        "safely-deleting-featurex": "Safely deleting FeatureX",
+        "assisted-refactoring": "Assisted refactoring",
+        "manual-refactoring": "Manual refactoring",
+        "tidying-up": "Tidying up"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "tutorials/TracingCode.md",
+      "title": "Tutorial: Tracing code",
+      "headings": {
+        "tutorial-tracing-code": "Tutorial: Tracing code",
+        "before-we-start": "Before we start",
+        "setting-a-breakpoint": "Setting a breakpoint",
+        "tracing-the-execution-path": "Tracing the execution path",
+        "conclusion": "Conclusion"
+      },
+      "headingKeywords": {}
+    }
+  ]
+}

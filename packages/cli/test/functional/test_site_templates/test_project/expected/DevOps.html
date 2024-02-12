@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 5.2.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevOps guide - ProjectEx</title>
+  <link rel="stylesheet" href="/markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="/markbind/css/codeblock-light.min.css">
+  <link rel="stylesheet" href="/markbind/css/markbind.min.css">
+  <script src="/markbind/js/polyfill.min.js"></script>
+  <script src="/markbind/js/vue.min.js"></script>
+  <script src="/markbind/js/markbind.min.js"></script>
+  <script src="DevOps.page-vue-render.js"></script>
+  <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
+  <link rel="stylesheet" href="/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
+
+  <link rel="stylesheet" href="/stylesheets/main.css">
+  <link rel="icon" href="/images/SeEduLogo.png">
+</head>
+<script>
+  const baseUrl = ''
+</script>
+
+<body data-bs-spy="scroll" data-bs-target="#mb-page-nav" data-bs-offset="100">
+  <div id="app">
+    <header sticky>
+      <navbar type="dark">
+        <template #brand><a href="/index.html" title="Home" class="navbar-brand">ProjectEx</a></template>
+        <li><a href="/UserGuide.html" class="nav-link">User Guide</a></li>
+        <li><a href="/DeveloperGuide.html" class="nav-link">Developer Guide</a></li>
+        <li><a href="/AboutUs.html" class="nav-link">About Us</a></li>
+        <li><a href="https://github.com/se-edu" target="_blank" class="nav-link"><span><span aria-hidden="true" class="fab fa-github"></span></span></a></li>
+        <template #right>
+          <li>
+            <form class="navbar-form">
+              <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right></searchbar>
+            </form>
+          </li>
+        </template>
+      </navbar>
+    </header>
+    <div id="flex-body">
+      <overlay-source id="site-nav" tag-name="nav" to="site-nav">
+        <div class="site-nav-top">
+          <div class="fw-bold mb-2" style="font-size: 1.25rem;">Site Map</div>
+        </div>
+        <div class="nav-component slim-scroll">
+          <site-nav>
+            <overlay-source class="site-nav-list site-nav-list-root" tag-name="ul" to="mb-site-nav">
+              <li>
+                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/index.html">Home</a></div>
+              </li>
+              <li>
+                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/UserGuide.html">User Guide</a>
+
+                  <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </i></div>
+                </div>
+                <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/UserGuide.html#quick-start">Quick Start</a></div>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/UserGuide.html#features">Features</a></div>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/UserGuide.html#faq">FAQ</a></div>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/DeveloperGuide.html">Developer Guide</a>
+
+                  <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </i></div>
+                </div>
+                <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/DeveloperGuide.html#acknowledgements">Acknowledgements</a></div>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/DeveloperGuide.html#setting-up-getting-started">Setting Up</a></div>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/DeveloperGuide.html#design">Design</a></div>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/DeveloperGuide.html#implementation">Implementation</a></div>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/DeveloperGuide.html#project-guides">Project Guides</a></div>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/DeveloperGuide.html#appendix-requirements">Appendix: Requirements</a></div>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/DeveloperGuide.html#appendix-instructions-for-manual-testing">Appendix: Instructions for manual testing</a></div>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)">Tutorials
+
+                  <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </i></div>
+                </div>
+                <ul class="site-nav-dropdown-container site-nav-list">
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/tutorials/TracingCode.html">Tracing code</a></div>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/tutorials/AddingFeature.html">Adding feature</a></div>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/tutorials/RemovingFeature.html">Removing Feature</a></div>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/AboutUs.html">About Us</a></div>
+              </li>
+            </overlay-source>
+          </site-nav>
+        </div>
+      </overlay-source>
+      <div id="content-wrapper">
+
+        <h1 id="devops-guide">DevOps guide<a class="fa fa-anchor" href="#devops-guide" onclick="event.stopPropagation()"></a></h1>
+
+        <div class="page-nav-print d-none d-print-block" v-pre></div>
+
+        <box type="tip">
+          This page can be used to understand the DevOps practices adopted by the project.
+        </box>
+        <h2 id="build-automation">Build automation<a class="fa fa-anchor" href="#build-automation" onclick="event.stopPropagation()"></a></h2>
+        <p>This example project uses Gradle for <strong>build automation and dependency management</strong>. <strong>You are recommended to read <a href="https://se-education.org/guides/tutorials/gradle.html">this Gradle Tutorial from the se-edu/guides</a></strong>.</p>
+        <p>Given below are how to use Gradle for some important project tasks.</p>
+        <ul>
+          <li>
+            <p><strong><code class="hljs inline no-lang" v-pre>clean</code></strong>: Deletes the files created during the previous build tasks (e.g. files in the <code class="hljs inline no-lang" v-pre>build</code> folder).<br>
+              e.g. <code class="hljs inline no-lang" v-pre>./gradlew clean</code></p>
+          </li>
+          <li>
+            <p><strong><code class="hljs inline no-lang" v-pre>shadowJar</code></strong>: Uses the ShadowJar plugin to creat a fat JAR file in the <code class="hljs inline no-lang" v-pre>build/lib</code> folder, <em>if the current file is outdated</em>.<br>
+              e.g. <code class="hljs inline no-lang" v-pre>./gradlew shadowJar</code>.</p>
+          </li>
+          <li>
+            <p><strong><code class="hljs inline no-lang" v-pre>run</code></strong>: Builds and runs the application.<br>
+              <strong><code class="hljs inline no-lang" v-pre>runShadow</code></strong>: Builds the application as a fat JAR, and then runs it.
+            </p>
+          </li>
+          <li>
+            <p><strong><code class="hljs inline no-lang" v-pre>checkstyleMain</code></strong>: Runs the code style check for the main code base.<br>
+              <strong><code class="hljs inline no-lang" v-pre>checkstyleTest</code></strong>: Runs the code style check for the test code base.
+            </p>
+          </li>
+          <li>
+            <p><strong><code class="hljs inline no-lang" v-pre>test</code></strong>: Runs all tests.</p>
+            <ul>
+              <li><code class="hljs inline no-lang" v-pre>./gradlew test</code> — Runs all tests</li>
+              <li><code class="hljs inline no-lang" v-pre>./gradlew clean test</code> — Cleans the project and runs tests</li>
+            </ul>
+          </li>
+        </ul>
+        <hr>
+        <h2 id="continuous-integration-ci">Continuous integration (CI)<a class="fa fa-anchor" href="#continuous-integration-ci" onclick="event.stopPropagation()"></a></h2>
+        <p>This project uses GitHub Actions for CI. The project comes with the necessary GitHub Actions configurations files (in the <code class="hljs inline no-lang" v-pre>.github/workflows</code> folder). No further setting up required.</p>
+        <h3 id="code-coverage">Code coverage<a class="fa fa-anchor" href="#code-coverage" onclick="event.stopPropagation()"></a></h3>
+        <p>As part of CI, this project uses Codecov to generate coverage reports. When CI runs, it will generate code coverage data (based on the tests run by CI) and upload that data to the CodeCov website, which in turn can provide you more info about the coverage of your tests.</p>
+        <p>However, because Codecov is known to run into intermittent problems (e.g., report upload fails) due to issues on the Codecov service side, the CI is configured to pass even if the Codecov task failed. Therefore, developers are advised to check the code coverage levels periodically and take corrective actions if the coverage level falls below desired levels.</p>
+        <p>To enable Codecov for forks of this project, follow the steps given in <a href="https://se-education.org/guides/tutorials/codecov.html">this se-edu guide</a>.</p>
+        <h3 id="repository-wide-checks">Repository-wide checks<a class="fa fa-anchor" href="#repository-wide-checks" onclick="event.stopPropagation()"></a></h3>
+        <p>In addition to running Gradle checks, CI includes some repository-wide checks. Unlike the Gradle checks which only cover files used in the build process, these repository-wide checks cover all files in the repository. They check for repository rules which are hard to enforce on development machines such as line ending requirements.</p>
+        <p>These checks are implemented as POSIX shell scripts, and thus can only be run on POSIX-compliant operating systems such as macOS and Linux. To run all checks locally on these operating systems, execute the following in the repository root directory:</p>
+        <p><code class="hljs inline no-lang" v-pre>./config/travis/run-checks.sh</code></p>
+        <p>Any warnings or errors will be printed out to the console.</p>
+        <p><strong>If adding new checks:</strong></p>
+        <ul>
+          <li>
+            <p>Checks are implemented as executable <code class="hljs inline no-lang" v-pre>check-*</code> scripts within the <code class="hljs inline no-lang" v-pre>.github</code> directory. The <code class="hljs inline no-lang" v-pre>run-checks.sh</code> script will automatically pick up and run files named as such. That is, you can add more such files if you need and the CI will do the rest.</p>
+          </li>
+          <li>
+            <p>Check scripts should print out errors in the format <code class="hljs inline no-lang" v-pre>SEVERITY:FILENAME:LINE: MESSAGE</code></p>
+            <ul>
+              <li>SEVERITY is either ERROR or WARN.</li>
+              <li>FILENAME is the path to the file relative to the current directory.</li>
+              <li>LINE is the line of the file where the error occurred and MESSAGE is the message explaining the error.</li>
+            </ul>
+          </li>
+          <li>
+            <p>Check scripts must exit with a non-zero exit code if any errors occur.</p>
+          </li>
+        </ul>
+        <hr>
+        <h2 id="making-a-release">Making a release<a class="fa fa-anchor" href="#making-a-release" onclick="event.stopPropagation()"></a></h2>
+        <p>Here are the steps to create a new release.</p>
+        <ol>
+          <li>Update the version number in <code class="hljs inline no-lang" v-pre>MainApp.java</code>.</li>
+          <li>Generate a fat JAR file using Gradle (i.e., <code class="hljs inline no-lang" v-pre>gradlew shadowJar</code>).</li>
+          <li>Tag the repo with the version number. e.g. <code class="hljs inline no-lang" v-pre>v0.1</code></li>
+          <li><a href="https://help.github.com/articles/creating-releases/">Create a new release using GitHub</a>. Upload the JAR file you created.</li>
+        </ol>
+      </div>
+      <overlay-source id="page-nav" tag-name="nav" to="page-nav">
+        <div class="nav-component slim-scroll">
+
+          <overlay-source id="mb-page-nav" tag-name="nav" to="mb-page-nav" class="nav nav-pills flex-column my-0 small no-flex-wrap">
+            <a class="nav-link py-1" href="#devops-guide" v-pre>DevOps guide&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#build-automation" v-pre>Build automation&#x200E;</a>
+              <a class="nav-link py-1" href="#continuous-integration-ci" v-pre>Continuous integration (CI)&#x200E;</a>
+              <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+                <a class="nav-link py-1" href="#code-coverage" v-pre>Code coverage&#x200E;</a>
+                <a class="nav-link py-1" href="#repository-wide-checks" v-pre>Repository-wide checks&#x200E;</a>
+              </nav>
+              <a class="nav-link py-1" href="#making-a-release" v-pre>Making a release&#x200E;</a>
+            </nav>
+
+          </overlay-source>
+        </div>
+      </overlay-source>
+      <scroll-top-button></scroll-top-button>
+    </div>
+    <footer>
+
+      <div class="text-center">
+        <small>[<span><strong>Powered by</strong></span> <img src="https://markbind.org/favicon.ico" width="30"> <a href="https://markbind.org/">MarkBind 5.2.0</a>]</small>
+      </div>
+    </footer>
+  </div>
+</body>
+<script src="/markbind/js/bootstrap-utility.min.js"></script>
+<script>
+  MarkBind.setupWithSearch()
+</script>
+
+</html>
