@@ -2,14 +2,25 @@
 
 ## Boxes
 
+**Simple Example**
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<box>
+plain text
+</box>
+
+<box>
+<md>_markdown_</md>
+</box>
+</variable>
+</include>
+
 **Boxes come with different built-in types.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<box>
-    default
-</box>
 <box type="info">
     info
 </box>
@@ -50,9 +61,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<box>
-    default
-</box>
 <box type="info" theme="primary">
     primary
 </box>
