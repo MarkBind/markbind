@@ -191,7 +191,6 @@ export default {
         */
         this.$nextTick(() => {
           this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
-          // this.$refs.panel.style.maxHeight = `${this.getMaxHeight()}px`;
         });
       });
     },
@@ -214,28 +213,6 @@ export default {
 
       // For expansion transition to 'continue' after src is loaded.
       this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
-      // this.$refs.panel.style.maxHeight = `${this.getMaxHeight()}px`;
-    },
-    getMaxHeight() {
-      if (!this.bottomSwitchBool) {
-        return this.$refs.panel.scrollHeight;
-      }
-      /*
-        Collapse button at bottom of panel's bottom margin is not included in panel's scrollHeight.
-
-        It's bottom margin is added to the maxHeight of the panel to enable a smooth transition.
-        Otherwise, there would be an instant transition when reaching the end of the panel content.
-       */
-      const bottomSwitch = document.querySelector('.card-body > .collapse-button');
-      if (bottomSwitch == null) {
-        return this.$refs.panel.scrollHeight;
-      }
-      const bottomSwitchStyle = window.getComputedStyle(bottomSwitch);
-      const bottomSwitchBottomMargin = parseFloat(bottomSwitchStyle.marginBottom);
-      if (Number.isNaN(bottomSwitchBottomMargin)) {
-        return this.$refs.panel.scrollHeight;
-      }
-      return this.$refs.panel.scrollHeight + bottomSwitchBottomMargin;
     },
     initPanel() {
       this.$refs.panel.addEventListener('transitionend', (event) => {
