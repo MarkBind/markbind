@@ -166,7 +166,7 @@ export default {
       } else {
         // Expand panel
         this.$refs.panel.style.transition = 'max-height 0.5s ease-in-out';
-        this.$refs.panel.style.maxHeight = `${this.getMaxHeight()}px`;
+        this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
       }
 
       this.localExpanded = !this.localExpanded;
