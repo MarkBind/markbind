@@ -190,7 +190,8 @@ export default {
           DOM update (nextTick) before setting maxHeight for transition.
         */
         this.$nextTick(() => {
-          this.$refs.panel.style.maxHeight = `${this.getMaxHeight()}px`;
+          this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+          // this.$refs.panel.style.maxHeight = `${this.getMaxHeight()}px`;
         });
       });
     },
@@ -212,7 +213,8 @@ export default {
       }
 
       // For expansion transition to 'continue' after src is loaded.
-      this.$refs.panel.style.maxHeight = `${this.getMaxHeight()}px`;
+      this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+      // this.$refs.panel.style.maxHeight = `${this.getMaxHeight()}px`;
     },
     getMaxHeight() {
       if (!this.bottomSwitchBool) {

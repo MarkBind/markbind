@@ -92,11 +92,13 @@
             :fragment="fragment"
             @src-loaded="retrieverUpdateMaxHeight"
           />
-          <panel-switch
-            v-show="isExpandableCard && bottomSwitchBool"
-            :is-open="localExpanded"
-            @click.native.stop.prevent="toggle(true)"
-          />
+          <div class="card-bottom">
+            <panel-switch
+              v-show="isExpandableCard && bottomSwitchBool"
+              :is-open="localExpanded"
+              @click.native.stop.prevent="toggle(true)"
+            />
+          </div>
         </div>
         <hr v-show="isSeamless" />
       </div>
@@ -283,13 +285,17 @@ export default {
         margin-top: 0 !important;
     }
 
-    .card-body > .collapse-button {
+    .card-bottom {
+        padding-bottom: 13px;
         margin-bottom: 13px;
+    }
+
+    .card-bottom > .collapse-button {
         margin-top: 5px;
         opacity: 0.2;
     }
 
-    .card-body > .collapse-button:hover {
+    .card-bottom > .collapse-button:hover {
         opacity: 1;
     }
 
