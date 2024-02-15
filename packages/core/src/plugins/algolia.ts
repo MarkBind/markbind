@@ -42,7 +42,10 @@ function addNoIndexClasses(content: string) {
 }
 
 export = {
-  getLinks: () => [`<link rel="stylesheet" href="${ALGOLIA_CSS_URL}">`],
+  getLinks: (pluginContext: PluginContext) => [
+    `<link rel="stylesheet" href="${ALGOLIA_CSS_URL}">`,
+    `<link rel="preconnect" href="https://${pluginContext.appId}-dsn.algolia.net" crossorigin />`,
+  ],
   getScripts: (pluginContext: PluginContext) => [
     `<script src="${ALGOLIA_JS_URL}"></script>`,
     buildAlgoliaInitScript(pluginContext),
