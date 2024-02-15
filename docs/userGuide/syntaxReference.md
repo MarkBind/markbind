@@ -1,9 +1,9 @@
 <frontmatter>
-  title: "User Guide: Syntax Cheat Sheet"
+  title: "User Guide: Syntax Reference"
   layout: userGuide.md
 </frontmatter>
 
-# Syntax Cheat Sheet
+# Syntax Reference
 
 {% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
 
