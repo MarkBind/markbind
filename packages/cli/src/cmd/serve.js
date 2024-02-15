@@ -18,6 +18,12 @@ const {
   removeHandler,
 } = require('../util/serveUtil');
 
+function isIPAddressZero(address) {
+  const patternForZero = /^0(\.0)*$/;
+
+  return patternForZero.test(address);
+}
+
 function questionAsync(question) {
   const readlineInterface = readline.createInterface({ input: process.stdin, output: process.stdout });
 
@@ -83,7 +89,7 @@ function serve(userSpecifiedRoot, options) {
   site
     .readSiteConfig()
     .then(async (config) => {
-      if (serverConfig.host === '0.0.0.0') {
+      if (isIPAddressZero(serverConfig.host)) {
         const response = await questionAsync(
           'WARNING: Using the address \'0.0.0.0\' could potentially expose your server to the internet, '
           + 'which may pose security risks. \n'
