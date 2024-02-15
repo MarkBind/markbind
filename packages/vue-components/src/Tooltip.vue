@@ -71,9 +71,9 @@ export default {
 </script>
 
 <style>
-    .v-popper--theme-tooltip .v-popper__inner {
+    .v-popper-theme-tooltip .v-popper-inner {
         /* following bootstrap */
-        background: rgba(0, 0, 0, 0.9);
+        background: rgb(0 0 0 / 90%);
         padding: 4px 8px;
         font-size: 0.875rem;
         max-width: 200px;
