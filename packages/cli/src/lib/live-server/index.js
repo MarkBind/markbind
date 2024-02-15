@@ -158,8 +158,8 @@ function entryPoint(staticHandler, file) {
  */
 LiveServer.start = function(options) {
   options = options || {};
-  var host = options.host !== undefined ? options.host : '127.0.0.1';
-  var port = options.port !== undefined ? options.port : 8080; // 0 means random
+  var host = options.host ?? '127.0.0.1';
+  var port = options.port ?? 8080; // 0 means random
   var root = options.root || process.cwd();
   var mount = options.mount || [];
   var watchPaths = options.watch || [root];
