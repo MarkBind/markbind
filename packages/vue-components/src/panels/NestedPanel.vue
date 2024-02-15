@@ -92,7 +92,7 @@
             :fragment="fragment"
             @src-loaded="retrieverUpdateMaxHeight"
           />
-          <div class="card-bottom">
+          <div class="bottom-button-wrapper">
             <panel-switch
               v-show="isExpandableCard && bottomSwitchBool"
               :is-open="localExpanded"
@@ -285,17 +285,17 @@ export default {
         margin-top: 0 !important;
     }
 
-    .card-bottom {
+    .bottom-button-wrapper {
         padding-bottom: 13px;
         margin-bottom: 13px;
     }
 
-    .card-bottom > .collapse-button {
+    .bottom-button-wrapper > .collapse-button {
         margin-top: 5px;
         opacity: 0.2;
     }
 
-    .card-bottom > .collapse-button:hover {
+    .bottom-button-wrapper > .collapse-button:hover {
         opacity: 1;
     }
 
