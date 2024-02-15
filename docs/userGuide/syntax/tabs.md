@@ -5,7 +5,8 @@
 <variable name="code">
 <tabs>
   <tab header="First tab">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis.
+    Text in the first tab
+    <markdown>_some markdown_</markdown>
   </tab>
   <tab header="Disabled second tab :x:" disabled>
   </tab>

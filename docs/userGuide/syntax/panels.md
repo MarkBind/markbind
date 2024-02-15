@@ -8,7 +8,8 @@
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 <panel header="This is your header for a Panel, click me to expand!">
-  Lorem ipsum ...
+<markdown>_markdown_</markdown>
+plain text ...
 </panel>
 </variable>
 </include>
