@@ -12,7 +12,7 @@
 
 {% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
 {% macro show_topic(filename, heading) %}
-<div class="syntax-topic">
+<div class={{heading}}>
   <markdown>##### {{heading}} </markdown>
   <include src="syntax/{{ filename }}.md#short" />
   <panel type="seamless" minimized>
