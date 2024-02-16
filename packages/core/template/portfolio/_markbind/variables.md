@@ -1,3 +1,1 @@
-<variable name="name">
-YOUR NAME
-</variable>
+<variable name="name">YOUR NAME</variable>

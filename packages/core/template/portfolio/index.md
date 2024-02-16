@@ -16,7 +16,7 @@
 
 ---
 
-## Hello there! I'm {{name}}
+## Hello there! I'm {{ name }}
 
 This is where you can add a picture of yourself and a brief introduction
 
