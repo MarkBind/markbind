@@ -1,6 +1,7 @@
 <frontmatter>
   title: "User Guide: Syntax Reference"
   layout: userGuide.md
+  pageNav: 4
 </frontmatter>
 
 # Syntax Reference
@@ -12,15 +13,19 @@
 {% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
 
 {% macro show_topic(filename, heading) %}
-<panel type="seamless">
-  <div slot="header">
-    <md>**{{ heading }}**</md>
-    <include src="syntax/{{ filename }}.md#short" />
-  </div>
-  <div class="indented">
-    <include src="syntax/{{ filename }}.md" />
-  </div>
-</panel>
+<div class="syntax-topic">
+  <md>**{{heading}}**</md>
+  <include src="syntax/{{ filename }}.md#short" />
+  <panel type="seamless" minimized>
+    <div slot="header">
+      <md>:light-bulb: **More on {{ heading }}**</md>
+    </div>
+    <div class="indented">
+      <include src="syntax/{{ filename }}.md" />
+    </div>
+  </panel>
+</div>
+<br/>
 {% endmacro %}
 
 
