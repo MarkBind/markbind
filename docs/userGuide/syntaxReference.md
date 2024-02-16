@@ -10,7 +10,7 @@
   Expand the panels for detailed explanations of the corresponding feature!
 </box>
 
-{% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
+{% from "userGuide/syntax/fullSyntaxSet.njk" import syntax_topics as topics %}
 {% macro show_topic(filename, heading) %}
 <div class={{heading}}>
   <markdown>##### {{heading}} </markdown>

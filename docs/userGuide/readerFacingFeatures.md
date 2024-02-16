@@ -7,9 +7,8 @@
 
 # Reader-Facing Features
 
-<include src="fullSyntaxReference.md#dummy" optional />
 
-{% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
+{% from "userGuide/syntax/fullSyntaxSet.njk" import syntax_topics as topics %}
 
 {% macro show_topic(filename, heading) %}
 
