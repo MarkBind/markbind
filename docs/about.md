@@ -131,6 +131,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/zlimez"><img src="https://avatars.githubusercontent.com/u/39835365?v=4?s=100" width="100px;" alt="Nisemono"/><br /><sub><b>Nisemono</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=zlimez" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jingting1412"><img src="https://avatars.githubusercontent.com/u/105090139?v=4?s=100" width="100px;" alt="jingting1412"/><br /><sub><b>jingting1412</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=jingting1412" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://tim-siu.github.io"><img src="https://avatars.githubusercontent.com/u/61866948?v=4?s=100" width="100px;" alt="Shuyao "Tim" Xu"/><br /><sub><b>Shuyao "Tim" Xu</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=Tim-Siu" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/KevinEyo1"><img src="https://avatars.githubusercontent.com/u/105847348?v=4?s=100" width="100px;" alt="Kevin Eyo"/><br /><sub><b>Kevin Eyo</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=KevinEyo1" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
