@@ -22,7 +22,7 @@ The image components here provide **convenient syntax & styling abstractions** o
 Diagrams, in the form of **inline PlantUML components** are also supported.
 </div>
 
-{% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
+{% from "userGuide/syntax/fullSyntaxSet.njk" import syntax_topics as topics %}
 
 {% macro show_topic(filename) %}
 <include src="../syntax/{{ filename }}.md" />

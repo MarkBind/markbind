@@ -21,7 +21,7 @@
 This page lists some other components that may be useful in creating education websites. For now, there are only question and quiz components.
 </div>
 
-{% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
+{% from "userGuide/syntax/fullSyntaxSet.njk" import syntax_topics as topics %}
 
 {% macro show_topic(filename) %}
 <include src="../syntax/{{ filename }}.md" />

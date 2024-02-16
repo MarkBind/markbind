@@ -39,7 +39,6 @@
 * References :expanded:
   * [CLI Commands]({{baseUrl}}/userGuide/cliCommands.html)
   * [Reader-Facing Features]({{baseUrl}}/userGuide/readerFacingFeatures.html)
-  * [Full Syntax Reference]({{baseUrl}}/userGuide/fullSyntaxReference.html)
   * [Syntax Reference]({{baseUrl}}/userGuide/syntaxReference.html)
   * [`site.json` File]({{baseUrl}}/userGuide/siteJsonFile.html)
   * [`.gitignore` File]({{baseUrl}}/userGuide/gitignoreFile.html)
