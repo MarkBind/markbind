@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Annotation with customised annotation points 1`] = `
+<div
+  class="annotate-image-wrapper"
+>
+  <img
+    class="annotate-image"
+    src="./annotateSampleImage.png"
+    width=""
+  />
+   
+  <div
+    style="top: 0px; left: 0px; height: 0px;"
+  >
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <!---->
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <!---->
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Annotation with different visual annotation points 1`] = `
+<div
+  class="annotate-image-wrapper"
+>
+  <img
+    class="annotate-image"
+    src="./annotateSampleImage.png"
+    width=""
+  />
+   
+  <div
+    style="top: 0px; left: 0px; height: 0px;"
+  >
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <!---->
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <!---->
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <!---->
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <!---->
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <!---->
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <!---->
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <!---->
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <!---->
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Annotation with markdown in header, content and label 1`] = `
+<div
+  class="annotate-image-wrapper"
+>
+  <img
+    class="annotate-image"
+    src="./annotateSampleImage.png"
+    width=""
+  />
+   
+  <div
+    style="top: 0px; left: 0px; height: 0px;"
+  >
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <!---->
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <!---->
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <!---->
+      </div>
+    </div>
+  </div>
+</div>
+`;
