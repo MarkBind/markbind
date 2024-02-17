@@ -39,6 +39,24 @@ The x and y coordinates of each Annotate Point are relative to the image and are
 </variable>
 </include>
 
+**Use markdown in the header, label and content**
+
+Annotate Points supports markdown in the header, label and content. 
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+
+<annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image">
+  <!-- Minimal Point -->
+  <a-point x="25%" y="25%" content="# Content" />
+  <a-point x="50%" y="25%" header=":blush:" />
+  <a-point x="75%" y="25%" label=":heart:"/>
+</annotate>
+</variable>
+</include>
+
+
 **Customising shapes for Annotate Point** <br> 
 
 Annotate Points supports different shapes and customisation. 
