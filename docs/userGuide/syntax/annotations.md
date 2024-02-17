@@ -48,7 +48,6 @@ Annotate Points supports markdown in the header, label and content.
 <variable name="code">
 
 <annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image">
-  <!-- Minimal Point -->
   <a-point x="25%" y="25%" content="# Content" />
   <a-point x="50%" y="25%" header=":blush:" />
   <a-point x="75%" y="25%" label=":heart:"/>
