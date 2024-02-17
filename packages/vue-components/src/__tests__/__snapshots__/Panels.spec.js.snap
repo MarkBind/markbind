@@ -146,15 +146,19 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
          
         <!---->
          
-        <button
-          class="collapse-button btn btn-outline-secondary"
-          type="button"
+        <div
+          class="bottom-button-wrapper"
         >
-          <span
-            aria-hidden="true"
-            class="collapse-icon glyphicon glyphicon-menu-down opened"
-          />
-        </button>
+          <button
+            class="collapse-button btn btn-outline-secondary"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="collapse-icon glyphicon glyphicon-menu-down opened"
+            />
+          </button>
+        </div>
       </div>
        
       <hr
@@ -239,15 +243,19 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
          
         <!---->
          
-        <button
-          class="collapse-button btn btn-outline-secondary"
-          type="button"
+        <div
+          class="bottom-button-wrapper"
         >
-          <span
-            aria-hidden="true"
-            class="collapse-icon glyphicon glyphicon-menu-down opened"
-          />
-        </button>
+          <button
+            class="collapse-button btn btn-outline-secondary"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="collapse-icon glyphicon glyphicon-menu-down opened"
+            />
+          </button>
+        </div>
       </div>
        
       <hr
