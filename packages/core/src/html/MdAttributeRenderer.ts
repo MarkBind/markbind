@@ -191,5 +191,7 @@ export class MdAttributeRenderer {
 
   processAnnotationPointAttributes(node: MbNode) {
     this.processAttributeWithoutOverride(node, 'content', false);
+    this.processAttributeWithoutOverride(node, 'header', false);
+    this.processAttributeWithoutOverride(node, 'label', false);
   }
 }
