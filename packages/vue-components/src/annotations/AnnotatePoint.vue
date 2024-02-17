@@ -5,7 +5,7 @@
         {{ computedBottomHeader }}
       </div>
       <div v-if="hasContent">
-        {{ content }}
+        <slot name="content"></slot>
       </div>
     </div>
 
@@ -41,7 +41,7 @@
                   {{ header }}
                 </h3>
                 <div v-if="hasContent" class="popover-body">
-                  {{ content }}
+                  <slot name="content"></slot>
                 </div>
               </div>
             </template>
@@ -180,7 +180,7 @@ export default {
       return this.header !== '';
     },
     hasContent() {
-      return this.content !== '';
+      return !!this.$scopedSlots.content;
     },
     hasWidth() {
       return this.width !== '';
