@@ -135,7 +135,7 @@
 
         <h1 id="tutorial-adding-feature">Tutorial: Adding feature<a class="fa fa-anchor" href="#tutorial-adding-feature" onclick="event.stopPropagation()"></a></h1>
         <box type="tip">
-          This page can be taken as a reference on a how to add new features to your project.
+          This page can be taken as a reference on how to add new features to your project.
         </box>
         <p>Let's walk you through the implementation of a new feature.</p>
         <p>We’ll assume that you have already set up the development environment as outlined in the Developer’s Guide.</p>
@@ -144,7 +144,7 @@
         <h3 id="add-a-new-featurex-class">Add a new <code class="hljs inline no-lang" v-pre>FeatureX</code> class<a class="fa fa-anchor" href="#add-a-new-featurex-class" onclick="event.stopPropagation()"></a></h3>
         <p>This section teaches you how to add a new class to the project. This includes creating the class, adding the necessary fields and methods, and updating the necessary classes to use the new class.</p>
         <box type="tip" seamless>
-          <p><strong>Tip:</strong> You can use a combination of Markbind's <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html"><strong>Images and Diagrams</strong> features</a> such as <code class="hljs inline no-lang" v-pre>puml</code> and <code class="hljs inline no-lang" v-pre>pic</code> tags to provide a visual representation of the steps to be taken. <a href="https://markbind.org/userGuide/formattingContents.html#code"><strong>Code blocks</strong></a> can also be used as shown below.</p>
+          <p><strong>Tip:</strong> You can use a combination of Markbind's <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html"><strong>Images and Diagrams</strong></a> features such as <code class="hljs inline no-lang" v-pre>puml</code> and <code class="hljs inline no-lang" v-pre>pic</code> tags to provide a visual representation of the steps to be taken. <a href="https://markbind.org/userGuide/formattingContents.html#code"><strong>Code blocks</strong></a> can also be used as shown below.</p>
         </box>
         <pre><code class="hljs java" v-pre><span><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Example</span> </span>{
 </span><span>    <span class="hljs-comment">/**</span>
@@ -176,18 +176,15 @@
         <h2 id="writing-tests">Writing tests<a class="fa fa-anchor" href="#writing-tests" onclick="event.stopPropagation()"></a></h2>
         <p>Tests are crucial to ensuring that bugs don’t slip into the codebase unnoticed. This is especially true for large code bases where a change might lead to unintended behavior.</p>
         <p>Let’s verify the correctness of our code by writing some tests!</p>
-        <p>Of course you can simply add the test cases manually. Alternatively, if you are using IntelliJ, you can get it to generate the skeletons of the test cases, as explained in the next section.</p>
-        <h3 id="automatically-generating-tests">Automatically generating tests<a class="fa fa-anchor" href="#automatically-generating-tests" onclick="event.stopPropagation()"></a></h3>
+        <h3 id="manually-writing-tests">Manually writing tests<a class="fa fa-anchor" href="#manually-writing-tests" onclick="event.stopPropagation()"></a></h3>
         <p>The goal is to write effective and efficient tests to ensure that <code class="hljs inline no-lang" v-pre>FeatureX</code> behaves as expected.</p>
         <p>The convention for test names is <code class="hljs inline no-lang" v-pre>methodName_testScenario_expectedResult</code>. An example would be
           <code class="hljs inline no-lang" v-pre>execute_filteredList_success</code>.
         </p>
-        <p>Let’s create a test for <code class="hljs inline no-lang" v-pre>FeatureX</code> to test that it works. Let's take an example like a <code class="hljs inline no-lang" v-pre>RemarkCommand</code> to be <code class="hljs inline no-lang" v-pre>FeatureX</code>.</p>
-        <p>On <code class="hljs inline no-lang" v-pre>IntelliJ IDEA</code> you can bring up the context menu and choose to <code class="hljs inline no-lang" v-pre>Go To</code> &gt; <code class="hljs inline no-lang" v-pre>Test</code> or use the appropriate keyboard shortcut.</p>
-        <p><a href="/images/add/ContextMenu.png" target="_self"><img src="/images/add/ContextMenu.png" alt="Using the context menu to jump to tests" class="img-fluid"></a></p>
-        <p>Then, create a test for the <code class="hljs inline no-lang" v-pre>execute</code> method.</p>
-        <p><a href="/images/add/CreateTest.png" target="_self"><img src="/images/add/CreateTest.png" alt="Creating a test for `execute`." class="img-fluid"></a></p>
-        <p>Following convention, let’s change the name of the generated method to <code class="hljs inline no-lang" v-pre>execute_featureX_success</code>.</p>
+        <p>Let’s create a test for <code class="hljs inline no-lang" v-pre>FeatureX</code> to test that it works.</p>
+        <box type="tip" seamless>
+          <p><strong>Tip:</strong> <a href="https://markbind.org/userGuide/formattingContents.html#code"><strong>Code blocks</strong></a> will be especially useful in visually showing what test code would look like, coded in your desired format.</p>
+        </box>
         <h2 id="conclusion">Conclusion<a class="fa fa-anchor" href="#conclusion" onclick="event.stopPropagation()"></a></h2>
         <p>This concludes the tutorial for adding a new feature.</p>
       </div>
@@ -204,7 +201,7 @@
               <a class="nav-link py-1" href="#modify-featurea-to-support-the-new-featurex-feature" v-pre>Modify FeatureA to support the new FeatureX feature&#x200E;</a>
               <a class="nav-link py-1" href="#writing-tests" v-pre>Writing tests&#x200E;</a>
               <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
-                <a class="nav-link py-1" href="#automatically-generating-tests" v-pre>Automatically generating tests&#x200E;</a>
+                <a class="nav-link py-1" href="#manually-writing-tests" v-pre>Manually writing tests&#x200E;</a>
               </nav>
               <a class="nav-link py-1" href="#conclusion" v-pre>Conclusion&#x200E;</a>
             </nav>

@@ -7,7 +7,7 @@
 # Tutorial: Adding feature
 
 <box type="tip">
-This page can be taken as a reference on a how to add new features to your project.
+This page can be taken as a reference on how to add new features to your project.
 </box>
 
 Let's walk you through the implementation of a new feature.
@@ -25,7 +25,7 @@ This section teaches you how to add a new class to the project. This includes cr
 
 <box type="tip" seamless>
 
-**Tip:** You can use a combination of Markbind's [**Images and Diagrams** features](https://markbind.org/userGuide/components/imagesAndDiagrams.html) such as `puml` and `pic` tags to provide a visual representation of the steps to be taken. [**Code blocks**](https://markbind.org/userGuide/formattingContents.html#code) can also be used as shown below.
+**Tip:** You can use a combination of Markbind's [**Images and Diagrams**](https://markbind.org/userGuide/components/imagesAndDiagrams.html) features such as `puml` and `pic` tags to provide a visual representation of the steps to be taken. [**Code blocks**](https://markbind.org/userGuide/formattingContents.html#code) can also be used as shown below.
 </box>
 
 
@@ -63,26 +63,19 @@ Tests are crucial to ensuring that bugs don’t slip into the codebase unnoticed
 
 Let’s verify the correctness of our code by writing some tests!
 
-Of course you can simply add the test cases manually. Alternatively, if you are using IntelliJ, you can get it to generate the skeletons of the test cases, as explained in the next section.
-
-### Automatically generating tests
+### Manually writing tests
 
 The goal is to write effective and efficient tests to ensure that `FeatureX` behaves as expected.
 
 The convention for test names is `methodName_testScenario_expectedResult`. An example would be
 `execute_filteredList_success`.
 
-Let’s create a test for `FeatureX` to test that it works. Let's take an example like a `RemarkCommand` to be `FeatureX`. 
+Let’s create a test for `FeatureX` to test that it works. 
 
-On `IntelliJ IDEA` you can bring up the context menu and choose to `Go To` \> `Test` or use the appropriate keyboard shortcut.
+<box type="tip" seamless>
 
-![Using the context menu to jump to tests](../images/add/ContextMenu.png)
-
-Then, create a test for the `execute` method.
-
-![Creating a test for `execute`.](../images/add/CreateTest.png)
-
-Following convention, let’s change the name of the generated method to `execute_featureX_success`.
+**Tip:** [**Code blocks**](https://markbind.org/userGuide/formattingContents.html#code) will be especially useful in visually showing what test code would look like, coded in your desired format.
+</box>
 
 ## Conclusion
 

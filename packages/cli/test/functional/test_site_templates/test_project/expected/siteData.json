@@ -45,10 +45,9 @@
         "setting-up-getting-started": "Setting up, getting started",
         "design": "Design",
         "architecture": "Architecture",
-        "ui-component": "UI component",
-        "logic-component": "Logic component",
-        "model-component": "Model component",
-        "storage-component": "Storage component",
+        "component-1": "Component 1",
+        "component-2": "Component 2",
+        "component-3": "Component 3",
         "implementation": "Implementation",
         "proposed-featurex": "[Proposed] FeatureX",
         "proposed-data-archiving": "[Proposed] Data archiving",
@@ -61,7 +60,7 @@
         "glossary": "Glossary",
         "appendix-instructions-for-manual-testing": "Appendix: Instructions for manual testing",
         "launch-and-shutdown": "Launch and shutdown",
-        "feature-x": "Feature X",
+        "featurex": "FeatureX",
         "saving-data": "Saving data"
       },
       "headingKeywords": {}
@@ -109,7 +108,7 @@
         "projectex-user-guide": "ProjectEx User Guide",
         "quick-start": "Quick start",
         "features": "Features",
-        "x-feature": "X Feature",
+        "featurex": "FeatureX",
         "y-feature": "Y Feature",
         "future-feature-z-coming-in-v2-0": "Future Feature Z [coming in v2.0]",
         "faq": "FAQ",
@@ -142,7 +141,7 @@
         "add-a-new-featurex-class": "Add a new FeatureX class",
         "modify-featurea-to-support-the-new-featurex-feature": "Modify FeatureA to support the new FeatureX feature",
         "writing-tests": "Writing tests",
-        "automatically-generating-tests": "Automatically generating tests",
+        "manually-writing-tests": "Manually writing tests",
         "conclusion": "Conclusion"
       },
       "headingKeywords": {}
@@ -153,8 +152,7 @@
       "headings": {
         "tutorial-removing-feature": "Tutorial: Removing Feature",
         "safely-deleting-featurex": "Safely deleting FeatureX",
-        "assisted-refactoring": "Assisted refactoring",
-        "manual-refactoring": "Manual refactoring",
+        "refactoring-using-ide": "Refactoring using IDE",
         "tidying-up": "Tidying up"
       },
       "headingKeywords": {}

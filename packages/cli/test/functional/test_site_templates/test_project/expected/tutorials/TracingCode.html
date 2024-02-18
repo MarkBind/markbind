@@ -141,32 +141,37 @@
         <box type="tip">
           This page can be taken as a reference on a tutorial on how to trace the execution path of a user command through the code base of the App.
         </box>
-        <p>When trying to understand an unfamiliar code base, one common strategy used is to trace some representative execution path through the code base. One easy way to trace an execution path is to use a debugger to step through the code. In this tutorial, you will be using the IntelliJ IDEA’s debugger to trace the execution path of a specific feature.</p>
+        <p>When trying to understand an unfamiliar code base, one common strategy used is to trace some representative execution path through the code base. One easy way to trace an execution path is to use a debugger to step through the code. In this tutorial, you will be trying to trace the execution path of a specific feature.</p>
 
 
         <h2 id="before-we-start">Before we start<a class="fa fa-anchor" href="#before-we-start" onclick="event.stopPropagation()"></a></h2>
-        <p>Before we jump into the code, it is useful to get an idea of the overall structure and the high-level behavior of the application. This is provided in the 'Architecture' section of the developer guide. In particular, the architecture diagram (reproduced below), tells us that the App consists of several components.</p>
+        <p>Before we jump into the code, it is useful to get an idea of the overall structure and the high-level behavior of the application. This is provided in the 'Architecture' section of the developer guide. In particular, the architecture diagram, tells us that the App consists of several components.</p>
         <box type="tip" seamless>
           <p>Architecture diagrams can be easily utilised with the <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html#diagrams"><code class="hljs inline no-lang" v-pre>puml</code></a> tag. The <code class="hljs inline no-lang" v-pre>src</code> attribute specifies the path to the PlantUML file.</p>
         </box>
-        <pic src="/diagrams/ArchitectureDiagram.png" alt="ArchitectureDiagram"></pic>
-        <p>It also has a sequence diagram (reproduced below) that tells us how a command propagates through the App.</p>
-        <pic src="/diagrams/ArchitectureSequenceDiagram.png" width="550"></pic>
+        <img src="/images/johndoe.png" width="200px">
+        <box type="info" seamless>
+          <p>Architecture Diagram of your project.</p>
+        </box>
+        <p>It also has a sequence diagram that tells us how a feature propagates through the App.</p>
+        <img src="/images/johndoe.png" width="200px">
+        <box type="info" seamless>
+          <p>Sequence Diagram of your project.</p>
+        </box>
         <p>Before we proceed, ensure that you have done the following:</p>
         <ol>
           <li>Read the <a href="/DeveloperGuide.html#architecture"><em>Architecture</em> section of the DG</a></li>
-          <li>Set up the project in Intellij IDEA</li>
-          <li>Learn basic debugging features of Intellij IDEA
+          <li>Set up the project in your preferred IDE</li>
+          <li>Learn basic debugging features of your preferred IDE
             <ul>
-              <li>If you are using a different IDE, we'll leave it to you to figure out the equivalent feature to use in your IDE.</li>
               <li>If you are not using an IDE, we'll let you figure out how to achieve the same using your coding toolchain.</li>
             </ul>
           </li>
         </ol>
         <h2 id="setting-a-breakpoint">Setting a breakpoint<a class="fa fa-anchor" href="#setting-a-breakpoint" onclick="event.stopPropagation()"></a></h2>
-        <p>As you know, the first step of debugging is to put in a breakpoint where you want the debugger to pause the execution. For example, if you are trying to understand how the App starts up, you would put a breakpoint in the first statement of the <code class="hljs inline no-lang" v-pre>main</code> method.</p>
+        <p>As you know, the first step of debugging is to put in a breakpoint where you want the debugger to pause the execution.</p>
         <box type="tip" seamless>
-          <p><strong>Tip:</strong> You can use a combination of Markbind's <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html"><strong>Images and Diagrams</strong> features</a> such as <code class="hljs inline no-lang" v-pre>puml</code> and <code class="hljs inline no-lang" v-pre>pic</code> tags to provide a visual representation of the steps to be taken. <a href="https://markbind.org/userGuide/formattingContents.html#code"><strong>Code blocks</strong></a> can also be used as shown below.</p>
+          <p><strong>Tip:</strong> You can use a combination of Markbind's <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html"><strong>Images and Diagrams</strong></a> features such as <code class="hljs inline no-lang" v-pre>puml</code> and <code class="hljs inline no-lang" v-pre>pic</code> tags to provide a visual representation of the steps to be taken. <a href="https://markbind.org/userGuide/formattingContents.html#code"><strong>Code blocks</strong></a> can also be used as shown below.</p>
         </box>
         <pre><code class="hljs java" v-pre><span><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Example</span> </span>{
 </span><span>    <span class="hljs-comment">/**</span>

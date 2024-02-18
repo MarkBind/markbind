@@ -40,7 +40,7 @@ This section can be used to help users get started with the application quickly.
 * Warnings that may lead to issues and how to avoid them.
 </box>
 
-### X Feature
+### FeatureX
 
 Description of feature.
 

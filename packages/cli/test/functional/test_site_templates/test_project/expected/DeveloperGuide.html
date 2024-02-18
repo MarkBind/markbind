@@ -145,87 +145,66 @@
         <hr>
         <h2 id="design"><strong>Design</strong><a class="fa fa-anchor" href="#design" onclick="event.stopPropagation()"></a></h2>
         <box type="tip">
-          This section describes the architecture of your app, explaining how the main components work and interact with each other. Using acrhitecture diagrams is recommended.
+          This section describes the architecture of your app, explaining how the main components work and interact with each other. Using architecture diagrams is recommended.
         </box>
         <h3 id="architecture">Architecture<a class="fa fa-anchor" href="#architecture" onclick="event.stopPropagation()"></a></h3>
-        <pic src="/diagrams/ArchitectureDiagram.png" width="280"></pic>
-        <p>The <em><strong>Architecture Diagram</strong></em> given above explains the high-level design of the ProjectEx App.</p>
+        <p>The <em><strong>Architecture Diagram</strong></em> given below explains the high-level design of the ProjectEx App.</p>
+        <img src="/images/johndoe.png" width="200px">
+        <box type="info" seamless>
+          <p>Architecture Diagram of your project created using <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html#diagrams"><code class="hljs inline no-lang" v-pre>puml</code></a> feature.</p>
+        </box>
         <p>Given below is a quick overview of main components and how they interact with each other.</p>
         <p><strong>Main components of the architecture</strong></p>
-        <p><strong><code class="hljs inline no-lang" v-pre>Main</code></strong> (consisting of classes <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java"><code class="hljs inline no-lang" v-pre>Main</code></a> and <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java"><code class="hljs inline no-lang" v-pre>MainApp</code></a>) is in charge of the app launch and shut down.</p>
-        <ul>
-          <li>At app launch, it initializes the other components in the correct sequence, and connects them up with each other.</li>
-          <li>At shut down, it shuts down the other components and invokes cleanup methods where necessary.</li>
-        </ul>
         <p>The bulk of the app's work is done by the following four components:</p>
         <ul>
-          <li><a href="#ui-component"><strong><code class="hljs inline no-lang" v-pre>UI</code></strong></a>: The UI of the App.</li>
-          <li><a href="#logic-component"><strong><code class="hljs inline no-lang" v-pre>Logic</code></strong></a>: The command executor.</li>
-          <li><a href="#model-component"><strong><code class="hljs inline no-lang" v-pre>Model</code></strong></a>: Holds the data of the App in memory.</li>
-          <li><a href="#storage-component"><strong><code class="hljs inline no-lang" v-pre>Storage</code></strong></a>: Reads data from, and writes data to, the hard disk.</li>
+          <li><a href="#component-1"><strong><code class="hljs inline no-lang" v-pre>Component 1</code></strong></a>: Does something.</li>
+          <li><a href="#component-2"><strong><code class="hljs inline no-lang" v-pre>Component 2</code></strong></a>: Does something.</li>
+          <li><a href="#component-3"><strong><code class="hljs inline no-lang" v-pre>Component 3</code></strong></a>: Does something.</li>
         </ul>
-        <p><a href="#common-classes"><strong><code class="hljs inline no-lang" v-pre>Commons</code></strong></a> represents a collection of classes used by multiple other components.</p>
-        <p><strong>How the architecture components interact with each other</strong></p>
-        <p>The <em>Sequence Diagram</em> below shows how the components interact with each other for the scenario where the user issues the command <code class="hljs inline no-lang" v-pre>delete 1</code>.</p>
-        <pic src="/diagrams/ArchitectureSequenceDiagram.png" width="574"></pic>
-        <p>Each of the four main components (also shown in the diagram above),</p>
-        <ul>
-          <li>defines its <em>API</em> in an <code class="hljs inline no-lang" v-pre>interface</code> with the same name as the Component.</li>
-          <li>implements its functionality using a concrete <code class="hljs inline no-lang" v-pre>{Component Name}Manager</code> class (which follows the corresponding API <code class="hljs inline no-lang" v-pre>interface</code> mentioned in the previous point.</li>
-        </ul>
+        <p><strong>Interactions between architecture components</strong></p>
+        <p>The <em>Sequence Diagram</em> below shows how the components interact with each other for a certain scenario.</p>
+        <img src="/images/johndoe.png" width="200px">
+        <box type="info" seamless>
+          <p>Sequence Diagram of your project created using <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html#diagrams"><code class="hljs inline no-lang" v-pre>puml</code></a> feature.</p>
+        </box>
         <p>The sections below give more details of each component.</p>
         <box type="tip" seamless>
           <p><strong>Tip:</strong> Describe in each section how each component works in detail, including its classes, methods, and how it interacts with other components.</p>
-          <p>You can use a combination of Markbind's <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html#diagrams"><strong>Diagrams</strong> <code class="hljs inline no-lang" v-pre>puml</code> feature</a> to provide a visual representation of each component, such as architecture and sequence diagrams.</p>
+          <p>You can use a combination of Markbind's <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html#diagrams"><strong>Diagrams</strong></a> feature to provide a visual representation of each component, such as architecture and sequence diagrams.</p>
         </box>
-        <h3 id="ui-component">UI component<a class="fa fa-anchor" href="#ui-component" onclick="event.stopPropagation()"></a></h3>
-        <p>The UI is made up of parts e.g.<code class="hljs inline no-lang" v-pre>A</code>, <code class="hljs inline no-lang" v-pre>B</code>, <code class="hljs inline no-lang" v-pre>C</code> etc.</p>
-        <p>The <code class="hljs inline no-lang" v-pre>UI</code> component uses the JavaFx UI framework. The layout of these UI parts are defined in matching <code class="hljs inline no-lang" v-pre>.fxml</code> files that are in the <code class="hljs inline no-lang" v-pre>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java"><code class="hljs inline no-lang" v-pre>MainWindow</code></a> is specified in <a href="https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml"><code class="hljs inline no-lang" v-pre>MainWindow.fxml</code></a></p>
+        <h3 id="component-1">Component 1<a class="fa fa-anchor" href="#component-1" onclick="event.stopPropagation()"></a></h3>
+        <p>Component 1 is made up of parts e.g.<code class="hljs inline no-lang" v-pre>A</code>, <code class="hljs inline no-lang" v-pre>B</code>, <code class="hljs inline no-lang" v-pre>C</code> etc.</p>
         <img src="/images/johndoe.png" width="200px">
         <box type="info" seamless>
-          Diagram of the UI component
+          Diagram of Component 1
         </box>
-        <p>The <code class="hljs inline no-lang" v-pre>UI</code> component,</p>
+        <p>Component 1,</p>
         <ul>
-          <li>works with the <code class="hljs inline no-lang" v-pre>Logic</code> component in this way.</li>
-          <li>works with the <code class="hljs inline no-lang" v-pre>Model</code> component in this way.</li>
-          <li>works with the <code class="hljs inline no-lang" v-pre>Storage</code> component in this way.</li>
+          <li>works with the Component 2 in this way.</li>
+          <li>works with the Component 3 in this way.</li>
         </ul>
-        <h3 id="logic-component">Logic component<a class="fa fa-anchor" href="#logic-component" onclick="event.stopPropagation()"></a></h3>
+        <h3 id="component-2">Component 2<a class="fa fa-anchor" href="#component-2" onclick="event.stopPropagation()"></a></h3>
         <box type="info" seamless>
           <p><strong>Note:</strong> The lifeline in the sequence diagram should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.</p>
         </box>
         <img src="/images/johndoe.png" width="200px">
         <box type="info" seamless>
-          Diagram of the Logic component
+          Diagram of Component 2
         </box>
-        <p>The <code class="hljs inline no-lang" v-pre>Logic</code> component,</p>
+        <p>Component 2,</p>
         <ul>
-          <li>works with the <code class="hljs inline no-lang" v-pre>UI</code> component in this way.</li>
-          <li>works with the <code class="hljs inline no-lang" v-pre>Model</code> component in this way.</li>
-          <li>works with the <code class="hljs inline no-lang" v-pre>Storage</code> component in this way.</li>
+          <li>works with the Component 1 in this way.</li>
+          <li>works with the Component 3 in this way.</li>
         </ul>
-        <h3 id="model-component">Model component<a class="fa fa-anchor" href="#model-component" onclick="event.stopPropagation()"></a></h3>
+        <h3 id="component-3">Component 3<a class="fa fa-anchor" href="#component-3" onclick="event.stopPropagation()"></a></h3>
         <img src="/images/johndoe.png" width="200px">
         <box type="info" seamless>
-          Diagram of the Model component
+          Diagram of Component 3
         </box>
-        <p>The <code class="hljs inline no-lang" v-pre>Model</code> component,</p>
+        <p>Component 3,</p>
         <ul>
-          <li>works with the <code class="hljs inline no-lang" v-pre>UI</code> component in this way.</li>
-          <li>works with the <code class="hljs inline no-lang" v-pre>Logic</code> component in this way.</li>
-          <li>works with the <code class="hljs inline no-lang" v-pre>Storage</code> component in this way.</li>
-        </ul>
-        <h3 id="storage-component">Storage component<a class="fa fa-anchor" href="#storage-component" onclick="event.stopPropagation()"></a></h3>
-        <img src="/images/johndoe.png" width="200px">
-        <box type="info" seamless>
-          Diagram of the Storage component
-        </box>
-        <p>The <code class="hljs inline no-lang" v-pre>Storage</code> component,</p>
-        <ul>
-          <li>works with the <code class="hljs inline no-lang" v-pre>UI</code> component in this way.</li>
-          <li>works with the <code class="hljs inline no-lang" v-pre>Logic</code> component in this way.</li>
-          <li>works with the <code class="hljs inline no-lang" v-pre>Model</code> component in this way.</li>
+          <li>works with the Component 1 in this way.</li>
+          <li>works with the Component 2 in this way.</li>
         </ul>
         <hr>
         <h2 id="implementation"><strong>Implementation</strong><a class="fa fa-anchor" href="#implementation" onclick="event.stopPropagation()"></a></h2>
@@ -402,20 +381,20 @@
             <p><em>{ more test cases …​ }</em></p>
           </li>
         </ol>
-        <h3 id="feature-x">Feature X<a class="fa fa-anchor" href="#feature-x" onclick="event.stopPropagation()"></a></h3>
+        <h3 id="featurex">FeatureX<a class="fa fa-anchor" href="#featurex" onclick="event.stopPropagation()"></a></h3>
         <ol>
           <li>
-            <p>Using Feature X</p>
+            <p>Using FeatureX</p>
             <ol>
               <li>
                 <p>Prerequisites to use feature.</p>
               </li>
               <li>
-                <p>Test case: Do something with feature X
+                <p>Test case: Do something with FeatureX
                   Expected: Visual output or change after test.</p>
               </li>
               <li>
-                <p>Test case: Do something else with feature X
+                <p>Test case: Do something else with FeatureX
                   Expected: Error pops up.</p>
               </li>
             </ol>
@@ -448,10 +427,9 @@
               <a class="nav-link py-1" href="#design" v-pre>Design&#x200E;</a>
               <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
                 <a class="nav-link py-1" href="#architecture" v-pre>Architecture&#x200E;</a>
-                <a class="nav-link py-1" href="#ui-component" v-pre>UI component&#x200E;</a>
-                <a class="nav-link py-1" href="#logic-component" v-pre>Logic component&#x200E;</a>
-                <a class="nav-link py-1" href="#model-component" v-pre>Model component&#x200E;</a>
-                <a class="nav-link py-1" href="#storage-component" v-pre>Storage component&#x200E;</a>
+                <a class="nav-link py-1" href="#component-1" v-pre>Component 1&#x200E;</a>
+                <a class="nav-link py-1" href="#component-2" v-pre>Component 2&#x200E;</a>
+                <a class="nav-link py-1" href="#component-3" v-pre>Component 3&#x200E;</a>
               </nav>
               <a class="nav-link py-1" href="#implementation" v-pre>Implementation&#x200E;</a>
               <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
@@ -470,7 +448,7 @@
               <a class="nav-link py-1" href="#appendix-instructions-for-manual-testing" v-pre>Appendix: Instructions for manual testing&#x200E;</a>
               <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
                 <a class="nav-link py-1" href="#launch-and-shutdown" v-pre>Launch and shutdown&#x200E;</a>
-                <a class="nav-link py-1" href="#feature-x" v-pre>Feature X&#x200E;</a>
+                <a class="nav-link py-1" href="#featurex" v-pre>FeatureX&#x200E;</a>
                 <a class="nav-link py-1" href="#saving-data" v-pre>Saving data&#x200E;</a>
               </nav>
             </nav>

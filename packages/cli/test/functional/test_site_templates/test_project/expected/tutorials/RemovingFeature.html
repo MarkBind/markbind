@@ -147,52 +147,27 @@
           <p><strong>If you have done the <a href="/tutorials/AddingFeature.html">Add <code class="hljs inline no-lang" v-pre>FeatureX</code> tutorial</a> already</strong>, you should know where the code had to be updated to add <code class="hljs inline no-lang" v-pre>FeatureX</code>. From that experience, you can deduce where the code needs to be changed to <em>remove</em> it too. The removing of the <code class="hljs inline no-lang" v-pre>FeatureX</code> can be done similarly.
             <br>
             <br>
-            However, if you have no such prior knowledge, removing a feature can take a quite a bit of detective work. This tutorial takes you through that process. <strong>At least have a read even if you don't actually do the steps yourself.</strong>
+            However, if you have no such prior knowledge, removing a feature can take a quite a bit of detective work. This tutorial takes you through that process.
           </p>
         </box>
 
 
         <h2 id="safely-deleting-featurex">Safely deleting <code class="hljs inline no-lang" v-pre>FeatureX</code><a class="fa fa-anchor" href="#safely-deleting-featurex" onclick="event.stopPropagation()"></a></h2>
-        <p>If you are using IntelliJ IDEA, it provides a refactoring tool that can identify <em>most</em> parts of a removal easily. Let’s try to use it as much as we can.</p>
-        <h3 id="assisted-refactoring">Assisted refactoring<a class="fa fa-anchor" href="#assisted-refactoring" onclick="event.stopPropagation()"></a></h3>
-        <p>Since removing the <code class="hljs inline no-lang" v-pre>FeatureX</code> class will break the application, we start by identifying <code class="hljs inline no-lang" v-pre>FeatureX</code>'s usages. This allows us to see code that depends on <code class="hljs inline no-lang" v-pre>FeatureX</code> to function properly and edit them on a case-by-case basis. Right-click the <code class="hljs inline no-lang" v-pre>FeatureX</code> class and select <code class="hljs inline no-lang" v-pre>Refactor</code> &gt; <code class="hljs inline no-lang" v-pre>Safe Delete</code> through the menu.</p>
-        <ul>
-          <li>💡 To make things simpler, you can unselect the options <code class="hljs inline no-lang" v-pre>Search in comments and strings</code> and <code class="hljs inline no-lang" v-pre>Search for text occurrences</code></li>
-        </ul>
+        <p>Its important to ensure that no errors are introduced in the process of removing <code class="hljs inline no-lang" v-pre>FeatureX</code>.</p>
+        <h3 id="refactoring-using-ide">Refactoring using IDE<a class="fa fa-anchor" href="#refactoring-using-ide" onclick="event.stopPropagation()"></a></h3>
+        <p>Since removing the <code class="hljs inline no-lang" v-pre>FeatureX</code> class will break the application, we start by identifying <code class="hljs inline no-lang" v-pre>FeatureX</code>'s usages. This allows us to see code that depends on <code class="hljs inline no-lang" v-pre>FeatureX</code> to function properly and edit them on a case-by-case basis.</p>
         <box type="tip" seamless>
-          <p><strong>Tip:</strong> You can use a combination of Markbind's <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html"><strong>Images and Diagrams</strong> features</a> such as <code class="hljs inline no-lang" v-pre>puml</code> and <code class="hljs inline no-lang" v-pre>pic</code> tags to provide a visual representation of the steps to be taken.</p>
+          <p><strong>Tip:</strong> You can use a combination of Markbind's <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html"><strong>Images and Diagrams</strong></a> features such as <code class="hljs inline no-lang" v-pre>puml</code> and <code class="hljs inline no-lang" v-pre>pic</code> tags to provide a visual representation of the steps to be taken.</p>
         </box>
-        <p>Choose to <code class="hljs inline no-lang" v-pre>View Usages</code> and you should be presented with a list of <code class="hljs inline no-lang" v-pre>Safe Delete Conflicts</code>. These conflicts describe locations in which the <code class="hljs inline no-lang" v-pre>FeatureX</code> class is used.</p>
-        <p>Remove usages of <code class="hljs inline no-lang" v-pre>FeatureX</code> by performing <code class="hljs inline no-lang" v-pre>Safe Delete</code>s on each entry i.e., double-click on the entry (which takes you to the code in concern, right-click on that entity, and choose <code class="hljs inline no-lang" v-pre>Refactor</code> -&gt; <code class="hljs inline no-lang" v-pre>Safe delete</code> as before). You will need to exercise discretion when removing usages of <code class="hljs inline no-lang" v-pre>FeatureX</code>. Functions can be safely removed but its usages must be removed as well.</p>
-        <p>Let’s try removing references to <code class="hljs inline no-lang" v-pre>FeatureX</code> in <code class="hljs inline no-lang" v-pre>EditPersonDescriptor</code>.</p>
-        <ol>
-          <li>
-            <p>Safe delete the field <code class="hljs inline no-lang" v-pre>FeatureX</code> in <code class="hljs inline no-lang" v-pre>FileA</code>.</p>
-          </li>
-          <li>
-            <p>Select <code class="hljs inline no-lang" v-pre>Yes</code> when prompted to remove getters and setters.</p>
-          </li>
-          <li>
-            <p>Select <code class="hljs inline no-lang" v-pre>View Usages</code> again.</p>
-          </li>
-          <li>
-            <p>Remove the usages of <code class="hljs inline no-lang" v-pre>FeatureX</code> and select <code class="hljs inline no-lang" v-pre>Do refactor</code> when you are done.</p>
-            <box type="warning" seamless>
-              <p><strong>Warning:</strong> Removing usages may result in errors. Exercise discretion and fix them.</p>
-            </box>
-          </li>
-          <li>
-            <p>Repeat the steps for the remaining usages of <code class="hljs inline no-lang" v-pre>FeatureX</code></p>
-          </li>
-        </ol>
+        <p>Remove usages of <code class="hljs inline no-lang" v-pre>FeatureX</code> by slowly deleting references to it, one by one, in the code.</p>
+        <box type="warning" seamless>
+          <p><strong>Warning:</strong> Removing usages may result in errors. Exercise discretion and fix them.</p>
+        </box>
         <p>After you are done, verify that the application still works by compiling and running it again.</p>
-        <h3 id="manual-refactoring">Manual refactoring<a class="fa fa-anchor" href="#manual-refactoring" onclick="event.stopPropagation()"></a></h3>
-        <p>Unfortunately, there are usages of <code class="hljs inline no-lang" v-pre>FeatureX</code> that IntelliJ IDEA cannot identify. You can find them by searching for instances of the word <code class="hljs inline no-lang" v-pre>FeatureX</code> in your code (<code class="hljs inline no-lang" v-pre>Edit</code> &gt; <code class="hljs inline no-lang" v-pre>Find</code> &gt; <code class="hljs inline no-lang" v-pre>Find in path</code>).</p>
         <p>After removing <code class="hljs inline no-lang" v-pre>FeatureX</code>, we can proceed to formally test our code. If everything went well, you should have most of your tests pass. Fix any remaining errors until the tests all pass.</p>
         <h2 id="tidying-up">Tidying up<a class="fa fa-anchor" href="#tidying-up" onclick="event.stopPropagation()"></a></h2>
         <p>At this point, your application is working as intended and all your tests are passing. What’s left to do is to clean up references to <code class="hljs inline no-lang" v-pre>FeatureX</code> in test data and documentation.</p>
-        <p>In <code class="hljs inline no-lang" v-pre>src/test/data/</code>, data meant for testing purposes are stored. While keeping <code class="hljs inline no-lang" v-pre>FeatureX</code> in the files, while it may not cause the tests to fail, it is not good practice to let cruft from old features accumulate.</p>
-        <p>You can go through each individual file and manually remove <code class="hljs inline no-lang" v-pre>FeatureX</code> references.</p>
+        <p>You can go through each individual relevant file and manually remove <code class="hljs inline no-lang" v-pre>FeatureX</code> references.</p>
       </div>
       <overlay-source id="page-nav" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
@@ -202,8 +177,7 @@
             <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
               <a class="nav-link py-1" href="#safely-deleting-featurex" v-pre>Safely deleting FeatureX&#x200E;</a>
               <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
-                <a class="nav-link py-1" href="#assisted-refactoring" v-pre>Assisted refactoring&#x200E;</a>
-                <a class="nav-link py-1" href="#manual-refactoring" v-pre>Manual refactoring&#x200E;</a>
+                <a class="nav-link py-1" href="#refactoring-using-ide" v-pre>Refactoring using IDE&#x200E;</a>
               </nav>
               <a class="nav-link py-1" href="#tidying-up" v-pre>Tidying up&#x200E;</a>
             </nav>

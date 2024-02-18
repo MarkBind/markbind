@@ -26,70 +26,63 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 ## **Design**
 
 <box type="tip">
-This section describes the architecture of your app, explaining how the main components work and interact with each other. Using acrhitecture diagrams is recommended.
+This section describes the architecture of your app, explaining how the main components work and interact with each other. Using architecture diagrams is recommended.
 </box>
 
 ### Architecture
 
-<puml src="diagrams/ArchitectureDiagram.puml" width="280" />
+The ***Architecture Diagram*** given below explains the high-level design of the ProjectEx App.
 
-The ***Architecture Diagram*** given above explains the high-level design of the ProjectEx App.
+<img src="images/johndoe.png" width="200px">
+<box type="info" seamless>
+
+Architecture Diagram of your project created using [`puml`](https://markbind.org/userGuide/components/imagesAndDiagrams.html#diagrams) feature.
+</box>
 
 Given below is a quick overview of main components and how they interact with each other.
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
-* At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
-* At shut down, it shuts down the other components and invokes cleanup methods where necessary.
-
 The bulk of the app's work is done by the following four components:
 
-* [**`UI`**](#ui-component): The UI of the App.
-* [**`Logic`**](#logic-component): The command executor.
-* [**`Model`**](#model-component): Holds the data of the App in memory.
-* [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
+* [**`Component 1`**](#component-1): Does something.
+* [**`Component 2`**](#component-2): Does something.
+* [**`Component 3`**](#component-3): Does something.
 
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+**Interactions between architecture components**
 
-**How the architecture components interact with each other**
+The *Sequence Diagram* below shows how the components interact with each other for a certain scenario.
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+<img src="images/johndoe.png" width="200px">
+<box type="info" seamless>
 
-<puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
-
-Each of the four main components (also shown in the diagram above),
-
-* defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+Sequence Diagram of your project created using [`puml`](https://markbind.org/userGuide/components/imagesAndDiagrams.html#diagrams) feature.
+</box>
 
 The sections below give more details of each component.
 
 <box type="tip" seamless>
 
-**Tip:** Describe in each section how each component works in detail, including its classes, methods, and how it interacts with other components. 
+**Tip:** Describe in each section how each component works in detail, including its classes, methods, and how it interacts with other components.
 
-You can use a combination of Markbind's [**Diagrams** `puml` feature](https://markbind.org/userGuide/components/imagesAndDiagrams.html#diagrams) to provide a visual representation of each component, such as architecture and sequence diagrams.
+You can use a combination of Markbind's [**Diagrams**](https://markbind.org/userGuide/components/imagesAndDiagrams.html#diagrams) feature to provide a visual representation of each component, such as architecture and sequence diagrams.
 </box>
 
-### UI component
+### Component 1
 
-The UI is made up of parts e.g.`A`, `B`, `C` etc.
-
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+Component 1 is made up of parts e.g.`A`, `B`, `C` etc.
 
 <img src="images/johndoe.png" width="200px">
 <box type="info" seamless>
-Diagram of the UI component
+Diagram of Component 1
 </box>
 
-The `UI` component,
+Component 1,
 
-* works with the `Logic` component in this way.
-* works with the `Model` component in this way.
-* works with the `Storage` component in this way.
+* works with the Component 2 in this way.
+* works with the Component 3 in this way.
 
-### Logic component
+### Component 2
 
 <box type="info" seamless>
 
@@ -98,40 +91,25 @@ The `UI` component,
 
 <img src="images/johndoe.png" width="200px">
 <box type="info" seamless>
-Diagram of the Logic component
+Diagram of Component 2
 </box>
 
-The `Logic` component,
+Component 2,
 
-* works with the `UI` component in this way.
-* works with the `Model` component in this way.
-* works with the `Storage` component in this way.
+* works with the Component 1 in this way.
+* works with the Component 3 in this way.
 
-### Model component
+### Component 3
 
 <img src="images/johndoe.png" width="200px">
 <box type="info" seamless>
-Diagram of the Model component
+Diagram of Component 3
 </box>
 
-The `Model` component,
+Component 3,
 
-* works with the `UI` component in this way.
-* works with the `Logic` component in this way.
-* works with the `Storage` component in this way.
-
-### Storage component
-
-<img src="images/johndoe.png" width="200px">
-<box type="info" seamless>
-Diagram of the Storage component
-</box>
-
-The `Storage` component,
-
-* works with the `UI` component in this way.
-* works with the `Logic` component in this way.
-* works with the `Model` component in this way.
+* works with the Component 1 in this way.
+* works with the Component 2 in this way.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -284,16 +262,16 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Feature X
+### FeatureX
 
-1. Using Feature X
+1. Using FeatureX
 
    1. Prerequisites to use feature.
 
-   1. Test case: Do something with feature X
+   1. Test case: Do something with FeatureX
       Expected: Visual output or change after test.
 
-   1. Test case: Do something else with feature X
+   1. Test case: Do something else with FeatureX
       Expected: Error pops up.
 
 1. _{ more test cases …​ }_
