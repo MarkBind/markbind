@@ -114,5 +114,4 @@ jobs:
             printf "Please fill in the proposed commit message section in the pull request description."
             exit 1
           fi
-      - name: Check if test/docs needs update
 
