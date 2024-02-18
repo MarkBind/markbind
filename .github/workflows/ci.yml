@@ -102,3 +102,17 @@ jobs:
             grep -E "$pattern" "$log_file"
             exit 1
           fi
+  remind-pr-author:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check proposed commit message
+        run: |
+          proposed_commit_message=$(awk '/\*\*Proposed commit message: (wrap lines at 72 characters)\*\*:/,/---/' <<< "${{ github.event.pull_request.body }}")
+          if ! grep -q '[^[:space:]]' <<< "$proposed_commit_message"; then
+            printf "Please fill in the proposed commit message section in the pull request description."
+            exit 1
+          fi
+      - name: Check if test/docs needs update
+
