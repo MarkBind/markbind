@@ -77,7 +77,7 @@ Usage: markbind <command>
 
 **Description:** Does the following steps:
 1. Builds the site and puts the generated files in a directory named `_site`.
-1. Starts a web server instance locally and makes the site available at `http://127.0.0.1:8080`.
+1. Starts a web server instance locally and makes the site available at `http://127.0.0.1:8080` by default.
 1. Opens a <trigger trigger="click" for="modal:cliCommands-livePreview">live preview</trigger> of the website.
 
 <modal large header="Live Preview" id="modal:cliCommands-livePreview">
@@ -124,9 +124,11 @@ The caveat is that not building all pages during the initial process, or not reb
 * `-f`, `--force-reload`<br>
    Force live reload to process all files in the site, instead of just the relevant files. This option is useful when you are modifying a file that is not a file type monitored by the <trigger trigger="click" for="modal:cliCommands-livePreview">live preview</trigger> feature.
 
-* `-p <port>`, `--port <port>`<br>
-    Serve the website in the specified port.
+* `-a <address>`, `--address <address>`<br>
+    Specify the server address/host (Default is 127.0.0.1).
 
+* `-p <port>`, `--port <port>`<br>
+    Serve the website in the specified port (Default is 8080).
 
 {{ icon_examples }}
 * `markbind serve` : Serves the site from the current working directory.
