@@ -1,5 +1,6 @@
 const chokidar = require('chokidar');
 const path = require('path');
+const readline = require('readline');
 
 const { Site } = require('@markbind/core').Site;
 const { pageVueServerRenderer } = require('@markbind/core/src/Page/PageVueServerRenderer');
@@ -16,6 +17,23 @@ const {
   lazyReloadMiddleware,
   removeHandler,
 } = require('../util/serveUtil');
+
+function isIPAddressZero(address) {
+  const patternForZero = /^0(\.0)*$/;
+
+  return patternForZero.test(address);
+}
+
+function questionAsync(question) {
+  const readlineInterface = readline.createInterface({ input: process.stdin, output: process.stdout });
+
+  return new Promise((resolve) => {
+    readlineInterface.question(question, (response) => {
+      readlineInterface.close();
+      resolve(response);
+    });
+  });
+}
 
 function serve(userSpecifiedRoot, options) {
   if (options.dev) {
@@ -63,6 +81,7 @@ function serve(userSpecifiedRoot, options) {
     logLevel: 0,
     root: outputFolder,
     port: options.port || 8080,
+    host: options.address || '127.0.0.1',
     middleware: [],
     mount: [],
   };
@@ -70,6 +89,19 @@ function serve(userSpecifiedRoot, options) {
   site
     .readSiteConfig()
     .then(async (config) => {
+      if (isIPAddressZero(serverConfig.host)) {
+        const response = await questionAsync(
+          'WARNING: Using the address \'0.0.0.0\' could potentially expose your server to the internet, '
+          + 'which may pose security risks. \n'
+          + 'Proceed with caution? [y/N] ');
+        if (response.toLowerCase() === 'y') {
+          logger.info('Proceeding to generate website');
+        } else {
+          logger.info('Website generation is cancelled.');
+          process.exit();
+        }
+      }
+
       serverConfig.mount.push([config.baseUrl || '/', outputFolder]);
 
       if (options.dev) {
@@ -111,8 +143,9 @@ function serve(userSpecifiedRoot, options) {
       const server = liveServer.start(serverConfig);
       server.addListener('listening', () => {
         const address = server.address();
-        const serveHost = address.address === '0.0.0.0' ? '127.0.0.1' : address.address;
-        const serveURL = `http://${serveHost}:${address.port}`;
+        const serveHost = address.address;
+        const servePort = address.port;
+        const serveURL = `http://${serveHost}:${servePort}`;
         logger.info(`Serving "${outputFolder}" at ${serveURL}`);
         logger.info('Press CTRL+C to stop ...');
       });

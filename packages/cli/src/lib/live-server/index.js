@@ -141,7 +141,7 @@ function entryPoint(staticHandler, file) {
 
 /**
  * Start a live server with parameters given as an object
- * @param host {string} Address to bind to (default: 0.0.0.0)
+ * @param host {string} Address to bind to (default: 127.0.0.1)
  * @param port {number} Port number (default: 8080)
  * @param root {string} Path to root directory (default: cwd)
  * @param watch {array} Paths to exclusively watch for changes
@@ -158,8 +158,8 @@ function entryPoint(staticHandler, file) {
  */
 LiveServer.start = function(options) {
   options = options || {};
-  var host = options.host || '0.0.0.0';
-  var port = options.port !== undefined ? options.port : 8080; // 0 means random
+  var host = options.host ?? '127.0.0.1';
+  var port = options.port ?? 8080; // 0 means random
   var root = options.root || process.cwd();
   var mount = options.mount || [];
   var watchPaths = options.watch || [root];
@@ -281,7 +281,13 @@ LiveServer.start = function(options) {
       setTimeout(function() {
         server.listen(0, host);
       }, 1000);
-    } else {
+    } else if (e.code === 'EADDRNOTAVAIL') {
+      console.log('%s is not available. Trying another address'.yellow, host);
+      setTimeout(function() {
+        server.listen(port, '127.0.0.1');
+      }, 1000);
+    }
+     else {
       console.error(e.toString().red);
       LiveServer.shutdown();
     }
@@ -292,8 +298,8 @@ LiveServer.start = function(options) {
     LiveServer.server = server;
 
     var address = server.address();
-    var serveHost = address.address === "0.0.0.0" ? "127.0.0.1" : address.address;
-    var openHost = host === "0.0.0.0" ? "127.0.0.1" : host;
+    var serveHost = address.address;
+    var openHost = host;
 
     var serveURL = protocol + '://' + serveHost + ':' + address.port;
     var openURL = protocol + '://' + openHost + ':' + address.port;
