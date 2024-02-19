@@ -1,0 +1,52 @@
+{
+  "enableSearch": true,
+  "pages": [
+    {
+      "src": "404.md",
+      "title": "Page not found",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "contents/experience.md",
+      "title": "Experience",
+      "headings": {
+        "experience": "Experience"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "contents/project1.md",
+      "title": "Project 1",
+      "headings": {
+        "project-1": "Project 1"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "contents/project2.md",
+      "title": "Project 2",
+      "headings": {
+        "project-2": "Project 2"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "contents/skills.md",
+      "title": "Skills",
+      "headings": {
+        "skills": "Skills"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "index.md",
+      "title": "Home Page",
+      "headings": {
+        "hello-there-i-m-your-name": "Hello there! I'm YOUR NAME",
+        "navigating-this-site": "Navigating this site"
+      },
+      "headingKeywords": {}
+    }
+  ]
+}
