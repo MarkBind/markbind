@@ -110,22 +110,18 @@ jobs:
   remind-pr-author:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    env:
-      message_filled: 'false'
 
     steps:
       - uses: actions/checkout@v3
       - name: Preprocess PR Body with Python
         run: |
-          echo "${{ github.event.pull_request.body }}" > pr_body.txt
-          python scripts/process_message.py pr_body.txt > processed_body.txt
+          python scripts/process_message.py "${{ github.event.pull_request.body }}" > processed_body.txt
         shell: bash
 
       - name: Extract Proposed Commit Message
         run: |
           processed_body=$(cat processed_body.txt)
-          echo "Processed body: $processed_body"
           proposed_commit_message=$(echo "$processed_body" | awk '/\*\*Proposed commit message: \(wrap lines at 72 characters\)\*\*/,/\*\*Checklist:\*\* :ballot_box_with_check:/' | tail -n +2 | head -n -3)
           echo "Proposed commit message: $proposed_commit_message"
-          echo "env.message_filled=$([[ $proposed_commit_message =~ [^[:space:]] ]] && echo 'true' || echo 'false')" >> $GITHUB_ENV
+          echo "message_filled=$(echo $proposed_commit_message | grep -q '[^[:space:]]'; echo $?)"
 
