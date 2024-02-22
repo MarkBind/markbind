@@ -28,7 +28,8 @@ jobs:
               python scripts/process_message.py "${TEXT_BODY}" > processed_body.txt
               processed_body=$(cat processed_body.txt)
               proposed_commit_message=$(echo "$processed_body" | awk '/\\*\\*Proposed commit message: \\\(wrap lines at 72 characters\\\)\\*\\*/,/\\*\\*Checklist:\\*\\*/' | tail -n +2 | head -n -3)
-              echo "Proposed commit message: $proposed_commit_message"
+              echo "Proposed commit message:"
+              echo "$proposed_commit_message"
               if ! grep -q '[^[:space:]]' <<< "$proposed_commit_message"; then
                 echo "Please fill in the proposed commit message section in the pull request description."
                 exit 1
