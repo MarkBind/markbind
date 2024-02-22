@@ -6,11 +6,6 @@ on:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
   pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-      - edited
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -107,23 +102,3 @@ jobs:
             grep -E "$pattern" "$log_file"
             exit 1
           fi
-  remind-pr-author:
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Preprocess PR Body with Python
-        run: |
-          python scripts/process_message.py "${TEXT_BODY}" > processed_body.txt
-        env:
-          TEXT_BODY: ${{ github.event.pull_request.body }}
-        shell: bash
-
-      - name: Extract Proposed Commit Message
-        run: |
-          processed_body=$(cat processed_body.txt)
-          proposed_commit_message=$(echo "$processed_body" | awk '/\*\*Proposed commit message: \(wrap lines at 72 characters\)\*\*/,/\*\*Checklist:\*\* :ballot_box_with_check:/' | tail -n +2 | head -n -3)
-          echo "Proposed commit message: $proposed_commit_message"
-          echo "message_filled=$(echo $proposed_commit_message | grep -q '[^[:space:]]'; echo $?)"
-

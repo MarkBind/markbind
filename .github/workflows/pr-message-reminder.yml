@@ -1,0 +1,38 @@
+name: PR Message Reminder
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - edited
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+    remind-pr-author:
+        if: github.event_name == 'pull_request'
+        runs-on: ubuntu-latest
+    
+        steps:
+          - uses: actions/checkout@v3
+          - name: Extract Proposed Commit Message
+            run: |
+              python scripts/process_message.py "${TEXT_BODY}" > processed_body.txt
+              processed_body=$(cat processed_body.txt)
+              proposed_commit_message=$(echo "$processed_body" | awk '/\\*\\*Proposed commit message: \\\(wrap lines at 72 characters\\\)\\*\\*/,/\\*\\*Checklist:\\*\\*/' | tail -n +2 | head -n -3)
+              echo "Proposed commit message: $proposed_commit_message"
+              if ! grep -q '[^[:space:]]' <<< "$proposed_commit_message"; then
+                echo "Please fill in the proposed commit message section in the pull request description."
+                exit 1
+              fi
+            env:
+              TEXT_BODY: ${{ github.event.pull_request.body }}
+    
