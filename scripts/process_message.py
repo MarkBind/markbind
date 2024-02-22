@@ -15,6 +15,7 @@ markdown_content = re.sub(r'<!--.*?-->', '', markdown_content, flags=re.DOTALL) 
 markdown_content = re.sub(r'^\s+', '', markdown_content, flags=re.MULTILINE)  # Trim leading whitespace
 markdown_content = re.sub(r'\s+$', '', markdown_content, flags=re.MULTILINE)  # Trim trailing whitespace
 
-print(markdown_content)
+print(json.dumps({"content": markdown_content}))
+
 
 

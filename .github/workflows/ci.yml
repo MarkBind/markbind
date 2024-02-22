@@ -6,6 +6,11 @@ on:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
   pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - edited
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -123,17 +128,4 @@ jobs:
           proposed_commit_message=$(echo "$processed_body" | awk '/\*\*Proposed commit message: \(wrap lines at 72 characters\)\*\*/,/\*\*Checklist:\*\* :ballot_box_with_check:/' | tail -n +2 | head -n -3)
           echo "Proposed commit message: $proposed_commit_message"
           echo "env.message_filled=$([[ $proposed_commit_message =~ [^[:space:]] ]] && echo 'true' || echo 'false')" >> $GITHUB_ENV
-
-      - name: Leave comment if proposed commit message is missing
-        if: ${{ env.message_filled == 'false' }}
-        uses: peter-evans/create-or-update-comment@v4
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            <!-- PR_AUTOCOMMENT_MARKER -->
-            :warning: **Missing Proposed Commit Message**: To streamline the review process, please include a proposed commit message.
-          
-            For more details on our commit message format, see [Git Conventions](https://se-education.org/guides/conventions/git.html).
-          
-            Thank you for contributing!
 
