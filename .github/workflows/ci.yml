@@ -115,7 +115,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Preprocess PR Body with Python
         run: |
-          python scripts/process_message.py "${{ github.event.pull_request.body }}" > processed_body.txt
+          python scripts/process_message.py "${TEXT_BODY}" > processed_body.txt
+        env:
+          TEXT_BODY: ${{ github.event.pull_request.body }}
         shell: bash
 
       - name: Extract Proposed Commit Message
