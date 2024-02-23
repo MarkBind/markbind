@@ -65,7 +65,7 @@ function checkForWrappingAndAddLineNumbers() {
 
     if (isWrapped) {
       // Add .line-numbers class to enable line numbering for wrapped lines
-      block.classList.add('line-numbers');
+      block.classList.add('line-numbers-print');
     }
   });
 }
