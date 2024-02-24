@@ -247,6 +247,9 @@ export class NodeProcessor {
       case 'scroll-top-button':
         this.mdAttributeRenderer.processScrollTopButtonAttributes(node);
         break;
+      case 'a-point':
+        this.mdAttributeRenderer.processAnnotationPointAttributes(node);
+        break;
       case 'code':
         setCodeLineNumbers(node, this.config.codeLineNumbers);
         // fall through
