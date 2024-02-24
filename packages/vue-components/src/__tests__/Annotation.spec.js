@@ -1,10 +1,11 @@
 import { mount } from '@vue/test-utils';
+import { Dropdown } from 'floating-vue';
 import Annotation from '../annotations/Annotate.vue';
 import AnnotationPoint from '../annotations/AnnotatePoint.vue';
 
 const DEFAULT_STUBS = {
   'a-point': AnnotationPoint,
-  'v-popover': true,
+  'v-popover': Dropdown,
 };
 
 const ANNOTATION_POINTS = `
@@ -45,7 +46,7 @@ describe('Annotation', () => {
       },
       stubs: DEFAULT_STUBS,
     });
-
+    await wrapper.vm.$nextTick();
     expect(wrapper.element).toMatchSnapshot();
   });
 
@@ -59,7 +60,7 @@ describe('Annotation', () => {
       },
       stubs: DEFAULT_STUBS,
     });
-
+    await wrapper.vm.$nextTick();
     expect(wrapper.element).toMatchSnapshot();
   });
 
@@ -73,7 +74,7 @@ describe('Annotation', () => {
       },
       stubs: DEFAULT_STUBS,
     });
-
+    await wrapper.vm.$nextTick();
     expect(wrapper.element).toMatchSnapshot();
   });
 });
