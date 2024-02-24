@@ -725,6 +725,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "yiwen101",
+      "name": "Wang Yiwen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/121547057?v=4",
+      "profile": "https://github.com/yiwen101",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
