@@ -213,7 +213,9 @@
     {
       "src": "testAnnotate.md",
       "title": "Annotate Feature Test",
-      "headings": {},
+      "headings": {
+        "content": "Content"
+      },
       "headingKeywords": {}
     },
     {
