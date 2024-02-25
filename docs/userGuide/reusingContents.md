@@ -121,6 +121,11 @@ To <span class="keyword">hide minimized panels in the _print view_</span>, add t
 }
 ```
 
+MarkBind also comes with some built-in optimizations for printing by default:
+- [Fenced code blocks will be soft-wrapped if content were to be cut off in print view](formattingContents.html#printing-optimization). Line numbers will be added to the code blocks in such cases.
+- Theme colors will be adjusted to be more print-friendly.
+- Web-specific UI elements are hidden in print view.
+
 #### Hiding some info in the generated content
 
 To permanently hide a fragment from the reader:
