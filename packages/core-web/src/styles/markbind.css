@@ -27,7 +27,7 @@ pre.hljs > code {
     background: none;
 }
 
-pre > code.hljs { /* for Safari */
+pre > code.hljs { 
     background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
     border-radius: 5px;
     counter-reset: line;
