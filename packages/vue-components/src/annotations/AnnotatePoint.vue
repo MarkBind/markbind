@@ -5,7 +5,7 @@
         {{ computedBottomHeader }}
       </div>
       <div v-if="hasContent">
-        {{ content }}
+        <slot name="content"></slot>
       </div>
     </div>
 
@@ -31,17 +31,17 @@
                 </button>
               </slot>
               <div class="hover-label" :style="labelStyle">
-                {{ label }}
+                <slot name="label"></slot>
               </div>
             </div>
 
             <template #popper>
               <div v-if="hasContent || hasHeader" class="popover-container">
                 <h3 v-if="hasHeader" class="popover-header">
-                  {{ header }}
+                  <slot name="header"></slot>
                 </h3>
                 <div v-if="hasContent" class="popover-body">
-                  {{ content }}
+                  <slot name="content"></slot>
                 </div>
               </div>
             </template>
@@ -177,10 +177,10 @@ export default {
       return 0;
     },
     hasHeader() {
-      return this.header !== '';
+      return !!this.$scopedSlots.header;
     },
     hasContent() {
-      return this.content !== '';
+      return !!this.$scopedSlots.content;
     },
     hasWidth() {
       return this.width !== '';
@@ -189,7 +189,7 @@ export default {
       return this.height !== '';
     },
     hasLabel() {
-      return this.label !== '';
+      return !!this.$scopedSlots.label;
     },
     hasBottomText() {
       return this.legend === 'bottom' || this.legend === 'both';

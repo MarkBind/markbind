@@ -132,6 +132,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jingting1412"><img src="https://avatars.githubusercontent.com/u/105090139?v=4?s=100" width="100px;" alt="jingting1412"/><br /><sub><b>jingting1412</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=jingting1412" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://tim-siu.github.io"><img src="https://avatars.githubusercontent.com/u/61866948?v=4?s=100" width="100px;" alt="Shuyao "Tim" Xu"/><br /><sub><b>Shuyao "Tim" Xu</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=Tim-Siu" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/KevinEyo1"><img src="https://avatars.githubusercontent.com/u/105847348?v=4?s=100" width="100px;" alt="Kevin Eyo"/><br /><sub><b>Kevin Eyo</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=KevinEyo1" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/luminousleek"><img src="https://avatars.githubusercontent.com/u/68138671?v=4?s=100" width="100px;" alt="Lee Xiong Jie, Isaac"/><br /><sub><b>Lee Xiong Jie, Isaac</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=luminousleek" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/LamJiuFong"><img src="https://avatars.githubusercontent.com/u/122192553?v=4?s=100" width="100px;" alt="Lam Jiu Fong"/><br /><sub><b>Lam Jiu Fong</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=LamJiuFong" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/yiwen101"><img src="https://avatars.githubusercontent.com/u/121547057?v=4?s=100" width="100px;" alt="Wang Yiwen"/><br /><sub><b>Wang Yiwen</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=yiwen101" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>

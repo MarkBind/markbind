@@ -1,0 +1,493 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Annotation with customised annotation points 1`] = `
+<div
+  class="annotate-image-wrapper"
+>
+  <img
+    class="annotate-image"
+    src="./annotateSampleImage.png"
+    width=""
+  />
+   
+  <div
+    style="top: 0px; left: 0px; height: 0px;"
+  >
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <div
+          class="popover-annotation"
+        >
+          <div
+            style="position: absolute; pointer-events: all;"
+          >
+            <div
+              class="v-popper v-popper--theme-dropdown"
+            >
+              <div
+                class="hover-wrapper"
+              >
+                <div
+                  style="color: red;"
+                >
+                  Hi
+                </div>
+                 
+                <div
+                  class="hover-label"
+                  style="font-size: 14px; color: black;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <div
+          class="popover-annotation"
+        >
+          <div
+            style="position: absolute; pointer-events: all;"
+          >
+            <div
+              class="v-popper v-popper--theme-dropdown"
+            >
+              <div
+                class="hover-wrapper"
+              >
+                <span
+                  class="badge bg-primary"
+                >
+                  Primary
+                </span>
+                 
+                <div
+                  class="hover-label"
+                  style="font-size: 14px; color: black;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Annotation with different visual annotation points 1`] = `
+<div
+  class="annotate-image-wrapper"
+>
+  <img
+    class="annotate-image"
+    src="./annotateSampleImage.png"
+    width=""
+  />
+   
+  <div
+    style="top: 0px; left: 0px; height: 0px;"
+  >
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <div
+          class="popover-annotation"
+        >
+          <div
+            style="position: absolute; pointer-events: all;"
+          >
+            <div
+              class="v-popper v-popper--theme-dropdown"
+            >
+              <div
+                class="hover-wrapper"
+              >
+                <button
+                  class="hover-point"
+                  style="background-color: green; opacity: 0.3; width: 40px; height: 40px; cursor: pointer;"
+                />
+                 
+                <div
+                  class="hover-label"
+                  style="font-size: 14px; color: black;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <div
+          class="popover-annotation"
+        >
+          <div
+            style="position: absolute; pointer-events: all;"
+          >
+            <div
+              class="v-popper v-popper--theme-dropdown"
+            >
+              <div
+                class="hover-wrapper"
+              >
+                <button
+                  class="hover-point"
+                  style="background-color: green; opacity: 0.3; width: 60px; height: 60px; cursor: pointer;"
+                />
+                 
+                <div
+                  class="hover-label"
+                  style="font-size: 14px; color: black;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <div
+          class="popover-annotation"
+        >
+          <div
+            style="position: absolute; pointer-events: all;"
+          >
+            <div
+              class="v-popper v-popper--theme-dropdown"
+            >
+              <div
+                class="hover-wrapper"
+              >
+                <button
+                  class="hover-point"
+                  style="background-color: green; opacity: 0.3; width: 40px; height: 40px; cursor: pointer;"
+                />
+                 
+                <div
+                  class="hover-label"
+                  style="font-size: 14px; color: black;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <div
+          class="popover-annotation"
+        >
+          <div
+            style="position: absolute; pointer-events: all;"
+          >
+            <div
+              class="v-popper v-popper--theme-dropdown"
+            >
+              <div
+                class="hover-wrapper"
+              >
+                <button
+                  class="hover-point"
+                  style="background-color: red; opacity: 0.3; width: 40px; height: 40px; cursor: pointer;"
+                />
+                 
+                <div
+                  class="hover-label"
+                  style="font-size: 14px; color: black;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <div
+          class="popover-annotation"
+        >
+          <div
+            style="position: absolute; pointer-events: all;"
+          >
+            <div
+              class="v-popper v-popper--theme-dropdown"
+            >
+              <div
+                class="hover-wrapper"
+              >
+                <button
+                  class="hover-point"
+                  style="background-color: green; opacity: 0.7; width: 40px; height: 40px; cursor: pointer;"
+                />
+                 
+                <div
+                  class="hover-label"
+                  style="font-size: 14px; color: black;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <div
+          class="popover-annotation"
+        >
+          <div
+            style="position: absolute; pointer-events: all;"
+          >
+            <div
+              class="v-popper v-popper--theme-dropdown"
+            >
+              <div
+                class="hover-wrapper"
+              >
+                <button
+                  class="hover-point"
+                  style="background-color: green; opacity: 0.3; width: 40px; height: 40px; cursor: pointer;"
+                />
+                 
+                <div
+                  class="hover-label"
+                  style="font-size: 14px; color: black;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <div
+          class="popover-annotation"
+        >
+          <div
+            style="position: absolute; pointer-events: all;"
+          >
+            <div
+              class="v-popper v-popper--theme-dropdown"
+            >
+              <div
+                class="hover-wrapper"
+              >
+                <button
+                  class="hover-point"
+                  style="background-color: black; opacity: 1; width: 40px; height: 40px; cursor: pointer;"
+                />
+                 
+                <div
+                  class="hover-label"
+                  style="font-size: 14px; color: white;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <div
+          class="popover-annotation"
+        >
+          <div
+            style="position: absolute; pointer-events: all;"
+          >
+            <div
+              class="v-popper v-popper--theme-dropdown"
+            >
+              <div
+                class="hover-wrapper"
+              >
+                <button
+                  class="hover-point"
+                  style="background-color: green; opacity: 0.3; width: 40px; height: 40px; cursor: pointer;"
+                />
+                 
+                <div
+                  class="hover-label"
+                  style="font-size: 30px; color: black;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Annotation with markdown in header, content and label 1`] = `
+<div
+  class="annotate-image-wrapper"
+>
+  <img
+    class="annotate-image"
+    src="./annotateSampleImage.png"
+    width=""
+  />
+   
+  <div
+    style="top: 0px; left: 0px; height: 0px;"
+  >
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <div
+          class="popover-annotation"
+        >
+          <div
+            style="position: absolute; pointer-events: all;"
+          >
+            <div
+              class="v-popper v-popper--theme-dropdown"
+            >
+              <div
+                class="hover-wrapper"
+              >
+                <button
+                  class="hover-point"
+                  style="background-color: green; opacity: 0.3; width: 40px; height: 40px; cursor: pointer;"
+                />
+                 
+                <div
+                  class="hover-label"
+                  style="font-size: 14px; color: black;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <div
+          class="popover-annotation"
+        >
+          <div
+            style="position: absolute; pointer-events: all;"
+          >
+            <div
+              class="v-popper v-popper--theme-dropdown"
+            >
+              <div
+                class="hover-wrapper"
+              >
+                <button
+                  class="hover-point"
+                  style="background-color: green; opacity: 0.3; width: 40px; height: 40px; cursor: pointer;"
+                />
+                 
+                <div
+                  class="hover-label"
+                  style="font-size: 14px; color: black;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <div>
+      <!---->
+       
+      <div
+        class="annotate-point"
+      >
+        <div
+          class="popover-annotation"
+        >
+          <div
+            style="position: absolute; pointer-events: all;"
+          >
+            <div
+              class="v-popper v-popper--theme-dropdown"
+            >
+              <div
+                class="hover-wrapper"
+              >
+                <button
+                  class="hover-point"
+                  style="background-color: green; opacity: 0.3; width: 40px; height: 40px; cursor: pointer;"
+                />
+                 
+                <div
+                  class="hover-label"
+                  style="font-size: 14px; color: black;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
