@@ -283,7 +283,6 @@ A _wrap text_ button can be added to code blocks using the `codeBlockWrapButtons
 Markbind automatically enhances the readability of your code blocks when printing:
 - **Light theme for clarity**: Ensures optimal contrast by switching code blocks to the light theme when printing.
 - **Soft Wrapping for Readability**: Prevents code from being cut off by applying soft wrapping within code blocks. Line numbers are added to maintain context when wrapping occurs.
-- **Simplified Display**: Removes copy and wrap buttons for a clean, print-focused presentation.
 
 #### Inline Code
 
