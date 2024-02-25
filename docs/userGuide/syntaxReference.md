@@ -11,20 +11,17 @@
 </box>
 
 {% from "userGuide/syntax/fullSyntaxSet.njk" import syntax_topics as topics %}
+
 {% macro show_topic(filename, heading) %}
-<div class={{heading}}>
-  <markdown>##### {{heading}} </markdown>
-  <include src="syntax/{{ filename }}.md#short" />
-  <panel type="seamless" minimized>
-    <div slot="header">
-      <md>**More on {{ heading }}**</md>
-    </div>
-    <div class="indented">
-      <include src="syntax/{{ filename }}.md" />
-    </div>
-  </panel>
-</div>
-<br/>
+<panel type="seamless" no-close>
+  <div slot="header">
+    <markdown>##### **{{ heading }}**</markdown>
+    <include src="syntax/{{ filename }}.md#short" />
+  </div>
+  <div class="indented">
+    <include src="syntax/{{ filename }}.md" />
+  </div>
+</panel>
 {% endmacro %}
 
 
