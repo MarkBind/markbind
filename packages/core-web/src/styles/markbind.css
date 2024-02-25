@@ -28,7 +28,7 @@ pre.hljs > code {
 }
 
 pre > code.hljs { 
-    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+    background-clip: padding-box;
     border-radius: 5px;
     counter-reset: line;
     width: 100%;
