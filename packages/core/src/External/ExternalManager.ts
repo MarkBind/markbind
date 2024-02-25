@@ -42,7 +42,9 @@ export class ExternalManager {
    * @param {Set<string>} includedFiles
    * @return {Promise<unknown[]>}
    */
-  async generateDependencies(dependencies: DynamicSrc[], includedFiles: Set<string>) {
+  async generateDependencies(dependencies: DynamicSrc[],
+                             includedFiles: Set<string>,
+                             userScriptsAndStyles: string[]) {
     const resolvingExternals: Promise<External>[] = [];
 
     _.uniqBy(dependencies, d => d.asIfTo).forEach((src) => {
@@ -55,7 +57,7 @@ export class ExternalManager {
       const resultPathWithExternalExt = fsUtil.setExtension(resultPath, '._include_.html');
 
       if (!(resultPathWithExternalExt in this.builtFiles)) {
-        const external = new External(this, src.to);
+        const external = new External(this, src.to, userScriptsAndStyles);
         this.builtFiles[resultPathWithExternalExt] = external.resolveDependency(src.asIfTo,
                                                                                 resultPathWithExternalExt,
                                                                                 this.config);
