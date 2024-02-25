@@ -13,7 +13,7 @@
 {% from "userGuide/syntax/fullSyntaxSet.njk" import syntax_topics as topics %}
 
 {% macro show_topic(filename, heading) %}
-<panel type="seamless" no-close>
+<panel type="seamless" no-close popup-url="{{ filename }}.html">
   <div slot="header">
     <markdown>##### **{{ heading }}**</markdown>
     <include src="syntax/{{ filename }}.md#short" />
