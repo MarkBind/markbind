@@ -69,6 +69,7 @@ pre > code.hljs[heading] {
     pre > code.hljs {
         white-space: pre-wrap;
         word-wrap: break-word;
+        word-break: break-all;
     }
 
     code.hljs.inline {
@@ -333,6 +334,7 @@ pre:hover > .function-btn-container > button.function-btn {
 code.wrap {
     white-space: pre-wrap;
     word-wrap: break-word;
+    word-break: break-all;
 }
 
 /* Octicon sizing */
