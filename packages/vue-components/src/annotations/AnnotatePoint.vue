@@ -195,7 +195,7 @@ export default {
       return this.legend === 'bottom' || this.legend === 'both';
     },
     hasPopover() {
-      return this.legend === 'popover' || this.legend === 'both';
+      return (this.hasContent || this.hasHeader) && (this.legend === 'popover' || this.legend === 'both');
     },
     computedBottomHeader() {
       if (this.label !== '' && this.header === '') {
