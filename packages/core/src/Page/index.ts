@@ -544,7 +544,9 @@ export class Page {
     };
 
     pageSources.addAllToSet(this.includedFiles);
-    await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(), this.includedFiles);
+    await externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(),
+                                               this.includedFiles,
+                                               this.pageUserScriptsAndStyles);
 
     this.collectHeadingsAndKeywords(pageContent);
 
