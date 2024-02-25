@@ -55,6 +55,8 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
 
 </box>
 
+<include src="panels.md#script_and_styles_warning"></include>
+
 <include src="tip.md" boilerplate >
 <span id="tip_body">
 The `<include>` mechanism can be used inside any MarkBind source file (even inside the _frontmatter_ section) but it will not work inside some _special_ files such as the `_markbind/variables.md`.

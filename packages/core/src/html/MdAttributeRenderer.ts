@@ -188,4 +188,10 @@ export class MdAttributeRenderer {
   processScrollTopButtonAttributes(node: MbNode) {
     this.processAttributeWithoutOverride(node, 'icon', true);
   }
+
+  processAnnotationPointAttributes(node: MbNode) {
+    this.processAttributeWithoutOverride(node, 'content', false);
+    this.processAttributeWithoutOverride(node, 'header', false);
+    this.processAttributeWithoutOverride(node, 'label', false);
+  }
 }

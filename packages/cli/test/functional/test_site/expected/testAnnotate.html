@@ -8,7 +8,7 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 5.2.0">
+  <meta name="generator" content="MarkBind 5.3.0">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Annotate Feature Test</title>
   <link rel="stylesheet" href="/test_site/markbind/css/bootstrap.min.css">
@@ -208,63 +208,175 @@
         <breadcrumb></breadcrumb>
         <p><strong>Annotate with saved Image</strong></p>
         <annotate src="./images/annotateSampleImage.png" width="500" alt="sampleImage">
-          <a-point x="25%" y="25%" content="Lorem ipsum dolor sit amet"></a-point>
+          <a-point x="25%" y="25%"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
         </annotate>
         <br>
         <p><strong>Annotate point positions</strong></p>
 
         <annotate src="./images/annotateSampleImage.png" width="350" alt="sampleImage">
-          <a-point x="0%" y="0%" content="Lorem ipsum dolor sit amet"></a-point>
-          <a-point x="50%" y="50%" content="Lorem ipsum dolor sit amet"></a-point>
-          <a-point x="100%" y="100%" content="Lorem ipsum dolor sit amet"></a-point>
+          <a-point x="0%" y="0%"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="50%" y="50%"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="100%" y="100%"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
         </annotate>
 
         <annotate src="./images/annotateSampleImage.png" width="600" alt="sampleImage">
-          <a-point x="0%" y="0%" content="Lorem ipsum dolor sit amet"></a-point>
-          <a-point x="50%" y="50%" content="Lorem ipsum dolor sit amet"></a-point>
-          <a-point x="100%" y="100%" content="Lorem ipsum dolor sit amet"></a-point>
+          <a-point x="0%" y="0%"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="50%" y="50%"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="100%" y="100%"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
         </annotate>
 
         <annotate src="./images/annotateSampleImage.png" width="1500" alt="sampleImage">
-          <a-point x="0%" y="0%" content="Lorem ipsum dolor sit amet"></a-point>
-          <a-point x="50%" y="50%" content="Lorem ipsum dolor sit amet"></a-point>
-          <a-point x="100%" y="100%" content="Lorem ipsum dolor sit amet"></a-point>
+          <a-point x="0%" y="0%"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="50%" y="50%"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="100%" y="100%"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
         </annotate>
         <br>
         <p><strong>Annotate point attributes</strong></p>
 
         <annotate src="./images/annotateSampleImage.png" width="350" alt="sampleImage">
-          <a-point x="25%" y="25%" content="Lorem ipsum dolor sit amet"></a-point>
-          <a-point x="50%" y="25%" content="Lorem ipsum dolor sit amet" size="60"></a-point>
-          <a-point x="75%" y="25%" content="Lorem ipsum dolor sit amet" header="Lorem ipsum"></a-point>
-          <a-point x="33%" y="50%" content="Lorem ipsum dolor sit amet" color="red"></a-point>
-          <a-point x="66%" y="50%" content="Lorem ipsum dolor sit amet" opacity="0.7"></a-point>
-          <a-point x="25%" y="75%" content="Lorem ipsum dolor sit amet" label="1"></a-point>
-          <a-point x="50%" y="75%" content="Lorem ipsum dolor sit amet" textColor="white" color="black" label="2" opacity="1"></a-point>
-          <a-point x="75%" y="75%" content="Lorem ipsum dolor sit amet" fontSize="30" label="3"></a-point>
+          <a-point x="25%" y="25%"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="50%" y="25%" size="60"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="75%" y="25%"><template #header>
+              <p>Lorem ipsum</p>
+            </template><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="33%" y="50%" color="red"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="66%" y="50%" opacity="0.7"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="25%" y="75%"><template #label>
+              <p>1</p>
+            </template><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="50%" y="75%" textColor="white" color="black" opacity="1"><template #label>
+              <p>2</p>
+            </template><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="75%" y="75%" fontSize="30"><template #label>
+              <p>3</p>
+            </template><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
         </annotate>
 
         <annotate src="./images/annotateSampleImage.png" width="600" alt="sampleImage">
-          <a-point x="33%" y="33%" content="Lorem ipsum dolor sit amet"></a-point>
-          <a-point x="66%" y="33%" content="Lorem ipsum dolor sit amet" trigger="hover focus"></a-point>
-          <a-point x="25%" y="66%" content="Lorem ipsum dolor sit amet" placement="left"></a-point>
-          <a-point x="50%" y="66%" content="Lorem ipsum dolor sit amet" placement="bottom"></a-point>
-          <a-point x="75%" y="66%" content="Lorem ipsum dolor sit amet" placement="right"></a-point>
+          <a-point x="33%" y="33%"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="66%" y="33%" trigger="hover focus"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="25%" y="66%" placement="left"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="50%" y="66%" placement="bottom"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
+          <a-point x="75%" y="66%" placement="right"><template #content>
+              <p>Lorem ipsum dolor sit amet</p>
+            </template></a-point>
         </annotate>
 
         <annotate src="./images/annotateSampleImage.png" width="1500" alt="sampleImage">
-          <a-point x="25%" y="50%" content="some test text" label="1"></a-point>
-          <a-point x="50%" y="50%" content="some test text" label="2" legend="bottom" header="some test text"></a-point>
-          <a-point x="75%" y="50%" content="some test text" label="3" legend="both" header="some test text"></a-point>
+          <a-point x="25%" y="50%"><template #label>
+              <p>1</p>
+            </template><template #content>
+              <p>some test text</p>
+            </template></a-point>
+          <a-point x="50%" y="50%" legend="bottom"><template #label>
+              <p>2</p>
+            </template><template #header>
+              <p>some test text</p>
+            </template><template #content>
+              <p>some test text</p>
+            </template></a-point>
+          <a-point x="75%" y="50%" legend="both"><template #label>
+              <p>3</p>
+            </template><template #header>
+              <p>some test text</p>
+            </template><template #content>
+              <p>some test text</p>
+            </template></a-point>
         </annotate>
 
         <annotate src="./images/annotateSampleImage.png" width="1500" alt="sampleImage">
-          <a-point x="25%" y="25%" content="some test text" label="1" legend="both"></a-point>
-          <a-point x="50%" y="25%" content="some test text" label="2" legend="both"></a-point>
-          <a-point x="75%" y="25%" content="some test text" label="3" legend="both"></a-point>
-          <a-point x="25%" y="50%" content="some test text" label="4" legend="both" header="some test text"></a-point>
-          <a-point x="50%" y="50%" content="some test text" label="5" legend="both" header="some test text"></a-point>
-          <a-point x="75%" y="50%" content="some test text" label="6" legend="both" header="some test text"></a-point>
+          <a-point x="25%" y="25%" legend="both"><template #label>
+              <p>1</p>
+            </template><template #content>
+              <p>some test text</p>
+            </template></a-point>
+          <a-point x="50%" y="25%" legend="both"><template #label>
+              <p>2</p>
+            </template><template #content>
+              <p>some test text</p>
+            </template></a-point>
+          <a-point x="75%" y="25%" legend="both"><template #label>
+              <p>3</p>
+            </template><template #content>
+              <p>some test text</p>
+            </template></a-point>
+          <a-point x="25%" y="50%" legend="both"><template #label>
+              <p>4</p>
+            </template><template #header>
+              <p>some test text</p>
+            </template><template #content>
+              <p>some test text</p>
+            </template></a-point>
+          <a-point x="50%" y="50%" legend="both"><template #label>
+              <p>5</p>
+            </template><template #header>
+              <p>some test text</p>
+            </template><template #content>
+              <p>some test text</p>
+            </template></a-point>
+          <a-point x="75%" y="50%" legend="both"><template #label>
+              <p>6</p>
+            </template><template #header>
+              <p>some test text</p>
+            </template><template #content>
+              <p>some test text</p>
+            </template></a-point>
+        </annotate>
+
+        <annotate src="./images/annotateSampleImage.png" width="1500" alt="sampleImage">
+          <a-point x="25%" y="25%"><template #content>
+              <h1 id="content">Content<a class="fa fa-anchor" href="#content" onclick="event.stopPropagation()"></a></h1>
+            </template></a-point>
+          <a-point x="50%" y="25%"><template #header>
+              <p>😊</p>
+            </template></a-point>
+          <a-point x="75%" y="25%"><template #label>
+              <p>❤️</p>
+            </template></a-point>
         </annotate>
         <p><strong>Annotate Point customised shapes</strong></p>
         <annotate src="./images/annotateSampleImage.png" width="1500" alt="sampleImage">
