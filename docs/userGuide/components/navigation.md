@@ -29,7 +29,7 @@ The components in this page are used for scaffolding **site and page navigation*
 {% endmacro %}
 
 {% for k,v in topics %}
-{% if 'navigation' in v[1] %}
+{% if 'navigation' in v[2] %}
 {{ show_topic(k) }}
 {% endif %}
 {% endfor %}

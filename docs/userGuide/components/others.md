@@ -29,7 +29,7 @@ This page lists some other components that may be useful in creating education w
 {% endmacro %}
 
 {% for k,v in topics %}
-{% if 'others' in v[1] %}
+{% if 'others' in v[2] %}
 {{ show_topic(k) }}
 {% endif %}
 {% endfor %}

@@ -38,7 +38,7 @@ For more information, please refer to this [section]({{baseUrl}}/userGuide/using
 {% endmacro %}
 
 {% for k,v in topics %}
-{% if 'presentation' in v[1] %}
+{% if 'presentation' in v[2] %}
 {{ show_topic(k) }}
 {% endif %}
 {% endfor %}

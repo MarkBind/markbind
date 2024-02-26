@@ -29,7 +29,7 @@ The components in this page can be used to easily create **various forms of pop-
 {% endmacro %}
 
 {% for k,v in topics %}
-{% if 'popups' in v[1] %}
+{% if 'popups' in v[2] %}
 {{ show_topic(k) }}
 {% endif %}
 {% endfor %}

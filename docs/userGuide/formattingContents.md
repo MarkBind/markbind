@@ -28,7 +28,7 @@
 {% endmacro %}
 
 {% for k,v in topics %}
-  {% if 'basic' in v[1] %}
+  {% if 'basic' in v[2] %}
 {{ show_topic(k) }}
   {% endif %}
 {% endfor %}

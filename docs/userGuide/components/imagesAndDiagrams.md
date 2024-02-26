@@ -30,7 +30,7 @@ Diagrams, in the form of **inline PlantUML components** are also supported.
 {% endmacro %}
 
 {% for k,v in topics %}
-{% if 'images-diagrams' in v[1] %}
+{% if 'images-diagrams' in v[2] %}
 {{ show_topic(k) }}
 {% endif %}
 {% endfor %}
