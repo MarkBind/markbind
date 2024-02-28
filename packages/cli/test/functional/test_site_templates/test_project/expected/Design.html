@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 5.2.0">
+  <meta name="generator" content="MarkBind 5.3.0">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Design - ProjectEx</title>
   <link rel="stylesheet" href="/markbind/css/bootstrap.min.css">
@@ -177,21 +177,45 @@
         <p>The <em>Sequence Diagram</em> below shows how the components interact with each other for a certain scenario.</p>
         <annotate src="images/johndoe.png" width="300" alt="Sample Image">
 
-          <a-point x="25%" y="25%" content="This point is 25% from the left and 25% from the top"></a-point>
+          <a-point x="25%" y="25%"><template #content>
+              <p>This point is 25% from the left and 25% from the top</p>
+            </template></a-point>
 
-          <a-point x="50%" y="25%" content="This point is 50% from the left and 25% from the top" size="60"></a-point>
+          <a-point x="50%" y="25%" size="60"><template #content>
+              <p>This point is 50% from the left and 25% from the top</p>
+            </template></a-point>
 
-          <a-point x="75%" y="25%" content="This point is 75% from the left and 25% from the top" header="This has a header"></a-point>
+          <a-point x="75%" y="25%"><template #header>
+              <p>This has a header</p>
+            </template><template #content>
+              <p>This point is 75% from the left and 25% from the top</p>
+            </template></a-point>
 
-          <a-point x="33%" y="50%" content="This point is 33% from the left and 50% from the top" color="red"></a-point>
+          <a-point x="33%" y="50%" color="red"><template #content>
+              <p>This point is 33% from the left and 50% from the top</p>
+            </template></a-point>
 
-          <a-point x="66%" y="50%" content="This point is 66% from the left and 50% from the top" opacity="0.7"></a-point>
+          <a-point x="66%" y="50%" opacity="0.7"><template #content>
+              <p>This point is 66% from the left and 50% from the top</p>
+            </template></a-point>
 
-          <a-point x="25%" y="75%" content="This point is 25% from the left and 75% from the top" label="1"></a-point>
+          <a-point x="25%" y="75%"><template #label>
+              <p>1</p>
+            </template><template #content>
+              <p>This point is 25% from the left and 75% from the top</p>
+            </template></a-point>
 
-          <a-point x="50%" y="75%" content="This point is 50% from the left and 75% from the top" textColor="white" color="black" label="2" opacity="1"></a-point>
+          <a-point x="50%" y="75%" textColor="white" color="black" opacity="1"><template #label>
+              <p>2</p>
+            </template><template #content>
+              <p>This point is 50% from the left and 75% from the top</p>
+            </template></a-point>
 
-          <a-point x="75%" y="75%" content="This point is 75% from the left and 75% from the top" fontSize="30" label="3"></a-point>
+          <a-point x="75%" y="75%" fontSize="30"><template #label>
+              <p>3</p>
+            </template><template #content>
+              <p>This point is 75% from the left and 75% from the top</p>
+            </template></a-point>
         </annotate>
         <box type="info" seamless>
           <p>For diagrams like your Sequence Diagram, it can also be created using <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html#annotations"><code class="hljs inline no-lang" v-pre>annotate</code></a> feature, that will allow you to annotate specific parts of your diagram.</p>
@@ -243,7 +267,7 @@
     <footer>
 
       <div class="text-center">
-        <small>[<span><strong>Powered by</strong></span> <img src="https://markbind.org/favicon.ico" width="30"> <a href="https://markbind.org/">MarkBind 5.2.0</a>]</small>
+        <small>[<span><strong>Powered by</strong></span> <img src="https://markbind.org/favicon.ico" width="30"> <a href="https://markbind.org/">MarkBind 5.3.0</a>]</small>
       </div>
     </footer>
   </div>

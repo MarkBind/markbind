@@ -11,6 +11,6 @@ with(this){return _c('h1',{attrs:{"id":"quick-start"}},[_v("Quick start"),_c('a'
 with(this){return _c('ol',[_c('li',[_c('p',[_v("Ensure you have Java "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("11")]),_v(" and Node.js "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("v16")]),_v(" and above installed in your Computer.")])]),_v(" "),_c('li',[_c('p',[_v("Open a command terminal and run necessary setup commands like "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("npm run setup")]),_v(".")])]),_v(" "),_c('li',[_c('p',[_v("Refer to the "),_c('a',{attrs:{"href":"/Features.html"}},[_v("Features")]),_v(" section for details of the app's features.")])])])}
 },function anonymous(
 ) {
-with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("["),_c('span',[_c('strong',[_v("Powered by")])]),_v(" "),_c('img',{attrs:{"src":"https://markbind.org/favicon.ico","width":"30"}}),_v(" "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 5.2.0")]),_v("]")])])])}
+with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("["),_c('span',[_c('strong',[_v("Powered by")])]),_v(" "),_c('img',{attrs:{"src":"https://markbind.org/favicon.ico","width":"30"}}),_v(" "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 5.3.0")]),_v("]")])])])}
 }];
   
