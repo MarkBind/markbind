@@ -193,6 +193,10 @@
     {
       "src": "testIconsInSiteLayout.md",
       "title": "glyphicon & octicon icon in page, only glyphicon & octicon stylesheets should be loaded"
+    },
+    {
+      "src": "testSourceContainScript.md",
+      "title": "Test: If source contains script or css, when included, the script or css should be included"
     }
   ],
   "pagesExclude": ["**/*-fragment.md"],
