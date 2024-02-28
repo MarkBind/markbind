@@ -78,7 +78,7 @@ export class NodeProcessor {
     private variableProcessor: VariableProcessor,
     private pluginManager: PluginManager,
     private siteLinkManager: SiteLinkManager,
-    private userScriptsAndStyles: string[] | undefined,
+    private userScriptsAndStyles: string[],
     docId = '',
   ) {
     this.markdownProcessor = new MarkdownProcessor(docId);
@@ -246,6 +246,9 @@ export class NodeProcessor {
         break;
       case 'scroll-top-button':
         this.mdAttributeRenderer.processScrollTopButtonAttributes(node);
+        break;
+      case 'a-point':
+        this.mdAttributeRenderer.processAnnotationPointAttributes(node);
         break;
       case 'code':
         setCodeLineNumbers(node, this.config.codeLineNumbers);
