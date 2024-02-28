@@ -71,6 +71,13 @@
   <a-point x="75%" y="50%" content="some test text"  label="6" legend="both" header="some test text"/>
 </annotate>
 
+<!-- Markdown in content, header and label -->
+<annotate src="./images/annotateSampleImage.png" width="1500" alt="sampleImage">
+  <a-point x="25%" y="25%" content="# Content" />
+  <a-point x="50%" y="25%" header=":blush:" />
+  <a-point x="75%" y="25%" label=":heart:"/>
+</annotate>
+
 **Annotate Point customised shapes**
 <annotate src="./images/annotateSampleImage.png" width="1500" alt="sampleImage">
     <a-point x="25%" y="25%">

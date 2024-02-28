@@ -1,0 +1,1 @@
+<panel header="## Panel with src that contains css and script header" src="testPanels/PanelSourceContainsScript.md" expanded></panel>
