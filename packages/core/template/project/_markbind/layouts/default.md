@@ -27,22 +27,24 @@
       <site-nav>
 * [Home]({{ baseUrl }}/index.html)
 * [User Guide]({{ baseUrl }}/UserGuide.html) :expanded:
-  * [Quick Start]({{ baseUrl }}/UserGuide.html#quick-start)
-  * [Features]({{ baseUrl }}/UserGuide.html#features)
-  * [FAQ]({{ baseUrl }}/UserGuide.html#faq)
+  * [Quick Start]({{ baseUrl }}/QuickStart.html)
+  * [Features]({{ baseUrl }}/Features.html)
+  * [FAQ]({{ baseUrl }}/FAQ.html)
 * [Developer Guide]({{ baseUrl }}/DeveloperGuide.html) :expanded:
-  * [Acknowledgements]({{ baseUrl }}/DeveloperGuide.html#acknowledgements)
-  * [Setting Up]({{ baseUrl }}/DeveloperGuide.html#setting-up-getting-started)
-  * [Design]({{ baseUrl }}/DeveloperGuide.html#design)
-  * [Implementation]({{ baseUrl }}/DeveloperGuide.html#implementation)
-  * [Project Guides]({{ baseUrl }}/DeveloperGuide.html#project-guides)
-  * [Appendix: Requirements]({{ baseUrl }}/DeveloperGuide.html#appendix-requirements)
-  * [Appendix: Instructions for manual testing]({{ baseUrl }}/DeveloperGuide.html#appendix-instructions-for-manual-testing)
-* Tutorials
-  * [Tracing code]({{ baseUrl }}/tutorials/TracingCode.html)
-  * [Adding feature]({{ baseUrl }}/tutorials/AddingFeature.html)
-  * [Removing Feature]({{ baseUrl }}/tutorials/RemovingFeature.html)
-* [About Us]({{ baseUrl }}/AboutUs.html)
+  * [Setting Up]({{ baseUrl }}/SettingUp.html)
+  * [Design]({{ baseUrl }}/Design.html)
+  * [Implementation]({{ baseUrl }}/Implementation.html)
+  * Project Guides
+    * [Documentation]({{ baseUrl }}/Documentation.html)
+    * [Testing]({{ baseUrl }}/Testing.html)
+    * [Configuration]({{ baseUrl }}/Configuration.html)
+    * [DevOps]({{ baseUrl }}/DevOps.html)
+  * Appendix
+    * [Requirements]({{ baseUrl }}/Requirements.html)
+    * [Manual Testing Instructions]({{ baseUrl }}/ManualTestingInstructions.html)
+* [Tutorial: Tracing code]({{ baseUrl }}/TracingCode.html)
+* [About Us]({{ baseUrl }}/AboutUs.html) :expanded:
+  * [Contributor Portfolio]({{ baseUrl }}/team/johndoe.html)
       </site-nav>
     </div>
   </nav>

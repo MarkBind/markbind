@@ -24,6 +24,17 @@
       "headingKeywords": {}
     },
     {
+      "src": "Design.md",
+      "title": "Design",
+      "headings": {
+        "design": "Design",
+        "architecture": "Architecture",
+        "component-1": "Component 1",
+        "component-2": "Component 2"
+      },
+      "headingKeywords": {}
+    },
+    {
       "src": "DevOps.md",
       "title": "DevOps guide",
       "headings": {
@@ -41,27 +52,7 @@
       "title": "Developer Guide",
       "headings": {
         "projectex-developer-guide": "ProjectEx Developer Guide",
-        "acknowledgements": "Acknowledgements",
-        "setting-up-getting-started": "Setting up, getting started",
-        "design": "Design",
-        "architecture": "Architecture",
-        "component-1": "Component 1",
-        "component-2": "Component 2",
-        "component-3": "Component 3",
-        "implementation": "Implementation",
-        "proposed-featurex": "[Proposed] FeatureX",
-        "proposed-data-archiving": "[Proposed] Data archiving",
-        "project-guides": "Project Guides",
-        "appendix-requirements": "Appendix: Requirements",
-        "product-scope": "Product scope",
-        "user-stories": "User stories",
-        "use-cases": "Use cases",
-        "non-functional-requirements": "Non-Functional Requirements",
-        "glossary": "Glossary",
-        "appendix-instructions-for-manual-testing": "Appendix: Instructions for manual testing",
-        "launch-and-shutdown": "Launch and shutdown",
-        "featurex": "FeatureX",
-        "saving-data": "Saving data"
+        "acknowledgements": "Acknowledgements"
       },
       "headingKeywords": {}
     },
@@ -74,10 +65,62 @@
       "headingKeywords": {}
     },
     {
-      "src": "Logging.md",
-      "title": "Logging guide",
+      "src": "FAQ.md",
+      "title": "FAQ",
       "headings": {
-        "logging-guide": "Logging guide"
+        "faq": "FAQ"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "Features.md",
+      "title": "Features",
+      "headings": {
+        "features": "Features",
+        "featurex": "FeatureX",
+        "y-feature": "Y Feature",
+        "future-feature-z-coming-in-v2-0": "Future Feature Z [coming in v2.0]"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "Implementation.md",
+      "title": "Implementation",
+      "headings": {
+        "implementation": "Implementation",
+        "proposed-featurex-implementation": "[Proposed] FeatureX Implementation",
+        "proposed-data-archiving": "[Proposed] Data archiving"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "ManualTestingInstructions.md",
+      "title": "Manual Testing Instructions",
+      "headings": {
+        "manual-testing-instructions": "Manual Testing Instructions",
+        "launch-and-shutdown": "Launch and shutdown",
+        "featurex": "FeatureX",
+        "saving-data": "Saving data"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "QuickStart.md",
+      "title": "Quick Start",
+      "headings": {
+        "quick-start": "Quick start"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "Requirements.md",
+      "title": "Requirements",
+      "headings": {
+        "requirements": "Requirements",
+        "product-scope": "Product scope",
+        "user-stories": "User stories",
+        "use-cases": "Use cases",
+        "non-functional-requirements": "Non-Functional Requirements"
       },
       "headingKeywords": {}
     },
@@ -102,17 +145,22 @@
       "headingKeywords": {}
     },
     {
+      "src": "TracingCode.md",
+      "title": "Tutorial: Tracing code",
+      "headings": {
+        "tutorial-tracing-code": "Tutorial: Tracing code",
+        "before-we-start": "Before we start",
+        "setting-a-breakpoint": "Setting a breakpoint",
+        "tracing-the-execution-path": "Tracing the execution path",
+        "conclusion": "Conclusion"
+      },
+      "headingKeywords": {}
+    },
+    {
       "src": "UserGuide.md",
       "title": "User Guide",
       "headings": {
-        "projectex-user-guide": "ProjectEx User Guide",
-        "quick-start": "Quick start",
-        "features": "Features",
-        "featurex": "FeatureX",
-        "y-feature": "Y Feature",
-        "future-feature-z-coming-in-v2-0": "Future Feature Z [coming in v2.0]",
-        "faq": "FAQ",
-        "known-issues": "Known issues"
+        "projectex-user-guide": "ProjectEx User Guide"
       },
       "headingKeywords": {}
     },
@@ -129,43 +177,6 @@
       "title": "John Doe's Project Portfolio Page",
       "headings": {
         "project-projectex": "Project: ProjectEx"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "tutorials/AddingFeature.md",
-      "title": "Tutorial: Adding feature",
-      "headings": {
-        "tutorial-adding-feature": "Tutorial: Adding feature",
-        "create-a-new-feature": "Create a new feature",
-        "add-a-new-featurex-class": "Add a new FeatureX class",
-        "modify-featurea-to-support-the-new-featurex-feature": "Modify FeatureA to support the new FeatureX feature",
-        "writing-tests": "Writing tests",
-        "manually-writing-tests": "Manually writing tests",
-        "conclusion": "Conclusion"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "tutorials/RemovingFeature.md",
-      "title": "Tutorial: Removing feature",
-      "headings": {
-        "tutorial-removing-feature": "Tutorial: Removing Feature",
-        "safely-deleting-featurex": "Safely deleting FeatureX",
-        "refactoring-using-ide": "Refactoring using IDE",
-        "tidying-up": "Tidying up"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "tutorials/TracingCode.md",
-      "title": "Tutorial: Tracing code",
-      "headings": {
-        "tutorial-tracing-code": "Tutorial: Tracing code",
-        "before-we-start": "Before we start",
-        "setting-a-breakpoint": "Setting a breakpoint",
-        "tracing-the-execution-path": "Tracing the execution path",
-        "conclusion": "Conclusion"
       },
       "headingKeywords": {}
     }

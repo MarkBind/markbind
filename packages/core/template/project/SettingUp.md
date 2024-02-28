@@ -25,9 +25,10 @@ Follow the steps in the following guide precisely. Things will not work out if y
 
 First, **fork** the project repo, and **clone** the fork into your computer.
 
+<popover id="pop:trigger_id" content="eg. `init` or `build` commands"></popover>
 (Example) Steps to setup the project environment:
 1. **Download packages**: Run `npm install` to download the required packages.
-1. **Run setup commands**: Run commands needed to setup the project, such as `init` or `build` commands.
+1. **Run setup commands**: Run <trigger for="pop:trigger_id">commands</trigger> needed to setup the project.
    <box type="warning" seamless>
    Note: Remember to run commands from the appropriate directory.
    </box>
@@ -56,11 +57,9 @@ First, **fork** the project repo, and **clone** the fork into your computer.
 
 1. **Learn the design**
 
-   When you are ready to start coding, we recommend that you get some sense of the overall design by reading about [ProjectEx’s architecture](DeveloperGuide.md#architecture).
+   When you are ready to start coding, we recommend that you get some sense of the overall design by reading about [ProjectEx’s architecture](Design.md#Architecture).
 
-1. **Do the tutorials**
-   These tutorials will help you get acquainted with the codebase.
+1. **Do the tutorial**
+   This tutorial will help you get acquainted with the codebase.
 
-   * [Tracing code](tutorials/TracingCode.md)
-   * [Adding feature](tutorials/AddingFeature.md)
-   * [Removing feature](tutorials/RemovingFeature.md)
+   * [Tracing code](TracingCode.md)

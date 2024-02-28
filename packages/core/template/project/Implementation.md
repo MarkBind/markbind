@@ -1,0 +1,41 @@
+---
+  layout: default.md
+  title: "Implementation"
+  pageNav: 3
+---
+
+# Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+### \[Proposed\] FeatureX Implementation
+
+Given below is an example usage scenario and how FeatureX behaves at each step.
+
+1. **Step 1**: User does something
+
+   * **Expected**: FeatureX does something in response
+
+1. **Step 2**: User does something else
+   
+      * **Expected**: FeatureX does something else in response
+
+#### Design considerations:
+
+**Aspect: How FeatureX executes:**
+
+<panel header="**Alternative 1 (current choice):** Implementation 1">
+<p>Pros: Easy to implement.</p>
+<p>Cons: May have performance issues in terms of memory usage.</p>
+</panel>
+<br>
+<panel header="**Alternative 2:** Implementation 2">
+<p>Pros: Will use less memory.</p>
+<p>Cons: We must add addtional test cases.</p>
+</panel>
+<br>
+_{more aspects and alternatives to be added}_
+
+### \[Proposed\] Data archiving
+
+_{Explain here how the data archiving feature will be implemented}_
