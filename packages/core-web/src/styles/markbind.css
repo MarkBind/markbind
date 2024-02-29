@@ -27,9 +27,8 @@ pre.hljs > code {
     background: none;
 }
 
-pre > code.hljs {
-    -webkit-background-clip: padding-box; /* for Safari */
-    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+pre > code.hljs { 
+    background-clip: padding-box;
     border-radius: 5px;
     counter-reset: line;
     width: 100%;
@@ -232,7 +231,7 @@ footer {
 }
 
 /* Bootstrap small(sm) responsive breakpoint */
-@media (max-width: 767.98px) {
+@media (width <= 767.98px) {
     .dropdown-menu > li > a {
         white-space: normal;
     }
@@ -276,12 +275,12 @@ li.footnote-item:target {
 
 /* styles for triggers and tooltips */
 .trigger {
-    border-bottom: 1px dotted currentColor;
+    border-bottom: 1px dotted currentcolor;
 }
 
 .trigger-click {
     cursor: pointer;
-    border-bottom: 1px dashed currentColor;
+    border-bottom: 1px dashed currentcolor;
 }
 
 .trigger-click:focus {
@@ -327,7 +326,7 @@ pre:hover > .function-btn-container > button.function-btn {
 }
 
 .function-btn svg {
-    fill: currentColor;
+    fill: currentcolor;
 }
 
 /* Wrap class used for "wrap text" button. */
@@ -345,7 +344,7 @@ code.wrap {
 
 /* styles for <hr> */
 hr {
-    border-top: solid 1px rgb(0, 0, 0, 0.1);
+    border-top: solid 1px rgb(0 0 0 / 10%);
     background-color: transparent;
     opacity: 1;
 }

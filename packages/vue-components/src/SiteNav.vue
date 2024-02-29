@@ -81,7 +81,7 @@ export default {
     }
 
     .site-nav-default-list-item:hover {
-        background-color: rgba(214, 233, 255, 0.35);
+        background-color: rgb(214 233 255 / 35%);
     }
 
     .site-nav-default-list-item a {
@@ -99,8 +99,7 @@ export default {
 
     .site-nav-dropdown-btn-container {
         display: flex;
-        align-content: center;
-        justify-content: center;
+        place-content: center center;
         width: 2rem;
         height: 1.5em;
         margin: 0 0.75rem 0 auto;
@@ -114,11 +113,9 @@ export default {
         height: 1.5em;
         text-align: center;
         border-radius: 1rem;
-        padding: 0 0 0 0;
+        padding: 0;
         transition: 0.4s;
         transform: rotate(0deg);
-        -webkit-transition: 0.4s;
-        -webkit-transform: rotate(0deg);
     }
 
     .site-nav-dropdown-btn-icon:hover {
@@ -128,7 +125,6 @@ export default {
     .site-nav-rotate-icon {
         color: #4c7ff1;
         transform: rotate(-180deg);
-        -webkit-transform: rotate(-180deg);
     }
 
     .site-nav-dropdown-container {
@@ -136,12 +132,10 @@ export default {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.15s ease-out;
-        -webkit-transition: max-height 0.15s ease-out;
     }
 
     .site-nav-dropdown-container-open {
         max-height: 1000px;
         transition: max-height 0.25s ease-in;
-        -webkit-transition: max-height 0.25s ease-in;
     }
 </style>
