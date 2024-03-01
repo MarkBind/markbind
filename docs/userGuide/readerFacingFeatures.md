@@ -25,7 +25,7 @@
 {% endmacro %}
 
 {% for k,v in topics %}
-  {% if 'reader-facing' in v[1] %}
+  {% if 'reader-facing' in v[2] %}
 {{ show_topic( k, v[0]) }}
   {% endif %}
 {% endfor %}
