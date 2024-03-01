@@ -304,7 +304,7 @@ export default {
     }
 
     .row {
-        margin: 0.2rem 0 0 0;
+        margin: 0.2rem 0 0;
         align-items: center;
     }
 
