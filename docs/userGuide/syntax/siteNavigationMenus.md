@@ -10,7 +10,7 @@ Steps to add a siteNav:
 3. (Optional) To make siteNav accessible on smaller screens, you can use the `<site-nav-button />` component in the [navbar]({{baseUrl}}/userGuide/components/navigation.html#navbars).
 
 
-<include src="codeAndOutput.md" boilerplate >  
+<include src="codeAndOutput.md" boilerplate >
 <variable name="code">
 <site-nav>
 * [**Getting Started**]({{baseUrl}}/userGuide/gettingStarted.html)

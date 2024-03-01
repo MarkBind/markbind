@@ -7,7 +7,7 @@
 # Syntax Reference
 
 <box type="info">
-  Expand the panels for detailed explanations of the corresponding feature! Click on the link on the header to go to the corresponding page!
+Expand the panels for detailed explanations of the feature or click on the link in the header to go to the corresponding page!
 </box>
 
 {% from "userGuide/syntax/fullSyntaxSet.njk" import syntax_topics as topics %}
