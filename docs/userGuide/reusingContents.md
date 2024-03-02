@@ -121,6 +121,9 @@ To <span class="keyword">hide minimized panels in the _print view_</span>, add t
 }
 ```
 
+MarkBind also comes with some built-in optimizations for printing by default:
+- <include src="syntax/code.md#code-print-optimization" />
+
 #### Hiding some info in the generated content
 
 To permanently hide a fragment from the reader:

@@ -55,3 +55,21 @@ window.addEventListener('beforeprint', () => {
 window.addEventListener('afterprint', () => {
   removePageNavPrint();
 });
+
+// Check for wrapping in code blocks and adds line numbers if necessary
+function checkForWrappingAndAddLineNumbers() {
+  document.querySelectorAll('pre > code.hljs').forEach((block) => {
+    // Check if any line within the block is wrapped
+    const isWrapped = Array.from(block.querySelectorAll('span'))
+      .some(line => line.scrollWidth > line.clientWidth);
+
+    if (isWrapped) {
+      // Add .line-numbers class to enable line numbering for wrapped lines
+      block.classList.add('line-numbers-print');
+    }
+  });
+}
+
+window.addEventListener('beforeprint', () => {
+  checkForWrappingAndAddLineNumbers();
+});

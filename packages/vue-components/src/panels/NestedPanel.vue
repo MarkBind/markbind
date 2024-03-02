@@ -325,7 +325,7 @@ export default {
     }
 
     /* Bootstrap extra small(xs) responsive breakpoint */
-    @media (max-width: 575.98px) {
+    @media (width <= 575.98px) {
         .header-wrapper {
             display: inline-block;
             width: calc(100% - 32px - 32px);
