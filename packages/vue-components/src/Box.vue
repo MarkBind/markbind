@@ -286,7 +286,7 @@ export default {
         flex-direction: row;
         align-items: center;
         width: 100%;
-        padding: 0.4rem 1.25rem 0.28rem 1.25rem;
+        padding: 0.4rem 1.25rem 0.28rem;
         border-radius: 6px 6px 0 0;
     }
 
@@ -316,11 +316,11 @@ export default {
         float: right;
         font-weight: normal;
         color: inherit;
-        background-color: rgba(240, 240, 240, 0.6);
+        background-color: rgb(240 240 240 / 60%);
         width: auto;
-        padding: 3px 5px 4px 5px;
+        padding: 3px 5px 4px;
         border-width: 0;
-        border-radius: 0 6px 0 6px;
+        border-radius: 0 6px;
         margin: -13px -27px 0 15px;
     }
 
@@ -392,7 +392,7 @@ export default {
         border: none;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 768px) {
         .box-header-wrapper {
             padding: 0.75rem 0.75rem 0.1rem;
         }

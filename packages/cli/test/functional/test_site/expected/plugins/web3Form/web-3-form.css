@@ -1,6 +1,6 @@
-.web3Form input,
-.web3Form select,
-.web3Form textarea {
+.web-3-form input,
+.web-3-form select,
+.web-3-form textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;

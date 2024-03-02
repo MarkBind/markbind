@@ -27,9 +27,8 @@ pre.hljs > code {
     background: none;
 }
 
-pre > code.hljs {
-    -webkit-background-clip: padding-box; /* for Safari */
-    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+pre > code.hljs { 
+    background-clip: padding-box;
     border-radius: 5px;
     counter-reset: line;
     width: 100%;
@@ -66,18 +65,42 @@ pre > code.hljs[heading] {
 
 /* switch to light style on print view */
 @media print {
-    pre > code.hljs,
-    code.hljs.inline {
-        background: ghostwhite;
-        color: #333;
+    pre > code.hljs {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        word-break: break-all;
     }
 
     code.hljs.inline {
+        background: ghostwhite;
+        color: #333;
         border: 0.5px solid #d4d4d4;
     }
 
     code span.highlighted {
         background: lavender;
+    }
+
+    .hljs:not(.inline).line-numbers-print > span {
+        padding: 0 0.5em 0 3.5em;
+        position: relative;
+    }
+
+    /* display line numbers beside each span */
+    .hljs:not(.inline).line-numbers-print > span::before {
+        border-right: 1px solid #ddd;
+        display: inline-block;
+        color: #888;
+        content: counter(line);
+        counter-increment: line;
+        left: 0;
+        margin-right: 0.5em;
+        padding-right: 0.5em;
+        position: absolute;
+        text-align: right;
+        top: 0;
+        width: 3em;
+        height: 100%;
     }
 }
 
@@ -208,7 +231,7 @@ footer {
 }
 
 /* Bootstrap small(sm) responsive breakpoint */
-@media (max-width: 767.98px) {
+@media (width <= 767.98px) {
     .dropdown-menu > li > a {
         white-space: normal;
     }
@@ -252,12 +275,12 @@ li.footnote-item:target {
 
 /* styles for triggers and tooltips */
 .trigger {
-    border-bottom: 1px dotted currentColor;
+    border-bottom: 1px dotted currentcolor;
 }
 
 .trigger-click {
     cursor: pointer;
-    border-bottom: 1px dashed currentColor;
+    border-bottom: 1px dashed currentcolor;
 }
 
 .trigger-click:focus {
@@ -303,13 +326,14 @@ pre:hover > .function-btn-container > button.function-btn {
 }
 
 .function-btn svg {
-    fill: currentColor;
+    fill: currentcolor;
 }
 
 /* Wrap class used for "wrap text" button. */
 code.wrap {
     white-space: pre-wrap;
     word-wrap: break-word;
+    word-break: break-all;
 }
 
 /* Octicon sizing */
@@ -320,7 +344,7 @@ code.wrap {
 
 /* styles for <hr> */
 hr {
-    border-top: solid 1px rgb(0, 0, 0, 0.1);
+    border-top: solid 1px rgb(0 0 0 / 10%);
     background-color: transparent;
     opacity: 1;
 }
