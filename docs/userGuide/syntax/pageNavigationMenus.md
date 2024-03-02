@@ -4,7 +4,7 @@
 
 <div id="content">
 
-**A _Page Navigation Menu_ (==_pageNav_ for short==)  a list of the current page's headings.** Page navigation menus are only available for use in [layouts]({{baseUrl}}/userGuide/tweakingThePageStructure.html#layouts).
+**A _Page Navigation Menu_ (==_pageNav_ for short==) displays a list of the current page's headings.** Page navigation menus are typically used in [layouts]({{baseUrl}}/userGuide/tweakingThePageStructure.html#layouts), but they can also be utilized in individual pages.
 
 ****Adding a pageNav****
 
