@@ -270,7 +270,7 @@ export default {
     }
 
     /* For mobile devices and general tablets in portrait e.g. iPad */
-    @media screen and (max-width: 878px) and (orientation: portrait) {
+    @media screen and (width <= 878px) and (orientation: portrait) {
         .form-control {
             min-width: 8em;
             max-width: 16em; /* twice of min-width, to accommodate a range of lengths */
@@ -278,7 +278,7 @@ export default {
     }
 
     /* For general tablets in landscape e.g. iPad */
-    @media screen and (min-width: 768px) and (max-width: 878px)  and (orientation: landscape) {
+    @media screen and (width >= 768px) and (width <= 878px)  and (orientation: landscape) {
         .form-control {
             min-width: 9em;
             max-width: 18em; /* twice of min-width, to accommodate a range of lengths */
@@ -286,7 +286,7 @@ export default {
     }
 
     .table-active {
-        background-color: rgba(0, 0, 0, 0.075); /* follows Bootstrap's table-active */
+        background-color: rgb(0 0 0 / 7.5%); /* follows Bootstrap's table-active */
     }
 
     .dropdown-menu-end {
@@ -317,7 +317,7 @@ export default {
         cursor: pointer;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 768px) {
         .search-dropdown-menu {
             min-width: 90vw;
             max-height: 30em;

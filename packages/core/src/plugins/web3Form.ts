@@ -60,7 +60,7 @@ function generateFormContainer(node: MbNode) {
   }
   node.name = 'box';
   const $node = cheerio(node);
-  $node.addClass('web3Form');
+  $node.addClass('web-3-form');
   if (!_.has(node.attribs, 'type')) {
     $node.attr('type', 'info');
   }

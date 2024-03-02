@@ -189,7 +189,7 @@ export default {
 </script>
 
 <style scoped>
-    @media (max-width: 767px) {
+    @media (width <= 767px) {
         .navbar-default .dropdown {
             position: static;
         }
