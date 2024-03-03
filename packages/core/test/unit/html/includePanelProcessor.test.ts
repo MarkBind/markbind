@@ -87,6 +87,58 @@ test('includeFile replaces <include src="doesNotExist.md" optional> with empty <
   expect(result).toEqual(expected);
 });
 
+test('includeFile import footnote from hash', async () => {
+  const indexPath = path.resolve('index.md');
+
+  const index = [
+    '# Index',
+    '<include src="include.md#exists"/>',
+    '',
+  ].join('\n');
+
+  const include = [
+    '# Include',
+    '<div id="exists">',
+    '',
+    'text^[footnote]',
+    '</div>',
+  ].join('\n');
+
+  const json = {
+    'index.md': index,
+    'include.md': include,
+  };
+
+  fs.vol.fromJSON(json, '');
+
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const result = await nodeProcessor.process(indexPath, index);
+  // to make lint happy
+  const longStr1 = '<p>text<trigger for="pop:footnotefn-1-1"><sup class="footnote-ref"><a aria-describedby=';
+  const expected = [
+    '<h1 id="index">Index</h1>',
+    '<div>',
+    `${longStr1}"footnote-label" href="#fn-1-1">[1]</a></sup></trigger></p></div><hr class="footnotes-sep">`,
+    '<section class="footnotes">',
+    '<ol class="footnotes-list">',
+    '<popover id="pop:footnotefn-1-1">',
+    '            <template #content><div>',
+    '              <p>footnote</p>',
+    '',
+    '            </div></template>',
+    '          </popover>',
+    '',
+    '<li id="fn-1-1" class="footnote-item"><p>footnote</p>',
+    '</li>',
+    '',
+    '</ol>',
+    '</section>',
+    '',
+  ].join('\n');
+
+  expect(result).toEqual(expected);
+});
+
 test('includeFile replaces <include src="include.md#exists"> with <div>', async () => {
   const indexPath = path.resolve('index.md');
 
