@@ -237,6 +237,11 @@
               Here is an inline note.<trigger for="pop:footnotefn-1-3"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn-1-3">[3]</a></sup></trigger>
             </p>
           </div>
+          <p><strong>Test include footnotes from hash</strong></p>
+          <div>
+            <p>text<trigger for="pop:footnotefn-2-1"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn-2-1">[1]</a></sup></trigger>, text2<trigger for="pop:footnotefn-2-2"><sup class="footnote-ref"><a aria-describedby="footnote-label" href="#fn-2-2">[2]</a></sup></trigger>
+            </p>
+          </div>
           <p><strong>Nunjucks SetExt</strong></p>
           <div> front back </div>
           <p>arrayVarItem1</p>
@@ -788,6 +793,25 @@
                 you don't have to pick an identifier and move down to type the
                 note.</p>
             </li>
+
+
+            <popover id="pop:footnotefn-2-1">
+              <template #content>
+                <div>
+                  null
+                </div>
+              </template>
+            </popover>
+            <popover id="pop:footnotefn-2-2">
+              <template #content>
+                <div>
+                  null
+                </div>
+              </template>
+            </popover>
+
+            <li id="fn-2-1" class="footnote-item">null</li>
+            <li id="fn-2-2" class="footnote-item">null</li>
 
           </ol>
         </section>

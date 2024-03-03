@@ -230,6 +230,24 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
     const $ = cheerio.load(actualContent);
     const actualContentOrNull = $(hash).html();
     actualContent = actualContentOrNull || '';
+    if (actualContent !== '') {
+      const footnotePattern = /<a aria-describedby="footnote-label" href="#fn-\d+-\d+">\[\d+\]/g;
+      const matchs = actualContent.match(footnotePattern);
+      if (matchs) {
+        const hrefPattern = /href="#(fn-\d+-\d+)"/;
+        let footnoteNumber = 1;
+        let toAppend = '<mb-temp-footnotes>';
+        matchs.forEach((match) => {
+          const href = match.match(hrefPattern)![1];
+          const replaceTo = `<a aria-describedby="footnote-label" href="#${href}">[${footnoteNumber}]`;
+          footnoteNumber += 1;
+          actualContent = actualContent.replace(match, replaceTo);
+          toAppend += `\n<li id="${href}" class="footnote-item">${$('#fn-1-1.footnote-item')!.html()}</li>`;
+        });
+        toAppend += '\n</mb-temp-footnotes>';
+        actualContent += toAppend;
+      }
+    }
 
     if (actualContentOrNull === null && !isOptional) {
       const error = new Error(`No such segment '${hash}' in file: ${actualFilePath}\n`
