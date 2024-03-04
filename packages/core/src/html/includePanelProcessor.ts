@@ -232,12 +232,12 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
     actualContent = actualContentOrNull || '';
     if (actualContent !== '') {
       const footnotePattern = /<a aria-describedby="footnote-label" href="#fn-\d+-\d+">\[\d+\]/g;
-      const matchs = actualContent.match(footnotePattern);
-      if (matchs) {
+      const matches = actualContent.match(footnotePattern);
+      if (matches) {
         const hrefPattern = /href="#(fn-\d+-\d+)"/;
         let footnoteNumber = 1;
         let toAppend = '<mb-temp-footnotes>';
-        matchs.forEach((match) => {
+        matches.forEach((match) => {
           const href = match.match(hrefPattern)![1];
           const replaceTo = `<a aria-describedby="footnote-label" href="#${href}">[${footnoteNumber}]`;
           footnoteNumber += 1;
