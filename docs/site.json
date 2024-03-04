@@ -13,8 +13,7 @@
       "src": [
         "index.md",
         "userGuide/index.md",
-        "userGuide/fullSyntaxReference.md",
-        "userGuide/syntaxCheatSheet.md",
+        "userGuide/syntaxReference.md",
         "userGuide/readerFacingFeatures.md",
         "devGuide/index.md"
       ],

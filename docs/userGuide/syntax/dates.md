@@ -99,8 +99,6 @@ Thu 22/08
 <div id="short" class="d-none">
 
 <box><span>
-{{ njcode('"2019-08-12" | date("DD.MM.YYYY", 10)') }} <!-- 22.08.2019 --><br/>
+{{ njcode('baseDate | date(format, daysToAdd)') }} <!-- 22.08.2019 --><br/>
 </span></box>
-
-{{ "2019-08-12" | date("DD.MM.YYYY", 10) }}
 </div>
