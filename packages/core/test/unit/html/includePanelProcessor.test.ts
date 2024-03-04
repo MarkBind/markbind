@@ -112,15 +112,28 @@ test('includeFile import footnote from hash', async () => {
 
   const nodeProcessor = getNewDefaultNodeProcessor();
   const result = await nodeProcessor.process(indexPath, index);
-  // to make lint happy; if write as array.join, some lines more than 100 characters;
-  const a = '<div>\n<p>text<trigger for="pop:footnotefn-1-1"><sup class="footnote-ref">';
-  const b = '<a aria-describedby="footnote-label" href="#fn-1-1">[1]</a></sup></trigger></p>';
-  const c = '</div><hr class="footnotes-sep">\n<section class="footnotes">\n';
-  const d = '<ol class="footnotes-list">\n<popover id="pop:footnotefn-1-1">\n';
-  const e = '            <template #content><div>\n              <p>footnote</p>\n\n';
-  const f = '            </div></template>\n          </popover>\n\n<li id="fn-1-1"';
-  const g = ' class="footnote-item"><p>footnote</p>\n</li>\n\n</ol>\n</section>\n';
-  const expected = a + b + c + d + e + f + g;
+  // to make lint happy
+  let longStr = '<p>text<trigger for="pop:footnotefn-1-1"><sup class="footnote-ref"><a aria-describedby="';
+  longStr += 'footnote-label" href="#fn-1-1">[1]</a></sup></trigger></p></div><hr class="footnotes-sep">';
+  const expected = [
+    '<div>',
+    longStr,
+    '<section class="footnotes">',
+    '<ol class="footnotes-list">',
+    '<popover id="pop:footnotefn-1-1">',
+    '            <template #content><div>',
+    '              <p>footnote</p>',
+    '',
+    '            </div></template>',
+    '          </popover>',
+    '',
+    '<li id="fn-1-1" class="footnote-item"><p>footnote</p>',
+    '</li>',
+    '',
+    '</ol>',
+    '</section>',
+    '',
+  ].join('\n');
 
   expect(result).toEqual(expected);
 });
