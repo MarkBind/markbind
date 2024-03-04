@@ -190,7 +190,7 @@ Optionally, you can provide the reason for the particular option using the `<q-o
 {% set checkboxQuestion %}
 <question type="checkbox" hint="Use your calculator! :fas-calculator:">
 
-  ##### Which of the following is true?
+  Which of the following is true?
 
   <br>
   <q-option reason="lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum">
@@ -242,7 +242,7 @@ and not others.
 {% set blanksQuestion %}
 <question type="blanks" hint="Google it!">
 
-  ##### German sociologist __________ called the process of simultaneously analyzing the behavior of individuals and the society that shapes that behavior __________.
+  <md>German sociologist __________ called the process of simultaneously analyzing the behavior of individuals and the society that shapes that behavior __________.</md>
 
   <q-option keywords="Norbert Elias, Elias" reason="That's his name!"></q-option>
   <q-option keywords="figuration"></q-option>
