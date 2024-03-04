@@ -181,13 +181,11 @@ Only `.json` and `.csv` files are supported for now.
 
 <div id="short" class="d-none">
 
-Global variables:
 
-`_markbind/variables.md`:
-```html
+```markdown
+Place global variables in `_markbind/variables.md`
 <variable name="year">2018</variable>
+The year was {% raw %}{{ year }}{% endraw %}
 ```
-
-`The year was {% raw %}{{ year }}{% endraw %}.`
 
 </div>
