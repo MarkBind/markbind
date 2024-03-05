@@ -10,15 +10,17 @@ interface EmojiData {
 
 const emojiData = emojiDictionary as unknown as EmojiData;
 
-const ICON_ATTRIBUTES = ['icon', 'i-width', 'i-height', 'i-size', 'i-class', 'text'];
+const ICON_ATTRIBUTES = ['icon', 'i-width', 'i-height', 'i-size', 'i-class', 'text', 't-size', 't-class'];
 
 interface IconAttributes {
   icon?: string;
-  className?: string;
-  size?: string;
+  iconClassName?: string;
+  iconSize?: string;
   width?: string;
   height?: string;
   text?: string;
+  textClassName?: string;
+  textSize?: string;
 }
 
 type IconAttributeDetail = {
@@ -37,27 +39,45 @@ function classifyIcon(icon: string) {
   };
 }
 
-function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
+function createTextSpan(iconAttrs: IconAttributes): cheerio.Cheerio | null {
+  if (iconAttrs.text === undefined) {
+    return null;
+  }
+  const spanNode = cheerio(`<span aria-hidden="true">${iconAttrs.text}</span>`)
+    .css({
+      'font-size': iconAttrs.textSize,
+      'padding-bottom': '0.3em',
+      'padding-top': '0.3em',
+    }).addClass(iconAttrs.textClassName || '');
+  return spanNode.css({
+    'line-height': 'unset',
+    'margin-inline-end': '0.35em',
+    'align-self': 'flex-start',
+    'flex-shrink': '0',
+  });
+}
+
+function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio | null {
+  if (iconAttrs.icon === undefined) {
+    return null;
+  }
+
   let spanContent;
-  if (iconAttrs.text !== undefined) {
-    spanContent = `<span aria-hidden="true">${iconAttrs.text}</span>`;
+  const {
+    isEmoji,
+    unicodeEmoji,
+  } = classifyIcon(iconAttrs.icon!);
+  if (isEmoji) {
+    spanContent = `<span aria-hidden="true">${unicodeEmoji}</span>`;
   } else {
-    const {
-      isEmoji,
-      unicodeEmoji,
-    } = classifyIcon(iconAttrs.icon!);
-    if (isEmoji) {
-      spanContent = `<span aria-hidden="true">${unicodeEmoji}</span>`;
-    } else {
-      spanContent = processIconString(iconAttrs.icon);
-    }
+    spanContent = processIconString(iconAttrs.icon);
   }
 
   let spanNode;
-  if (spanContent === null) {
+  if (spanContent === null && iconAttrs.icon !== undefined) {
     const img = cheerio(`<img src='${iconAttrs.icon}' alt='Icon'>`)
       .css({ width: iconAttrs.width, height: iconAttrs.height, display: 'inline-block' })
-      .addClass(iconAttrs.className || '');
+      .addClass(iconAttrs.iconClassName || '');
     img.append('\u200B');
 
     spanContent = cheerio('<span></span>').append(img).css({
@@ -67,7 +87,7 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
     spanNode = cheerio(spanContent).css({ 'font-size': 'unset', 'min-width': '16px' });
   } else {
     spanNode = cheerio(spanContent).css({ 'font-size': 'unset', 'min-width': '16px' });
-    spanNode = spanNode.css({ 'font-size': iconAttrs.size }).addClass(iconAttrs.className || '');
+    spanNode = spanNode.css({ 'font-size': iconAttrs.iconSize }).addClass(iconAttrs.iconClassName || '');
   }
   // Add invisible character to avoid the element from being empty
   spanNode.append('\u200B');
@@ -102,9 +122,15 @@ IconAttributes | null => {
     icon: node.attribs.icon !== undefined ? node.attribs.icon : iconAttrsSoFar?.icon,
     width: node.attribs['i-width'] !== undefined ? node.attribs['i-width'] : iconAttrsSoFar?.width,
     height: node.attribs['i-height'] !== undefined ? node.attribs['i-height'] : iconAttrsSoFar?.height,
-    size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttrsSoFar?.size,
-    className: node.attribs['i-class'] !== undefined ? node.attribs['i-class'] : iconAttrsSoFar?.className,
+    iconSize: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttrsSoFar?.iconSize,
+    iconClassName: node.attribs['i-class'] !== undefined
+      ? node.attribs['i-class']
+      : iconAttrsSoFar?.iconClassName,
     text: node.attribs.text !== undefined ? renderMdInline(node.attribs.text) : iconAttrsSoFar?.text,
+    textClassName: node.attribs['t-class'] !== undefined
+      ? node.attribs['t-class']
+      : iconAttrsSoFar?.textClassName,
+    textSize: node.attribs['t-size'] !== undefined ? node.attribs['t-size'] : iconAttrsSoFar?.textSize,
   };
 };
 
@@ -125,11 +151,17 @@ function updateLi(node: MbNode, iconAttributes: IconAttributes, renderMdInline: 
   // Create a new div and span
   const div = cheerio('<div></div>');
   const iconSpan = createIconSpan(curLiIcon!);
+  const textSpan = createTextSpan(curLiIcon!);
 
   div.append(cheerio(node.children).remove());
 
   // Append iconSpan and div to the child
-  cheerio(node).append(iconSpan);
+  if (iconSpan !== null) {
+    cheerio(node).append(iconSpan);
+  }
+  if (textSpan !== null) {
+    cheerio(node).append(textSpan);
+  }
   cheerio(node).append(div);
 
   cheerio(node).css({

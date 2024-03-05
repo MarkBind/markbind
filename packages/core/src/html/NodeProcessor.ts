@@ -208,7 +208,7 @@ export class NodeProcessor {
       case 'popover':
         this.mdAttributeRenderer.processPopoverAttributes(node);
         return processPopoverSrc(node, context, this.pageSources, this.variableProcessor,
-                                 (text: string) => this.markdownProcessor.renderMd(text), this.config);
+                                 (text: string) => this.markdownProcessor.renderMdInline(text), this.config);
       case 'tooltip':
         this.mdAttributeRenderer.processTooltip(node);
         break;
