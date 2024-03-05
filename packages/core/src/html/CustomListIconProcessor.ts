@@ -10,7 +10,7 @@ interface EmojiData {
 
 const emojiData = emojiDictionary as unknown as EmojiData;
 
-const ICON_ATTRIBUTES = ['icon', 'i-width', 'i-height', 'i-size', 'i-class'];
+const ICON_ATTRIBUTES = ['icon', 'i-width', 'i-height', 'i-size', 'i-class', 'text'];
 
 interface IconAttributes {
   icon?: string;
@@ -18,6 +18,7 @@ interface IconAttributes {
   size?: string;
   width?: string;
   height?: string;
+  text?: string;
 }
 
 type IconAttributeDetail = {
@@ -37,16 +38,19 @@ function classifyIcon(icon: string) {
 }
 
 function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
-  const {
-    isEmoji,
-    unicodeEmoji,
-  } = classifyIcon(iconAttrs.icon!);
-
   let spanContent;
-  if (isEmoji) {
-    spanContent = `<span aria-hidden="true">${unicodeEmoji}</span>`;
+  if (iconAttrs.text !== undefined) {
+    spanContent = `<span aria-hidden="true">${iconAttrs.text}</span>`;
   } else {
-    spanContent = processIconString(iconAttrs.icon);
+    const {
+      isEmoji,
+      unicodeEmoji,
+    } = classifyIcon(iconAttrs.icon!);
+    if (isEmoji) {
+      spanContent = `<span aria-hidden="true">${unicodeEmoji}</span>`;
+    } else {
+      spanContent = processIconString(iconAttrs.icon);
+    }
   }
 
   let spanNode;
@@ -88,7 +92,8 @@ function updateNodeStyle(node: NodeOrText) {
 // items at that level to prevent duplication of icons attribute declarations.
 const getIconAttributes = (node: MbNode, iconAttrsSoFar?: IconAttributes):
 IconAttributes | null => {
-  if (iconAttrsSoFar?.icon === undefined && node.attribs.icon === undefined) {
+  if (iconAttrsSoFar?.icon === undefined && node.attribs.icon === undefined
+      && iconAttrsSoFar?.text === undefined && node.attribs.text === undefined) {
     return null;
   }
 
@@ -98,6 +103,7 @@ IconAttributes | null => {
     height: node.attribs['i-height'] !== undefined ? node.attribs['i-height'] : iconAttrsSoFar?.height,
     size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttrsSoFar?.size,
     className: node.attribs['i-class'] !== undefined ? node.attribs['i-class'] : iconAttrsSoFar?.className,
+    text: node.attribs.text !== undefined ? node.attribs.text : iconAttrsSoFar?.text,
   };
 };
 
@@ -109,7 +115,7 @@ const deleteAttributes = (node: MbNode, attributes: string[]) => {
 
 function updateLi(node: MbNode, iconAttributes: IconAttributes) {
   if (
-    iconAttributes.icon === undefined
+    iconAttributes.icon === undefined && iconAttributes.text === undefined
   ) return;
   const curLiIcon = getIconAttributes(node, iconAttributes);
 
