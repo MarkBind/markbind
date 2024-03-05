@@ -90,7 +90,8 @@ function updateNodeStyle(node: NodeOrText) {
 
 // If an item has a specified icon, that icon will be used for it and for subsequent
 // items at that level to prevent duplication of icons attribute declarations.
-const getIconAttributes = (node: MbNode, iconAttrsSoFar?: IconAttributes):
+const getIconAttributes = (node: MbNode, renderMdInline: (text: string) => string,
+                           iconAttrsSoFar?: IconAttributes):
 IconAttributes | null => {
   if (iconAttrsSoFar?.icon === undefined && node.attribs.icon === undefined
       && iconAttrsSoFar?.text === undefined && node.attribs.text === undefined) {
@@ -103,7 +104,7 @@ IconAttributes | null => {
     height: node.attribs['i-height'] !== undefined ? node.attribs['i-height'] : iconAttrsSoFar?.height,
     size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttrsSoFar?.size,
     className: node.attribs['i-class'] !== undefined ? node.attribs['i-class'] : iconAttrsSoFar?.className,
-    text: node.attribs.text !== undefined ? node.attribs.text : iconAttrsSoFar?.text,
+    text: node.attribs.text !== undefined ? renderMdInline(node.attribs.text) : iconAttrsSoFar?.text,
   };
 };
 
@@ -113,11 +114,11 @@ const deleteAttributes = (node: MbNode, attributes: string[]) => {
   });
 };
 
-function updateLi(node: MbNode, iconAttributes: IconAttributes) {
+function updateLi(node: MbNode, iconAttributes: IconAttributes, renderMdInline: (text: string) => string) {
   if (
     iconAttributes.icon === undefined && iconAttributes.text === undefined
   ) return;
-  const curLiIcon = getIconAttributes(node, iconAttributes);
+  const curLiIcon = getIconAttributes(node, renderMdInline, iconAttributes);
 
   deleteAttributes(node, ICON_ATTRIBUTES);
 
@@ -140,17 +141,18 @@ function updateLi(node: MbNode, iconAttributes: IconAttributes) {
 // If not, the list will be invalidated and default bullets will be used.
 // This is to prevent unintentional mixing of standard and customized lists.
 // See https://github.com/MarkBind/markbind/pull/2316#discussion_r1255364486 for more details.
-function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail) {
+function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail,
+                      renderMdInline: (text: string) => string) {
   if (iconAttrValue.isFirst) {
-    iconAttrValue.iconAttrs = getIconAttributes(node);
+    iconAttrValue.iconAttrs = getIconAttributes(node, renderMdInline);
     iconAttrValue.isFirst = false;
   } else if (iconAttrValue.iconAttrs) {
-    iconAttrValue.iconAttrs = getIconAttributes(node, iconAttrValue.iconAttrs);
+    iconAttrValue.iconAttrs = getIconAttributes(node, renderMdInline, iconAttrValue.iconAttrs);
   }
-  updateLi(node, iconAttrValue.iconAttrs ?? {});
+  updateLi(node, iconAttrValue.iconAttrs ?? {}, renderMdInline);
 }
 
-export function processUlNode(node: NodeOrText) {
+export function processUlNode(node: NodeOrText, renderMdInline: (text: string) => string) {
   const nodeAsMbNode = node as MbNode;
   if (nodeAsMbNode.attribs.isIconListProcessed === 'true') {
     delete nodeAsMbNode.attribs.isIconListProcessed;
@@ -168,7 +170,7 @@ export function processUlNode(node: NodeOrText) {
 
     liNodes.forEach((liNode) => {
       const ulChildren = liNode.children?.filter(child => child.name === 'ul');
-      handleLiNode(liNode as MbNode, iconAttrs[level]);
+      handleLiNode(liNode as MbNode, iconAttrs[level], renderMdInline);
 
       ulChildren?.forEach((ulChildNode) => {
         // Traverse the children if any
