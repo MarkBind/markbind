@@ -197,7 +197,7 @@ export class NodeProcessor {
         this.mdAttributeRenderer.processQuestion(node);
         break;
       case 'ul':
-        processUlNode(node, (text: string) => this.markdownProcessor.renderMd(text));
+        processUlNode(node, (text: string) => this.markdownProcessor.renderMdInline(text));
         break;
       case 'q-option':
         this.mdAttributeRenderer.processQOption(node);
@@ -208,7 +208,7 @@ export class NodeProcessor {
       case 'popover':
         this.mdAttributeRenderer.processPopoverAttributes(node);
         return processPopoverSrc(node, context, this.pageSources, this.variableProcessor,
-                                 (text: string) => this.markdownProcessor.renderMdInline(text), this.config);
+                                 (text: string) => this.markdownProcessor.renderMd(text), this.config);
       case 'tooltip':
         this.mdAttributeRenderer.processTooltip(node);
         break;
