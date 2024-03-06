@@ -40,7 +40,7 @@ function classifyIcon(icon: string) {
 }
 
 function createTextSpan(iconAttrs: IconAttributes): cheerio.Cheerio | null {
-  if (iconAttrs.text === undefined) {
+  if (iconAttrs.text === undefined || iconAttrs.text.length === 0) {
     return null;
   }
   const spanNode = cheerio(`<span aria-hidden="true">${iconAttrs.text}</span>`)
@@ -56,7 +56,7 @@ function createTextSpan(iconAttrs: IconAttributes): cheerio.Cheerio | null {
 }
 
 function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio | null {
-  if (iconAttrs.icon === undefined) {
+  if (iconAttrs.icon === undefined || iconAttrs.icon.length === 0) {
     return null;
   }
 
