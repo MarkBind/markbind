@@ -46,8 +46,6 @@ function createTextSpan(iconAttrs: IconAttributes): cheerio.Cheerio | null {
   const spanNode = cheerio(`<span aria-hidden="true">${iconAttrs.text}</span>`)
     .css({
       'font-size': iconAttrs.textSize,
-      'padding-bottom': '0.3em',
-      'padding-top': '0.3em',
     }).addClass(iconAttrs.textClassName || '');
   return spanNode.css({
     'line-height': 'unset',
