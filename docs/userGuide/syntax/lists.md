@@ -18,7 +18,7 @@
 
 ****Customizing the Unordered list appearance:****
 
-**To customize unordered lists' icons, add the configuration `{icon="icon-name"}` after a specific list item.**
+**To customize unordered lists' icons, add the configuration `{icon="icon-name"}` and/or `{text="text"}` after a specific list item.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
@@ -27,11 +27,11 @@
 * Item 2
   * Item 2.1 { icon="fas-file-code" }
   * Item 2.2
-* Item 3 { icon="fas-code-branch" }
+* Item 3 { text="3" }
   * Item 3.1 
-* Item 4 { icon="octicon-git-pull-request" }
+* Item 4 { text="Pull request" icon="octicon-git-pull-request" }
   * Item 4.1 { icon="mif-perm-media" }
-* Item 5 { icon="glyphicon-education" }
+* Item 5 { text="" icon="glyphicon-education" }
   * Item 5.1 { icon="notebook_with_decorative_cover" }
   </variable>
 </include>
