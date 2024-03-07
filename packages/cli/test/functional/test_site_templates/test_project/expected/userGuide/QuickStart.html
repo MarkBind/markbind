@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 5.3.0">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ProjectEx</title>
+  <title>Quick Start - ProjectEx</title>
   <link rel="stylesheet" href="/markbind/css/bootstrap.min.css">
   <link rel="stylesheet" href="/markbind/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
@@ -15,7 +15,7 @@
   <script src="/markbind/js/polyfill.min.js"></script>
   <script src="/markbind/js/vue.min.js"></script>
   <script src="/markbind/js/markbind.min.js"></script>
-  <script src="index.page-vue-render.js"></script>
+  <script src="QuickStart.page-vue-render.js"></script>
   <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
 
@@ -26,7 +26,7 @@
   const baseUrl = ''
 </script>
 
-<body>
+<body data-bs-spy="scroll" data-bs-target="#mb-page-nav" data-bs-offset="100">
   <div id="app">
     <header sticky>
       <navbar type="dark">
@@ -150,29 +150,29 @@
       </overlay-source>
       <div id="content-wrapper">
 
-        <h1 id="projectex">ProjectEx<a class="fa fa-anchor" href="#projectex" onclick="event.stopPropagation()"></a></h1>
-        <p><a href="https://github.com/MarkBind/markbind/actions"><img src="https://github.com/MarkBind/markbind/workflows/CI/badge.svg" alt="CI Status" class="img-fluid"></a>
-          <a href="https://codecov.io/gh/MarkBind/markbind"><img src="https://codecov.io/gh/MarkBind/markbind/branch/master/graph/badge.svg" alt="codecov" class="img-fluid"></a>
-        </p>
-        <img src="/images/SeEduLogo.png" width="200px">
-        <box type="tip" seamless>
-          Can insert your app's onboarding screen or representative picture here.
+        <h1 id="quick-start">Quick start<a class="fa fa-anchor" href="#quick-start" onclick="event.stopPropagation()"></a></h1>
+        <box type="tip">
+          This section can be used to help users get started with the application quickly.
         </box>
-        <p><strong>ProjectEx is an example project application used for showcasing a default MarkBind template specifically for project documentation.</strong></p>
-        <ul>
-          <li>If you are interested in using ProjectEx, head over to the <a href="/userGuide/QuickStart.html"><em>Quick Start</em> section of the <strong>User Guide</strong></a>.</li>
-          <li>If you are interested about contributing to developing ProjectEx, the <a href="/developerGuide/DeveloperGuide.html"><strong>Developer Guide</strong></a> is a good place to start.</li>
-        </ul>
-        <p><strong>Acknowledgements</strong></p>
-        <box type="tip" seamless>
-          Remember to replace the following with your own acknowledgements.
-        </box>
-        <ul>
-          <li>Libraries used: <a href="https://openjfx.io/">JavaFX</a>, <a href="https://github.com/FasterXML/jackson">Jackson</a>, <a href="https://github.com/junit-team/junit5">JUnit5</a></li>
-        </ul>
+        <ol>
+          <li>
+            <p>Ensure you have Java <code class="hljs inline no-lang" v-pre>11</code> and Node.js <code class="hljs inline no-lang" v-pre>v16</code> and above installed in your Computer.</p>
+          </li>
+          <li>
+            <p>Open a command terminal and run necessary setup commands like <code class="hljs inline no-lang" v-pre>npm run setup</code>.</p>
+          </li>
+          <li>
+            <p>Refer to the <a href="/userGuide/Features.html">Features</a> section for details of the app's features.</p>
+          </li>
+        </ol>
       </div>
       <overlay-source id="page-nav" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
+
+          <overlay-source id="mb-page-nav" tag-name="nav" to="mb-page-nav" class="nav nav-pills flex-column my-0 small no-flex-wrap">
+            <a class="nav-link py-1" href="#quick-start" v-pre>Quick start&#x200E;</a>
+
+          </overlay-source>
         </div>
       </overlay-source>
       <scroll-top-button></scroll-top-button>

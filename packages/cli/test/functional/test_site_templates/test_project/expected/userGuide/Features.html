@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 5.3.0">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ProjectEx</title>
+  <title>Features - ProjectEx</title>
   <link rel="stylesheet" href="/markbind/css/bootstrap.min.css">
   <link rel="stylesheet" href="/markbind/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
@@ -15,7 +15,7 @@
   <script src="/markbind/js/polyfill.min.js"></script>
   <script src="/markbind/js/vue.min.js"></script>
   <script src="/markbind/js/markbind.min.js"></script>
-  <script src="index.page-vue-render.js"></script>
+  <script src="Features.page-vue-render.js"></script>
   <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
 
@@ -26,7 +26,7 @@
   const baseUrl = ''
 </script>
 
-<body>
+<body data-bs-spy="scroll" data-bs-target="#mb-page-nav" data-bs-offset="100">
   <div id="app">
     <header sticky>
       <navbar type="dark">
@@ -150,29 +150,61 @@
       </overlay-source>
       <div id="content-wrapper">
 
-        <h1 id="projectex">ProjectEx<a class="fa fa-anchor" href="#projectex" onclick="event.stopPropagation()"></a></h1>
-        <p><a href="https://github.com/MarkBind/markbind/actions"><img src="https://github.com/MarkBind/markbind/workflows/CI/badge.svg" alt="CI Status" class="img-fluid"></a>
-          <a href="https://codecov.io/gh/MarkBind/markbind"><img src="https://codecov.io/gh/MarkBind/markbind/branch/master/graph/badge.svg" alt="codecov" class="img-fluid"></a>
-        </p>
-        <img src="/images/SeEduLogo.png" width="200px">
-        <box type="tip" seamless>
-          Can insert your app's onboarding screen or representative picture here.
+        <h1 id="features">Features<a class="fa fa-anchor" href="#features" onclick="event.stopPropagation()"></a></h1>
+        <box type="info" seamless>
+          <p><strong>Notes about the app usage</strong><br></p>
+          <ul>
+            <li>
+              <p>General information about the app's features.</p>
+            </li>
+            <li>
+              <p>General tips about how to use the app efficiently.</p>
+            </li>
+            <li>
+              <p>Warnings that may lead to issues and how to avoid them.</p>
+            </li>
+          </ul>
         </box>
-        <p><strong>ProjectEx is an example project application used for showcasing a default MarkBind template specifically for project documentation.</strong></p>
-        <ul>
-          <li>If you are interested in using ProjectEx, head over to the <a href="/userGuide/QuickStart.html"><em>Quick Start</em> section of the <strong>User Guide</strong></a>.</li>
-          <li>If you are interested about contributing to developing ProjectEx, the <a href="/developerGuide/DeveloperGuide.html"><strong>Developer Guide</strong></a> is a good place to start.</li>
-        </ul>
-        <p><strong>Acknowledgements</strong></p>
-        <box type="tip" seamless>
-          Remember to replace the following with your own acknowledgements.
+        <h3 id="featurex">FeatureX<a class="fa fa-anchor" href="#featurex" onclick="event.stopPropagation()"></a></h3>
+        <p>Description of feature.</p>
+        <box type="tip">
+          A visual representation of the feature can be shown here.
         </box>
         <ul>
-          <li>Libraries used: <a href="https://openjfx.io/">JavaFX</a>, <a href="https://github.com/FasterXML/jackson">Jackson</a>, <a href="https://github.com/junit-team/junit5">JUnit5</a></li>
+          <li>List of primary information about the feature</li>
+          <li>How to use the feature</li>
+          <li>How the feature works</li>
+          <li>Limitations of feature</li>
         </ul>
+        <box type="warning" seamless>
+          <p><strong>Caution:</strong>
+            Things to avoid when using the feature.</p>
+        </box>
+        <h3 id="y-feature">Y Feature<a class="fa fa-anchor" href="#y-feature" onclick="event.stopPropagation()"></a></h3>
+        <p>Description of feature.</p>
+        <panel><template #header>
+            <p>Feature Examples</p>
+          </template>
+          <p>Examples of how to use the feature.</p>
+        </panel>
+        <box type="tip" seamless>
+          <p><strong>Tip:</strong> Secondary information about feature usage.</p>
+        </box>
+        <h3 id="future-feature-z-coming-in-v2-0">Future Feature Z <code class="hljs inline no-lang" v-pre>[coming in v2.0]</code><a class="fa fa-anchor" href="#future-feature-z-coming-in-v2-0" onclick="event.stopPropagation()"></a></h3>
+        <p><em>Details coming soon ...</em></p>
       </div>
       <overlay-source id="page-nav" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
+
+          <overlay-source id="mb-page-nav" tag-name="nav" to="mb-page-nav" class="nav nav-pills flex-column my-0 small no-flex-wrap">
+            <a class="nav-link py-1" href="#features" v-pre>Features&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#featurex" v-pre>FeatureX&#x200E;</a>
+              <a class="nav-link py-1" href="#y-feature" v-pre>Y Feature&#x200E;</a>
+              <a class="nav-link py-1" href="#future-feature-z-coming-in-v2-0" v-pre>Future Feature Z [coming in v2.0]&#x200E;</a>
+            </nav>
+
+          </overlay-source>
         </div>
       </overlay-source>
       <scroll-top-button></scroll-top-button>

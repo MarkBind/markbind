@@ -16,10 +16,13 @@ Can insert your app's onboarding screen or representative picture here.
 
 **ProjectEx is an example project application used for showcasing a default MarkBind template specifically for project documentation.** 
 
-* If you are interested in using ProjectEx, head over to the [_Quick Start_ section of the **User Guide**](QuickStart.html).
-* If you are interested about contributing to developing ProjectEx, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
-
+* If you are interested in using ProjectEx, head over to the [_Quick Start_ section of the **User Guide**](userGuide/QuickStart.html).
+* If you are interested about contributing to developing ProjectEx, the [**Developer Guide**](developerGuide/DeveloperGuide.html) is a good place to start.
 
 **Acknowledgements**
+
+<box type="tip" seamless>
+Remember to replace the following with your own acknowledgements.
+</box>
 
 * Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5)

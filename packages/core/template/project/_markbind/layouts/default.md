@@ -5,9 +5,9 @@
 <header sticky>
   <navbar type="dark">
     <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">ProjectEx</a>
-    <li><a href="{{baseUrl}}/UserGuide.html" class="nav-link">User Guide</a></li>
-    <li><a href="{{baseUrl}}/DeveloperGuide.html" class="nav-link">Developer Guide</a></li>
-    <li><a href="{{baseUrl}}/AboutUs.html" class="nav-link">About Us</a></li>
+    <li><a highlight-on="sibling-or-child" href="{{baseUrl}}/userGuide/UserGuide.html" class="nav-link">User Guide</a></li>
+    <li><a highlight-on="sibling-or-child" href="{{baseUrl}}/developerGuide/DeveloperGuide.html" class="nav-link">Developer Guide</a></li>
+    <li><a highlight-on="sibling-or-child" href="{{baseUrl}}/team/AboutUs.html" class="nav-link">About Us</a></li>
     <li><a href="https://github.com/se-edu" target="_blank" class="nav-link"><md>:fab-github:</md></a>
     </li>
     <li slot="right">
@@ -26,25 +26,24 @@
     <div class="nav-component slim-scroll">
       <site-nav>
 * [Home]({{ baseUrl }}/index.html)
-* [User Guide]({{ baseUrl }}/UserGuide.html) :expanded:
-  * [Quick Start]({{ baseUrl }}/QuickStart.html)
-  * [Features]({{ baseUrl }}/Features.html)
-  * [FAQ]({{ baseUrl }}/FAQ.html)
-* [Developer Guide]({{ baseUrl }}/DeveloperGuide.html) :expanded:
-  * [Setting Up]({{ baseUrl }}/SettingUp.html)
-  * [Design]({{ baseUrl }}/Design.html)
-  * [Implementation]({{ baseUrl }}/Implementation.html)
+* [User Guide]({{ baseUrl }}/userGuide/UserGuide.html) :expanded:
+  * [Quick Start]({{ baseUrl }}/userGuide/QuickStart.html)
+  * [Features]({{ baseUrl }}/userGuide/Features.html)
+  * [FAQ]({{ baseUrl }}/userGuide/FAQ.html)
+* [Developer Guide]({{ baseUrl }}/developerGuide/DeveloperGuide.html) :expanded:
+  * [Setting Up]({{ baseUrl }}/developerGuide/SettingUp.html)
+  * [Design]({{ baseUrl }}/developerGuide/Design.html)
+  * [Implementation]({{ baseUrl }}/developerGuide/Implementation.html)
   * Project Guides
-    * [Documentation]({{ baseUrl }}/Documentation.html)
-    * [Testing]({{ baseUrl }}/Testing.html)
-    * [Configuration]({{ baseUrl }}/Configuration.html)
-    * [DevOps]({{ baseUrl }}/DevOps.html)
+    * [Documentation]({{ baseUrl }}/developerGuide/Documentation.html)
+    * [Testing]({{ baseUrl }}/developerGuide/Testing.html)
+    * [Configuration]({{ baseUrl }}/developerGuide/Configuration.html)
+    * [DevOps]({{ baseUrl }}/developerGuide/DevOps.html)
   * Appendix
-    * [Requirements]({{ baseUrl }}/Requirements.html)
-    * [Manual Testing Instructions]({{ baseUrl }}/ManualTestingInstructions.html)
-* [Tutorial: Tracing code]({{ baseUrl }}/TracingCode.html)
-* [About Us]({{ baseUrl }}/AboutUs.html) :expanded:
-  * [Contributor Portfolio]({{ baseUrl }}/team/johndoe.html)
+    * [Requirements]({{ baseUrl }}/developerGuide/Requirements.html)
+* [Tutorial: Tracing code]({{ baseUrl }}/developerGuide/TracingCode.html)
+* [About Us]({{ baseUrl }}/team/AboutUs.html) :expanded:
+  * [Contributor Portfolio Template]({{ baseUrl }}/team/johndoe.html)
       </site-nav>
     </div>
   </nav>

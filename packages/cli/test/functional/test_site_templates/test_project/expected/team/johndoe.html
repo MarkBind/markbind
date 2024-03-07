@@ -31,9 +31,9 @@
     <header sticky>
       <navbar type="dark">
         <template #brand><a href="/index.html" title="Home" class="navbar-brand">ProjectEx</a></template>
-        <li><a href="/UserGuide.html" class="nav-link">User Guide</a></li>
-        <li><a href="/DeveloperGuide.html" class="nav-link">Developer Guide</a></li>
-        <li><a href="/AboutUs.html" class="nav-link">About Us</a></li>
+        <li><a highlight-on="sibling-or-child" href="/userGuide/UserGuide.html" class="nav-link">User Guide</a></li>
+        <li><a highlight-on="sibling-or-child" href="/developerGuide/DeveloperGuide.html" class="nav-link">Developer Guide</a></li>
+        <li><a highlight-on="sibling-or-child" href="/team/AboutUs.html" class="nav-link">About Us</a></li>
         <li><a href="https://github.com/se-edu" target="_blank" class="nav-link"><span><span aria-hidden="true" class="fab fa-github"></span></span></a></li>
         <template #right>
           <li>
@@ -56,7 +56,7 @@
                 <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/index.html">Home</a></div>
               </li>
               <li>
-                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/UserGuide.html">User Guide</a>
+                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/userGuide/UserGuide.html">User Guide</a>
 
                   <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
                       <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
@@ -64,18 +64,18 @@
                 </div>
                 <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
                   <li>
-                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/QuickStart.html">Quick Start</a></div>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/userGuide/QuickStart.html">Quick Start</a></div>
                   </li>
                   <li>
-                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/Features.html">Features</a></div>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/userGuide/Features.html">Features</a></div>
                   </li>
                   <li>
-                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/FAQ.html">FAQ</a></div>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/userGuide/FAQ.html">FAQ</a></div>
                   </li>
                 </ul>
               </li>
               <li>
-                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/DeveloperGuide.html">Developer Guide</a>
+                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/developerGuide/DeveloperGuide.html">Developer Guide</a>
 
                   <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
                       <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
@@ -83,13 +83,13 @@
                 </div>
                 <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
                   <li>
-                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/SettingUp.html">Setting Up</a></div>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/SettingUp.html">Setting Up</a></div>
                   </li>
                   <li>
-                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/Design.html">Design</a></div>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Design.html">Design</a></div>
                   </li>
                   <li>
-                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/Implementation.html">Implementation</a></div>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Implementation.html">Implementation</a></div>
                   </li>
                   <li>
                     <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Project Guides
@@ -100,16 +100,16 @@
                     </div>
                     <ul class="site-nav-dropdown-container site-nav-list">
                       <li>
-                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/Documentation.html">Documentation</a></div>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Documentation.html">Documentation</a></div>
                       </li>
                       <li>
-                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/Testing.html">Testing</a></div>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Testing.html">Testing</a></div>
                       </li>
                       <li>
-                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/Configuration.html">Configuration</a></div>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Configuration.html">Configuration</a></div>
                       </li>
                       <li>
-                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/DevOps.html">DevOps</a></div>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/DevOps.html">DevOps</a></div>
                       </li>
                     </ul>
                   </li>
@@ -122,20 +122,17 @@
                     </div>
                     <ul class="site-nav-dropdown-container site-nav-list">
                       <li>
-                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/Requirements.html">Requirements</a></div>
-                      </li>
-                      <li>
-                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/ManualTestingInstructions.html">Manual Testing Instructions</a></div>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Requirements.html">Requirements</a></div>
                       </li>
                     </ul>
                   </li>
                 </ul>
               </li>
               <li>
-                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/TracingCode.html">Tutorial: Tracing code</a></div>
+                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/developerGuide/TracingCode.html">Tutorial: Tracing code</a></div>
               </li>
               <li>
-                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/AboutUs.html">About Us</a>
+                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/team/AboutUs.html">About Us</a>
 
                   <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
                       <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
@@ -143,7 +140,7 @@
                 </div>
                 <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
                   <li>
-                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/team/johndoe.html">Contributor Portfolio</a></div>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/team/johndoe.html">Contributor Portfolio Template</a></div>
                   </li>
                 </ul>
               </li>

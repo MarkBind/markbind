@@ -2,7 +2,119 @@
   "enableSearch": true,
   "pages": [
     {
-      "src": "AboutUs.md",
+      "src": "developerGuide/Configuration.md",
+      "title": "Configuration guide",
+      "headings": {
+        "configuration-guide": "Configuration guide"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "developerGuide/Design.md",
+      "title": "Design",
+      "headings": {
+        "design": "Design",
+        "architecture": "Architecture",
+        "component-1": "Component 1",
+        "component-2": "Component 2"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "developerGuide/DevOps.md",
+      "title": "DevOps guide",
+      "headings": {
+        "devops-guide": "DevOps guide",
+        "build-automation": "Build automation",
+        "continuous-integration-ci": "Continuous integration (CI)",
+        "code-coverage": "Code coverage",
+        "repository-wide-checks": "Repository-wide checks",
+        "making-a-release": "Making a release"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "developerGuide/DeveloperGuide.md",
+      "title": "Developer Guide",
+      "headings": {
+        "projectex-developer-guide": "ProjectEx Developer Guide",
+        "introduction": "Introduction",
+        "purpose-of-this-guide": "Purpose of this Guide",
+        "acknowledgements": "Acknowledgements"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "developerGuide/Documentation.md",
+      "title": "Documentation guide",
+      "headings": {
+        "documentation-guide": "Documentation Guide"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "developerGuide/Implementation.md",
+      "title": "Implementation",
+      "headings": {
+        "implementation": "Implementation",
+        "proposed-featurex-implementation": "[Proposed] FeatureX Implementation",
+        "proposed-data-archiving": "[Proposed] Data archiving"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "developerGuide/Requirements.md",
+      "title": "Requirements",
+      "headings": {
+        "requirements": "Requirements",
+        "product-scope": "Product scope",
+        "user-stories": "User stories",
+        "use-cases": "Use cases",
+        "non-functional-requirements": "Non-Functional Requirements"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "developerGuide/SettingUp.md",
+      "title": "Setting up and getting started",
+      "headings": {
+        "setting-up-and-getting-started": "Setting up and getting started",
+        "setting-up-the-project-in-your-computer": "Setting up the project in your computer",
+        "before-writing-code": "Before writing code"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "developerGuide/Testing.md",
+      "title": "Testing guide",
+      "headings": {
+        "testing-guide": "Testing guide",
+        "running-tests": "Running tests",
+        "types-of-tests": "Types of tests"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "developerGuide/TracingCode.md",
+      "title": "Tutorial: Tracing code",
+      "headings": {
+        "tutorial-tracing-code": "Tutorial: Tracing code",
+        "before-we-start": "Before we start",
+        "setting-a-breakpoint": "Setting a breakpoint",
+        "tracing-the-execution-path": "Tracing the execution path"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "index.md",
+      "title": "",
+      "headings": {
+        "projectex": "ProjectEx"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "team/AboutUs.md",
       "title": "About Us",
       "headings": {
         "about-us": "About Us",
@@ -16,56 +128,15 @@
       "headingKeywords": {}
     },
     {
-      "src": "Configuration.md",
-      "title": "Configuration guide",
+      "src": "team/johndoe.md",
+      "title": "John Doe's Project Portfolio Page",
       "headings": {
-        "configuration-guide": "Configuration guide"
+        "project-projectex": "Project: ProjectEx"
       },
       "headingKeywords": {}
     },
     {
-      "src": "Design.md",
-      "title": "Design",
-      "headings": {
-        "design": "Design",
-        "architecture": "Architecture",
-        "component-1": "Component 1",
-        "component-2": "Component 2"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "DevOps.md",
-      "title": "DevOps guide",
-      "headings": {
-        "devops-guide": "DevOps guide",
-        "build-automation": "Build automation",
-        "continuous-integration-ci": "Continuous integration (CI)",
-        "code-coverage": "Code coverage",
-        "repository-wide-checks": "Repository-wide checks",
-        "making-a-release": "Making a release"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "DeveloperGuide.md",
-      "title": "Developer Guide",
-      "headings": {
-        "projectex-developer-guide": "ProjectEx Developer Guide",
-        "acknowledgements": "Acknowledgements"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "Documentation.md",
-      "title": "Documentation guide",
-      "headings": {
-        "documentation-guide": "Documentation Guide"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "FAQ.md",
+      "src": "userGuide/FAQ.md",
       "title": "FAQ",
       "headings": {
         "faq": "FAQ"
@@ -73,7 +144,7 @@
       "headingKeywords": {}
     },
     {
-      "src": "Features.md",
+      "src": "userGuide/Features.md",
       "title": "Features",
       "headings": {
         "features": "Features",
@@ -84,28 +155,7 @@
       "headingKeywords": {}
     },
     {
-      "src": "Implementation.md",
-      "title": "Implementation",
-      "headings": {
-        "implementation": "Implementation",
-        "proposed-featurex-implementation": "[Proposed] FeatureX Implementation",
-        "proposed-data-archiving": "[Proposed] Data archiving"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "ManualTestingInstructions.md",
-      "title": "Manual Testing Instructions",
-      "headings": {
-        "manual-testing-instructions": "Manual Testing Instructions",
-        "launch-and-shutdown": "Launch and shutdown",
-        "featurex": "FeatureX",
-        "saving-data": "Saving data"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "QuickStart.md",
+      "src": "userGuide/QuickStart.md",
       "title": "Quick Start",
       "headings": {
         "quick-start": "Quick start"
@@ -113,70 +163,12 @@
       "headingKeywords": {}
     },
     {
-      "src": "Requirements.md",
-      "title": "Requirements",
-      "headings": {
-        "requirements": "Requirements",
-        "product-scope": "Product scope",
-        "user-stories": "User stories",
-        "use-cases": "Use cases",
-        "non-functional-requirements": "Non-Functional Requirements"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "SettingUp.md",
-      "title": "Setting up and getting started",
-      "headings": {
-        "setting-up-and-getting-started": "Setting up and getting started",
-        "setting-up-the-project-in-your-computer": "Setting up the project in your computer",
-        "before-writing-code": "Before writing code"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "Testing.md",
-      "title": "Testing guide",
-      "headings": {
-        "testing-guide": "Testing guide",
-        "running-tests": "Running tests",
-        "types-of-tests": "Types of tests"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "TracingCode.md",
-      "title": "Tutorial: Tracing code",
-      "headings": {
-        "tutorial-tracing-code": "Tutorial: Tracing code",
-        "before-we-start": "Before we start",
-        "setting-a-breakpoint": "Setting a breakpoint",
-        "tracing-the-execution-path": "Tracing the execution path",
-        "conclusion": "Conclusion"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "UserGuide.md",
+      "src": "userGuide/UserGuide.md",
       "title": "User Guide",
       "headings": {
-        "projectex-user-guide": "ProjectEx User Guide"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "index.md",
-      "title": "",
-      "headings": {
-        "projectex": "ProjectEx"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "team/johndoe.md",
-      "title": "John Doe's Project Portfolio Page",
-      "headings": {
-        "project-projectex": "Project: ProjectEx"
+        "projectex-user-guide": "ProjectEx User Guide",
+        "introduction": "Introduction",
+        "purpose-of-this-guide": "Purpose of this Guide"
       },
       "headingKeywords": {}
     }

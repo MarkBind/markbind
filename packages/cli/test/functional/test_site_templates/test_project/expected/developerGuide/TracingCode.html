@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 5.3.0">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ProjectEx</title>
+  <title>Tutorial: Tracing code - ProjectEx</title>
   <link rel="stylesheet" href="/markbind/css/bootstrap.min.css">
   <link rel="stylesheet" href="/markbind/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
@@ -15,7 +15,7 @@
   <script src="/markbind/js/polyfill.min.js"></script>
   <script src="/markbind/js/vue.min.js"></script>
   <script src="/markbind/js/markbind.min.js"></script>
-  <script src="index.page-vue-render.js"></script>
+  <script src="TracingCode.page-vue-render.js"></script>
   <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
 
@@ -26,7 +26,7 @@
   const baseUrl = ''
 </script>
 
-<body>
+<body data-bs-spy="scroll" data-bs-target="#mb-page-nav" data-bs-offset="100">
   <div id="app">
     <header sticky>
       <navbar type="dark">
@@ -150,29 +150,72 @@
       </overlay-source>
       <div id="content-wrapper">
 
-        <h1 id="projectex">ProjectEx<a class="fa fa-anchor" href="#projectex" onclick="event.stopPropagation()"></a></h1>
-        <p><a href="https://github.com/MarkBind/markbind/actions"><img src="https://github.com/MarkBind/markbind/workflows/CI/badge.svg" alt="CI Status" class="img-fluid"></a>
-          <a href="https://codecov.io/gh/MarkBind/markbind"><img src="https://codecov.io/gh/MarkBind/markbind/branch/master/graph/badge.svg" alt="codecov" class="img-fluid"></a>
-        </p>
-        <img src="/images/SeEduLogo.png" width="200px">
-        <box type="tip" seamless>
-          Can insert your app's onboarding screen or representative picture here.
+        <h1 id="tutorial-tracing-code">Tutorial: Tracing code<a class="fa fa-anchor" href="#tutorial-tracing-code" onclick="event.stopPropagation()"></a></h1>
+        <blockquote>
+          <p>Indeed, the ratio of time spent reading versus writing is well over 10 to 1. We are constantly reading old code as part of the effort to write new code. …​[Therefore,] making it easy to read makes it easier to write.</p>
+          <p>— Robert C. Martin Clean Code: A Handbook of Agile Software Craftsmanship</p>
+        </blockquote>
+        <box type="tip">
+          This page can be taken as a reference on a tutorial on how to trace the execution path of a user command through the codebase of the App.
         </box>
-        <p><strong>ProjectEx is an example project application used for showcasing a default MarkBind template specifically for project documentation.</strong></p>
-        <ul>
-          <li>If you are interested in using ProjectEx, head over to the <a href="/userGuide/QuickStart.html"><em>Quick Start</em> section of the <strong>User Guide</strong></a>.</li>
-          <li>If you are interested about contributing to developing ProjectEx, the <a href="/developerGuide/DeveloperGuide.html"><strong>Developer Guide</strong></a> is a good place to start.</li>
-        </ul>
-        <p><strong>Acknowledgements</strong></p>
+        <p>To understand an unfamiliar codebase, one strategy is to trace some representative execution path through the codebase using a debugger.</p>
+
+
+        <h2 id="before-we-start">Before we start<a class="fa fa-anchor" href="#before-we-start" onclick="event.stopPropagation()"></a></h2>
+        <p>Before we jump into the code, it is useful to get an idea of the overall structure and the high-level behavior of the application.</p>
         <box type="tip" seamless>
-          Remember to replace the following with your own acknowledgements.
+          <p>Architecture diagrams can be easily utilised with the <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html#diagrams"><code class="hljs inline no-lang" v-pre>puml</code></a> tag. The <code class="hljs inline no-lang" v-pre>src</code> attribute specifies the path to the PlantUML file.</p>
         </box>
-        <ul>
-          <li>Libraries used: <a href="https://openjfx.io/">JavaFX</a>, <a href="https://github.com/FasterXML/jackson">Jackson</a>, <a href="https://github.com/junit-team/junit5">JUnit5</a></li>
-        </ul>
+        <pic src="/diagrams/example.png" width="300"></pic>
+        <p>Before we proceed, ensure that you have done the following:</p>
+        <ol>
+          <li>Read the <a href="/developerGuide/Design.html#architecture"><em>Architecture</em> section of the DG</a></li>
+          <li>Set up the project in your preferred IDE</li>
+        </ol>
+        <h2 id="setting-a-breakpoint">Setting a breakpoint<a class="fa fa-anchor" href="#setting-a-breakpoint" onclick="event.stopPropagation()"></a></h2>
+        <p>As you know, the first step of debugging is to put in a breakpoint where you want the debugger to pause the execution.</p>
+        <box type="tip" seamless>
+          <p><strong>Tip:</strong> You can use a combination of Markbind's <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html"><strong>Images and Diagrams</strong></a> features such as <code class="hljs inline no-lang" v-pre>puml</code> and <code class="hljs inline no-lang" v-pre>pic</code> tags to provide a visual representation of the steps to be taken. <a href="https://markbind.org/userGuide/formattingContents.html#code"><strong>Code blocks</strong></a> can also be used as shown below.</p>
+        </box>
+        <pre><code class="hljs java" v-pre><span><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Example</span> </span>{
+</span><span>    <span class="hljs-comment">/**</span>
+</span><span><span class="hljs-comment">     * Executes returns the output.</span>
+</span><span><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> exampleInput The input as entered by the user.</span>
+</span><span><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> The example output.</span>
+</span><span><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> ExampleException If an error occurs.</span>
+</span><span><span class="hljs-comment">     */</span>
+</span><span>    <span class="hljs-function">ExampleOutput <span class="hljs-title">execute</span><span class="hljs-params">(String exampleInput)</span> <span class="hljs-keyword">throws</span> ExampleException</span>;
+</span><span>...
+</span><span>}
+</span></code></pre>
+        <h2 id="tracing-the-execution-path">Tracing the execution path<a class="fa fa-anchor" href="#tracing-the-execution-path" onclick="event.stopPropagation()"></a></h2>
+        <box type="tip" seamless>
+          <p><strong>Tip:</strong> You can use a list of steps to guide the reader through the process of tracing the execution path. This can be done using Markbind's <a href="https://markbind.org/userGuide/formattingContents.html#lists"><strong>Lists</strong></a> feature.</p>
+        </box>
+        <ol>
+          <li>
+            <p>Firstly, do this.</p>
+          </li>
+          <li>
+            <p>Next, do that.</p>
+          </li>
+          <li>
+            <p>Finally, do this.</p>
+          </li>
+        </ol>
       </div>
       <overlay-source id="page-nav" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
+
+          <overlay-source id="mb-page-nav" tag-name="nav" to="mb-page-nav" class="nav nav-pills flex-column my-0 small no-flex-wrap">
+            <a class="nav-link py-1" href="#tutorial-tracing-code" v-pre>Tutorial: Tracing code&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#before-we-start" v-pre>Before we start&#x200E;</a>
+              <a class="nav-link py-1" href="#setting-a-breakpoint" v-pre>Setting a breakpoint&#x200E;</a>
+              <a class="nav-link py-1" href="#tracing-the-execution-path" v-pre>Tracing the execution path&#x200E;</a>
+            </nav>
+
+          </overlay-source>
         </div>
       </overlay-source>
       <scroll-top-button></scroll-top-button>
