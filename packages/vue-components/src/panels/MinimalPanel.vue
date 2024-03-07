@@ -251,7 +251,7 @@ export default {
     .button-wrapper {
         padding-left: 2px;
         border-width: 0 0 0 1px;
-        border-color: rgba(150, 150, 150, 0.2);
+        border-color: rgb(150 150 150 / 20%);
         border-style: solid;
         margin-left: 2px;
         width: auto;
@@ -283,7 +283,7 @@ export default {
     .minimal-button {
         padding: 0 3px;
         border: 0;
-        color: rgb(150, 150, 150);
+        color: rgb(150 150 150);
         background-color: transparent;
         cursor: pointer;
     }
@@ -291,7 +291,7 @@ export default {
     .minimal-button:hover,
     .minimal-button:active,
     .minimal-button:focus {
-        color: rgb(30, 30, 30);
+        color: rgb(30 30 30);
     }
 
     .minimal-popup-button {
@@ -315,7 +315,7 @@ export default {
     }
 
     /* Bootstrap extra small(xs) responsive breakpoint */
-    @media (max-width: 575.98px) {
+    @media (width <= 575.98px) {
         .button-wrapper-expanded {
             padding-left: 0;
             border: 0;

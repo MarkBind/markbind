@@ -30,7 +30,7 @@ More specifically, you should use either:
 For more information, please refer to this [section]({{baseUrl}}/userGuide/usingHtmlJavaScriptCss.html#markdown-in-html).
 </box>
 
-{% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
+{% from "userGuide/syntax/fullSyntaxSet.njk" import syntax_topics as topics %}
 
 {% macro show_topic(filename) %}
 <include src="../syntax/{{ filename }}.md" />
@@ -38,7 +38,7 @@ For more information, please refer to this [section]({{baseUrl}}/userGuide/using
 {% endmacro %}
 
 {% for k,v in topics %}
-{% if 'presentation' in v[1] %}
+{% if 'presentation' in v[2] %}
 {{ show_topic(k) }}
 {% endif %}
 {% endfor %}

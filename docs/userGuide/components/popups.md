@@ -21,7 +21,7 @@
 The components in this page can be used to easily create **various forms of pop-ups** that are activated on some user action (e.g., hovering over some text). This may be useful for showing additional information related to some specific area or span of content.
 </div>
 
-{% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
+{% from "userGuide/syntax/fullSyntaxSet.njk" import syntax_topics as topics %}
 
 {% macro show_topic(filename) %}
 <include src="../syntax/{{ filename }}.md" />
@@ -29,7 +29,7 @@ The components in this page can be used to easily create **various forms of pop-
 {% endmacro %}
 
 {% for k,v in topics %}
-{% if 'popups' in v[1] %}
+{% if 'popups' in v[2] %}
 {{ show_topic(k) }}
 {% endif %}
 {% endfor %}
