@@ -204,14 +204,14 @@ export default {
     .score-circle {
         stroke-dasharray: 264;
         fill: none;
-        stroke: rgba(132, 215, 255, 0.8);
+        stroke: rgb(132 215 255 / 80%);
         stroke-width: 8;
         transition: stroke-dashoffset 1.5s ease-out, stroke 1.5s linear;
     }
 
     .score-background-circle {
         fill: none;
-        stroke: rgba(227, 226, 226, 0.5);
+        stroke: rgb(227 226 226 / 50%);
         stroke-width: 8;
     }
 
