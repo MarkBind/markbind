@@ -9,7 +9,6 @@ interface EmojiData {
 }
 
 const emojiData = emojiDictionary as unknown as EmojiData;
-// Add new attribute called "i-spacing"
 const ICON_ATTRIBUTES = ['icon', 'i-width', 'i-height', 'i-size', 'i-class', 'i-spacing'];
 
 interface IconAttributes {
@@ -18,7 +17,7 @@ interface IconAttributes {
   size?: string;
   width?: string;
   height?: string;
-  spacing?: string; // Add new attribute 'spacing -> i-spacing'
+  spacing?: string;
 }
 
 type IconAttributeDetail = {
@@ -68,7 +67,6 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
   }
   // Add invisible character to avoid the element from being empty
   spanNode.append('\u200B');
-  // If user doesn't put any i-spacing attribute number, then set default value as 0.35em
   const iSpacing = iconAttrs.spacing || '0.35em';
   return spanNode.css({
     'line-height': 'unset',
@@ -101,7 +99,6 @@ IconAttributes | null => {
     height: node.attribs['i-height'] !== undefined ? node.attribs['i-height'] : iconAttrsSoFar?.height,
     size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttrsSoFar?.size,
     className: node.attribs['i-class'] !== undefined ? node.attribs['i-class'] : iconAttrsSoFar?.className,
-    // Get spacing attribute
     spacing: node.attribs['i-spacing'] !== undefined ? node.attribs['i-spacing'] : iconAttrsSoFar?.spacing,
   };
 };
