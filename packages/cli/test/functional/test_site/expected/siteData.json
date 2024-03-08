@@ -213,7 +213,9 @@
     {
       "src": "testAnnotate.md",
       "title": "Annotate Feature Test",
-      "headings": {},
+      "headings": {
+        "content": "Content"
+      },
       "headingKeywords": {}
     },
     {
@@ -450,6 +452,15 @@
       "src": "testIconsInSiteLayout.md",
       "title": "glyphicon & octicon icon in page, only glyphicon & octicon stylesheets should be loaded",
       "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "testSourceContainScript.md",
+      "title": "Test: If source contains script or css, when included, the script or css should be included",
+      "headings": {
+        "panel-with-src-that-contains-css-and-script-header": "Panel with src that contains css and script header",
+        "h1-text": "\n\n\n  h1 text\n  \n"
+      },
       "headingKeywords": {}
     }
   ]

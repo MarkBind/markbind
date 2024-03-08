@@ -190,7 +190,7 @@ Optionally, you can provide the reason for the particular option using the `<q-o
 {% set checkboxQuestion %}
 <question type="checkbox" hint="Use your calculator! :fas-calculator:">
 
-  ##### Which of the following is true?
+  ###### Which of the following is true?
 
   <br>
   <q-option reason="lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum">
@@ -242,7 +242,7 @@ and not others.
 {% set blanksQuestion %}
 <question type="blanks" hint="Google it!">
 
-  ##### German sociologist __________ called the process of simultaneously analyzing the behavior of individuals and the society that shapes that behavior __________.
+  ###### German sociologist __________ called the process of simultaneously analyzing the behavior of individuals and the society that shapes that behavior __________.
 
   <q-option keywords="Norbert Elias, Elias" reason="That's his name!"></q-option>
   <q-option keywords="figuration"></q-option>
@@ -267,7 +267,7 @@ If you don't want to validate the answer at all, you may set the `threshold` att
 {% set blanksQuestion2 %}
 <question type="blanks" hint="What properties would you want these database transactions to have?" threshold=0.75 no-intermediate-result>
 
-  ##### In computer science, ACID is a set of properties of database transactions intended to guarantee data validity despite errors, power failures, and other mishaps. These properties are: A for __________, C for __________, I for __________, and D for __________.
+  ###### In computer science, ACID is a set of properties of database transactions intended to guarantee data validity despite errors, power failures, and other mishaps. These properties are: A for __________, C for __________, I for __________, and D for __________.
 
   <q-option keywords="Atomicity, Atomic" reason="Meaning: either all occurs or nothing occurs"></q-option>
   <q-option keywords="Consistency, Consistent"></q-option>

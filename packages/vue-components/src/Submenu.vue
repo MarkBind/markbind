@@ -150,7 +150,7 @@ export default {
         margin-bottom: -0.5rem;
     }
 
-    @media (min-width: 768px) {
+    @media (width >= 768px) {
         .submenu-toggle::after {
             display: inline-block;
             width: 0;
@@ -166,7 +166,7 @@ export default {
         }
     }
 
-    @media (max-width: 767px) {
+    @media (width <= 767px) {
         .dropdown-submenu > ul {
             padding-bottom: 0;
             border-radius: 0;

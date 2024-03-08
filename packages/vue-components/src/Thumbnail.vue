@@ -131,8 +131,6 @@ export default {
 
     .thumb-circle {
         border-radius: 50%;
-        -moz-border-radius: 50%;
-        -webkit-border-radius: 50%;
     }
 
     .thumb-image {
@@ -140,7 +138,5 @@ export default {
         position: absolute;
         top: 50%;
         transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        -webkit-transform: translate(-50%, -50%);
     }
 </style>
