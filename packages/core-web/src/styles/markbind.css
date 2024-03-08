@@ -27,7 +27,7 @@ pre.hljs > code {
     background: none;
 }
 
-pre > code.hljs {
+pre > code.hljs { 
     background-clip: padding-box;
     border-radius: 5px;
     counter-reset: line;
@@ -79,7 +79,7 @@ pre > code.hljs[heading] {
     }
 
     code span.highlighted {
-        background-color: lavender !important;
+        background: lavender !important;
     }
 
     .hljs:not(.inline).line-numbers-print > span {
