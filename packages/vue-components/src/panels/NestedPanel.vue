@@ -92,11 +92,13 @@
             :fragment="fragment"
             @src-loaded="retrieverUpdateMaxHeight"
           />
-          <panel-switch
-            v-show="isExpandableCard && bottomSwitchBool"
-            :is-open="localExpanded"
-            @click.native.stop.prevent="toggle(true)"
-          />
+          <div class="bottom-button-wrapper">
+            <panel-switch
+              v-show="isExpandableCard && bottomSwitchBool"
+              :is-open="localExpanded"
+              @click.native.stop.prevent="toggle(true)"
+            />
+          </div>
         </div>
         <hr v-show="isSeamless" />
       </div>
@@ -283,41 +285,18 @@ export default {
         margin-top: 0 !important;
     }
 
-    .card-seamless {
-        padding: 0;
-    }
-
-    .card.card-seamless {
-        box-shadow: none;
-        border: none;
-    }
-
-    .card-seamless > .card-heading {
-        padding: 0;
-    }
-
-    .card-seamless > .card-collapse > hr {
-        margin: 0;
-        width: calc(100% - 27px);
-    }
-
-    .card-seamless > .card-collapse > .card-body {
-        padding: 10px 0;
-    }
-
-    .card-body > .collapse-button {
+    .bottom-button-wrapper {
+        padding-bottom: 13px;
         margin-bottom: 13px;
+    }
+
+    .bottom-button-wrapper > .collapse-button {
         margin-top: 5px;
         opacity: 0.2;
     }
 
-    .card-body > .collapse-button:hover {
+    .bottom-button-wrapper > .collapse-button:hover {
         opacity: 1;
-    }
-
-    .card-seamless > .card-collapse > .card-body > .collapse-button {
-        position: relative;
-        top: 22px;
     }
 
     .close-button {
@@ -346,7 +325,7 @@ export default {
     }
 
     /* Bootstrap extra small(xs) responsive breakpoint */
-    @media (max-width: 575.98px) {
+    @media (width <= 575.98px) {
         .header-wrapper {
             display: inline-block;
             width: calc(100% - 32px - 32px);

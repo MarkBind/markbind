@@ -1,5 +1,10 @@
 import { HighlightRuleComponent } from './HighlightRuleComponent';
-import { splitCodeAndIndentation } from './helper';
+
+export enum HIGHLIGHT_TYPES {
+  WholeLine,
+  WholeText,
+  PartialText,
+}
 
 export class HighlightRule {
   ruleComponents: HighlightRuleComponent[];
@@ -10,6 +15,7 @@ export class HighlightRule {
   static parseAllRules(allRules: string, lineOffset: number, tokenContent: string) {
     const highlightLines = this.splitByChar(allRules, ',');
     const strArray = tokenContent.split('\n');
+    strArray.pop(); // removes the last empty string
     return highlightLines
       .map(ruleStr => HighlightRule.parseRule(ruleStr, lineOffset, strArray))
       .filter(rule => rule) as HighlightRule[]; // discards invalid rules
@@ -61,56 +67,37 @@ export class HighlightRule {
     return atLineNumber;
   }
 
-  applyHighlight(line: string, lineNumber: number) {
+  getHighlightType(lineNumber: number): {
+    highlightType: HIGHLIGHT_TYPES,
+    bounds: Array<[number, number]> | null
+  } {
     // Applied rule is the first component until deduced otherwise
     let [appliedRule] = this.ruleComponents;
-
     if (this.isLineRange()) {
       // For cases like 2[:]-3 (or 2-3[:]), the highlight would be line highlight
       // across all the ranges
-      const shouldWholeLine = this.ruleComponents.some(comp => comp.isUnboundedSlice());
-      if (shouldWholeLine) {
-        return HighlightRule._highlightWholeLine(line);
+      if (this.ruleComponents.some(comp => comp.isUnboundedSlice())) {
+        return { highlightType: HIGHLIGHT_TYPES.WholeLine, bounds: null };
       }
 
       const [startCompare, endCompare] = this.ruleComponents.map(comp => comp.compareLine(lineNumber));
       if (startCompare < 0 && endCompare > 0) {
         // In-between range
-        return HighlightRule._highlightWholeText(line);
+        return { highlightType: HIGHLIGHT_TYPES.WholeText, bounds: null };
       }
 
-      // At the range boundaries
       const [startRule, endRule] = this.ruleComponents;
+      // At the range boundaries
       appliedRule = startCompare === 0 ? startRule : endRule;
     }
 
     if (appliedRule.isSlice) {
       return appliedRule.isUnboundedSlice()
-        ? HighlightRule._highlightWholeLine(line)
-        : HighlightRule._highlightPartOfText(line, appliedRule.bounds);
+        ? { highlightType: HIGHLIGHT_TYPES.WholeLine, bounds: null }
+        : { highlightType: HIGHLIGHT_TYPES.PartialText, bounds: appliedRule.bounds };
     }
-
     // Line number only
-    return HighlightRule._highlightWholeText(line);
-  }
-
-  static _highlightWholeLine(codeStr: string) {
-    return `<span class="highlighted">${codeStr}\n</span>`;
-  }
-
-  static _highlightWholeText(codeStr: string) {
-    const [indents, content] = splitCodeAndIndentation(codeStr);
-    return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`;
-  }
-
-  static _highlightPartOfText(codeStr: string, bounds: number[][]) {
-    /*
-     * Note: As part-of-text highlighting requires walking over the node of the generated
-     * html by highlight.js, highlighting will be applied in NodeProcessor instead.
-     * hl-data is used to pass over the bounds.
-     */
-    const dataStr = bounds.map(bound => bound.join('-')).join(',');
-    return `<span hl-data=${dataStr}>${codeStr}\n</span>`;
+    return { highlightType: HIGHLIGHT_TYPES.WholeText, bounds: null };
   }
 
   isLineRange() {

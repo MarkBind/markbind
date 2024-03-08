@@ -30,7 +30,7 @@ Cats   |    yes     |   100 |
 </span>
 ```
 
-The table specified by the markdown syntax above will be rendered as a block-level element, which will be included in a inline span element. This makes the HTML output invalid.
+The table specified by the Markdown syntax above will be rendered as a block-level element, which will be included in a inline span element. This makes the HTML output invalid.
 
 <panel header="Underlying Error (Example)" type="seamless">
 
@@ -57,3 +57,40 @@ Cats   |    yes     |   100 |
 </div>
 ```
 
+##### Markdown Rendering Issues
+
+If you encounter issues in rendering Markdown in a component, it is likely that the Markdown is not being properly recognized due to syntax errors. Signposting is required to inform Markdown to parse the content of a presentation component as Markdown rather than plain text.
+
+You could signpost Markdown either by:
+
+- using the `<markdown>`(block level elements) or `<md>`(inline level elements) tags to wrap the Markdown content.
+- using an empty line without any indentation before the Markdown content
+
+###### Example: correct Markdown rendering using tags or newline:
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<box>
+
+**Example1**
+</box>
+
+<box> 
+<md> **Example2** </md> 
+</box>
+
+<box> 
+<markdown> **Example3** </markdown> 
+</box>
+
+
+</variable>
+</include>
+<panel header="###### Example: Markdown not rendered without singposting" type="seamless">
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<box> **This will be rendered as plain text**</box>
+</variable>
+</include>
+</panel>

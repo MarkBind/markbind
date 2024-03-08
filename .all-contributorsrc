@@ -671,6 +671,70 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "zlimez",
+      "name": "Nisemono",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39835365?v=4",
+      "profile": "https://github.com/zlimez",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "jingting1412",
+      "name": "jingting1412",
+      "avatar_url": "https://avatars.githubusercontent.com/u/105090139?v=4",
+      "profile": "https://github.com/jingting1412",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Tim-Siu",
+      "name": "Shuyao \"Tim\" Xu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61866948?v=4",
+      "profile": "http://tim-siu.github.io",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "KevinEyo1",
+      "name": "Kevin Eyo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/105847348?v=4",
+      "profile": "https://github.com/KevinEyo1",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "luminousleek",
+      "name": "Lee Xiong Jie, Isaac",
+      "avatar_url": "https://avatars.githubusercontent.com/u/68138671?v=4",
+      "profile": "https://github.com/luminousleek",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "LamJiuFong",
+      "name": "Lam Jiu Fong",
+      "avatar_url": "https://avatars.githubusercontent.com/u/122192553?v=4",
+      "profile": "https://github.com/LamJiuFong",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "yiwen101",
+      "name": "Wang Yiwen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/121547057?v=4",
+      "profile": "https://github.com/yiwen101",
+      "contributions": [
+        "doc",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

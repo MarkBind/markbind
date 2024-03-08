@@ -83,7 +83,7 @@ Content in a fenced code block
 ```
 
 **`highlight-lines` attr with full character-variant line-slice syntax should highlight only at specified range**
-```xml {highlight-lines="1[1:4],2[5:13],3[2:10]-4,5-6[1:4]"}
+```xml {highlight-lines="1[1:4],2[5:8],2[12:17],3[2:10]-4,5-6[1:4]"}
 <foo>
   <bar type="name">goo</bar>
   <baz type="name">goo</baz>
@@ -93,7 +93,7 @@ Content in a fenced code block
 ```
 
 **`highlight-lines` attr with partial character-variant line-slice syntax should default highlight to start/end of line**
-```xml {highlight-lines="1[1:],2[:13],3[2:]-4,5-6[:2]"}
+```xml {highlight-lines="1[1:],2[8:],2[:5],3[2:]-4,5-6[:2]"}
 <foo>
   <bar type="name">goo</bar>
   <baz type="name">goo</baz>
@@ -115,7 +115,7 @@ Content in a fenced code block
 ```
 
 **`highlight-lines` attr with full word-variant line-slice syntax should highlight only at specified word ranges**
-```xml {highlight-lines="1[0::1],2[3::4],3[0::2],4[2::4],5[1::3]"}
+```xml {highlight-lines="1[0::1],2[0::1],2[2::3],3[0::2],4[2::4],5[1::3]"}
 <foo>
   <bar type="name"> goo </bar>
   <baz type="name"> goo </baz>
@@ -125,13 +125,44 @@ Content in a fenced code block
 ```
 
 **`highlight-lines` attr with partial word-variant line-slice syntax should default highlight to start/end of line**
-```xml {highlight-lines="1[0::],2[3::],3[::2],4[2::],5[::3]"}
+```xml {highlight-lines="1[0::],2[::2],2[3::],3[::2],4[2::],5[::3]"}
 <foo>
   <bar type="name"> goo </bar>
   <baz type="name"> goo </baz>
   <qux type="name"> goo </qux>
   <quux type="name"> goo </quux>
 </foo>
+```
+
+**`highlight-lines` all attr should behave as expected**
+```java {.line-numbers highlight-lines="1[:],3['items'],3['Inventory'],3[2::4],4['It\'s designed'],4[5::8],4[6::11],6[8:18],6[:]-8,8,8[0::2],12[:]-14,16-18,20[::1],20[12:]-21[::2],24[1::]-26"}
+import java.util.List;
+
+// Inventory is a class that stores inventory items in a list. Big Inventory.
+// It's designed as a thin wrapper on the List interface.
+public class Inventory {
+    private List<Item> items;
+
+    public int getItemCount(){
+        return items.size();
+    }
+
+    public bool isEmpty() {
+        return items.isEmpty();
+    }
+
+    public Item getItem(idx: int) {
+        return items.get(idx);
+    }
+
+    public void addItem(item: Item) {
+        return items.add(item);
+    }
+
+    public void removeItem(item: Item) {
+        return items.remove(item);
+    }
+}
 ```
 
 **Should render correctly with heading**

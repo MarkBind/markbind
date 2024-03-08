@@ -8,7 +8,8 @@
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 <panel header="This is your header for a Panel, click me to expand!">
-  Lorem ipsum ...
+<markdown>_markdown_</markdown>
+plain text ...
 </panel>
 </variable>
 </include>
@@ -143,6 +144,17 @@
 <panel header="Content loaded in from 'src'" src="extra/loadContent.html#fragment" minimized></panel>
 </variable>
 </include>
+
+<div id = "script_and_styles_warning">
+<box type = "warning" header = "#### Global Effects of the Script and Styles from the Imported Externals">
+
+Importing external resources that contains `script` or `styles` can inadvertently take global effects on your MarkBind website. Due to hoisting during processing, imported scripts and stylesheets affect the entire page. This could potentially alter its appearance and behavior beyond the intended scope.
+
+For example, if a CSS file imported via such means styles headings to be red, this change will be reflected page-wide.
+
+To safeguard against unintended consequences, consider directly incorporating the code or customizing styles to target specific elements or classes not used universally. This approach grants more precise control over your website's presentation and reduces the risk of unexpected changes.
+</box>
+</div>
 
 **If `popup-url` attribute is provided, a popup button will be shown. If clicked, it opens the specified url in a new window.**
 

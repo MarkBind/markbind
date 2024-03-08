@@ -22,15 +22,66 @@ The x and y coordinates of each Annotate Point are relative to the image and are
   <!-- Customize Point Header (default is empty) -->
   <a-point x="75%" y="25%" content="This point is 75% from the left and 25% from the top"  header="This has a header"/>
   <!-- Customize Point Color (default color is green) -->
-  <a-point x="33%" y="50%" content="This point is 33% from the left and 50% from the top"  color="red"/>
+  <a-point x="25%" y="50%" content="This point is 25% from the left and 50% from the top"  color="red"/>
   <!-- Customize Point Opacity (default opacity is 0.3) -->
-  <a-point x="66%" y="50%" content="This point is 66% from the left and 50% from the top"  opacity="0.7"/>
+  <a-point x="50%" y="50%" content="This point is 50% from the left and 50% from the top"  opacity="0.7"/>
   <!-- Customize Point Label (default is empty) -->
   <a-point x="25%" y="75%" content="This point is 25% from the left and 75% from the top" label="1"/>
   <!-- Customize Text Color (default color is black) -->
   <a-point x="50%" y="75%" content="This point is 50% from the left and 75% from the top"  textColor="white" color="black" label="2" opacity="1"/>
   <!-- Customize Font Size (default font size is 14) -->
   <a-point x="75%" y="75%" content="This point is 75% from the left and 75% from the top"  fontSize="30" label="3"/>
+  <!-- Customize Label (default is a rounded button) -->
+  <a-point x="75%" y="50%" content="This point is 75% from the left and 50% from the top">
+    <span class="badge bg-primary">Badge label</span>
+  </a-point>
+</annotate>
+</variable>
+</include>
+
+**Use markdown in the header, label and content**
+
+Annotate Points supports markdown in the header, label and content. 
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+
+<annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image">
+  <a-point x="25%" y="25%" content="# Content" />
+  <a-point x="50%" y="25%" header=":blush:" />
+  <a-point x="75%" y="25%" label=":heart:"/>
+</annotate>
+</variable>
+</include>
+
+
+**Customising shapes for Annotate Point** <br> 
+
+Annotate Points supports different shapes and customisation. 
+
+The default shape used is a rounded button.
+
+<box type="warning" seamless>
+When using a customised shape, the options shape, color and opacity will not work. 
+
+Style the shape to achieve the same effect.
+</box>
+
+<include src="codeAndOutput.md" boilerplate>
+<variable name="code">
+
+<annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image">
+  <a-point x="75%" y="50%" content="This point is 75% from the left and 50% from the top">
+    <span class="badge bg-primary">Badge label</span>
+  </a-point>
+  <a-point x="25%" y="50%" content="This point is 25% from the left and 50% from the top">
+    <pic src="../../images/deer.jpg" width="50" height="50">
+  </a-point>
+  <!-- Customised Annotate Point with styling-->
+  <a-point x="50%" y="50%" content="This point is 25% from the left and 50% from the top">
+    <div style="opacity: 90%; color: red">Custom</div>
+  </a-point>
 </annotate>
 </variable>
 </include>
@@ -119,21 +170,21 @@ Here we showcase some use cases of the Annotate feature.
 
 ****`<a-point>` Options****
 
-| Name      | Type     | Default     | Description                                                                                                                              |
-| --------- | -------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| x         | `String` |        | **This must be specified.**<br>The x-coordinate of the point.<br>Supports range of values from `0%` to `100%`.           |
-| y         | `String` |        | **This must be specified.**<br>The y-coordinate of the point.<br>Supports range of values from `0%` to `100%`.           |
-| content   | `String` | `''`        | Annotate Point content.<br>The annotation content will be omitted if this is not provided. |
-| header    | `String` | `''`        | Annotate Point header.<br>The header will be omitted if this is not provided.                            |
-| trigger   | `String` | `click`     | Popover trigger type.<br>Supports: `click`, `focus`, `hover`, or any space-separated combination of these.                       |
-| placement | `String` | `top`       | Position of the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.                                                              |
-| label     | `String` | `''`        | The label shown on the point itself.<br>The label will be omitted if this is not provided.<br>Note that labels should not be too long as they might overflow out of the point.                                       |
-| size      | `String` | `'40'`      | The size of the point in pixels.                                                                                                         |
-| color     | `String` | `'green'`   | The color of the point.<br>Supports any color in the CSS color format. E.g. `red`, `#ffffff`, `rgb(66, 135, 245)`, etc.                |
-| opacity   | `String` | `'0.3'`     | The opacity of the point.<br>Supports range of values from `0` to `1`.                                                                   |
-| fontSize  | `String` | `'14'`      | The font size of the label.<br>Supports any pixel size smaller than size of the point.                                                   |
-| textColor | `String` | `'black'`   | The color of the label.<br>Supports any color in the CSS color format. E.g. `red`, `#ffffff`, `rgb(66, 135, 245)`, etc.                  |
-| legend    | `String` | `'popover'` | The position of the Annotate Point content and header.<br>Supports: `popover`, `bottom`, `both`.                                                      |
+| Name      | Type     | Default     | Description                                                                                                                                                                   |
+| --------- | -------- | ----------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| x         | `String` |        | **This must be specified.**<br>The x-coordinate of the point.<br>Supports range of values from `0%` to `100%`.                                                                |
+| y         | `String` |        | **This must be specified.**<br>The y-coordinate of the point.<br>Supports range of values from `0%` to `100%`.                                                                |
+| content   | `String` | `''`        | Annotate Point content.<br>The annotation content will be omitted if this is not provided.                                                                                    |
+| header    | `String` | `''`        | Annotate Point header.<br>The header will be omitted if this is not provided.                                                                                                 |
+| trigger   | `String` | `click`     | Popover trigger type.<br>Supports: `click`, `focus`, `hover`, or any space-separated combination of these.                                                                    |
+| placement | `String` | `top`       | Position of the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.                                                                                                       |
+| label     | `String` | `''`        | The label shown on the point itself.<br>The label will be omitted if this is not provided.<br>Note that labels should not be too long as they might overflow out of the point. |
+| size      | `String` | `'40'`      | The size of the point in pixels. <br> Does not work with customised shapes                                                                                                                                              |
+| color     | `String` | `'green'`   | The color of the point.<br>Supports any color in the CSS color format. E.g. `red`, `#ffffff`, `rgb(66, 135, 245)`, etc. <br> Does not work with customised shapes             |
+| opacity   | `String` | `'0.3'`     | The opacity of the point.<br>Supports range of values from `0` to `1`. <br> Does not work with customised shapes                                                                                                        |
+| fontSize  | `String` | `'14'`      | The font size of the label.<br>Supports any pixel size smaller than size of the point.                                                                                        |
+| textColor | `String` | `'black'`   | The color of the label.<br>Supports any color in the CSS color format. E.g. `red`, `#ffffff`, `rgb(66, 135, 245)`, etc.                                                       |
+| legend    | `String` | `'popover'` | The position of the Annotate Point content and header.<br>Supports: `popover`, `bottom`, `both`.                                                                              |
 
 ****`<annotate>` Options****
 
