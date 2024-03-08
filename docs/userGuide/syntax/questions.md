@@ -190,7 +190,7 @@ Optionally, you can provide the reason for the particular option using the `<q-o
 {% set checkboxQuestion %}
 <question type="checkbox" hint="Use your calculator! :fas-calculator:">
 
-  Which of the following is true?
+  ###### Which of the following is true?
 
   <br>
   <q-option reason="lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum">
