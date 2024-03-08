@@ -6,4 +6,7 @@
 
 # Experience
 
-> This is a placeholder page for your work experiences
+<panel type="seamless" header="Experience 1" no-close minimized></panel>
+
+<panel type="seamless" header="Experience 2" no-close minimized></panel>
+

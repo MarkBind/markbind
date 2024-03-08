@@ -24,5 +24,8 @@
   ],
   "deploy": {
     "message": "Site Update."
+  },
+  "style": {
+    "bootstrapTheme": "bootswatch-flatly"
   }
 }

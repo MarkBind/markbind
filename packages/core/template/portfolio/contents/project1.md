@@ -4,6 +4,6 @@
 
 <br>
 
-# Project 1
+### Project 1
 
 > This is a placeholder page for a project.

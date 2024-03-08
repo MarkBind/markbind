@@ -5,11 +5,11 @@
 <header sticky>
   <navbar type="dark">
     <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">Your Name</a>
-    <li><a href="{{baseUrl}}/contents/experience.html" class="nav-link">Experience</a></li>
-    <li><a href="{{baseUrl}}/contents/skills.html" class="nav-link">Skills</a></li>
+    <li><a href="{{baseUrl}}/index.html#experience" class="nav-link">Experience</a></li>
+    <li><a href="{{baseUrl}}/index.html#skills" class="nav-link">Skills</a></li>
     <dropdown header="Projects" class="nav-link">
-      <li><a href="{{baseUrl}}/contents/project1.html" class="dropdown-item">Project1</a></li>
-      <li><a href="{{baseUrl}}/contents/project2.html" class="dropdown-item">Project2</a></li>
+      <li><a href="{{baseUrl}}/index.html#project-1" class="dropdown-item">Project1</a></li>
+      <li><a href="{{baseUrl}}/index.html#project-2" class="dropdown-item">Project2</a></li>
     </dropdown>
     <li><a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
       <i class="fa-brands fa-github fa-lg"></i>
@@ -29,30 +29,10 @@
 </header>
 
 <div id="flex-body">
-  <nav id="site-nav">
-    <div class="site-nav-top">
-      <div class="fw-bold mb-2" style="font-size: 1.25rem;">Contents</div>
-    </div>
-    <div class="nav-component slim-scroll">
-      <site-nav>
-* [Home :house:]({{ baseUrl }}/index.html)
-* [Experience]({{baseUrl}}/contents/experience.html)
-* [Skills]({{baseUrl}}/contents/skills.html)
-* Projects :expanded:
-  * [Project 1]({{baseUrl}}/contents/project1.html)
-  * [Project 2]({{baseUrl}}/contents/project2.html)
-      </site-nav>
-    </div>
-  </nav>
   <div id="content-wrapper">
     <breadcrumb />
     {{ content }}
   </div>
-  <nav id="page-nav">
-    <div class="nav-component slim-scroll">
-      <page-nav />
-    </div>
-  </nav>
   <scroll-top-button></scroll-top-button>
 </div>
 
