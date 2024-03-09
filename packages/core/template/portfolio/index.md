@@ -20,9 +20,13 @@
 
 ## About me
 
-<p>This is where you can add a picture of yourself and a brief introduction.</p>
+<p>
+  This is where you can add a picture of yourself and a brief introduction. This can be a good place to 
+  use <tooltip content="Add more information here" placement="top">tooltips</tooltip>, or 
+  <md>[add relevant links](https://markbind.org/userGuide/formattingContents.html#links)</md>.
+</p>
 
-<img src='./contents/assests/default_profile_pic.png' alt='default-profile-pic'></img>
+<img src='./contents/assests/default_profile_pic.png' alt='default-profile-pic'/>
 
 ---
 

@@ -5,8 +5,8 @@
 <header sticky>
   <navbar type="dark">
     <a slot="brand" href="{{baseUrl}}/index.html" title="Home" class="navbar-brand">Your Name</a>
-    <li><a href="{{baseUrl}}/index.html#experience" class="nav-link">Experience</a></li>
     <li><a href="{{baseUrl}}/index.html#skills" class="nav-link">Skills</a></li>
+    <li><a href="{{baseUrl}}/index.html#experience" class="nav-link">Experience</a></li>
     <dropdown header="Projects" class="nav-link">
       <li><a href="{{baseUrl}}/index.html#project-1" class="dropdown-item">Project1</a></li>
       <li><a href="{{baseUrl}}/index.html#project-2" class="dropdown-item">Project2</a></li>
@@ -30,7 +30,6 @@
 
 <div id="flex-body">
   <div id="content-wrapper">
-    <breadcrumb />
     {{ content }}
   </div>
   <scroll-top-button></scroll-top-button>
