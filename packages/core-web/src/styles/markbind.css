@@ -1,3 +1,5 @@
+@import url("../../asset/css/codeblock-light.min.css") print;
+
 :root {
     --sticky-header-height: 0;
 }
@@ -61,48 +63,6 @@ pre > code.hljs[heading] {
 .code-block-content {
     clear: both;
     display: block;
-}
-
-/* switch to light style on print view */
-@media print {
-    pre > code.hljs {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        word-break: break-all;
-        background: ghostwhite;
-    }
-
-    code.hljs.inline {
-        background: ghostwhite;
-        color: #333;
-        border: 0.5px solid #d4d4d4;
-    }
-
-    code span.highlighted {
-        background: lavender !important;
-    }
-
-    .hljs:not(.inline).line-numbers-print > span {
-        padding: 0 0.5em 0 3.5em;
-        position: relative;
-    }
-
-    /* display line numbers beside each span */
-    .hljs:not(.inline).line-numbers-print > span::before {
-        border-right: 1px solid #ddd;
-        display: inline-block;
-        color: #888;
-        content: counter(line);
-        counter-increment: line;
-        left: 0;
-        margin-right: 0.5em;
-        padding-right: 0.5em;
-        position: absolute;
-        text-align: right;
-        top: 0;
-        width: 3em;
-        height: 100%;
-    }
 }
 
 kbd {
