@@ -35,6 +35,8 @@ You can specify multiple `<page-nav-print />` components in a page and they do n
 {{ icon_example }}
 In the page that you want to have page navigation printed (i.e. to serve as a table of content when viewed on PDFs), use the `<page-nav-print />` component to position the pageNav like so:
 
+<div id="short" class="indented">
+
 ```html
 <frontmatter>
   pageNav: 2
@@ -47,6 +49,8 @@ In the page that you want to have page navigation printed (i.e. to serve as a ta
 Content of the page...
 ```
 
+</div>
+
 To view the pageNav on print, open the print preview of the page using the browser's print function.
 
 <box type="info" seamless>
@@ -56,32 +60,6 @@ You can try it out by going to our [CLI Commands page]({{baseUrl}}/userGuide/cli
 </box>
 
 </panel>
-
-<div id="short" class="indented">
-
-{{ icon_example }}
-In the page that you want to have page navigation, you may show only `<h1>` and `<h2>` headings in the pageNav, and set a custom pageNav title like so:
-
-```html
-<frontmatter>
-  pageNav: 2
-  pageNavTitle: "Chapters of This Page"
-</frontmatter>
-```
-
-Then, in your [layout file]({{baseUrl}}/userGuide/tweakingThePageStructure.html#layouts), use the `<page-nav />` component to position the pageNav.
-
-{% if not doNotShowPageNav %}
-{{ icon_example }} <trigger for="modal:page-nav-example" trigger="click">Example usage of the `<page-nav />` component</trigger>
-
-<modal header="Using the `pageNav` variable in a layout" id="modal:page-nav-example" large>
-<include src="../tweakingThePageStructure.md#layout-code-snippet">
-<variable name="highlightLines">54</variable>
-</include>
-</modal>
-{% endif %}
-
-</div>
 
 </div>
 
