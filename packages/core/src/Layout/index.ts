@@ -1,9 +1,10 @@
-const { Layout } = require('./Layout');
-const { LayoutManager } = require('./LayoutManager');
+import { Layout } from './Layout';
+import { LayoutManager } from './LayoutManager';
 
-module.exports = {
+export const LAYOUT_DEFAULT_NAME = 'default.md';
+export const LAYOUT_FOLDER_PATH = '_markbind/layouts';
+
+export {
   Layout,
   LayoutManager,
-  LAYOUT_DEFAULT_NAME: 'default.md',
-  LAYOUT_FOLDER_PATH: '_markbind/layouts',
 };
