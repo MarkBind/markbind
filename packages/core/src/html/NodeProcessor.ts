@@ -175,7 +175,6 @@ export class NodeProcessor {
 
       // log warnings for conflicting attributes
       if (_.has(warnConflictingAtributesMap, node.name)) { warnConflictingAtributesMap[node.name](node); }
-
       switch (node.name) {
       case 'frontmatter':
         this._processFrontmatter(node, context);
@@ -266,9 +265,14 @@ export class NodeProcessor {
         if (!_.has(node.attribs, 'v-pre')) { node.attribs['v-pre'] = ''; }
         break;
       case 'pic':
-        if ( _.has(node.attribs, "lazy") && !_.has(node.attribs, "width") && !_.has(node.attribs, "height")) {
-          logger.warn(`Neither width nor height is specified at ${context.variables.code}, lazy loading might cause layout shifts `);
-        };
+      case 'annotate':
+        if (_.has(node.attribs, 'lazy')
+            && !(_.has(node.attribs, 'width') || _.has(node.attribs, 'height'))) {
+          logger.warn('Both width and height are not specified at the code below, '
+              + 'lazy loading might cause shifting in page layouts. '
+              + 'To ensure proper functioning of lazy loading, please specify either one or both.'
+              + `${context.variables.code}`);
+        }
         break;
       default:
         break;

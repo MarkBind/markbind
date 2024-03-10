@@ -18,6 +18,7 @@ alt | `string` | | **This must be specified.**<br>The alternative text of the im
 height | `string` | | The height of the image in pixels.
 src | `string` | | **This must be specified.**<br>The URL of the image.<br>The URL can be specified as absolute or relative references. More info in: _[Intra-Site Links]({{baseUrl}}/userGuide/formattingContents.html#intraSiteLinks)_
 width | `string` | | The width of the image in pixels.<br>If both width and height are specified, width takes priority over height. It is to maintain the image's aspect ratio.
+lazy | `boolean` | false | The `<pic>` component lazy loads if this attribute is specified.<br>**Either the height or width should be specified to avoid layout shifts while lazy loading images.**
 
 <div id="short" class="d-none">
 

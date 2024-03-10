@@ -6,7 +6,7 @@
       :alt="alt"
       :width="computedWidth"
       :height="computedHeight"
-      :loading= "computedLoadType"
+      :loading="computedLoadType"
       class="img-fluid rounded"
       @load.once="computeWidthAndHeight"
     />
@@ -64,7 +64,7 @@ export default {
     },
     computedLoadType() {
       return this.lazy ? 'lazy' : 'eager';
-    }
+    },
   },
   data() {
     return {
@@ -78,11 +78,11 @@ export default {
       const imgHeight = renderedImg.naturalHeight;
       const imgWidth = renderedImg.naturalWidth;
       const aspectRatio = imgWidth / imgHeight;
-      if (!this.hasWidth && this.hasHeight) {
-        this.widthFromHeight = Math.round(toNumber(this.height) * aspectRatio).toString();
-      }
-      if (this.hasWidth) {
+      if (this.hasWidth) { // if width is present, overwrite the height (if any) to maintain aspect ratio
         this.heightFromWidth = Math.round(toNumber(this.width) / aspectRatio).toString();
+      } else if (this.hasHeight) {
+        this.widthFromHeight = Math.round(toNumber(this.height) * aspectRatio).toString();
+        this.heightFromWidth = this.height;
       }
     },
   },
