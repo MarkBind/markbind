@@ -36,13 +36,27 @@
   </variable>
 </include>
 
+<box type=info seamless>
+
+Customization will be carried over to the other items within the **same level of the list**.
+Example: 
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
+* Item 1 { icon="glyphicon-education" }
+  * Item 1.1
+* Item 2 
+  </variable>
+</include>
+
+The customised icon is appears for Item 2 but not for Item 1.1.
+
+Hence, if you customize any item on a certain level, you must also **customize the first item on that level**. If not, the list will revert to its uncustomized form.
+</box>
+
 You can use any of the [icons](../formattingContents.html#icons) supported by MarkBind. If an item has a specified icon, that icon will be used for it and for subsequent items at that level.
 
 Markdown can also be used in texts.
-
-<box type=warning seamless>
-If you customize any item on a certain level, you must also customize the first item on that level. If not, the list will revert to its uncustomized form.
-</box>
 
 <box type=warning seamless>
 You may need to add escape characters when using special characters for Markdown in text. 
