@@ -26,18 +26,18 @@
   <md>[add relevant links](https://markbind.org/userGuide/formattingContents.html#links)</md>.
 </p>
 
-<img src='./contents/assests/default_profile_pic.png' alt='default-profile-pic'/>
+<img src='./contents/assets/default_profile_pic.png' alt='default-profile-pic'/>
 
 ---
 
-<include src="contents/skills.md"/>
+<include src="contents/skills.md" omitFrontmatter/>
 
 ---
 
-<include src="contents/experience.md"/>
+<include src="contents/experience.md" omitFrontmatter/>
 
 ---
 
-<include src="contents/projects.md"/>
+<include src="contents/projects.md" omitFrontmatter/>
 
 

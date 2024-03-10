@@ -4,10 +4,8 @@
 
 <br>
 
-### Project 1
-
-<div cl_site="card mb-3">
-  <h3 class="card-header">Name of project</h3>
+<div class="card mb-3">
+  <h3 class="card-header">Project 1</h3>
   <div class="card-body">
     <h5 class="card-title">Short description of project</h5>
   </div>
@@ -17,7 +15,7 @@
     {{typescript}}
   </div>
   <div class="card-body">
-    <a href="#" class="btn btn-primary">Card link</a>
-    <a href="#" class="btn btn-primary">Another link</a>
+    <a href="#" class="btn btn-primary">View on Github</a>
+    <a href="#" class="btn btn-primary">View Devpost</a>
   </div>
 </div>

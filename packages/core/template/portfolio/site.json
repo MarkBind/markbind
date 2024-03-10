@@ -16,10 +16,11 @@
   "pagesExclude": ["node_modules/*"],
   "pages": [
     {
-      "src": "index.md"
+      "src": "index.md",
+      "title": "Portfolio"
     },
     {
-      "glob": ["**/index.md", "**/*.md"]
+      "glob": ["**/index.md"]
     }
   ],
   "deploy": {
