@@ -67,10 +67,10 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio {
   }
   // Add invisible character to avoid the element from being empty
   spanNode.append('\u200B');
-  const iSpacing = iconAttrs.spacing || '0.35em';
+  const iconSpacing = iconAttrs.spacing || '0.35em';
   return spanNode.css({
     'line-height': 'unset',
-    'margin-inline-end': iSpacing,
+    'margin-inline-end': iconSpacing,
     'align-self': 'flex-start',
     'flex-shrink': '0',
   });
