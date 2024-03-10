@@ -265,13 +265,17 @@ export class NodeProcessor {
          */
         if (!_.has(node.attribs, 'v-pre')) { node.attribs['v-pre'] = ''; }
         break;
+      case 'pic':
+        if ( _.has(node.attribs, "lazy") && !_.has(node.attribs, "width") && !_.has(node.attribs, "height")) {
+          logger.warn(`Neither width nor height is specified at ${context.variables.code}, lazy loading might cause layout shifts `);
+        };
+        break;
       default:
         break;
       }
     } catch (error) {
       logger.error(error);
     }
-
     return context;
   }
 

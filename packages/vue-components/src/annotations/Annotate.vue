@@ -5,6 +5,7 @@
       :src="src"
       :alt="alt"
       :width="computedWidth"
+      :loading="computedLoadType"
       class="annotate-image"
       @load.once="getWidth"
     />
@@ -35,6 +36,10 @@ export default {
       type: String,
       default: '',
     },
+    lazy: {
+      type: Boolean,
+      default: false,
+    },
     addClass: {
       type: String,
       default: '',
@@ -53,6 +58,9 @@ export default {
       }
       return this.widthFromHeight;
     },
+    computedLoadType() {
+      return this.lazy ? 'lazy' : 'eager';
+    }
   },
   data() {
     return {

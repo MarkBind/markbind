@@ -5,7 +5,7 @@
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo">
+<pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo" lazy>
   MarkBind Logo
 </pic>
 </variable>
@@ -22,7 +22,7 @@ width | `string` | | The width of the image in pixels.<br>If both width and heig
 <div id="short" class="d-none">
 
 ```html
-<pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo">
+<pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo" lazy>
   MarkBind Logo
 </pic>
 ```
@@ -30,7 +30,7 @@ width | `string` | | The width of the image in pixels.<br>If both width and heig
 
 <div id="examples" class="d-none">
 
-<pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo">
+<pic src="https://markbind.org/images/logo-lightbackground.png" width="300" width="300" height="10" alt="Logo">
   MarkBind Logo
 </pic>
 </div>
