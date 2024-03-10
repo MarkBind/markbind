@@ -52,6 +52,16 @@ Example:
 The customised icon appears for Item 2 but not for Item 1.1.
 
 Hence, if you customize any item on a certain level, you must also **customize the first item on that level**. If not, the list will revert to its uncustomized form.
+If you wish to remove the customization from the following levels, you can set `text` and/or `icon` to be an empty string `""`. 
+
+Example:
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
+* Item 1 { icon="glyphicon-education" text="Only for this bullet"}
+* Item 2 {icon="" text=""}
+  </variable>
+  </include>
 </box>
 
 You can use any of the [icons](../formattingContents.html#icons) supported by MarkBind. If an item has a specified icon, that icon will be used for it and for subsequent items at that level.
