@@ -49,7 +49,7 @@ Example:
   </variable>
 </include>
 
-The customised icon is appears for Item 2 but not for Item 1.1.
+The customised icon appears for Item 2 but not for Item 1.1.
 
 Hence, if you customize any item on a certain level, you must also **customize the first item on that level**. If not, the list will revert to its uncustomized form.
 </box>
