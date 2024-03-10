@@ -1,9 +1,3 @@
-<frontmatter>
-  title: Skills
-</frontmatter>
-
-<br>
-
 # Skills
 
 This is where you can give a quick overview of the technologies and frameworks you know using our <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html#thumbnails" target="_blank">thumbnail feature</a> or our <a href="https://markbind.org/userGuide/formattingContents.html#icons" target="_blank">icons</a>. 

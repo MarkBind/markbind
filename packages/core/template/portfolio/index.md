@@ -30,14 +30,14 @@
 
 ---
 
-<include src="contents/skills.md" omitFrontmatter/>
+<include src="contents/skills.md"/>
 
 ---
 
-<include src="contents/experience.md" omitFrontmatter/>
+<include src="contents/experience.md"/>
 
 ---
 
-<include src="contents/projects.md" omitFrontmatter/>
+<include src="contents/projects.md"/>
 
 

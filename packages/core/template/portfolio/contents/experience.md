@@ -1,9 +1,3 @@
-<frontmatter>
-  title: Experience
-</frontmatter>
-
-<br>
-
 # Experience
 
 <panel type="seamless" header="Experience 1" no-close minimized>
