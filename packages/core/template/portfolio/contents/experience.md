@@ -14,7 +14,7 @@
 <br/>
 <panel type="seamless" no-close minimized>
   <div slot="header">
-    <md>**Another experience @ [Another Compnay]()** | May 2022 - Aug 2022</md>
+    <md>**Another experience @ [Another Company]()** | May 2022 - Aug 2022</md>
   </div>
   <div class="container">
     Role description
