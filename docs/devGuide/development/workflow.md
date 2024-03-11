@@ -126,6 +126,20 @@ The sections below has more information about various stages of submitting a PR.
 
   </modal>
 
+#### Keeping your fork up to date
+
+When new PRs are merged into the `master` branch, your `master` branch will be out of sync with the main repository. To update your branches to branch from the latest master:
+
+1. Go to your fork on Github and click 'Sync Fork'
+
+1. Checkout your `master` branch and `git pull`
+
+1. Checkout your feature branch and [rebase](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) the branch with `git rebase master` 
+
+1. Fix any merge conflicts (if applicable)
+
+You may want to use a tool like [GitTown](https://www.git-town.com/) to speed up the process.
+
 #### Editing backend features
 
 Some of our backend code files in `packages/core` are written in TypeScript, and you will need to compile those into JavaScript for local execution with our command-line module `packages/cli`.
