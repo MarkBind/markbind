@@ -20,13 +20,18 @@
 
 ## About me
 
-<p>
-  This is where you can add a picture of yourself and a brief introduction. This can be a good place to 
-  use <tooltip content="Add more information here" placement="top">tooltips</tooltip>, or 
-  <md>[add relevant links](https://markbind.org/userGuide/formattingContents.html#links)</md>.
-</p>
-
-<img src='./contents/assets/default_profile_pic.png' alt='default-profile-pic'/>
+<div class="card mb-3">
+  <div class="row" >
+    <div class="col-3">
+      <img src='./contents/assets/default_profile_pic.png' alt='default-profile-pic'/>
+    </div>
+    <div class="col-9">
+      <div class="card-body">
+        <p class="card-text">This is where you can add a picture of yourself and a brief introduction. This can be a good place to use <tooltip content="Add more information here" placement="top">tooltips</tooltip>, or <md>[add relevant links](https://markbind.org/userGuide/formattingContents.html#links)</md>.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 ---
 
