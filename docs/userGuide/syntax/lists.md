@@ -23,7 +23,7 @@
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-* Item 1 { text="Step 1" icon="glyphicon-education" }
+* Item 1 { text="Step 1 :+1:" icon="glyphicon-education" }
 * Item 2 { text="Step 2" }
   * Item 2.1 { icon="fas-file-code" }
   * Item 2.2
