@@ -1,6 +1,5 @@
 import cheerio from 'cheerio';
 import { MbNode, NodeOrText } from '../utils/node';
-import { log } from 'console';
 
 const { processIconString } = require('../lib/markdown-it/plugins/markdown-it-icons');
 const emojiDictionary = require('../lib/markdown-it/patches/markdown-it-emoji-fixed');
@@ -87,11 +86,11 @@ function updateNodeStyle(node: NodeOrText) {
   });
 }
 
-// If an item has a specified icon, that icon will be saved and used for it and for 
+// If an item has a specified icon, that icon will be saved and used for it and for
 // subsequent items at that level to prevent duplication of icons attribute declarations.
 // However, if an item has a specified icon and it is one-off, the icon will only be
 // used for that item.
-// Items with one-off icons do not overwrite the previously saved icon, meaning that 
+// Items with one-off icons do not overwrite the previously saved icon, meaning that
 // subsequent items will still use the last saved icon.
 const getIconAttributes = (node: MbNode, iconAttrsSoFar?: IconAttributes):
 IconAttributes | null => {
@@ -105,7 +104,8 @@ IconAttributes | null => {
     height: node.attribs['i-height'] !== undefined ? node.attribs['i-height'] : iconAttrsSoFar?.height,
     size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttrsSoFar?.size,
     className: node.attribs['i-class'] !== undefined ? node.attribs['i-class'] : iconAttrsSoFar?.className,
-    oneOff: (node.attribs['i-one-off'] === true || node.attribs['i-one-off'] === "true") ? true : iconAttrsSoFar?.oneOff,
+    oneOff: (node.attribs['i-one-off'] === true || node.attribs['i-one-off'] === 'true')
+      ? true : iconAttrsSoFar?.oneOff,
   };
 };
 
@@ -141,7 +141,7 @@ function updateLi(node: MbNode, iconAttributes: IconAttributes) {
 // See https://github.com/MarkBind/markbind/pull/2316#discussion_r1255364486 for more details.
 function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail) {
   if (iconAttrValue.isFirst) {
-    let nodeIconAttrs = getIconAttributes(node);
+    const nodeIconAttrs = getIconAttributes(node);
     // Check if first item is customized
     if (nodeIconAttrs?.icon !== undefined) {
       iconAttrValue.addIcons = true;
@@ -152,7 +152,7 @@ function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail) {
     }
     iconAttrValue.isFirst = false;
   } else if (iconAttrValue.iconAttrs) {
-    let nodeIconAttrs = getIconAttributes(node, iconAttrValue.iconAttrs);
+    const nodeIconAttrs = getIconAttributes(node, iconAttrValue.iconAttrs);
     // Save if the icon is not one-off
     if (nodeIconAttrs?.oneOff === undefined) {
       iconAttrValue.iconAttrs = nodeIconAttrs;
@@ -165,20 +165,18 @@ function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail) {
   // so future items that are not one-off will need to be saved
   if (iconAttrValue.iconAttrs?.icon === undefined) {
     // There is no previous icon
-    let nodeIconAttrs = getIconAttributes(node);
+    const nodeIconAttrs = getIconAttributes(node);
     // Save if current has icon and it is not one-off
     if (nodeIconAttrs?.icon !== undefined && nodeIconAttrs?.oneOff === undefined) {
       iconAttrValue.iconAttrs = nodeIconAttrs;
     }
   }
 
-
   // update only if current has icon or previous has saved icon
-  let nodeIconAttrs = getIconAttributes(node);
+  const nodeIconAttrs = getIconAttributes(node);
   if (nodeIconAttrs?.icon !== undefined || iconAttrValue.iconAttrs?.icon !== undefined) {
     updateLi(node, iconAttrValue.iconAttrs ?? {});
   }
-
 }
 
 export function processUlNode(node: NodeOrText) {
