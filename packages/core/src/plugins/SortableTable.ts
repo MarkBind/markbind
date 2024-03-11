@@ -25,7 +25,17 @@ const sortableTableJs = `<script>
       const aColText = a.querySelector(\`td:nth-child(\${column + 1})\`).textContent.trim();
       const bColText = b.querySelector(\`td:nth-child(\${column + 1})\`).textContent.trim();
 
-      return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
+      // Check if the cell values are numeric
+      const aNum = Number(aColText);
+      const bNum = Number(bColText);
+
+      if (!isNaN(aNum) && !isNaN(bNum)) {
+        // If both values are numeric, compare them as numbers
+        return (aNum - bNum) * dirModifier;
+      } else {
+        // If either value is non-numeric, compare them as strings
+        return aColText.localeCompare(bColText) * dirModifier;
+      }
     });
 
     // Remove all existing TRs from the table
@@ -49,8 +59,8 @@ const sortableTableJs = `<script>
         sortTable(table, index, !currentIsAscending);
       });
     });
-  });</script>
-`;
+  });
+</script>`;
 
 export = {
   getLinks: () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`],
