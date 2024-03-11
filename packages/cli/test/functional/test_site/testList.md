@@ -3,9 +3,9 @@
 
 1. One item with customization
 - Only 1 item { icon="glyphicon-education" }
-<!-- 
+
 1. One item with one-off customization
-- Only 1 item { icon="glyphicon-education" i-one-off="true" } -->
+- Only 1 item { icon="glyphicon-education" i-one-off="true" }
 
 1. One item + nested list
 - Only 1 item
@@ -14,10 +14,10 @@
 1. One item + nested list with customization
 - Only 1 item { icon="glyphicon-education" }
    - Only 1 item { icon="glyphicon-education" }
-<!-- 
+
 1. One item + nested list with one-off customization
 - Only 1 item { icon="glyphicon-education" i-one-off="true" }
-   - Only 1 item { icon="glyphicon-education" i-one-off="true" } -->
+   - Only 1 item { icon="glyphicon-education" i-one-off="true" }
 
 1. Basic structure
 * Item A
@@ -104,7 +104,7 @@
   * Sub-item B3 {icon="./images/deer.jpg" i-width="200px" i-height="100px" i-class="text-warning"}
   * Sub-item B4
 
-<!-- 1. First item one-off
+1. One-off + none + customization
 * Item A { icon="glyphicon-education" i-one-off="true" }
 * Item B 
   * Sub-item B1 { icon="fas-file-code" }
@@ -113,20 +113,20 @@
     * Sub-sub-item B3.1 { icon="./images/deer.jpg" i-width="50px" }
     * Sub-sub-item B3.2
   * Sub-item B4 
-* Item C
+* Item C { icon="fas-file-code" }
 
-1. Second item one-off
-* Item A 
-* Item B { icon="glyphicon-education" i-one-off="true" }
+1. Customization + none + one-off
+* Item A { icon="fas-file-code" }
+* Item B
   * Sub-item B1 { icon="fas-file-code" }
   * Sub-item B2
   * Sub-item B3 
     * Sub-sub-item B3.1 { icon="./images/deer.jpg" i-width="50px" }
     * Sub-sub-item B3.2
   * Sub-item B4 
-* Item C
+* Item C { icon="glyphicon-education" i-one-off="true" }
 
-1. Customization + one-off
+1. Customization + one-off + none
 * Item A { icon="fas-file-code" }
 * Item B { icon="glyphicon-education" i-one-off="true" }
   * Sub-item B1
@@ -137,7 +137,7 @@
   * Sub-item B4 
 * Item C
 
-1. One-off + customization
+1. One-off + customization + none
 * Item A { icon="glyphicon-education" i-one-off="true" }
 * Item B { icon="fas-file-code" }
   * Sub-item B1
@@ -179,4 +179,26 @@
     * Sub-sub-item B3.1 { icon="./images/deer.jpg" i-width="50px" }
     * Sub-sub-item B3.2
   * Sub-item B4 
-* Item C { icon="./images/deer.jpg" i-width="50px" } -->
+* Item C { icon="./images/deer.jpg" i-width="50px" }
+
+1. One-off + customization + none with boolean one-off
+* Item A { icon="glyphicon-education" i-one-off=true }
+* Item B { icon="fas-file-code" }
+  * Sub-item B1
+  * Sub-item B2
+  * Sub-item B3 
+    * Sub-sub-item B3.1 { icon="./images/deer.jpg" i-width="50px" }
+    * Sub-sub-item B3.2
+  * Sub-item B4 
+* Item C
+
+1. Sub-level
+* Item A 
+* Item B 
+  * Sub-item B1 { icon="glyphicon-education" i-one-off="true" }
+  * Sub-item B2
+  * Sub-item B3 { icon="fas-file-code" }
+    * Sub-sub-item B3.1 { icon="./images/deer.jpg" i-width="50px" }
+    * Sub-sub-item B3.2
+  * Sub-item B4 
+* Item C { icon="./images/deer.jpg" i-width="50px" }

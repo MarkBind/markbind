@@ -42,6 +42,22 @@ You can use any of the [icons](../formattingContents.html#icons) supported by Ma
 If you customize any item on a certain level, you must also customize the first item on that level. If not, the list will revert to its uncustomized form.
 </box>
 
+**You can add an icon that is only for a specific item by using the `i-one-off` attribute.**
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
+* Item 1 { icon="glyphicon-education" }
+* Item 2 { icon="fas-code-branch" i-one-off="true" }
+  * Item 2.1
+  * Item 2.2
+* Item 3
+  </variable>
+</include>
+
+You can set `i-one-off="true"` or `i-one-off=true` to specify an icon for the specific item only.
+Subsequent items at the same level will not inherit the one-off icon and will instead inherit the icon before the one-off icon.
+
 **You can adjust the icon's size by using the `i-size` attribute.**
 
 <include src="codeAndOutput.md" boilerplate >

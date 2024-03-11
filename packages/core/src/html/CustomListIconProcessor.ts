@@ -1,5 +1,6 @@
 import cheerio from 'cheerio';
 import { MbNode, NodeOrText } from '../utils/node';
+import { log } from 'console';
 
 const { processIconString } = require('../lib/markdown-it/plugins/markdown-it-icons');
 const emojiDictionary = require('../lib/markdown-it/patches/markdown-it-emoji-fixed');
@@ -10,7 +11,7 @@ interface EmojiData {
 
 const emojiData = emojiDictionary as unknown as EmojiData;
 
-const ICON_ATTRIBUTES = ['icon', 'i-width', 'i-height', 'i-size', 'i-class'];
+const ICON_ATTRIBUTES = ['icon', 'i-width', 'i-height', 'i-size', 'i-class', 'i-one-off'];
 
 interface IconAttributes {
   icon?: string;
@@ -18,10 +19,12 @@ interface IconAttributes {
   size?: string;
   width?: string;
   height?: string;
+  oneOff?: boolean;
 }
 
 type IconAttributeDetail = {
   isFirst: boolean;
+  addIcons: boolean;
   iconAttrs: IconAttributes | null;
 };
 
@@ -84,8 +87,12 @@ function updateNodeStyle(node: NodeOrText) {
   });
 }
 
-// If an item has a specified icon, that icon will be used for it and for subsequent
-// items at that level to prevent duplication of icons attribute declarations.
+// If an item has a specified icon, that icon will be saved and used for it and for 
+// subsequent items at that level to prevent duplication of icons attribute declarations.
+// However, if an item has a specified icon and it is one-off, the icon will only be
+// used for that item.
+// Items with one-off icons do not overwrite the previously saved icon, meaning that 
+// subsequent items will still use the last saved icon.
 const getIconAttributes = (node: MbNode, iconAttrsSoFar?: IconAttributes):
 IconAttributes | null => {
   if (iconAttrsSoFar?.icon === undefined && node.attribs.icon === undefined) {
@@ -98,6 +105,7 @@ IconAttributes | null => {
     height: node.attribs['i-height'] !== undefined ? node.attribs['i-height'] : iconAttrsSoFar?.height,
     size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttrsSoFar?.size,
     className: node.attribs['i-class'] !== undefined ? node.attribs['i-class'] : iconAttrsSoFar?.className,
+    oneOff: (node.attribs['i-one-off'] === true || node.attribs['i-one-off'] === "true") ? true : iconAttrsSoFar?.oneOff,
   };
 };
 
@@ -108,9 +116,6 @@ const deleteAttributes = (node: MbNode, attributes: string[]) => {
 };
 
 function updateLi(node: MbNode, iconAttributes: IconAttributes) {
-  if (
-    iconAttributes.icon === undefined
-  ) return;
   const curLiIcon = getIconAttributes(node, iconAttributes);
 
   deleteAttributes(node, ICON_ATTRIBUTES);
@@ -136,12 +141,44 @@ function updateLi(node: MbNode, iconAttributes: IconAttributes) {
 // See https://github.com/MarkBind/markbind/pull/2316#discussion_r1255364486 for more details.
 function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail) {
   if (iconAttrValue.isFirst) {
-    iconAttrValue.iconAttrs = getIconAttributes(node);
+    let nodeIconAttrs = getIconAttributes(node);
+    // Check if first item is customized
+    if (nodeIconAttrs?.icon !== undefined) {
+      iconAttrValue.addIcons = true;
+    }
+    // Save if the icon is not one-off
+    if (nodeIconAttrs?.oneOff === undefined) {
+      iconAttrValue.iconAttrs = nodeIconAttrs;
+    }
     iconAttrValue.isFirst = false;
   } else if (iconAttrValue.iconAttrs) {
-    iconAttrValue.iconAttrs = getIconAttributes(node, iconAttrValue.iconAttrs);
+    let nodeIconAttrs = getIconAttributes(node, iconAttrValue.iconAttrs);
+    // Save if the icon is not one-off
+    if (nodeIconAttrs?.oneOff === undefined) {
+      iconAttrValue.iconAttrs = nodeIconAttrs;
+    }
   }
-  updateLi(node, iconAttrValue.iconAttrs ?? {});
+  if (iconAttrValue.addIcons === false) {
+    return;
+  }
+  // for items after first item, if first item is one off, no previous icon
+  // so future items that are not one-off will need to be saved
+  if (iconAttrValue.iconAttrs?.icon === undefined) {
+    // There is no previous icon
+    let nodeIconAttrs = getIconAttributes(node);
+    // Save if current has icon and it is not one-off
+    if (nodeIconAttrs?.icon !== undefined && nodeIconAttrs?.oneOff === undefined) {
+      iconAttrValue.iconAttrs = nodeIconAttrs;
+    }
+  }
+
+
+  // update only if current has icon or previous has saved icon
+  let nodeIconAttrs = getIconAttributes(node);
+  if (nodeIconAttrs?.icon !== undefined || iconAttrValue.iconAttrs?.icon !== undefined) {
+    updateLi(node, iconAttrValue.iconAttrs ?? {});
+  }
+
 }
 
 export function processUlNode(node: NodeOrText) {
@@ -154,7 +191,7 @@ export function processUlNode(node: NodeOrText) {
   const iconAttrs: IconAttributeDetail[] = [];
   function dfs(currentNode: NodeOrText, level: number) {
     if (!iconAttrs[level]) {
-      iconAttrs[level] = { isFirst: true, iconAttrs: null };
+      iconAttrs[level] = { isFirst: true, addIcons: false, iconAttrs: null };
     }
 
     const ulNode = currentNode as MbNode;
@@ -174,7 +211,7 @@ export function processUlNode(node: NodeOrText) {
         }
       });
     });
-    if (iconAttrs[level].iconAttrs !== null) {
+    if (iconAttrs[level].addIcons === true) {
       updateNodeStyle(ulNode);
     }
   }
