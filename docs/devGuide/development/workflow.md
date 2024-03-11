@@ -138,7 +138,9 @@ When new PRs are merged into the `master` branch, your `master` branch will be o
 
 1. Fix any merge conflicts (if applicable)
 
+<box type="tip" seamless>
 You may want to use a tool like [GitTown](https://www.git-town.com/) to speed up the process.
+</box>
 
 #### Editing backend features
 
