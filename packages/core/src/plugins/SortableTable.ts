@@ -67,7 +67,7 @@ export = {
   getScripts: () => [sortableTableJs],
   postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => {
     const $ = cheerio.load(content);
-    $('sortable').each((index: any, node: any) => {
+    $('m-table[sortable]').each((index: any, node: any) => {
       const $node = $(node);
       $node.replaceWith(mdTable.render($node.html()));
     });
