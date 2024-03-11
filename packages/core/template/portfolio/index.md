@@ -1,5 +1,5 @@
 <frontmatter>
-  title: Home Page
+  title: Portfolio
   layout: default.md
 </frontmatter>
 
@@ -8,7 +8,7 @@
 <div class="bg-dark text-white px-2 py-5 mb-4">
   <div class="container">
     <h1 class="display-5 no-index"><md>:wave:</md> Hello!<br>I'm {{ name }}</h1>
-    <p class="lead">Welcome to my porfolio!</p>
+    <p class="lead">Welcome to my portfolio!</p>
   </div>
 </div>
 
