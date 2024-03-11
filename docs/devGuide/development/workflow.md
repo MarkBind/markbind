@@ -134,7 +134,7 @@ When new PRs are merged into the `master` branch, your `master` branch will be o
 
 1. Checkout your `master` branch and `git pull`
 
-1. Checkout your feature branch and [rebase](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) the branch with `git rebase master` 
+1. Checkout your feature branch and [rebase](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) the branch or [merge](https://git-scm.com/docs/git-merge) `master` into the branch 
 
 1. Fix any merge conflicts (if applicable)
 
