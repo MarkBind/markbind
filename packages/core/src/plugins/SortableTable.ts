@@ -1,33 +1,18 @@
-import { PluginContext } from './Plugin';
-import { MbNode } from '../utils/node';
+import { FrontMatter, PluginContext } from './Plugin';
 
 const cheerio = require('cheerio');
 const constant = require('lodash/constant');
+const cloneDeep = require('lodash/cloneDeep');
 
 const md = require('../lib/markdown-it');
 
-// fix table style
-md.renderer.rules.table_open = constant(
-  '<div class="table-responsive">'
-    + '<table class="markbind-table table table-bordered table-striped sortable-table">');
-md.renderer.rules.table_close = constant('</table></div>');
+const mdTable = cloneDeep(md);
 
-const sortableTableCss = `
-  .sortable-table th {
-    cursor: pointer;
-  }
+const CSS_FILE_NAME = 'sortableTableAssets/sortable-table.css';
 
-  .sortable-table th::after {
-    content: " \\2195"; /* Up/Down arrow */
-  }
-
-  .sortable-table th.th-sort-asc::after {
-    content: " \\2191"; /* Ascending arrow */
-  }
-  .sortable-table th.th-sort-desc::after {
-    content: " \\2193"; /* Descending arrow */
-  }
-`;
+mdTable.renderer.rules.table_open
+    = constant('<table class="markbind-table table table-bordered table-striped sortable-table">');
+mdTable.renderer.rules.table_close = constant('</table>');
 
 const sortableTableJs = `<script>
   function sortTable(table, column, asc = true) {
@@ -68,14 +53,14 @@ const sortableTableJs = `<script>
 `;
 
 export = {
+  getLinks: () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`],
   getScripts: () => [sortableTableJs],
-  processNode: (pluginContext: PluginContext, node: MbNode) => {
-    // Check if the node needs to be processed
-    if (node.name !== 'sortable') {
-      return;
-    }
-    const $ = cheerio(node);
-    $.replaceWith(md.render($.text()));
-    $.append(`<style>${sortableTableCss}</style>`);
+  postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => {
+    const $ = cheerio.load(content);
+    $('sortable').each((index: any, node: any) => {
+      const $node = $(node);
+      $node.replaceWith(mdTable.render($node.html()));
+    });
+    return $.html();
   },
 };
