@@ -6,11 +6,6 @@
 
 # Testing guide
 
-<!-- * Table of Contents -->
-<page-nav-print />
-
-<!-- -------------------------------------------------------------------------------------------------------------------- -->
-
 <box type="tip">
 This page can be used to understand the testing processes.
 </box>

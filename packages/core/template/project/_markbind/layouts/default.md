@@ -20,9 +20,6 @@
 
 <div id="flex-body">
   <nav id="site-nav">
-    <div class="site-nav-top">
-      <div class="fw-bold mb-2" style="font-size: 1.25rem;">Site Map</div>
-    </div>
     <div class="nav-component slim-scroll">
       <site-nav>
 * [Home]({{ baseUrl }}/index.html)
@@ -32,6 +29,7 @@
   * [FAQ]({{ baseUrl }}/userGuide/FAQ.html)
 * [Developer Guide]({{ baseUrl }}/developerGuide/DeveloperGuide.html) :expanded:
   * [Setting Up]({{ baseUrl }}/developerGuide/SettingUp.html)
+    * [Tutorial: Tracing code]({{ baseUrl }}/developerGuide/TracingCode.html)
   * [Design]({{ baseUrl }}/developerGuide/Design.html)
   * [Implementation]({{ baseUrl }}/developerGuide/Implementation.html)
   * Project Guides
@@ -41,7 +39,6 @@
     * [DevOps]({{ baseUrl }}/developerGuide/DevOps.html)
   * Appendix
     * [Requirements]({{ baseUrl }}/developerGuide/Requirements.html)
-* [Tutorial: Tracing code]({{ baseUrl }}/developerGuide/TracingCode.html)
 * [About Us]({{ baseUrl }}/team/AboutUs.html) :expanded:
   * [Contributor Portfolio Template]({{ baseUrl }}/team/johndoe.html)
       </site-nav>

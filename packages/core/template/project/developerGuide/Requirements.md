@@ -6,11 +6,6 @@
 
 # Requirements
 
-<!-- * Table of Contents -->
-<page-nav-print />
-
-<!-- -------------------------------------------------------------------------------------------------------------------- -->
-
 <box type="tip">
 This section can be used to describe the requirements of the app, through the use of user stories, use cases.
 </box>
@@ -35,11 +30,11 @@ This section can be used to describe the requirements of the app, through the us
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see something       | visualise something                 |
-| `* *`    | user                                       | do something | complete something                |
-| `*`      | user with specific information | sort something         | find something                                                 |
+| Priority | As a …​                         | I want to …​    | So that I can…​      |
+|----------|--------------------------------|----------------|---------------------|
+| `* * *`  | new user                       | see something  | visualise something |
+| `* *`    | user                           | do something   | complete something  |
+| `*`      | user with specific information | sort something | find something      |
 
 *{More to be added}*
 

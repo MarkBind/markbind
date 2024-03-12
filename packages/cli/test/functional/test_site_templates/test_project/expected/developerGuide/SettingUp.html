@@ -46,9 +46,6 @@
     </header>
     <div id="flex-body">
       <overlay-source id="site-nav" tag-name="nav" to="site-nav">
-        <div class="site-nav-top">
-          <div class="fw-bold mb-2" style="font-size: 1.25rem;">Site Map</div>
-        </div>
         <div class="nav-component slim-scroll">
           <site-nav>
             <overlay-source class="site-nav-list site-nav-list-root" tag-name="ul" to="mb-site-nav">
@@ -83,7 +80,17 @@
                 </div>
                 <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
                   <li>
-                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/SettingUp.html">Setting Up</a></div>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/SettingUp.html">Setting Up</a>
+
+                      <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                        </i></div>
+                    </div>
+                    <ul class="site-nav-dropdown-container site-nav-list">
+                      <li>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/TracingCode.html">Tutorial: Tracing code</a></div>
+                      </li>
+                    </ul>
                   </li>
                   <li>
                     <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Design.html">Design</a></div>
@@ -129,9 +136,6 @@
                 </ul>
               </li>
               <li>
-                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/developerGuide/TracingCode.html">Tutorial: Tracing code</a></div>
-              </li>
-              <li>
                 <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/team/AboutUs.html">About Us</a>
 
                   <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
@@ -151,8 +155,6 @@
       <div id="content-wrapper">
 
         <h1 id="setting-up-and-getting-started">Setting up and getting started<a class="fa fa-anchor" href="#setting-up-and-getting-started" onclick="event.stopPropagation()"></a></h1>
-
-        <div class="page-nav-print d-none d-print-block" v-pre></div>
         <hr>
         <box type="tip">
           This page can be used to help developers with setting up the project in their local environment.
@@ -201,11 +203,8 @@
             <p>When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <a href="/developerGuide/Design.html#Architecture">ProjectEx’s architecture</a>.</p>
           </li>
           <li>
-            <p><strong>Do the tutorial</strong>
-              This tutorial will help you get acquainted with the codebase.</p>
-            <ul>
-              <li><a href="/developerGuide/TracingCode.html">Tracing code</a></li>
-            </ul>
+            <p><strong>Do the tutorial</strong></p>
+            <p>The <a href="/developerGuide/TracingCode.html">Tracing Code tutorial</a> can help you get acquainted with the codebase.</p>
           </li>
         </ol>
       </div>

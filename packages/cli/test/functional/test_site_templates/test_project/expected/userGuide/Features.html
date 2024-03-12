@@ -46,9 +46,6 @@
     </header>
     <div id="flex-body">
       <overlay-source id="site-nav" tag-name="nav" to="site-nav">
-        <div class="site-nav-top">
-          <div class="fw-bold mb-2" style="font-size: 1.25rem;">Site Map</div>
-        </div>
         <div class="nav-component slim-scroll">
           <site-nav>
             <overlay-source class="site-nav-list site-nav-list-root" tag-name="ul" to="mb-site-nav">
@@ -83,7 +80,17 @@
                 </div>
                 <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
                   <li>
-                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/SettingUp.html">Setting Up</a></div>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/SettingUp.html">Setting Up</a>
+
+                      <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                        </i></div>
+                    </div>
+                    <ul class="site-nav-dropdown-container site-nav-list">
+                      <li>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/TracingCode.html">Tutorial: Tracing code</a></div>
+                      </li>
+                    </ul>
                   </li>
                   <li>
                     <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Design.html">Design</a></div>
@@ -127,9 +134,6 @@
                     </ul>
                   </li>
                 </ul>
-              </li>
-              <li>
-                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/developerGuide/TracingCode.html">Tutorial: Tracing code</a></div>
               </li>
               <li>
                 <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/team/AboutUs.html">About Us</a>

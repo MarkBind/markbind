@@ -6,9 +6,6 @@
 
 # ProjectEx Developer Guide
 
-<!-- * Table of Contents -->
-<page-nav-print />
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## Introduction
@@ -26,4 +23,4 @@ The main objectives of this guide are to:
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+_{ List and link sources of all reused/adapted ideas, code, documentation, and third-party libraries }_

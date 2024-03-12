@@ -4,26 +4,17 @@
   pageNav: 3
 ---
 
-<!-- * Table of Contents -->
-<page-nav-print />
-
-<!-- -------------------------------------------------------------------------------------------------------------------- -->
-
 # FAQ
 
 <box type="tip">
 This section answers common questions about the app or specific features.
 </box>
+<panel header="**Question:** How do I learn to use this project?">
 
-
-
-
-<panel header="**Question:** How do I learn to use MarkBind?">
-
-**Answer:** Refer to the [User Guide](https://markbind.org/userGuide/gettingStarted.html).
+**Answer:** Refer to the [User Guide](../userGuide/UserGuide.md).
 </panel>
 <br>
-<panel header="**Question:** How do I contribute to MarkBind?">
+<panel header="**Question:** How do I contribute to this project?">
 
-**Answer:** Refer to the [Developer Guide](https://markbind.org/devdocs/devGuide/devGuide.html).
+**Answer:** Refer to the [Developer Guide](../developerGuide/DeveloperGuide.md).
 </panel>

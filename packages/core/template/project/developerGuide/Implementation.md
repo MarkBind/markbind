@@ -36,8 +36,9 @@ Given below is an example usage scenario and how FeatureX behaves at each step.
 <p>Cons: We must add addtional test cases.</p>
 </panel>
 <br>
-_{more aspects and alternatives to be added}_
+
+_{ More aspects and alternatives to be added }_
 
 ### \[Proposed\] Data archiving
 
-_{Explain here how the data archiving feature will be implemented}_
+_{ Explain here how the data archiving feature will be implemented }_

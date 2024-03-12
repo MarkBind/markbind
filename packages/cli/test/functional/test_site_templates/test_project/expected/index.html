@@ -46,9 +46,6 @@
     </header>
     <div id="flex-body">
       <overlay-source id="site-nav" tag-name="nav" to="site-nav">
-        <div class="site-nav-top">
-          <div class="fw-bold mb-2" style="font-size: 1.25rem;">Site Map</div>
-        </div>
         <div class="nav-component slim-scroll">
           <site-nav>
             <overlay-source class="site-nav-list site-nav-list-root" tag-name="ul" to="mb-site-nav">
@@ -83,7 +80,17 @@
                 </div>
                 <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
                   <li>
-                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/SettingUp.html">Setting Up</a></div>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/SettingUp.html">Setting Up</a>
+
+                      <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                        </i></div>
+                    </div>
+                    <ul class="site-nav-dropdown-container site-nav-list">
+                      <li>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/TracingCode.html">Tutorial: Tracing code</a></div>
+                      </li>
+                    </ul>
                   </li>
                   <li>
                     <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Design.html">Design</a></div>
@@ -129,9 +136,6 @@
                 </ul>
               </li>
               <li>
-                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/developerGuide/TracingCode.html">Tutorial: Tracing code</a></div>
-              </li>
-              <li>
                 <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/team/AboutUs.html">About Us</a>
 
                   <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
@@ -154,17 +158,19 @@
         <p><a href="https://github.com/MarkBind/markbind/actions"><img src="https://github.com/MarkBind/markbind/workflows/CI/badge.svg" alt="CI Status" class="img-fluid"></a>
           <a href="https://codecov.io/gh/MarkBind/markbind"><img src="https://codecov.io/gh/MarkBind/markbind/branch/master/graph/badge.svg" alt="codecov" class="img-fluid"></a>
         </p>
-        <img src="/images/SeEduLogo.png" width="200px">
-        <box type="tip" seamless>
-          Can insert your app's onboarding screen or representative picture here.
-        </box>
+        <pic src="/images/SeEduLogo.png" width="200px" style="margin-bottom: 20px;">
+          Project Onboarding Screen
+        </pic>
         <p><strong>ProjectEx is an example project application used for showcasing a default MarkBind template specifically for project documentation.</strong></p>
+        <box type="info">
+          <p>Take this template as a <em>starting point</em> for your project documentation, taking reference of what would be in a typical project documentation site, replacing the content with your own.</p>
+        </box>
         <ul>
           <li>If you are interested in using ProjectEx, head over to the <a href="/userGuide/QuickStart.html"><em>Quick Start</em> section of the <strong>User Guide</strong></a>.</li>
           <li>If you are interested about contributing to developing ProjectEx, the <a href="/developerGuide/DeveloperGuide.html"><strong>Developer Guide</strong></a> is a good place to start.</li>
         </ul>
         <p><strong>Acknowledgements</strong></p>
-        <box type="tip" seamless>
+        <box type="tip">
           Remember to replace the following with your own acknowledgements.
         </box>
         <ul>

@@ -46,9 +46,6 @@
     </header>
     <div id="flex-body">
       <overlay-source id="site-nav" tag-name="nav" to="site-nav">
-        <div class="site-nav-top">
-          <div class="fw-bold mb-2" style="font-size: 1.25rem;">Site Map</div>
-        </div>
         <div class="nav-component slim-scroll">
           <site-nav>
             <overlay-source class="site-nav-list site-nav-list-root" tag-name="ul" to="mb-site-nav">
@@ -83,7 +80,17 @@
                 </div>
                 <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
                   <li>
-                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/SettingUp.html">Setting Up</a></div>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/SettingUp.html">Setting Up</a>
+
+                      <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                        </i></div>
+                    </div>
+                    <ul class="site-nav-dropdown-container site-nav-list">
+                      <li>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/TracingCode.html">Tutorial: Tracing code</a></div>
+                      </li>
+                    </ul>
                   </li>
                   <li>
                     <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Design.html">Design</a></div>
@@ -129,9 +136,6 @@
                 </ul>
               </li>
               <li>
-                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/developerGuide/TracingCode.html">Tutorial: Tracing code</a></div>
-              </li>
-              <li>
                 <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/team/AboutUs.html">About Us</a>
 
                   <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
@@ -159,11 +163,9 @@
           This page can be taken as a reference on a tutorial on how to trace the execution path of a user command through the codebase of the App.
         </box>
         <p>To understand an unfamiliar codebase, one strategy is to trace some representative execution path through the codebase using a debugger.</p>
-
-
         <h2 id="before-we-start">Before we start<a class="fa fa-anchor" href="#before-we-start" onclick="event.stopPropagation()"></a></h2>
         <p>Before we jump into the code, it is useful to get an idea of the overall structure and the high-level behavior of the application.</p>
-        <box type="tip" seamless>
+        <box type="tip">
           <p>Architecture diagrams can be easily utilised with the <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html#diagrams"><code class="hljs inline no-lang" v-pre>puml</code></a> tag. The <code class="hljs inline no-lang" v-pre>src</code> attribute specifies the path to the PlantUML file.</p>
         </box>
         <pic src="/diagrams/example.png" width="300"></pic>
@@ -174,8 +176,8 @@
         </ol>
         <h2 id="setting-a-breakpoint">Setting a breakpoint<a class="fa fa-anchor" href="#setting-a-breakpoint" onclick="event.stopPropagation()"></a></h2>
         <p>As you know, the first step of debugging is to put in a breakpoint where you want the debugger to pause the execution.</p>
-        <box type="tip" seamless>
-          <p><strong>Tip:</strong> You can use a combination of Markbind's <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html"><strong>Images and Diagrams</strong></a> features such as <code class="hljs inline no-lang" v-pre>puml</code> and <code class="hljs inline no-lang" v-pre>pic</code> tags to provide a visual representation of the steps to be taken. <a href="https://markbind.org/userGuide/formattingContents.html#code"><strong>Code blocks</strong></a> can also be used as shown below.</p>
+        <box type="tip">
+          <p><strong>Tip:</strong> You can use a combination of Markbind's <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html"><strong>Images and Diagrams</strong> features</a> such as <code class="hljs inline no-lang" v-pre>puml</code> and <code class="hljs inline no-lang" v-pre>pic</code> tags to provide a visual representation of the steps to be taken. <a href="https://markbind.org/userGuide/formattingContents.html#code"><strong>Code blocks</strong></a> can also be used as shown below.</p>
         </box>
         <pre><code class="hljs java" v-pre><span><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Example</span> </span>{
 </span><span>    <span class="hljs-comment">/**</span>
@@ -189,8 +191,8 @@
 </span><span>}
 </span></code></pre>
         <h2 id="tracing-the-execution-path">Tracing the execution path<a class="fa fa-anchor" href="#tracing-the-execution-path" onclick="event.stopPropagation()"></a></h2>
-        <box type="tip" seamless>
-          <p><strong>Tip:</strong> You can use a list of steps to guide the reader through the process of tracing the execution path. This can be done using Markbind's <a href="https://markbind.org/userGuide/formattingContents.html#lists"><strong>Lists</strong></a> feature.</p>
+        <box type="tip">
+          <p><strong>Tip:</strong> You can use a list of steps to guide the reader through the process of tracing the execution path. This can be done using Markbind's <a href="https://markbind.org/userGuide/formattingContents.html#lists"><strong>Lists</strong> feature</a>.</p>
         </box>
         <ol>
           <li>

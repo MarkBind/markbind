@@ -18,14 +18,12 @@ This page can be taken as a reference on a tutorial on how to trace the executio
 
 To understand an unfamiliar codebase, one strategy is to trace some representative execution path through the codebase using a debugger.
 
-<!-- * Table of Contents -->
-<!-- {:toc} -->
 
 ## Before we start
 
 Before we jump into the code, it is useful to get an idea of the overall structure and the high-level behavior of the application.
 
-<box type="tip" seamless>
+<box type="tip">
 
 Architecture diagrams can be easily utilised with the [`puml`](https://markbind.org/userGuide/components/imagesAndDiagrams.html#diagrams) tag. The `src` attribute specifies the path to the PlantUML file.
 </box>
@@ -40,9 +38,9 @@ Before we proceed, ensure that you have done the following:
 
 As you know, the first step of debugging is to put in a breakpoint where you want the debugger to pause the execution.
 
-<box type="tip" seamless>
+<box type="tip">
 
-**Tip:** You can use a combination of Markbind's [**Images and Diagrams**](https://markbind.org/userGuide/components/imagesAndDiagrams.html) features such as `puml` and `pic` tags to provide a visual representation of the steps to be taken. [**Code blocks**](https://markbind.org/userGuide/formattingContents.html#code) can also be used as shown below.
+**Tip:** You can use a combination of Markbind's [**Images and Diagrams** features](https://markbind.org/userGuide/components/imagesAndDiagrams.html) such as `puml` and `pic` tags to provide a visual representation of the steps to be taken. [**Code blocks**](https://markbind.org/userGuide/formattingContents.html#code) can also be used as shown below.
 </box>
 
 
@@ -61,9 +59,9 @@ public interface Example {
 
 ## Tracing the execution path
 
-<box type="tip" seamless>
+<box type="tip">
 
-**Tip:** You can use a list of steps to guide the reader through the process of tracing the execution path. This can be done using Markbind's [**Lists**](https://markbind.org/userGuide/formattingContents.html#lists) feature.
+**Tip:** You can use a list of steps to guide the reader through the process of tracing the execution path. This can be done using Markbind's [**Lists** feature](https://markbind.org/userGuide/formattingContents.html#lists).
 </box>
 
 1. Firstly, do this.

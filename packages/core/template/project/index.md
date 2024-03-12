@@ -8,20 +8,23 @@
 [![CI Status](https://github.com/MarkBind/markbind/workflows/CI/badge.svg)](https://github.com/MarkBind/markbind/actions)
 [![codecov](https://codecov.io/gh/MarkBind/markbind/branch/master/graph/badge.svg)](https://codecov.io/gh/MarkBind/markbind)
 
-<img src="images/SeEduLogo.png" width="200px">
-
-<box type="tip" seamless>
-Can insert your app's onboarding screen or representative picture here.
-</box>
+<pic src="images/SeEduLogo.png" width="200px" style="margin-bottom: 20px;">
+Project Onboarding Screen
+</pic>
 
 **ProjectEx is an example project application used for showcasing a default MarkBind template specifically for project documentation.** 
+
+<box type="info">
+
+Take this template as a _starting point_ for your project documentation, taking reference of what would be in a typical project documentation site, replacing the content with your own.
+</box>
 
 * If you are interested in using ProjectEx, head over to the [_Quick Start_ section of the **User Guide**](userGuide/QuickStart.html).
 * If you are interested about contributing to developing ProjectEx, the [**Developer Guide**](developerGuide/DeveloperGuide.html) is a good place to start.
 
 **Acknowledgements**
 
-<box type="tip" seamless>
+<box type="tip">
 Remember to replace the following with your own acknowledgements.
 </box>
 

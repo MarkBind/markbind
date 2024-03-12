@@ -6,9 +6,6 @@
 
 # ProjectEx User Guide
 
-<!-- * Table of Contents -->
-<page-nav-print />
-
 --------------------------------------------------------------------------------------------------------------------
 
 ProjectEx is an example project application used for showcasing a default MarkBind template specifically for project documentation. It can be taken as a reference for users to base their own MarkBind sites off of.

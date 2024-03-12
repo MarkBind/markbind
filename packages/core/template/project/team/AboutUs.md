@@ -17,7 +17,7 @@ You can reach us at the email `organisationa@gmail.sg`
 
 ### John Doe
 
-<box type="tip" seamless>
+<box type="tip">
 
 This img uses the `placeholderImage` defined in the `_markbind/variables.md` file.
 </box>

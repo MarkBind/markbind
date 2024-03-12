@@ -6,11 +6,6 @@
 
 # DevOps guide
 
-<!-- * Table of Contents -->
-<page-nav-print />
-
-<!-- -------------------------------------------------------------------------------------------------------------------- -->
-
 <box type="tip">
 This page can be used to understand the DevOps practices adopted by the project.
 </box>

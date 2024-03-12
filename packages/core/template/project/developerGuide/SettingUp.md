@@ -6,9 +6,6 @@
 
 # Setting up and getting started
 
-<!-- * Table of Contents -->
-<page-nav-print />
-
 --------------------------------------------------------------------------------------------------------------------
 
 <box type="tip">
@@ -60,6 +57,7 @@ First, **fork** the project repo, and **clone** the fork into your computer.
    When you are ready to start coding, we recommend that you get some sense of the overall design by reading about [ProjectEx’s architecture](Design.md#Architecture).
 
 1. **Do the tutorial**
-   This tutorial will help you get acquainted with the codebase.
 
-   * [Tracing code](TracingCode.md)
+   The [Tracing Code tutorial](TracingCode.md) can help you get acquainted with the codebase.
+
+   

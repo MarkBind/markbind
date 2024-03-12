@@ -7,7 +7,7 @@
 
 ProjectEx is an example project application used for showcasing a default MarkBind template specifically for project documentation. It can be taken as a reference for users to base their own MarkBind sites off of.
 
-<box type="tip" seamless>
+<box type="tip">
     Content can be easily be replaced by the user's project information and context.
 </box>
 
@@ -42,4 +42,4 @@ Given below are my contributions to the project.
 * **Tools**:
   * Integrated a third party library (Natty) to the project ([\#42]())
 
-* _{you can add/remove categories in the list above}_
+* _{ You can add/remove categories in the list above }_
