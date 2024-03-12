@@ -59,7 +59,7 @@ Example:
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 * Item 1 { icon="glyphicon-education" text="Only for this bullet"}
-* Item 2 {icon="" text=""}
+* Item 2 { icon="" }
   </variable>
   </include>
 </box>
@@ -143,7 +143,7 @@ Similar to the `icon` and `text` attribute, other icon attributes such as `i-cla
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-* Item 1 { icon="+1" }
+* Item 1 { icon="+1" text="Yay" }
 * Item 2 { i-spacing="1rem" }
 * Item 3 { i-spacing="2rem" }
 </variable>

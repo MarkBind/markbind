@@ -49,9 +49,10 @@ function createTextSpan(iconAttrs: IconAttributes): cheerio.Cheerio | null {
     .css({
       'font-size': iconAttrs.textSize,
     }).addClass(iconAttrs.textClassName || '');
+  const iconSpacing = iconAttrs.spacing || '0.35em';
   return spanNode.css({
     'line-height': 'unset',
-    'margin-inline-end': '0.35em',
+    'margin-inline-end': iconSpacing,
     'align-self': 'flex-start',
     'flex-shrink': '0',
   });
@@ -91,10 +92,9 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio | null {
   }
   // Add invisible character to avoid the element from being empty
   spanNode.append('\u200B');
-  const iconSpacing = iconAttrs.spacing || '0.35em';
   return spanNode.css({
     'line-height': 'unset',
-    'margin-inline-end': iconSpacing,
+    'margin-inline-end': '0.35em',
     'align-self': 'flex-start',
     'flex-shrink': '0',
   });
