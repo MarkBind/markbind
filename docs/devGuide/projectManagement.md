@@ -99,17 +99,29 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
 ## Doing a Release
 
-<box type="important" seamless>
+1. **Make sure you have the correct permissions** for [MarkBind's repository](https://github.com/MarkBind/markbind) and [npm](https://www.npmjs.com/)
+    * For Markbind, you need rights to **push to master branch** and **make new releases**
+    <box type="tip" seamless>
 
-**Attention new maintainers!** Ensure that:
+    To check your github permissions, follow the instructions [here](https://docs.github.com/en/rest/collaborators/collaborators?apiVersion=2022-11-28#get-repository-permissions-for-a-user).
+    
+    To check if you can make a new release, go to the [release page](https://github.com/MarkBind/markbind/releases) and check for the "Draft a new release button". If missing, you may not have permissions for a release.
+    </box>
 
-* You have the rights to push to master branch on [MarkBind's repository](https://github.com/MarkBind/markbind), and also to make new releases.
-* You have the rights on [npm](https://www.npmjs.com/) to make a new release.
-* You have logged in to npm on your terminal with `npm login` (necessary to publish packages to npm).
-</box>
+    * For npm, you need to be in the [Markbind organization](https://www.npmjs.com/org/markbind)
+   <box type="tip" seamless>
+   
+   To check if you are in the Markbind organization, go your npm profile and check if Markbind is listed under organizations.
 
-<br>
+   There should be 4 packages listed under the organization, `markbind-cli`, `@markbind/core`, `@markbind/core-web` and `@markbind/vue_components`
+   
+   <pic src="/images/npm-profile.jpg" width="100%" alt="npm profile">
+   Example of profile that has been added to Markbind organisation
+   </pic>
 
+   </box>
+
+1. **Login to npm in your terminal** using `npm login`
 1. **Make sure to start with a "clean slate"** by running `npx lerna clean` and then `npm run setup` in the root MarkBind directory.
 
 1. **Increment the version number** by running `npx lerna version --no-push --exact`. Which to increment (`patch`, `minor` or `major`) depends on what PRs are merged for the new version, which means you must know beforehand about the changes.
