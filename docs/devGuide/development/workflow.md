@@ -130,7 +130,7 @@ The sections below has more information about various stages of submitting a PR.
 
 When new PRs are merged into the `master` branch, your `master` branch will be out of sync with the main repository. One way to update your branches to branch from the latest master is as follows:
 
-1. Go to your fork on Github and click 'Sync Fork'
+1. Go to your fork on GitHub and click 'Sync Fork' to update your remote master branch
 
 1. Checkout your `master` branch and `git pull`
 
