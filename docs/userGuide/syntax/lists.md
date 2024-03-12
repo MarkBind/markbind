@@ -58,7 +58,7 @@ Example:
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-* Item 1 { icon="glyphicon-education" text="Only for this bullet"}
+* Item 1 { icon="glyphicon-education" text="Only for this bullet" }
 * Item 2 { icon="" }
   </variable>
   </include>
