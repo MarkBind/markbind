@@ -2,6 +2,7 @@ import path from 'path';
 import cheerio from 'cheerio';
 import htmlparser from 'htmlparser2';
 import * as testData from './NodeProcessor.data';
+import * as logger from '../../../src/utils/logger';
 import { Context } from '../../../src/html/Context';
 import { shiftSlotNodeDeeper, transformOldSlotSyntax } from '../../../src/html/vueSlotSyntaxProcessor';
 import { getNewDefaultNodeProcessor } from '../utils/utils';
@@ -121,6 +122,72 @@ test('processNode processes dropdown with header slot taking priority over heade
   processAndVerifyTemplate(testData.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY,
                            testData.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
 });
+
+test('processNode does not log warning when lazy pic has width or height',
+     () => {
+       const nodeProcessor = getNewDefaultNodeProcessor();
+
+       const testCode = '<pic scr="" alt="" width="300" lazy></pic>';
+       const testNode = parseHTML(testCode)[0] as MbNode;
+
+       const consoleSpy = jest.spyOn(logger, 'warn');
+
+       nodeProcessor.processNode(testNode, new Context(path.resolve(''), [], { code: testCode }, {}));
+
+       const logMessage = consoleSpy.mock.calls[0];
+       expect(logMessage).toEqual(undefined);
+     });
+
+test('processNode does not log warning when lazy annotate has width or height',
+     () => {
+       const nodeProcessor = getNewDefaultNodeProcessor();
+
+       const testCode = '<annotate scr="" alt="" height="300" lazy></annotate>';
+       const testNode = parseHTML(testCode)[0] as MbNode;
+
+       const consoleSpy = jest.spyOn(logger, 'warn');
+
+       nodeProcessor.processNode(testNode, new Context(path.resolve(''), [], { code: testCode }, {}));
+
+       const logMessage = consoleSpy.mock.calls[0];
+       expect(logMessage).toEqual(undefined);
+     });
+
+test('processNode logs warning when lazy pic no width and height',
+     () => {
+       const nodeProcessor = getNewDefaultNodeProcessor();
+
+       const testCode = '<pic scr="" alt="" lazy></pic>';
+       const testNode = parseHTML(testCode)[0] as MbNode;
+
+       const consoleSpy = jest.spyOn(logger, 'warn');
+
+       nodeProcessor.processNode(testNode, new Context(path.resolve(''), [], { code: testCode }, {}));
+
+       const logMessage = consoleSpy.mock.calls[0][0];
+       expect(logMessage).toEqual('Both width and height are not specified at the code below, '
+          + 'lazy loading might cause shifting in page layouts. '
+          + 'To ensure proper functioning of lazy loading, please specify either one or both.'
+          + '<pic scr="" alt="" lazy></pic>');
+     });
+
+test('processNode logs warning when lazy annotate no width and height',
+     () => {
+       const nodeProcessor = getNewDefaultNodeProcessor();
+
+       const testCode = '<annotate scr="" alt="" lazy></annotate>';
+       const testNode = parseHTML(testCode)[0] as MbNode;
+
+       const consoleSpy = jest.spyOn(logger, 'warn');
+
+       nodeProcessor.processNode(testNode, new Context(path.resolve(''), [], { code: testCode }, {}));
+
+       const logMessage = consoleSpy.mock.calls[1][0];
+       expect(logMessage).toEqual('Both width and height are not specified at the code below, '
+          + 'lazy loading might cause shifting in page layouts. '
+          + 'To ensure proper functioning of lazy loading, please specify either one or both.'
+          + '<annotate scr="" alt="" lazy></annotate>');
+     });
 
 test('markdown coverts inline colour syntax correctly', async () => {
   const nodeProcessor = getNewDefaultNodeProcessor();
