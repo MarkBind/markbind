@@ -10,7 +10,8 @@ interface EmojiData {
 
 const emojiData = emojiDictionary as unknown as EmojiData;
 
-const ICON_ATTRIBUTES = ['icon', 'i-width', 'i-height', 'i-size', 'i-class', 'text', 't-size', 't-class'];
+const ICON_ATTRIBUTES
+    = ['icon', 'i-width', 'i-height', 'i-size', 'i-class', 'i-spacing', 'text', 't-size', 't-class'];
 
 interface IconAttributes {
   icon?: string;
@@ -21,6 +22,7 @@ interface IconAttributes {
   text?: string;
   textClassName?: string;
   textSize?: string;
+  spacing?: string;
 }
 
 type IconAttributeDetail = {
@@ -89,9 +91,10 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio | null {
   }
   // Add invisible character to avoid the element from being empty
   spanNode.append('\u200B');
+  const iconSpacing = iconAttrs.spacing || '0.35em';
   return spanNode.css({
     'line-height': 'unset',
-    'margin-inline-end': '0.35em',
+    'margin-inline-end': iconSpacing,
     'align-self': 'flex-start',
     'flex-shrink': '0',
   });
@@ -129,6 +132,7 @@ IconAttributes | null => {
       ? node.attribs['t-class']
       : iconAttrsSoFar?.textClassName,
     textSize: node.attribs['t-size'] !== undefined ? node.attribs['t-size'] : iconAttrsSoFar?.textSize,
+    spacing: node.attribs['i-spacing'] !== undefined ? node.attribs['i-spacing'] : iconAttrsSoFar?.spacing,
   };
 };
 
