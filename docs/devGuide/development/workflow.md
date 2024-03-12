@@ -134,7 +134,7 @@ When new PRs are merged into the `master` branch, your `master` branch will be o
 
 1. Checkout and sync your local `master` (the name of your local branch that tracks the remote master) branch with `git checkout master && git pull`
 
-1. Checkout your feature branch and [rebase](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) the branch or [merge](https://git-scm.com/docs/git-merge) `master` into the branch 
+1. Checkout your feature branch and [rebase](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) the branch with `git rebase master` or [merge](https://git-scm.com/docs/git-merge) `master` into the branch with `git merge master` 
 
 1. Fix any merge conflicts (if applicable)
 
