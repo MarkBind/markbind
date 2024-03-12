@@ -77,7 +77,7 @@
 1. Testing with various icon attributes
 * Item A { icon="glyphicon-education" i-size="20px" i-class="text-primary" }
 * Item B { icon="./images/deer.jpg" i-width="200px" i-height="100px" i-class="text-warning" }
-  * Sub-item B1 { icon="fas-file-code" i-size="30px" }
+  * Sub-item B1 { icon="fas-file-code" text="Hi" i-size="30px" }
   * Sub-item B2 { i-class="text-success" i-spacing="2rem" }
   * Sub-item B3
     * Sub-sub-item B3.1 { icon="./images/deer.jpg" i-width="50px" i-height="50px" }
