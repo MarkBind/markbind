@@ -104,6 +104,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 **Attention new maintainers!** Ensure that:
 
 * You have the rights to push to master branch on [MarkBind's repository](https://github.com/MarkBind/markbind), and also to make new releases.
+  * You can check by running `git push --dry-run` to check if you have the correct permissions
 * You have the rights on [npm](https://www.npmjs.com/) to make a new release.
 * You have logged in to npm on your terminal with `npm login` (necessary to publish packages to npm).
 </box>
