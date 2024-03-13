@@ -128,7 +128,7 @@ The sections below has more information about various stages of submitting a PR.
 
 #### Keeping your fork up to date
 
-When new PRs are merged into the `master` branch, your `master` branch will be out of sync with the main repository. One way to update your branches to branch from the latest master is as follows:
+When new PRs are merged into the `master` branch, your `master` branch will be out of sync with the main repository. One way to update your branches to branch from the latest `master` is as follows:
 
 1. Go to your fork on GitHub and click 'Sync fork' to update your remote `master` branch
 ![](https://docs.github.com/assets/cb-75616/mw-1440/images/help/repository/sync-fork-dropdown.webp =700x)
