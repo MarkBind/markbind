@@ -132,7 +132,7 @@ test('processNode does not log warning when lazy pic has width or height',
 
        const consoleSpy = jest.spyOn(logger, 'warn');
 
-       nodeProcessor.processNode(testNode, new Context(path.resolve(''), [], { code: testCode }, {}));
+       nodeProcessor.processNode(testNode, new Context(path.resolve(''), [], {}, {}));
 
        const logMessage = consoleSpy.mock.calls[0];
        expect(logMessage).toEqual(undefined);
@@ -147,7 +147,7 @@ test('processNode does not log warning when lazy annotate has width or height',
 
        const consoleSpy = jest.spyOn(logger, 'warn');
 
-       nodeProcessor.processNode(testNode, new Context(path.resolve(''), [], { code: testCode }, {}));
+       nodeProcessor.processNode(testNode, new Context(path.resolve(''), [], {}, {}));
 
        const logMessage = consoleSpy.mock.calls[0];
        expect(logMessage).toEqual(undefined);
@@ -162,13 +162,14 @@ test('processNode logs warning when lazy pic no width and height',
 
        const consoleSpy = jest.spyOn(logger, 'warn');
 
-       nodeProcessor.processNode(testNode, new Context(path.resolve(''), [], { code: testCode }, {}));
+       nodeProcessor.processNode(testNode, new Context('testpath.md', [], {}, {}));
 
        const logMessage = consoleSpy.mock.calls[0][0];
-       expect(logMessage).toEqual('Both width and height are not specified at the code below, '
+       expect(logMessage).toEqual(
+         'Both width and height are not specified when using lazy loading in the file below, '
           + 'lazy loading might cause shifting in page layouts. '
-          + 'To ensure proper functioning of lazy loading, please specify either one or both.'
-          + '<pic scr="" alt="" lazy></pic>');
+          + 'To ensure proper functioning of lazy loading, please specify either one or both.\n'
+          + 'In testpath.md');
      });
 
 test('processNode logs warning when lazy annotate no width and height',
@@ -180,13 +181,14 @@ test('processNode logs warning when lazy annotate no width and height',
 
        const consoleSpy = jest.spyOn(logger, 'warn');
 
-       nodeProcessor.processNode(testNode, new Context(path.resolve(''), [], { code: testCode }, {}));
+       nodeProcessor.processNode(testNode, new Context('testpath.md', [], {}, {}));
 
        const logMessage = consoleSpy.mock.calls[1][0];
-       expect(logMessage).toEqual('Both width and height are not specified at the code below, '
+       expect(logMessage).toEqual(
+         'Both width and height are not specified when using lazy loading in the file below, '
           + 'lazy loading might cause shifting in page layouts. '
-          + 'To ensure proper functioning of lazy loading, please specify either one or both.'
-          + '<annotate scr="" alt="" lazy></annotate>');
+          + 'To ensure proper functioning of lazy loading, please specify either one or both.\n'
+          + 'In testpath.md');
      });
 
 test('markdown coverts inline colour syntax correctly', async () => {
