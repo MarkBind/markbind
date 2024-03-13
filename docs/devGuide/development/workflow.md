@@ -133,7 +133,7 @@ When new PRs are merged into the `master` branch, your `master` branch will be o
 1. Go to your fork on GitHub and click 'Sync fork' to update your remote `master` branch
 ![](https://docs.github.com/assets/cb-75616/mw-1440/images/help/repository/sync-fork-dropdown.webp =700x)
 
-1. Checkout and sync your local `master` (the name of your local branch that tracks the remote master) branch with `git checkout master && git pull`
+1. Checkout and sync your local `master` (the name of your local branch that tracks the remote `master`) branch with `git checkout master && git pull`
 
 1. Checkout your feature branch and [rebase](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) the branch with `git rebase master` or [merge](https://git-scm.com/docs/git-merge) `master` into the branch with `git merge master` 
 
