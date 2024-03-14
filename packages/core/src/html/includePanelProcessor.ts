@@ -165,6 +165,15 @@ function _deleteIncludeAttributes(node: MbNode) {
   delete node.attribs.omitFrontmatter;
 }
 
+function buildGetNextFootnodeNumber() {
+  let footnoteNumber = 1;
+  function defaultGetFootnoteNumber() {
+    footnoteNumber += 1;
+    return footnoteNumber - 1;
+  }
+  return defaultGetFootnoteNumber;
+}
+
 /**
  * PreProcesses includes.
  * Replaces it with an error node if the specified src is invalid,
@@ -173,7 +182,8 @@ function _deleteIncludeAttributes(node: MbNode) {
 export function processInclude(node: MbNode, context: Context, pageSources: PageSources,
                                variableProcessor: VariableProcessor, renderMd: (text: string) => string,
                                renderMdInline: (text: string) => string,
-                               config: Record<string, any>): Context {
+                               config: Record<string, any>,
+                               getNextFootnodeNumber: () => number = buildGetNextFootnodeNumber()): Context {
   if (_.isEmpty(node.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
     logger.error(error);
@@ -235,12 +245,11 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
       const matches = actualContent.match(footnotePattern);
       if (matches) {
         const hrefPattern = /href="#(fn-\d+-\d+)"/;
-        let footnoteNumber = 1;
         let toAppend = '<mb-temp-footnotes>';
         matches.forEach((match) => {
+          const footnoteNumber = getNextFootnodeNumber();
           const href = match.match(hrefPattern)![1];
           const replaceTo = `<a aria-describedby="footnote-label" href="#${href}">[${footnoteNumber}]`;
-          footnoteNumber += 1;
           actualContent = actualContent.replace(match, replaceTo);
           toAppend += `\n<li id="${href}" class="footnote-item">${$(`#${href}.footnote-item`)!.html()}</li>`;
         });
