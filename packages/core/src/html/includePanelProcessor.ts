@@ -241,20 +241,21 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
     const actualContentOrNull = $(hash).html();
     actualContent = actualContentOrNull || '';
     if (actualContent !== '') {
-      const footnotePattern = /<a aria-describedby="footnote-label" href="#fn-\d+-\d+">\[\d+\]/g;
-      const matches = actualContent.match(footnotePattern);
-      if (matches) {
-        const hrefPattern = /href="#(fn-\d+-\d+)"/;
-        let toAppend = '<mb-temp-footnotes>';
-        matches.forEach((match) => {
-          const footnoteNumber = getNextFootnodeNumber();
-          const href = match.match(hrefPattern)![1];
-          const replaceTo = `<a aria-describedby="footnote-label" href="#${href}">[${footnoteNumber}]`;
-          actualContent = actualContent.replace(match, replaceTo);
-          toAppend += `\n<li id="${href}" class="footnote-item">${$(`#${href}.footnote-item`)!.html()}</li>`;
+      const hashNode = $(hash);
+      const footnodeHrefs = hashNode.find('a[aria-describedby="footnote-label"]')
+                                    .map(function(this: any) {
+                                          $(this).text(`[${getNextFootnodeNumber()}]`);
+                                          return $(this).attr('href');})
+                                    .get();
+      if (footnodeHrefs.length > 0) {
+        const tempFootnotes = $('<mb-temp-footnotes></mb-temp-footnotes>');
+        footnodeHrefs.forEach((href) => {
+          const listItem = $('<li></li>').attr('id', href.substring(1)).addClass('footnote-item').html($(`${href}.footnote-item`).html()!);
+          tempFootnotes.append(listItem);
         });
-        toAppend += '\n</mb-temp-footnotes>';
-        actualContent += toAppend;
+        hashNode.append(tempFootnotes);
+        actualContent = hashNode.html()!;
+        console.log(actualContent);
       }
     }
 
