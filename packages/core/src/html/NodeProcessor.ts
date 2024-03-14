@@ -270,10 +270,12 @@ export class NodeProcessor {
             && !(_.has(node.attribs, 'width') || _.has(node.attribs, 'height'))) {
           const filePath = context.callStack.length > 0 ? context.callStack[context.callStack.length - 1]
             : context.cwf;
-          logger.warn('Both width and height are not specified when using lazy loading in the file below, '
-              + 'lazy loading might cause shifting in page layouts. '
-              + 'To ensure proper functioning of lazy loading, please specify either one or both.\n'
-              + `In ${filePath}`);
+          logger.warn(
+            `${filePath} --- `
+              + 'Both width and height are not specified when using lazy loading in the file and'
+              + ' it might cause shifting in page layouts. '
+              + 'To ensure proper functioning of lazy loading, please specify either one or both.\n',
+          );
         }
         break;
       default:

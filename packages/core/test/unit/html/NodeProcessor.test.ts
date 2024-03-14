@@ -166,10 +166,10 @@ test('processNode logs warning when lazy pic no width and height',
 
        const logMessage = consoleSpy.mock.calls[0][0];
        expect(logMessage).toEqual(
-         'Both width and height are not specified when using lazy loading in the file below, '
-          + 'lazy loading might cause shifting in page layouts. '
-          + 'To ensure proper functioning of lazy loading, please specify either one or both.\n'
-          + 'In testpath.md');
+         'testpath.md --- '
+           + 'Both width and height are not specified when using lazy loading in the file and'
+           + ' it might cause shifting in page layouts. '
+           + 'To ensure proper functioning of lazy loading, please specify either one or both.\n');
      });
 
 test('processNode logs warning when lazy annotate no width and height',
@@ -185,10 +185,10 @@ test('processNode logs warning when lazy annotate no width and height',
 
        const logMessage = consoleSpy.mock.calls[1][0];
        expect(logMessage).toEqual(
-         'Both width and height are not specified when using lazy loading in the file below, '
-          + 'lazy loading might cause shifting in page layouts. '
-          + 'To ensure proper functioning of lazy loading, please specify either one or both.\n'
-          + 'In testpath.md');
+         'testpath.md --- '
+           + 'Both width and height are not specified when using lazy loading in the file and'
+           + ' it might cause shifting in page layouts. '
+           + 'To ensure proper functioning of lazy loading, please specify either one or both.\n');
      });
 
 test('markdown coverts inline colour syntax correctly', async () => {
