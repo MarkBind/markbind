@@ -7,7 +7,7 @@ import { SiteConfig, SiteConfigPage } from './SiteConfig';
 import { VariableRenderer } from '../variables/VariableRenderer';
 import * as logger from '../utils/logger';
 
-import { LAYOUT_DEFAULT_NAME, LAYOUT_FOLDER_PATH } from '../Layout';
+const { LAYOUT_DEFAULT_NAME, LAYOUT_FOLDER_PATH } = require('../Layout');
 
 const requiredFiles = ['index.md', 'site.json', '_markbind/'];
 

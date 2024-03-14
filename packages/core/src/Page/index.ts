@@ -19,8 +19,6 @@ import type { FrontMatter } from '../plugins/Plugin';
 import type { ExternalManager } from '../External/ExternalManager';
 import { MbNode } from '../utils/node';
 
-import { LAYOUT_DEFAULT_NAME } from '../Layout';
-
 require('../patches/htmlparser2');
 
 const _ = { cloneDeep, isObject, isArray };
@@ -28,6 +26,10 @@ const _ = { cloneDeep, isObject, isArray };
 const LockManager = require('../utils/LockManager');
 
 const PACKAGE_VERSION = require('../../package.json').version;
+
+const {
+  LAYOUT_DEFAULT_NAME,
+} = require('../Layout');
 
 const TITLE_PREFIX_SEPARATOR = ' - ';
 const TITLE_SUFFIX_SEPARATOR = ' - ';
@@ -473,7 +475,7 @@ export class Page {
    */
   buildPageNav(content: string) {
     const isFmPageNavSpecifierValid = this.isPageNavigationSpecifierValid();
-    const doesLayoutHavePageNav = this.pageConfig.layoutManager.layoutHasPageNav(this.layout!);
+    const doesLayoutHavePageNav = this.pageConfig.layoutManager.layoutHasPageNav(this.layout);
 
     if (isFmPageNavSpecifierValid && doesLayoutHavePageNav) {
       this.navigableHeadings = {};
@@ -533,12 +535,12 @@ export class Page {
 
     pluginManager.collectPluginPageNjkAssets(this.frontmatter, content, this.asset);
 
-    await layoutManager.generateLayoutIfNeeded(this.layout!);
+    await layoutManager.generateLayoutIfNeeded(this.layout);
     const pageNav = this.buildPageNav(content);
-    content = layoutManager.combineLayoutWithPage(this.layout!, content, pageNav, this.includedFiles);
+    content = layoutManager.combineLayoutWithPage(this.layout, content, pageNav, this.includedFiles);
     this.asset = {
       ...this.asset,
-      ...layoutManager.getLayoutPageNjkAssets(this.layout!),
+      ...layoutManager.getLayoutPageNjkAssets(this.layout),
     };
 
     pageSources.addAllToSet(this.includedFiles);

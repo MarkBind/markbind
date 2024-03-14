@@ -1,32 +1,32 @@
-import fs from 'fs-extra';
-import path from 'path';
-import { Layout, LayoutConfig, PageNjkAssets } from './Layout';
-import * as logger from '../utils/logger';
+const fs = require('fs-extra');
+const path = require('path');
+
+const { Layout } = require('./Layout');
+
+const logger = require('../utils/logger');
 
 const FRONTMATTER_NONE_ATTR = 'none';
 
-export class LayoutManager {
-  private config: LayoutConfig;
-  private layoutsRootPath: string;
-  private layouts: { [name: string]: Layout };
-
-  constructor(config: LayoutConfig) {
+class LayoutManager {
+  constructor(config) {
     this.config = config;
+
     this.layoutsRootPath = path.join(config.rootPath, '_markbind', 'layouts');
+
     this.layouts = {};
   }
 
   /**
    * Flag all layouts for (re)generation when requested
    */
-  removeLayouts(): void {
+  removeLayouts() {
     this.layouts = {};
   }
 
   /**
    * Update layouts which have the provided filePaths as dependencies
    */
-  updateLayouts(filePaths: string[]): Promise<void[]> {
+  updateLayouts(filePaths) {
     const layoutsToRegenerate = Object.entries(this.layouts)
       .filter(([, layout]) => layout.shouldRegenerate(filePaths));
 
@@ -36,7 +36,7 @@ export class LayoutManager {
     }));
   }
 
-  generateLayoutIfNeeded(name: string): Promise<void> | undefined {
+  generateLayoutIfNeeded(name) {
     if (this.layouts[name]) {
       return this.layouts[name].generatePromise;
     }
@@ -52,18 +52,15 @@ export class LayoutManager {
     return this.layouts[name].generatePromise;
   }
 
-  layoutHasPageNav(name: string): boolean {
+  layoutHasPageNav(name) {
     if (name === FRONTMATTER_NONE_ATTR) {
       return false;
     }
 
-    return !!this.layouts[name] && !!this.layouts[name].layoutPageNavUuid;
+    return this.layouts[name] && this.layouts[name].layoutPageNavUuid;
   }
 
-  combineLayoutWithPage(name: string,
-                        pageContent: string,
-                        pageNav: string,
-                        pageIncludedFiles: Set<string>): string {
+  combineLayoutWithPage(name, pageContent, pageNav, pageIncludedFiles) {
     if (name === FRONTMATTER_NONE_ATTR) {
       return pageContent;
     }
@@ -75,7 +72,7 @@ export class LayoutManager {
     return this.layouts[name].insertPage(pageContent, pageNav, pageIncludedFiles);
   }
 
-  getLayoutPageNjkAssets(name: string): PageNjkAssets | {} {
+  getLayoutPageNjkAssets(name) {
     if (name === FRONTMATTER_NONE_ATTR || !this.layouts[name]) {
       return {};
     }
@@ -83,3 +80,7 @@ export class LayoutManager {
     return this.layouts[name].getPageNjkAssets();
   }
 }
+
+module.exports = {
+  LayoutManager,
+};

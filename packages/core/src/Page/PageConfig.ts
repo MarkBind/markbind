@@ -3,7 +3,6 @@ import type { SiteLinkManager } from '../html/SiteLinkManager';
 import type { PluginManager } from '../plugins/PluginManager';
 
 import { VariableProcessor } from '../variables/VariableProcessor';
-import { LayoutManager } from '../Layout';
 
 export interface PageAssets {
   bootstrap: string;
@@ -67,7 +66,7 @@ export class PageConfig {
   template: Template;
   variableProcessor: VariableProcessor;
   addressablePagesSource: string[];
-  layoutManager: LayoutManager;
+  layoutManager: any;
 
   constructor(args: {
     asset: PageAssets;

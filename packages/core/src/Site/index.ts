@@ -13,7 +13,7 @@ import { Page } from '../Page';
 import { PageConfig } from '../Page/PageConfig';
 import { VariableProcessor } from '../variables/VariableProcessor';
 import { VariableRenderer } from '../variables/VariableRenderer';
-import { ExternalManager } from '../External/ExternalManager';
+import { ExternalManager, ExternalManagerConfig } from '../External/ExternalManager';
 import { SiteLinkManager } from '../html/SiteLinkManager';
 import { PluginManager } from '../plugins/PluginManager';
 import type { FrontMatter } from '../plugins/Plugin';
@@ -23,11 +23,10 @@ import * as fsUtil from '../utils/fsUtil';
 import * as gitUtil from '../utils/git';
 import * as logger from '../utils/logger';
 import { SITE_CONFIG_NAME, LAZY_LOADING_SITE_FILE_NAME, _ } from './constants';
-import { LayoutManager } from '../Layout';
-import { LayoutConfig } from '../Layout/Layout';
 
 // Change when they are migrated to TypeScript
 const ProgressBar = require('../lib/progress');
+const { LayoutManager } = require('../Layout');
 require('../patches/htmlparser2');
 
 const url = {
@@ -156,7 +155,8 @@ export class Site {
   currentOpenedPages: string[];
   toRebuild: Set<string>;
   externalManager!: ExternalManager;
-  layoutManager!: LayoutManager;
+  // TODO: add LayoutManager when it has been migrated
+  layoutManager: any;
 
   constructor(rootPath: string, outputPath: string, onePagePath: string, forceReload = false,
               siteConfigPath = SITE_CONFIG_NAME, dev: any, backgroundBuildMode: boolean,
@@ -422,7 +422,7 @@ export class Site {
    * Set up the managers used with the configurations.
    */
   buildManagers() {
-    const config: LayoutConfig = {
+    const config: ExternalManagerConfig & { externalManager: ExternalManager } = {
       baseUrlMap: this.baseUrlMap,
       baseUrl: this.siteConfig.baseUrl,
       rootPath: this.rootPath,
@@ -618,7 +618,7 @@ export class Site {
     this.beforeSiteGenerate();
 
     try {
-      await this.layoutManager.updateLayouts(filePathArray);
+      await this.layoutManager.updateLayouts(filePaths);
       await this.regenerateAffectedPages(uniquePaths);
       await fs.remove(this.tempPath);
       if (this.backgroundBuildMode) {
