@@ -243,14 +243,17 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
     if (actualContent !== '') {
       const hashNode = $(hash);
       const footnodeHrefs = hashNode.find('a[aria-describedby="footnote-label"]')
-                                    .map(function(this: any) {
-                                          $(this).text(`[${getNextFootnodeNumber()}]`);
-                                          return $(this).attr('href');})
-                                    .get();
+        .map(function (this: any) {
+          $(this).text(`[${getNextFootnodeNumber()}]`);
+          return $(this).attr('href');
+        })
+        .get();
       if (footnodeHrefs.length > 0) {
         const tempFootnotes = $('<mb-temp-footnotes></mb-temp-footnotes>');
         footnodeHrefs.forEach((href) => {
-          const listItem = $('<li></li>').attr('id', href.substring(1)).addClass('footnote-item').html($(`${href}.footnote-item`).html()!);
+          const listItem = $('<li></li>').attr('id', href.substring(1))
+            .addClass('footnote-item')
+            .html($(`${href}.footnote-item`).html()!);
           tempFootnotes.append(listItem);
         });
         hashNode.append(tempFootnotes);

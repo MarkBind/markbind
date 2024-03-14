@@ -124,10 +124,8 @@ test('includeFile import footnote from hash', async () => {
                  + '\n'
                  + '            </div></template>\n'
                  + '          </popover>\n'
-                 + '\n'
                  + '<li id="fn-1-1" class="footnote-item"><p>footnote</p>\n'
                  + '</li>\n'
-                 + '\n'
                  + '</ol>\n'
                  + '</section>\n';
 
