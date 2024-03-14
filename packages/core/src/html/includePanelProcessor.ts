@@ -167,7 +167,7 @@ function _deleteIncludeAttributes(node: MbNode) {
 
 function buildGetNextFootnodeNumber() {
   let footnoteNumber = 1;
-  function defaultGetFootnoteNumber() {
+  function getFootnoteNumber() {
     footnoteNumber += 1;
     return footnoteNumber - 1;
   }
