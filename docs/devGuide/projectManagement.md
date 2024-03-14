@@ -98,30 +98,23 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    </box>
 
 ## Doing a Release
-
-1. **Make sure you have the correct permissions** for [MarkBind's repository](https://github.com/MarkBind/markbind) and [npm](https://www.npmjs.com/)
-    * For Markbind, you need rights to **push to master branch** and **make new releases**
-    <box type="tip" seamless>
-
-    To check your github permissions, follow the instructions [here](https://docs.github.com/en/rest/collaborators/collaborators?apiVersion=2022-11-28#get-repository-permissions-for-a-user).
-    
-    To check if you can make a new release, go to the [release page](https://github.com/MarkBind/markbind/releases) and check for the "Draft a new release button". If missing, you may not have permissions for a release.
-    </box>
+1. **Make sure you have the correct permissions** for [MarkBind's GitHub repository](https://github.com/MarkBind/markbind) and [npm organization](https://www.npmjs.com/org/markbind)
+    * For Github, you need rights to **push to master branch** and **make new releases**
+        * To check if you can make a new release and push to master branch, go to the [release page](https://github.com/MarkBind/markbind/releases) and check for the "Draft a new release" button. 
+          If missing, you may not have permissions for a release.
 
     * For npm, you need to be in the [Markbind organization](https://www.npmjs.com/org/markbind)
-   <box type="tip" seamless>
    
-   To check if you are in the Markbind organization, go your npm profile and check if Markbind is listed under organizations.
-
-   There should be 4 packages listed under the organization, `markbind-cli`, `@markbind/core`, `@markbind/core-web` and `@markbind/vue_components`
+      * To check if you are in the MarkBind organization, go to your npm profile and check if MarkBind is listed under organizations.
+        <pic src="/images/npm-profile.jpg" width="100%" alt="npm profile">
+        Example of profile that has been added to Markbind organisation
+        </pic>
+      * There should be 4 packages listed under the organization, `markbind-cli`, `@markbind/core`, `@markbind/core-web` and `@markbind/vue_components`. 
+      * Notably, the first three are packages that we publish every release while the last one has since become a private package consumed internally.
    
-   <pic src="/images/npm-profile.jpg" width="100%" alt="npm profile">
-   Example of profile that has been added to Markbind organisation
-   </pic>
 
-   </box>
 
-1. **Login to npm in your terminal** using `npm login`
+1. **Login to your npm account in your terminal** by running `npm login`
 1. **Make sure to start with a "clean slate"** by running `npx lerna clean` and then `npm run setup` in the root MarkBind directory.
 
 1. **Increment the version number** by running `npx lerna version --no-push --exact`. Which to increment (`patch`, `minor` or `major`) depends on what PRs are merged for the new version, which means you must know beforehand about the changes.
