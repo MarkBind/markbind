@@ -258,7 +258,6 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
         });
         hashNode.append(tempFootnotes);
         actualContent = hashNode.html()!;
-        console.log(actualContent);
       }
     }
 
