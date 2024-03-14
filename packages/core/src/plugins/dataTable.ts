@@ -11,9 +11,9 @@ const mdTableSortable = cloneDeep(md);
 const mdTableSearchable = cloneDeep(md);
 const mdTableSortableSearchable = cloneDeep(md);
 
-const CSS_FILE_NAME = 'https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-2.0.2/datatables.min.css';
-const CSS_ADDITIONAL = 'dataTableAssets/data-tables.css';
-const JS_FILE_NAME = 'https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-2.0.2/datatables.min.js';
+const CSS_FILE_NAME = 'dataTableAssets/datatables.min.css';
+const CSS_ADDITIONAL = 'dataTableAssets/datatables-additional.css';
+const JS_FILE_NAME = 'dataTableAssets/datatables.min.js';
 
 const initScript = `
       <script>
