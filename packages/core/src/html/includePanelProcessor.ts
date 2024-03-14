@@ -242,7 +242,7 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
           const replaceTo = `<a aria-describedby="footnote-label" href="#${href}">[${footnoteNumber}]`;
           footnoteNumber += 1;
           actualContent = actualContent.replace(match, replaceTo);
-          toAppend += `\n<li id="${href}" class="footnote-item">${$('#fn-1-1.footnote-item')!.html()}</li>`;
+          toAppend += `\n<li id="${href}" class="footnote-item">${$(`#${href}.footnote-item`)!.html()}</li>`;
         });
         toAppend += '\n</mb-temp-footnotes>';
         actualContent += toAppend;
