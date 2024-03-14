@@ -166,12 +166,12 @@ function _deleteIncludeAttributes(node: MbNode) {
 }
 
 function buildGetNextFootnodeNumber() {
-  let footnoteNumber = 1;
+  let footnoteNumber = 0;
   function getFootnoteNumber() {
     footnoteNumber += 1;
-    return footnoteNumber - 1;
+    return footnoteNumber;
   }
-  return defaultGetFootnoteNumber;
+  return getFootnoteNumber;
 }
 
 /**
