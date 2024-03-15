@@ -20,6 +20,12 @@
     },
     {
       "glob": ["**/index.md", "**/*.md"]
+    },
+    {
+      "src": "others/inclusion_inside_table.md"
+    },
+    {
+      "src": "others/table_to_be_included.md"
     }
   ],
   "deploy": {

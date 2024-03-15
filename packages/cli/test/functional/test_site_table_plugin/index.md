@@ -1,6 +1,6 @@
 # Welcome to MarkBind
 
-This is a minimalistic template. To learn more about authoring contents in MarkBind, visit the [User Guide](https://markbind.org/userGuide/authoringContents.html).
+This is a minimalistic template. To learn more about authoring others in MarkBind, visit the [User Guide](https://markbind.org/userGuide/authoringothers.html).
 
 ---
 Test regular table
@@ -23,7 +23,7 @@ Test regular table with include
 | Michael                                                           | 41 | UK    |
 | Sophia                                                            | 25 | Germany|
 | David                                                             | 37  | Australia |
-| <span><include src="contents/inclusion_inside_table.md" /></span> | 29   | New Zealand |
+| <span><include src="others/inclusion_inside_table.md" /></span> | 29   | New Zealand |
 
 ---
 Test searchable
@@ -36,7 +36,7 @@ Test searchable
 | Michael | 41 | UK    |
 | Sophia | 255 | Germany|
 | David | 37  | Australia |
-| <span><include src="contents/inclusion_inside_table.md" /></span> | 29   | New Zealand |
+| <span><include src="others/inclusion_inside_table.md" /></span> | 29   | New Zealand |
 </m-table>
 
 
@@ -51,7 +51,7 @@ Test sortable
 | Michael | 41 | UK    |
 | Sophia | 255 | Germany|
 | David | 37  | Australia |
-| <span><include src="contents/inclusion_inside_table.md" /></span> | 29   | New Zealand |
+| <span><include src="others/inclusion_inside_table.md" /></span> | 29   | New Zealand |
 </m-table>
 
 ---
@@ -65,20 +65,20 @@ Test sortable with searchable
 | Michael | 41 | UK    |
 | Sophia | 255 | Germany|
 | David | 37  | Australia |
-| <span><include src="contents/inclusion_inside_table.md" /></span> | 29   | New Zealand |
+| <span><include src="others/inclusion_inside_table.md" /></span> | 29   | New Zealand |
 </m-table>
 
 ---
 Test table can be included
 
-<span><include src="contents/table_to_be_included.md" /></span>
+<span><include src="others/table_to_be_included.md" /></span>
 
 ---
 Test table can be included in a panel
 
 <panel type="minimal" header="This is your header for a Panel, click me to expand!">
 
-<span><include src="contents/table_to_be_included.md" /></span>
+<span><include src="others/table_to_be_included.md" /></span>
 
 </panel>
 
@@ -87,7 +87,7 @@ Test table can be included in a modal
 
 <modal header="**Modal header** :rocket:" id="modal:loremipsum">
 
-<span><include src="contents/table_to_be_included.md" /></span>
+<span><include src="others/table_to_be_included.md" /></span>
 
 </modal>
 

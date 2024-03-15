@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 5.3.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/markbind/css/codeblock-dark.min.css">
+  <link rel="stylesheet" href="/markbind/css/markbind.min.css">
+  <script src="/markbind/js/polyfill.min.js"></script>
+  <script src="/markbind/js/vue.min.js"></script>
+  <script src="/markbind/js/markbind.min.js"></script>
+  <script src="inclusion_inside_table.page-vue-render.js"></script>
+  <link rel="stylesheet" href="/plugins/dataTable/datatables.min.css">
+  <link rel="stylesheet" href="/plugins/dataTable/datatables-additional.css">
+  <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
+  <link rel="stylesheet" href="/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
+</head>
+<script>
+  const baseUrl = ''
+</script>
+
+<body>
+  <div id="app">
+    <header></header>
+    <div id="flex-body">
+      <div id="content-wrapper">
+        <p><code class="hljs inline no-lang" v-pre>test</code></p>
+      </div>
+      <scroll-top-button></scroll-top-button>
+    </div>
+    <footer></footer>
+  </div>
+</body>
+<script src="/markbind/js/bootstrap-utility.min.js"></script>
+<script>
+  MarkBind.setupWithSearch()
+</script>
+<script src="/plugins/dataTable/datatables.min.js"></script>
+
+<script>
+        $(document).ready(function() {
+          $('table.sortable-table').DataTable({
+            searching: false,
+            paging: false,
+            info: false,
+          });
+          $('table.searchable-table').DataTable({
+            ordering: false,
+            paging: false,
+            info: false,
+            dom: '<"row"<"col-sm-12"f>>' + 
+             '<"row"<"col-sm-12"t>>',
+          });
+          $('table.sortable-searchable-table').DataTable({
+            paging: false,
+            info: false,
+            dom: '<"row"<"col-sm-12"f>>' + 
+             '<"row"<"col-sm-12"t>>',
+          });
+        });
+      </script>
+
+</html>
