@@ -322,6 +322,6 @@ export const PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 </dropdown>
 `;
 
-export const PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "dropdown has a header slot, 'header' attribute has no effect."
+export const PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "dropdown has a header slot, 'header' attribute has no effect.";
 
 /* eslint-enable max-len */
