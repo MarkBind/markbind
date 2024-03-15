@@ -80,10 +80,13 @@ test('processNode processes quiz attributes and inserts into dom as slots correc
 });
 
 test('processNode processes popover attributes and inserts into dom as slots correctly', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
   processAndVerifyTemplate(testData.PROCESS_POPOVER_ATTRIBUTES,
                            testData.PROCESS_POPOVER_ATTRIBUTES_EXPECTED);
   processAndVerifyTemplate(testData.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE,
                            testData.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_HEADER_WARN_MSG);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_CONTENT_WARN_MSG);
 });
 
 test('processNode processes tooltip attributes and inserts into dom as slots correctly', () => {
@@ -126,8 +129,10 @@ test('processNode processes dropdown header attribute and inserts into DOM as he
 });
 
 test('processNode processes dropdown with header slot taking priority over header attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
   processAndVerifyTemplate(testData.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY,
                            testData.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG);
 });
 
 test('markdown coverts inline colour syntax correctly', async () => {
