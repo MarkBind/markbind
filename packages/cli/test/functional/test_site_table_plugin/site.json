@@ -7,10 +7,11 @@
     "_markbind/logs/*",
     "_site/*",
     "site.json",
+    "testSpecialTag.js",
     "*.md",
     "*.njk",
     ".git/*",
-    "node_modules/*"
+    "expected/*"
   ],
   "pagesExclude": ["node_modules/*"],
   "pages": [
