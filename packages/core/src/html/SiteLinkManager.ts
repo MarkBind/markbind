@@ -38,14 +38,15 @@ export class SiteLinkManager {
   }
 
   validateAllIntralinks() {
-    //console.log('Validating all intralinks, only called once;');
     if (!this.config.intrasiteLinkValidation.enabled) {
-      console.log('Intralink validation is disabled');
       return;
     }
 
     this.intralinkCollection.forEach((resourcePaths, cwf) => {
-      resourcePaths.forEach(resourcePath => linkProcessor.validateIntraLink(resourcePath, cwf, this.config, this.filePathToHashesMap));
+      resourcePaths.forEach(resourcePath => linkProcessor.validateIntraLink(resourcePath,
+                                                                            cwf,
+                                                                            this.config,
+                                                                            this.filePathToHashesMap));
     });
 
     this.intralinkCollection = new Map();
@@ -84,12 +85,5 @@ export class SiteLinkManager {
     if (node.attribs.id) {
       this.filePathToHashesMap.get(cwf)!.add(node.attribs.id);
     }
-  }
-  printHashes() {
-    this.filePathToHashesMap.forEach((hashes, filePath) => {
-      console.log(filePath);
-      hashes.forEach(hash => console.log(`  ${hash}`));
-    }
-    );
   }
 }

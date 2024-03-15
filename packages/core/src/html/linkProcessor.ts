@@ -165,7 +165,10 @@ function isValidFileAsset(resourcePath: string, config: NodeProcessorConfig) {
  * @param  config passed for page metadata access
  * @returns  these string return values are for unit testing purposes only
  */
-export function validateIntraLink(resourcePath: string, cwf: string, config: NodeProcessorConfig, filePathToHashesMap: Map<string, Set<string>>): string {
+export function validateIntraLink(resourcePath: string,
+                                  cwf: string,
+                                  config: NodeProcessorConfig,
+                                  filePathToHashesMap: Map<string, Set<string>>): string {
   if (!isIntraLink(resourcePath)) {
     return 'Not Intralink';
   }
@@ -176,9 +179,8 @@ export function validateIntraLink(resourcePath: string, cwf: string, config: Nod
   resourcePath = urlUtil.stripBaseUrl(resourcePath, config.baseUrl); // eslint-disable-line no-param-reassign
 
   const resourcePathUrl = parse(resourcePath);
-  let hash = undefined;
+  let hash;
   if (resourcePathUrl.hash) {
-    //console.log('resourcePath:', resourcePath, 'cwf:', cwf);
     hash = resourcePathUrl.hash.substring(1);
     // remove hash portion (if any) in the resourcePath
     resourcePath = resourcePathUrl.pathname; // eslint-disable-line no-param-reassign
@@ -223,9 +225,8 @@ export function validateIntraLink(resourcePath: string, cwf: string, config: Nod
   }
 
   if (hash !== undefined && !filePathToHashesMap.get(resourcePath)!.has(hash)) {
-      logger.warn(err);
-      console.log ('Intralink is a valid File Asset but hash is not found');
-      return 'Intralink is a valid File Asset but hash is not found';
+    logger.warn(err);
+    return 'Intralink is a valid File Asset but hash is not found';
   }
   return 'Intralink is a valid File Asset';
 }

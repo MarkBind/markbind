@@ -977,7 +977,7 @@ export class Site {
 
       logger.removeProgressBar();
       this.siteLinkManager.validateAllIntralinks();
-      //this.siteLinkManager.printHashes();
+      // this.siteLinkManager.printHashes();
     });
     return isCompleted;
   }
