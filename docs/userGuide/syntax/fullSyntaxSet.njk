@@ -1,0 +1,71 @@
+{% set syntax_topics = {
+  headings : ['Headings', 'headings', ['basic', 'reader-facing']],
+  paragraphs : ['Paragraphs', 'paragraphs', ['basic']],
+  lineBreaks : ['Line Breaks', 'line-breaks', ['basic']],
+  textStyles : ['Text Styles', 'text-styles', ['basic', 'reader-facing']],
+  blockquotes: ['Blockquotes', 'blockquotes', ['basic', 'reader-facing']],
+  lists : ['Lists', 'lists', ['basic', 'reader-facing']],
+  code : ['Code', 'code', ['basic', 'reader-facing']],
+  horizontalrules : ['Horizontal Rules', 'horizontal-rules', ['basic', 'reader-facing']],
+  links : ['Links', 'links', ['basic', 'reader-facing']],
+  footnotes: ['Footnotes', 'footnotes', ['basic', 'reader-facing']],
+  images : ['Images', 'images', ['basic', 'reader-facing']],
+  attributes: ['Classes, Attributes & Identifiers', 'classes-attributes-and-amp-identifiers', ['basic', 'reader-facing']],
+  tables : ['Tables', 'tables', ['basic', 'reader-facing']],
+  emoji : ['Emoji', 'emoji', ['basic', 'reader-facing']],
+  icons : ['Icons', 'icons', ['basic', 'reader-facing']],
+  embeds : ['Embeds', 'embeds', ['basic', 'reader-facing']],
+  dates : ['Dates', 'dates', ['basic', 'reader-facing']],
+  mathformulae : ['Math Formulae', 'math-formulae', ['basic', 'reader-facing']],
+
+  frontmatter : ['Frontmatter', 'frontmatter', ['tweakingThePageStructure']],
+  tags : ['Tags', 'plugin-tags', ['tweakingThePageStructure']],
+  includes : ['Includes', 'includes', ['reusingContents']],
+  variables : ['Variables', 'variables', ['reusingContents']],
+  keywords : ['Keywords', 'keywords', ['makingTheSiteSearchable']],
+
+  badges : ['Badges', 'badges', ['presentation', 'reader-facing']],
+  boxes : ['Boxes', 'boxes', ['presentation', 'reader-facing']],
+  panels : ['Panels', 'panels', ['presentation', 'reader-facing']],
+  tabs : ['Tabs', 'tabs', ['presentation', 'reader-facing']],
+  pictures : ['Pictures', 'pictures', ['images-diagrams', 'reader-facing']],
+  annotations : ['Annotations', 'annotations', ['images-diagrams', 'reader-facing']],
+  thumbnails : ['Thumbnails', 'thumbnails', ['images-diagrams', 'reader-facing']],
+  diagrams : ['Diagrams', 'diagrams', ['images-diagrams', 'reader-facing']],
+  tree : ['Tree', 'tree', ['images-diagrams', 'reader-facing']],
+  tooltips : ['Tooltips', 'tooltips', ['popups', 'reader-facing']],
+  popovers : ['Popovers', 'popovers', ['popups', 'reader-facing']],
+  modals : ['Modals', 'modals', ['popups', 'reader-facing']],
+  dropdowns : ['Dropdowns', 'dropdowns', ['navigation', 'reader-facing']],
+  searchBars : ['Search Bars', 'search-bars', ['navigation', 'reader-facing']],
+  navBars : ['Nav Bars', 'navbars', ['navigation', 'reader-facing']],
+  breadcrumbs : ['Breadcrumbs', 'breadcrumbs', ['navigation', 'reader-facing']],
+  siteNavigationMenus : ['Site Navigation Menus', 'site-navigation-menus', ['navigation', 'reader-facing']],
+  pageNavigationMenus : ['Page Navigation Menus', 'page-navigation-menus', ['navigation', 'reader-facing']],
+  scrollTopButton : ['Scroll To Top Button', 'scroll-to-top-button', ['navigation', 'reader-facing']],
+  questions : ['Questions and Quizzes', 'questions-and-quizzes', ['others', 'reader-facing']]
+} %}
+
+{% macro generate_url(k, v) %}
+  {% set url="/userGuide/" %}
+  {% if v[2] is iterable %}
+    {% if 'basic' in v[2] %}
+      {% set url = url + "formattingContents.html#" + v[1] %}
+    {% elif 'presentation' in v[2] %}
+      {% set url = url + "components/presentation.html#" + v[1] %}
+    {% elif 'images-diagrams' in v[2] %}
+      {% set url = url + "components/imagesAndDiagrams.html#" + v[1] %}
+    {% elif 'popups' in v[2] %}
+      {% set url = url + "components/popups.html#" + v[1] %}
+    {% elif 'navigation' in v[2] %}
+      {% set url = url + "components/navigation.html#" + v[1] %}
+    {% elif 'others' in v[2] %}
+      {% set url = url + "components/others.html#" + v[1] %}
+    {% else %}
+      {% set url = url + v[2][0] + v[1] %}
+    {% endif %}
+  {% else %}
+    {% set url = url %}
+  {% endif%}
+  {{ url }}
+{% endmacro %} 

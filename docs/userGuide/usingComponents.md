@@ -27,7 +27,7 @@ To use a component, just use the corresponding markup in your file. For example,
 </panel>
 ```
 
-{% from "userGuide/fullSyntaxReference.md" import syntax_topics as topics %}
+{% from "userGuide/syntax/fullSyntaxSet.njk" import syntax_topics as topics %}
 
 {% macro show_topic(filename) %}
 <include src="./syntax/{{ filename }}.md" />
@@ -35,7 +35,7 @@ To use a component, just use the corresponding markup in your file. For example,
 {% endmacro %}
 
 {% for k,v in topics %}
-  {% if 'component' in v[1] %}
+  {% if 'component' in v[2] %}
 {{ show_topic(k) }}
   {% endif %}
 {% endfor %}

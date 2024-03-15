@@ -132,24 +132,14 @@ export default {
     }
 
     .modal-zoom {
-        -webkit-transform: scale(0.1);
-        -moz-transform: scale(0.1);
-        -ms-transform: scale(0.1);
         transform: scale(0.1);
         opacity: 0;
-        -webkit-transition: all 0.3s;
-        -moz-transition: all 0.3s;
         transition: all 0.3s;
     }
 
     .modal-zoom-show {
-        -webkit-transform: scale(1);
-        -moz-transform: scale(1);
-        -ms-transform: scale(1);
         transform: scale(1);
         opacity: 1;
-        -webkit-transition: all 0.3s;
-        -moz-transition: all 0.3s;
         transition: all 0.3s;
     }
 </style>

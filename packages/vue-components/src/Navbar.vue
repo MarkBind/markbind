@@ -283,7 +283,7 @@ export default {
 </script>
 
 <style scoped>
-    @media (max-width: 767px) {
+    @media (width <= 767px) {
         .navbar {
             padding-left: 0;
             padding-right: 0;
@@ -330,13 +330,13 @@ export default {
         }
 
         .navbar-default > ul > * {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgb(0 0 0 / 20%);
             padding: 0.3125rem 0.625rem;
             flex-grow: 1;
         }
 
         .navbar-light .navbar-default > ul > * {
-            background: rgba(0, 0, 0, 0.05);
+            background: rgb(0 0 0 / 5%);
         }
 
         .navbar-default > ul > .current {
