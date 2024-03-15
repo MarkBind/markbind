@@ -1,12 +1,21 @@
 import path from 'path';
 import cheerio from 'cheerio';
 import htmlparser from 'htmlparser2';
-import * as testData from './NodeProcessor.data';
+import { expect } from '@jest/globals';
 import * as logger from '../../../src/utils/logger';
+import * as testData from './NodeProcessor.data';
 import { Context } from '../../../src/html/Context';
 import { shiftSlotNodeDeeper, transformOldSlotSyntax } from '../../../src/html/vueSlotSyntaxProcessor';
 import { getNewDefaultNodeProcessor } from '../utils/utils';
 import { MbNode, parseHTML } from '../../../src/utils/node';
+
+jest.mock('../../../src/utils/logger', () => ({
+  warn: jest.fn(),
+}));
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 /**
  * Runs the processNode or postProcessNode method of NodeProcessor on the provided
@@ -134,8 +143,7 @@ test('processNode does not log warning when lazy pic has width or height',
 
        nodeProcessor.processNode(testNode, new Context(path.resolve(''), [], {}, {}));
 
-       const logMessage = consoleSpy.mock.calls[0];
-       expect(logMessage).toEqual(undefined);
+       expect(consoleSpy).not.toHaveBeenCalled();
      });
 
 test('processNode does not log warning when lazy annotate has width or height',
@@ -149,8 +157,7 @@ test('processNode does not log warning when lazy annotate has width or height',
 
        nodeProcessor.processNode(testNode, new Context(path.resolve(''), [], {}, {}));
 
-       const logMessage = consoleSpy.mock.calls[0];
-       expect(logMessage).toEqual(undefined);
+       expect(consoleSpy).not.toHaveBeenCalled();
      });
 
 test('processNode logs warning when lazy pic no width and height',
@@ -164,9 +171,7 @@ test('processNode logs warning when lazy pic no width and height',
 
        nodeProcessor.processNode(testNode, new Context('testpath.md', [], {}, {}));
 
-       const logMessage = consoleSpy.mock.calls[0][0];
-       expect(logMessage).toEqual(
-         'testpath.md --- '
+       expect(consoleSpy).toHaveBeenCalledWith('testpath.md --- '
            + 'Both width and height are not specified when using lazy loading in the file and'
            + ' it might cause shifting in page layouts. '
            + 'To ensure proper functioning of lazy loading, please specify either one or both.\n');
@@ -183,9 +188,7 @@ test('processNode logs warning when lazy annotate no width and height',
 
        nodeProcessor.processNode(testNode, new Context('testpath.md', [], {}, {}));
 
-       const logMessage = consoleSpy.mock.calls[1][0];
-       expect(logMessage).toEqual(
-         'testpath.md --- '
+       expect(consoleSpy).toHaveBeenCalledWith('testpath.md --- '
            + 'Both width and height are not specified when using lazy loading in the file and'
            + ' it might cause shifting in page layouts. '
            + 'To ensure proper functioning of lazy loading, please specify either one or both.\n');
