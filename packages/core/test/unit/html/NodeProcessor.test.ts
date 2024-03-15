@@ -2,10 +2,15 @@ import path from 'path';
 import cheerio from 'cheerio';
 import htmlparser from 'htmlparser2';
 import * as testData from './NodeProcessor.data';
+import * as logger from '../../../src/utils/logger';
 import { Context } from '../../../src/html/Context';
 import { shiftSlotNodeDeeper, transformOldSlotSyntax } from '../../../src/html/vueSlotSyntaxProcessor';
 import { getNewDefaultNodeProcessor } from '../utils/utils';
 import { MbNode, parseHTML } from '../../../src/utils/node';
+
+jest.mock('../../../src/utils/logger', () => ({
+  warn: jest.fn(),
+}));
 
 /**
  * Runs the processNode or postProcessNode method of NodeProcessor on the provided
@@ -42,12 +47,15 @@ const processAndVerifyTemplate = (template: string, expectedTemplate: string, po
 };
 
 test('processNode processes panel attributes and inserts into dom as slots correctly', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
   processAndVerifyTemplate(testData.PROCESS_PANEL_ATTRIBUTES,
                            testData.PROCESS_PANEL_ATTRIBUTES_EXPECTED);
   processAndVerifyTemplate(testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY,
                            testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG);
   processAndVerifyTemplate(testData.PROCESS_PANEL_HEADER_NO_OVERRIDE,
                            testData.PROCESS_PANEL_HEADER_NO_OVERRIDE_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG);
 });
 
 test('processNode processes question attributes and inserts into dom as slots correctly', () => {

@@ -36,6 +36,8 @@ export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 </panel>
 `;
 
+export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "panel has a header slot, 'header' attribute has no effect.";
+
 export const PROCESS_PANEL_HEADER_NO_OVERRIDE = `
 <panel header="# Lorem ipsum" alt="**strong alt**">
   <div slot="header">
