@@ -175,7 +175,7 @@ export class NodeProcessor {
 
       // log warnings for conflicting attributes
       if (_.has(warnConflictingAtributesMap, node.name)) { warnConflictingAtributesMap[node.name](node); }
-
+      this.siteLinkManager.maintainFilePathToHashesMap(node, context.cwf);
       switch (node.name) {
       case 'frontmatter':
         this._processFrontmatter(node, context);

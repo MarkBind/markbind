@@ -17,10 +17,12 @@ const tagsToValidate: Set<string> = new Set([
 export class SiteLinkManager {
   private config: NodeProcessorConfig;
   private intralinkCollection: Map<string, Set<string>>;
+  private filePathToHashesMap: Map<string, Set<string>>;
 
   constructor(config: NodeProcessorConfig) {
     this.config = config;
     this.intralinkCollection = new Map();
+    this.filePathToHashesMap = new Map();
   }
 
   /**
@@ -36,12 +38,14 @@ export class SiteLinkManager {
   }
 
   validateAllIntralinks() {
+    //console.log('Validating all intralinks, only called once;');
     if (!this.config.intrasiteLinkValidation.enabled) {
+      console.log('Intralink validation is disabled');
       return;
     }
 
     this.intralinkCollection.forEach((resourcePaths, cwf) => {
-      resourcePaths.forEach(resourcePath => linkProcessor.validateIntraLink(resourcePath, cwf, this.config));
+      resourcePaths.forEach(resourcePath => linkProcessor.validateIntraLink(resourcePath, cwf, this.config, this.filePathToHashesMap));
     });
 
     this.intralinkCollection = new Map();
@@ -68,5 +72,24 @@ export class SiteLinkManager {
 
     this._addToCollection(resourcePath, cwf);
     return 'Intralink collected to be validated later';
+  }
+
+  maintainFilePathToHashesMap(node: MbNode, cwf: string) {
+    if (!this.config.intrasiteLinkValidation.enabled) {
+      return;
+    }
+    if (!this.filePathToHashesMap.has(cwf)) {
+      this.filePathToHashesMap.set(cwf, new Set());
+    }
+    if (node.attribs.id) {
+      this.filePathToHashesMap.get(cwf)!.add(node.attribs.id);
+    }
+  }
+  printHashes() {
+    this.filePathToHashesMap.forEach((hashes, filePath) => {
+      console.log(filePath);
+      hashes.forEach(hash => console.log(`  ${hash}`));
+    }
+    );
   }
 }
