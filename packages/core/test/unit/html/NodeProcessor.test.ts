@@ -12,6 +12,10 @@ jest.mock('../../../src/utils/logger', () => ({
   warn: jest.fn(),
 }));
 
+afterEach(() => {
+  jest.clearAllMocks();
+})
+
 /**
  * Runs the processNode or postProcessNode method of NodeProcessor on the provided
  * template, verifying it with the expected result.
