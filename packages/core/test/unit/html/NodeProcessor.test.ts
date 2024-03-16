@@ -75,7 +75,7 @@ test('processNode processes q-option attributes and inserts into dom as slots co
 });
 
 test('processNode processes quiz attributes and inserts into dom as slots correctly', () => {
-  processAndVerifyTemplate(testData.PROCESS_QUIZ_ATTRIBUTES_EXPECTED,
+  processAndVerifyTemplate(testData.PROCESS_QUIZ_ATTRIBUTES,
                            testData.PROCESS_QUIZ_ATTRIBUTES_EXPECTED);
   processAndVerifyTemplate(testData.PROCESS_QUIZ_ATTRIBUTES_NO_OVERRIDE,
                            testData.PROCESS_QUIZ_ATTRIBUTES_NO_OVERRIDE_EXPECTED);
