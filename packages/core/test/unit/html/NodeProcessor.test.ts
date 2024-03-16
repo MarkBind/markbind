@@ -14,7 +14,7 @@ jest.mock('../../../src/utils/logger', () => ({
 
 afterEach(() => {
   jest.clearAllMocks();
-})
+});
 
 /**
  * Runs the processNode or postProcessNode method of NodeProcessor on the provided
