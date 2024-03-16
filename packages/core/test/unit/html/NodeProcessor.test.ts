@@ -11,8 +11,7 @@ import { MbNode, parseHTML } from '../../../src/utils/node';
 jest.mock('../../../src/utils/logger', () => ({
   warn: jest.fn(),
 }));
-
-afterEach(() => {
+beforeEach(() => {
   jest.clearAllMocks();
 });
 
