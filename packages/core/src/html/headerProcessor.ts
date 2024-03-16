@@ -12,7 +12,7 @@ const _ = {
 /*
  * h1 - h6
  */
-export function setHeadingId(node: MbNode, config: NodeProcessorConfig) {
+export function setHeadingId(node: MbNode, config: NodeProcessorConfig, fromInclude: boolean = false) {
   const textContent = cheerio(node).text();
   // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
   const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
@@ -20,7 +20,7 @@ export function setHeadingId(node: MbNode, config: NodeProcessorConfig) {
 
   let headerId = slugifiedHeading;
   const { headerIdMap } = config;
-  if (headerIdMap[slugifiedHeading]) {
+  if (headerIdMap[slugifiedHeading] && !fromInclude) {
     headerId = `${slugifiedHeading}-${headerIdMap[slugifiedHeading]}`;
     headerIdMap[slugifiedHeading] += 1;
   } else {

@@ -249,3 +249,12 @@ test('Test non intralinks (tel)', () => {
 
   expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
 });
+
+test('Test non valid hash link', () => {
+  const mockLink = '<a href="/rawFile#test-1">Test</a>';
+  const mockNode = parseHTML(mockLink)[0] as MbNode;
+  const mockResourcePath = linkProcessor.getDefaultTagsResourcePath(mockNode);
+  const EXPECTED_RESULT = 'Not Intralink';
+
+  expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
+});

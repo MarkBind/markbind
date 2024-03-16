@@ -172,10 +172,9 @@ export class NodeProcessor {
 
       transformOldSlotSyntax(node);
       shiftSlotNodeDeeper(node);
-
+      this.siteLinkManager.maintainFilePathToHashesMap(node, context.cwf);
       // log warnings for conflicting attributes
       if (_.has(warnConflictingAtributesMap, node.name)) { warnConflictingAtributesMap[node.name](node); }
-      this.siteLinkManager.maintainFilePathToHashesMap(node, context.cwf);
       switch (node.name) {
       case 'frontmatter':
         this._processFrontmatter(node, context);
@@ -185,11 +184,15 @@ export class NodeProcessor {
         console.warn(`<body> tag found in ${node.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
         break;
       case 'include':
+        //console.log(node.type, node.name, node.attribs);
+        //console.log(node);
         this.markdownProcessor.docId += 1; // used in markdown-it-footnotes
-        return processInclude(node, context, this.pageSources, this.variableProcessor,
+        const _context = processInclude(node, context, this.pageSources, this.variableProcessor,
                               (text: string) => this.markdownProcessor.renderMd(text),
                               (text: string) => this.markdownProcessor.renderMdInline(text),
-                              this.config);
+                              this.config, this.siteLinkManager);
+        this.siteLinkManager.maintainInclude(node, context.cwf);
+        return _context;
       case 'panel':
         this.mdAttributeRenderer.processPanelAttributes(node);
         return processPanelSrc(node, context, this.pageSources, this.config);
@@ -270,8 +273,7 @@ export class NodeProcessor {
       }
     } catch (error) {
       logger.error(error);
-    }
-
+    };
     return context;
   }
 
@@ -369,6 +371,7 @@ export class NodeProcessor {
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
     if (isHeadingTag && !node.attribs.id) {
       setHeadingId(node, this.config);
+      this.siteLinkManager.maintainFilePathToHashesMap(node, context.cwf);
     }
 
     this.pluginManager.postProcessNode(node);

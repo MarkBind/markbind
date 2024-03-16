@@ -1,7 +1,11 @@
 import has from 'lodash/has';
 import * as linkProcessor from './linkProcessor';
+import * as urlUtil from '../utils/urlUtil';
 import type { NodeProcessorConfig } from './NodeProcessor';
 import { MbNode } from '../utils/node';
+import { is } from 'bluebird';
+import { DomElement } from 'domhandler';
+import { setHeadingId} from './headerProcessor';
 
 const _ = { has };
 
@@ -41,7 +45,6 @@ export class SiteLinkManager {
     if (!this.config.intrasiteLinkValidation.enabled) {
       return;
     }
-
     this.intralinkCollection.forEach((resourcePaths, cwf) => {
       resourcePaths.forEach(resourcePath => linkProcessor.validateIntraLink(resourcePath,
                                                                             cwf,
@@ -75,15 +78,96 @@ export class SiteLinkManager {
     return 'Intralink collected to be validated later';
   }
 
-  maintainFilePathToHashesMap(node: MbNode, cwf: string) {
+  isHeaderTag(node: MbNode | DomElement): boolean {
+    if (node.name === undefined) {
+      return false;
+    }
+    return node.name.startsWith('h') && Number(node.name[1]) >= 1 && Number(node.name[1]) <= 6;
+  }
+
+  maintainFilePathToHashesMap(node: MbNode | DomElement, cwf: string) {
     if (!this.config.intrasiteLinkValidation.enabled) {
       return;
     }
-    if (!this.filePathToHashesMap.has(cwf)) {
-      this.filePathToHashesMap.set(cwf, new Set());
+    const path = cwf.substring(this.config.rootPath.length);
+    if (!this.filePathToHashesMap.has(path)) {
+      this.filePathToHashesMap.set(path, new Set());
     }
-    if (node.attribs.id) {
-      this.filePathToHashesMap.get(cwf)!.add(node.attribs.id);
+    if (node.attribs!.id) {
+      this.filePathToHashesMap.get(path)!.add(node.attribs!.id);
     }
+    /*
+    if(path =='/userGuide/tipsAndTricks.md' && this.isHeaderTag(node)) {
+      console.log(node.name);
+      let header ='';
+      node.children.forEach((child) => {
+        if(header == '' && child.type == 'text') {
+          header = child.data;
+        }
+      });
+      //console.log(node);
+      console.log(header.trim());
+    }
+    if(this.isHeaderTag(node)) {
+      let header ='';
+      node.children.forEach((child) => {
+        if(header != '' && child.type === 'text') {
+          header = child.data;
+        }
+      });
+      if(header != '') {
+        this.filePathToHashesMap.get(path)!.add(header);
+      }
+    }
+    */
   }
+
+  printFilePathToHashesMap() {
+    let result = '';
+    this.filePathToHashesMap.forEach((hashes, filePath) => {
+      result += `${filePath}:\n`;
+      hashes.forEach((hash) => {
+        result += `  ${hash}\n`;
+      });
+    });
+    return result;
+  }
+
+  maintainInclude(node: MbNode | DomElement, cwf: string) {
+    /*
+    if (cwf ==`/Users/soc/Desktop/markbind/docs/userGuide/syntax/searchBars.md`){
+      console.log(node);
+    }
+    
+    const path = cwf.substring(this.config.rootPath.length);
+      if(path == `/userGuide/siteJsonFile.md`) {
+        console.log(node);
+      }
+      */
+    if (!this.config.intrasiteLinkValidation.enabled) {
+      return;
+    }
+    if (this.isHeaderTag(node) && node.attribs && !node.attribs.id) {
+      setHeadingId(node as MbNode, this.config, true);
+      node.attribs.id += `(heading)`
+      /*
+      const path = cwf.substring(this.config.rootPath.length);
+      if(path == `/userGuide/components/popups.md`) {
+        console.log(node.attribs.id);
+      }
+      */
+      //console.log(node.attribs.id);
+  }
+  if (node.attribs&&node.attribs.id) {
+    node.attribs.id += `(include)`;
+    this.maintainFilePathToHashesMap(node, cwf);
+  }
+    if(node.children) {
+      node.children.forEach((child) => {
+        this.maintainInclude(child,cwf);
+      });
+    }
+    
+  }
+  
 }
