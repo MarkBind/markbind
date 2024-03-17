@@ -1,29 +1,78 @@
 name: PR Merge
 on:
-    push:
-        branches:
-            - master
-        tags:
-            - 'v[0-9]+.[0-9]+.[0-9]+'
+    # push:
+    #     branches:
+    #       - master
+    #     tags:
+    #       - 'v[0-9]+.[0-9]+.[0-9]+'
+    pull_request:
+        types:
+          - closed
 
 concurrency:
-    group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
-    cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
-    check-release-tag:
+    check-pr-label:
+        if: ${{ github.event.pull_request.merged == true }} && ${{ github.event.pull_request.base.ref == 'master' }}
         runs-on: ubuntu-latest
+        
         steps:
-            - name: Check for presence of release tag
-              id: check_release_tag
-              uses: actions/github-script@v5
-              with:
+          - uses: actions/checkout@v3
+          - name: Check for PR description label
+            id: check_pr_description_label
+            run: |
+              python scripts/process_message.py "${TEXT_BODY}" > processed_body.txt
+              processed_body=$(cat processed_body.txt)
+              proposed_version_impact=$(echo "$processed_body" | awk '/Major \\\(when you make incompatible API changes\\\)/,/Patch \\\(when you make backward compatible bug fixes\\\)/')
+              echo "Version Impact: $proposed_version_impact"
+              is_major=$(echo "$proposed_version_impact" | grep -q '\[X\] Major'; echo $?)
+              is_minor=$(echo "$proposed_version_impact" | grep -q '\[X\] Minor'; echo $?)
+              is_patch=$(echo "$proposed_version_impact" | grep -q '\[X\] Patch'; echo $?)
+              echo "is_major=$( [ $is_major -eq 0 ] && echo "true" || echo "false" )" >> $GITHUB_OUTPUT
+              echo "is_minor=$( [ $is_minor -eq 0 ] && echo "true" || echo "false" )" >> $GITHUB_OUTPUT
+              echo "is_patch=$( [ $is_patch -eq 0 ] && echo "true" || echo "false" )" >> $GITHUB_OUTPUT
+
+            env:
+              TEXT_BODY: ${{ github.event.pull_request.body }}
+          - name: Check that only one version impact is selected
+            id: check_version_impact
+            run: |
+                if [ "$IS_MAJOR" = "false" ] && [ "$IS_MINOR" = "false" ] && [ "$IS_PATCH" = "false" ]; then
+                    echo "Please remember to tick a SEMVER impact for this PR in the PR body description."
+                    exit 1
+                elif [ "$IS_MAJOR" = "true" ] && { [ "$IS_MINOR" = "true" ] || [ "$IS_PATCH" = "true" ]; } || { [ "$IS_MINOR" = "true" ] && [ "$IS_PATCH" = "true" ]; }; then
+                    echo "Please select only one SEMVER impact for this PR in the PR body description."
+                    exit 1
+                else
+                    echo "chosen_label=$(
+                        if [ "$IS_MAJOR" = "true" ]; then
+                            echo "r.Major"
+                        elif [ "$IS_MINOR" = "true" ]; then
+                            echo "r.Minor"
+                        elif [ "$IS_PATCH" = "true" ]; then
+                            echo "r.Patch"
+                        fi
+                     )" >> $GITHUB_OUTPUT
+                fi
+            env:
+                IS_MAJOR: ${{ steps.check_pr_description_label.outputs.is_major }}
+                IS_MINOR: ${{ steps.check_pr_description_label.outputs.is_minor }}
+                IS_PATCH: ${{ steps.check_pr_description_label.outputs.is_patch }}
+                
+          - name: Assign label based on version impact
+            uses: actions/github-script@v7
+            with:
                 script: |
+                    github.rest.issues.addLabels({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        issue_number: context.payload.pull_request.number,
+                        labels: ["$CHOSEN_LABEL"]
+                    })
+            env:
+                CHOSEN_LABEL: ${{ steps.check_version_impact.outputs.chosen_label }}
 
-              env:
-                LABELS: ${{ toJson(github.event.pull_request.labels) }}
-                CONTAINS_LABELS: ${{ contains(toJson(github.event.pull_request.labels), 'release') }}
 
-
-
-            
+    
