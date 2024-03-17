@@ -31,7 +31,7 @@ lazy | `boolean` | false | The `<pic>` component lazy loads if this attribute is
 
 <div id="examples" class="d-none">
 
-<pic src="https://markbind.org/images/logo-lightbackground.png" width="300" height="10" alt="Logo">
+<pic src="https://markbind.org/images/logo-lightbackground.png" width="300" alt="Logo">
   MarkBind Logo
 </pic>
 </div>

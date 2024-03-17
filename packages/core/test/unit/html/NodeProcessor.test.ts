@@ -4,7 +4,6 @@ import htmlparser from 'htmlparser2';
 import { expect } from '@jest/globals';
 import * as logger from '../../../src/utils/logger';
 import * as testData from './NodeProcessor.data';
-import * as logger from '../../../src/utils/logger';
 import { Context } from '../../../src/html/Context';
 import { shiftSlotNodeDeeper, transformOldSlotSyntax } from '../../../src/html/vueSlotSyntaxProcessor';
 import { getNewDefaultNodeProcessor } from '../utils/utils';

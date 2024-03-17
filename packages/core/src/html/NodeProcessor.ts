@@ -175,6 +175,7 @@ export class NodeProcessor {
 
       // log warnings for conflicting attributes
       if (_.has(warnConflictingAtributesMap, node.name)) { warnConflictingAtributesMap[node.name](node); }
+
       switch (node.name) {
       case 'frontmatter':
         this._processFrontmatter(node, context);
@@ -284,6 +285,7 @@ export class NodeProcessor {
     } catch (error) {
       logger.error(error);
     }
+
     return context;
   }
 
