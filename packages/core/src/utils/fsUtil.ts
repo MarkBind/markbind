@@ -44,13 +44,8 @@ export function copySyncWithOptions(src: string, dest: string, options: CopyOpti
   files.forEach((file) => {
     const curSource = path.join(src, file);
     let curDest = path.join(dest, file);
-<<<<<<< HEAD
     if (file === 'gitignore') {
       curDest = path.join(dest, '.gitignore');
-=======
-    if (file === 'gitignore') { 
-       curDest = path.join(dest, '.gitignore'); 
->>>>>>> d62c7ac70ba76651108d74e85f50028ef83c10dc
     }
 
     if (fs.lstatSync(curSource).isDirectory()) {
