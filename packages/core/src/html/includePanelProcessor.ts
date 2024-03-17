@@ -251,7 +251,7 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
       if (footnodeHrefs.length > 0) {
         const tempFootnotes = $('<mb-temp-footnotes></mb-temp-footnotes>');
         footnodeHrefs.forEach((href) => {
-          // substring to remove the # from the href
+          // substring function called to remove the # from the href
           const listItem = $('<li></li>').attr('id', href.substring(1))
             .addClass('footnote-item')
             .html($(`${href}.footnote-item`).html()!);
