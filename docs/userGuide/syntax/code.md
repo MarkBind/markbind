@@ -286,10 +286,10 @@ Markbind enhances the readability of your code blocks for printing by
 - Applying soft wrapping, ensuring code doesn't get cut off
 - Adding line numbers to maintain context when wrapping occurs
 - Automatically changing dark code theme to light
-- Removing [codeBlockCopyButtons]({{ baseUrl }}/userGuide/formattingContents.html#copy-button) and [codeBlockWrapButtons]({{baseUrl}}/userGuide/formattingContents.html#wrap-text-button)
+- Removing [codeBlockCopyButtons]({{baseUrl}}/userGuide/formattingContents.html#copy-button) and [codeBlockWrapButtons]({{baseUrl}}/userGuide/formattingContents.html#wrap-text-button)
 
 <box type="warning" seamless> 
-    There are some issues with printing in Firefox. Please use other browsers if these issues persist.
+    There are some issues with printing in Firefox. Please use other browsers such as Chrome if these issues persist.
 </box>
 
 </div>
