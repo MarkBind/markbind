@@ -36,6 +36,8 @@ export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 </panel>
 `;
 
+export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "panel has a header slot, 'header' attribute has no effect.";
+
 export const PROCESS_PANEL_HEADER_NO_OVERRIDE = `
 <panel header="# Lorem ipsum" alt="**strong alt**">
   <div slot="header">
@@ -186,6 +188,9 @@ export const PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
 </popover>
 `;
 
+export const PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_HEADER_WARN_MSG = "popover has a header slot, 'header' attribute has no effect.";
+export const PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_CONTENT_WARN_MSG = "popover has a content slot, 'content' attribute has no effect.";
+
 /*
  * Tooltips
  */
@@ -316,5 +321,7 @@ export const PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
   Header attribute should be ignored and deleted while header slot is reserved.
 </dropdown>
 `;
+
+export const PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "dropdown has a header slot, 'header' attribute has no effect.";
 
 /* eslint-enable max-len */
