@@ -21,9 +21,9 @@ jobs:
               python scripts/process_message.py "${TEXT_BODY}" > processed_body.txt
               processed_body=$(cat processed_body.txt)
               proposed_version_impact=$(echo "$processed_body" | awk '/Major \\\(when you make incompatible API changes\\\)/,/Patch \\\(when you make backward compatible bug fixes\\\)/')
-              is_major=$(echo "$proposed_version_impact" | grep -q '\[X\] Major'; echo $?)
-              is_minor=$(echo "$proposed_version_impact" | grep -q '\[X\] Minor'; echo $?)
-              is_patch=$(echo "$proposed_version_impact" | grep -q '\[X\] Patch'; echo $?)
+              is_major=$(echo "$proposed_version_impact" | grep -qi '\[X\] Major'; echo $?)
+              is_minor=$(echo "$proposed_version_impact" | grep -qi '\[X\] Minor'; echo $?)
+              is_patch=$(echo "$proposed_version_impact" | grep -qi '\[X\] Patch'; echo $?)
               sum=$(($is_major + $is_minor + $is_patch))
               if [[ "$sum" -eq 3 ]]; then
                 echo "Please remember to tick a SEMVER impact for this PR in the PR body description."
@@ -54,7 +54,7 @@ jobs:
                         issue_number: context.payload.pull_request.number,
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                        labels: [${!CHOSEN_LABEL}]
+                        labels: [${{env.CHOSEN_LABEL}}]
                     })
             env:
                 CHOSEN_LABEL: ${{ steps.check_pr_description_label.outputs.chosen_label }}
