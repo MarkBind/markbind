@@ -41,7 +41,7 @@ Things to avoid when using the feature.
 Description of feature.
 
 <panel header="Feature Examples">
-<p>Examples of how to use the feature.</p>
+Examples of how to use the feature.
 </panel>
 
 <box type="tip" seamless>

@@ -23,9 +23,11 @@ This page can be used to understand the testing processes.
 This project has two types of tests:
 
 <panel header="**1. Unit tests**">
-<p>These tests are targeting the lowest level methods/classes.</p>
+These tests target the lowest level methods/classes.<br>
+
+Example command (replace with your own): `npm run test`
 </panel>
 <br>
 <panel header="**2. Integration tests**">
-<p>These tests are checking the integration of multiple code units (those code units are assumed to be working).</p>
+These tests are checking the integration of multiple code units (those code units are assumed to be working).
 </panel>

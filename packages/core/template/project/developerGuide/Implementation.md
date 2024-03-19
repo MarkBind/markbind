@@ -27,13 +27,13 @@ Given below is an example usage scenario and how FeatureX behaves at each step.
 **Aspect: How FeatureX executes:**
 
 <panel header="**Alternative 1 (current choice):** Implementation 1">
-<p>Pros: Easy to implement.</p>
-<p>Cons: May have performance issues in terms of memory usage.</p>
+Pros: Easy to implement.<br>
+Cons: May have performance issues in terms of memory usage.
 </panel>
 <br>
 <panel header="**Alternative 2:** Implementation 2">
-<p>Pros: Will use less memory.</p>
-<p>Cons: We must add addtional test cases.</p>
+Pros: Will use less memory.<br>
+Cons: We must add addtional test cases.
 </panel>
 <br>
 

@@ -81,7 +81,7 @@ Component 1,
 
 <box type="info" seamless>
 
-**Note:** The lifeline in the sequence diagram should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+**Note:** You can use boxes to include details that you want to draw the reader's attention to. See [`Boxes` feature](https://markbind.org/userGuide/components/presentation.html#boxes).
 </box>
 
 <pic src="../images/johndoe.png" width="200px" style="margin-bottom: 20px;">
