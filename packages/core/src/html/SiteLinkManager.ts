@@ -1,11 +1,8 @@
 import has from 'lodash/has';
 import * as linkProcessor from './linkProcessor';
-import * as urlUtil from '../utils/urlUtil';
 import type { NodeProcessorConfig } from './NodeProcessor';
 import { MbNode } from '../utils/node';
-import { is } from 'bluebird';
-import { DomElement } from 'domhandler';
-import { setHeadingId} from './headerProcessor';
+import { setHeadingId } from './headerProcessor';
 
 const _ = { has };
 
@@ -17,6 +14,13 @@ const tagsToValidate: Set<string> = new Set([
   'link',
   'script',
 ]);
+
+function isHeaderTag(node: MbNode): boolean {
+  if (node.name === undefined) {
+    return false;
+  }
+  return node.name.startsWith('h') && Number(node.name[1]) >= 1 && Number(node.name[1]) <= 6;
+}
 
 export class SiteLinkManager {
   private config: NodeProcessorConfig;
@@ -78,14 +82,7 @@ export class SiteLinkManager {
     return 'Intralink collected to be validated later';
   }
 
-  isHeaderTag(node: MbNode | DomElement): boolean {
-    if (node.name === undefined) {
-      return false;
-    }
-    return node.name.startsWith('h') && Number(node.name[1]) >= 1 && Number(node.name[1]) <= 6;
-  }
-
-  maintainFilePathToHashesMap(node: MbNode | DomElement, cwf: string) {
+  maintainFilePathToHashesMap(node: MbNode, cwf: string) {
     if (!this.config.intrasiteLinkValidation.enabled) {
       return;
     }
@@ -96,30 +93,6 @@ export class SiteLinkManager {
     if (node.attribs!.id) {
       this.filePathToHashesMap.get(path)!.add(node.attribs!.id);
     }
-    /*
-    if(path =='/userGuide/tipsAndTricks.md' && this.isHeaderTag(node)) {
-      console.log(node.name);
-      let header ='';
-      node.children.forEach((child) => {
-        if(header == '' && child.type == 'text') {
-          header = child.data;
-        }
-      });
-      //console.log(node);
-      console.log(header.trim());
-    }
-    if(this.isHeaderTag(node)) {
-      let header ='';
-      node.children.forEach((child) => {
-        if(header != '' && child.type === 'text') {
-          header = child.data;
-        }
-      });
-      if(header != '') {
-        this.filePathToHashesMap.get(path)!.add(header);
-      }
-    }
-    */
   }
 
   printFilePathToHashesMap() {
@@ -133,41 +106,20 @@ export class SiteLinkManager {
     return result;
   }
 
-  maintainInclude(node: MbNode | DomElement, cwf: string) {
-    /*
-    if (cwf ==`/Users/soc/Desktop/markbind/docs/userGuide/syntax/searchBars.md`){
-      console.log(node);
-    }
-    
-    const path = cwf.substring(this.config.rootPath.length);
-      if(path == `/userGuide/siteJsonFile.md`) {
-        console.log(node);
-      }
-      */
+  maintainInclude(node: MbNode, cwf: string) {
     if (!this.config.intrasiteLinkValidation.enabled) {
       return;
     }
-    if (this.isHeaderTag(node) && node.attribs && !node.attribs.id) {
+    if (isHeaderTag(node) && node.attribs && !node.attribs.id) {
       setHeadingId(node as MbNode, this.config, true);
-      node.attribs.id += `(heading)`
-      /*
-      const path = cwf.substring(this.config.rootPath.length);
-      if(path == `/userGuide/components/popups.md`) {
-        console.log(node.attribs.id);
-      }
-      */
-      //console.log(node.attribs.id);
-  }
-  if (node.attribs&&node.attribs.id) {
-    node.attribs.id += `(include)`;
-    this.maintainFilePathToHashesMap(node, cwf);
-  }
-    if(node.children) {
+    }
+    if (node.attribs && node.attribs.id) {
+      this.maintainFilePathToHashesMap(node, cwf);
+    }
+    if (node.children) {
       node.children.forEach((child) => {
-        this.maintainInclude(child,cwf);
+        this.maintainInclude(child as MbNode, cwf);
       });
     }
-    
   }
-  
 }

@@ -175,6 +175,7 @@ export class NodeProcessor {
       this.siteLinkManager.maintainFilePathToHashesMap(node, context.cwf);
       // log warnings for conflicting attributes
       if (_.has(warnConflictingAtributesMap, node.name)) { warnConflictingAtributesMap[node.name](node); }
+
       switch (node.name) {
       case 'frontmatter':
         this._processFrontmatter(node, context);
@@ -184,15 +185,11 @@ export class NodeProcessor {
         console.warn(`<body> tag found in ${node.attribs[ATTRIB_CWF]}. This may cause formatting errors.`);
         break;
       case 'include':
-        //console.log(node.type, node.name, node.attribs);
-        //console.log(node);
         this.markdownProcessor.docId += 1; // used in markdown-it-footnotes
-        const _context = processInclude(node, context, this.pageSources, this.variableProcessor,
+        return processInclude(node, context, this.pageSources, this.variableProcessor,
                               (text: string) => this.markdownProcessor.renderMd(text),
                               (text: string) => this.markdownProcessor.renderMdInline(text),
                               this.config, this.siteLinkManager);
-        this.siteLinkManager.maintainInclude(node, context.cwf);
-        return _context;
       case 'panel':
         this.mdAttributeRenderer.processPanelAttributes(node);
         return processPanelSrc(node, context, this.pageSources, this.config);
@@ -273,7 +270,8 @@ export class NodeProcessor {
       }
     } catch (error) {
       logger.error(error);
-    };
+    }
+
     return context;
   }
 

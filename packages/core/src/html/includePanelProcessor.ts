@@ -174,7 +174,7 @@ function _deleteIncludeAttributes(node: MbNode) {
 export function processInclude(node: MbNode, context: Context, pageSources: PageSources,
                                variableProcessor: VariableProcessor, renderMd: (text: string) => string,
                                renderMdInline: (text: string) => string,
-                               config: Record<string, any>, siteLinkManager:SiteLinkManager): Context {
+                               config: Record<string, any>, siteLinkManager: SiteLinkManager): Context {
   if (_.isEmpty(node.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
     logger.error(error);
@@ -244,12 +244,9 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
   if (isTrim) {
     actualContent = actualContent.trim();
   }
-  //console.log(node.attribs);
   const $includeEl = cheerio(node);
   $includeEl.empty();
   $includeEl.append(actualContent);
-  //console.log($includeEl.html());
-  //console.log(  "after process: ",node,"\n");
   if (node.children && node.children.length > 0) {
     childContext.addCwfToCallstack(context.cwf);
     childContext.processingOptions.omitFrontmatter = shouldOmitFrontmatter;
@@ -261,14 +258,9 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
       return context;
     }
   }
-  /*
-      if(context.cwf == `/Users/soc/Desktop/markbind/docs/userGuide/components/popups.md`) {
-        console.log(node);
-      }
-*/
+
   _deleteIncludeAttributes(node);
-  //console.log(childContext);
-  //console.log("\n");
+  siteLinkManager.maintainInclude(node, context.cwf);
   return childContext;
 }
 
