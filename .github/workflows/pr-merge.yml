@@ -50,12 +50,11 @@ jobs:
             uses: actions/github-script@v7
             with:
                 script: |
-                    const chosen_label = "${CHOSEN_LABEL}"
                     github.rest.issues.addLabels({
                         issue_number: context.payload.pull_request.number,
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                        labels: [chosen_label]
+                        labels: [${!CHOSEN_LABEL}]
                     })
             env:
                 CHOSEN_LABEL: ${{ steps.check_pr_description_label.outputs.chosen_label }}
