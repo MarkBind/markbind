@@ -185,7 +185,6 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
                                renderMdInline: (text: string) => string,
                                config: Record<string, any>, siteLinkManager: SiteLinkManager,
                                getNextFootnodeNumber: () => number = buildGetNextFootnodeNumber()): Context {
-
   if (_.isEmpty(node.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
     logger.error(error);
