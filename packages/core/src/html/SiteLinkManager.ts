@@ -82,7 +82,7 @@ export class SiteLinkManager {
     return 'Intralink collected to be validated later';
   }
 
-  maintainFilePathToHashesMap(node: MbNode, cwf: string) {
+  maintainFilePathToHashesMap(node: MbNode, cwf: string, forceWrite: string = '') {
     if (!this.config.intrasiteLinkValidation.enabled) {
       return;
     }
@@ -90,7 +90,9 @@ export class SiteLinkManager {
     if (!this.filePathToHashesMap.has(path)) {
       this.filePathToHashesMap.set(path, new Set());
     }
-    if (node.attribs!.id) {
+    if (forceWrite !== '') {
+      this.filePathToHashesMap.get(path)!.add(forceWrite);
+    } else if (node.attribs!.id) {
       this.filePathToHashesMap.get(path)!.add(node.attribs!.id);
     }
   }
@@ -111,7 +113,7 @@ export class SiteLinkManager {
       return;
     }
     if (isHeaderTag(node) && node.attribs && !node.attribs.id) {
-      setHeadingId(node as MbNode, this.config, true);
+      this.maintainFilePathToHashesMap(node, cwf,setHeadingId(node as MbNode, this.config, true));
     }
     if (node.attribs && node.attribs.id) {
       this.maintainFilePathToHashesMap(node, cwf);

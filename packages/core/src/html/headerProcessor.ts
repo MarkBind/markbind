@@ -29,8 +29,9 @@ export function setHeadingId(node: MbNode,
     } else {
       headerIdMap[slugifiedHeading] = 2;
     }
+    node.attribs.id = headerId;
   }
-  node.attribs.id = headerId;
+  return headerId;
 }
 
 /**
