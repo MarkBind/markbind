@@ -53,8 +53,6 @@ jobs:
             uses: actions/github-script@v7
             with:
                 script: |
-                    echo $SUM
-                    echo $MESSAGE
                     if (process.env.SUM != 2) {
                       github.rest.issues.createComment({
                         issue_number: context.payload.pull_request.number,
