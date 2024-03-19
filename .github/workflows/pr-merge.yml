@@ -26,8 +26,10 @@ jobs:
               is_patch=$(echo "$proposed_version_impact" | grep -qi '\[X\] Patch'; echo $?)
               echo "sum=$(($is_major + $is_minor + $is_patch))" >> $GITHUB_OUTPUT
               if [[ "$sum" -eq 3 ]]; then
+                echo "3"
                 echo "message=$(echo "@${MERGE_AUTHOR} Each PR must have a SEMVER impact label, please label the PR properly.")" >> $GITHUB_OUTPUT
               elif [[ "$sum" -le 1 ]]; then
+                echo "1"
                 echo "message=$(echo "@${MERGE_AUTHOR} Each PR can only have one SEMVER impact label, please label the PR properly.")" >> $GITHUB_OUTPUT
               else
                 echo "message=$(echo "SEMVER impact selected.")" >> $GITHUB_OUTPUT
