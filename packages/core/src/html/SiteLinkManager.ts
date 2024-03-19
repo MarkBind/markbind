@@ -113,7 +113,7 @@ export class SiteLinkManager {
       return;
     }
     if (isHeaderTag(node) && node.attribs && !node.attribs.id) {
-      this.maintainFilePathToHashesMap(node, cwf,setHeadingId(node as MbNode, this.config, true));
+      this.maintainFilePathToHashesMap(node, cwf, setHeadingId(node as MbNode, this.config, true));
     }
     if (node.attribs && node.attribs.id) {
       this.maintainFilePathToHashesMap(node, cwf);

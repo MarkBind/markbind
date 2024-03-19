@@ -206,7 +206,8 @@ export function validateIntraLink(resourcePath: string,
       logger.warn(err);
       return 'Intralink with no extension is neither a Page Source nor File Asset';
     }
-    if (hash !== undefined && !filePathToHashesMap.get(`${resourcePath}/index.md`)!.has(hash)) {
+    if (hash !== undefined
+      && (!filePathToHashesMap.get(asFileAsset) || !filePathToHashesMap.get(asFileAsset)!.has(hash))) {
       logger.warn(hashErr);
       return 'Intralink with no extension is a valid Page Source or File Asset but hash is not found';
     }
@@ -221,7 +222,7 @@ export function validateIntraLink(resourcePath: string,
     }
     if (hash !== undefined) {
       const filePath = `${resourcePath.slice(0, -5)}.md`;
-      if (!filePathToHashesMap.get(filePath)!.has(hash)) {
+      if (!filePathToHashesMap.get(filePath) || !filePathToHashesMap.get(filePath)!.has(hash)) {
         logger.warn(hashErr);
         return 'Intralink with ".html" extension is a valid Page Source or File Asset but hash is not found';
       }
