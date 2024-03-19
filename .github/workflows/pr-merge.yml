@@ -28,10 +28,10 @@ jobs:
               echo "sum=$sum" >> $GITHUB_OUTPUT
               if [[ "$sum" -eq 3 ]]; then
                 echo "3 here"
-                echo "message=$(echo "@${MERGE_AUTHOR} Each PR must have a SEMVER impact label, please label the PR properly.")" >> $GITHUB_OUTPUT
+                echo "message=$(echo "@${MERGE_AUTHOR} Each PR must have a SEMVER impact label, remember to label the PR properly.")" >> $GITHUB_OUTPUT
               elif [[ "$sum" -le 1 ]]; then
                 echo "1 here"
-                echo "message=$(echo "@${MERGE_AUTHOR} Each PR can only have one SEMVER impact label, please label the PR properly.")" >> $GITHUB_OUTPUT
+                echo "message=$(echo "@${MERGE_AUTHOR} Each PR can only have one SEMVER impact label, remember to label the PR properly.")" >> $GITHUB_OUTPUT
               else
                 echo "message=$(echo "SEMVER impact selected.")" >> $GITHUB_OUTPUT
                 echo "chosen_label=$(
