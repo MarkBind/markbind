@@ -24,14 +24,13 @@ jobs:
               is_major=$(echo "$proposed_version_impact" | grep -qi '\[X\] Major'; echo $?)
               is_minor=$(echo "$proposed_version_impact" | grep -qi '\[X\] Minor'; echo $?)
               is_patch=$(echo "$proposed_version_impact" | grep -qi '\[X\] Patch'; echo $?)
-              sum=$(($is_major + $is_minor + $is_patch))
+              echo "sum=$(($is_major + $is_minor + $is_patch))" >> $GITHUB_OUTPUT
               if [[ "$sum" -eq 3 ]]; then
-                echo "Please remember to tick a SEMVER impact for this PR in the PR body description."
-                exit 1
+                echo "message=$(echo "@${MERGE_AUTHOR} Each PR must have a SEMVER impact label, please label the PR properly.")" >> $GITHUB_OUTPUT
               elif [[ "$sum" -le 1 ]]; then
-                echo "Please select only one SEMVER impact for this PR in the PR body description."
-                exit 1
+                echo "message=$(echo "@${MERGE_AUTHOR} Each PR can only have one SEMVER impact label, please label the PR properly.")" >> $GITHUB_OUTPUT
               else
+                echo "message=$(echo "SEMVER impact selected.")" >> $GITHUB_OUTPUT
                 echo "chosen_label=$(
                     if [ "$is_major" -eq 0 ]; then
                         echo "r.Major"
@@ -45,18 +44,30 @@ jobs:
 
             env:
               TEXT_BODY: ${{ github.event.pull_request.body }}
+              MERGE_AUTHOR: ${{ github.event.pull_request.merged_by.login }}
                 
           - name: Assign label based on version impact
             uses: actions/github-script@v7
             with:
                 script: |
-                    github.rest.issues.addLabels({
+                    if (process.env.SUM != 2) {
+                      github.rest.issues.createComment({
                         issue_number: context.payload.pull_request.number,
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                        labels: [process.env.CHOSEN_LABEL]
-                    })
+                        body: process.env.MESSAGE,
+                      });
+                    } else {
+                        github.rest.issues.addLabels({
+                            issue_number: context.payload.pull_request.number,
+                            owner: context.repo.owner,
+                            repo: context.repo.repo,
+                            labels: [process.env.CHOSEN_LABEL]
+                        });
+                    }
             env:
+                SUM: ${{ steps.check_pr_description_label.outputs.sum }}
+                MESSAGE: ${{ steps.check_pr_description_label.outputs.message }}
                 CHOSEN_LABEL: ${{ steps.check_pr_description_label.outputs.chosen_label }}
 
 
