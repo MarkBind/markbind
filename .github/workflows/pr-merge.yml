@@ -54,7 +54,7 @@ jobs:
                         issue_number: context.payload.pull_request.number,
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                        labels: [${{env.CHOSEN_LABEL}}]
+                        labels: [process.env.CHOSEN_LABEL]
                     })
             env:
                 CHOSEN_LABEL: ${{ steps.check_pr_description_label.outputs.chosen_label }}
