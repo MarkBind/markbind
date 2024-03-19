@@ -12,7 +12,9 @@ const _ = {
 /*
  * h1 - h6
  */
-export function setHeadingId(node: MbNode, config: NodeProcessorConfig, fromInclude: boolean = false) {
+export function setHeadingId(node: MbNode,
+                             config: NodeProcessorConfig,
+                             callFromSiteLinkManager: boolean = false) {
   const textContent = cheerio(node).text();
   // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
   const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
@@ -20,13 +22,14 @@ export function setHeadingId(node: MbNode, config: NodeProcessorConfig, fromIncl
 
   let headerId = slugifiedHeading;
   const { headerIdMap } = config;
-  if (headerIdMap[slugifiedHeading] && !fromInclude) {
-    headerId = `${slugifiedHeading}-${headerIdMap[slugifiedHeading]}`;
-    headerIdMap[slugifiedHeading] += 1;
-  } else {
-    headerIdMap[slugifiedHeading] = 2;
+  if (!callFromSiteLinkManager) {
+    if (headerIdMap[slugifiedHeading]) {
+      headerId = `${slugifiedHeading}-${headerIdMap[slugifiedHeading]}`;
+      headerIdMap[slugifiedHeading] += 1;
+    } else {
+      headerIdMap[slugifiedHeading] = 2;
+    }
   }
-
   node.attribs.id = headerId;
 }
 
