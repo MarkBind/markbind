@@ -107,7 +107,6 @@ IconAttributes | null => {
     className: node.attribs['i-class'] !== undefined ? node.attribs['i-class'] : iconAttrsSoFar?.className,
     spacing: node.attribs['i-spacing'] !== undefined ? node.attribs['i-spacing'] : iconAttrsSoFar?.spacing,
     oneOff: (node.attribs['i-one-off'] === true || node.attribs['i-one-off'] === 'true')
-      ? true : undefined,
   };
 };
 
@@ -149,18 +148,18 @@ function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail) {
       iconAttrValue.addIcons = true;
     }
     // Save if the icon is not one-off
-    if (nodeIconAttrs?.oneOff === undefined) {
+    if (!nodeIconAttrs?.oneOff) {
       iconAttrValue.iconAttrs = nodeIconAttrs;
     }
     iconAttrValue.isFirst = false;
   } else if (iconAttrValue.iconAttrs) {
     const nodeIconAttrs = getIconAttributes(node, iconAttrValue.iconAttrs);
-    // Save if the icon is not one-off
-    if (nodeIconAttrs?.oneOff === undefined) {
+    // Save if there is icon and not one-off
+    if (nodeIconAttrs?.icon !== undefined && !nodeIconAttrs?.oneOff) {
       iconAttrValue.iconAttrs = nodeIconAttrs;
     }
   }
-  if (iconAttrValue.addIcons === false) {
+  if (!iconAttrValue.addIcons) {
     return;
   }
   // for items after first item, if first item is one off, no previous icon
@@ -169,7 +168,7 @@ function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail) {
     // There is no previous icon
     const nodeIconAttrs = getIconAttributes(node);
     // Save if current has icon and it is not one-off
-    if (nodeIconAttrs?.icon !== undefined && nodeIconAttrs?.oneOff === undefined) {
+    if (nodeIconAttrs?.icon !== undefined && !nodeIconAttrs?.oneOff) {
       iconAttrValue.iconAttrs = nodeIconAttrs;
     }
   }

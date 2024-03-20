@@ -55,7 +55,6 @@ If you customize any item on a certain level, you must also customize the first 
   </variable>
 </include>
 
-Setting `i-one-off=true` is preferred but `i-one-off="true"` works as well.
 Subsequent items at the same level will not inherit the one-off icon and will instead inherit the icon before the one-off icon.
 
 **You can adjust the icon's size by using the `i-size` attribute.**
