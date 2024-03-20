@@ -149,7 +149,6 @@ function addOverlayPortalSource(node: MbNode, to: string) {
  * This component portals said element into the mobile navbar menus as needed.
  */
 export function addSitePageNavPortal(node: MbNode) {
-  // is this?
   if (node.attribs.id === SITE_NAV_ID || node.attribs.id === 'page-nav') {
     addOverlayPortalSource(node, node.attribs.id);
   } else if (node.attribs['mb-site-nav']) {
