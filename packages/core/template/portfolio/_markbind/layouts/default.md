@@ -8,18 +8,9 @@
     <li><a href="{{baseUrl}}/index.html#skills" class="nav-link">Skills</a></li>
     <li><a href="{{baseUrl}}/index.html#experience" class="nav-link">Experience</a></li>
     <dropdown header="Projects" class="nav-link">
-      <li><a href="{{baseUrl}}/index.html#project-1" class="dropdown-item">Project1</a></li>
-      <li><a href="{{baseUrl}}/index.html#project-2" class="dropdown-item">Project2</a></li>
+      <li><a href="{{baseUrl}}/index.html#project-1" class="dropdown-item">Project 1</a></li>
+      <li><a href="{{baseUrl}}/index.html#project-2" class="dropdown-item">Project 2</a></li>
     </dropdown>
-    <li><a href="https://github.com/MarkBind/markbind" target="_blank" class="nav-link">
-      <i class="fa-brands fa-github fa-lg"></i>
-    </a>
-    </li>
-    <li>
-    <a href="https://www.linkedin.com/school/national-university-of-singapore/" target="_blank" class="nav-link">
-      <i class="fa-brands fa-linkedin fa-lg"></i>
-    </a>
-    </li>
     <li slot="right">
       <form class="navbar-form">
         <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right></searchbar>
