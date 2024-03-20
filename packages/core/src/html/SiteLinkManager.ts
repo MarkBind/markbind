@@ -15,13 +15,6 @@ const tagsToValidate: Set<string> = new Set([
   'script',
 ]);
 
-function isHeaderTag(node: MbNode): boolean {
-  if (node.name === undefined) {
-    return false;
-  }
-  return node.name.startsWith('h') && Number(node.name[1]) >= 1 && Number(node.name[1]) <= 6;
-}
-
 export class SiteLinkManager {
   private config: NodeProcessorConfig;
   private intralinkCollection: Map<string, Set<string>>;
@@ -112,7 +105,8 @@ export class SiteLinkManager {
     if (!this.config.intrasiteLinkValidation.enabled) {
       return;
     }
-    if (isHeaderTag(node) && node.attribs && !node.attribs.id) {
+    const isHeadingTag = (/^h[1-6]$/).test(node.name);
+    if (isHeadingTag && node.attribs && !node.attribs.id) {
       this.maintainFilePathToHashesMap(node, cwf, setHeadingId(node as MbNode, this.config, true));
     }
     if (node.attribs && node.attribs.id) {
