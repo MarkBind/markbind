@@ -12,6 +12,7 @@ const testConvertSites = [
 const testTemplateSites = [
   'minimal,test_site_templates/test_minimal',
   'default,test_site_templates/test_default',
+  'portfolio,test_site_templates/test_portfolio',
 ];
 
 // These files will be generated within test_site/expected/
