@@ -105,7 +105,7 @@ IconAttributes | null => {
     size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttrsSoFar?.size,
     className: node.attribs['i-class'] !== undefined ? node.attribs['i-class'] : iconAttrsSoFar?.className,
     oneOff: (node.attribs['i-one-off'] === true || node.attribs['i-one-off'] === 'true')
-      ? true : iconAttrsSoFar?.oneOff,
+      ? true : undefined,
   };
 };
 
@@ -209,7 +209,7 @@ export function processUlNode(node: NodeOrText) {
         }
       });
     });
-    if (iconAttrs[level].addIcons === true) {
+    if (iconAttrs[level].addIcons) {
       updateNodeStyle(ulNode);
     }
   }

@@ -48,14 +48,14 @@ If you customize any item on a certain level, you must also customize the first 
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 * Item 1 { icon="glyphicon-education" }
-* Item 2 { icon="fas-code-branch" i-one-off="true" }
+* Item 2 { icon="fas-code-branch" i-one-off=true }
   * Item 2.1
   * Item 2.2
 * Item 3
   </variable>
 </include>
 
-You can set `i-one-off="true"` or `i-one-off=true` to specify an icon for the specific item only.
+Setting `i-one-off=true` is preferred but `i-one-off="true"` works as well.
 Subsequent items at the same level will not inherit the one-off icon and will instead inherit the icon before the one-off icon.
 
 **You can adjust the icon's size by using the `i-size` attribute.**
