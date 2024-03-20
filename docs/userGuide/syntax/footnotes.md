@@ -46,5 +46,6 @@ belong to the previous footnote.
 ```
 </div>
 <div id="examples" class="d-none">
+
 1 + 1 = 2 ^[Math]
 </div>

@@ -67,12 +67,12 @@
 * Item A { icon="glyphicon-education" i-size="20px" i-class="text-primary" }
 * Item B { icon="./images/deer.jpg" i-width="200px" i-height="100px" i-class="text-warning" }
   * Sub-item B1 { icon="fas-file-code" i-size="30px" }
-  * Sub-item B2 { i-class="text-success" }
+  * Sub-item B2 { i-class="text-success" i-spacing="2rem" }
   * Sub-item B3
     * Sub-sub-item B3.1 { icon="./images/deer.jpg" i-width="50px" i-height="50px" }
     * Sub-sub-item B3.2 
       * Sub-sub-sub-item B3.2.1 { i-class="text-danger" }
-  * Sub-item B4
+  * Sub-item B4 { i-spacing="1rem" }
 
 1. Mixing basic and customized lists
 * Item A
@@ -181,9 +181,9 @@
   * Sub-item B4 
 * Item C { icon="./images/deer.jpg" i-width="50px" }
 
-1. One-off + customization + none with boolean one-off
-* Item A { icon="glyphicon-education" i-one-off=true }
-* Item B { icon="fas-file-code" }
+1. String one-off
+* Item A { icon="glyphicon-education" i-one-off="true" }
+* Item B 
   * Sub-item B1
   * Sub-item B2
   * Sub-item B3 
@@ -192,10 +192,21 @@
   * Sub-item B4 
 * Item C
 
-1. False one-off
-1. One-off + customization + none with boolean one-off
+1. False one-off will inherit
 * Item A { icon="glyphicon-education" i-one-off=false }
 * Item B 
+  * Sub-item B1
+  * Sub-item B2
+  * Sub-item B3 
+    * Sub-sub-item B3.1 { icon="./images/deer.jpg" i-width="50px" }
+    * Sub-sub-item B3.2
+  * Sub-item B4 
+* Item C
+
+
+1. False one-off will overwrite
+* Item A { icon="fas-file-code" }
+* Item B { icon="glyphicon-education" i-one-off=false }
   * Sub-item B1
   * Sub-item B2
   * Sub-item B3 

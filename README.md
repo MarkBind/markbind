@@ -132,6 +132,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/LamJiuFong"><img src="https://avatars.githubusercontent.com/u/122192553?v=4?s=100" width="100px;" alt="Lam Jiu Fong"/><br /><sub><b>Lam Jiu Fong</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=LamJiuFong" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/yiwen101"><img src="https://avatars.githubusercontent.com/u/121547057?v=4?s=100" width="100px;" alt="Wang Yiwen"/><br /><sub><b>Wang Yiwen</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=yiwen101" title="Documentation">📖</a> <a href="https://github.com/MarkBind/markbind/commits?author=yiwen101" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Ashleeey1224"><img src="https://avatars.githubusercontent.com/u/105656080?v=4?s=100" width="100px;" alt="Ashleeey1224"/><br /><sub><b>Ashleeey1224</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=Ashleeey1224" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
