@@ -26,6 +26,10 @@
   Want to change the theme? Explore more themes and other components offered by MarkBind in our <a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">user guide here</a>
 </box>
 
+<box type="tip" header="Guide to deploying this site">
+    <md>MarkBind makes it easy to deploy this site to Github Pages using the `markbind deploy` command. To allow `http://[username].github.io` to go straight to this portfolio, it is best to set your repository name as `[username.github.io]` Read more about [deploying the site here](https://markbind.org/userGuide/deployingTheSite.html#deploying-to-github-pages)</md>
+</box>
+
 ---
 
 ## About me
