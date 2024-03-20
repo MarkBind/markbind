@@ -106,7 +106,7 @@ IconAttributes | null => {
     size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttrsSoFar?.size,
     className: node.attribs['i-class'] !== undefined ? node.attribs['i-class'] : iconAttrsSoFar?.className,
     spacing: node.attribs['i-spacing'] !== undefined ? node.attribs['i-spacing'] : iconAttrsSoFar?.spacing,
-    oneOff: (node.attribs['i-one-off'] === true || node.attribs['i-one-off'] === 'true')
+    oneOff: (node.attribs['i-one-off'] === true || node.attribs['i-one-off'] === 'true'),
   };
 };
 
