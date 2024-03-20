@@ -255,7 +255,7 @@ Now, let's try editing the `index.md` file to add some content of our own!
 1. Modify or add some content utilizing one or more of the following components:
     - <a tags="environment--combined" href="/userGuide/components/presentation.html#boxes">Box</a><a tags="environment--dg" href="https://markbind.org/userGuide/components/presentation.html#boxes">Box</a>
     - <a tags="environment--combined" href="/userGuide/components/presentation.html#panels">Panel</a><a tags="environment--dg" href="https://markbind.org/userGuide/components/presentation.html#panels">Panel</a>
-    - <a tags="environment--combined" href="/userGuide/components/presentation.html#relevant-tips-and-amp-tricks">Tooltip</a><a tags="environment--dg" href="https://markbind.org/userGuide/components/presentation.html#relevant-tips-and-amp-tricks">Tooltip</a>
+    - <a tags="environment--combined" href="/userGuide/components/popups.html#tooltips">Tooltip</a><a tags="environment--dg" href="https://markbind.org/userGuide/components/popups.html#tooltips">Tooltip</a>
     - etc.
 
 <box type="important" light>
