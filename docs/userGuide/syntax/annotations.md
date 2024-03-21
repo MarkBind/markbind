@@ -14,7 +14,7 @@ The x and y coordinates of each Annotate Point are relative to the image and are
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 
-<annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image">
+<annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image" lazy>
   <!-- Minimal Point -->
   <a-point x="25%" y="25%" content="This point is 25% from the left and 25% from the top" />
   <!-- Customize Point Size (default size is 40px) -->
@@ -191,11 +191,12 @@ Here we showcase some use cases of the Annotate feature.
 This is effectively the same as the options used for the [picture](#pictures) component.
 
 | Name   | Type      | Default | Description                                                                                                                                                                                                           |
-| ------ | --------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|--------| --------- | ------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | alt    | `string`  |         | **This must be specified.**<br>The alternative text of the image.                                                                                                                                                     |
 | src    | `string`  |         | **This must be specified.**<br>The URL of the image.<br>The URL can be specified as absolute or relative references. More info in: _[Intra-Site Links]({{baseUrl}}/userGuide/formattingContents.html#intraSiteLinks)_ |
 | height | `string`  |`''`| The height of the image in pixels.                                                                                                                                                                                    |
 | width  | `string`  |`''`| The width of the image in pixels.<br>If both width and height are specified, width takes priority over height. It is to maintain the image's aspect ratio.                                                            |
+| lazy   | `boolean` | false | The `<annotate>` component lazy loads if this attribute is specified.<br>**Either the height or width should be specified to avoid layout shifts while lazy loading images.**                                         |
 
 </div>
 
