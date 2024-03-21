@@ -112,7 +112,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
       * There should be 4 packages listed under the organization, `markbind-cli`, `@markbind/core`, `@markbind/core-web` and `@markbind/vue_components`. 
       * Notably, the first three are packages that we publish every release while the last one has since become a private package consumed internally.
 
-1. **Login to your npm account in your terminal** by running `npm login`
+1. **Login to your npm account in your terminal** by running `npm login`.
 
 1. **Make sure to start with a "clean slate"** by running `npx lerna clean` and then `npm run setup` in the root MarkBind directory.
 
