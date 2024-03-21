@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
     check-pr-label:
-        if: ${{ github.event.pull_request.merged == true }}
+        if: ${{ github.event.pull_request.merged }}
         runs-on: ubuntu-latest
         
         steps:
@@ -21,25 +21,23 @@ jobs:
               python scripts/process_message.py "${TEXT_BODY}" > processed_body.txt
               processed_body=$(cat processed_body.txt)
               proposed_version_impact=$(echo "$processed_body" | awk '/Major \\\(when you make incompatible API changes\\\)/,/Patch \\\(when you make backward compatible bug fixes\\\)/')
-              is_major=$(echo "$proposed_version_impact" | grep -qi '\[X\] Major'; echo $?)
-              is_minor=$(echo "$proposed_version_impact" | grep -qi '\[X\] Minor'; echo $?)
-              is_patch=$(echo "$proposed_version_impact" | grep -qi '\[X\] Patch'; echo $?)
+              is_major=$(echo "$proposed_version_impact" | grep -qi '\[X\] Major'; echo $((1-$?)))
+              is_minor=$(echo "$proposed_version_impact" | grep -qi '\[X\] Minor'; echo $((1-$?)))
+              is_patch=$(echo "$proposed_version_impact" | grep -qi '\[X\] Patch'; echo $((1-$?)))
               sum=$(($is_major + $is_minor + $is_patch))
               echo "sum=$sum" >> $GITHUB_OUTPUT
-              if [[ "$sum" -eq 3 ]]; then
-                echo "3 here"
+              if [[ "$sum" -eq 0 ]]; then
                 echo "message=$(echo "@${MERGE_AUTHOR} Each PR must have a SEMVER impact label, remember to label the PR properly.")" >> $GITHUB_OUTPUT
-              elif [[ "$sum" -le 1 ]]; then
-                echo "1 here"
+              elif [[ "$sum" -ge 2 ]]; then
                 echo "message=$(echo "@${MERGE_AUTHOR} Each PR can only have one SEMVER impact label, remember to label the PR properly.")" >> $GITHUB_OUTPUT
               else
                 echo "message=$(echo "SEMVER impact selected.")" >> $GITHUB_OUTPUT
                 echo "chosen_label=$(
-                    if [ "$is_major" -eq 0 ]; then
+                    if [ "$is_major" -eq 1 ]; then
                         echo "r.Major"
-                    elif [ "$is_minor" -eq 0 ]; then
+                    elif [ "$is_minor" -eq 1 ]; then
                         echo "r.Minor"
-                    elif [ "$is_patch" -eq 0 ]; then
+                    elif [ "$is_patch" -eq 1 ]; then
                         echo "r.Patch"
                     fi
                  )" >> $GITHUB_OUTPUT
@@ -53,7 +51,7 @@ jobs:
             uses: actions/github-script@v7
             with:
                 script: |
-                    if (process.env.SUM != 2) {
+                    if (process.env.SUM != 1) {
                       github.rest.issues.createComment({
                         issue_number: context.payload.pull_request.number,
                         owner: context.repo.owner,
