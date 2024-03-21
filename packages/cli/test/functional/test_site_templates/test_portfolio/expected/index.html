@@ -63,23 +63,20 @@
         </div>
         <box type="tip">
           Want to change the theme? Explore more themes and other components offered by MarkBind in our <a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">user guide here</a></box>
-        <box type="tip"><template #header>
-            <p>Guide to deploying this site</p>
+        <box type="info"><template #header>
+            <h5 id="deploying-this-site">Deploying this site<a class="fa fa-anchor" href="#deploying-this-site" onclick="event.stopPropagation()"></a></h5>
           </template>
-          <span>MarkBind makes it easy to deploy this site to Github Pages using the <code class="hljs inline no-lang" v-pre>markbind deploy</code> command. To allow <code class="hljs inline no-lang" v-pre>http://[username].github.io</code> to go straight to this portfolio, it is best to set your repository name as <code class="hljs inline no-lang" v-pre>[username.github.io]</code> Read more about <a href="https://markbind.org/userGuide/deployingTheSite.html#deploying-to-github-pages">deploying the site here</a></span>
+          <span>MarkBind makes it easy to deploy this site to Github Pages using the <code class="hljs inline no-lang" v-pre>markbind deploy</code> command. To allow <code class="hljs inline no-lang" v-pre>http://[username].github.io</code> to go straight to this portfolio, it is best to set your repository name as <code class="hljs inline no-lang" v-pre>[username].github.io</code> Read more about <a href="https://markbind.org/userGuide/deployingTheSite.html#deploying-to-github-pages">deploying the site here</a></span>
         </box>
         <hr>
         <h2 id="about-me">About me<a class="fa fa-anchor" href="#about-me" onclick="event.stopPropagation()"></a></h2>
-        <div class="card mb-3">
+        <div class="container text-left">
           <div class="row">
-            <div class="col-3">
-              <img src="/contents/assets/default_profile_pic.png" alt="default-profile-pic">
+            <div class="col-md-3 col-md-push-9">
+              <img src="/contents/assets/default_profile_pic.png" class="img-fluid" alt="default-profile-pic">
             </div>
-            <div class="col-9">
-              <div class="card-body">
-                <p class="card-text">This is where you can add a picture of yourself and a brief introduction. This can be a good place to use <tooltip placement="top"><template #content>Add more information here</template>tooltips</tooltip>, or <span><a href="https://markbind.org/userGuide/formattingContents.html#links">add relevant links</a></span>.</p>
-              </div>
-            </div>
+            <div class="col-md-9 col-md-pull-3">
+              This is where you can add a picture of yourself and a brief introduction. This can be a good place to use <tooltip placement="top"><template #content>Add more information here</template>tooltips</tooltip>, or <span><a href="https://markbind.org/userGuide/formattingContents.html#links">add relevant links</a></span></div>
           </div>
         </div>
         <hr>
@@ -146,10 +143,10 @@
             <div class="card mb-3">
               <h3 class="card-header" id="example-project-ip-for-cs2103">Example project: iP for CS2103<a class="fa fa-anchor" href="#example-project-ip-for-cs2103" onclick="event.stopPropagation()"></a></h3>
               <div class="card-body">
-                <span>This would be a good place to add images and embeds showcasing your contributions to a project. In this case, an <code class="hljs inline no-lang" v-pre>&lt;iframe&gt;</code> containing the <a href="https://reposense.org/index.html">RepoSense</a> report of a student's contributions to their iP is embedded. For more information on embeds, refer to our user guide <a href="/contents/(https:/markbind.org/userGuide/formattingContents.html#embeds)">here!</a></span>
+                <span>This would be a good place to add images and embeds showcasing your contributions to a project. In this case, an <code class="hljs inline no-lang" v-pre>&lt;iframe&gt;</code> containing the <a href="https://reposense.org/index.html">RepoSense</a> report of a student's contributions to their iP is embedded. For more information on embeds, refer to our user guide <a href="/contents/(https:/markbind.org/userGuide/formattingContents.html#embeds)">here.</a></span>
               </div>
-              <div class="ratio ratio-16x9">
-                <iframe src="https://nus-cs2103-ay2021s1.github.io/ip-dashboard/?search=keanecjy&sort=totalCommits%20dsc&sortWithin=title&since=2020-08-14&until=2020-09-27&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=keanecjy&tabRepo=keanecjy%2Fip%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=java~md~fxml~bat~gradle~txt"></iframe>
+              <div class="ratio-16x9">
+                <iframe src="https://nus-cs3281.github.io/2024-dashboard/#/widget/?search=Reposense&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByAuthors&breakdown=false&since=2023-12-01&tabOpen=true&tabType=authorship&tabAuthor=asdfghjkxd&tabRepo=reposense%2Freposense%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=java~md&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false&chartGroupIndex=5&chartIndex=0" frameBorder="0" width="800px" height="140px"></iframe>
               </div>
               <div class="card-body">
                 <p class="card-text">Some further elaboration of the project can be added here</p>
