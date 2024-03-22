@@ -1,14 +1,34 @@
-const { v4: uuidv4 } = require('uuid');
-
-const { PageSources } = require('../Page/PageSources');
-const { NodeProcessor } = require('../html/NodeProcessor');
-
-const logger = require('../utils/logger');
+import { v4 as uuidv4 } from 'uuid';
+import { PageSources } from '../Page/PageSources';
+import { NodeProcessor } from '../html/NodeProcessor';
+import * as logger from '../utils/logger';
+import { ExternalManager, ExternalManagerConfig } from '../External/ExternalManager';
 
 const LAYOUT_PAGE_BODY_VARIABLE = 'content';
 
-class Layout {
-  constructor(sourceFilePath, config) {
+export type LayoutConfig = ExternalManagerConfig & { externalManager: ExternalManager };
+
+export type PageNjkAssets = {
+  headTop: string[];
+  headBottom: string[];
+  scriptBottom: string[];
+  layoutUserScriptsAndStyles: string[];
+};
+
+export class Layout {
+  sourceFilePath: string;
+  config: LayoutConfig;
+  includedFiles: Set<string>;
+  layoutProcessed: string;
+  layoutPageBodyVariable: string;
+  layoutPageNavUuid: string;
+  headTop: string[];
+  headBottom: string[];
+  scriptBottom: string[];
+  layoutUserScriptsAndStyles: string[];
+  generatePromise: Promise<void> | undefined;
+
+  constructor(sourceFilePath: string, config: LayoutConfig) {
     this.sourceFilePath = sourceFilePath;
     this.config = config;
 
@@ -24,15 +44,15 @@ class Layout {
     this.generatePromise = undefined;
   }
 
-  shouldRegenerate(filePaths) {
+  shouldRegenerate(filePaths: string[]): boolean {
     return filePaths.some(filePath => this.includedFiles.has(filePath));
   }
 
-  async generate() {
+  async generate(): Promise<void> {
     let triesLeft = 10;
     let numBodyVars;
-    let pageSources;
-    let nodeProcessor;
+    let pageSources: PageSources;
+    let nodeProcessor: NodeProcessor;
 
     do {
       const fileConfig = {
@@ -51,8 +71,8 @@ class Layout {
                                         pluginManager, siteLinkManager, this.layoutUserScriptsAndStyles,
                                         'layout');
       // eslint-disable-next-line no-await-in-loop
-      this.layoutProcessed = await nodeProcessor.process(this.sourceFilePath, nunjucksProcessed,
-                                                         this.sourceFilePath, layoutVariables);
+      this.layoutProcessed = await nodeProcessor.process(this.sourceFilePath, nunjucksProcessed.toString(),
+                                                         this.sourceFilePath, layoutVariables) as string;
       this.layoutPageNavUuid = nodeProcessor.pageNavProcessor.getUuid();
 
       this.layoutProcessed = pluginManager.postRender(nodeProcessor.frontmatter, this.layoutProcessed);
@@ -75,20 +95,21 @@ class Layout {
     this.scriptBottom = nodeProcessor.scriptBottom;
 
     pageSources.addAllToSet(this.includedFiles);
-    await this.config.externalManager.generateDependencies(pageSources.getDynamicIncludeSrc(),
-                                                           this.includedFiles);
+    await this.config.externalManager.generateDependencies(
+      pageSources.getDynamicIncludeSrc(),
+      this.includedFiles,
+      this.layoutUserScriptsAndStyles);
   }
 
-  insertPage(pageContent, pageNav, pageIncludedFiles) {
+  insertPage(pageContent: string, pageNav: string, pageIncludedFiles: Set<string>): string {
     this.includedFiles.forEach(filePath => pageIncludedFiles.add(filePath));
-
     // Use function for .replace, in case string contains special patterns (e.g. $$, $&, $1, ...)
     return this.layoutProcessed
       .replace(this.layoutPageBodyVariable, () => pageContent)
       .replace(this.layoutPageNavUuid, () => pageNav);
   }
 
-  getPageNjkAssets() {
+  getPageNjkAssets(): PageNjkAssets {
     return {
       headTop: this.headTop,
       headBottom: this.headBottom,
@@ -97,7 +118,3 @@ class Layout {
     };
   }
 }
-
-module.exports = {
-  Layout,
-};
