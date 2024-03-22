@@ -42,7 +42,12 @@
 <script src="/plugins/dataTable/datatables.min.js"></script>
 
 <script>
-        $(document).ready(function() {
+        Vue.directive('datatable', {
+          inserted: function(el) {
+            $(el).DataTable();
+          }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
           $('table.sortable-table').DataTable({
             searching: false,
             paging: false,

@@ -29,7 +29,7 @@
     <div id="flex-body">
       <div id="content-wrapper">
         <div class="table-responsive">
-          <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-0">
+          <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-0" v-datatable>
             <thead>
               <tr>
                 <th>Name</th>
@@ -84,7 +84,12 @@
 <script src="/plugins/dataTable/datatables.min.js"></script>
 
 <script>
-        $(document).ready(function() {
+        Vue.directive('datatable', {
+          inserted: function(el) {
+            $(el).DataTable();
+          }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
           $('table.sortable-table').DataTable({
             searching: false,
             paging: false,

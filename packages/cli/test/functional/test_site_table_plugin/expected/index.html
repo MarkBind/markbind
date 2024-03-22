@@ -129,7 +129,7 @@
         <hr>
         <p>Test searchable</p>
         <div class="table-responsive">
-          <table class="markbind-table table table-bordered table-striped sortable-table" id="datatable-0">
+          <table class="markbind-table table table-bordered table-striped sortable-table" id="datatable-0" v-datatable>
             <thead>
               <tr>
                 <th>Name</th>
@@ -178,7 +178,7 @@
         <hr>
         <p>Test sortable</p>
         <div class="table-responsive">
-          <table class="markbind-table table table-bordered table-striped sortable-table" id="datatable-1">
+          <table class="markbind-table table table-bordered table-striped sortable-table" id="datatable-1" v-datatable>
             <thead>
               <tr>
                 <th>Name</th>
@@ -227,7 +227,7 @@
         <hr>
         <p>Test sortable with searchable</p>
         <div class="table-responsive">
-          <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-2">
+          <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-2" v-datatable>
             <thead>
               <tr>
                 <th>Name</th>
@@ -278,7 +278,7 @@
         <p><span>
             <div>
               <div class="table-responsive">
-                <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-3">
+                <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-3" v-datatable>
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -330,7 +330,7 @@
           <p><span>
               <div>
                 <div class="table-responsive">
-                  <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-4">
+                  <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-4" v-datatable>
                     <thead>
                       <tr>
                         <th>Name</th>
@@ -381,7 +381,7 @@
           <p><span>
               <div>
                 <div class="table-responsive">
-                  <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-5">
+                  <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-5" v-datatable>
                     <thead>
                       <tr>
                         <th>Name</th>
@@ -456,7 +456,12 @@
 <script src="/plugins/dataTable/datatables.min.js"></script>
 
 <script>
-        $(document).ready(function() {
+        Vue.directive('datatable', {
+          inserted: function(el) {
+            $(el).DataTable();
+          }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
           $('table.sortable-table').DataTable({
             searching: false,
             paging: false,
