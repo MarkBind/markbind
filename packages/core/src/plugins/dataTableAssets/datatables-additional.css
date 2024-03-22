@@ -2,3 +2,7 @@ div.dt-container div.dt-search {
     text-align: left;
     padding: 10px 0;
 }
+
+div.dt-container {
+    overflow-y: hidden;
+}
