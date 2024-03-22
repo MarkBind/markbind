@@ -17,7 +17,12 @@ const JS_FILE_NAME = 'dataTableAssets/datatables.min.js';
 
 const initScript = `
       <script>
-        $(document).ready(function() {
+        Vue.directive('datatable', {
+          inserted: function(el) {
+            $(el).DataTable();
+          }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
           $('table.sortable-table').DataTable({
             searching: false,
             paging: false,
@@ -91,7 +96,7 @@ export = {
     // Add DataTables attributes to tables with the corresponding classes
     $('table.sortable-table, table.searchable-table, table.sortable-searchable-table')
       .each((index: any, table: any) => {
-        $(table).attr('id', `datatable-${index}`);
+        $(table).attr('id', `datatable-${index}`).attr('v-datatable', '');
       });
 
     return $.html();
