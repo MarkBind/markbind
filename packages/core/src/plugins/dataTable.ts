@@ -18,8 +18,25 @@ const JS_FILE_NAME = 'dataTableAssets/datatables.min.js';
 const initScript = `
       <script>
         Vue.directive('datatable', {
-          inserted: function(el) {
-            $(el).DataTable();
+          inserted: function(el, binding) {
+            const options = binding.value || {};
+            if ($(el).hasClass('sortable-table')) {
+              options.searching = false;
+              options.paging = false;
+              options.info = false;
+            } else if ($(el).hasClass('searchable-table')) {
+              options.ordering = false;
+              options.paging = false;
+              options.info = false;
+              options.dom = '<"row"<"col-sm-12"f>>' + 
+                            '<"row"<"col-sm-12"t>>';
+            } else if ($(el).hasClass('sortable-searchable-table')) {
+              options.paging = false;
+              options.info = false;
+              options.dom = '<"row"<"col-sm-12"f>>' + 
+                            '<"row"<"col-sm-12"t>>';
+            }
+            $(el).DataTable(options);
           }
         });
         document.addEventListener('DOMContentLoaded', function() {
