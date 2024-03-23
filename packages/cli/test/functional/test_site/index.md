@@ -37,6 +37,10 @@ Hence, the contained markdown should be parsed and output as is, without any par
 
 <include src="testFootnotes.md" />
 
+**Test include footnotes from hash**
+
+<include src="testHashFootnotes.md#import" />
+
 **Nunjucks SetExt**
 
 {% ext externalVar = "_markbind/variable.json" %}
