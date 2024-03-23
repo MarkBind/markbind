@@ -9,9 +9,13 @@ interface EmojiData {
 }
 
 const emojiData = emojiDictionary as unknown as EmojiData;
+<<<<<<< HEAD
 
 const ICON_ATTRIBUTES
     = ['icon', 'i-width', 'i-height', 'i-size', 'i-class', 'i-spacing', 'text', 't-size', 't-class'];
+=======
+const ICON_ATTRIBUTES = ['icon', 'i-width', 'i-height', 'i-size', 'i-class', 'i-spacing'];
+>>>>>>> 37b77567638ae7310d93f52fc86927f90f9efed3
 
 interface IconAttributes {
   icon?: string;
@@ -19,9 +23,12 @@ interface IconAttributes {
   iconSize?: string;
   width?: string;
   height?: string;
+<<<<<<< HEAD
   text?: string;
   textClassName?: string;
   textSize?: string;
+=======
+>>>>>>> 37b77567638ae7310d93f52fc86927f90f9efed3
   spacing?: string;
 }
 
@@ -124,6 +131,7 @@ IconAttributes | null => {
     icon: node.attribs.icon !== undefined ? node.attribs.icon : iconAttrsSoFar?.icon,
     width: node.attribs['i-width'] !== undefined ? node.attribs['i-width'] : iconAttrsSoFar?.width,
     height: node.attribs['i-height'] !== undefined ? node.attribs['i-height'] : iconAttrsSoFar?.height,
+<<<<<<< HEAD
     iconSize: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttrsSoFar?.iconSize,
     iconClassName: node.attribs['i-class'] !== undefined
       ? node.attribs['i-class']
@@ -133,6 +141,10 @@ IconAttributes | null => {
       ? node.attribs['t-class']
       : iconAttrsSoFar?.textClassName,
     textSize: node.attribs['t-size'] !== undefined ? node.attribs['t-size'] : iconAttrsSoFar?.textSize,
+=======
+    size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttrsSoFar?.size,
+    className: node.attribs['i-class'] !== undefined ? node.attribs['i-class'] : iconAttrsSoFar?.className,
+>>>>>>> 37b77567638ae7310d93f52fc86927f90f9efed3
     spacing: node.attribs['i-spacing'] !== undefined ? node.attribs['i-spacing'] : iconAttrsSoFar?.spacing,
   };
 };
