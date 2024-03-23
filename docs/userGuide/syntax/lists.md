@@ -145,12 +145,8 @@ If either the `i-width` or the `i-height` of an image is not specified, the unsp
 
 <box type=tip seamless>
 
-<<<<<<< HEAD
 Similar to the `icon` and `text` attribute, other icon attributes such as `i-class`, `i-width`, `i-height`, `i-spacing`, `t-size` and `t-class` apply for subsequent list items at the same level, until they are overridden by the same attribute. For example, Item 2.3's `i-class` overrides Item 2.1's and applies up to Item 3.1.
 
-=======
-Similar to the `icon` attribute, other icon attributes such as `i-class`, `i-width`, `i-height`, `i-spacing` apply for subsequent list items at the same level, until they are overridden by the same attribute. For example, Item 2.3's `i-class` overrides Item 2.1's and applies up to Item 3.1.
->>>>>>> 37b77567638ae7310d93f52fc86927f90f9efed3
 </box>
 
 **The spacing between the icon and the content can be customized by using a `i-spacing` attribute.**

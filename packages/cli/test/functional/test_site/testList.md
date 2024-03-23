@@ -77,18 +77,13 @@
 1. Testing with various icon attributes
 * Item A { icon="glyphicon-education" i-size="20px" i-class="text-primary" }
 * Item B { icon="./images/deer.jpg" i-width="200px" i-height="100px" i-class="text-warning" }
-<<<<<<< HEAD
   * Sub-item B1 { icon="fas-file-code" text="Hi" i-size="30px" }
-=======
-  * Sub-item B1 { icon="fas-file-code" i-size="30px" }
->>>>>>> 37b77567638ae7310d93f52fc86927f90f9efed3
   * Sub-item B2 { i-class="text-success" i-spacing="2rem" }
   * Sub-item B3
     * Sub-sub-item B3.1 { icon="./images/deer.jpg" i-width="50px" i-height="50px" }
     * Sub-sub-item B3.2 
       * Sub-sub-sub-item B3.2.1 { i-class="text-danger" }
   * Sub-item B4 { i-spacing="1rem" }
-<<<<<<< HEAD
 
 1. Testing with various text attributes
 * Item A { text="Step 1" t-size="20px" t-class="text-primary" }
@@ -111,8 +106,6 @@
     * Sub-sub-item B3.2
       * Sub-sub-sub-item B3.2.1 { t-class="text-danger" }
   * Sub-item B4
-=======
->>>>>>> 37b77567638ae7310d93f52fc86927f90f9efed3
 
 1. Mixing basic and customized lists
 * Item A
