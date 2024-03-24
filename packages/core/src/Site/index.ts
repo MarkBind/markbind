@@ -508,12 +508,10 @@ export class Site {
       function collectVariables(rootNode: any, variableProcessor: VariableProcessor) {
         rootNode.children.forEach((childNode: any) => {
           if (childNode.targets) {
-            const variableName = childNode.targets[0].value;
-            if (childNode.value.value) {
-              variableProcessor.addUserDefinedVariable(base, variableName, childNode.value.value);
-            } else {
-              variableProcessor.addUserDefinedVariable(base, variableName, collectValues(childNode));
-            }
+            const variableValue = childNode.value.value ? childNode.value.value : collectValues(childNode);
+            childNode.targets.forEach(function (target: any) {
+              variableProcessor.addUserDefinedVariable(base, target.value, variableValue);
+            });
           }
         });
       }
