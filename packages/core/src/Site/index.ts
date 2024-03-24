@@ -26,6 +26,7 @@ import { SITE_CONFIG_NAME, LAZY_LOADING_SITE_FILE_NAME, _ } from './constants';
 import { LayoutManager } from '../Layout';
 import { LayoutConfig } from '../Layout/Layout';
 
+const nunjucksParser = require('nunjucks').parser;
 // Change when they are migrated to TypeScript
 const ProgressBar = require('../lib/progress');
 require('../patches/htmlparser2');
@@ -485,14 +486,39 @@ export class Site {
         this.variableProcessor.renderAndAddUserDefinedVariable(base, name, $(element).html());
       });
 
-      const setStatementsRegex = /\{%\s*set\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*(.+?)\s*%\}/g;
-      let match = setStatementsRegex.exec(content);
-      while (match !== null) {
-        const variableName = match[1];
-        const variableValue = match[2];
-        this.variableProcessor.renderAndAddUserDefinedVariable(base, variableName, variableValue);
-        match = setStatementsRegex.exec(content);
+      const rootNode = nunjucksParser.parse(content);
+
+      function collectValues(node: any) {
+        if (node.value.value) {
+          return node.value.value;
+        }
+        if (!node.value.children) {
+          return node.value;
+        }
+
+        const values: any[] = [];
+        if (node.value.children) {
+          node.value.children.forEach((childNode: any) => {
+            values.push(collectValues(childNode));
+          });
+        }
+        return values;
       }
+
+      function collectVariables(rootNode: any, variableProcessor: VariableProcessor) {
+        rootNode.children.forEach((childNode: any) => {
+          if (childNode.targets) {
+            const variableName = childNode.targets[0].value;
+            if (childNode.value.value) {
+              variableProcessor.addUserDefinedVariable(base, variableName, childNode.value.value);
+            } else {
+              variableProcessor.addUserDefinedVariable(base, variableName, collectValues(childNode));
+            }
+          }
+        });
+      }
+
+      collectVariables(rootNode, this.variableProcessor);
     });
   }
 
