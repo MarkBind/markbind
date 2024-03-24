@@ -92,7 +92,7 @@ function createIconSpan(iconAttrs: IconAttributes): cheerio.Cheerio | null {
   }
   // Add invisible character to avoid the element from being empty
   spanNode.append('\u200B');
-  const iconSpacing = iconAttrs.spacing || '0.35em';
+  const iconSpacing = iconAttrs.text ? '0.35em' : iconAttrs.spacing || '0.35em';
   return spanNode.css({
     'line-height': 'unset',
     'margin-inline-end': iconSpacing,
