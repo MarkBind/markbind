@@ -2,7 +2,7 @@ import has from 'lodash/has';
 import * as linkProcessor from './linkProcessor';
 import type { NodeProcessorConfig } from './NodeProcessor';
 import { MbNode } from '../utils/node';
-import { setHeadingId } from './headerProcessor';
+import { processHeadingId } from './headerProcessor';
 
 const _ = { has };
 
@@ -75,6 +75,12 @@ export class SiteLinkManager {
     return 'Intralink collected to be validated later';
   }
 
+  /**
+   * Add sections that could be reached by intra-link with hash to this node to FilePathToHashesMap,
+   * The reachable sections include nodes with ids and headings.
+   *
+   * ForceWrite should only be called when processing heading node with the maintainInclude method.
+  */
   maintainFilePathToHashesMap(node: MbNode, cwf: string, forceWrite: string = '') {
     if (!this.config.intrasiteLinkValidation.enabled) {
       return;
@@ -101,13 +107,16 @@ export class SiteLinkManager {
     return result;
   }
 
+  /**
+   * Recursively add reachable sections of the included node to the FilePathToHashesMap for validation later,
+  */
   maintainInclude(node: MbNode, cwf: string) {
     if (!this.config.intrasiteLinkValidation.enabled) {
       return;
     }
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
     if (isHeadingTag && node.attribs && !node.attribs.id) {
-      this.maintainFilePathToHashesMap(node, cwf, setHeadingId(node as MbNode, this.config, true));
+      this.maintainFilePathToHashesMap(node, cwf, processHeadingId(node as MbNode, this.config, true));
     }
     if (node.attribs && node.attribs.id) {
       this.maintainFilePathToHashesMap(node, cwf);
