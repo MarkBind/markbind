@@ -4,6 +4,7 @@ import 'floating-vue/dist/style.css';
 /* eslint-enable import/no-extraneous-dependencies */
 
 // Custom / modified components and components from yuche/vue-strap
+import announcement from './Announcement.vue';
 import box from './Box.vue';
 import breadcrumb from './Breadcrumb.vue';
 import closeable from './directives/Closeable';
@@ -35,6 +36,7 @@ import modal from './Modal.vue';
 import scrollTopButton from './ScrollTopButton.vue';
 
 const components = {
+  announcement,
   box,
   breadcrumb,
   dropdown,
