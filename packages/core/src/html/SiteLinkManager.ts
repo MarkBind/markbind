@@ -80,7 +80,7 @@ export class SiteLinkManager {
    * The reachable sections include nodes with ids and headings.
    *
    * ForceWrite should only be called when processing heading node with the maintainHashesForInclude method.
-  */
+   */
   maintainFilePathToHashesMap(node: MbNode, cwf: string, forceWrite: string = '') {
     if (!this.config.intrasiteLinkValidation.enabled) {
       return;
@@ -109,7 +109,7 @@ export class SiteLinkManager {
 
   /**
    * Recursively add reachable sections of the included node to the FilePathToHashesMap for validation later,
-  */
+   */
   maintainHashesForInclude(node: MbNode, cwf: string) {
     if (!this.config.intrasiteLinkValidation.enabled) {
       return;
