@@ -133,8 +133,8 @@ _(Optional)_ **The styling options to be applied to the site.** This includes:
   * `glob` can be used alternatively to define a file pattern in the [_glob syntax_](https://en.wikipedia.org/wiki/Glob_(programming)), or an array of such file patterns.<br>
   {{ icon_examples }} `**/*.md` or `[ '**/*.md', '**/index.md' ]` { .my-2 }
 * **`globExclude`**: An array of file patterns to be excluded from rendering when using `glob`, also defined in the glob syntax.
-* **`title`**: The page `<title>` for the generated web page. Titles specified here take priority over titles specified in the [frontmatter](tweakingThePageStructure.html#front-matter) of individual pages.
-* **`layout`**: The [layout](tweakingThePageStructure.html#page-layouts) to be used by the page. Default: `default`.
+* **`title`**: The page `<title>` for the generated web page. Titles specified here take priority over titles specified in the [frontmatter](tweakingThePageStructure.html#frontmatter) of individual pages.
+* **`layout`**: The [layout](tweakingThePageStructure.html#layouts) to be used by the page. Default: `default`.
 * **`searchable`**: Specifies that the page(s) should be excluded from searching. Default: `yes`.
 * **`externalScripts`**: An array of external scripts to be referenced on the page. Scripts referenced will be run before the layout script.
 * **`frontmatter`**: Specifies properties to add to the frontmatter of a page or glob of pages. Overrides any existing properties if they have the same name, and overrides any frontmatter properties specified in `globalOverride`.
@@ -254,7 +254,7 @@ The ignore pattern follows the [glob pattern used in .gitignore](https://git-scm
 
 **A list of plugins to load.** Plugins are user-defined extensions that can add custom features to MarkBind. `pluginsContext` contains settings to be applied to the loaded plugins. See [User Guide: Using Plugins](usingPlugins.html) for more details.
 
-The example above uses tags as an example of configuring plugin settings, refer to the [`filterTags` plugin](tweakingThePageStructure.html#filtertags-toggling-alternative-contents-in-a-page) for more details.
+The example above uses tags as an example of configuring plugin settings, refer to the [`filterTags` plugin](tweakingThePageStructure.html#toggling-alternative-contents) for more details.
 
 #### **`headingIndexingLevel`**
 

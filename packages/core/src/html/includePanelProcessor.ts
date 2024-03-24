@@ -14,6 +14,7 @@ import type { Context } from './Context';
 import type { PageSources } from '../Page/PageSources';
 import type { VariableProcessor } from '../variables/VariableProcessor';
 import { MbNode, NodeOrText } from '../utils/node';
+import { SiteLinkManager } from './SiteLinkManager';
 
 require('../patches/htmlparser2');
 
@@ -182,7 +183,7 @@ function buildGetNextFootnodeNumber() {
 export function processInclude(node: MbNode, context: Context, pageSources: PageSources,
                                variableProcessor: VariableProcessor, renderMd: (text: string) => string,
                                renderMdInline: (text: string) => string,
-                               config: Record<string, any>,
+                               config: Record<string, any>, siteLinkManager: SiteLinkManager,
                                getNextFootnodeNumber: () => number = buildGetNextFootnodeNumber()): Context {
   if (_.isEmpty(node.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
@@ -274,11 +275,9 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
   if (isTrim) {
     actualContent = actualContent.trim();
   }
-
   const $includeEl = cheerio(node);
   $includeEl.empty();
   $includeEl.append(actualContent);
-
   if (node.children && node.children.length > 0) {
     childContext.addCwfToCallstack(context.cwf);
     childContext.processingOptions.omitFrontmatter = shouldOmitFrontmatter;
@@ -292,7 +291,7 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
   }
 
   _deleteIncludeAttributes(node);
-
+  siteLinkManager.maintainHashesForInclude(node, context.cwf);
   return childContext;
 }
 

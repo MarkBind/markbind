@@ -9,10 +9,14 @@ const _ = {
   has,
 };
 
-/*
- * h1 - h6
+/**
+ * Increment the counter for same heading text, and return the id of the heading
+ * if is called from SiteLinkManager, it will directly return the id without adding counter
+ * heading text refers to the h1 - h6 text content
  */
-export function setHeadingId(node: MbNode, config: NodeProcessorConfig) {
+export function processHeadingId(node: MbNode,
+                                 config: NodeProcessorConfig,
+                                 callFromSiteLinkManager: boolean = false): string {
   const textContent = cheerio(node).text();
   // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
   const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
@@ -20,14 +24,16 @@ export function setHeadingId(node: MbNode, config: NodeProcessorConfig) {
 
   let headerId = slugifiedHeading;
   const { headerIdMap } = config;
-  if (headerIdMap[slugifiedHeading]) {
-    headerId = `${slugifiedHeading}-${headerIdMap[slugifiedHeading]}`;
-    headerIdMap[slugifiedHeading] += 1;
-  } else {
-    headerIdMap[slugifiedHeading] = 2;
+  if (!callFromSiteLinkManager) {
+    if (headerIdMap[slugifiedHeading]) {
+      headerId = `${slugifiedHeading}-${headerIdMap[slugifiedHeading]}`;
+      headerIdMap[slugifiedHeading] += 1;
+    } else {
+      headerIdMap[slugifiedHeading] = 2;
+    }
+    node.attribs.id = headerId;
   }
-
-  node.attribs.id = headerId;
+  return headerId;
 }
 
 /**

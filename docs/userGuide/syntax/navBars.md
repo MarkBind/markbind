@@ -8,7 +8,7 @@
 
 <box type="warning">
   <markdown>
-Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#headers) to ensure that they are correctly positioned at the top of the page, above the [site navigation]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#site-navigation-menus) and [page navigation]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#page-navigation-menus) menus.
+Note: **Navbars** should be placed within a [header file]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#sticking-the-header-to-the-top) to ensure that they are correctly positioned at the top of the page, above the [site navigation]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#constructing-a-page-navigation-menu) and [page navigation]({{ baseUrl }}/userGuide/tweakingThePageStructure.html#constructing-a-page-navigation-menu) menus.
   </markdown>
 </box>
 
