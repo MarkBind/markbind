@@ -79,7 +79,7 @@ export class SiteLinkManager {
    * Add sections that could be reached by intra-link with hash to this node to FilePathToHashesMap,
    * The reachable sections include nodes with ids and headings.
    *
-   * ForceWrite should only be called when processing heading node with the maintainInclude method.
+   * ForceWrite should only be called when processing heading node with the maintainHashesForInclude method.
   */
   maintainFilePathToHashesMap(node: MbNode, cwf: string, forceWrite: string = '') {
     if (!this.config.intrasiteLinkValidation.enabled) {
@@ -110,7 +110,7 @@ export class SiteLinkManager {
   /**
    * Recursively add reachable sections of the included node to the FilePathToHashesMap for validation later,
   */
-  maintainInclude(node: MbNode, cwf: string) {
+  maintainHashesForInclude(node: MbNode, cwf: string) {
     if (!this.config.intrasiteLinkValidation.enabled) {
       return;
     }
@@ -123,7 +123,7 @@ export class SiteLinkManager {
     }
     if (node.children) {
       node.children.forEach((child) => {
-        this.maintainInclude(child as MbNode, cwf);
+        this.maintainHashesForInclude(child as MbNode, cwf);
       });
     }
   }

@@ -291,7 +291,7 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
   }
 
   _deleteIncludeAttributes(node);
-  siteLinkManager.maintainInclude(node, context.cwf);
+  siteLinkManager.maintainHashesForInclude(node, context.cwf);
   return childContext;
 }
 
