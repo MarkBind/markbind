@@ -484,6 +484,15 @@ export class Site {
 
         this.variableProcessor.renderAndAddUserDefinedVariable(base, name, $(element).html());
       });
+
+      const setStatementsRegex = /\{%\s*set\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*(.+?)\s*%\}/g;
+      let match = setStatementsRegex.exec(content);
+      while (match !== null) {
+        const variableName = match[1];
+        const variableValue = match[2];
+        this.variableProcessor.renderAndAddUserDefinedVariable(base, variableName, variableValue);
+        match = setStatementsRegex.exec(content);
+      }
     });
   }
 
