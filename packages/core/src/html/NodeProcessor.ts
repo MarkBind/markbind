@@ -197,7 +197,7 @@ export class NodeProcessor {
         this.mdAttributeRenderer.processQuestion(node);
         break;
       case 'ul':
-        processUlNode(node);
+        processUlNode(node, (text: string) => this.markdownProcessor.renderMdInline(text));
         break;
       case 'q-option':
         this.mdAttributeRenderer.processQOption(node);
