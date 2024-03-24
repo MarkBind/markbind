@@ -14,7 +14,7 @@ const _ = {
  */
 export function setHeadingId(node: MbNode,
                              config: NodeProcessorConfig,
-                             callFromSiteLinkManager: boolean = false) {
+                             callFromSiteLinkManager: boolean = false): string {
   const textContent = cheerio(node).text();
   // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
   const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
