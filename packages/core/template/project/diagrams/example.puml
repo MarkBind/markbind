@@ -1,0 +1,26 @@
+@startuml
+!include <office/Concepts/globe_internet>
+!include <office/Concepts/documents>
+!include <office/Users/user>
+!include style.puml
+
+Package " "<<Rectangle>>{
+    Class UI UI_COLOR
+    Class Database DATABASE_COLOR
+    Class Model MODEL_COLOR
+    Class Main #grey
+}
+
+Class "<$user>" as User MODEL_COLOR_T2
+Class "<$documents>" as File UI_COLOR_T1
+
+
+UI -right[#green]-> Model
+Main -[#grey]-> UI
+Main -[#grey]-> Database
+Main -up[#grey]-> Model
+
+Database -up[DATABASE_COLOR].> Model
+Database .right[DATABASE_COLOR].>File
+User ..> UI
+@enduml
