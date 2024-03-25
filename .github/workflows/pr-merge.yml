@@ -1,8 +1,8 @@
-name: PR Merge
+name: Pull Request Review Action
 on:
-    pull_request:
+    pull_request_review:
         types:
-          - closed
+          - submitted
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
     check-pr-label:
-        if: ${{ github.event.pull_request.merged }}
+        if: ${{ github.event.review.state == 'approved' }}
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@v3
@@ -43,7 +43,7 @@ jobs:
               fi
             env:
               TEXT_BODY: ${{ github.event.pull_request.body }}
-              MERGE_AUTHOR: ${{ github.event.pull_request.merged_by.login }}
+              MERGE_AUTHOR: ${{ github.event.sender.login }}
           - name: Assign label based on version impact
             uses: actions/github-script@v7
             with:
