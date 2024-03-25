@@ -1,15 +1,20 @@
 import cheerio from 'cheerio';
 import { PluginContext, FrontMatter } from './Plugin';
 
-const DEFAULT_CDN_ADDRESS = 'https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs';
+const DEFAULT_CDN_ADDRESS = 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs';
 
 function genScript(address: string) {
   return `<script type="module">
     import mermaid from '${address || DEFAULT_CDN_ADDRESS}';
-    Vue.directive('mermaid', {
-      inserted: function(el) {
-        mermaid.init(undefined, el);
-      }});
+    document.addEventListener('DOMContentLoaded', () => {
+      Vue.directive('mermaid', {
+        inserted: function(el) {
+          mermaid.run({
+            nodes: [el]
+          });
+        }
+      });
+    });
   </script>`;
 }
 
