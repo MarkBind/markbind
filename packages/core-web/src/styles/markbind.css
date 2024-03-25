@@ -1,3 +1,5 @@
+@import url("../../asset/css/codeblock-light.min.css") print;
+
 :root {
     --sticky-header-height: 0;
 }
@@ -27,7 +29,7 @@ pre.hljs > code {
     background: none;
 }
 
-pre > code.hljs { 
+pre > code.hljs {
     background-clip: padding-box;
     border-radius: 5px;
     counter-reset: line;
@@ -63,22 +65,11 @@ pre > code.hljs[heading] {
     display: block;
 }
 
-/* switch to light style on print view */
 @media print {
     pre > code.hljs {
         white-space: pre-wrap;
         word-wrap: break-word;
         word-break: break-all;
-    }
-
-    code.hljs.inline {
-        background: ghostwhite;
-        color: #333;
-        border: 0.5px solid #d4d4d4;
-    }
-
-    code span.highlighted {
-        background: lavender;
     }
 
     .hljs:not(.inline).line-numbers-print > span {
@@ -101,6 +92,12 @@ pre > code.hljs[heading] {
         top: 0;
         width: 3em;
         height: 100%;
+    }
+
+    /* force printing the highlighting colour */
+    .hljs span.highlighted{
+        -webkit-print-color-adjust:exact;
+        background:#e6e6fa !important;
     }
 }
 
