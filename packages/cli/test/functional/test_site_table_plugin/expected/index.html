@@ -456,48 +456,39 @@
 <script src="/plugins/dataTable/datatables.min.js"></script>
 
 <script>
-        Vue.directive('datatable', {
-          inserted: function(el, binding) {
-            const options = binding.value || {};
-            if ($(el).hasClass('sortable-table')) {
-              options.searching = false;
-              options.paging = false;
-              options.info = false;
-            } else if ($(el).hasClass('searchable-table')) {
-              options.ordering = false;
-              options.paging = false;
-              options.info = false;
-              options.dom = '<"row"<"col-sm-12"f>>' + 
-                            '<"row"<"col-sm-12"t>>';
-            } else if ($(el).hasClass('sortable-searchable-table')) {
-              options.paging = false;
-              options.info = false;
-              options.dom = '<"row"<"col-sm-12"f>>' + 
-                            '<"row"<"col-sm-12"t>>';
-            }
-            $(el).DataTable(options);
-          }
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-          $('table.sortable-table').DataTable({
-            searching: false,
-            paging: false,
-            info: false,
-          });
-          $('table.searchable-table').DataTable({
-            ordering: false,
-            paging: false,
-            info: false,
-            dom: '<"row"<"col-sm-12"f>>' + 
-             '<"row"<"col-sm-12"t>>',
-          });
-          $('table.sortable-searchable-table').DataTable({
-            paging: false,
-            info: false,
-            dom: '<"row"<"col-sm-12"f>>' + 
-             '<"row"<"col-sm-12"t>>',
-          });
-        });
-      </script>
+    function getTableOptions(el) {
+      const options = {};
+      if ($(el).hasClass('sortable-table')) {
+        options.searching = false;
+        options.paging = false;
+        options.info = false;
+      } else if ($(el).hasClass('searchable-table')) {
+        options.ordering = false;
+        options.paging = false;
+        options.info = false;
+        options.dom = '<"row"<"col-sm-12"f>>' + '<"row"<"col-sm-12"t>>';
+      } else if ($(el).hasClass('sortable-searchable-table')) {
+        options.paging = false;
+        options.info = false;
+        options.dom = '<"row"<"col-sm-12"f>>' + '<"row"<"col-sm-12"t>>';
+      }
+      return options;
+    }
+
+    Vue.directive('datatable', {
+      inserted: function(el, binding) {
+        const options = binding.value || {};
+        const tableOptions = getTableOptions(el);
+        $(el).DataTable({ ...tableOptions, ...options });
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      $('table.sortable-table, table.searchable-table, table.sortable-searchable-table').each(function() {
+        const options = getTableOptions(this);
+        $(this).DataTable(options);
+      });
+    });
+  </script>
 
 </html>

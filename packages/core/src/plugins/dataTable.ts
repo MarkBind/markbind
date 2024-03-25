@@ -1,81 +1,48 @@
 import cheerio from 'cheerio';
-
-import constant from 'lodash/constant';
-
-import cloneDeep from 'lodash/cloneDeep';
 import { FrontMatter, PluginContext } from './Plugin';
-
 import md from '../lib/markdown-it';
-
-const mdTableSortable = cloneDeep(md);
-const mdTableSearchable = cloneDeep(md);
-const mdTableSortableSearchable = cloneDeep(md);
 
 const CSS_FILE_NAME = 'dataTableAssets/datatables.min.css';
 const CSS_ADDITIONAL = 'dataTableAssets/datatables-additional.css';
 const JS_FILE_NAME = 'dataTableAssets/datatables.min.js';
 
 const initScript = `
-      <script>
-        Vue.directive('datatable', {
-          inserted: function(el, binding) {
-            const options = binding.value || {};
-            if ($(el).hasClass('sortable-table')) {
-              options.searching = false;
-              options.paging = false;
-              options.info = false;
-            } else if ($(el).hasClass('searchable-table')) {
-              options.ordering = false;
-              options.paging = false;
-              options.info = false;
-              options.dom = '<"row"<"col-sm-12"f>>' + 
-                            '<"row"<"col-sm-12"t>>';
-            } else if ($(el).hasClass('sortable-searchable-table')) {
-              options.paging = false;
-              options.info = false;
-              options.dom = '<"row"<"col-sm-12"f>>' + 
-                            '<"row"<"col-sm-12"t>>';
-            }
-            $(el).DataTable(options);
-          }
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-          $('table.sortable-table').DataTable({
-            searching: false,
-            paging: false,
-            info: false,
-          });
-          $('table.searchable-table').DataTable({
-            ordering: false,
-            paging: false,
-            info: false,
-            dom: '<"row"<"col-sm-12"f>>' + 
-             '<"row"<"col-sm-12"t>>',
-          });
-          $('table.sortable-searchable-table').DataTable({
-            paging: false,
-            info: false,
-            dom: '<"row"<"col-sm-12"f>>' + 
-             '<"row"<"col-sm-12"t>>',
-          });
-        });
-      </script>
-    `;
+  <script>
+    function getTableOptions(el) {
+      const options = {};
+      if ($(el).hasClass('sortable-table')) {
+        options.searching = false;
+        options.paging = false;
+        options.info = false;
+      } else if ($(el).hasClass('searchable-table')) {
+        options.ordering = false;
+        options.paging = false;
+        options.info = false;
+        options.dom = '<"row"<"col-sm-12"f>>' + '<"row"<"col-sm-12"t>>';
+      } else if ($(el).hasClass('sortable-searchable-table')) {
+        options.paging = false;
+        options.info = false;
+        options.dom = '<"row"<"col-sm-12"f>>' + '<"row"<"col-sm-12"t>>';
+      }
+      return options;
+    }
 
-mdTableSortable.renderer.rules.table_open
-    = constant('<div class="table-responsive">'
-    + '<table class="markbind-table table table-bordered table-striped sortable-table">');
-mdTableSortable.renderer.rules.table_close = constant('</table></div>');
+    Vue.directive('datatable', {
+      inserted: function(el, binding) {
+        const options = binding.value || {};
+        const tableOptions = getTableOptions(el);
+        $(el).DataTable({ ...tableOptions, ...options });
+      }
+    });
 
-mdTableSearchable.renderer.rules.table_open
-    = constant('<div class="table-responsive">'
-    + '<table class="markbind-table table table-bordered table-striped searchable-table">');
-mdTableSearchable.renderer.rules.table_close = constant('</table></div>');
-
-mdTableSortableSearchable.renderer.rules.table_open
-    = constant('<div class="table-responsive">'
-    + '<table class="markbind-table table table-bordered table-striped sortable-searchable-table">');
-mdTableSortableSearchable.renderer.rules.table_close = constant('</table></div>');
+    document.addEventListener('DOMContentLoaded', function() {
+      $('table.sortable-table, table.searchable-table, table.sortable-searchable-table').each(function() {
+        const options = getTableOptions(this);
+        $(this).DataTable(options);
+      });
+    });
+  </script>
+`;
 
 export = {
   getLinks: () => [
@@ -86,35 +53,33 @@ export = {
   postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => {
     const $ = cheerio.load(content);
 
-    $('m-table[sortable]:not([searchable])').each((index: number, node: cheerio.Element) => {
+    $('m-table').each((index: number, node: cheerio.Element) => {
       const $node = $(node);
       const html = $node.html();
       if (html != null) {
-        $node.replaceWith(mdTableSortable.render(html));
+        const isSortable = $node.attr('sortable') !== undefined;
+        const isSearchable = $node.attr('searchable') !== undefined;
+
+        let tableClass = 'markbind-table table table-bordered table-striped';
+        if (isSortable && isSearchable) {
+          tableClass += ' sortable-searchable-table';
+        } else if (isSortable) {
+          tableClass += ' sortable-table';
+        } else if (isSearchable) {
+          tableClass += ' searchable-table';
+        }
+
+        const renderedTable = md.render(html);
+        const $renderedTable = $(renderedTable);
+        $renderedTable.find('table')
+          .removeClass('markbind-table table table-bordered table-striped')
+          .addClass(tableClass)
+          .attr('id', `datatable-${index}`)
+          .attr('v-datatable', '');
+
+        $node.replaceWith($renderedTable);
       }
     });
-
-    $('m-table[searchable]:not([sortable])').each((index: number, node: cheerio.Element) => {
-      const $node = $(node);
-      const html = $node.html();
-      if (html != null) {
-        $node.replaceWith(mdTableSearchable.render(html));
-      }
-    });
-
-    $('m-table[sortable][searchable]').each((index: number, node: cheerio.Element) => {
-      const $node = $(node);
-      const html = $node.html();
-      if (html != null) {
-        $node.replaceWith(mdTableSortableSearchable.render(html));
-      }
-    });
-
-    // Add DataTables attributes to tables with the corresponding classes
-    $('table.sortable-table, table.searchable-table, table.sortable-searchable-table')
-      .each((index: any, table: any) => {
-        $(table).attr('id', `datatable-${index}`).attr('v-datatable', '');
-      });
 
     return $.html();
   },
