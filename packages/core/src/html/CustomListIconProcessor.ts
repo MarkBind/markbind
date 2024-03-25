@@ -9,7 +9,7 @@ interface EmojiData {
 }
 
 const emojiData = emojiDictionary as unknown as EmojiData;
-const ICON_ATTRIBUTES = ['icon', 'i-width', 'i-height', 'i-size', 'i-class', 'i-spacing', 'i-one-off'];
+const ICON_ATTRIBUTES = ['icon', 'i-width', 'i-height', 'i-size', 'i-class', 'i-spacing', 'once'];
 
 interface IconAttributes {
   icon?: string;
@@ -18,7 +18,7 @@ interface IconAttributes {
   width?: string;
   height?: string;
   spacing?: string;
-  oneOff?: boolean;
+  once?: boolean;
 }
 
 type IconAttributeDetail = {
@@ -87,12 +87,13 @@ function updateNodeStyle(node: NodeOrText) {
   });
 }
 
-// If an item has a specified icon, that icon will be saved and used for it and for
-// subsequent items at that level to prevent duplication of icons attribute declarations.
-// However, if an item has a specified icon and it is one-off, the icon will only be
-// used for that item.
-// Items with one-off icons do not overwrite the previously saved icon, meaning that
-// subsequent items will still use the last saved icon.
+// If an item has a specified icon, that icon and its attributes will be saved and used 
+// for it and for subsequent items at that level to prevent duplication of icons 
+// attribute declarations.
+// If an item is once, its icons and/or attributes will only be used for that item.
+// Items with once icons/attributes do not overwrite the previously saved icon/
+// attributes, meaning that subsequent items will still use the last saved 
+// icon/attributes.
 const getIconAttributes = (node: MbNode, iconAttrsSoFar?: IconAttributes):
 IconAttributes | null => {
   if (iconAttrsSoFar?.icon === undefined && node.attribs.icon === undefined) {
@@ -106,7 +107,7 @@ IconAttributes | null => {
     size: node.attribs['i-size'] !== undefined ? node.attribs['i-size'] : iconAttrsSoFar?.size,
     className: node.attribs['i-class'] !== undefined ? node.attribs['i-class'] : iconAttrsSoFar?.className,
     spacing: node.attribs['i-spacing'] !== undefined ? node.attribs['i-spacing'] : iconAttrsSoFar?.spacing,
-    oneOff: (node.attribs['i-one-off'] === true || node.attribs['i-one-off'] === 'true'),
+    once: (node.attribs['once'] === true || node.attribs['once'] === 'true'),
   };
 };
 
@@ -147,28 +148,28 @@ function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail) {
     if (nodeIconAttrs?.icon !== undefined) {
       iconAttrValue.addIcons = true;
     }
-    // Save if the icon is not one-off
-    if (!nodeIconAttrs?.oneOff) {
+    // Save if the icon is not once
+    if (!nodeIconAttrs?.once) {
       iconAttrValue.iconAttrs = nodeIconAttrs;
     }
     iconAttrValue.isFirst = false;
   } else if (iconAttrValue.iconAttrs) {
     const nodeIconAttrs = getIconAttributes(node, iconAttrValue.iconAttrs);
-    // Save if there is icon and not one-off
-    if (nodeIconAttrs?.icon !== undefined && !nodeIconAttrs?.oneOff) {
+    // Save if there is icon and not once
+    if (nodeIconAttrs?.icon !== undefined && !nodeIconAttrs?.once) {
       iconAttrValue.iconAttrs = nodeIconAttrs;
     }
   }
   if (!iconAttrValue.addIcons) {
     return;
   }
-  // for items after first item, if first item is one off, no previous icon
-  // so future items that are not one-off will need to be saved
+  // for items after first item, if first item is once, no previous icon
+  // so future items that are not once will need to be saved
   if (iconAttrValue.iconAttrs?.icon === undefined) {
     // There is no previous icon
     const nodeIconAttrs = getIconAttributes(node);
-    // Save if current has icon and it is not one-off
-    if (nodeIconAttrs?.icon !== undefined && !nodeIconAttrs?.oneOff) {
+    // Save if current has icon and it is not once
+    if (nodeIconAttrs?.icon !== undefined && !nodeIconAttrs?.once) {
       iconAttrValue.iconAttrs = nodeIconAttrs;
     }
   }
