@@ -28,7 +28,7 @@ const WRAP_ICON = `
 `;
 
 function getButtonHTML() {
-  const html = `<button onclick="toggleCodeBlockWrap(this)" class="function-btn">
+  const html = `<button onclick="toggleCodeBlockWrap(this)" class="function-btn d-print-none">
     <div class="function-btn-body">
       ${WRAP_ICON}
     </div>
