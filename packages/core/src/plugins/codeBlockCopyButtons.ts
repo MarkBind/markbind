@@ -23,7 +23,7 @@ const COPY_ICON = `
 `;
 
 function getButtonHTML() {
-  const html = `<button onclick="copyCodeBlock(this)" class="function-btn">
+  const html = `<button onclick="copyCodeBlock(this)" class="function-btn d-print-none">
     <div class="function-btn-body">
     ${COPY_ICON}
     </div>
