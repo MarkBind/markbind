@@ -1,0 +1,23 @@
+{
+  "enableSearch": true,
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Hello World",
+      "headings": {
+        "welcome-to-markbind": "Welcome to MarkBind"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "others/inclusion_inside_table.md",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "others/table_to_be_included.md",
+      "headings": {},
+      "headingKeywords": {}
+    }
+  ]
+}
