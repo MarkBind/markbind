@@ -11,7 +11,7 @@ concurrency:
 jobs:
     check-pr-label:
         permissions:
-          pull-requests: write
+          issues: write
         if: ${{ github.event.review.state == 'approved' }}
         runs-on: ubuntu-latest
         steps:
