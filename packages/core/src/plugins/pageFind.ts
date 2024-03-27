@@ -5,32 +5,37 @@ import { MbNode } from '../utils/node';
 const DEFAULT_CDN_ADDRESS = 'https://cdn.jsdelivr.net/npm/pagefind@1.0.4/lib/index.min.js';
 
 const initPagefind = `
-  <script src="${DEFAULT_CDN_ADDRESS}">
-    const { index } = await pagefind.createIndex({
-        keepIndexUrl: true,
-        verbose: true,
-        logfile: "debug.log"
-    });
-    const { errors, page_count } = await index.addDirectory({
-        path: "_site",
-    });
-    await index.writeFiles({ outputPath: "_site/pagefind" });
-    await pagefind.close();  
-  </script>`;
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const pagefind = window.pagefind;
+    pagefind.createIndex({ keepIndexUrl: true, verbose: true, logfile: "debug.log" })
+      .then((index) => {
+        index.addDirectory({ path: "_site" })
+          .then(({ errors, page_count }) => {
+            index.writeFiles({ outputPath: "_site/pagefind" })
+              .then(() => {
+                pagefind.close();
+              });
+          });
+      });
+  });
+</script>`;
 
 function addPagefindUI(pluginContext: PluginContext) {
   return `
-  <link rel="stylesheet" href="/pagefind/pagefind-ui.css">
-  <script src="/pagefind/pagefind-ui.js"></script>
-  <div id="search"></div>
-    <script>
-      window.addEventListener('DOMContentLoaded', (event) => {
-          new PagefindUI({ element: "#search",  
-            showSubResults: true, 
-            showImages: false, 
-            baseUrl: ${pluginContext.baseUrl},});
+<link rel="stylesheet" href="${pluginContext.baseUrl}/pagefind/pagefind-ui.css">
+<script src="${pluginContext.baseUrl}/pagefind/pagefind-ui.js"></script>
+<div id="search"></div>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new window.PagefindUI({
+      element: "#search",
+      showSubResults: true,
+      showImages: false,
+      baseUrl: "${pluginContext.baseUrl}",
     });
-    </script>`;
+  });
+</script>`;
 }
 
 export = {
@@ -38,5 +43,8 @@ export = {
     const $ = cheerio.load(node);
     $('header').append(addPagefindUI(pluginContext));
   },
-  getScripts: () => [initPagefind],
+  getScripts: () => [
+    `<script src="${DEFAULT_CDN_ADDRESS}"></script>`,
+    initPagefind,
+  ],
 };
