@@ -1,8 +1,8 @@
 name: Pull Request Review Action
 on:
-    pull_request_review:
+    pull_request_target:
         types:
-          - submitted
+          - closed
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -10,9 +10,7 @@ concurrency:
 
 jobs:
     check-pr-label:
-        permissions:
-          issues: write
-        if: ${{ github.event.review.state == 'approved' }}
+        if: ${{ github.event.pull_request.merged }}
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@v3
