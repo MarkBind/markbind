@@ -1,8 +1,8 @@
 import cheerio from 'cheerio';
-import { FrontMatter, PluginContext } from './Plugin';
+import { PluginContext } from './Plugin';
+import { MbNode } from '../utils/node';
 
 const DEFAULT_CDN_ADDRESS = 'https://cdn.jsdelivr.net/npm/pagefind@1.0.4/+esm';
-const DEFAULT_UI_ADDRESS = 'https://cdn.jsdelivr.net/npm/@pagefind/default-ui@1.0.4/+esm';
 
 const initPagefind = `
   <script type="module">
@@ -20,25 +20,24 @@ const initPagefind = `
   </script>`;
 
 function addPagefindUI(pluginContext: PluginContext) {
-  return `<script type="module">
-        import @pagefind/default-ui from '${DEFAULT_UI_ADDRESS}';
-        window.addEventListener('DOMContentLoaded', (event) => {
-            new PagefindUI({
-                element: "#search",
-                showImages: false,
-                baseUrl: ${pluginContext.baseUrl},
-             });
-        });
+  return `
+  <link rel="stylesheet" href="/pagefind/pagefind-ui.css">
+  <script src="/pagefind/pagefind-ui.js"></script>
+  <div id="search"></div>
+    <script>
+      window.addEventListener('DOMContentLoaded', (event) => {
+          new PagefindUI({ element: "#search",  
+            showSubResults: true, 
+            showImages: false, 
+            baseUrl: ${pluginContext.baseUrl},});
+    });
     </script>`;
 }
 
 export = {
-  postRender: (_pluginContext: PluginContext, _frontmatter: FrontMatter, content: string) => {
-    const $ = cheerio.load(content);
-    $('searchbar').replaceWith(addPagefindUI(_pluginContext));
-    const updatedContent = $.html();
-
-    return updatedContent;
+  processNode: (pluginContext: PluginContext, node: MbNode) => {
+    const $ = cheerio.load(node);
+    $('header').append(addPagefindUI(pluginContext));
   },
   getScripts: () => [initPagefind],
 };

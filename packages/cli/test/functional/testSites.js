@@ -2,6 +2,7 @@ const testSites = [
   'test_site',
   'test_site_algolia_plugin',
   'test_site_special_tags',
+  'test_site_pagefind',
 ];
 
 const testConvertSites = [
