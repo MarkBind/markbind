@@ -2,11 +2,10 @@ import cheerio from 'cheerio';
 import { PluginContext } from './Plugin';
 import { MbNode } from '../utils/node';
 
-const DEFAULT_CDN_ADDRESS = 'https://cdn.jsdelivr.net/npm/pagefind@1.0.4/+esm';
+const DEFAULT_CDN_ADDRESS = 'https://cdn.jsdelivr.net/npm/pagefind@1.0.4/lib/index.min.js';
 
 const initPagefind = `
-  <script type="module">
-    import pagefind from '${DEFAULT_CDN_ADDRESS}';
+  <script src="${DEFAULT_CDN_ADDRESS}">
     const { index } = await pagefind.createIndex({
         keepIndexUrl: true,
         verbose: true,
