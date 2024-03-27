@@ -4,7 +4,9 @@ import { MbNode } from '../utils/node';
 
 const DEFAULT_CDN_ADDRESS = 'https://cdn.jsdelivr.net/npm/pagefind@1.0.4/lib/index.min.js';
 
-async function initPagefind() {
+const initPagefind = `
+<script src='${DEFAULT_CDN_ADDRESS}'></script>;
+<script>
   const { default: pagefind } = await import(DEFAULT_CDN_ADDRESS);
   const { index } = await pagefind.createIndex({
     keepIndexUrl: true,
@@ -13,7 +15,7 @@ async function initPagefind() {
   });
   await index.addDirectory({ path: '_site' });
   await index.writeFiles({ outputPath: '_site/pagefind' }).then(() => { pagefind.close(); });
-}
+</script>`;
 
 function addPagefindUI(pluginContext: PluginContext) {
   return `
@@ -37,5 +39,5 @@ export = {
     const $ = cheerio.load(node);
     $('header').append(addPagefindUI(pluginContext));
   },
-  postRender: () => { initPagefind(); },
+  getScripts: () => [initPagefind],
 };
