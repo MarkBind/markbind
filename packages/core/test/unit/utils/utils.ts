@@ -38,7 +38,6 @@ export function getNewPluginManager(plugins: string[], pluginsContext: PluginCon
   return new PluginManager(fileConfig, plugins, pluginsContext);
 }
 
-
 class SiteLinkManagerMock extends SiteLinkManager {
   public constructor(config: NodeProcessorConfig) {
     super(config);

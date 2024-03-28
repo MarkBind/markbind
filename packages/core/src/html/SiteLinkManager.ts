@@ -2,7 +2,7 @@ import has from 'lodash/has';
 import * as linkProcessor from './linkProcessor';
 import type { NodeProcessorConfig } from './NodeProcessor';
 import { MbNode } from '../utils/node';
-import { processAndReturnHeadingId } from './headerProcessor';
+import { setHeadingId } from './headerProcessor';
 
 const _ = { has };
 
@@ -81,7 +81,7 @@ export class SiteLinkManager {
    *
    * ForceWrite should only be called when processing heading node with the maintainHashesForInclude method.
    */
-  maintainFilePathToHashesMap(node: MbNode, cwf: string, forceWrite: string = '') {
+  maintainFilePathToHashesMap(node: MbNode, cwf: string) {
     if (!this.config.intrasiteLinkValidation.enabled) {
       return;
     }
@@ -89,9 +89,7 @@ export class SiteLinkManager {
     if (!this.filePathToHashesMap.has(path)) {
       this.filePathToHashesMap.set(path, new Set());
     }
-    if (forceWrite !== '') {
-      this.filePathToHashesMap.get(path)!.add(forceWrite);
-    } else if (node.attribs!.id) {
+    if (node.attribs!.id) {
       this.filePathToHashesMap.get(path)!.add(node.attribs!.id);
     }
   }
@@ -105,7 +103,9 @@ export class SiteLinkManager {
     }
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
     if (isHeadingTag && node.attribs && !node.attribs.id) {
-      this.maintainFilePathToHashesMap(node, cwf, processAndReturnHeadingId(node as MbNode, this.config, true));
+      setHeadingId(node, this.config, false);
+      this.maintainFilePathToHashesMap(node, cwf);
+      node.attribs.id = undefined;
     }
     if (node.attribs && node.attribs.id) {
       this.maintainFilePathToHashesMap(node, cwf);

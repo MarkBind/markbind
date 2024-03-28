@@ -24,7 +24,7 @@ import { processInclude, processPanelSrc, processPopoverSrc } from './includePan
 
 import { PageNavProcessor, renderSiteNav, addSitePageNavPortal } from './siteAndPageNavProcessor';
 import { highlightCodeBlock, setCodeLineNumbers } from './codeblockProcessor';
-import { processAndReturnHeadingId, assignPanelId } from './headerProcessor';
+import { setHeadingId, assignPanelId } from './headerProcessor';
 import { FootnoteProcessor } from './FootnoteProcessor';
 import { MbNode, NodeOrText, TextElement } from '../utils/node';
 import { processUlNode } from './CustomListIconProcessor';
@@ -382,7 +382,7 @@ export class NodeProcessor {
 
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
     if (isHeadingTag && !node.attribs.id) {
-      processAndReturnHeadingId(node, this.config);
+      setHeadingId(node, this.config);
       this.siteLinkManager.maintainFilePathToHashesMap(node, context.cwf);
     }
 
