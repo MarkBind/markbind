@@ -108,7 +108,7 @@ export class SiteLinkManager {
   }
 
   /**
-   * Recursively add reachable sections of the included node to the FilePathToHashesMap for validation later,
+   * Recursively add reachable sections of the included node to the filePathToHashesMap for validation.
    */
   maintainHashesForInclude(node: MbNode, cwf: string) {
     if (!this.config.intrasiteLinkValidation.enabled) {
