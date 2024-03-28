@@ -11,7 +11,7 @@ const _ = {
 
 /**
  * Increment the counter for same heading text, and return the id of the heading
- * if is called from SiteLinkManager, it will directly return the id without adding counter
+ * If called from SiteLinkManager, it will directly return the id without adding counter
  * heading text refers to the h1 - h6 text content
  */
 export function processHeadingId(node: MbNode,
