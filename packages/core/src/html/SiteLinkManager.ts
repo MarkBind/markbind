@@ -16,9 +16,9 @@ const tagsToValidate: Set<string> = new Set([
 ]);
 
 export class SiteLinkManager {
-  private config: NodeProcessorConfig;
-  private intralinkCollection: Map<string, Set<string>>;
-  private filePathToHashesMap: Map<string, Set<string>>;
+  protected config: NodeProcessorConfig;
+  protected intralinkCollection: Map<string, Set<string>>;
+  protected filePathToHashesMap: Map<string, Set<string>>;
 
   constructor(config: NodeProcessorConfig) {
     this.config = config;
@@ -94,17 +94,6 @@ export class SiteLinkManager {
     } else if (node.attribs!.id) {
       this.filePathToHashesMap.get(path)!.add(node.attribs!.id);
     }
-  }
-
-  printFilePathToHashesMap() {
-    let result = '';
-    this.filePathToHashesMap.forEach((hashes, filePath) => {
-      result += `${filePath}:\n`;
-      hashes.forEach((hash) => {
-        result += `  ${hash}\n`;
-      });
-    });
-    return result;
   }
 
   /**

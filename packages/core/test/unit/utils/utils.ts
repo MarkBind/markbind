@@ -38,6 +38,25 @@ export function getNewPluginManager(plugins: string[], pluginsContext: PluginCon
   return new PluginManager(fileConfig, plugins, pluginsContext);
 }
 
+
+class SiteLinkManagerMock extends SiteLinkManager {
+  public constructor(config: NodeProcessorConfig) {
+    super(config);
+  }
+
+  public getIntralinkCollection() {
+    return this.intralinkCollection;
+  }
+
+  public getFilePathToHashesMap() {
+    return this.filePathToHashesMap;
+  }
+
+  public getConfig() {
+    return this.config;
+  }
+}
+
 export function getNewSiteLinkManager(intrasiteLinkValidationEnabled: boolean = false) {
   const fileConfig: NodeProcessorConfig = {
     baseUrlMap: new Set([ROOT_PATH]),
@@ -54,7 +73,7 @@ export function getNewSiteLinkManager(intrasiteLinkValidationEnabled: boolean = 
     plantumlCheck: false,
   };
 
-  return new SiteLinkManager(fileConfig);
+  return new SiteLinkManagerMock(fileConfig);
 }
 
 export function getNewNodeProcessor(pluginManager: PluginManager) {

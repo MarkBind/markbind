@@ -88,7 +88,7 @@ test('Test collection of hash for node with id', () => {
     const mockNode = parseHTML(nodeStr)[0] as MbNode;
     siteLinkManager.maintainFilePathToHashesMap(mockNode, mockCwf);
   });
-  const EXPECTED_RESULT = ':\n  test1\n  test2\n';
+  const EXPECTED_RESULT = new Map([['', new Set(['test1', 'test2'])]]);
 
-  expect(siteLinkManager.printFilePathToHashesMap()).toEqual(EXPECTED_RESULT);
+  expect(siteLinkManager.getFilePathToHashesMap()).toEqual(EXPECTED_RESULT);
 });
