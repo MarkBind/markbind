@@ -76,7 +76,7 @@ export class SiteLinkManager {
   }
 
   /**
-   * Add sections that could be reached by intra-link with hash to this node to FilePathToHashesMap,
+   * Add sections that could be reached by intra-link with hash to this node to filePathToHashesMap,
    * The reachable sections include nodes with ids and headings.
    *
    * ForceWrite should only be called when processing heading node with the maintainHashesForInclude method.
