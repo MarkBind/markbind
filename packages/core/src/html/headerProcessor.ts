@@ -14,7 +14,7 @@ const _ = {
  * If called from SiteLinkManager, it will directly return the id without adding counter
  * heading text refers to the h1 - h6 text content
  */
-export function processHeadingId(node: MbNode,
+export function processAndReturnHeadingId(node: MbNode,
                                  config: NodeProcessorConfig,
                                  callFromSiteLinkManager: boolean = false): string {
   const textContent = cheerio(node).text();

@@ -2,7 +2,7 @@ import has from 'lodash/has';
 import * as linkProcessor from './linkProcessor';
 import type { NodeProcessorConfig } from './NodeProcessor';
 import { MbNode } from '../utils/node';
-import { processHeadingId } from './headerProcessor';
+import { processAndReturnHeadingId } from './headerProcessor';
 
 const _ = { has };
 
@@ -116,7 +116,7 @@ export class SiteLinkManager {
     }
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
     if (isHeadingTag && node.attribs && !node.attribs.id) {
-      this.maintainFilePathToHashesMap(node, cwf, processHeadingId(node as MbNode, this.config, true));
+      this.maintainFilePathToHashesMap(node, cwf, processAndReturnHeadingId(node as MbNode, this.config, true));
     }
     if (node.attribs && node.attribs.id) {
       this.maintainFilePathToHashesMap(node, cwf);
