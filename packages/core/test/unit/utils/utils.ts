@@ -38,7 +38,7 @@ export function getNewPluginManager(plugins: string[], pluginsContext: PluginCon
   return new PluginManager(fileConfig, plugins, pluginsContext);
 }
 
-class SiteLinkManagerMock extends SiteLinkManager {
+class TestableSiteLinkManager extends SiteLinkManager {
   public constructor(config: NodeProcessorConfig) {
     super(config);
   }
@@ -72,7 +72,7 @@ export function getNewSiteLinkManager(intrasiteLinkValidationEnabled: boolean = 
     plantumlCheck: false,
   };
 
-  return new SiteLinkManagerMock(fileConfig);
+  return new TestableSiteLinkManager(fileConfig);
 }
 
 export function getNewNodeProcessor(pluginManager: PluginManager) {
