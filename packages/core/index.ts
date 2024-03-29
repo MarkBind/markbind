@@ -1,7 +1,4 @@
-const Site = require('./src/Site');
-const { Template } = require('./src/Site/template');
+import { Site } from './src/Site';
+import { Template } from './src/Site/template';
 
-module.exports = {
-  Site,
-  Template,
-};
+export { Site, Template };
