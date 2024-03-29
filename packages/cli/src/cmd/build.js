@@ -2,7 +2,6 @@ const path = require('path');
 
 const { Site } = require('@markbind/core').Site;
 
-const pagefind = require('pagefind');
 const cliUtil = require('../util/cliUtil');
 const logger = require('../util/logger');
 
@@ -27,15 +26,6 @@ function build(userSpecifiedRoot, output, options) {
     .generate(baseUrl)
     .then(() => {
       logger.info('Build success!');
-      // Start Pagefind indexing after successful site generation
-      logger.info('Starting Pagefind indexing...');
-      const { index } = pagefind.createIndex({
-        keepIndexUrl: true,
-        verbose: true,
-      })
-        .then(() => index.addDirectory({ path: outputFolder }))
-        .then(() => index.writeFiles({ outputPath: path.join(outputFolder, 'pagefind') }))
-        .then(() => pagefind.close());
     })
     .catch((error) => {
       logger.error(error.message);

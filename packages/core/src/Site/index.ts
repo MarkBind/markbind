@@ -6,6 +6,7 @@ import walkSync from 'walk-sync';
 import simpleGit, { SimpleGit } from 'simple-git';
 import Bluebird from 'bluebird';
 import ghpages from 'gh-pages';
+import pagefind from 'pagefind';
 
 import { Template as NunjucksTemplate } from 'nunjucks';
 import { SiteConfig, SiteConfigPage, SiteConfigStyle } from './SiteConfig';
@@ -527,6 +528,7 @@ export class Site {
       await this.copyOcticonsAsset();
       await this.copyMaterialIconsAsset();
       await this.writeSiteData();
+      await this.indexSiteWithPagefind();
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
         this.backgroundBuildNotViewedFiles();
@@ -565,6 +567,23 @@ export class Site {
     } catch (error) {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
+  }
+
+  /**
+   * Indexes all the pages of the site using pagefind
+   */
+  async indexSiteWithPagefind() {
+    const newIndex = await pagefind.createIndex({
+      keepIndexUrl: true,
+      verbose: true,
+      logfile: 'debug.log',
+    });
+    const { index } = newIndex;
+    if (index) {
+      await index.addDirectory({ path: this.outputPath });
+      await index.writeFiles({ outputPath: path.join(this.outputPath, 'pagefind') });
+    }
+    await pagefind.close();
   }
 
   /**
