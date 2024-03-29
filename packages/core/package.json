@@ -63,6 +63,7 @@
     "material-icons": "^1.9.1",
     "moment": "^2.29.4",
     "nunjucks": "3.2.4",
+    "pagefind": "^1.0.4",
     "path-is-inside": "^1.0.2",
     "simple-git": "^3.22.0",
     "url-parse": "^1.5.10",
