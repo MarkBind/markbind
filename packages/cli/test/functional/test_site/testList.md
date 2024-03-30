@@ -23,7 +23,7 @@
    - Only 1 item { icon="glyphicon-education" once=true }
 
 1. One item + nested list with text customization
-- Only 1 item {  text="Step 1" }
+- Only 1 item { text="Step 1" }
   - Only 1 item { text="Step 1.1" }
 
 1. Basic structure
