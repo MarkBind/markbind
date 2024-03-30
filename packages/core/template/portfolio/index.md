@@ -21,7 +21,7 @@
         </a>
       </span>
       <span style="margin-right:10px;">
-        <a href="secretary_cs@comp.nus.edu.sg" target="_blank" class="icon">
+        <a href="mailto:secretary_cs@comp.nus.edu.sg" target="_blank" class="icon">
           <i class="fa-solid fa-envelope fa-2xl"></i>
         </a>
       </span>
