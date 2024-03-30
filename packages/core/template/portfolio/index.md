@@ -23,7 +23,7 @@
 </div>
 
 <box type="tip">
-  Want to change the theme? Explore more themes and other components offered by MarkBind in our <a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">user guide here</a>
+  Want to change the theme? Explore more themes and other components offered by MarkBind in our <a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">user guide here</a>.
 </box>
 
 <box type="info" header="##### Deploying this site">
