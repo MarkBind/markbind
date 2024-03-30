@@ -249,3 +249,22 @@ test('Test non intralinks (tel)', () => {
 
   expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
 });
+
+test('Test non valid hash link', () => {
+  const mockLink = '<a href="/userGuide/raw.html#test-1">Test</a>';
+  const mockNode = parseHTML(mockLink)[0] as MbNode;
+  const mockResourcePath = linkProcessor.getDefaultTagsResourcePath(mockNode);
+  expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig))
+    .toEqual('Intralink with ".html" extension is a valid Page Source or File Asset but hash is not found');
+});
+
+test('Test valid hash link', () => {
+  const mockLink = '<a href="/userGuide/raw.html#test-1">Test</a>';
+  const mockNode = parseHTML(mockLink)[0] as MbNode;
+  const mockResourcePath = linkProcessor.getDefaultTagsResourcePath(mockNode);
+  const EXPECTED_RESULT = 'Intralink with ".html" extension is a valid Page Source or File Asset';
+  const mockMap = new Map<string, Set<string>>();
+  mockMap.set('/userGuide/raw.md', new Set(['test-1']));
+  expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig, mockMap))
+    .toEqual(EXPECTED_RESULT);
+});
