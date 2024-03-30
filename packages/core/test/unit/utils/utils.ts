@@ -38,7 +38,25 @@ export function getNewPluginManager(plugins: string[], pluginsContext: PluginCon
   return new PluginManager(fileConfig, plugins, pluginsContext);
 }
 
-export function getNewSiteLinkManager() {
+class TestableSiteLinkManager extends SiteLinkManager {
+  public constructor(config: NodeProcessorConfig) {
+    super(config);
+  }
+
+  public getIntralinkCollection() {
+    return this.intralinkCollection;
+  }
+
+  public getFilePathToHashesMap() {
+    return this.filePathToHashesMap;
+  }
+
+  public getConfig() {
+    return this.config;
+  }
+}
+
+export function getNewSiteLinkManager(intrasiteLinkValidationEnabled: boolean = false) {
   const fileConfig: NodeProcessorConfig = {
     baseUrlMap: new Set([ROOT_PATH]),
     baseUrl: '',
@@ -48,13 +66,13 @@ export function getNewSiteLinkManager() {
     ignore: [],
     addressablePagesSource: [],
     intrasiteLinkValidation: {
-      enabled: false,
+      enabled: intrasiteLinkValidationEnabled,
     },
     codeLineNumbers: false,
     plantumlCheck: false,
   };
 
-  return new SiteLinkManager(fileConfig);
+  return new TestableSiteLinkManager(fileConfig);
 }
 
 export function getNewNodeProcessor(pluginManager: PluginManager) {

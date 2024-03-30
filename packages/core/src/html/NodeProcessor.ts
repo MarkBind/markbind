@@ -172,7 +172,7 @@ export class NodeProcessor {
 
       transformOldSlotSyntax(node);
       shiftSlotNodeDeeper(node);
-
+      this.siteLinkManager.maintainFilePathToHashesMap(node, context.cwf);
       // log warnings for conflicting attributes
       if (_.has(warnConflictingAtributesMap, node.name)) { warnConflictingAtributesMap[node.name](node); }
 
@@ -189,7 +189,7 @@ export class NodeProcessor {
         return processInclude(node, context, this.pageSources, this.variableProcessor,
                               (text: string) => this.markdownProcessor.renderMd(text),
                               (text: string) => this.markdownProcessor.renderMdInline(text),
-                              this.config);
+                              this.config, this.siteLinkManager);
       case 'panel':
         this.mdAttributeRenderer.processPanelAttributes(node);
         return processPanelSrc(node, context, this.pageSources, this.config);
@@ -383,6 +383,7 @@ export class NodeProcessor {
     const isHeadingTag = (/^h[1-6]$/).test(node.name);
     if (isHeadingTag && !node.attribs.id) {
       setHeadingId(node, this.config);
+      this.siteLinkManager.maintainFilePathToHashesMap(node, context.cwf);
     }
 
     this.pluginManager.postProcessNode(node);
