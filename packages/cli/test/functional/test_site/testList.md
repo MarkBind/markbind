@@ -201,7 +201,7 @@
 
 1. None + once + customization
 * Item A 
-* Item B { icon="glyphicon-education"  once=true }
+* Item B { icon="glyphicon-education" once=true }
   * Sub-item B1
   * Sub-item B2
   * Sub-item B3 
@@ -263,7 +263,7 @@
 
 1. False once for specific attributes besides icon, does overwrite
 * Item A { icon="glyphicon-education" i-size="70px" i-class="text-primary" }
-* Item B { i-size="40px" once=false}
+* Item B { i-size="40px" once=false }
   * Sub-item B1
 * Item C
 

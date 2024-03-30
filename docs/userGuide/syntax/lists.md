@@ -72,20 +72,20 @@ Markdown can also be used in texts.
 You may need to add escape characters when using special characters for Markdown in text. 
 </box>
 
-**You can add an icon that is only for a specific item by using the `i-one-off` attribute.**
+**You can add an icon or text that is only for a specific item by using the `once` attribute.**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 * Item 1 { icon="glyphicon-education" }
-* Item 2 { icon="fas-code-branch" i-one-off=true }
+* Item 2 { icon="fas-code-branch" once=true }
   * Item 2.1
   * Item 2.2
 * Item 3
   </variable>
 </include>
 
-Subsequent items at the same level will not inherit the one-off icon and will instead inherit the icon before the one-off icon.
+Subsequent items at the same level will not inherit the once icon or text and will instead inherit the icon or text before it.
 
 **You can adjust the icon and text's size by using the `i-size` and `t-size` attribute respectively.**
 
