@@ -19,20 +19,25 @@ export const PROCESS_PANEL_ATTRIBUTES_EXPECTED = `
 `;
 
 export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY = `
-<panel header="# Lorem ipsum">
+<panel header="# Lorem ipsum" alt="**strong alt**">
   <div slot="header">
-    This existing header slot should be preserved in favour over header attribute, with a logger warning for repeated attributes.
+    This existing header slot should be preserved in favour over header attribute.
   </div>
-  Header attribute should be ignored and deleted while header slot is reserved.
+  Header attribute should not be inserted under panel since there is both an alt attribute and header slot,
+  but should be deleted.
+  Alt attribute should be inserted under panel as slot.
 </panel>
 `;
 
 export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
-<panel>
+<panel><template #_alt><p><strong>strong alt</strong></p>
+</template>
   <template #header><div>
-    This existing header slot should be preserved in favour over header attribute, with a logger warning for repeated attributes.
+    This existing header slot should be preserved in favour over header attribute.
   </div></template>
-  Header attribute should be ignored and deleted while header slot is reserved.
+  Header attribute should not be inserted under panel since there is both an alt attribute and header slot,
+  but should be deleted.
+  Alt attribute should be inserted under panel as slot.
 </panel>
 `;
 
@@ -70,7 +75,7 @@ export const PROCESS_QUESTION_ATTRIBUTES_EXPECTED = `
 `;
 
 export const PROCESS_QUESTION_HEADER_SLOT_TAKES_PRIORITY = `
-<question header="**header**">
+<question header="**lorem ipsum**">
 <template slot="header"></template>
 </question>
 `;
@@ -82,7 +87,7 @@ export const PROCESS_QUESTION_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 `;
 
 export const PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY = `
-<question hint="**hint**">
+<question hint="**lorem ipsum**">
 <template slot="hint"></template>
 </question>
 `;
@@ -94,7 +99,7 @@ export const PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY_EXPECTED = `
 `;
 
 export const PROCESS_QUESTION_ANSWER_SLOT_TAKES_PRIORITY = `
-<question answer="**answer**">
+<question answer="**lorem ipsum**">
 <template slot="answer"></template>
 </question>
 `;
