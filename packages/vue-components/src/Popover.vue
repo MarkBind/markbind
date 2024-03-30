@@ -11,9 +11,8 @@
       <div class="popover-body">
         <slot name="content"></slot>
       </div>
-    </portal>
-
-    <v-popover
+    </portal><!--
+ --><v-popover
       v-if="isMounted"
       :auto-hide="!isInput"
       :triggers="triggers"
