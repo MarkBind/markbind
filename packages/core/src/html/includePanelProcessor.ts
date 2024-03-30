@@ -14,6 +14,7 @@ import type { Context } from './Context';
 import type { PageSources } from '../Page/PageSources';
 import type { VariableProcessor } from '../variables/VariableProcessor';
 import { MbNode, NodeOrText } from '../utils/node';
+import { SiteLinkManager } from './SiteLinkManager';
 
 require('../patches/htmlparser2');
 
@@ -165,6 +166,15 @@ function _deleteIncludeAttributes(node: MbNode) {
   delete node.attribs.omitFrontmatter;
 }
 
+function buildGetNextFootnodeNumber() {
+  let footnoteNumber = 0;
+  function getFootnoteNumber() {
+    footnoteNumber += 1;
+    return footnoteNumber;
+  }
+  return getFootnoteNumber;
+}
+
 /**
  * PreProcesses includes.
  * Replaces it with an error node if the specified src is invalid,
@@ -173,7 +183,8 @@ function _deleteIncludeAttributes(node: MbNode) {
 export function processInclude(node: MbNode, context: Context, pageSources: PageSources,
                                variableProcessor: VariableProcessor, renderMd: (text: string) => string,
                                renderMdInline: (text: string) => string,
-                               config: Record<string, any>): Context {
+                               config: Record<string, any>, siteLinkManager: SiteLinkManager,
+                               getNextFootnodeNumber: () => number = buildGetNextFootnodeNumber()): Context {
   if (_.isEmpty(node.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
     logger.error(error);
@@ -230,6 +241,27 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
     const $ = cheerio.load(actualContent);
     const actualContentOrNull = $(hash).html();
     actualContent = actualContentOrNull || '';
+    if (actualContent !== '') {
+      const hashNode = $(hash);
+      const footnodeHrefs = hashNode.find('a[aria-describedby="footnote-label"]')
+        .map(function (this: any) {
+          $(this).text(`[${getNextFootnodeNumber()}]`);
+          return $(this).attr('href');
+        })
+        .get();
+      if (footnodeHrefs.length > 0) {
+        const tempFootnotes = $('<mb-temp-footnotes></mb-temp-footnotes>');
+        footnodeHrefs.forEach((href) => {
+          // substring function called to remove the # from the href
+          const listItem = $('<li></li>').attr('id', href.substring(1))
+            .addClass('footnote-item')
+            .html($(`${href}.footnote-item`).html()!);
+          tempFootnotes.append(listItem);
+        });
+        hashNode.append(tempFootnotes);
+        actualContent = hashNode.html()!;
+      }
+    }
 
     if (actualContentOrNull === null && !isOptional) {
       const error = new Error(`No such segment '${hash}' in file: ${actualFilePath}\n`
@@ -243,11 +275,9 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
   if (isTrim) {
     actualContent = actualContent.trim();
   }
-
   const $includeEl = cheerio(node);
   $includeEl.empty();
   $includeEl.append(actualContent);
-
   if (node.children && node.children.length > 0) {
     childContext.addCwfToCallstack(context.cwf);
     childContext.processingOptions.omitFrontmatter = shouldOmitFrontmatter;
@@ -261,7 +291,7 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
   }
 
   _deleteIncludeAttributes(node);
-
+  siteLinkManager.maintainHashesForInclude(node, context.cwf);
   return childContext;
 }
 
