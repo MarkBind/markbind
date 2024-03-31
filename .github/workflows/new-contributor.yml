@@ -17,24 +17,21 @@ jobs:
         with:
           script: |
             const prAuthor = context.payload.pull_request.user.login;
-            const repoOwner = context.repo.owner;
-            const repoName = context.repo.repo;
-            const mergedPRs = await github.paginate(
-              github.rest.pulls.list,
-              {
-                owner: repoOwner,
-                repo: repoName,
-                state: 'closed',
-                per_page: 100
-              },
-              (response) => response.data.filter(pr => pr.merged_at != null && pr.user.login === prAuthor)
+            const contributors = await github.paginate(
+              github.rest.repos.listContributors, {
+                owner: context.repo.owner,
+                repo: context.repo.repo
+              }
             );
-            if (mergedPRs.length === 0) {
+
+            const isContributor = contributors.some(contributor => contributor.login === prAuthor);
+            
+            if (!isContributor) {
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `**Welcome**, new contributor!
+                body: `**Welcome**, @${prAuthor}! 🎉 Thank you for your contribution to the MarkBind project!
 
                   Do remember to request someone to add you as a official contributor to our repository, if you want to of course! See the full list of contributors [here](https://markbind.org/about.html) ✨`
               });
