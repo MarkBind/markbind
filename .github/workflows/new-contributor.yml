@@ -24,9 +24,9 @@ jobs:
               }
             );
 
-            const isContributor = contributors.some(contributor => contributor.login === prAuthor);
+            const isAlreadyContributor = contributors.some(contributor => contributor.login === prAuthor);
             
-            if (!isContributor) {
+            if (!isAlreadyContributor) {
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
