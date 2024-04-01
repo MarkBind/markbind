@@ -462,6 +462,12 @@
         "h1-text": "\n\n\n  h1 text\n  \n"
       },
       "headingKeywords": {}
+    },
+    {
+      "src": "testMermaid.md",
+      "title": "Rendering of diagrams via mermaid-js",
+      "headings": {},
+      "headingKeywords": {}
     }
   ]
 }
