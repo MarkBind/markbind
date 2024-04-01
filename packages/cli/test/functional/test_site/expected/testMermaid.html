@@ -264,12 +264,16 @@
           Add gantt diagram to demo page : 20h
           Add another diagram to demo page : 48h
         </div>
-        <div class="mermaid" v-mermaid>
-          pie title Pets adopted by volunteers
-          "Dogs" : 386
-          "Cats" : 85
-          "Rats" : 15
-        </div>
+        <panel type="minimal"><template #header>
+            <p>This is your header for a Panel, click me to expand!</p>
+          </template>
+          <div class="mermaid" v-mermaid>
+            pie title Pets adopted by volunteers
+            "Dogs" : 386
+            "Cats" : 85
+            "Rats" : 15
+          </div>
+        </panel>
       </div>
       <overlay-source id="page-nav" tag-name="nav" to="page-nav">
         <div class="nav-component slim-scroll">
