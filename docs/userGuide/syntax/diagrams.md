@@ -142,6 +142,11 @@ name   | `string` | The name of the output file.<br>Avoid using the same name fo
 src    | `string` | The URL of the diagram if your diagram is in another `.puml` file.<br>The URL can be specified as absolute or relative references. More info in: _[Intra-Site Links]({{baseUrl}}/userGuide/formattingContents.html#intraSiteLinks)_
 width  | `string` | The width of the diagram in pixels.<br>If both width and height are specified, width takes priority over height. It is to maintain the diagram's aspect ratio.
 
+<box type="tip">
+
+It's also possible to utilize JavaScript diagram libraries such as [Mermaid](https://mermaid-js.github.io/mermaid/) via the [Mermaid plugin](../usingPlugins.html#plugin-mermaid).
+</box>
+
 <div id="short" class="d-none">
 
 ```
