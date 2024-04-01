@@ -9,24 +9,38 @@ const _ = {
   has,
 };
 
-/*
- * h1 - h6
+/**
+ * Increment the counter for same heading text, and set the id of the heading node
+ *
+ * If the addHeaderCount is false, the counter for the same heading text will not be incremented.
+ * The heading id will also not have the count appended to it.
+ *
+ * So for, only SiteLinkManager uses this function with addHeaderCount set to false.
+ * This is for validating intralinks in a side-effect free manner.
+ *
+ * Heading text refers to textContent of h1-h6 Nodes.
  */
-export function setHeadingId(node: MbNode, config: NodeProcessorConfig) {
+export function setHeadingId(node: MbNode,
+                             config: NodeProcessorConfig,
+                             addHeaderCount: boolean = true) {
   const textContent = cheerio(node).text();
   // remove the '&lt;' and '&gt;' symbols that markdown-it uses to escape '<' and '>'
   const cleanedContent = textContent.replace(/&lt;|&gt;/g, '');
   const slugifiedHeading = slugify(cleanedContent, { decamelize: false });
 
   let headerId = slugifiedHeading;
+  if (!addHeaderCount) {
+    node.attribs.id = headerId;
+    return;
+  }
   const { headerIdMap } = config;
+
   if (headerIdMap[slugifiedHeading]) {
     headerId = `${slugifiedHeading}-${headerIdMap[slugifiedHeading]}`;
     headerIdMap[slugifiedHeading] += 1;
   } else {
     headerIdMap[slugifiedHeading] = 2;
   }
-
   node.attribs.id = headerId;
 }
 

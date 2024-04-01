@@ -1,0 +1,69 @@
+name: Pull Request Review Action
+on:
+    pull_request_target:
+        types:
+          - closed
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+    check-pr-label:
+        if: ${{ github.event.pull_request.merged }}
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v3
+          - name: Check for PR description label
+            id: check_pr_description_label
+            run: |
+              python scripts/process_message.py "${TEXT_BODY}" > processed_body.txt
+              processed_body=$(cat processed_body.txt)
+              proposed_version_impact=$(echo "$processed_body" | awk '/Major \\\(when you make incompatible API changes\\\)/,/Patch \\\(when you make backward compatible bug fixes\\\)/')
+              is_major=$(echo "$proposed_version_impact" | grep -qi '\[X\] Major'; echo $((1-$?)))
+              is_minor=$(echo "$proposed_version_impact" | grep -qi '\[X\] Minor'; echo $((1-$?)))
+              is_patch=$(echo "$proposed_version_impact" | grep -qi '\[X\] Patch'; echo $((1-$?)))
+              num_labels_chosen=$(($is_major + $is_minor + $is_patch))
+              echo "num_labels_chosen=$num_labels_chosen" >> $GITHUB_OUTPUT
+              if [[ "$num_labels_chosen" -eq 0 ]]; then
+                echo "message=$(echo "@${MERGE_AUTHOR} Each PR must have a SEMVER impact label, please remember to label the PR properly.")" >> $GITHUB_OUTPUT
+              elif [[ "$num_labels_chosen" -ge 2 ]]; then
+                echo "message=$(echo "@${MERGE_AUTHOR} Each PR can only have one SEMVER impact label, please remember to label the PR properly.")" >> $GITHUB_OUTPUT
+              else
+                echo "message=$(echo "SEMVER impact selected.")" >> $GITHUB_OUTPUT
+                echo "chosen_label=$(
+                    if [ "$is_major" -eq 1 ]; then
+                        echo "r.Major"
+                    elif [ "$is_minor" -eq 1 ]; then
+                        echo "r.Minor"
+                    elif [ "$is_patch" -eq 1 ]; then
+                        echo "r.Patch"
+                    fi
+                 )" >> $GITHUB_OUTPUT
+              fi
+            env:
+              TEXT_BODY: ${{ github.event.pull_request.body }}
+              MERGE_AUTHOR: ${{ github.event.sender.login }}
+          - name: Assign label based on version impact
+            uses: actions/github-script@v7
+            with:
+                script: |
+                    if (process.env.NUM_LABELS_CHOSEN != 1) {
+                      github.rest.issues.createComment({
+                        issue_number: context.payload.pull_request.number,
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        body: process.env.MESSAGE,
+                      });
+                    } else {
+                        github.rest.issues.addLabels({
+                            issue_number: context.payload.pull_request.number,
+                            owner: context.repo.owner,
+                            repo: context.repo.repo,
+                            labels: [process.env.CHOSEN_LABEL]
+                        });
+                    }
+            env:
+                NUM_LABELS_CHOSEN: ${{ steps.check_pr_description_label.outputs.num_labels_chosen }}
+                MESSAGE: ${{ steps.check_pr_description_label.outputs.message }}
+                CHOSEN_LABEL: ${{ steps.check_pr_description_label.outputs.chosen_label }}

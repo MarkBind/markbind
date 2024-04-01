@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 5.4.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design - ProjectEx</title>
+  <link rel="stylesheet" href="/markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="/markbind/css/codeblock-light.min.css">
+  <link rel="stylesheet" href="/markbind/css/markbind.min.css">
+  <script src="/markbind/js/polyfill.min.js"></script>
+  <script src="/markbind/js/vue.min.js"></script>
+  <script src="/markbind/js/markbind.min.js"></script>
+  <script src="Design.page-vue-render.js"></script>
+  <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
+  <link rel="stylesheet" href="/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
+
+  <link rel="stylesheet" href="/stylesheets/main.css">
+  <link rel="icon" href="/images/SeEduLogo.png">
+</head>
+<script>
+  const baseUrl = ''
+</script>
+
+<body data-bs-spy="scroll" data-bs-target="#mb-page-nav" data-bs-offset="100">
+  <div id="app">
+    <header sticky>
+      <navbar type="dark">
+        <template #brand><a href="/index.html" title="Home" class="navbar-brand">ProjectEx</a></template>
+        <li><a highlight-on="sibling-or-child" href="/userGuide/UserGuide.html" class="nav-link">User Guide</a></li>
+        <li><a highlight-on="sibling-or-child" href="/developerGuide/DeveloperGuide.html" class="nav-link">Developer Guide</a></li>
+        <li><a highlight-on="sibling-or-child" href="/team/AboutUs.html" class="nav-link">About Us</a></li>
+        <li><a href="https://github.com/se-edu" target="_blank" class="nav-link"><span><span aria-hidden="true" class="fab fa-github"></span></span></a></li>
+        <template #right>
+          <li>
+            <form class="navbar-form">
+              <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right></searchbar>
+            </form>
+          </li>
+        </template>
+      </navbar>
+    </header>
+    <div id="flex-body">
+      <overlay-source id="site-nav" tag-name="nav" to="site-nav">
+        <div class="nav-component slim-scroll">
+          <site-nav>
+            <overlay-source class="site-nav-list site-nav-list-root" tag-name="ul" to="mb-site-nav">
+              <li>
+                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/index.html">Home</a></div>
+              </li>
+              <li>
+                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/userGuide/UserGuide.html">User Guide</a>
+
+                  <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </i></div>
+                </div>
+                <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/userGuide/QuickStart.html">Quick Start</a></div>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/userGuide/Features.html">Features</a></div>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/userGuide/FAQ.html">FAQ</a></div>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/developerGuide/DeveloperGuide.html">Developer Guide</a>
+
+                  <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </i></div>
+                </div>
+                <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/SettingUp.html">Setting Up</a>
+
+                      <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                        </i></div>
+                    </div>
+                    <ul class="site-nav-dropdown-container site-nav-list">
+                      <li>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/TracingCode.html">Tutorial: Tracing code</a></div>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Design.html">Design</a></div>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Implementation.html">Implementation</a></div>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Project Guides
+
+                      <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                        </i></div>
+                    </div>
+                    <ul class="site-nav-dropdown-container site-nav-list">
+                      <li>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Documentation.html">Documentation</a></div>
+                      </li>
+                      <li>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Testing.html">Testing</a></div>
+                      </li>
+                      <li>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Configuration.html">Configuration</a></div>
+                      </li>
+                      <li>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/DevOps.html">DevOps</a></div>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)">Appendix
+
+                      <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                          <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                        </i></div>
+                    </div>
+                    <ul class="site-nav-dropdown-container site-nav-list">
+                      <li>
+                        <div class="site-nav-default-list-item site-nav-list-item-2" onclick="handleSiteNavClick(this)"><a href="/developerGuide/Requirements.html">Requirements</a></div>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <div class="site-nav-default-list-item site-nav-list-item-0" onclick="handleSiteNavClick(this)"><a href="/team/AboutUs.html">About Us</a>
+
+                  <div class="site-nav-dropdown-btn-container"><i class="site-nav-dropdown-btn-icon site-nav-rotate-icon" onclick="handleSiteNavClick(this.parentNode.parentNode, false); event.stopPropagation();">
+                      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </i></div>
+                </div>
+                <ul class="site-nav-dropdown-container site-nav-dropdown-container-open site-nav-list">
+                  <li>
+                    <div class="site-nav-default-list-item site-nav-list-item-1" onclick="handleSiteNavClick(this)"><a href="/team/johndoe.html">Contributor Portfolio Template</a></div>
+                  </li>
+                </ul>
+              </li>
+            </overlay-source>
+          </site-nav>
+        </div>
+      </overlay-source>
+      <div id="content-wrapper">
+
+        <h1 id="design">Design<a class="fa fa-anchor" href="#design" onclick="event.stopPropagation()"></a></h1>
+        <box type="tip">
+          This section describes the architecture of your app, explaining how the main components work and interact with each other. Using architecture diagrams is recommended.
+        </box>
+        <h3 id="architecture">Architecture<a class="fa fa-anchor" href="#architecture" onclick="event.stopPropagation()"></a></h3>
+        <p>The <em><strong>Architecture Diagram</strong></em> given below explains the high-level design of the ProjectEx App.</p>
+        <pic src="/diagrams/example.png" width="300"></pic>
+        <box type="info">
+          <p>Replace the above example diagram with an Architecture Diagram of your project created using <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html#diagrams"><code class="hljs inline no-lang" v-pre>puml</code> feature</a>.</p>
+        </box>
+        <p>Given below is a quick overview of main components and how they interact with each other.</p>
+        <p><strong>Main components of the architecture</strong></p>
+        <p>The bulk of the app's work is done by the following components:</p>
+        <ul>
+          <li><a href="#component-1"><strong><code class="hljs inline no-lang" v-pre>Component 1</code></strong></a>: Does something.</li>
+          <li><a href="#component-2"><strong><code class="hljs inline no-lang" v-pre>Component 2</code></strong></a>: Does something.</li>
+        </ul>
+        <p><strong>Interactions between architecture components</strong></p>
+        <p>The <em>Sequence Diagram</em> below shows how the components interact with each other for a certain scenario.</p>
+        <annotate src="../images/johndoe.png" width="300" alt="Sample Image">
+
+          <a-point x="25%" y="25%"><template #content>
+              <p>This point is 25% from the left and 25% from the top</p>
+            </template></a-point>
+
+          <a-point x="50%" y="25%" size="60"><template #content>
+              <p>This point is 50% from the left and 25% from the top</p>
+            </template></a-point>
+
+          <a-point x="75%" y="25%"><template #header>
+              <p>This has a header</p>
+            </template><template #content>
+              <p>This point is 75% from the left and 25% from the top</p>
+            </template></a-point>
+
+          <a-point x="33%" y="50%" color="red"><template #content>
+              <p>This point is 33% from the left and 50% from the top</p>
+            </template></a-point>
+
+          <a-point x="66%" y="50%" opacity="0.7"><template #content>
+              <p>This point is 66% from the left and 50% from the top</p>
+            </template></a-point>
+
+          <a-point x="25%" y="75%"><template #label>
+              <p>1</p>
+            </template><template #content>
+              <p>This point is 25% from the left and 75% from the top</p>
+            </template></a-point>
+
+          <a-point x="50%" y="75%" textColor="white" color="black" opacity="1"><template #label>
+              <p>2</p>
+            </template><template #content>
+              <p>This point is 50% from the left and 75% from the top</p>
+            </template></a-point>
+
+          <a-point x="75%" y="75%" fontSize="30"><template #label>
+              <p>3</p>
+            </template><template #content>
+              <p>This point is 75% from the left and 75% from the top</p>
+            </template></a-point>
+        </annotate>
+        <box type="info">
+          <p>For diagrams like your Sequence Diagram, it can also be created using <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html#annotations"><code class="hljs inline no-lang" v-pre>annotate</code> feature</a>, that will allow you to annotate specific parts of your diagram.</p>
+        </box>
+        <p>The sections below give more details of each component.</p>
+        <box type="tip">
+          <p><strong>Tip:</strong> Describe in each section how each component works in detail, including its classes, methods, and how it interacts with other components.</p>
+          <p>You can use a combination of Markbind's <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html#diagrams"><strong>Diagrams</strong> feature</a> to provide a visual representation of each component, such as architecture and sequence diagrams.</p>
+        </box>
+        <h3 id="component-1">Component 1<a class="fa fa-anchor" href="#component-1" onclick="event.stopPropagation()"></a></h3>
+        <p>Component 1 is made up of parts e.g.<code class="hljs inline no-lang" v-pre>A</code>, <code class="hljs inline no-lang" v-pre>B</code>, <code class="hljs inline no-lang" v-pre>C</code> etc.</p>
+        <pic src="/images/johndoe.png" width="200px" style="margin-bottom: 20px;">
+          Diagram: Component 1
+        </pic>
+        <p>Component 1,</p>
+        <ul>
+          <li>works with Component 2 in this way.</li>
+        </ul>
+        <h3 id="component-2">Component 2<a class="fa fa-anchor" href="#component-2" onclick="event.stopPropagation()"></a></h3>
+        <box type="info" seamless>
+          <p><strong>Note:</strong> You can use boxes to include details that you want to draw the reader's attention to. See <a href="https://markbind.org/userGuide/components/presentation.html#boxes"><code class="hljs inline no-lang" v-pre>Boxes</code> feature</a>.</p>
+        </box>
+        <pic src="/images/johndoe.png" width="200px" style="margin-bottom: 20px;">
+          Diagram: Component 2
+        </pic>
+        <p>Component 2,</p>
+        <ul>
+          <li>works with Component 1 in this way.</li>
+        </ul>
+      </div>
+      <overlay-source id="page-nav" tag-name="nav" to="page-nav">
+        <div class="nav-component slim-scroll">
+
+          <overlay-source id="mb-page-nav" tag-name="nav" to="mb-page-nav" class="nav nav-pills flex-column my-0 small no-flex-wrap">
+            <a class="nav-link py-1" href="#design" v-pre>Design&#x200E;</a>
+            <nav class="nav nav-pills flex-column my-0 nested no-flex-wrap">
+              <a class="nav-link py-1" href="#architecture" v-pre>Architecture&#x200E;</a>
+              <a class="nav-link py-1" href="#component-1" v-pre>Component 1&#x200E;</a>
+              <a class="nav-link py-1" href="#component-2" v-pre>Component 2&#x200E;</a>
+            </nav>
+
+          </overlay-source>
+        </div>
+      </overlay-source>
+      <scroll-top-button></scroll-top-button>
+    </div>
+    <footer>
+
+      <div class="text-center">
+        <small>[<span><strong>Powered by</strong></span> <img src="https://markbind.org/favicon.ico" width="30"> <a href="https://markbind.org/">MarkBind 5.4.0</a>]</small>
+      </div>
+    </footer>
+  </div>
+</body>
+<script src="/markbind/js/bootstrap-utility.min.js"></script>
+<script>
+  MarkBind.setupWithSearch()
+</script>
+
+</html>
