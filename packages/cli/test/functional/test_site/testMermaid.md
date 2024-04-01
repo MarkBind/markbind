@@ -61,9 +61,11 @@ Add gantt diagram to demo page      : 20h
 Add another diagram to demo page    : 48h
 </mermaid>
 
+<panel type="minimal" header="This is your header for a Panel, click me to expand!">
 <mermaid>
 pie title Pets adopted by volunteers
     "Dogs" : 386
     "Cats" : 85
     "Rats" : 15
 </mermaid>
+</panel>
