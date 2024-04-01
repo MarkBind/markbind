@@ -2,6 +2,7 @@ import has from 'lodash/has';
 import * as linkProcessor from './linkProcessor';
 import type { NodeProcessorConfig } from './NodeProcessor';
 import { MbNode } from '../utils/node';
+import { setHeadingId } from './headerProcessor';
 
 const _ = { has };
 
@@ -15,12 +16,14 @@ const tagsToValidate: Set<string> = new Set([
 ]);
 
 export class SiteLinkManager {
-  private config: NodeProcessorConfig;
-  private intralinkCollection: Map<string, Set<string>>;
+  protected config: NodeProcessorConfig;
+  protected intralinkCollection: Map<string, Set<string>>;
+  protected filePathToHashesMap: Map<string, Set<string>>;
 
   constructor(config: NodeProcessorConfig) {
     this.config = config;
     this.intralinkCollection = new Map();
+    this.filePathToHashesMap = new Map();
   }
 
   /**
@@ -39,9 +42,11 @@ export class SiteLinkManager {
     if (!this.config.intrasiteLinkValidation.enabled) {
       return;
     }
-
     this.intralinkCollection.forEach((resourcePaths, cwf) => {
-      resourcePaths.forEach(resourcePath => linkProcessor.validateIntraLink(resourcePath, cwf, this.config));
+      resourcePaths.forEach(resourcePath => linkProcessor.validateIntraLink(resourcePath,
+                                                                            cwf,
+                                                                            this.config,
+                                                                            this.filePathToHashesMap));
     });
 
     this.intralinkCollection = new Map();
@@ -68,5 +73,45 @@ export class SiteLinkManager {
 
     this._addToCollection(resourcePath, cwf);
     return 'Intralink collected to be validated later';
+  }
+
+  /**
+   * Add sections that could be reached by intra-link with hash to this node to filePathToHashesMap,
+   * The reachable sections include nodes with ids and headings.
+   */
+  maintainFilePathToHashesMap(node: MbNode, cwf: string) {
+    if (!this.config.intrasiteLinkValidation.enabled) {
+      return;
+    }
+    const path = cwf.substring(this.config.rootPath.length);
+    if (!this.filePathToHashesMap.has(path)) {
+      this.filePathToHashesMap.set(path, new Set());
+    }
+    if (node.attribs!.id) {
+      this.filePathToHashesMap.get(path)!.add(node.attribs!.id);
+    }
+  }
+
+  /**
+   * Recursively add reachable sections of the included node to the filePathToHashesMap for validation.
+   */
+  maintainHashesForInclude(node: MbNode, cwf: string) {
+    if (!this.config.intrasiteLinkValidation.enabled) {
+      return;
+    }
+    const isHeadingTag = (/^h[1-6]$/).test(node.name);
+    if (isHeadingTag && node.attribs && !node.attribs.id) {
+      setHeadingId(node, this.config, false);
+      this.maintainFilePathToHashesMap(node, cwf);
+      node.attribs.id = undefined;
+    }
+    if (node.attribs && node.attribs.id) {
+      this.maintainFilePathToHashesMap(node, cwf);
+    }
+    if (node.children) {
+      node.children.forEach((child) => {
+        this.maintainHashesForInclude(child as MbNode, cwf);
+      });
+    }
   }
 }
