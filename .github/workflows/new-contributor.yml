@@ -17,16 +17,17 @@ jobs:
         with:
           script: |
             const prAuthor = context.payload.pull_request.user.login;
+            console.log(prAuthor);
             const contributors = await github.paginate(
               github.rest.repos.listContributors, {
                 owner: context.repo.owner,
                 repo: context.repo.repo
               }
             );
-            echo "PR author: $prAuthor";
+            console.log(contributors);
 
             const isAlreadyContributor = contributors.some(contributor => contributor.login === prAuthor);
-            echo "Is already contributor: $isAlreadyContributor";
+            console.log(isAlreadyContributor);
 
             if (!isAlreadyContributor) {
               github.rest.issues.createComment({
