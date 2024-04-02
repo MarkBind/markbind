@@ -7,6 +7,7 @@ import {
   SetExternalExtension,
 } from '../lib/nunjucks-extensions';
 import * as fsUtil from '../utils/fsUtil';
+import fs from "fs-extra";
 
 require('../patches/nunjucks'); // load patch
 
@@ -60,7 +61,10 @@ export class VariableRenderer {
   ) {
     this.pageSources = pageSources;
     const templateName = fsUtil.ensurePosix(path.relative(this.siteRootPath, contentFilePath));
-    return this.nj.render(templateName, variables);
+
+    const sourceContent = fs.readFileSync("_markbind/nunjucks-set.md", 'utf8');
+    const destContent = fs.readFileSync(templateName, 'utf8');
+    return this.nj.renderString(sourceContent + destContent, variables);
   }
 
   /**

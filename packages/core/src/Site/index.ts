@@ -486,37 +486,6 @@ export class Site {
         this.variableProcessor.renderAndAddUserDefinedVariable(base, name, $(element).html());
       });
 
-      const rootNode = nunjucksParser.parse(content);
-
-      function collectValues(node: any) {
-        if (node.value.value) {
-          return node.value.value;
-        }
-        if (!node.value.children) {
-          return node.value;
-        }
-
-        const values: any[] = [];
-        if (node.value.children) {
-          node.value.children.forEach((childNode: any) => {
-            values.push(collectValues(childNode));
-          });
-        }
-        return values;
-      }
-
-      function collectVariables(rootNode: any, variableProcessor: VariableProcessor) {
-        rootNode.children.forEach((childNode: any) => {
-          if (childNode.targets) {
-            const variableValue = childNode.value.value ? childNode.value.value : collectValues(childNode);
-            childNode.targets.forEach(function (target: any) {
-              variableProcessor.addUserDefinedVariable(base, target.value, variableValue);
-            });
-          }
-        });
-      }
-
-      collectVariables(rootNode, this.variableProcessor);
     });
   }
 
