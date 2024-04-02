@@ -23,16 +23,17 @@ jobs:
                 repo: context.repo.repo
               }
             );
+            echo "PR author: $prAuthor";
 
             const isAlreadyContributor = contributors.some(contributor => contributor.login === prAuthor);
-            
+            echo "Is already contributor: $isAlreadyContributor";
+
             if (!isAlreadyContributor) {
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 body: `**Welcome**, @${prAuthor}! 🎉 Thank you for your contribution to the MarkBind project!
-
                   Do remember to request someone to add you as a official contributor to our repository, if you want to of course! See the full list of contributors [here](https://markbind.org/about.html) ✨`
               });
             }
