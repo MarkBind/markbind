@@ -27,7 +27,6 @@ packages/core/test/unit/**/*.js
 
 # TODO: remove when migrated to TS
 !markdown-it-icons.test.js
-!Site.test.js
 
 # Rules for pure JS files
 packages/core/src/lib/markdown-it/patches/*
