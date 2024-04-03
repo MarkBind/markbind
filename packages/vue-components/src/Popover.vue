@@ -11,7 +11,7 @@
       <div class="popover-body">
         <slot name="content"></slot>
       </div>
-    </portal><!--
+    </portal><!-- do not delete this comment, it is for the stray space issue (#2419) 
  --><v-popover
       v-if="isMounted"
       :auto-hide="!isInput"
