@@ -55,6 +55,12 @@ MarkBind currently supports Version 6 of Font Awesome (Free plan). For detailed 
 1. You may also append `~class-name` to the end of the octicon name to add `class="class-name"` property to your Octicon (e.g. `:octicon-git-pull-request~icon-large-red:` will generate an Octicon of class *icon-large-red*). You may then add corresponding CSS to `{root}/_markbind/layouts/{layout-name}/styles.css` to customize the style of your Octicon.
 1. If your background is dark, you may use `:octiconlight-*:` to render the icon as white. 
 
+###### Using Bootstrap icons
+
+1. Decide which icon you want to use from [list of available Bootstrap icons](https://icons.getbootstrap.com).
+1. Insert the name for the icon enclosed within colons to get the icon in your page.<br>
+  `Add a romantic touch with :bi-arrow-through-heart:` → Add a romantic touch with :bi-arrow-through-heart:
+
 ###### Using Material Icons
 
 1. Decide which icon you want to use from [list of available icons](https://fonts.google.com/icons).
