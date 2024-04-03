@@ -10,7 +10,7 @@
     {{ vue }}
   </div>
   <div class="card-body">
-    <a href="#" class="btn btn-primary">View on Github</a>
-    <a href="#" class="btn btn-primary">View Devpost</a>
+    <a href="https://github.com/MarkBind/markbind" class="btn btn-primary">View on Github</a>
+    <a href="https://markbind.org/" class="btn btn-primary">View post</a>
   </div>
 </div>
