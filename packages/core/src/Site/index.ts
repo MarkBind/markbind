@@ -26,7 +26,6 @@ import { SITE_CONFIG_NAME, LAZY_LOADING_SITE_FILE_NAME, _ } from './constants';
 import { LayoutManager } from '../Layout';
 import { LayoutConfig } from '../Layout/Layout';
 
-const nunjucksParser = require('nunjucks').parser;
 // Change when they are migrated to TypeScript
 const ProgressBar = require('../lib/progress');
 require('../patches/htmlparser2');
@@ -485,7 +484,6 @@ export class Site {
 
         this.variableProcessor.renderAndAddUserDefinedVariable(base, name, $(element).html());
       });
-
     });
   }
 

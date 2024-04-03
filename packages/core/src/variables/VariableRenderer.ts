@@ -1,3 +1,4 @@
+import fs from 'fs-extra';
 import path from 'path';
 import nunjucks, { Environment } from 'nunjucks';
 
@@ -7,13 +8,13 @@ import {
   SetExternalExtension,
 } from '../lib/nunjucks-extensions';
 import * as fsUtil from '../utils/fsUtil';
-import fs from "fs-extra";
 
 require('../patches/nunjucks'); // load patch
 
 const unescapedEnv = nunjucks.configure({ autoescape: false })
   .addFilter('date', dateFilter);
 
+const USER_NUNJUCKS_VARIABLES_PATH = '_markbind/nunjucks_variables.md';
 /**
  * Wrapper class over a nunjucks environment configured for the respective (sub)site.
  */
@@ -62,9 +63,11 @@ export class VariableRenderer {
     this.pageSources = pageSources;
     const templateName = fsUtil.ensurePosix(path.relative(this.siteRootPath, contentFilePath));
 
-    const sourceContent = fs.readFileSync("_markbind/nunjucks-set.md", 'utf8');
-    const destContent = fs.readFileSync(templateName, 'utf8');
-    return this.nj.renderString(sourceContent + destContent, variables);
+    const nunjucks_variables = fs.existsSync(USER_NUNJUCKS_VARIABLES_PATH)
+      ? fs.readFileSync(USER_NUNJUCKS_VARIABLES_PATH, 'utf8') : '';
+    const content = fs.readFileSync(templateName, 'utf8');
+
+    return this.nj.renderString(nunjucks_variables + content, variables);
   }
 
   /**
