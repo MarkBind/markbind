@@ -69,9 +69,7 @@ const handleFontAwesome = (iconFontType: string, iconFontName: string) =>
   `<span aria-hidden="true" class="${iconFontType} fa-${iconFontName}"></span>`;
 
 // Handler function for Bootstrap Icons
-const handleBootstrapIcon = (iconFontName: string) => {
-  return `<i class="bi-${iconFontName}"></i>`;
-};
+const handleBootstrapIcon = (iconFontName: string) => `<i class="bi-${iconFontName}"></i>`;
 
 // function to get the respective icon html based on the icon font type
 const getIconHtml = (match: string[]) => {

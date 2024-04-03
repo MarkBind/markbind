@@ -191,6 +191,10 @@
       "title": "octicon icon in page, only octicon stylesheet should be loaded"
     },
     {
+      "src": "testBootstrapIconInPage.md",
+      "title": "bootstrap icon in page, only octicon stylesheet should be loaded"
+    },
+    {
       "src": "testIconsInSiteLayout.md",
       "title": "glyphicon & octicon icon in page, only glyphicon & octicon stylesheets should be loaded"
     },

@@ -294,7 +294,7 @@ export class Site {
         glyphicons: path.posix.join(baseAssetsPath, 'glyphicons', 'css', 'bootstrap-glyphicons.min.css'),
         octicons: path.posix.join(baseAssetsPath, 'css', 'octicons.css'),
         materialIcons: path.posix.join(baseAssetsPath, 'material-icons', 'material-icons.css'),
-        bootstrapIcons: path.posix.join(baseAssetsPath, 'bootstrap-icons', 'font','bootstrap-icons.css'),
+        bootstrapIcons: path.posix.join(baseAssetsPath, 'bootstrap-icons', 'font', 'bootstrap-icons.css'),
         highlight: path.posix.join(baseAssetsPath, 'css',
                                    HIGHLIGHT_ASSETS[this.siteConfig.style.codeTheme]),
         markBindCss: path.posix.join(baseAssetsPath, 'css', 'markbind.min.css'),
