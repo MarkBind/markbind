@@ -1,7 +1,7 @@
 
     var pageVueRenderFn = function anonymous(
 ) {
-with(this){return _c('div',{attrs:{"id":"app"}},[_c('header'),_v(" "),_c('div',{attrs:{"id":"flex-body"}},[_c('div',{attrs:{"id":"content-wrapper"}},[_c('div',{staticClass:"table-responsive"},[_c('table',{directives:[{name:"datatable",rawName:"v-datatable"}],staticClass:"sortable-searchable-table",attrs:{"id":"datatable-0"}},[_m(0),_v(" "),_m(1)])])]),_v(" "),_c('scroll-top-button')],1),_v(" "),_c('footer')])}
+with(this){return _c('div',{attrs:{"id":"app"}},[_c('header'),_v(" "),_c('div',{attrs:{"id":"flex-body"}},[_c('div',{attrs:{"id":"content-wrapper"}},[_c('div',{staticClass:"table-responsive"},[_c('table',{directives:[{name:"datatable",rawName:"v-datatable"}],staticClass:"markbind-table table table-bordered table-striped  sortable-searchable-table",attrs:{"id":"datatable-0"}},[_m(0),_v(" "),_m(1)])])]),_v(" "),_c('scroll-top-button')],1),_v(" "),_c('footer')])}
 };
     var pageVueStaticRenderFns = [function anonymous(
 ) {
