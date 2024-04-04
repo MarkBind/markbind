@@ -6,9 +6,8 @@
   >
     <portal v-if="targetEl.id" :to="'tooltip:' + targetEl.id">
       <slot name="content"></slot>
-    </portal>
-
-    <v-tooltip
+    </portal><!-- do not delete this comment, it is for the stray space issue (#2419)
+ --><v-tooltip
       v-if="isMounted"
       :auto-hide="!isInput"
       :triggers="triggers"
@@ -20,9 +19,8 @@
     >
       <template #popper>
         <slot name="content"></slot>
-      </template>
-
-      <span v-if="!isInput" @click.stop>
+      </template><!-- do not delete this comment, it is for the stray space issue (#2419)
+   --><span v-if="!isInput" @click.stop>
         <slot></slot>
       </span>
       <slot v-else></slot>
