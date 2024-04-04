@@ -1,0 +1,38 @@
+{
+  "baseUrl": "",
+  "titlePrefix": "",
+  "titleSuffix": "",
+  "ignore": [
+    "_markbind/layouts/*",
+    "_markbind/logs/*",
+    "_site/*",
+    "site.json",
+    "testSpecialTag.js",
+    "*.md",
+    "*.njk",
+    ".git/*",
+    "expected/*"
+  ],
+  "pagesExclude": ["node_modules/*"],
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Hello World"
+    },
+    {
+      "glob": ["**/index.md", "**/*.md"]
+    },
+    {
+      "src": "others/inclusion_inside_table.md"
+    },
+    {
+      "src": "others/table_to_be_included.md"
+    }
+  ],
+  "deploy": {
+    "message": "Site Update."
+  },
+  "plugins": [
+    "dataTable"
+  ]
+}

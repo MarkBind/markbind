@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 5.4.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/markbind/css/codeblock-dark.min.css">
+  <link rel="stylesheet" href="/markbind/css/markbind.min.css">
+  <script src="/markbind/js/polyfill.min.js"></script>
+  <script src="/markbind/js/vue.min.js"></script>
+  <script src="/markbind/js/markbind.min.js"></script>
+  <script src="table_to_be_included.page-vue-render.js"></script>
+  <link rel="stylesheet" href="/plugins/dataTable/datatables.min.css">
+  <link rel="stylesheet" href="/plugins/dataTable/datatables-additional.css">
+  <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
+  <link rel="stylesheet" href="/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
+</head>
+<script>
+  const baseUrl = ''
+</script>
+
+<body>
+  <div id="app">
+    <header></header>
+    <div id="flex-body">
+      <div id="content-wrapper">
+        <div class="table-responsive">
+          <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-0" v-datatable>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Country</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>John</td>
+                <td>28</td>
+                <td>USA</td>
+              </tr>
+              <tr>
+                <td>Emily</td>
+                <td>32</td>
+                <td>Canada</td>
+              </tr>
+              <tr>
+                <td>Michael</td>
+                <td>41</td>
+                <td>UK</td>
+              </tr>
+              <tr>
+                <td>Sophia</td>
+                <td>255</td>
+                <td>Germany</td>
+              </tr>
+              <tr>
+                <td>David</td>
+                <td>37</td>
+                <td>Australia</td>
+              </tr>
+              <tr>
+                <td>Emma</td>
+                <td>29</td>
+                <td>New Zealand</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <scroll-top-button></scroll-top-button>
+    </div>
+    <footer></footer>
+  </div>
+</body>
+<script src="/markbind/js/bootstrap-utility.min.js"></script>
+<script>
+  MarkBind.setupWithSearch()
+</script>
+<script src="/plugins/dataTable/datatables.min.js"></script>
+
+<script>
+    function getTableOptions(el) {
+      const options = {};
+      if ($(el).hasClass('sortable-table')) {
+        options.searching = false;
+        options.paging = false;
+        options.info = false;
+      } else if ($(el).hasClass('searchable-table')) {
+        options.ordering = false;
+        options.paging = false;
+        options.info = false;
+        options.dom = '<"row"<"col-sm-12"f>>' + '<"row"<"col-sm-12"t>>';
+      } else if ($(el).hasClass('sortable-searchable-table')) {
+        options.paging = false;
+        options.info = false;
+        options.dom = '<"row"<"col-sm-12"f>>' + '<"row"<"col-sm-12"t>>';
+      }
+      return options;
+    }
+
+    Vue.directive('datatable', {
+      inserted: function(el, binding) {
+        const options = binding.value || {};
+        const tableOptions = getTableOptions(el);
+        $(el).DataTable({ ...tableOptions, ...options });
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      $('table.sortable-table, table.searchable-table, table.sortable-searchable-table').each(function() {
+        const options = getTableOptions(this);
+        $(this).DataTable(options);
+      });
+    });
+  </script>
+
+</html>
