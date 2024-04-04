@@ -26,7 +26,7 @@
         </a>
       </span>
     </div>
-    <a class="btn btn-primary" href="./contents/assets/ug_template.docx" download="UG-template-resume" role="button">Resume</a>
+    <a class="btn btn-primary" href="./contents/assets/UG-template-resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
   </div>
 </div>
 
