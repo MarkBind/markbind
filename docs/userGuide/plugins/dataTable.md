@@ -2,13 +2,13 @@
 
 The DataTable plugin enhances the functionality of tables in your MarkBind site by integrating the DataTables library. It allows you to add searching and sorting capabilities to your tables with minimal configuration. The necessary CSS and JavaScript files are already included in the project, so no additional CDN or plugin context configuration is required.
 
-To enable this plugin, simply add `datatable` to your site's plugins:
+To enable this plugin, simply add `dataTable` to your site's plugins:
 
 ```js {heading="site.json"}
 {
   ...
   "plugins": [
-    "datatable"
+    "dataTable"
   ]
 }
 ```
