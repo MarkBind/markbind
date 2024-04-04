@@ -60,7 +60,7 @@ export = {
         const isSortable = $node.attr('sortable') !== undefined;
         const isSearchable = $node.attr('searchable') !== undefined;
 
-        let tableClass = 'markbind-table table table-bordered table-striped';
+        let tableClass: string = '';
         if (isSortable && isSearchable) {
           tableClass += ' sortable-searchable-table';
         } else if (isSortable) {
