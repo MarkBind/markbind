@@ -27,9 +27,10 @@
     ref="cardContainer"
     :class="['card-container', addClass]"
   >
-    <div :class="['card', { 'expandable-card': isExpandableCard }, borderType]">
+    <div :class="['card', { 'expandable-card': isExpandableCard, 'card-seamless': isSeamless }, borderType]">
       <div
-        :class="['card-header',{'header-toggle':isExpandableCard}, cardType, borderType]"
+        :class="['card-header',
+                 {'header-toggle':isExpandableCard}, cardType, borderType]"
         @click.prevent.stop="isExpandableCard && toggle()"
       >
         <div class="caret-wrapper">
@@ -40,7 +41,7 @@
         </div>
         <div
           ref="headerWrapper"
-          :class="['header-wrapper card-title', cardType,
+          :class="[{'header-wrapper-seamless': isSeamless}, 'header-wrapper card-title', cardType,
                    {'text-white':!isLightBg, 'header-transparent':!shouldShowHeader}]"
         >
           <slot name="header"></slot>
@@ -151,12 +152,14 @@ export default {
     },
     cardType() {
       if (this.isSeamless) {
-        return 'bg-white';
+        return 'bg-transparent';
       }
       return `bg-${this.type || 'light'}`;
     },
     isLightBg() {
-      return this.cardType === 'bg-light' || this.cardType === 'bg-white' || this.cardType === 'bg-warning';
+      return this.cardType === 'bg-light'
+      || this.cardType === 'bg-transparent'
+      || this.cardType === 'bg-warning';
     },
   },
 };
@@ -227,6 +230,10 @@ export default {
 <style>
     .card-heading {
         width: 100%;
+    }
+
+    .card-seamless {
+        background-color: transparent;
     }
 
     .card-title {
