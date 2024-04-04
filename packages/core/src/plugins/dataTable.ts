@@ -72,7 +72,6 @@ export = {
         const renderedTable = md.render(html);
         const $renderedTable = $(renderedTable);
         $renderedTable.find('table')
-          .removeClass('markbind-table table table-bordered table-striped')
           .addClass(tableClass)
           .attr('id', `datatable-${index}`)
           .attr('v-datatable', '');

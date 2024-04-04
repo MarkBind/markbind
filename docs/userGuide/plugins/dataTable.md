@@ -13,8 +13,9 @@ To enable this plugin, simply add `dataTable` to your site's plugins:
 }
 ```
 
-To create a table with DataTable features, use the following syntax:
+To create a table with DataTable features, use one of the following syntaxes:
 
+1. Sortable Table:
 ```html
 <m-table sortable>
 | Name   | Age | Country   |
@@ -22,6 +23,31 @@ To create a table with DataTable features, use the following syntax:
 | John   | 28  | USA       |
 | Emily  | 32  | Canada    |
 | Michael| 41  | UK        |
+</m-table>
+```
+
+2. Searchable Table:
+```html
+<m-table searchable>
+| Book Title                | Author           | Year Published |
+|---------------------------|------------------|----------------|
+| To Kill a Mockingbird     | Harper Lee       | 1960           |
+| 1984                      | George Orwell    | 1949           |
+| Pride and Prejudice       | Jane Austen      | 1813           |
+| The Great Gatsby          | F. Scott Fitzgerald | 1925        |
+</m-table>
+```
+
+3. Sortable and Searchable Table:
+```html
+<m-table sortable searchable>
+| City        | Country   | Population |
+|-------------|-----------|------------|
+| New York    | USA       | 8,336,817  |
+| London      | UK        | 9,002,488  |
+| Paris       | France    | 2,161,063  |
+| Tokyo       | Japan     | 13,960,236 |
+| Sydney      | Australia | 5,367,206  |
 </m-table>
 ```
 
