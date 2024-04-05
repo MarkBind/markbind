@@ -5,7 +5,12 @@
     :class="['card-container', addClass]"
   >
     <span class="morph">
-      <button :class="['morph-display-wrapper', 'btn', btnType]" @click="open()">
+      <button
+        :class="[isSeamless ? 'morph-display-wrapper-seamless': 'morph-display-wrapper',
+                 'btn',
+                 btnType]"
+        @click="open()"
+      >
         <div
           v-if="!noMinimizedSwitch"
           class="minimal-caret-wrapper"
@@ -42,7 +47,7 @@
         <div
           ref="headerWrapper"
           :class="[{'header-wrapper-seamless': isSeamless}, 'header-wrapper card-title', cardType,
-                   {'text-white':!isLightBg, 'header-transparent':!shouldShowHeader}]"
+                   {'text-white':!isLightBg && !isSeamless, 'header-transparent':!shouldShowHeader}]"
         >
           <slot name="header"></slot>
         </div>
@@ -97,6 +102,7 @@
             <panel-switch
               v-show="isExpandableCard && bottomSwitchBool"
               :is-open="localExpanded"
+              :is-seamless="isSeamless"
               @click.native.stop.prevent="toggle(true)"
             />
           </div>
@@ -134,8 +140,10 @@ export default {
       return this.type === 'seamless';
     },
     btnType() {
-      if (this.isSeamless || this.type === 'light') {
+      if (this.type === 'light') {
         return 'btn-outline-secondary';
+      } else if (this.isSeamless) {
+        return '';
       }
       return `btn-outline-${this.type || 'secondary'}`;
     },
@@ -158,7 +166,6 @@ export default {
     },
     isLightBg() {
       return this.cardType === 'bg-light'
-      || this.cardType === 'bg-transparent'
       || this.cardType === 'bg-warning';
     },
   },
@@ -178,6 +185,13 @@ export default {
     .seamless-button {
         opacity: 0;
         transition: 0.3s opacity;
+        color: inherit;
+        border-color: inherit;
+    }
+
+    .seamless-button:hover {
+        border-color: transparent;
+        color: inherit;
     }
 
     .card-header:hover .seamless-button {
@@ -299,7 +313,7 @@ export default {
 
     .bottom-button-wrapper > .collapse-button {
         margin-top: 5px;
-        opacity: 0.2;
+        opacity: 0.5;
     }
 
     .bottom-button-wrapper > .collapse-button:hover {
@@ -329,6 +343,13 @@ export default {
         margin-top: 5px;
         display: flex;
         align-items: center;
+    }
+
+    .morph-display-wrapper-seamless {
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        color: inherit;
     }
 
     /* Bootstrap extra small(xs) responsive breakpoint */
