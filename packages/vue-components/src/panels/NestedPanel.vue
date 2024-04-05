@@ -34,8 +34,7 @@
   >
     <div :class="['card', { 'expandable-card': isExpandableCard, 'card-seamless': isSeamless }, borderType]">
       <div
-        :class="['card-header',
-                 {'header-toggle':isExpandableCard}, cardType, borderType]"
+        :class="['card-header', {'header-toggle':isExpandableCard}, cardType, borderType]"
         @click.prevent.stop="isExpandableCard && toggle()"
       >
         <div class="caret-wrapper">
