@@ -35,7 +35,7 @@ Enter a search term (eg. 'search bar') to see the search result dropdown.
 
 Name | Type | Default | Description
 ---- | ---- | ------- | ------
-algolia | `Boolean` | `false` | Whether the searchbar should be connected to [Algolia DocSearch]({{ baseUrl }}/userGuide/usingPlugins.html#algolia-enabling-algolia-docsearch).
+algolia | `Boolean` | `false` | Whether the searchbar should be connected to [Algolia DocSearch]({{ baseUrl }}/userGuide/usingPlugins.html#plugin-algolia).
 data | `Array` || The local data source for suggestions. Expected to be a primitive array. To use MarkBind's search functionality, set this value to `"searchData"`.
 menu-align-right | `Boolean` | `false` | Whether the search bar's dropdown list will be right-aligned.
 on-hit | `Function` || A callback function when you click or hit return on an item. To use MarkBind's search functionality, set this value to `"searchCallback"`.
@@ -45,13 +45,13 @@ placeholder | `String` | `''` | The placeholder text shown when no keywords are 
 
 Note: If you are using MarkBind's search functionality, then `enableSearch` **must be set to `true` in `site.json`**.
 
-See: [User Guide: Site Configuration → enableSearch]({{ baseUrl }}/userGuide/siteJsonFile.html#enable-search).
+See: [User Guide: Site Configuration → enableSearch]({{ baseUrl }}/userGuide/siteJsonFile.html#enablesearch).
 
 </box>
 
 %%{{ icon_info }} Related topic: [User Guide: Making the Site Searchable]({{ baseUrl }}/userGuide/makingTheSiteSearchable.html).%%
 
-%%{{ icon_info }} Related topic: [User Guide: Using Plugins → Algolia: Enabling Algolia DocSearch]({{ baseUrl }}/userGuide/usingPlugins.html#algolia-enabling-algolia-docsearch).%%
+%%{{ icon_info }} Related topic: [User Guide: Using Plugins → Algolia: Enabling Algolia DocSearch]({{ baseUrl }}/userGuide/usingPlugins.html#plugin-algolia).%%
 
 </div> <!-- end of body -->
 

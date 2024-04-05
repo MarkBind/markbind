@@ -58,39 +58,42 @@ test('processNode processes panel attributes and inserts into dom as slots corre
   processAndVerifyTemplate(testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY,
                            testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
   expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG);
-  processAndVerifyTemplate(testData.PROCESS_PANEL_HEADER_NO_OVERRIDE,
-                           testData.PROCESS_PANEL_HEADER_NO_OVERRIDE_EXPECTED);
-  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG);
 });
 
 test('processNode processes question attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_QUESTION_ATTRIBUTES,
                            testData.PROCESS_QUESTION_ATTRIBUTES_EXPECTED);
-  processAndVerifyTemplate(testData.PROCESS_QUESTION_ATTRIBUTES_NO_OVERRIDE,
-                           testData.PROCESS_QUESTION_ATTRIBUTES_NO_OVERRIDE_EXPECTED);
+  processAndVerifyTemplate(testData.PROCESS_QUESTION_HEADER_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_QUESTION_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
+  processAndVerifyTemplate(testData.PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY_EXPECTED);
+  processAndVerifyTemplate(testData.PROCESS_QUESTION_ANSWER_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_QUESTION_ANSWER_SLOT_TAKES_PRIORITY_EXPECTED);
 });
 
 test('processNode processes q-option attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_QOPTION_ATTRIBUTES,
                            testData.PROCESS_QOPTION_ATTRIBUTES_EXPECTED);
-  processAndVerifyTemplate(testData.PROCESS_QOPTION_ATTRIBUTES_NO_OVERRIDE,
-                           testData.PROCESS_QOPTION_ATTRIBUTES_NO_OVERRIDE_EXPECTED);
+  processAndVerifyTemplate(testData.PROCESS_QOPTION_REASON_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_QOPTION_REASON_SLOT_TAKES_PRIORITY_EXPECTED);
 });
 
 test('processNode processes quiz attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_QUIZ_ATTRIBUTES,
                            testData.PROCESS_QUIZ_ATTRIBUTES_EXPECTED);
-  processAndVerifyTemplate(testData.PROCESS_QUIZ_ATTRIBUTES_NO_OVERRIDE,
-                           testData.PROCESS_QUIZ_ATTRIBUTES_NO_OVERRIDE_EXPECTED);
+  processAndVerifyTemplate(testData.PROCESS_QUIZ_INTRO_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_QUIZ_INTRO_SLOT_TAKES_PRIORITY_EXPECTED);
 });
 
 test('processNode processes popover attributes and inserts into dom as slots correctly', () => {
   const warnSpy = jest.spyOn(logger, 'warn');
   processAndVerifyTemplate(testData.PROCESS_POPOVER_ATTRIBUTES,
                            testData.PROCESS_POPOVER_ATTRIBUTES_EXPECTED);
-  processAndVerifyTemplate(testData.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE,
-                           testData.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_EXPECTED);
+  processAndVerifyTemplate(testData.PROCESS_POPOVER_HEADER_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_POPOVER_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
   expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_HEADER_WARN_MSG);
+  processAndVerifyTemplate(testData.PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY_EXPECTED);
   expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_CONTENT_WARN_MSG);
 });
 
