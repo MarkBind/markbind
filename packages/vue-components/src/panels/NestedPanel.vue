@@ -300,6 +300,8 @@ export default {
 
     .card-collapse > hr {
         margin-top: 0;
+        background-color: currentcolor;
+        opacity: 0.5;
     }
 
     .card-group > .card-container > .expandable-card {

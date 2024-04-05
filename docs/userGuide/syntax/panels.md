@@ -104,6 +104,14 @@ plain text ...
 </variable>
 </include>
 
+<box>
+  Seamless panels inherit the background colour and text colour of any parents
+  <br/>
+  <panel type="seamless" header="This is an example seamless panel" popup-url="/userGuide/syntax/extra/loadContent.html">
+    This is its content.
+  </panel>
+</box>
+
 <box background-color="black" color="red">
   Seamless panels inherit the background colour and text colour of any parents
   <br/>
@@ -112,7 +120,7 @@ plain text ...
   </panel>
 </box>
 
-<box background-color="yellow" color="green">
+<box background-color="yellow" color="blue">
   Seamless panels inherit the background colour and text colour of any parents
   <br/>
   <panel type="seamless" header="This is an example seamless panel" popup-url="/userGuide/syntax/extra/loadContent.html">
