@@ -1,16 +1,16 @@
 ### Plugin: Mermaid
 
-This plugin allows you to utilize <tooltip content="Mermaid lets you create diagrams and visualizations using text and code">Mermaid</tooltip> by automatically importing the library and initializing the rendering of the diagrams.
+This plugin allows you to utilize [Mermaid](https://mermaid-js.github.io/mermaid/) by automatically importing the library and initializing the rendering of the diagrams.
 
 > Mermaid is a JavaScript based diagramming and charting tool that renders Markdown-inspired text definitions to create and modify diagrams dynamically.
 
 <box type="info">
 
-All supported diagrams and detailed configurations are available in [the mermaid official documentation](https://mermaid-js.github.io/mermaid/).
+All supported diagrams and detailed configurations are available in [the Mermaid official documentation](https://mermaid-js.github.io/mermaid/).
 
 </box>
 
-To enable this plugin, add `mermaid` to your site's plugins. Optionally, you can specify an alternative URL (e.g., to use another CDN or another version) in the plugin context.
+To enable this plugin, add `mermaid` to your site's plugins. Optionally, you can specify an alternative URL to load the Mermaid code in the plugin context.
 
 ```js {heading="site.json"}
 {
