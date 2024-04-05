@@ -319,6 +319,11 @@ and **this**.
 **Test panel closing transitions**
 <include src="testPanelsClosingTransition.md" />
 
+**Test popover has no stray space**
+(<popover content="content">There should be no stray space before this</popover>)
+
+**Test tooltip has no stray space**
+(<tooltip content="content">There should be no stray space before this</tooltip>)
 
 **Test search indexing**
 

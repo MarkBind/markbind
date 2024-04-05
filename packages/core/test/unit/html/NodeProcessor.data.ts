@@ -19,26 +19,6 @@ export const PROCESS_PANEL_ATTRIBUTES_EXPECTED = `
 `;
 
 export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY = `
-<panel header="# Lorem ipsum">
-  <div slot="header">
-    This existing header slot should be preserved in favour over header attribute, with a logger warning for repeated attributes.
-  </div>
-  Header attribute should be ignored and deleted while header slot is reserved.
-</panel>
-`;
-
-export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
-<panel>
-  <template #header><div>
-    This existing header slot should be preserved in favour over header attribute, with a logger warning for repeated attributes.
-  </div></template>
-  Header attribute should be ignored and deleted while header slot is reserved.
-</panel>
-`;
-
-export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "panel has a header slot, 'header' attribute has no effect.";
-
-export const PROCESS_PANEL_HEADER_NO_OVERRIDE = `
 <panel header="# Lorem ipsum" alt="**strong alt**">
   <div slot="header">
     This existing header slot should be preserved in favour over header attribute.
@@ -49,7 +29,7 @@ export const PROCESS_PANEL_HEADER_NO_OVERRIDE = `
 </panel>
 `;
 
-export const PROCESS_PANEL_HEADER_NO_OVERRIDE_EXPECTED = `
+export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 <panel><template #_alt><p><strong>strong alt</strong></p>
 </template>
   <template #header><div>
@@ -60,6 +40,8 @@ export const PROCESS_PANEL_HEADER_NO_OVERRIDE_EXPECTED = `
   Alt attribute should be inserted under panel as slot.
 </panel>
 `;
+
+export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "panel has a header slot, 'header' attribute has no effect.";
 
 // Post Process
 
@@ -92,18 +74,38 @@ export const PROCESS_QUESTION_ATTRIBUTES_EXPECTED = `
 </question>
 `;
 
-export const PROCESS_QUESTION_ATTRIBUTES_NO_OVERRIDE = `
-<question header="**header**" hint="**hint**" answer="**answer**">
+export const PROCESS_QUESTION_HEADER_SLOT_TAKES_PRIORITY = `
+<question header="**lorem ipsum**">
 <template slot="header"></template>
+</question>
+`;
+
+export const PROCESS_QUESTION_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+<question>
+<template #header></template>
+</question>
+`;
+
+export const PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY = `
+<question hint="**lorem ipsum**">
 <template slot="hint"></template>
+</question>
+`;
+
+export const PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY_EXPECTED = `
+<question>
+<template #hint></template>
+</question>
+`;
+
+export const PROCESS_QUESTION_ANSWER_SLOT_TAKES_PRIORITY = `
+<question answer="**lorem ipsum**">
 <template slot="answer"></template>
 </question>
 `;
 
-export const PROCESS_QUESTION_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
+export const PROCESS_QUESTION_ANSWER_SLOT_TAKES_PRIORITY_EXPECTED = `
 <question>
-<template #header></template>
-<template #hint></template>
 <template #answer></template>
 </question>
 `;
@@ -119,13 +121,13 @@ export const PROCESS_QOPTION_ATTRIBUTES_EXPECTED = `
 </q-option>
 `;
 
-export const PROCESS_QOPTION_ATTRIBUTES_NO_OVERRIDE = `
+export const PROCESS_QOPTION_REASON_SLOT_TAKES_PRIORITY = `
 <q-option reason="**lorem ipsum**">
 <template slot="reason"></template>
 </q-option>
 `;
 
-export const PROCESS_QOPTION_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
+export const PROCESS_QOPTION_REASON_SLOT_TAKES_PRIORITY_EXPECTED = `
 <q-option>
 <template #reason></template>
 </q-option>
@@ -142,13 +144,13 @@ export const PROCESS_QUIZ_ATTRIBUTES_EXPECTED = `
 </quiz>
 `;
 
-export const PROCESS_QUIZ_ATTRIBUTES_NO_OVERRIDE = `
+export const PROCESS_QUIZ_INTRO_SLOT_TAKES_PRIORITY = `
 <quiz intro="**lorem ipsum**">
 <template slot="intro"></template>
 </quiz>
 `;
 
-export const PROCESS_QUIZ_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
+export const PROCESS_QUIZ_INTRO_SLOT_TAKES_PRIORITY_EXPECTED = `
 <quiz>
 <template #intro></template>
 </quiz>
@@ -171,24 +173,35 @@ export const PROCESS_POPOVER_ATTRIBUTES_EXPECTED = `
 </popover>
 `;
 
-export const PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE = `
-<popover content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit." 
-         header="_Lorem ipsum_">
+export const PROCESS_POPOVER_HEADER_SLOT_TAKES_PRIORITY = `
+<popover header="_Lorem ipsum_">
   <div slot="header">Some header slot content that should not be overwritten</div>
-  <div slot="content">Some content slot that should not be overwritten</div>
-  Content and header attributes should not be inserted under panel as slots, but should be deleted.
+  Header attribute should not be inserted under panel as slot, but should be deleted.
 </popover>
 `;
 
-export const PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_EXPECTED = `
+export const PROCESS_POPOVER_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 <popover>
   <template #header><div>Some header slot content that should not be overwritten</div></template>
-  <template #content><div>Some content slot that should not be overwritten</div></template>
-  Content and header attributes should not be inserted under panel as slots, but should be deleted.
+  Header attribute should not be inserted under panel as slot, but should be deleted.
 </popover>
 `;
 
 export const PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_HEADER_WARN_MSG = "popover has a header slot, 'header' attribute has no effect.";
+
+export const PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY = `
+<popover content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.">
+  <div slot="content">Some content slot that should not be overwritten</div>
+  Content attribute should not be inserted under panel as slot, but should be deleted.
+</popover>
+`;
+
+export const PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY_EXPECTED = `
+<popover>
+  <template #content><div>Some content slot that should not be overwritten</div></template>
+  Content attribute should not be inserted under panel as slot, but should be deleted.
+</popover>
+`;
 export const PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_CONTENT_WARN_MSG = "popover has a content slot, 'content' attribute has no effect.";
 
 /*
