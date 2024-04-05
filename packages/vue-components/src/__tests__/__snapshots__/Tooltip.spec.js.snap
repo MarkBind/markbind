@@ -8,7 +8,6 @@ exports[`Tooltip should not be shown until triggered 1`] = `
   tabindex="0"
 >
   <!---->
-   
   <!---->
 </span>
 `;
@@ -21,7 +20,6 @@ exports[`Tooltip should respect the placement attribute 1`] = `
   tabindex="0"
 >
   <!---->
-   
   <v-tooltip-stub
     auto-hide="true"
     delay="0"
@@ -31,7 +29,6 @@ exports[`Tooltip should respect the placement attribute 1`] = `
     shift-cross-axis=""
     triggers="click"
   >
-     
     <span>
       click to show tooltip
     </span>
@@ -47,7 +44,6 @@ exports[`Tooltip should show contents correctly when triggered 1`] = `
   tabindex="0"
 >
   <!---->
-   
   <v-tooltip-stub
     auto-hide="true"
     delay="0"
@@ -57,7 +53,6 @@ exports[`Tooltip should show contents correctly when triggered 1`] = `
     shift-cross-axis=""
     triggers="click"
   >
-     
     <span>
       click to show tooltip
     </span>
