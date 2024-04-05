@@ -353,6 +353,10 @@ export default {
         color: inherit;
     }
 
+    .morph-display-wrapper-seamless:hover {
+        color: inherit;
+    }
+
     /* Bootstrap extra small(xs) responsive breakpoint */
     @media (width <= 575.98px) {
         .header-wrapper {
