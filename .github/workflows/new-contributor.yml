@@ -32,12 +32,13 @@ jobs:
               },
               (response) => response.data.filter(pr => pr.merged_at != null && pr.user.login === prAuthor && pr.number !== currentPR)
             );
+            console.log(mergedPRs)
             if (mergedPRs.length == 0) {
               github.rest.issues.createComment({
                 issue_number: context.payload.pull_request.number,
                 owner: repoOwner,
                 repo: repoName,
-                body: `**Welcome**, @${prAuthor}! 🎉 Thank you for your contribution to the MarkBind project!\n\nDo remember to request someone to add you as a official contributor to our repository, if you want to of course! See the full list of contributors [here](https://markbind.org/about.html). ✨`
+                body: `**Welcome**, @${prAuthor}! 🎉 Thank you for your contribution to the MarkBind project!\n\nDo remember to request someone to add you as a official contributor to our repository, if you want to of course!\n\nSee the full list of contributors [here](https://markbind.org/about.html). ✨`
               });
             }
         env:
