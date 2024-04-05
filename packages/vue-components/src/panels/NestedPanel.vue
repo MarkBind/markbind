@@ -190,7 +190,7 @@ export default {
 
     .seamless-button:hover {
         border-color: transparent;
-        color: inherit;
+        background-color: color-mix(in srgb, currentcolor 25%, white);
     }
 
     .card-header:hover .seamless-button {
@@ -246,7 +246,7 @@ export default {
     }
 
     .card-seamless {
-        background-color: transparent;
+        background-color: inherit;
     }
 
     .card-title {
