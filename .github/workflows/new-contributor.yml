@@ -32,7 +32,6 @@ jobs:
               },
               (response) => response.data.filter(pr => pr.merged_at != null && pr.user.login === prAuthor && pr.number !== currentPR)
             );
-            console.log(mergedPRs)
             if (mergedPRs.length == 0) {
               github.rest.issues.createComment({
                 issue_number: context.payload.pull_request.number,
