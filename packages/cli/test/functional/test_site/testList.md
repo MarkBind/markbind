@@ -257,7 +257,7 @@
 
 1. Once for specific attributes besides icon, does not overwrite
 * Item A { icon="glyphicon-education" i-size="70px" i-class="text-primary" }
-* Item B { i-size="40px" once=true}
+* Item B { i-size="40px" once=true }
   * Sub-item B1
 * Item C
 

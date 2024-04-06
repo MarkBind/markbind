@@ -93,7 +93,7 @@ The `once` attribute also applies to all other attributes such as `i-size` and `
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 * Item 1 { icon="glyphicon-education" i-size="40px" i-class="text-primary" }
-* Item 2 { i-size="25px" once=true}
+* Item 2 { i-size="25px" once=true }
   * Sub-item 2.1
 * Item 3
   </variable>
