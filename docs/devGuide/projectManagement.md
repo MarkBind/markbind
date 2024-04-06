@@ -98,7 +98,6 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    </box>
 
 ## Doing a Release
-
 1. **Make sure you have the correct permissions** for [MarkBind's GitHub repository](https://github.com/MarkBind/markbind) and [npm organization](https://www.npmjs.com/org/markbind).
     * For GitHub, you need rights to **push to master branch** and **make new releases**.
         * To check if you can make a new release and push to master branch, go to the [release page](https://github.com/MarkBind/markbind/releases) and check for the "Draft a new release" button. 
