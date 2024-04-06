@@ -77,3 +77,18 @@ test('Test valid ".html" extension link ', () => {
 
   expect(siteLinkManager.collectIntraLinkToValidate(mockNode, mockCwf)).toEqual(EXPECTED_RESULT);
 });
+
+test('Test collection of hash for node with id', () => {
+  const siteLinkManager = getNewSiteLinkManager(true);
+  const NodeWithId1 = '<div id="test1">Test</div>';
+  const TitleNode = '<title id="test2">Test</title>';
+  const NodeWithOutId = '<div>Test</div>';
+  const NodeStrs = [NodeWithId1, TitleNode, NodeWithOutId];
+  NodeStrs.forEach((nodeStr) => {
+    const mockNode = parseHTML(nodeStr)[0] as MbNode;
+    siteLinkManager.maintainFilePathToHashesMap(mockNode, mockCwf);
+  });
+  const EXPECTED_RESULT = new Map([['', new Set(['test1', 'test2'])]]);
+
+  expect(siteLinkManager.getFilePathToHashesMap()).toEqual(EXPECTED_RESULT);
+});

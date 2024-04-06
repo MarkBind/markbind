@@ -1,17 +1,19 @@
-const path = require('path');
-const fs = require('fs-extra');
-const ghpages = require('gh-pages');
-const { Site } = require('../../src/Site');
-const { Template } = require('../../src/Site/template');
+import path from 'path';
+import fs from 'fs-extra';
+import ghpages from 'gh-pages';
+import { Site } from '../../src/Site';
+import { Template } from '../../src/Site/template';
 
-const {
-  INDEX_MD_DEFAULT,
-  PAGE_NJK,
-  SITE_JSON_DEFAULT,
-  getDefaultTemplateFileFullPath,
-} = require('./utils/data');
+import {
+  INDEX_MD_DEFAULT, PAGE_NJK, SITE_JSON_DEFAULT, getDefaultTemplateFileFullPath,
+} from './utils/data';
+import { SiteConfig } from '../../src/Site/SiteConfig';
 
 const DEFAULT_TEMPLATE = 'default';
+const mockFs = fs as any;
+const mockGhPages = ghpages as any;
+type SiteArguments = [string, string, string, undefined, undefined, any, boolean, () => void];
+const siteArguments: SiteArguments = ['./', '_site', '', undefined, undefined, undefined, false, () => {}];
 
 jest.mock('fs');
 jest.mock('walk-sync');
@@ -27,7 +29,7 @@ jest.mock('simple-git', () => () => ({
   remote: jest.fn(() => 'https://github.com/mockName/mockRepo.git'),
 }));
 
-afterEach(() => fs.vol.reset());
+afterEach(() => mockFs.vol.reset());
 
 test('Site Init with invalid template fails', async () => {
   // Mock default template in MemFS without site config
@@ -36,10 +38,10 @@ test('Site Init with invalid template fails', async () => {
     [getDefaultTemplateFileFullPath('index.md')]: INDEX_MD_DEFAULT,
   };
 
-  fs.vol.fromJSON(json, '');
+  mockFs.vol.fromJSON(json, '');
 
   const template = new Template('', DEFAULT_TEMPLATE);
-  await template.init('', DEFAULT_TEMPLATE)
+  await template.init()
     .catch((err) => {
       expect(err).toEqual(
         new Error('Template validation failed. Required files does not exist.'));
@@ -57,7 +59,7 @@ test('Site Init does not overwrite existing files', async () => {
     [getDefaultTemplateFileFullPath('site.json')]: SITE_JSON_DEFAULT,
   };
 
-  fs.vol.fromJSON(json, '');
+  mockFs.vol.fromJSON(json, '');
 
   // index.md
   expect(fs.readFileSync(path.resolve('index.md'), 'utf8')).toEqual(EXISTING_INDEX_MD);
@@ -71,13 +73,13 @@ test('Site baseurls are correct for sub nested subsites', async () => {
     'sub/sub/site.json': SITE_JSON_DEFAULT,
     'otherSub/sub/site.json': SITE_JSON_DEFAULT,
   };
-  fs.vol.fromJSON(json, '');
+  mockFs.vol.fromJSON(json, '');
 
   const baseUrlMapExpected = new Set(['', 'sub', 'sub/sub', 'otherSub/sub'].map(url => path.resolve(url)));
 
-  const site = new Site('./', '_site');
+  const site = new Site(...siteArguments);
   await site.readSiteConfig();
-  await site.collectBaseUrl();
+  site.collectBaseUrl();
   expect(site.baseUrlMap).toEqual(baseUrlMapExpected);
 });
 
@@ -88,9 +90,9 @@ test('Site removeAsync removes the correct asset', async () => {
     '_site/dontRemove.png': '',
     'toRemove.html': '',
   };
-  fs.vol.fromJSON(json, '');
+  mockFs.vol.fromJSON(json, '');
 
-  const site = new Site('./', '_site');
+  const site = new Site(...siteArguments);
   await site.removeAsset('toRemove.jpg');
   expect(fs.existsSync(path.resolve('_site/toRemove.jpg'))).toEqual(false);
   expect(fs.existsSync(path.resolve('_site/dontRemove.png'))).toEqual(true);
@@ -101,11 +103,11 @@ test('Site read site config for default', async () => {
     ...PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
   };
-  fs.vol.fromJSON(json, '');
+  mockFs.vol.fromJSON(json, '');
 
   const expectedSiteConfigDefaults = { enableSearch: true };
   const expectedSiteConfig = { ...JSON.parse(SITE_JSON_DEFAULT), ...expectedSiteConfigDefaults };
-  const site = new Site('./', '_site');
+  const site = new Site(...siteArguments);
   const siteConfig = await site.readSiteConfig();
 
   expect(siteConfig.baseUrl).toEqual(expectedSiteConfig.baseUrl);
@@ -140,9 +142,9 @@ test('Site read site config for custom site config', async () => {
     ...PAGE_NJK,
     'site.json': JSON.stringify(customSiteJson),
   };
-  fs.vol.fromJSON(json, '');
+  mockFs.vol.fromJSON(json, '');
 
-  const site = new Site('./', '_site');
+  const site = new Site(...siteArguments);
   const siteConfig = await site.readSiteConfig();
 
   expect(siteConfig.baseUrl).toEqual(customSiteJson.baseUrl);
@@ -162,12 +164,12 @@ test('Site resolves variables referencing other variables', async () => {
     + '<variable name="level3"><span style="color: blue">Blue text</span></variable>'
     + '<variable name="level4">{{level3}}</variable>',
   };
-  fs.vol.fromJSON(json, '');
+  mockFs.vol.fromJSON(json, '');
 
-  const site = new Site('./', '_site');
+  const site = new Site(...siteArguments);
   await site.readSiteConfig();
-  await site.collectBaseUrl();
-  await site.collectUserDefinedVariablesMap();
+  site.collectBaseUrl();
+  site.collectUserDefinedVariablesMap();
 
   const root = site.variableProcessor.userDefinedVariablesMap[path.resolve('')];
 
@@ -193,12 +195,12 @@ test('Site read correct user defined variables', async () => {
     'sub/sub/_markbind/variables.md': '<variable name="number">9999</variable>',
     'otherSub/sub/_markbind/variables.md': '<variable name="variable">other_variable</variable>',
   };
-  fs.vol.fromJSON(json, '');
+  mockFs.vol.fromJSON(json, '');
 
-  const site = new Site('./', '_site');
+  const site = new Site(...siteArguments);
   await site.readSiteConfig();
-  await site.collectBaseUrl();
-  await site.collectUserDefinedVariablesMap();
+  site.collectBaseUrl();
+  site.collectUserDefinedVariablesMap();
 
   const root = site.variableProcessor.userDefinedVariablesMap[path.resolve('')];
   const sub = site.variableProcessor.userDefinedVariablesMap[path.resolve('sub')];
@@ -227,11 +229,11 @@ test('Site deploys with default settings', async () => {
     'site.json': SITE_JSON_DEFAULT,
     _site: {},
   };
-  fs.vol.fromJSON(json, '');
-  const site = new Site('./', '_site');
-  await site.deploy();
-  expect(ghpages.dir).toEqual('_site');
-  expect(ghpages.options)
+  mockFs.vol.fromJSON(json, '');
+  const site = new Site(...siteArguments);
+  await site.deploy(false);
+  expect(mockGhPages.dir).toEqual('_site');
+  expect(mockGhPages.options)
     .toEqual({
       branch: 'gh-pages',
       message: 'Site Update. [skip ci]',
@@ -252,11 +254,11 @@ test('Site deploys with custom settings', async () => {
     'site.json': JSON.stringify(customConfig),
     _site: {},
   };
-  fs.vol.fromJSON(json, '');
-  const site = new Site('./', '_site');
-  await site.deploy();
-  expect(ghpages.dir).toEqual('_site');
-  expect(ghpages.options)
+  mockFs.vol.fromJSON(json, '');
+  const site = new Site(...siteArguments);
+  await site.deploy(false);
+  expect(mockGhPages.dir).toEqual('_site');
+  expect(mockGhPages.options)
     .toEqual({
       branch: 'master',
       message: 'Custom Site Update. [skip ci]',
@@ -270,9 +272,9 @@ test('Site should not deploy without a built site', async () => {
     ...PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
   };
-  fs.vol.fromJSON(json, '');
-  const site = new Site('./', '_site');
-  await expect(site.deploy())
+  mockFs.vol.fromJSON(json, '');
+  const site = new Site(...siteArguments);
+  await expect(site.deploy(false))
     .rejects
     .toThrow(
       new Error('The site directory does not exist. '
@@ -311,14 +313,15 @@ describe('Site deploy with various CI environments', () => {
   ])('Site deploy -c/--ci deploys with default settings',
   /* eslint-enable max-len */
      async (ciIdentifier, repoSlugIdentifier, deployBotUser) => {
-       process.env[ciIdentifier] = true;
+       process.env[ciIdentifier] = 'true';
        process.env.GITHUB_TOKEN = 'githubToken';
        const genericRepoSlug = 'GENERIC_USER/GENERIC_REPO';
-       if (repoSlugIdentifier.reposlug) {
-         process.env[repoSlugIdentifier.reposlug] = genericRepoSlug;
+       if ((repoSlugIdentifier as { reposlug: string }).reposlug) {
+         process.env[(repoSlugIdentifier as { reposlug: string }).reposlug] = genericRepoSlug;
        } else {
-         process.env[repoSlugIdentifier.username] = 'GENERIC_USER';
-         process.env[repoSlugIdentifier.reponame] = 'GENERIC_REPO';
+         const repoSlugIdentifierCasted = repoSlugIdentifier as { username: string, reponame: string };
+         process.env[repoSlugIdentifierCasted.username] = 'GENERIC_USER';
+         process.env[repoSlugIdentifierCasted.reponame] = 'GENERIC_REPO';
        }
 
        const json = {
@@ -326,12 +329,12 @@ describe('Site deploy with various CI environments', () => {
          'site.json': SITE_JSON_DEFAULT,
          _site: {},
        };
-       fs.vol.fromJSON(json, '');
-       const site = new Site('./', '_site');
+       mockFs.vol.fromJSON(json, '');
+       const site = new Site(...siteArguments);
        await site.deploy(true);
-       expect(ghpages.options.repo)
+       expect(mockGhPages.options.repo)
          .toEqual(`https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/${genericRepoSlug}.git`);
-       expect(ghpages.options.user).toEqual(deployBotUser);
+       expect(mockGhPages.options.user).toEqual(deployBotUser);
      });
 
   test.each([
@@ -341,13 +344,14 @@ describe('Site deploy with various CI environments', () => {
     ['CIRCLECI', { username: 'CIRCLE_PROJECT_USERNAME', reponame: 'CIRCLE_PROJECT_REPONAME' }],
   ])('Site deploy -c/--ci deploys with custom GitHub repo',
      async (ciIdentifier, repoSlugIdentifier) => {
-       process.env[ciIdentifier] = true;
+       process.env[ciIdentifier] = 'true';
        process.env.GITHUB_TOKEN = 'githubToken';
-       if (repoSlugIdentifier.reposlug) {
-         process.env[repoSlugIdentifier.reposlug] = 'GENERIC_USER/GENERIC_REPO';
+       if ((repoSlugIdentifier as { reposlug: string }).reposlug) {
+         process.env[(repoSlugIdentifier as { reposlug: string }).reposlug] = 'GENERIC_USER/GENERIC_REPO';
        } else {
-         process.env[repoSlugIdentifier.username] = 'GENERIC_USER';
-         process.env[repoSlugIdentifier.reponame] = 'GENERIC_REPO';
+         const repoSlugIdentifierCasted = repoSlugIdentifier as { username: string, reponame: string };
+         process.env[repoSlugIdentifierCasted.username] = 'GENERIC_USER';
+         process.env[repoSlugIdentifierCasted.reponame] = 'GENERIC_REPO';
        }
 
        const customRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
@@ -357,10 +361,10 @@ describe('Site deploy with various CI environments', () => {
          'site.json': JSON.stringify(customRepoConfig),
          _site: {},
        };
-       fs.vol.fromJSON(json, '');
-       const site = new Site('./', '_site');
+       mockFs.vol.fromJSON(json, '');
+       const site = new Site(...siteArguments);
        await site.deploy(true);
-       expect(ghpages.options.repo)
+       expect(mockGhPages.options.repo)
          .toEqual(`https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/USER/REPO.git`);
      });
 
@@ -371,14 +375,15 @@ describe('Site deploy with various CI environments', () => {
     ['CIRCLECI', { username: 'CIRCLE_PROJECT_USERNAME', reponame: 'CIRCLE_PROJECT_REPONAME' }],
   ])('Site deploy -c/--ci deploys to correct repo when .git is in repo name',
      async (ciIdentifier, repoSlugIdentifier) => {
-       process.env[ciIdentifier] = true;
+       process.env[ciIdentifier] = 'true';
        process.env.GITHUB_TOKEN = 'githubToken';
        const genericRepoSlug = 'GENERIC_USER/GENERIC_REPO.github.io';
-       if (repoSlugIdentifier.reposlug) {
-         process.env[repoSlugIdentifier.reposlug] = genericRepoSlug;
+       if ((repoSlugIdentifier as { reposlug: string }).reposlug) {
+         process.env[(repoSlugIdentifier as { reposlug: string }).reposlug] = genericRepoSlug;
        } else {
-         process.env[repoSlugIdentifier.username] = 'GENERIC_USER';
-         process.env[repoSlugIdentifier.reponame] = 'GENERIC_REPO.github.io';
+         const repoSlugIdentifierCasted = repoSlugIdentifier as { username: string, reponame: string };
+         process.env[repoSlugIdentifierCasted.username] = 'GENERIC_USER';
+         process.env[repoSlugIdentifierCasted.reponame] = 'GENERIC_REPO.github.io';
        }
 
        const json = {
@@ -386,10 +391,10 @@ describe('Site deploy with various CI environments', () => {
          'site.json': SITE_JSON_DEFAULT,
          _site: {},
        };
-       fs.vol.fromJSON(json, '');
-       const site = new Site('./', '_site');
+       mockFs.vol.fromJSON(json, '');
+       const site = new Site(...siteArguments);
        await site.deploy(true);
-       expect(ghpages.options.repo)
+       expect(mockGhPages.options.repo)
          // eslint-disable-next-line max-len
          .toEqual(`https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/${genericRepoSlug}.git`);
      });
@@ -402,8 +407,8 @@ describe('Site deploy with various CI environments', () => {
       'site.json': SITE_JSON_DEFAULT,
       _site: {},
     };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
+    mockFs.vol.fromJSON(json, '');
+    const site = new Site(...siteArguments);
     await expect(site.deploy(true))
       .rejects
       .toThrow(new Error('-c/--ci should only be run in CI environments.'));
@@ -415,15 +420,15 @@ describe('Site deploy with various CI environments', () => {
     ['GITHUB_ACTIONS'],
     ['CIRCLECI'],
   ])('Site deploy -c/--ci should not deploy without authentication token', async (ciIdentifier) => {
-    process.env[ciIdentifier] = true;
+    process.env[ciIdentifier] = 'true';
 
     const json = {
       ...PAGE_NJK,
       'site.json': SITE_JSON_DEFAULT,
       _site: {},
     };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
+    mockFs.vol.fromJSON(json, '');
+    const site = new Site(...siteArguments);
     await expect(site.deploy(true))
       .rejects
       .toThrow(new Error('The environment variable GITHUB_TOKEN does not exist.'));
@@ -435,7 +440,7 @@ describe('Site deploy with various CI environments', () => {
     ['GITHUB_ACTIONS'],
     ['CIRCLECI'],
   ])('Site deploy -c/--ci should not deploy if custom repository is not on GitHub', async (ciIdentifier) => {
-    process.env[ciIdentifier] = true;
+    process.env[ciIdentifier] = 'true';
     process.env.GITHUB_TOKEN = 'githubToken';
 
     const invalidRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
@@ -445,8 +450,8 @@ describe('Site deploy with various CI environments', () => {
       'site.json': JSON.stringify(invalidRepoConfig),
       _site: {},
     };
-    fs.vol.fromJSON(json, '');
-    const site = new Site('./', '_site');
+    mockFs.vol.fromJSON(json, '');
+    const site = new Site(...siteArguments);
     await expect(site.deploy(true))
       .rejects
       .toThrow(new Error('-c/--ci expects a GitHub repository.\n'
@@ -563,10 +568,10 @@ siteJsonResolvePropertiesTestCases.forEach((testCase) => {
       ...PAGE_NJK,
       'index.md': '',
     };
-    fs.vol.fromJSON(json, '');
+    mockFs.vol.fromJSON(json, '');
 
-    const site = new Site('./', '_site');
-    site.siteConfig = customSiteConfig;
+    const site = new Site(...siteArguments);
+    site.siteConfig = customSiteConfig as unknown as SiteConfig;
     site.collectAddressablePages();
     expect(site.addressablePages)
       .toEqual(testCase.expected);
@@ -599,10 +604,10 @@ test('Site config throws error on duplicate page src', async () => {
     ...PAGE_NJK,
     'index.md': '',
   };
-  fs.vol.fromJSON(json, '');
+  mockFs.vol.fromJSON(json, '');
 
-  const site = new Site('./', '_site');
-  site.siteConfig = customSiteConfig;
+  const site = new Site(...siteArguments);
+  site.siteConfig = customSiteConfig as unknown as SiteConfig;
   expect(() => site.collectAddressablePages())
     .toThrow(new Error('Duplicate page entries found in site config: index.md'));
 });
@@ -669,10 +674,10 @@ siteJsonPageExclusionTestCases.forEach((testCase) => {
       'index.md': '',
       'exclude.md': '',
     };
-    fs.vol.fromJSON(json, '');
+    mockFs.vol.fromJSON(json, '');
 
-    const site = new Site('./', '_site');
-    site.siteConfig = customSiteConfig;
+    const site = new Site(...siteArguments);
+    site.siteConfig = customSiteConfig as unknown as SiteConfig;
     site.collectAddressablePages();
     expect(site.addressablePages)
       .toEqual(testCase.expected);
