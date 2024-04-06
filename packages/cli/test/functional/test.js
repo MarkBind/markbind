@@ -10,7 +10,9 @@ const {
   testSites,
   testConvertSites,
   testTemplateSites,
-  plantumlGeneratedFiles,
+  plantumlGeneratedFilesForTestSites,
+  plantumlGeneratedFilesForConvertSites,
+  plantumlGeneratedFilesForTemplateSites,
 } = require('./testSites');
 
 /* eslint-disable no-console */
@@ -31,38 +33,43 @@ testSites.forEach((siteName) => {
   console.log(`Running ${siteName} tests`);
   try {
     execSync(`node ../../index.js build ${siteName}`, execOptions);
-    compare(siteName, 'expected', '_site', siteName === 'test_site' ? plantumlGeneratedFiles : []);
+    const siteIgnoredFiles = plantumlGeneratedFilesForTestSites[siteName];
+    compare(siteName, 'expected', '_site', siteIgnoredFiles);
   } catch (err) {
     printFailedMessage(err, siteName);
     process.exit(1);
   }
 });
 
-testConvertSites.forEach((siteName) => {
-  console.log(`Running ${siteName} tests`);
-  const nonMarkBindSitePath = path.join(siteName, 'non_markbind_site');
+testConvertSites.forEach((sitePath) => {
+  console.log(`Running ${sitePath} tests`);
+  const nonMarkBindSitePath = path.join(sitePath, 'non_markbind_site');
+  const siteName = sitePath.split('/')[1];
   try {
     execSync(`node ../../index.js init ${nonMarkBindSitePath} -c`, execOptions);
     execSync(`node ../../index.js build ${nonMarkBindSitePath}`, execOptions);
-    compare(siteName, 'expected', 'non_markbind_site/_site');
+    const siteIgnoredFiles = plantumlGeneratedFilesForConvertSites[siteName];
+    compare(sitePath, 'expected', 'non_markbind_site/_site', siteIgnoredFiles);
   } catch (err) {
-    printFailedMessage(err, siteName);
-    cleanupConvert(path.resolve(__dirname, siteName));
+    printFailedMessage(err, sitePath);
+    cleanupConvert(path.resolve(__dirname, sitePath));
     process.exit(1);
   }
-  cleanupConvert(path.resolve(__dirname, siteName));
+  cleanupConvert(path.resolve(__dirname, sitePath));
 });
 
 testTemplateSites.forEach((templateAndSitePath) => {
   const flag = templateAndSitePath.split(',')[0];
   const sitePath = templateAndSitePath.split(',')[1];
   const siteCreationTempPath = path.join(sitePath, 'tmp');
+  const siteName = sitePath.split('/')[1];
 
   console.log(`Running ${sitePath} tests`);
   try {
     execSync(`node ../../index.js init ${siteCreationTempPath} --template ${flag}`, execOptions);
     execSync(`node ../../index.js build ${siteCreationTempPath}`, execOptions);
-    compare(sitePath, 'expected', 'tmp/_site');
+    const siteIgnoredFiles = plantumlGeneratedFilesForTemplateSites[siteName];
+    compare(sitePath, 'expected', 'tmp/_site', siteIgnoredFiles);
   } catch (err) {
     printFailedMessage(err, sitePath);
     fs.removeSync(path.resolve(__dirname, siteCreationTempPath));
