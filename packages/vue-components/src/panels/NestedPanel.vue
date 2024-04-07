@@ -34,7 +34,7 @@
   >
     <div :class="['card', { 'expandable-card': isExpandableCard, 'card-seamless': isSeamless }, borderType]">
       <div
-        :class="['card-header', {'header-toggle':isExpandableCard}, cardType, borderType]"
+        :class="['card-header',{'header-toggle':isExpandableCard}, cardType, borderType]"
         @click.prevent.stop="isExpandableCard && toggle()"
       >
         <div class="caret-wrapper">
@@ -164,8 +164,7 @@ export default {
       return `bg-${this.type || 'light'}`;
     },
     isLightBg() {
-      return this.cardType === 'bg-light'
-      || this.cardType === 'bg-warning';
+      return this.cardType === 'bg-light' || this.cardType === 'bg-warning';
     },
   },
 };
@@ -190,7 +189,7 @@ export default {
 
     .seamless-button:hover {
         border-color: transparent;
-        background-color: color-mix(in srgb, currentcolor 25%, white);
+        background-color: color-mix(in srgb, currentcolor 25%, transparent);
     }
 
     .card-header:hover .seamless-button {
@@ -347,9 +346,6 @@ export default {
     }
 
     .morph-display-wrapper-seamless {
-        margin-top: 5px;
-        display: flex;
-        align-items: center;
         color: inherit;
     }
 
