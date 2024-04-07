@@ -114,7 +114,7 @@ function updateNodeStyle(node: NodeOrText) {
 // If an item has a specified icon, that icon and its attributes will be saved and used
 // for it and for subsequent items at that level to prevent duplication of icons
 // attribute declarations.
-// If an item is once, its icons and/or attributes will only be used for that item.
+// If once is true, its icons and/or attributes will only be used for that item.
 // Items with once icons/attributes do not overwrite the previously saved icon/
 // attributes, meaning that subsequent items will still use the last saved
 // icon/attributes.
@@ -203,18 +203,18 @@ function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail,
   if (!iconAttrValue.addIcons) {
     return;
   }
-  // for items after first item, if first item is once, no previous icon
-  // so future items that are not once will need to be saved
+  // for subsequent items, if first item is once, there is no previous icon
+  // so future attributes that are not once will need to be saved
   if (iconAttrValue.iconAttrs?.icon === undefined && iconAttrValue.iconAttrs?.text === undefined) {
     // There is no previous icon and no previous text
     const nodeIconAttrs = getIconAttributes(node, renderMdInline);
-    // Save if current has icon or text, and it is not once
+    // Save if current item has icon or text, and it is not once
     if ((nodeIconAttrs?.icon !== undefined || nodeIconAttrs?.text !== undefined) && !nodeIconAttrs?.once) {
       iconAttrValue.iconAttrs = nodeIconAttrs;
     }
   }
 
-  // update only if current has icon/text or previous has saved icon/text
+  // update only if current item has icon/text or previous items have saved icon/text
   const nodeIconAttrs = getIconAttributes(node, renderMdInline);
   if (nodeIconAttrs?.icon !== undefined || iconAttrValue.iconAttrs?.icon !== undefined
     || nodeIconAttrs?.text !== undefined || iconAttrValue.iconAttrs?.text !== undefined) {
