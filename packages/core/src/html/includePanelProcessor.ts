@@ -31,6 +31,9 @@ function _checkAndWarnFileExists(element: MbNode, context: Context, actualFilePa
                                  pageSources: PageSources, isOptional = false) {
   if (!fsUtil.fileExists(actualFilePath)) {
     if (isOptional) {
+      const warning = `Optional file not found: ${actualFilePath}\n`
+        + `Empty reference in ${context.cwf}`;
+      logger.warn(warning);
       return false;
     }
 
@@ -272,7 +275,7 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
     } else if (actualContentOrNull === null && isOptional) {
       const warning = `Optional segment '${hash}' not found in file: ${actualFilePath}\n`
         + `Empty reference in ${context.cwf}`;
-      logger.info(warning);
+      logger.warn(warning);
     }
   }
 
