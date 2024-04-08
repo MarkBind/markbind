@@ -1,4 +1,4 @@
-<m-table sortable searchable>
+<d-table sortable searchable>
 | Name | Age | Country |
 |------|-----|---------|
 | John | 28  | USA     |
@@ -7,4 +7,4 @@
 | Sophia | 255 | Germany|
 | David | 37  | Australia |
 | Emma | 29   | New Zealand |
-</m-table>
+</d-table>

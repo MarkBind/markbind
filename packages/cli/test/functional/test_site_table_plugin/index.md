@@ -28,7 +28,7 @@ Test regular table with include
 ---
 Test searchable
 
-<m-table sortable>
+<d-table sortable>
 | Name | Age | Country |
 |------|-----|---------|
 | John | 28  | USA     |
@@ -37,13 +37,13 @@ Test searchable
 | Sophia | 255 | Germany|
 | David | 37  | Australia |
 | <span><include src="others/inclusion_inside_table.md" /></span> | 29   | New Zealand |
-</m-table>
+</d-table>
 
 
 ---
 Test sortable
 
-<m-table sortable>
+<d-table sortable>
 | Name | Age | Country |
 |------|-----|---------|
 | John | 28  | USA     |
@@ -52,12 +52,12 @@ Test sortable
 | Sophia | 255 | Germany|
 | David | 37  | Australia |
 | <span><include src="others/inclusion_inside_table.md" /></span> | 29   | New Zealand |
-</m-table>
+</d-table>
 
 ---
 Test sortable with searchable
 
-<m-table sortable searchable>
+<d-table sortable searchable>
 | Name | Age | Country |
 |------|-----|---------|
 | John | 28  | USA     |
@@ -66,7 +66,7 @@ Test sortable with searchable
 | Sophia | 255 | Germany|
 | David | 37  | Australia |
 | <span><include src="others/inclusion_inside_table.md" /></span> | 29   | New Zealand |
-</m-table>
+</d-table>
 
 ---
 Test table can be included
