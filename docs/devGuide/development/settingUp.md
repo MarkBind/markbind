@@ -34,7 +34,7 @@ This page explains how to set up your development environment to start contribut
 
 <box type="tip" seamless>
 
-We recommend the **WebStorm IDE** for working with MarkBind code.
+We recommend the **WebStorm IDE** or **VS Code** for working with MarkBind code.
 </box>
 
 ## Setting up the dev environment
