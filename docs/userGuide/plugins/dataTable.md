@@ -17,30 +17,30 @@ To create a table with DataTable features, use one of the following syntaxes:
 
 1. Sortable Table:
 ```html
-<m-table sortable>
+<d-table sortable>
 | Name   | Age | Country   |
 |--------|-----|-----------|
 | John   | 28  | USA       |
 | Emily  | 32  | Canada    |
 | Michael| 41  | UK        |
-</m-table>
+</d-table>
 ```
 
 2. Searchable Table:
 ```html
-<m-table searchable>
+<d-table searchable>
 | Book Title                | Author           | Year Published |
 |---------------------------|------------------|----------------|
 | To Kill a Mockingbird     | Harper Lee       | 1960           |
 | 1984                      | George Orwell    | 1949           |
 | Pride and Prejudice       | Jane Austen      | 1813           |
 | The Great Gatsby          | F. Scott Fitzgerald | 1925        |
-</m-table>
+</d-table>
 ```
 
 3. Sortable and Searchable Table:
 ```html
-<m-table sortable searchable>
+<d-table sortable searchable>
 | City        | Country   | Population |
 |-------------|-----------|------------|
 | New York    | USA       | 8,336,817  |
@@ -48,7 +48,7 @@ To create a table with DataTable features, use one of the following syntaxes:
 | Paris       | France    | 2,161,063  |
 | Tokyo       | Japan     | 13,960,236 |
 | Sydney      | Australia | 5,367,206  |
-</m-table>
+</d-table>
 ```
 
 {{ icon_example }} Sortable Table:
@@ -56,13 +56,13 @@ To create a table with DataTable features, use one of the following syntaxes:
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<m-table sortable>
+<d-table sortable>
 | Product   | Price | Quantity |
 |-----------|-------|----------|
 | Apple     | $0.50 | 100      |
 | Banana    | $0.75 | 50       |
 | Orange    | $0.60 | 75       |
-</m-table>
+</d-table>
 </variable>
 </include>
 
@@ -71,14 +71,14 @@ To create a table with DataTable features, use one of the following syntaxes:
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<m-table searchable>
+<d-table searchable>
 | Book Title                | Author           | Year Published |
 |---------------------------|------------------|----------------|
 | To Kill a Mockingbird     | Harper Lee       | 1960           |
 | 1984                      | George Orwell    | 1949           |
 | Pride and Prejudice       | Jane Austen      | 1813           |
 | The Great Gatsby          | F. Scott Fitzgerald | 1925        |
-</m-table>
+</d-table>
 </variable>
 </include>
 
@@ -87,7 +87,7 @@ To create a table with DataTable features, use one of the following syntaxes:
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<m-table sortable searchable>
+<d-table sortable searchable>
 | City        | Country   | Population |
 |-------------|-----------|------------|
 | New York    | USA       | 8,336,817  |
@@ -95,8 +95,8 @@ To create a table with DataTable features, use one of the following syntaxes:
 | Paris       | France    | 2,161,063  |
 | Tokyo       | Japan     | 13,960,236 |
 | Sydney      | Australia | 5,367,206  |
-</m-table>
+</d-table>
 </variable>
 </include>
 
-The DataTable plugin automatically renders the table with the specified features based on the presence of the `sortable` and `searchable` attributes in the `<m-table>` tag. You can use either one or both attributes to control the desired functionality for each table.
+The DataTable plugin automatically renders the table with the specified features based on the presence of the `sortable` and `searchable` attributes in the `<d-table>` tag. You can use either one or both attributes to control the desired functionality for each table.

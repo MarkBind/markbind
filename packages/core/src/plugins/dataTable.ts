@@ -53,7 +53,7 @@ export = {
   postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => {
     const $ = cheerio.load(content);
 
-    $('m-table').each((index: number, node: cheerio.Element) => {
+    $('d-table').each((index: number, node: cheerio.Element) => {
       const $node = $(node);
       const html = $node.html();
       if (html != null) {
