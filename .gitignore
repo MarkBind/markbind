@@ -58,6 +58,7 @@ packages/cli/test/functional/test_site/expected/diagrams/sequence.png
 packages/cli/test/functional/test_site/expected/diagrams/state.png
 packages/cli/test/functional/test_site/expected/diagrams/usecase.png
 packages/cli/test/functional/test_site/expected/sub_site/inline-output/inline-puml-image.png
+packages/cli/test/functional/test_site_templates/test_project/expected/diagrams/example.png
 
 # vscode configuration
 .vscode/
@@ -89,9 +90,6 @@ packages/core/src/Site/*.js
 packages/core/src/utils/*.js
 packages/core/src/variables/*.js
 packages/core/test/unit/**/*.js
-
-# TODO: remove when migrated to TS
-!markdown-it-icons.test.js
-!Site.test.js
+packages/core/index.js
 
 # --- packages/core end ---
