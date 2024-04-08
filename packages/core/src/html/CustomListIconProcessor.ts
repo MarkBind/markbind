@@ -9,9 +9,8 @@ interface EmojiData {
 }
 
 const emojiData = emojiDictionary as unknown as EmojiData;
-
 const ICON_ATTRIBUTES
-    = ['icon', 'i-width', 'i-height', 'i-size', 'i-class', 'i-spacing', 'text', 't-size', 't-class'];
+    = ['icon', 'i-width', 'i-height', 'i-size', 'i-class', 'i-spacing', 'text', 't-size', 't-class', 'once'];
 
 interface IconAttributes {
   icon?: string;
@@ -23,10 +22,12 @@ interface IconAttributes {
   textClassName?: string;
   textSize?: string;
   spacing?: string;
+  once?: boolean;
 }
 
 type IconAttributeDetail = {
   isFirst: boolean;
+  addIcons: boolean;
   iconAttrs: IconAttributes | null;
 };
 
@@ -110,8 +111,13 @@ function updateNodeStyle(node: NodeOrText) {
   });
 }
 
-// If an item has a specified icon, that icon will be used for it and for subsequent
-// items at that level to prevent duplication of icons attribute declarations.
+// If an item has a specified icon, that icon and its attributes will be saved and used
+// for it and for subsequent items at that level to prevent duplication of icons
+// attribute declarations.
+// If once is true, its icons and/or attributes will only be used for that item.
+// Items with once icons/attributes do not overwrite the previously saved icon/
+// attributes, meaning that subsequent items will still use the last saved
+// icon/attributes.
 const getIconAttributes = (node: MbNode, renderMdInline: (text: string) => string,
                            iconAttrsSoFar?: IconAttributes):
 IconAttributes | null => {
@@ -134,6 +140,7 @@ IconAttributes | null => {
       : iconAttrsSoFar?.textClassName,
     textSize: node.attribs['t-size'] !== undefined ? node.attribs['t-size'] : iconAttrsSoFar?.textSize,
     spacing: node.attribs['i-spacing'] !== undefined ? node.attribs['i-spacing'] : iconAttrsSoFar?.spacing,
+    once: (node.attribs.once === true || node.attribs.once === 'true'),
   };
 };
 
@@ -144,9 +151,6 @@ const deleteAttributes = (node: MbNode, attributes: string[]) => {
 };
 
 function updateLi(node: MbNode, iconAttributes: IconAttributes, renderMdInline: (text: string) => string) {
-  if (
-    iconAttributes.icon === undefined && iconAttributes.text === undefined
-  ) return;
   const curLiIcon = getIconAttributes(node, renderMdInline, iconAttributes);
 
   deleteAttributes(node, ICON_ATTRIBUTES);
@@ -179,12 +183,43 @@ function updateLi(node: MbNode, iconAttributes: IconAttributes, renderMdInline: 
 function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail,
                       renderMdInline: (text: string) => string) {
   if (iconAttrValue.isFirst) {
-    iconAttrValue.iconAttrs = getIconAttributes(node, renderMdInline);
+    const nodeIconAttrs = getIconAttributes(node, renderMdInline);
+    // Check if first item is customized with icon or text
+    if (nodeIconAttrs?.icon !== undefined || nodeIconAttrs?.text !== undefined) {
+      iconAttrValue.addIcons = true;
+    }
+    // Save if the icon is not once
+    if (!nodeIconAttrs?.once) {
+      iconAttrValue.iconAttrs = nodeIconAttrs;
+    }
     iconAttrValue.isFirst = false;
   } else if (iconAttrValue.iconAttrs) {
-    iconAttrValue.iconAttrs = getIconAttributes(node, renderMdInline, iconAttrValue.iconAttrs);
+    const nodeIconAttrs = getIconAttributes(node, renderMdInline, iconAttrValue.iconAttrs);
+    // Save if there is icon or text, and not once
+    if ((nodeIconAttrs?.icon !== undefined || nodeIconAttrs?.text !== undefined) && !nodeIconAttrs?.once) {
+      iconAttrValue.iconAttrs = nodeIconAttrs;
+    }
   }
-  updateLi(node, iconAttrValue.iconAttrs ?? {}, renderMdInline);
+  if (!iconAttrValue.addIcons) {
+    return;
+  }
+  // for subsequent items, if first item is once, there is no previous icon
+  // so future attributes that are not once will need to be saved
+  if (iconAttrValue.iconAttrs?.icon === undefined && iconAttrValue.iconAttrs?.text === undefined) {
+    // There is no previous icon and no previous text
+    const nodeIconAttrs = getIconAttributes(node, renderMdInline);
+    // Save if current item has icon or text, and it is not once
+    if ((nodeIconAttrs?.icon !== undefined || nodeIconAttrs?.text !== undefined) && !nodeIconAttrs?.once) {
+      iconAttrValue.iconAttrs = nodeIconAttrs;
+    }
+  }
+
+  // update only if current item has icon/text or previous items have saved icon/text
+  const nodeIconAttrs = getIconAttributes(node, renderMdInline);
+  if (nodeIconAttrs?.icon !== undefined || iconAttrValue.iconAttrs?.icon !== undefined
+    || nodeIconAttrs?.text !== undefined || iconAttrValue.iconAttrs?.text !== undefined) {
+    updateLi(node, iconAttrValue.iconAttrs ?? {}, renderMdInline);
+  }
 }
 
 export function processUlNode(node: NodeOrText, renderMdInline: (text: string) => string) {
@@ -197,7 +232,7 @@ export function processUlNode(node: NodeOrText, renderMdInline: (text: string) =
   const iconAttrs: IconAttributeDetail[] = [];
   function dfs(currentNode: NodeOrText, level: number) {
     if (!iconAttrs[level]) {
-      iconAttrs[level] = { isFirst: true, iconAttrs: null };
+      iconAttrs[level] = { isFirst: true, addIcons: false, iconAttrs: null };
     }
 
     const ulNode = currentNode as MbNode;
@@ -217,7 +252,7 @@ export function processUlNode(node: NodeOrText, renderMdInline: (text: string) =
         }
       });
     });
-    if (iconAttrs[level].iconAttrs !== null) {
+    if (iconAttrs[level].addIcons) {
       updateNodeStyle(ulNode);
     }
   }

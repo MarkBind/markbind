@@ -80,7 +80,7 @@ mark {
 }
 
 .nav-component {
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 #page-nav {
