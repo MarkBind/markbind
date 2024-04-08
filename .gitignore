@@ -59,6 +59,9 @@ packages/cli/test/functional/test_site/expected/diagrams/state.png
 packages/cli/test/functional/test_site/expected/diagrams/usecase.png
 packages/cli/test/functional/test_site/expected/sub_site/inline-output/inline-puml-image.png
 
+# Generated plantUML images in test_site_templates (MarkBind)
+packages/cli/test/functional/test_site_templates/test_project/expected/diagrams/example.png
+
 # vscode configuration
 .vscode/
 *.iml
