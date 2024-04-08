@@ -31,9 +31,6 @@ function _checkAndWarnFileExists(element: MbNode, context: Context, actualFilePa
                                  pageSources: PageSources, isOptional = false) {
   if (!fsUtil.fileExists(actualFilePath)) {
     if (isOptional) {
-      const warning = `Optional file not found: ${actualFilePath}\n`
-        + `Empty reference in ${context.cwf}`;
-      logger.warn(warning);
       return false;
     }
 
