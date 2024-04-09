@@ -2,7 +2,7 @@
 
 <small>%%Acknowledgement: Font Awesome icons are provided by [Font Awesome](https://fontawesome.com/) under their [free license](https://fontawesome.com/license), Glyphicons are provided by [Glyphicons](https://glyphicons.com/) via [Bootstrap 3](https://getbootstrap.com/docs/3.3/). Bootstrap icons are designed by [@mdo](https://github.com/mdo), maintained by the [Bootstrap Team](https://github.com/orgs/twbs/people) and provided under MIT liscense. [Octicons](https://octicons.github.com) are copyright of GitHub, and Material icons are provided by [Google Fonts](https://fonts.google.com/icons) via [`material-icons` by Ravindra Marella](https://www.npmjs.com/package/material-icons) under the [Apache license 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).%%</small>
 
-MarkBind supports using Font Icons provided by Font Awesome, Glyphicons and GitHub's Octicons.
+MarkBind supports using Font Icons provided by Font Awesome, Glyphicons, GitHub's Octicons and Bootstrap icons.
 
 <include src="tip.md" boilerplate >
 <span id="tip_body">
