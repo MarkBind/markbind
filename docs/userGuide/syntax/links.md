@@ -99,6 +99,8 @@ To ensure that links in the <code>_markbind/</code> folder work correctly across
 {% endraw %}
 </div>
 
+<include src="includes.md#baseUrl-warning"/>
+
 ****Relative paths****
 
 <div class="indented">

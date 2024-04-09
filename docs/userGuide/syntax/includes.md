@@ -56,12 +56,14 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
 </box>
 
 <include src="panels.md#script_and_styles_warning"></include>
+<div id="baseUrl-warning">
 <box type="warning" header="Add `{{ '{{ baseUrl }}' }}` to local URLs to always point to the same target!">
+    
+For links within `<include>` to always point to the same target, make it an absolute link with `{{ '{{ baseUrl }}' }}` included.  
 
-  For links included in `include` to always point to the same target, make it an absolute link with `{{ '{{ baseUrl }}' }}` included. 
-  
-  For example, file `folder1/file1.md` contains an absolute link `{{ '{{ [link]({{ baseUrl }}/folder1/target.html) }} ' }}` when `file1.md` is included in `folder2/file2.md`, the link will point to `folder1/target1.html`.
+For example, if file `folder1/file1.md` contains an absolute link `{{ '{{ [link]({{ baseUrl }}/folder1/target.html) }} ' }}` when `file1.md` is included in `folder2/file2.md`, the link will point to `folder1/target1.html`. Keep this in mind when putting content with links within `<include>`.
 </box>
+</div>
 
 
 <include src="tip.md" boilerplate >

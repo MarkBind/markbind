@@ -94,3 +94,14 @@ You could signpost Markdown either by:
 </variable>
 </include>
 </panel>
+
+##### Content with local links not working when included with `<include>`
+
+If you notice that relative links in a page pointing to another page no longer works after adding it into a page via `<include>`, it may be because the relative link no longer points to the correct address in the new page with `<includes>`. 
+
+To solve this, change the relative URL into an **absolute** URL by adding `{{ '{{ baseUrl }}' }}`. This will ensure that the link will always point to the same address regardless of the page it is included in.
+
+###### Example: Adding `{{ '{{ baseUrl }}' }}` to make absolute URLs
+
+If file `folder1/file1.md` contains an absolute link `{{ '{{ [link]({{ baseUrl }}/folder1/target.html) }} ' }}`, when `file1.md` is included in `folder2/file2.md`, the link will point to `folder1/target1.html` even if the target is not in the same directory as `file2.md`.
+
