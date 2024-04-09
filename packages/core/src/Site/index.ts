@@ -294,6 +294,7 @@ export class Site {
         glyphicons: path.posix.join(baseAssetsPath, 'glyphicons', 'css', 'bootstrap-glyphicons.min.css'),
         octicons: path.posix.join(baseAssetsPath, 'css', 'octicons.css'),
         materialIcons: path.posix.join(baseAssetsPath, 'material-icons', 'material-icons.css'),
+        bootstrapIcons: path.posix.join(baseAssetsPath, 'bootstrap-icons', 'font', 'bootstrap-icons.css'),
         highlight: path.posix.join(baseAssetsPath, 'css',
                                    HIGHLIGHT_ASSETS[this.siteConfig.style.codeTheme]),
         markBindCss: path.posix.join(baseAssetsPath, 'css', 'markbind.min.css'),
@@ -522,6 +523,7 @@ export class Site {
       await this.buildAssets();
       await (this.onePagePath ? this.lazyBuildSourceFiles() : this.buildSourceFiles());
       await this.copyCoreWebAsset();
+      await this.copyBootstrapIconsAsset();
       await this.copyBootstrapTheme(false);
       await this.copyFontAwesomeAsset();
       await this.copyOcticonsAsset();
@@ -1280,6 +1282,13 @@ export class Site {
     });
 
     return Promise.all([...copyAllFiles, ...copyFontsDir]);
+  }
+
+  copyBootstrapIconsAsset() {
+    const bootstrapIconsCssSrcPath = require.resolve('bootstrap-icons/font/bootstrap-icons.css');
+    const bootstrapIconsFontsSrcPath = path.dirname(bootstrapIconsCssSrcPath);
+    const bootstrapIconsFontsDestPath = path.join(this.siteAssetsDestPath, 'bootstrap-icons', 'font');
+    return fs.copy(bootstrapIconsFontsSrcPath, bootstrapIconsFontsDestPath);
   }
 
   /**
