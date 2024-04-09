@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta name="default-head-top">
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 5.4.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>bootstrap icon in page, only octicon stylesheet should be loaded</title>
+  <link rel="stylesheet" href="/test_site/markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/test_site/markbind/bootstrap-icons/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/test_site/markbind/css/codeblock-dark.min.css">
+  <link rel="stylesheet" href="/test_site/markbind/css/markbind.min.css">
+  <script src="/test_site/markbind/js/polyfill.min.js"></script>
+  <script src="/test_site/markbind/js/vue.min.js"></script>
+  <script src="/test_site/markbind/js/markbind.min.js"></script>
+  <script src="testBootstrapIconInPage.page-vue-render.js"></script>
+  <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
+  <link rel="stylesheet" href="/test_site/plugins/web3Form/web-3-form.css">
+  <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
+  <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
+
+  <meta name="default-head-bottom">
+  <link rel="stylesheet" href="/test_site/stylesheets/styles.css">
+  <link rel="icon" href="/test_site/favicon.png">
+</head>
+<script>
+  const baseUrl = '/test_site'
+</script>
+
+<body>
+  <div id="app">
+
+    <div>
+      <header>
+        <navbar type="dark" default-highlight-on="sibling-or-child">
+          <template #brand><a href="/" title="Home" class="navbar-brand">MarkBind Test Site</a></template>
+          <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
+        </navbar>
+        <div class="bg-info display-4 text-center text-white">
+          <br>
+          Test Jumbotron<br>
+          <br>
+        </div>
+      </header>
+      <p><strong>Relative Link Test</strong> This is a relative Intra-Site link in a layout (see <a href="/test_site/index.html#heading-with-hidden-keyword">link</a>)</p>
+    </div>
+    <div id="flex-body">
+      <overlay-source id="site-nav" tag-name="nav" to="site-nav">
+        <div class="nav-component slim-scroll"></div>
+      </overlay-source>
+      <div id="content-wrapper">
+        <breadcrumb></breadcrumb>
+
+        <p>A bootstrap icon is supposed to appear here ---&gt; <i class="bi-terminal-dash"></i></p>
+        <p><strong>There is one bootstrap-icons icon in this page content.</strong></p>
+        <p><strong>Open up console. Only bootstrap-icons stylesheet should be loaded!</strong></p>
+      </div>
+      <overlay-source id="page-nav" tag-name="nav" to="page-nav">
+        <div class="nav-component slim-scroll">
+        </div>
+      </overlay-source>
+    </div>
+  </div>
+</body>
+<script src="/test_site/markbind/js/bootstrap-utility.min.js"></script>
+<script>
+  MarkBind.setupWithSearch()
+</script>
+<script src="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginScript.js"></script>
+<script>alert("Inline plugin script loaded!")</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=TRACKING-ID"></script>
+<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'TRACKING-ID');
+    </script>
+
+<script>
+        function submitForm(element) {
+            event.preventDefault();
+            const formData = new FormData(element);
+            const formProps = Object.fromEntries(formData);
+            const json = JSON.stringify(formProps);
+            const submitButton = element.querySelector('button[type="submit"]');
+            const submitButtonText = submitButton.innerText;
+            submitButton.innerText = 'Please wait...'
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json,
+            })
+            .then(async (response) => {
+                if (response.status == 200) {
+                    alert('Form submitted! Thank you for your response');
+                } else {
+                    alert('Error submitting form! Please try again later.');
+                }
+            })
+            .catch(error => {
+                alert('Error submitting form! Please try again later.');
+            })
+            .finally(() => {
+                submitButton.innerText = submitButtonText;
+            })
+        }
+    </script>
+
+</html>
