@@ -16,12 +16,13 @@
     {% if asset.glyphicons %} <link rel="stylesheet" href="{{ asset.glyphicons }}"> {%- endif -%}
     {% if asset.octicons %} <link rel="stylesheet" href="{{ asset.octicons }}"> {%- endif -%}
     {% if asset.materialIcons %} <link rel="stylesheet" href="{{ asset.materialIcons }}"> {%- endif -%}
+    {% if asset.bootstrapIcons %} <link rel="stylesheet" href="{{ asset.bootstrapIcons }}"> {%- endif -%}
     <link rel="stylesheet" href="{{ asset.highlight }}">
     {%- if not dev -%}<link rel="stylesheet" href="{{ asset.markBindCss }}">{%- endif -%}
-    <script src="{{ asset.polyfillJs }}" defer></script>
-    <script src="{{ asset.vue }}" defer></script>
-    <script src="{{ asset.markBindJs }}" defer></script>
-    <script src="{{ asset.pageVueRenderJs }}" defer></script>
+    <script src="{{ asset.polyfillJs }}"></script>
+    <script src="{{ asset.vue }}"></script>
+    <script src="{{ asset.markBindJs }}"></script>
+    <script src="{{ asset.pageVueRenderJs }}"></script>
     {%- if asset.pluginLinks -%}
     {%- for link in asset.pluginLinks -%}
         {{ link }}
