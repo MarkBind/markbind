@@ -11,42 +11,48 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
+
+
 jobs:
   test:
     strategy:
       matrix:
         platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
+    permissions:
+      contents: read
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
+      - uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7
         with:
           node-version: '16'
       - name: Install Graphviz
-        uses: tlylt/install-graphviz@v1
+        uses: tlylt/install-graphviz@b2201200d85f06f0189cb74d9b69208504cf12cd
       - name: Install Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0
         with:
           java-version: '11'
           distribution: 'temurin'
       - run: npm run setup
       - run: npm run test
       - name: Upload coverage report to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@ab904c41d6ece82784817410c45d8b8c02684457
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   check-docs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
+      - uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7
         with:
           node-version: '16'
       - name: Install Graphviz
-        uses: tlylt/install-graphviz@v1
+        uses: tlylt/install-graphviz@b2201200d85f06f0189cb74d9b69208504cf12cd
       - name: Install Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0
         with:
           java-version: '11'
           distribution: 'temurin'
@@ -69,18 +75,17 @@ jobs:
     # disabled on forks
     if: github.event_name == 'push' && github.repository == 'MarkBind/markbind'
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
+      - uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7
         with:
           node-version: '16'
       - name: Install Graphviz
-        uses: tlylt/install-graphviz@v1
+        uses: tlylt/install-graphviz@b2201200d85f06f0189cb74d9b69208504cf12cd
       - name: Install Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0
         with:
           java-version: '11'
           distribution: 'temurin'

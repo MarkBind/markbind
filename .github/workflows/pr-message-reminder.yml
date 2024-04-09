@@ -20,9 +20,11 @@ jobs:
     remind-pr-author:
         if: github.event_name == 'pull_request'
         runs-on: ubuntu-latest
+        permissions:
+          contents: read
     
         steps:
-          - uses: actions/checkout@v3
+          - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
           - name: Extract Proposed Commit Message
             run: |
               python scripts/process_message.py "${TEXT_BODY}" > processed_body.txt
