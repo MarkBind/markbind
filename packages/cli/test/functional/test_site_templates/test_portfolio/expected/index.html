@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 5.3.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="/markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
+  <link rel="stylesheet" href="/markbind/css/codeblock-dark.min.css">
+  <link rel="stylesheet" href="/markbind/css/markbind.min.css">
+  <script src="/markbind/js/polyfill.min.js"></script>
+  <script src="/markbind/js/vue.min.js"></script>
+  <script src="/markbind/js/markbind.min.js"></script>
+  <script src="index.page-vue-render.js"></script>
+  <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
+  <link rel="stylesheet" href="/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
+
+  <link rel="stylesheet" href="/stylesheets/main.css">
+</head>
+<script>
+  const baseUrl = ''
+</script>
+
+<body>
+  <div id="app">
+    <header sticky>
+      <navbar type="dark">
+        <template #brand><a href="/index.html" title="Home" class="navbar-brand">Your Name</a></template>
+        <li><a href="/index.html#skills" class="nav-link">Skills</a></li>
+        <li><a href="/index.html#experience" class="nav-link">Experience</a></li>
+        <dropdown class="nav-link"><template #header>Projects</template>
+          <li><a href="/index.html#project-1" class="dropdown-item">Project 1</a></li>
+          <li><a href="/index.html#project-2" class="dropdown-item">Project 2</a></li>
+        </dropdown>
+        <template #right>
+          <li>
+            <form class="navbar-form">
+              <searchbar :data="searchData" placeholder="Search" :on-hit="searchCallback" menu-align-right></searchbar>
+            </form>
+          </li>
+        </template>
+      </navbar>
+    </header>
+    <div id="flex-body">
+      <div id="content-wrapper">
+
+        <br>
+        <div class="bg-light text-black px-2 py-5 mb-4">
+          <div class="container">
+            <h1 class="display-5 no-index" id="hello-i-m-name"><span>👋</span> Hello!<br>I'm [NAME]<a class="fa fa-anchor" href="#hello-i-m-name" onclick="event.stopPropagation()"></a></h1>
+            <p class="lead">Welcome to my portfolio!</p>
+            <span style="margin-right:10px;">
+              <a href="https://github.com/MarkBind/markbind" target="_blank" class="icon">
+                <i class="fa-brands fa-github fa-2xl"></i></a></span>
+            <span style="margin-right:10px;">
+              <a href="https://www.linkedin.com/school/national-university-of-singapore/" target="_blank" class="icon">
+                <i class="fa-brands fa-linkedin fa-2xl"></i></a></span>
+          </div>
+        </div>
+        <box type="tip">
+          Want to change the theme? Explore more themes and other components offered by MarkBind in our <a href="https://markbind.org/userGuide/authoringContents.html" target="_blank">user guide here</a></box>
+        <box type="info"><template #header>
+            <h5 id="deploying-this-site">Deploying this site<a class="fa fa-anchor" href="#deploying-this-site" onclick="event.stopPropagation()"></a></h5>
+          </template>
+          <span>MarkBind makes it easy to deploy this site to Github Pages using the <code class="hljs inline no-lang" v-pre>markbind deploy</code> command. To allow <code class="hljs inline no-lang" v-pre>http://[username].github.io</code> to go straight to this portfolio, it is best to set your repository name as <code class="hljs inline no-lang" v-pre>[username].github.io</code> Read more about <a href="https://markbind.org/userGuide/deployingTheSite.html#deploying-to-github-pages">deploying the site here</a></span>
+        </box>
+        <hr>
+        <h2 id="about-me">About me<a class="fa fa-anchor" href="#about-me" onclick="event.stopPropagation()"></a></h2>
+        <div class="container text-left">
+          <div class="row">
+            <div class="col-md-3 col-md-push-9">
+              <img src="/contents/assets/default_profile_pic.png" class="img-fluid" alt="default-profile-pic">
+            </div>
+            <div class="col-md-9 col-md-pull-3">
+              This is where you can add a picture of yourself and a brief introduction. This can be a good place to use <tooltip placement="top"><template #content>Add more information here</template>tooltips</tooltip>, or <span><a href="https://markbind.org/userGuide/formattingContents.html#links">add relevant links</a></span></div>
+          </div>
+        </div>
+        <hr>
+        <div>
+          <h1 id="skills">Skills<a class="fa fa-anchor" href="#skills" onclick="event.stopPropagation()"></a></h1>
+          <p>This is where you can give a quick overview of the technologies and frameworks you know using our <a href="https://markbind.org/userGuide/components/imagesAndDiagrams.html#thumbnails" target="_blank">thumbnail feature</a> or our <a href="https://markbind.org/userGuide/formattingContents.html#icons" target="_blank">icons</a>.</p>
+          <panel expanded><template #header>
+              <p>Example using thumbnails</p>
+            </template>
+            <box type="info">These thumbnails are available as variables to use anywhere in this page!</box>
+            <thumbnail src="/contents/assets/JavaScript.svg" size="50"></thumbnail>
+            <thumbnail src="/contents/assets/Typescript.svg" size="50"></thumbnail>
+            <thumbnail src="/contents/assets/Vue.svg" size="50"></thumbnail>
+            <thumbnail src="/contents/assets/java-icon.svg" size="50"></thumbnail>
+          </panel>
+          <br>
+          <panel expanded><template #header>
+              <p>Example using icons</p>
+            </template>
+            <box type="warning">
+              Some icons are not available in the libraries that MarkBind supports! Please ensure that
+              the desired icons are available before choosing this option. For more information regarding
+              icons, please refer to <a href="https://markbind.org/userGuide/formattingContents.html#icons" target="_blank">this section of our User Guide</a>.</box>
+            <i class="fa-brands fa-square-js fa-2xl"></i>
+            <i class="fa-brands fa-vuejs fa-2xl"></i>
+            <i class="fa-brands fa-java fa-2xl"></i>
+          </panel>
+        </div>
+        <hr>
+        <div>
+          <h1 id="experience">Experience<a class="fa fa-anchor" href="#experience" onclick="event.stopPropagation()"></a></h1>
+          <panel type="seamless" no-close minimized>
+            <template #header>
+              <div>
+                <span><strong>Software Engineering Intern @ <a href="https://nus.edu.sg/">NUS</a></strong> | May 2024 - Aug 2024</span>
+              </div>
+            </template>
+            <div class="container">
+              Role description
+            </div>
+            <div class="container">
+              <thumbnail src="/contents/assets/Vue.svg" size="50"></thumbnail>
+            </div>
+          </panel>
+          <br>
+          <panel type="seamless" no-close minimized>
+            <template #header>
+              <div>
+                <span><strong>Another experience @ <a href>Another Company</a></strong> | May 2022 - Aug 2022</span>
+              </div>
+            </template>
+            <div class="container">
+              Role description
+            </div>
+            <div class="container">
+              <thumbnail src="/contents/assets/JavaScript.svg" size="50"></thumbnail>
+            </div>
+          </panel>
+        </div>
+        <hr>
+        <div>
+          <h1 id="projects">Projects<a class="fa fa-anchor" href="#projects" onclick="event.stopPropagation()"></a></h1>
+          <div>
+            <div class="card mb-3">
+              <h3 class="card-header" id="example-project-ip-for-cs2103">Example project: iP for CS2103<a class="fa fa-anchor" href="#example-project-ip-for-cs2103" onclick="event.stopPropagation()"></a></h3>
+              <div class="card-body">
+                <span>This would be a good place to add images and embeds showcasing your contributions to a project. In this case, an <code class="hljs inline no-lang" v-pre>&lt;iframe&gt;</code> containing the <a href="https://reposense.org/index.html">RepoSense</a> report of a student's contributions to their iP is embedded. For more information on embeds, refer to our user guide <a href="https:/markbind.org/userGuide/formattingContents.html#embeds">here.</a></span>
+              </div>
+              <div>
+                <iframe src="https://nus-cs3281.github.io/2024-dashboard/#/widget/?search=Reposense&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByAuthors&breakdown=false&since=2023-12-01&tabOpen=true&tabType=authorship&tabAuthor=asdfghjkxd&tabRepo=reposense%2Freposense%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=java~md&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false&chartGroupIndex=5&chartIndex=0" width="100%"></iframe>
+              </div>
+              <div class="card-body">
+                <p class="card-text">Some further elaboration of the project can be added here.</p>
+                <thumbnail src="/contents/assets/java-icon.svg" size="50"></thumbnail>
+              </div>
+              <div class="card-body">
+                <a href="#" class="btn btn-primary">View on Github</a>
+                <a href="#" class="btn btn-primary">View Devpost</a>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="card mb-3">
+              <h3 class="card-header" id="project-2">Project 2<a class="fa fa-anchor" href="#project-2" onclick="event.stopPropagation()"></a></h3>
+              <div class="card-body">
+                This is another project.
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+                <rect width="100%" height="100%" fill="#868e96" /><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
+              </svg>
+              <div class="card-body">
+                <p class="card-text">Some further elaboration on the project.</p>
+                <thumbnail src="/contents/assets/JavaScript.svg" size="50"></thumbnail>
+                <thumbnail src="/contents/assets/Vue.svg" size="50"></thumbnail>
+              </div>
+              <div class="card-body">
+                <a href="#" class="btn btn-primary">View on Github</a>
+                <a href="#" class="btn btn-primary">View Devpost</a>
+              </div>
+            </div>
+          </div>
+          <h3 id="other-projects">Other projects<a class="fa fa-anchor" href="#other-projects" onclick="event.stopPropagation()"></a></h3>
+          <div class="row row-cols-1 row-cols-md-3 g-3">
+            <div class="col">
+              <div class="card">
+                <h4 class="card-header" id="project-title">Project title<a class="fa fa-anchor" href="#project-title" onclick="event.stopPropagation()"></a></h4>
+                <div class="card-body">
+                  This is another project.
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+                  <rect width="100%" height="100%" fill="#868e96" /><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
+                </svg>
+                <div class="card-body">
+                  <p class="card-text">Some further elaboration on the project.</p>
+                  <thumbnail src="/contents/assets/JavaScript.svg" size="50"></thumbnail>
+                  <thumbnail src="/contents/assets/Vue.svg" size="50"></thumbnail>
+                </div>
+                <div class="card-body">
+                  <a href="#" class="btn btn-primary">View on Github</a>
+                  <a href="#" class="btn btn-primary">View Devpost</a>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <h4 class="card-header" id="project-title-2">Project title<a class="fa fa-anchor" href="#project-title-2" onclick="event.stopPropagation()"></a></h4>
+                <div class="card-body">
+                  This is another project.
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+                  <rect width="100%" height="100%" fill="#868e96" /><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
+                </svg>
+                <div class="card-body">
+                  <p class="card-text">Some further elaboration on the project.</p>
+                  <thumbnail src="/contents/assets/java-icon.svg" size="50"></thumbnail>
+                </div>
+                <div class="card-body">
+                  <a href="#" class="btn btn-primary">View on Github</a>
+                  <a href="#" class="btn btn-primary">View Devpost</a>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <h4 class="card-header" id="project-title-3">Project title<a class="fa fa-anchor" href="#project-title-3" onclick="event.stopPropagation()"></a></h4>
+                <div class="card-body">
+                  This is another project.
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+                  <rect width="100%" height="100%" fill="#868e96" /><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
+                </svg>
+                <div class="card-body">
+                  <p class="card-text">Some further elaboration on the project.</p>
+                  <thumbnail src="/contents/assets/Vue.svg" size="50"></thumbnail>
+                </div>
+                <div class="card-body">
+                  <a href="#" class="btn btn-primary">View on Github</a>
+                  <a href="#" class="btn btn-primary">View Devpost</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+      </div>
+      <scroll-top-button></scroll-top-button>
+    </div>
+    <footer>
+
+      <div class="text-center">
+        <small>[Generated by <a href="https://markbind.org/">MarkBind 5.3.0</a>]</small>
+      </div>
+    </footer>
+  </div>
+</body>
+<script src="/markbind/js/bootstrap-utility.min.js"></script>
+<script>
+  MarkBind.setupWithSearch()
+</script>
+
+</html>
