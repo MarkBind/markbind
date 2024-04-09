@@ -108,7 +108,7 @@ plain text ...
   
   :bulb: Seamless panels inherit the background colour and text colour of any parents!
   <br/>
-  <panel type="seamless" header="This is an example seamless panel" popup-url="/userGuide/syntax/extra/loadContent.html">
+  <panel type="seamless" header="This is an example seamless panel">
     This is its content.
   </panel>
 </box>
