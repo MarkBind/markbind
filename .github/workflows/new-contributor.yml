@@ -11,14 +11,15 @@ jobs:
   check-new-contributor:
     if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
-    permissions: 
+    permissions:
       pull-requests: write
     steps:
       - name: Check new contributor
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
         with:
           script: |
             const prAuthor = context.payload.pull_request.user.login;
+            const prMerger = context.payload.pull_request.merged_by.login;
             const repoOwner = context.repo.owner;
             const repoName = context.repo.repo;
             const currentPR = context.payload.pull_request.number;
@@ -33,13 +34,12 @@ jobs:
               (response) => response.data.filter(pr => pr.merged_at != null && pr.user.login === prAuthor && pr.number !== currentPR)
             );
             if (mergedPRs.length == 0) {
+              const welcomeMessage = `**Welcome**, @${prAuthor}! 🎉 Thank you for your contribution to the MarkBind project!\n\n@${prMerger}, please remember to add @${prAuthor} as an official contributor to our repository.\n\nSee the full list of contributors [here](https://markbind.org/about.html). ✨`;
               github.rest.issues.createComment({
-                issue_number: context.payload.pull_request.number,
+                issue_number: currentPR,
                 owner: repoOwner,
                 repo: repoName,
-                body: `**Welcome**, @${prAuthor}! 🎉 Thank you for your contribution to the MarkBind project!\n\nDo remember to request someone to add you as a official contributor to our repository, if you want to of course!\n\nSee the full list of contributors [here](https://markbind.org/about.html). ✨`
+                body: welcomeMessage
               });
             }
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
