@@ -75,10 +75,23 @@ export class MdAttributeRenderer {
     return hasAttribute;
   }
 
-  processPopoverAttributes(node: MbNode) {
-    if (!this.hasSlotOverridingAttribute(node, 'header')) {
-      this.processAttributeWithoutOverride(node, 'header', true);
+  /**
+   * Checks if there is a pre-existing slot for the attribute.
+   * If there is a slot, it deletes the attribute and logs a warning.
+   * If there is no slot, it processes the markdown attribute. 
+   * @param node Element to process
+   * @param attribute Attribute name to process
+   * @param isInline Whether to process the attribute with only inline markdown-it rules
+   * @param slotName Name attribute of the <slot> element to insert, which defaults to the attribute name
+   */
+  processSlotAttribute(node: MbNode, attribute: string, isInline: boolean, slotName = attribute) {
+    if (!this.hasSlotOverridingAttribute(node, attribute, slotName)) {
+      this.processAttributeWithoutOverride(node, attribute, isInline, slotName);
     }
+  }
+
+  processPopoverAttributes(node: MbNode) {
+    this.processSlotAttribute(node, 'header', true);
 
     // Warn if there is a content slot overriding the attributes 'content' or 'src'
     const hasSlotAndContentAttribute = this.hasSlotOverridingAttribute(node, 'content', 'content');
@@ -100,9 +113,7 @@ export class MdAttributeRenderer {
   }
 
   processModalAttributes(node: MbNode) {
-    if (!this.hasSlotOverridingAttribute(node, 'header')) {
-      this.processAttributeWithoutOverride(node, 'header', true);
-    }
+    this.processSlotAttribute(node, 'header', true);
   }
 
   /*
@@ -111,9 +122,7 @@ export class MdAttributeRenderer {
 
   processPanelAttributes(node: MbNode) {
     this.processAttributeWithoutOverride(node, 'alt', false, '_alt');
-    if (!this.hasSlotOverridingAttribute(node, 'header')) {
-      this.processAttributeWithoutOverride(node, 'header', false);
-    }
+    this.processSlotAttribute(node, 'header', false);
   }
 
   /*
@@ -121,17 +130,17 @@ export class MdAttributeRenderer {
    */
 
   processQuestion(node: MbNode) {
-    this.processAttributeWithoutOverride(node, 'header', false);
-    this.processAttributeWithoutOverride(node, 'hint', false);
-    this.processAttributeWithoutOverride(node, 'answer', false);
+    this.processSlotAttribute(node, 'header', false);
+    this.processSlotAttribute(node, 'hint', false);
+    this.processSlotAttribute(node, 'answer', false);
   }
 
   processQOption(node: MbNode) {
-    this.processAttributeWithoutOverride(node, 'reason', false);
+    this.processSlotAttribute(node, 'reason', false);
   }
 
   processQuiz(node: MbNode) {
-    this.processAttributeWithoutOverride(node, 'intro', false);
+    this.processSlotAttribute(node, 'intro', false);
   }
 
   /*
@@ -147,8 +156,8 @@ export class MdAttributeRenderer {
    */
 
   processBoxAttributes(node: MbNode) {
-    this.processAttributeWithoutOverride(node, 'icon', true);
-    this.processAttributeWithoutOverride(node, 'header', false);
+    this.processSlotAttribute(node, 'icon', true);
+    this.processSlotAttribute(node, 'header', false);
   }
 
   /*
@@ -156,9 +165,7 @@ export class MdAttributeRenderer {
    */
 
   processDropdownAttributes(node: MbNode) {
-    if (!this.hasSlotOverridingAttribute(node, 'header')) {
-      this.processAttributeWithoutOverride(node, 'header', true);
-    }
+    this.processSlotAttribute(node, 'header', true);
   }
 
   /**
@@ -186,7 +193,7 @@ export class MdAttributeRenderer {
   }
 
   processScrollTopButtonAttributes(node: MbNode) {
-    this.processAttributeWithoutOverride(node, 'icon', true);
+    this.processSlotAttribute(node, 'icon', true);
   }
 
   processAnnotationPointAttributes(node: MbNode) {
