@@ -196,6 +196,10 @@ export class Page {
         && $postVueHtml('[class^=material-icons]').length === 0) {
       delete this.asset.materialIcons;
     }
+    if ($preVueHtml('[class^=bi]').length === 0
+        && $postVueHtml('[class^=bi]').length === 0) {
+      delete this.asset.bootstrapIcons;
+    }
   }
 
   /**
