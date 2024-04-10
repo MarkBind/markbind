@@ -78,7 +78,7 @@ export class MdAttributeRenderer {
   /**
    * Checks if there is a pre-existing slot for the attribute.
    * If there is a slot, it deletes the attribute and logs a warning.
-   * If there is no slot, it processes the markdown attribute. 
+   * If there is no slot, it processes the markdown attribute.
    * @param node Element to process
    * @param attribute Attribute name to process
    * @param isInline Whether to process the attribute with only inline markdown-it rules
