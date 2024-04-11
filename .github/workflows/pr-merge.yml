@@ -20,7 +20,6 @@ jobs:
           chosen_label: ${{ steps.check_pr_description_label.outputs.chosen_label }}
         steps:
           - uses: actions/checkout@v3
-
           - name: Check for PR description label
             id: check_pr_description_label
             run: |
