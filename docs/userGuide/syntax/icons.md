@@ -1,8 +1,8 @@
 ## Icons
 
-<small>%%Acknowledgement: Font Awesome icons are provided by [Font Awesome](https://fontawesome.com/) under their [free license](https://fontawesome.com/license), Glyphicons are provided by [Glyphicons](https://glyphicons.com/) via [Bootstrap 3](https://getbootstrap.com/docs/3.3/), [Octicons](https://octicons.github.com) are copyright of GitHub, and Material icons are provided by [Google Fonts](https://fonts.google.com/icons) via [`material-icons` by Ravindra Marella](https://www.npmjs.com/package/material-icons) under the [Apache license 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).%%</small>
+<small>%%Acknowledgement: Font Awesome icons are provided by [Font Awesome](https://fontawesome.com/) under their [free license](https://fontawesome.com/license), Glyphicons are provided by [Glyphicons](https://glyphicons.com/) via [Bootstrap 3](https://getbootstrap.com/docs/3.3/). Bootstrap icons are designed by [@mdo](https://github.com/mdo), maintained by the [Bootstrap Team](https://github.com/orgs/twbs/people) and provided under MIT liscense. [Octicons](https://octicons.github.com) are copyright of GitHub, and Material icons are provided by [Google Fonts](https://fonts.google.com/icons) via [`material-icons` by Ravindra Marella](https://www.npmjs.com/package/material-icons) under the [Apache license 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).%%</small>
 
-MarkBind supports using Font Icons provided by Font Awesome, Glyphicons and GitHub's Octicons.
+MarkBind supports using Font Icons provided by Font Awesome, Glyphicons, GitHub's Octicons and Bootstrap icons.
 
 <include src="tip.md" boilerplate >
 <span id="tip_body">
@@ -54,6 +54,12 @@ MarkBind currently supports Version 6 of Font Awesome (Free plan). For detailed 
   `Merge a **pull request** :octicon-git-pull-request:` → Merge a **pull request** :octicon-git-pull-request:
 1. You may also append `~class-name` to the end of the octicon name to add `class="class-name"` property to your Octicon (e.g. `:octicon-git-pull-request~icon-large-red:` will generate an Octicon of class *icon-large-red*). You may then add corresponding CSS to `{root}/_markbind/layouts/{layout-name}/styles.css` to customize the style of your Octicon.
 1. If your background is dark, you may use `:octiconlight-*:` to render the icon as white. 
+
+###### Using Bootstrap icons
+
+1. Decide which icon you want to use from [list of available Bootstrap icons](https://icons.getbootstrap.com).
+1. Insert the name for the icon enclosed within colons to get the icon in your page.<br>
+  `Add a romantic touch with :bi-arrow-through-heart:` → Add a romantic touch with :bi-arrow-through-heart:
 
 ###### Using Material Icons
 

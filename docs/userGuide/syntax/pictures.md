@@ -20,6 +20,12 @@ src | `string` | | **This must be specified.**<br>The URL of the image.<br>The U
 width | `string` | | The width of the image in pixels.<br>If both width and height are specified, width takes priority over height. It is to maintain the image's aspect ratio.
 lazy | `boolean` | false | The `<pic>` component lazy loads if this attribute is specified.<br>**Either the height or width should be specified to avoid layout shifts while lazy loading images.**
 
+<box type="info" seamless>
+
+If you want to display images that are automatically linked to its image URL, such that one can click on the image to view the full image, take a look at [MarkBind images]({{baseUrl}}/userGuide/formattingContents.html#images).
+
+</box>
+
 <div id="short" class="d-none">
 
 ```html

@@ -20,22 +20,32 @@ const testTemplateSites = [
 // these files create git diffs every time they are generated,
 // we decided to not commit them to the repository.
 // However, we still want to verify that they are present.
-const plantumlGeneratedFiles = [
-  '9c9e77fc0a983cb6b592e65733787bec.png',
-  'inline-output.png',
-  'diagrams/activity.png',
-  'diagrams/class.png',
-  'diagrams/component.png',
-  'diagrams/object.png',
-  'diagrams/sequence.png',
-  'diagrams/state.png',
-  'diagrams/usecase.png',
-  'sub_site/inline-output/inline-puml-image.png',
-];
+const plantumlGeneratedFilesForTestSites = {
+  test_site: [
+    '9c9e77fc0a983cb6b592e65733787bec.png',
+    'inline-output.png',
+    'diagrams/activity.png',
+    'diagrams/class.png',
+    'diagrams/component.png',
+    'diagrams/object.png',
+    'diagrams/sequence.png',
+    'diagrams/state.png',
+    'diagrams/usecase.png',
+    'sub_site/inline-output/inline-puml-image.png',
+  ],
+};
+
+const plantumlGeneratedFilesForConvertSites = {};
+
+const plantumlGeneratedFilesForTemplateSites = {
+  test_project: ['diagrams/example.png'],
+};
 
 module.exports = {
   testSites,
   testConvertSites,
   testTemplateSites,
-  plantumlGeneratedFiles,
+  plantumlGeneratedFilesForTestSites,
+  plantumlGeneratedFilesForConvertSites,
+  plantumlGeneratedFilesForTemplateSites,
 };

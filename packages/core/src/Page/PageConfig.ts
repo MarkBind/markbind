@@ -12,6 +12,7 @@ export interface PageAssets {
   glyphicons?: string;
   octicons?: string;
   materialIcons?: string;
+  bootstrapIcons?: string;
   highlight: string;
   markBindCss: string;
   markBindJs: string;
