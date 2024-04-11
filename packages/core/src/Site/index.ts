@@ -572,8 +572,9 @@ export class Site {
 
   /**
    * Indexes all the pages of the site using pagefind
+  */
   async indexSiteWithPagefind() {
-    const { createIndex, close } = await import('pagefind');
+    const { createIndex, close } = await import('pagefind'); //eslint-disable-line
     const newIndex = await createIndex({
       keepIndexUrl: true,
       verbose: true,
@@ -585,7 +586,7 @@ export class Site {
       await index.writeFiles({ outputPath: `${this.outputPath}/pagefind` });
     }
     await close();
-  } */
+  }
 
   /**
    * Adds all pages except the viewed pages to toRebuild, flagging them for lazy building later.
