@@ -449,6 +449,12 @@
       "headingKeywords": {}
     },
     {
+      "src": "testBootstrapIconInPage.md",
+      "title": "bootstrap icon in page, only octicon stylesheet should be loaded",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
       "src": "testIconsInSiteLayout.md",
       "title": "glyphicon & octicon icon in page, only glyphicon & octicon stylesheets should be loaded",
       "headings": {},

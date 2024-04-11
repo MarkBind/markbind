@@ -40,6 +40,7 @@
     "walk-sync": "^2.0.2"
   },
   "dependencies": {
+    "bootstrap-icons": "^1.11.3",
     "postcss": "^8.4.35"
   }
 }
