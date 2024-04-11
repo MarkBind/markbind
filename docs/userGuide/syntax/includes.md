@@ -59,14 +59,27 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
 <div id="baseUrl-warning">
 <box type="warning" header="Add `{{ '{{ baseUrl }}' }}` to local URLs so they always point to the same target!">
     
-For links within `<include>` to always point to the same target, make it an absolute link with `{{ '{{ baseUrl }}' }}` included.  
+For links within `<include>` to always point to the same target, make it an absolute link by adding `{{ '{{ baseUrl }}' }}`. Keep this in mind when putting content with links within `<include>`.
 
-For example, if file `folder1/file1.md` contains an absolute link `{{ '{{ [link]({{ baseUrl }}/folder1/target.html) }} ' }}` when `file1.md` is included in `folder2/file2.md`, the link will still point to `folder1/target1.html`. 
+<div id="baseUrl-example">
+<box type="info" header="Example of using absolute links in `<include>`">
 
-Keep this in mind when putting content with links within `<include>`.
+For example, the file `folder1/file1.md` contains a link to `folder1/target.html` via `src="target.html"` or `url="target.html"`. When `file1.md` is included within `folder2/file2.md` via `<include>`, the link should still point to `folder1/target.html`.
+
+<box type="success" header="Positive example">
+
+To ensure that the link will still point to `folder1/target1.html` even if the target is not in the same directory as `file2.md`, use an **absolute link** in `folder1/file1.md` as such: `{{ '{{baseUrl}}' }}/folder1/target.html`.
+</box>
+
+<box type="wrong" header="Negative example">
+
+Without changing the link to an absolute link, the link will point to `target.html` instead of `folder1/target.html`, resulting in a `No such file` error.
+</box>
 </box>
 </div>
 
+</box>
+</div>
 
 <include src="tip.md" boilerplate >
 <span id="tip_body">

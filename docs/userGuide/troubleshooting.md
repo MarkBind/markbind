@@ -101,7 +101,5 @@ If you notice that relative links in a page pointing to another page no longer w
 
 To solve this, change the relative URL into an **absolute** URL by adding `{{ '{{ baseUrl }}' }}`. This will ensure that the link will always point to the same address regardless of the page it is included in.
 
-###### Example: Adding `{{ '{{ baseUrl }}' }}` to make absolute URLs
-
-If file `folder1/file1.md` contains an absolute link `{{ '{{ [link]({{ baseUrl }}/folder1/target.html) }} ' }}`, when `file1.md` is included in `folder2/file2.md`, the link will point to `folder1/target1.html` even if the target is not in the same directory as `file2.md`.
+<include src="syntax/includes.md#baseUrl-example"/>
 
