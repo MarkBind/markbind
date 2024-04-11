@@ -57,7 +57,7 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
 
 <include src="panels.md#script_and_styles_warning"></include>
 <div id="baseUrl-warning">
-<box type="warning" header="Add `{{ '{{ baseUrl }}' }}` to local URLs to always point to the same target!">
+<box type="warning" header="Add `{{ '{{ baseUrl }}' }}` to local URLs so they always point to the same target!">
     
 For links within `<include>` to always point to the same target, make it an absolute link with `{{ '{{ baseUrl }}' }}` included.  
 
