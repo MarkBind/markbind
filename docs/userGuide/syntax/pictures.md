@@ -22,7 +22,7 @@ lazy | `boolean` | false | The `<pic>` component lazy loads if this attribute is
 
 <box type="info" seamless>
 
-If you want to display clickable pictures, take a look at [MarkBind Images]({{baseUrl}}/userGuide/formattingContents.html#images).
+If you want to display clickable pictures, take a look at [MarkBind images]({{baseUrl}}/userGuide/formattingContents.html#images).
 
 </box>
 
