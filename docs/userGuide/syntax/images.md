@@ -61,3 +61,9 @@ Clicking on this image will bring you to the MarkBind homepage (instead of openi
 [![logo](https://markbind.org/images/logo-lightbackground.png =150x)](https://markbind.org)
 </variable>
 </include>
+
+<box type="info" seamless>
+
+If you want to display images with captions, or have the image auto-resize to fit its container, take a look at [MarkBind's `pic` component]({{baseUrl}}/userGuide/components/imagesAndDiagrams.html#pictures).
+
+</box>
