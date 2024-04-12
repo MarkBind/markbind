@@ -1,34 +1,11 @@
 # Welcome to MarkBind
 
-This is a minimalistic template. To learn more about authoring others in MarkBind, visit the [User Guide](https://markbind.org/userGuide/authoringothers.html).
-
----
-Test regular table
-
-| Name    | Age | Country |
-|---------|-----|---------|
-| John    | 28  | USA     |
-| Emily   | 32  | Canada  |
-| Michael | 41 | UK    |
-| Sophia  | 25 | Germany|
-| David   | 37  | Australia |
-| Emma    | 29   | New Zealand |
----
-Test regular table with include
-
-| Name                                                              | Age | Country |
-|-------------------------------------------------------------------|-----|---------|
-| John                                                              | 28  | USA     |
-| Emily                                                             | 32  | Canada  |
-| Michael                                                           | 41 | UK    |
-| Sophia                                                            | 25 | Germany|
-| David                                                             | 37  | Australia |
-| <span><include src="others/inclusion_inside_table.md" /></span> | 29   | New Zealand |
+This is to test data tables.
 
 ---
 Test searchable
 
-<d-table sortable>
+<d-table searchable>
 | Name | Age | Country |
 |------|-----|---------|
 | John | 28  | USA     |
@@ -36,7 +13,7 @@ Test searchable
 | Michael | 41 | UK    |
 | Sophia | 255 | Germany|
 | David | 37  | Australia |
-| <span><include src="others/inclusion_inside_table.md" /></span> | 29   | New Zealand |
+| <span><include src="others/inclusionInsideTable.md" /></span> | 29   | New Zealand |
 </d-table>
 
 
@@ -51,7 +28,7 @@ Test sortable
 | Michael | 41 | UK    |
 | Sophia | 255 | Germany|
 | David | 37  | Australia |
-| <span><include src="others/inclusion_inside_table.md" /></span> | 29   | New Zealand |
+| <span><include src="others/inclusionInsideTable.md" /></span> | 29   | New Zealand |
 </d-table>
 
 ---
@@ -65,52 +42,31 @@ Test sortable with searchable
 | Michael | 41 | UK    |
 | Sophia | 255 | Germany|
 | David | 37  | Australia |
-| <span><include src="others/inclusion_inside_table.md" /></span> | 29   | New Zealand |
+| <span><include src="others/inclusionInsideTable.md" /></span> | 29   | New Zealand |
 </d-table>
 
 ---
 Test table can be included
 
-<span><include src="others/table_to_be_included.md" /></span>
+<span><include src="others/tableToBeIncluded.md" /></span>
 
 ---
 Test table can be included in a panel
 
 <panel type="minimal" header="This is your header for a Panel, click me to expand!">
 
-<span><include src="others/table_to_be_included.md" /></span>
+<span><include src="others/tableToBeIncluded.md" /></span>
 
 </panel>
 
 ---
 Test table can be included in a modal
 
+<trigger for="modal:loremipsum">trigger</trigger>
 <modal header="**Modal header** :rocket:" id="modal:loremipsum">
 
-<span><include src="others/table_to_be_included.md" /></span>
+<span><include src="others/tableToBeIncluded.md" /></span>
 
 </modal>
-
----
-
-```{highlight-lines="2"}
-
-<div>
-
-    <diafsdfjnsdkjfnsdkjfskjdfnksjdfnkdfjsdkjfnsdjfksdfjksndfkjsndkfjnsdkjfnksjdnfkjsndfkjsndfknsdjkfnksjdfnkjsdnfjksdfknsdfkjsndf>
-
-    </diafsdfjnsdkjfnsdkjfskjdfnksjdfnkdfjsdkjfnsdjfksdfjksndfkjsndkfjnsdkjfnksjdnfkjsndfkjsndfknsdjkfnksjdfnkjsdnfjksdfknsdfkjsndf>
-
-</div>
-
-```
-
-
-<panel type="minimal" header="This is your header for a Panel, click me to expand!">
-
-Lorem ipsum ...
-
-</panel>
-
 
 ---
