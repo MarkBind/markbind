@@ -5,7 +5,7 @@ const markdownItRegExp = require('markdown-it-regexp');
 
 // regular expression to match the icon patterns
 const ICON_REGEXP
-  = /:(fa[brs]|fa-brands|fa-solid|glyphicon|octicon|octiconlight|mi[forst])-([a-z-]+)~?([a-z-]+)?:/;
+  = /:(fa[brs]|fa-brands|fa-solid|glyphicon|octicon|octiconlight|mi[forst]|bi)-([a-z-]+)~?([a-z-]+)?:/;
 
 // function to get the octicon icons
 function getOcticonIcon(iconName: string) {
@@ -68,6 +68,9 @@ const handleMaterialIcon = (iconFontType: string, iconFontName: string) => {
 const handleFontAwesome = (iconFontType: string, iconFontName: string) =>
   `<span aria-hidden="true" class="${iconFontType} fa-${iconFontName}"></span>`;
 
+// Handler function for Bootstrap Icons
+const handleBootstrapIcon = (iconFontName: string) => `<i class="bi-${iconFontName}"></i>`;
+
 // function to get the respective icon html based on the icon font type
 const getIconHtml = (match: string[]) => {
   const iconFontType = match[1];
@@ -82,6 +85,8 @@ const getIconHtml = (match: string[]) => {
     return handleOcticonLight(iconFontName, iconClass);
   } else if (iconFontType.startsWith('mi')) {
     return handleMaterialIcon(iconFontType, iconFontName);
+  } else if (iconFontType === 'bi') {
+    return handleBootstrapIcon(iconFontName);
   }
   return handleFontAwesome(iconFontType, iconFontName);
 };

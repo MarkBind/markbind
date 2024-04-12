@@ -303,6 +303,13 @@ and **this**.
   </panel>
 </modal>
 
+**The button of modal inside dismissible box should be properly positioned**
+<box dismissible>
+
+<include src="testModal/DismissibleBox.md#example"/>
+
+</box>
+
 **Unexpanded panel**
 
 <panel header="## Unexpanded panel header">
