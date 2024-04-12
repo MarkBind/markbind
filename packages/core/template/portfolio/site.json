@@ -1,0 +1,32 @@
+{
+  "baseUrl": "",
+  "titlePrefix": "",
+  "titleSuffix": "",
+  "ignore": [
+    "_markbind/layouts/*",
+    "_markbind/logs/*",
+    "_site/*",
+    "site.json",
+    "*.md",
+    "*.njk",
+    ".git/*",
+    ".gitignore",
+    "node_modules/*"
+  ],
+  "pagesExclude": ["node_modules/*"],
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Portfolio"
+    },
+    {
+      "glob": ["**/index.md"]
+    }
+  ],
+  "deploy": {
+    "message": "Site Update."
+  },
+  "style": {
+    "bootstrapTheme": "bootswatch-flatly"
+  }
+}
