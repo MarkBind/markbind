@@ -529,7 +529,7 @@ export class Site {
       await this.copyOcticonsAsset();
       await this.copyMaterialIconsAsset();
       await this.writeSiteData();
-      // await this.indexSiteWithPagefind();
+      await this.indexSiteWithPagefind();
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
         this.backgroundBuildNotViewedFiles();
