@@ -30,7 +30,7 @@
       <!-- Header wrapper, not rendered if there is no header attribute -->
       <div
         v-if="headerBool()"
-        :class="['box-header-wrapper', { 'alert-dismissible': dismissible }]"
+        :class="['box-header-wrapper', { 'alert-dismissible-box': dismissible }]"
       >
         <!-- icon on the left of the header -->
         <div
@@ -64,7 +64,7 @@
         :class="[
           'box-body-wrapper',
           {
-            'alert-dismissible': dismissible && !headerBool(),
+            'alert-dismissible-box': dismissible && !headerBool(),
             'box-body-wrapper-with-heading': headerBool(),
           },
         ]"
@@ -328,7 +328,7 @@ export default {
         padding-top: 0.5rem;
     }
 
-    .alert-dismissible {
+    .alert-dismissible-box {
         padding-right: 4rem;
     }
 
@@ -354,7 +354,7 @@ export default {
         vertical-align: text-top;
     }
 
-    .alert-dismissible .btn-close {
+    .alert-dismissible-box .btn-close {
         padding: 1rem;
     }
 
