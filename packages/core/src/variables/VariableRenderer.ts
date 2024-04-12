@@ -14,12 +14,16 @@ require('../patches/nunjucks'); // load patch
 const unescapedEnv = nunjucks.configure({ autoescape: false })
   .addFilter('date', dateFilter);
 
-const USER_NUNJUCKS_VARIABLES_PATH = '_markbind/nunjucks_variables.md';
+const USER_VARIABLES_PATH: string = '_markbind/variables.md';
+const VARIABLE_REGEX: RegExp = /<variable[^>]*>(.|[\r\n])*?<\/variable>/g;
+const NUNJUCKS_COMMENT_SYNTAX: string = '{# $& #}';
+
 /**
  * Wrapper class over a nunjucks environment configured for the respective (sub)site.
  */
 export class VariableRenderer {
   private pageSources = new PageSources();
+  private variablesFilePath: string;
 
   private nj: Environment;
 
@@ -30,6 +34,15 @@ export class VariableRenderer {
     this.nj.on('load', (name, source) => {
       this.pageSources.staticIncludeSrc.push({ to: source.path });
     });
+
+    this.variablesFilePath = fsUtil.ensurePosix(path.join(siteRootPath, USER_VARIABLES_PATH));
+  }
+
+  getModifiedVariablesFileContent(): string {
+    const variablesFileContent = fs.existsSync(this.variablesFilePath)
+      ? fs.readFileSync(this.variablesFilePath, 'utf8') : '';
+
+    return variablesFileContent.replace(VARIABLE_REGEX, NUNJUCKS_COMMENT_SYNTAX);
   }
 
   /**
@@ -63,11 +76,9 @@ export class VariableRenderer {
     this.pageSources = pageSources;
     const templateName = fsUtil.ensurePosix(path.relative(this.siteRootPath, contentFilePath));
 
-    const nunjucks_variables = fs.existsSync(USER_NUNJUCKS_VARIABLES_PATH)
-      ? fs.readFileSync(USER_NUNJUCKS_VARIABLES_PATH, 'utf8') : '';
-    const content = fs.readFileSync(templateName, 'utf8');
+    const content = this.getModifiedVariablesFileContent() + fs.readFileSync(templateName, 'utf8');
 
-    return this.nj.renderString(nunjucks_variables + content, variables);
+    return this.nj.renderString(content, variables);
   }
 
   /**
