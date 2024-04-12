@@ -79,7 +79,7 @@ To ensure that the link will still point to `folder1/target.html`, use an **abso
 
 <box type="wrong" header="Negative example">
 
-Without changing the link to an absolute link, the link will point to `target.html` instead of `folder1/target.html`, resulting in a `No such file` error.
+If a relative link `target.html` is used, the link will point to `folder2/target.html` instead of `folder1/target.html`
 </box>
 </box>
 </div>
