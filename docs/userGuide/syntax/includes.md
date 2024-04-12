@@ -57,21 +57,19 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
 
 <include src="panels.md#script_and_styles_warning"></include>
 <div id="baseUrl-warning">
-<box type="warning" header="Add `{{ '{{ baseUrl }}' }}` to local URLs so they always point to the same target!">
-    
-For links within `<include>` to always point to the same target, make it an absolute link by adding `{{ '{{ baseUrl }}' }}`. Keep this in mind when putting content with links within `<include>`.
+<box type="warning" header="Add `{{ '{{ baseUrl }}' }}` to make your URLs absolute links if they may be reused in different contexts">
+
+Make an internal relative link an absolute link by adding `{{ '{{ baseUrl }}' }}` in front of the path. This allows the link to always point to the same target. Keep this in mind when putting content with links that is reused (eg: via `<include>`) as when your content is re-used a relative link may no longer point to where you want it to.
 
 <div id="baseUrl-example">
-<box type="info" header="Example of using absolute links in `<include>`">
+<panel header="Example of using absolute links in `<include>`" type="info">
 
-The file `folder1/file1.md` contains a link to `folder1/target.html`
-The file `folder2/file2.md` `<include>` `folder1/file1.md`
+The file `folder1/file1.md` contains a link to `folder1/target.html`. The file `folder2/file2.md` contains a fragment from `folder1/file1.md` using `<include>`.
 
 **In `folder2/file2.md`:** 
 ```
 <include src="folder1/file1.md" />
 ```
-
 
 <box type="success" header="Positive example">
 
@@ -82,7 +80,7 @@ To ensure that the link will still point to `folder1/target.html`, use an **abso
 
 If a relative link `target.html` is used, the link will point to `folder2/target.html` instead of `folder1/target.html`
 </box>
-</box>
+</panel>
 </div>
 
 </box>
