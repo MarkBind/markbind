@@ -74,7 +74,7 @@ The file `folder2/file2.md` `<include>` `folder1/file1.md`
 
 <box type="success" header="Positive example">
 
-To ensure that the link will still point to `folder1/target1.html` even if the target is not in the same directory as `file2.md`, use an **absolute link** in `folder1/file1.md` as such: `{{ '{{baseUrl}}' }}/folder1/target.html`.
+To ensure that the link will still point to `folder1/target.html`, use an **absolute link** in `folder1/file1.md` as such: `{{ '{{baseUrl}}' }}/folder1/target.html`.
 </box>
 
 <box type="wrong" header="Negative example">
