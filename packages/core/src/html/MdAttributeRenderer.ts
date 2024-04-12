@@ -121,7 +121,7 @@ export class MdAttributeRenderer {
    */
 
   processPanelAttributes(node: MbNode) {
-    this.processAttributeWithoutOverride(node, 'alt', false, '_alt');
+    this.processSlotAttribute(node, 'alt', false, '_alt');
     this.processSlotAttribute(node, 'header', false);
   }
 
