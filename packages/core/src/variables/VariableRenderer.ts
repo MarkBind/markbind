@@ -74,9 +74,9 @@ export class VariableRenderer {
     pageSources: PageSources,
   ) {
     this.pageSources = pageSources;
-    const templateName = fsUtil.ensurePosix(path.relative(this.siteRootPath, contentFilePath));
+    const templatePath = fsUtil.ensurePosix(contentFilePath);
 
-    const content = this.getModifiedVariablesFileContent() + fs.readFileSync(templateName, 'utf8');
+    const content = this.getModifiedVariablesFileContent() + fs.readFileSync(templatePath, 'utf8');
 
     return this.nj.renderString(content, variables);
   }
