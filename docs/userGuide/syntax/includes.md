@@ -67,9 +67,10 @@ For links within `<include>` to always point to the same target, make it an abso
 The file `folder1/file1.md` contains a link to `folder1/target.html`
 The file `folder2/file2.md` `<include>` `folder1/file1.md`
 
-```{heading="In `folder2/file2.md`"}
+**In `folder2/file2.md`:** 
+```
 <include src="folder1/file1.md" />
-\```
+```
 
 
 <box type="success" header="Positive example">
