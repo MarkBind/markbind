@@ -197,7 +197,7 @@ with(this){return _c('div',[_c('div',[_c('img',{attrs:{"src":"/test_site/sub_sit
 with(this){return _c('p',[_c('strong',[_v("Trimmed include")])])}
 },function anonymous(
 ) {
-with(this){return _c('p',[_c('strong',[_c('span',[_c('br'),_v("\nFragment with leading spaces and newline")])])])}
+with(this){return _c('p',[_c('strong',[_c('span',[_v("Fragment with leading spaces and newline")])])])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_c('strong',[_v("Trimmed include fragment")])])}
