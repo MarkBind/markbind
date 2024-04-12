@@ -109,7 +109,7 @@ export class MdAttributeRenderer {
   }
 
   processTooltip(node: MbNode) {
-    this.processAttributeWithoutOverride(node, 'content', true);
+    this.processSlotAttribute(node, 'content', true);
   }
 
   processModalAttributes(node: MbNode) {
@@ -148,7 +148,7 @@ export class MdAttributeRenderer {
    */
 
   processTabAttributes(node: MbNode) {
-    this.processAttributeWithoutOverride(node, 'header', true);
+    this.processSlotAttribute(node, 'header', true);
   }
 
   /*
@@ -197,8 +197,8 @@ export class MdAttributeRenderer {
   }
 
   processAnnotationPointAttributes(node: MbNode) {
-    this.processAttributeWithoutOverride(node, 'content', false);
-    this.processAttributeWithoutOverride(node, 'header', false);
-    this.processAttributeWithoutOverride(node, 'label', false);
+    this.processSlotAttribute(node, 'content', false);
+    this.processSlotAttribute(node, 'header', false);
+    this.processSlotAttribute(node, 'label', false);
   }
 }
