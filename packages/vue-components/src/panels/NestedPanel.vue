@@ -339,16 +339,13 @@ export default {
         display: inline-block;
     }
 
-    .morph-display-wrapper {
+    .morph-display-wrapper, .morph-display-wrapper-seamless {
         margin-top: 5px;
         display: flex;
         align-items: center;
     }
 
     .morph-display-wrapper-seamless {
-        margin-top: 5px;
-        display: flex;
-        align-items: center;
         color: inherit;
     }
 
