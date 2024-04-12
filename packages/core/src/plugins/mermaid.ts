@@ -7,6 +7,7 @@ function genScript(address: string) {
   return `<script type="module">
     import mermaid from '${address || DEFAULT_CDN_ADDRESS}';
     document.addEventListener('DOMContentLoaded', () => {
+      mermaid.initialize({});
       Vue.directive('mermaid', {
         inserted: function(el) {
           mermaid.run({
