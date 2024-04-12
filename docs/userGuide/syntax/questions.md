@@ -59,7 +59,7 @@ If you require more expressive formatting for your header or hint markup, you ca
 <variable name="highlightStyle">html</variable>
 <variable name="heading">Headers and Hints using slots</variable>
 <variable name="code">
-<question type="checkbox" header="Which of the following is true?" hint="Think out of the box! :fas-box:">
+<question type="checkbox">
   <!-- Header slot -->
   <div slot="header">
 
@@ -86,7 +86,7 @@ If you require more expressive formatting for your header or hint markup, you ca
 </question>
 </variable>
 <variable name="output">
-<question type="checkbox" header="Which of the following is true?" hint="Think out of the box! :fas-box:">
+<question type="checkbox">
   <!-- Header slot -->
   <div slot="header">
 
