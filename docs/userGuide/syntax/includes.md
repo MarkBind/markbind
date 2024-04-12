@@ -64,7 +64,13 @@ For links within `<include>` to always point to the same target, make it an abso
 <div id="baseUrl-example">
 <box type="info" header="Example of using absolute links in `<include>`">
 
-For example, the file `folder1/file1.md` contains a link to `folder1/target.html` via `src="target.html"` or `url="target.html"`. When `file1.md` is included within `folder2/file2.md` via `<include>`, the link should still point to `folder1/target.html`.
+The file `folder1/file1.md` contains a link to `folder1/target.html`
+The file `folder2/file2.md` `<include>` `folder1/file1.md`
+
+```{heading="In `folder2/file2.md`"}
+<include src="folder1/file1.md" />
+\```
+
 
 <box type="success" header="Positive example">
 
