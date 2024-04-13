@@ -51,3 +51,8 @@ You can **append the `:expanded:` to a <tooltip content="a menu item with sub me
 ```
 
 </div>
+
+<div id="examples" class="d-none">
+
+You can see an example of a Site Navigation Menu ==on the top== of <a target="_blank" href="{{ baseUrl }}/userGuide/formattingContents.html">this page</a>.
+</div>
