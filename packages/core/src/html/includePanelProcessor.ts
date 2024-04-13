@@ -270,8 +270,8 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
 
       actualContent = cheerio.html(createErrorNode(node, error));
     } else if (actualContentOrNull === '') {
-      const warning = `Segment '${hash}' in file: ${actualFilePath} is empty\n`
-          + `Empty reference in ${context.cwf}`;
+      const warning = `Empty reference in ${context.cwf}:\n`
+          + `Segment '${hash}' in file: ${actualFilePath} is empty`;
       logger.warn(warning);
     }
   }
