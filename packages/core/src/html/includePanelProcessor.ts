@@ -66,7 +66,7 @@ function _getBoilerplateFilePath(element: MbNode, filePath: string, config: Reco
 function _getSrcFlagsAndFilePaths(element: MbNode, config: Record<string, any>) {
   const isUrl = urlUtil.isUrl(element.attribs.src);
 
-  // We do this even if the src is not an url to get the hash, if any
+  // We do this even if the src is not a url to get the hash, if any
   const includeSrc = parse(element.attribs.src);
 
   let filePath;
