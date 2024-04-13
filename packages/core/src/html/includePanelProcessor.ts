@@ -228,6 +228,12 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
     childContext,
   } = variableProcessor.renderIncludeFile(actualFilePath, pageSources, node, context, filePath);
 
+  if (nunjucksProcessed.trim() === '') {
+    const warning = `Empty file included in ${context.cwf}:\n`
+        + `File: ${actualFilePath} is empty or contains only whitespace`;
+    logger.warn(warning);
+  }
+
   let actualContent = nunjucksProcessed;
   if (fsUtil.isMarkdownFileExt(path.extname(actualFilePath))) {
     actualContent = isInline
