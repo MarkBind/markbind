@@ -43,6 +43,7 @@ test('getScripts should return the correct script tag', () => {
   const expectedScript = `<script type="module">
     import mermaid from '${pluginContext.address}';
     document.addEventListener('DOMContentLoaded', () => {
+      mermaid.initialize({});
       Vue.directive('mermaid', {
         inserted: function(el) {
           mermaid.run({
@@ -64,6 +65,7 @@ test('getScripts should use the default CDN address if not provided', () => {
   const expectedScript = `<script type="module">
     import mermaid from 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs';
     document.addEventListener('DOMContentLoaded', () => {
+      mermaid.initialize({});
       Vue.directive('mermaid', {
         inserted: function(el) {
           mermaid.run({
