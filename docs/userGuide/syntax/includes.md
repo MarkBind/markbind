@@ -57,7 +57,7 @@ When setting the `id` of a fragment, be careful not to clash with heading anchor
 <div id="baseUrl-warning">
 <box type="warning" header="Add `{{ '{{ baseUrl }}' }}` to make your URLs absolute links if they may be reused in different contexts">
 
-Make an internal relative link an absolute link by adding `{{ '{{ baseUrl }}' }}` in front of the path. This allows the link to always point to the same target. Keep this in mind when putting content with links that is reused (eg: via `<include>`) as when your content is re-used a relative link may no longer point to where you want it to.
+Make an internal relative link an absolute link by adding `{{ '{{ baseUrl }}' }}` in front of the path. This allows the link to always point to the same target. Keep this in mind when putting content with links that is reused (eg: via `<include>`). This is because when your content is re-used, a relative link may no longer point to where you want it to.
 <div id="baseUrl-example">
 <panel header="Example of using absolute links in `<include>`">
 
