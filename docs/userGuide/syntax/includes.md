@@ -61,7 +61,7 @@ Make an internal relative link an absolute link by adding `{{ '{{ baseUrl }}' }}
 <div id="baseUrl-example">
 <panel header="Example of using absolute links in `<include>`">
 
-The file `folder1/file1.md` contains a link to `folder1/target.html`. The file `folder2/file2.md` contains a fragment from `folder1/file1.md` using `<include>`.
+The file `folder1/file1.md` contains a link to `folder1/target.html`. The file `folder2/file2.md` contains `folder1/file1.md` using `<include>`.
 
 **In `folder2/file2.md`:** 
 ```
