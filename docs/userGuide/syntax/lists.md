@@ -36,6 +36,20 @@
   </variable>
 </include>
 
+***You can also use `{texts="text1, text2, text3"} syntex to add text customisation to a level quickly***
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
+* Item 1 { texts="(a),(b),(c)" }
+  * sub level not applied as per norm
+* Item 2
+* Item 3
+* Last text config will be applied when the list length exceeds texts
+  </variable>
+</include>
+
+
 <box type=info seamless>
 
 Customization will be carried over to the other items within the **same level of the list**.
