@@ -49,7 +49,7 @@ class TextsManager {
   }
 
   resetTexts(texts: string[]) {
-    this.texts = texts;
+    this.texts = texts.map(text => text.trim());
     this.size = texts.length;
     this.pt = 0;
   }
