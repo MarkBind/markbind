@@ -76,6 +76,7 @@ To ensure that the link will still point to `folder1/target.html`, use an **abso
 If a relative link `target.html` is used, the link in `folder2/file2.md` will point to `folder2/target.html` instead of `folder1/target.html`
 </box>
 </panel>
+<br/>
 </div>
 </box>
 </div>
