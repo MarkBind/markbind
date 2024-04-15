@@ -1,9 +1,6 @@
 import cheerio from 'cheerio';
-
 import { PluginContext } from './Plugin';
-import { MbNode } from '../utils/node';
 
-const DEFAULT_CDN_ADDRESS = 'https://cdn.jsdelivr.net/npm/pagefind@1.0.4/lib/index.min.js';
 const DEFAULT_UI = 'https://cdn.jsdelivr.net/npm/@pagefind/default-ui@1.0.4/+esm';
 
 function addPagefindUI() {
@@ -23,9 +20,13 @@ function addPagefindUI() {
 }
 
 export = {
-  processNode: (pluginContext: PluginContext, node: MbNode) => {
-    const $ = cheerio.load(node);
+  tagConfig: {
+    pagefind: {
+      isSpecial: true,
+    },
+  },
+  postRender: (pluginContext: PluginContext, content: string) => {
+    const $ = cheerio.load(content);
     $('header').append(addPagefindUI());
   },
-  getScripts: () => [`<script src='${DEFAULT_CDN_ADDRESS}'></script>`],
 };
