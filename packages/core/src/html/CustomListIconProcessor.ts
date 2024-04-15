@@ -25,9 +25,40 @@ interface IconAttributes {
   once?: boolean;
 }
 
+class TextsManager {
+  texts: string[] = [];
+  pt: number = 0;
+  size: number = 0;
+  constructor() {
+    this.texts = [];
+  }
+
+  isUsed() {
+    return this.size > 0;
+  }
+
+  next(): string {
+    if (this.size === 0) {
+      throw new Error('No texts');
+    }
+    const next = this.texts[this.pt];
+    if (this.pt <= this.size - 1) {
+      this.pt += 1;
+    }
+    return next;
+  }
+
+  resetTexts(texts: string[]) {
+    this.texts = texts;
+    this.size = texts.length;
+    this.pt = 0;
+  }
+}
+
 type IconAttributeDetail = {
   isFirst: boolean;
   addIcons: boolean;
+  texts: TextsManager;
   iconAttrs: IconAttributes | null;
 };
 
@@ -182,6 +213,13 @@ function updateLi(node: MbNode, iconAttributes: IconAttributes, renderMdInline: 
 // See https://github.com/MarkBind/markbind/pull/2316#discussion_r1255364486 for more details.
 function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail,
                       renderMdInline: (text: string) => string) {
+  if (node.attribs.texts) {
+    const texts = node.attribs.texts.split(',');
+    iconAttrValue.texts.resetTexts(texts);
+  }
+  if (iconAttrValue.texts.isUsed() && !node.attribs.text) {
+    node.attribs.text = iconAttrValue.texts.next();
+  }
   if (iconAttrValue.isFirst) {
     const nodeIconAttrs = getIconAttributes(node, renderMdInline);
     // Check if first item is customized with icon or text
@@ -232,7 +270,9 @@ export function processUlNode(node: NodeOrText, renderMdInline: (text: string) =
   const iconAttrs: IconAttributeDetail[] = [];
   function dfs(currentNode: NodeOrText, level: number) {
     if (!iconAttrs[level]) {
-      iconAttrs[level] = { isFirst: true, addIcons: false, iconAttrs: null };
+      iconAttrs[level] = {
+        isFirst: true, addIcons: false, iconAttrs: null, texts: new TextsManager(),
+      };
     }
 
     const ulNode = currentNode as MbNode;
