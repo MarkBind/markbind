@@ -654,6 +654,17 @@
             <p><strong>Panel content inside modal</strong></p>
           </panel>
         </modal>
+        <p><strong>The button of modal inside dismissible box should be properly positioned</strong></p>
+        <box dismissible>
+          <div>
+            <p>
+              <trigger for="modal-a">modal trigger</trigger>.
+            </p>
+            <modal id="modal-a"><template #header>modal header</template>
+              Lorem ipsum
+            </modal>
+          </div>
+        </box>
         <p><strong>Unexpanded panel</strong></p>
         <panel panelId="unexpanded-panel-header"><template #header>
             <h2 id="unexpanded-panel-header">Unexpanded panel header<a class="fa fa-anchor" href="#unexpanded-panel-header" onclick="event.stopPropagation()"></a></h2>
