@@ -36,12 +36,12 @@
   </variable>
 </include>
 
-***You can also use `{texts="text1, text2, text3"} syntex to add text customisation to a level quickly***
+***You can also use `{texts="['text1', 'text2', 'text3']"} syntex to add text customisation to a level quickly***
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-* Item 1 { texts="(a),(b),(c)" }
+* Item 1 { texts="['(a)','(b)','(c)']" }
   * sub level not applied as per norm
 * Item 2
 * Item 3
@@ -49,7 +49,12 @@
   </variable>
 </include>
 
+<box type=warning seamless>
 
+Please be alerted that when using the `{texts="['text1', 'text2', 'text3']"}` syntex, you need to have`""` outside the array, and use `''` for the stirng inside the array.
+
+Please do not nest `''` inside `''`. eg: `{texts="['this \' will be parsed wrongly']"}`
+</box>
 <box type=info seamless>
 
 Customization will be carried over to the other items within the **same level of the list**.
