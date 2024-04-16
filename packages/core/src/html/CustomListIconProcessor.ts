@@ -37,6 +37,11 @@ class TextsManager {
     return this.texts.length > 0;
   }
 
+  stopUsage() {
+    this.texts = [];
+    this.nextTextPointer = 0;
+  }
+
   next(): string {
     if (this.texts.length === 0) {
       throw new Error('No texts');
@@ -226,9 +231,13 @@ function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail,
       logger.error(`Error parsing texts: ${text}, please check the format of the texts attribute`);
     }
   }
-  if (textManager.isInUse() && !node.attribs.text) {
-    node.attribs.text = textManager.next();
-  }
+  if (textManager.isInUse() ) {
+    if (!node.attribs.text) {
+      node.attribs.text = textManager.next();
+    } else {
+      textManager.stopUsage();
+    }
+  } 
   if (iconAttrValue.isFirst) {
     const nodeIconAttrs = getIconAttributes(node, renderMdInline);
     // Check if first item is customized with icon or text

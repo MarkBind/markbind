@@ -46,6 +46,9 @@
 * Item 2
 * Item 3
 * Last text config will be applied when the list length exceeds texts
+* Another last text
+* You can override like this { text="OVERRIDE" }
+* Another overrided text
   </variable>
 </include>
 

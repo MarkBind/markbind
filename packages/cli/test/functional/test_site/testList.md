@@ -40,6 +40,12 @@
 * item 1
 * item 1
 
+1. Text-icons of lists stop on override test
+* item 1 { texts="['(a)','(b)','(c)','(d)']" }
+* item 1
+* item 1 { text="OVERRIDE" }
+* item 1
+
 1. Basic structure
 * Item A
 * Item B 
