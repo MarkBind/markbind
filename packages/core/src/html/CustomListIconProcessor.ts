@@ -231,13 +231,13 @@ function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail,
       logger.error(`Error parsing texts: ${text}, please check the format of the texts attribute`);
     }
   }
-  if (textManager.isInUse() ) {
+  if (textManager.isInUse()) {
     if (!node.attribs.text) {
       node.attribs.text = textManager.next();
     } else {
       textManager.stopUsage();
     }
-  } 
+  }
   if (iconAttrValue.isFirst) {
     const nodeIconAttrs = getIconAttributes(node, renderMdInline);
     // Check if first item is customized with icon or text
