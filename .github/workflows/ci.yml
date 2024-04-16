@@ -73,6 +73,8 @@ jobs:
     # disabled on forks
     if: github.event_name == 'push' && github.repository == 'MarkBind/markbind'
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     permissions:
       contents: read
     steps:
