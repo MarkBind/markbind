@@ -11,7 +11,7 @@
 - Only 1 item { text="Step 1" }
 
 1. One item with text-icons of lists
-- item 1 { texts="(a),(b),(c)" }
+- item 1 { texts="['(a)','(b)','(c)']" }
 
 1. One item + nested list
 - Only 1 item
@@ -30,12 +30,12 @@
   - Only 1 item { text="Step 1.1" }
 
 1. Text-icons of lists test
-* item 1 { texts="(a),(b),(c)" }
+* item 1 { texts="['(a)','(b)','(c)']" }
 * item 1
 * item 1
 
 1. Text-icons of lists outflow test
-* item 1 { texts="(a),(b),(c)" }
+* item 1 { texts="['(a)','(b)','(c)']" }
 * item 1
 * item 1
 * item 1
@@ -74,12 +74,12 @@
   * Sub-item B4
 
 1. Text inheritance test with text-icons of lists
-* Item A { texts="11,12,13,14" }
+* Item A { texts="['11','12','13','14']" }
 * Item B
-  * Sub-item B1 { texts="21,22,23,24" }
+  * Sub-item B1 { texts="['21','22','23','24']" }
   * Sub-item B2
   * Sub-item B3
-    * Sub-sub-item B3.1 { texts="31,32,33,34" }
+    * Sub-sub-item B3.1 { texts="['31','32','33','34']" }
     * Sub-sub-item B3.2
       * Sub-sub-sub-item B3.2.1
   * Sub-item B4
