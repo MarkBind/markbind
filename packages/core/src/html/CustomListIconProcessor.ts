@@ -28,38 +28,36 @@ interface IconAttributes {
 
 class TextsManager {
   texts: string[] = [];
-  pt: number = 0;
-  size: number = 0;
+  nextTextPointer: number = 0;
   constructor() {
     this.texts = [];
   }
 
-  isUsed() {
-    return this.size > 0;
+  isInUse() {
+    return this.texts.length > 0;
   }
 
   next(): string {
-    if (this.size === 0) {
+    if (this.texts.length === 0) {
       throw new Error('No texts');
     }
-    const next = this.texts[this.pt];
-    if (this.pt <= this.size - 1) {
-      this.pt += 1;
+    const next = this.texts[this.nextTextPointer];
+    if (this.nextTextPointer < this.texts.length - 1) {
+      this.nextTextPointer += 1;
     }
     return next;
   }
 
   resetTexts(texts: string[]) {
-    this.texts = texts.map(text => text.trim());
-    this.size = texts.length;
-    this.pt = 0;
+    this.texts = texts;
+    this.nextTextPointer = 0;
   }
 }
 
 type IconAttributeDetail = {
   isFirst: boolean;
   addIcons: boolean;
-  texts: TextsManager;
+  textsManager: TextsManager;
   iconAttrs: IconAttributes | null;
 };
 
@@ -214,6 +212,7 @@ function updateLi(node: MbNode, iconAttributes: IconAttributes, renderMdInline: 
 // See https://github.com/MarkBind/markbind/pull/2316#discussion_r1255364486 for more details.
 function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail,
                       renderMdInline: (text: string) => string) {
+  const textManager = iconAttrValue.textsManager;
   if (node.attribs.texts) {
     const text = node.attribs.texts.replace(/'/g, '"');
     try {
@@ -222,13 +221,13 @@ function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail,
         throw new Error('Texts attribute must be an array');
       }
       const parsedStringArray = parsed.map((obj: any) => obj.toString());
-      iconAttrValue.texts.resetTexts(parsedStringArray);
+      textManager.resetTexts(parsedStringArray);
     } catch (e) {
       logger.error(`Error parsing texts: ${text}, please check the format of the texts attribute`);
     }
   }
-  if (iconAttrValue.texts.isUsed() && !node.attribs.text) {
-    node.attribs.text = iconAttrValue.texts.next();
+  if (textManager.isInUse() && !node.attribs.text) {
+    node.attribs.text = textManager.next();
   }
   if (iconAttrValue.isFirst) {
     const nodeIconAttrs = getIconAttributes(node, renderMdInline);
@@ -281,7 +280,7 @@ export function processUlNode(node: NodeOrText, renderMdInline: (text: string) =
   function dfs(currentNode: NodeOrText, level: number) {
     if (!iconAttrs[level]) {
       iconAttrs[level] = {
-        isFirst: true, addIcons: false, iconAttrs: null, texts: new TextsManager(),
+        isFirst: true, addIcons: false, iconAttrs: null, textsManager: new TextsManager(),
       };
     }
 
