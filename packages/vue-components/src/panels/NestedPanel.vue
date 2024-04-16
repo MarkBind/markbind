@@ -6,8 +6,8 @@
   >
     <span class="morph">
       <button
-        :class="['morph-display-wrapper-seamless',
-                 {'morph-display-wrapper': isSeamless},
+        :class="['morph-display-wrapper',
+                 {'morph-display-wrapper-seamless': isSeamless},
                  'btn',
                  btnType]"
         @click="open()"
