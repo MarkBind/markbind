@@ -6,7 +6,8 @@
   >
     <span class="morph">
       <button
-        :class="[isSeamless ? 'morph-display-wrapper-seamless': 'morph-display-wrapper',
+        :class="['morph-display-wrapper-seamless',
+                 {'morph-display-wrapper': isSeamless},
                  'btn',
                  btnType]"
         @click="open()"
@@ -339,7 +340,7 @@ export default {
         display: inline-block;
     }
 
-    .morph-display-wrapper, .morph-display-wrapper-seamless {
+    .morph-display-wrapper {
         margin-top: 5px;
         display: flex;
         align-items: center;
