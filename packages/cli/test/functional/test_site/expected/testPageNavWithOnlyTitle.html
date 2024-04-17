@@ -279,9 +279,9 @@
             })
         }
     </script>
-<script type="module">
-    import mermaid from 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs';
-    document.addEventListener('DOMContentLoaded', () => {
+<script type="module" async>
+    import('https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs').then((module) => {
+      const mermaid = module.default;
       mermaid.initialize({});
       Vue.directive('mermaid', {
         inserted: function(el) {
