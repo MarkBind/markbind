@@ -1,5 +1,84 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`NestedPanels renders a seamless panel with a transparent background 1`] = `
+<div
+  class="card-container"
+>
+  <div
+    class="card expandable-card card-seamless border-0"
+  >
+    <div
+      class="card-header header-toggle bg-transparent border-0"
+    >
+      <div
+        class="caret-wrapper"
+      >
+        <span
+          class="glyphicon glyphicon-chevron-right"
+        />
+      </div>
+       
+      <div
+        class="header-wrapper-seamless header-wrapper card-title bg-transparent"
+      >
+        test header
+      </div>
+       
+      <div
+        class="button-wrapper"
+      >
+        <button
+          class="collapse-button btn btn-outline-light"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="collapse-icon glyphicon glyphicon-menu-down"
+          />
+        </button>
+         
+        <button
+          class="close-button btn btn-outline-light seamless-button"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-remove"
+          />
+        </button>
+         
+        <button
+          class="popup-button btn btn-outline-light seamless-button"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-new-window"
+          />
+        </button>
+      </div>
+    </div>
+     
+    <div
+      class="card-collapse"
+      style="max-height: 0px;"
+    >
+      <!---->
+       
+      <hr />
+    </div>
+     
+    <transition-stub
+      name="peek-read-more-fade"
+    >
+      <!---->
+    </transition-stub>
+  </div>
+</div>
+`;
+
 exports[`NestedPanels should have span.anchor when id is present 1`] = `
 <div
   class="card-container"
