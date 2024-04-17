@@ -175,6 +175,8 @@ To safeguard against unintended consequences, consider directly incorporating th
 </variable>
 </include>
 
+<include src="includes.md#baseUrl-warning"/>
+
 **If `preload` attribute is provided, the panel body will load the HTML when the page renders instead of after being expanded.**
 
 <include src="codeAndOutput.md" boilerplate >
