@@ -18,7 +18,7 @@ import type { SiteConfig } from '../Site/SiteConfig';
 import type { FrontMatter } from '../plugins/Plugin';
 import type { ExternalManager } from '../External/ExternalManager';
 import { MbNode } from '../utils/node';
-import { validateHtmlWithRules } from '../utils/htmlValidationUtil';
+import { checkForVueHydrationWithRules } from '../utils/htmlValidationUtil';
 
 import { LAYOUT_DEFAULT_NAME } from '../Layout';
 
@@ -554,7 +554,7 @@ export class Page {
     this.collectHeadingsAndKeywords(pageContent);
 
     content = `<div id="app">${content}</div>`;
-    validateHtmlWithRules(content, this.pageConfig.sourcePath);
+    checkForVueHydrationWithRules(content, this.pageConfig.sourcePath);
 
     // Compile the page into Vue application and outputs the render function into script for browser
     const compiledVuePage = await pageVueServerRenderer.compileVuePageAndCreateScript(
