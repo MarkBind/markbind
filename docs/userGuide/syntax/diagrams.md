@@ -170,6 +170,6 @@ bob -> bob ++ : self call
 
 ### Mermaid Diagrams
 
-You can use [Mermaid](https://mermaid-js.github.io/mermaid/) syntax to add diagrams with the [Mermaid plugin]({{ baseUrl }}/userGuide/plugins/mermaid.md).
+You can use [Mermaid](https://mermaid-js.github.io/mermaid/) syntax to add diagrams with the [Mermaid plugin]({{ baseUrl }}/userGuide/usingPlugins.html#plugin-mermaid).
 
 <include src="{{ baseUrl }}/userGuide/plugins/mermaid.md#text" />
