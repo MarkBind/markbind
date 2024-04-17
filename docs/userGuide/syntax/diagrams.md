@@ -1,5 +1,6 @@
 ## Diagrams
 
+### PlantUML Diagrams
 You can use the [PlantUML](http://plantuml.com/) syntax to add diagrams.
 
 <box type="warning">
@@ -144,7 +145,9 @@ width  | `string` | The width of the diagram in pixels.<br>If both width and hei
 
 <box type="tip">
 
+
 It's also possible to utilize JavaScript diagram libraries such as [Mermaid](https://mermaid-js.github.io/mermaid/) via the [Mermaid plugin](../usingPlugins.html#plugin-mermaid).
+
 </box>
 
 <div id="short" class="d-none">
@@ -164,3 +167,9 @@ bob -> bob ++ : self call
 <include src="diagrams.md#puml-examples" />
 
 </div>
+
+### Mermaid Diagrams
+
+You can use [Mermaid](https://mermaid-js.github.io/mermaid/) syntax to add diagrams with the [Mermaid plugin]({{baseUrl}}/userGuide/plugins/mermaid.md#text).
+
+<include src="{{baseUrl}}/userGuide/plugins/mermaid.md#text" />

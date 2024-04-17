@@ -4,9 +4,9 @@ import { PluginContext, FrontMatter } from './Plugin';
 const DEFAULT_CDN_ADDRESS = 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs';
 
 function genScript(address: string) {
-  return `<script type="module">
-    import mermaid from '${address || DEFAULT_CDN_ADDRESS}';
-    document.addEventListener('DOMContentLoaded', () => {
+  return `<script type="module" async>
+    import('${address || DEFAULT_CDN_ADDRESS}').then((module) => {
+      const mermaid = module.default;
       mermaid.initialize({});
       Vue.directive('mermaid', {
         inserted: function(el) {

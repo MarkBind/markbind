@@ -1,5 +1,7 @@
 ### Plugin: Mermaid
 
+<div id="text">
+
 This plugin allows you to utilize [Mermaid](https://mermaid-js.github.io/mermaid/) by automatically importing the library and initializing the rendering of the diagrams.
 
 > Mermaid is a JavaScript based diagramming and charting tool that renders Markdown-inspired text definitions to create and modify diagrams dynamically.
@@ -94,3 +96,4 @@ gitGraph
 </include>
 
 The plugin automatically converts the `<mermaid>` tags into appropriate `<div>` elements with the necessary classes and attributes for rendering the diagrams using the Mermaid library.
+<div>
