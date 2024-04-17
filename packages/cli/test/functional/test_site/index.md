@@ -303,6 +303,13 @@ and **this**.
   </panel>
 </modal>
 
+**The button of modal inside dismissible box should be properly positioned**
+<box dismissible>
+
+<include src="testModal/DismissibleBox.md#example"/>
+
+</box>
+
 **Unexpanded panel**
 
 <panel header="## Unexpanded panel header">
@@ -319,6 +326,11 @@ and **this**.
 **Test panel closing transitions**
 <include src="testPanelsClosingTransition.md" />
 
+**Test popover has no stray space**
+(<popover content="content">There should be no stray space before this</popover>)
+
+**Test tooltip has no stray space**
+(<tooltip content="content">There should be no stray space before this</tooltip>)
 
 **Test search indexing**
 
