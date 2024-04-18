@@ -7,7 +7,7 @@ function validateAndLogTableHasTbody(rootNode: cheerio.Root, path: string) {
     const table = rootNode(tables[i]);
     if (table.find('tbody').length === 0) {
       // eslint-disable-next-line max-len
-      logger.error(`Invalid HTML in ${path}. Table must have a tbody tag. Please correct this to avoid vue hydration issues.`);
+      logger.error(`Invalid HTML in ${path}:\n Table must have a tbody tag. Please correct this to avoid vue hydration issues.`);
     }
   }
 }
