@@ -6,7 +6,6 @@ function logWarningForMissingTbody(rootNode: cheerio.Root, path: string) {
   for (let i = 0; i < tables.length; i += 1) {
     const table = rootNode(tables[i]);
     if (table.find('tbody').length === 0) {
-      // eslint-disable-next-line max-len
       logger.error(`Invalid HTML in ${path}.\n`
        + 'Table must have a tbody tag. Please correct this to avoid Vue hydration issues.\n');
     }
