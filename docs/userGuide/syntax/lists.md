@@ -41,13 +41,15 @@
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
-* Item 1 { texts="['(a)','(b)','(c)']" }
+* Item 1 { texts="['(a)','(b)','(c)','(d)']" }
   * sub level not applied as per norm
 * Item 2
+* You can override once like this { text="OverrideOnce" once=true}
 * Item 3
+* Item 4
 * Last text config will be applied when the list length exceeds texts
 * Another last text
-* You can override like this { text="OVERRIDE" }
+* You can override like this { text="OVERRIDE"}
 * Another overrided text
   </variable>
 </include>
@@ -56,8 +58,23 @@
 
 Please be alerted that when using the `{texts="['text1', 'text2', 'text3']"}` syntax, you need to have`""` outside the array, and use `''` for the string inside the array.
 
-Please do not nest `''` inside `''`. eg: `{texts="['this \' will be parsed wrongly']"}`
+<panel header="Notes on having single quote `'` inside text"  minimized>
+
+If you want to use `'` in you text icon, you need to escape it with double escape sequence. 
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
+1. Text-icons of lists can use double escape to include quote test
+* item 1 { texts="['\\'a\\'','\\'b\\'','\\'c\\'']" }
+* item 1
+* item 1
+  </variable>
+</include>
+</panel>
 </box>
+
+
+
 <box type=info seamless>
 
 Customization will be carried over to the other items within the **same level of the list**.
