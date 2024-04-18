@@ -12,7 +12,7 @@ describe('checkForVueHydrationWithRules', () => {
     checkForVueHydrationWithRules(correct_html_string, '/fake/path');
     expect(mockError).not.toHaveBeenCalled();
   });
-  it('should log an error when a table does not have a tbody tag', () => {
+  it(' should log an error when a table does not have a tbody tag', () => {
     const mockError = jest.spyOn(logger, 'error').mockImplementation(() => {});
     checkForVueHydrationWithRules(table_without_tbody, '/fake/path');
     expect(mockError).toHaveBeenCalled();
