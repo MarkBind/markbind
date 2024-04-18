@@ -14,7 +14,7 @@ describe('checkForVueHydrationViolation', () => {
     expect(mockError).not.toHaveBeenCalled();
   });
 
-  it(' should not log an error when a table does not have a tbody tag', () => {
+  it(' should not log an error when all tables have a tbody tag', () => {
     const mockError = jest.spyOn(logger, 'error').mockImplementation(() => {});
     checkForVueHydrationViolation(table_with_tbody, '/fake/path');
     expect(mockError).not.toHaveBeenCalled();
