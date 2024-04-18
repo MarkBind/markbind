@@ -25,7 +25,7 @@ describe('checkForVueHydrationViolation', () => {
     checkForVueHydrationViolation(table_without_tbody, '/fake/path');
     expect(mockError).toHaveBeenCalled();
     const expectedMessange = 'Invalid HTML in /fake/path.\n'
-    + 'Table must have a tbody tag. Please correct this to avoid vue hydration issues.';
+    + 'Table must have a tbody tag. Please correct this to avoid vue hydration issues.\n';
     expect(mockError).toHaveBeenCalledWith(expectedMessange);
   });
 });
