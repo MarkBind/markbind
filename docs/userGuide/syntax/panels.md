@@ -104,6 +104,14 @@ plain text ...
 </variable>
 </include>
 
+<box background-color="#C51E3A" color="white">
+  
+  :bulb: Seamless panels inherit the background colour and text colour of any parents!
+  <br/>
+  <panel type="seamless" header="This is an example seamless panel">
+    This is its content.
+  </panel>
+</box>
 
 **Show/Hide buttons using `no-switch`, `no-close`, or `no-minimized-switch`.**
 
@@ -166,6 +174,8 @@ To safeguard against unintended consequences, consider directly incorporating th
 </panel>
 </variable>
 </include>
+
+<include src="includes.md#baseUrl-warning"/>
 
 **If `preload` attribute is provided, the panel body will load the HTML when the page renders instead of after being expanded.**
 
