@@ -54,7 +54,7 @@
 
 <box type=warning seamless>
 
-Please be alerted that when using the `{texts="['text1', 'text2', 'text3']"}` syntex, you need to have`""` outside the array, and use `''` for the stirng inside the array.
+Please be alerted that when using the `{texts="['text1', 'text2', 'text3']"}` syntax, you need to have`""` outside the array, and use `''` for the string inside the array.
 
 Please do not nest `''` inside `''`. eg: `{texts="['this \' will be parsed wrongly']"}`
 </box>
