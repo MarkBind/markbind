@@ -46,6 +46,18 @@
 * item 1 { text="OVERRIDE" }
 * item 1
 
+1. Text-icons of lists does not stop on once override test
+* item 1 { texts="['(a)','(b)','(c)','(d)']" }
+* item 1
+* item 1 { text="OVERRIDE" once=true}
+* item 1
+
+1. Text-icons of lists can use double escape to include quote test
+* item 1 { texts="['\\'a\\'','\\'b\\'','\\'c\\'','\\'d\\'']" }
+* item 1
+* item 1
+* item 1
+
 1. Basic structure
 * Item A
 * Item B 

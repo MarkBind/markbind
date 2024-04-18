@@ -219,22 +219,22 @@ function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail,
                       renderMdInline: (text: string) => string) {
   const textManager = iconAttrValue.textsManager;
   if (node.attribs.texts) {
-    const text = node.attribs.texts.replace(/'/g, '"');
+    const texts = node.attribs.texts.replace(/(?<!\\)'/g, '"').replace(/\\'/g, '\'');
     try {
-      const parsed = JSON.parse(text);
+      const parsed = JSON.parse(texts);
       if (!Array.isArray(parsed)) {
         throw new Error('Texts attribute must be an array');
       }
       const parsedStringArray = parsed.map((obj: any) => obj.toString());
       textManager.resetTexts(parsedStringArray);
     } catch (e) {
-      logger.error(`Error parsing texts: ${text}, please check the format of the texts attribute`);
+      logger.error(`Error parsing texts: ${texts}, please check the format of the texts attribute\n`);
     }
   }
   if (textManager.isInUse()) {
     if (!node.attribs.text) {
       node.attribs.text = textManager.next();
-    } else {
+    } else if (!node.attribs.once || node.attribs.once !== 'true') {
       textManager.stopUsage();
     }
   }
