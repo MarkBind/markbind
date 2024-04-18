@@ -36,7 +36,7 @@
   </variable>
 </include>
 
-***You can also use `{texts="['text1', 'text2', 'text3']"}` syntax to add text customisation to a level quickly***
+**You can also use `{texts="['text1', 'text2', 'text3']"}` syntax to add text customisation to a level quickly**
 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
