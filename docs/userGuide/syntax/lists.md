@@ -44,7 +44,7 @@
 * Item 1 { texts="['(a)','(b)','(c)','(d)']" }
   * sub level not applied as per norm
 * Item 2
-* You can override once like this { text="OverrideOnce" once=true}
+* You can override once like this { text="OverrideOnce" once=true }
 * Item 3
 * Item 4
 * Last text config will be applied when the list length exceeds texts
