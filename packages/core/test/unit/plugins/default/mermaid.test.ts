@@ -37,12 +37,12 @@ test('postRender should replace mermaid tags with appropriate divs', () => {
 
 test('getScripts should return the correct script tag', () => {
   const pluginContext: PluginContext = {
-    address: 'https://unpkg.com/mermaid@9/dist/mermaid.esm.min.mjs',
+    address: 'https://unpkg.com/mermaid@8/dist/mermaid.esm.min.mjs',
   };
 
-  const expectedScript = `<script type="module" async>
-    import('${pluginContext.address}').then((module) => {
-      const mermaid = module.default;
+  const expectedScript = `<script type="module">
+    import mermaid from '${pluginContext.address}';
+    document.addEventListener('DOMContentLoaded', () => {
       mermaid.initialize({});
       Vue.directive('mermaid', {
         inserted: function(el) {
@@ -62,9 +62,9 @@ test('getScripts should return the correct script tag', () => {
 test('getScripts should use the default CDN address if not provided', () => {
   const pluginContext: PluginContext = {};
 
-  const expectedScript = `<script type="module" async>
-    import('https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs').then((module) => {
-      const mermaid = module.default;
+  const expectedScript = `<script type="module">
+    import mermaid from 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs';
+    document.addEventListener('DOMContentLoaded', () => {
       mermaid.initialize({});
       Vue.directive('mermaid', {
         inserted: function(el) {

@@ -367,16 +367,20 @@
             })
         }
     </script>
-<script type="module" async>
-    import('https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs').then((module) => {
-      const mermaid = module.default;
-      mermaid.initialize({});
-      Vue.directive('mermaid', {
-        inserted: function(el) {
-          mermaid.run({
-            nodes: [el]
-          });
-        }
+<script type="module">
+    const modulePromise = import('https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      modulePromise.then((module) => {
+        const mermaid = module.default;
+        mermaid.initialize({});
+        Vue.directive('mermaid', {
+          inserted: function(el) {
+            mermaid.run({
+              nodes: [el]
+            });
+          }
+        });
       });
     });
   </script>
