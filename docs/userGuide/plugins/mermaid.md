@@ -1,6 +1,6 @@
 ### Plugin: Mermaid
 
-<div id="text">
+<div id="content">
 
 This plugin allows you to utilize [Mermaid](https://mermaid-js.github.io/mermaid/) by automatically importing the library and initializing the rendering of the diagrams.
 
@@ -8,11 +8,22 @@ This plugin allows you to utilize [Mermaid](https://mermaid-js.github.io/mermaid
 
 <box type="info">
 
-All supported diagrams and detailed configurations are available in [the Mermaid official documentation](https://mermaid-js.github.io/mermaid/).
+All supported diagrams are available in [the Mermaid official documentation](https://mermaid-js.github.io/mermaid/).
 
 </box>
 
-To enable this plugin, add `mermaid` to your site's plugins. Optionally, you can specify an alternative URL to load the Mermaid code in the plugin context.
+To enable this plugin, add `mermaid` to your site's plugins.
+
+```js {heading="site.json"}
+{
+  ...
+  "plugins": [
+    "mermaid"
+  ]
+}
+```
+
+Optionally, you can specify an alternative URL to load the Mermaid code in the plugin context.
 
 ```js {heading="site.json"}
 {
@@ -27,8 +38,6 @@ To enable this plugin, add `mermaid` to your site's plugins. Optionally, you can
   }
 }
 ```
-
-If no `address` is specified in the plugin context, the default CDN address (`https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs`) will be used.
 
 To create a Mermaid diagram, use the `<mermaid>` tag and provide the diagram definition within the tag.
 
