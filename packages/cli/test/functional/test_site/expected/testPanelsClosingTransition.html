@@ -320,19 +320,15 @@
         }
     </script>
 <script type="module">
-    const modulePromise = import('https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs');
-
+    import mermaid from 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs';
     document.addEventListener('DOMContentLoaded', () => {
-      modulePromise.then((module) => {
-        const mermaid = module.default;
-        mermaid.initialize({});
-        Vue.directive('mermaid', {
-          inserted: function(el) {
-            mermaid.run({
-              nodes: [el]
-            });
-          }
-        });
+      mermaid.initialize({});
+      Vue.directive('mermaid', {
+        inserted: function(el) {
+          mermaid.run({
+            nodes: [el]
+          });
+        }
       });
     });
   </script>
