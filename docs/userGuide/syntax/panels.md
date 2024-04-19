@@ -104,6 +104,14 @@ plain text ...
 </variable>
 </include>
 
+<box background-color="#C51E3A" color="white">
+  
+  :bulb: Seamless panels inherit the background colour and text colour of any parents!
+  <br/>
+  <panel type="seamless" header="This is an example seamless panel">
+    This is its content.
+  </panel>
+</box>
 
 **Show/Hide buttons using `no-switch`, `no-close`, or `no-minimized-switch`.**
 
