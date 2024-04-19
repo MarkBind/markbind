@@ -1,5 +1,6 @@
 import cheerio from 'cheerio';
 import { MbNode, NodeOrText } from '../utils/node';
+import * as logger from '../utils/logger';
 
 const { processIconString } = require('../lib/markdown-it/plugins/markdown-it-icons');
 const emojiDictionary = require('../lib/markdown-it/patches/markdown-it-emoji-fixed');
@@ -25,9 +26,43 @@ interface IconAttributes {
   once?: boolean;
 }
 
+class TextsManager {
+  texts: string[] = [];
+  nextTextPointer: number = 0;
+  constructor() {
+    this.texts = [];
+  }
+
+  isInUse() {
+    return this.texts.length > 0;
+  }
+
+  stopUsage() {
+    this.texts = [];
+    this.nextTextPointer = 0;
+  }
+
+  next(): string {
+    if (this.texts.length === 0) {
+      throw new Error('No texts');
+    }
+    const next = this.texts[this.nextTextPointer];
+    if (this.nextTextPointer < this.texts.length - 1) {
+      this.nextTextPointer += 1;
+    }
+    return next;
+  }
+
+  resetTexts(texts: string[]) {
+    this.texts = texts;
+    this.nextTextPointer = 0;
+  }
+}
+
 type IconAttributeDetail = {
   isFirst: boolean;
   addIcons: boolean;
+  textsManager: TextsManager;
   iconAttrs: IconAttributes | null;
 };
 
@@ -182,6 +217,27 @@ function updateLi(node: MbNode, iconAttributes: IconAttributes, renderMdInline: 
 // See https://github.com/MarkBind/markbind/pull/2316#discussion_r1255364486 for more details.
 function handleLiNode(node: MbNode, iconAttrValue: IconAttributeDetail,
                       renderMdInline: (text: string) => string) {
+  const textManager = iconAttrValue.textsManager;
+  if (node.attribs.texts) {
+    const texts = node.attribs.texts.replace(/(?<!\\)'/g, '"').replace(/\\'/g, '\'');
+    try {
+      const parsed = JSON.parse(texts);
+      if (!Array.isArray(parsed)) {
+        throw new Error('Texts attribute must be an array');
+      }
+      const parsedStringArray = parsed.map((obj: any) => obj.toString());
+      textManager.resetTexts(parsedStringArray);
+    } catch (e) {
+      logger.error(`Error parsing texts: ${texts}, please check the format of the texts attribute\n`);
+    }
+  }
+  if (textManager.isInUse()) {
+    if (!node.attribs.text) {
+      node.attribs.text = textManager.next();
+    } else if (!node.attribs.once || node.attribs.once !== 'true') {
+      textManager.stopUsage();
+    }
+  }
   if (iconAttrValue.isFirst) {
     const nodeIconAttrs = getIconAttributes(node, renderMdInline);
     // Check if first item is customized with icon or text
@@ -232,7 +288,9 @@ export function processUlNode(node: NodeOrText, renderMdInline: (text: string) =
   const iconAttrs: IconAttributeDetail[] = [];
   function dfs(currentNode: NodeOrText, level: number) {
     if (!iconAttrs[level]) {
-      iconAttrs[level] = { isFirst: true, addIcons: false, iconAttrs: null };
+      iconAttrs[level] = {
+        isFirst: true, addIcons: false, iconAttrs: null, textsManager: new TextsManager(),
+      };
     }
 
     const ulNode = currentNode as MbNode;
