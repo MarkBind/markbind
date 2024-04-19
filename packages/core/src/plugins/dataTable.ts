@@ -66,11 +66,11 @@ export = {
 
       let tableClass: string = '';
       if (isSortable && isSearchable) {
-        tableClass = ' sortable-searchable-table';
+        tableClass = 'sortable-searchable-table';
       } else if (isSortable) {
-        tableClass = ' sortable-table';
+        tableClass = 'sortable-table';
       } else if (isSearchable) {
-        tableClass = ' searchable-table';
+        tableClass = 'searchable-table';
       }
 
       const renderedTable = md.render(html);

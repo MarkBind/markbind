@@ -3,26 +3,26 @@ import dataTable from '../../../../src/plugins/dataTable';
 
 test('postRender should add appropriate classes and attributes to m-table elements', () => {
   const content = `
-    <m-table sortable>
-    | Name | Age |
-    |------|-----|
-    | John | 28  |
-    | Jane | 32  |
-    </m-table>
+<d-table sortable>
+| Name | Age |
+|------|-----|
+| John | 28  |
+| Jane | 32  |
+</d-table>
 
-    <m-table searchable>
-    | City     | Country |
-    |----------|---------|
-    | New York | USA     |
-    | London   | UK      |
-    </m-table>
+<d-table searchable>
+| City     | Country |
+|----------|---------|
+| New York | USA     |
+| London   | UK      |
+</d-table>
 
-    <m-table sortable searchable>
-    | Product | Price |
-    |---------|-------|
-    | Apple   | $0.50 |
-    | Banana  | $0.75 |
-    </m-table>
+<d-table sortable searchable>
+| Product | Price |
+|---------|-------|
+| Apple   | $0.50 |
+| Banana  | $0.75 |
+</d-table>
   `;
 
   const expectedClasses = [
@@ -32,7 +32,10 @@ test('postRender should add appropriate classes and attributes to m-table elemen
   ];
 
   const renderedContent = dataTable.postRender({}, {}, content);
+  console.log(renderedContent);
   const $ = cheerio.load(renderedContent);
+
+  expect($('table').length).toBe(3);
 
   $('table').each((index, el) => {
     expect($(el).attr('class')).toEqual(expectedClasses[index]);
