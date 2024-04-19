@@ -56,28 +56,31 @@ export = {
     $('d-table').each((index: number, node: cheerio.Element) => {
       const $node = $(node);
       const html = $node.html();
-      if (html != null) {
-        const isSortable = $node.attr('sortable') !== undefined;
-        const isSearchable = $node.attr('searchable') !== undefined;
 
-        let tableClass: string = '';
-        if (isSortable && isSearchable) {
-          tableClass = ' sortable-searchable-table';
-        } else if (isSortable) {
-          tableClass = ' sortable-table';
-        } else if (isSearchable) {
-          tableClass = ' searchable-table';
-        }
-
-        const renderedTable = md.render(html);
-        const $renderedTable = $(renderedTable);
-        $renderedTable.find('table')
-          .addClass(tableClass)
-          .attr('id', `datatable-${index}`)
-          .attr('v-datatable', '');
-
-        $node.replaceWith($renderedTable);
+      if (html == null) {
+        return;
       }
+
+      const isSortable = $node.attr('sortable') !== undefined;
+      const isSearchable = $node.attr('searchable') !== undefined;
+
+      let tableClass: string = '';
+      if (isSortable && isSearchable) {
+        tableClass = ' sortable-searchable-table';
+      } else if (isSortable) {
+        tableClass = ' sortable-table';
+      } else if (isSearchable) {
+        tableClass = ' searchable-table';
+      }
+
+      const renderedTable = md.render(html);
+      const $renderedTable = $(renderedTable);
+      $renderedTable.find('table')
+        .addClass(tableClass)
+        .attr('id', `datatable-${index}`)
+        .attr('v-datatable', '');
+
+      $node.replaceWith($renderedTable);
     });
 
     return $.html();
