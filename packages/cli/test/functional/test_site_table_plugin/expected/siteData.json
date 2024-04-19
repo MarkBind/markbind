@@ -8,16 +8,6 @@
         "welcome-to-markbind": "Welcome to MarkBind"
       },
       "headingKeywords": {}
-    },
-    {
-      "src": "others/inclusionInsideTable.md",
-      "headings": {},
-      "headingKeywords": {}
-    },
-    {
-      "src": "others/tableToBeIncluded.md",
-      "headings": {},
-      "headingKeywords": {}
     }
   ]
 }

@@ -17,12 +17,6 @@
     {
       "src": "index.md",
       "title": "Hello World"
-    },
-    {
-      "src": "others/inclusionInsideTable.md"
-    },
-    {
-      "src": "others/tableToBeIncluded.md"
     }
   ],
   "deploy": {
