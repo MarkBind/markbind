@@ -32,7 +32,6 @@ test('postRender should add appropriate classes and attributes to m-table elemen
   ];
 
   const renderedContent = dataTable.postRender({}, {}, content);
-  console.log(renderedContent);
   const $ = cheerio.load(renderedContent);
 
   expect($('table').length).toBe(3);
