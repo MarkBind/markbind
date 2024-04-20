@@ -1,7 +1,9 @@
 <template>
   <button
     type="button"
-    :class="['collapse-button', 'btn', isLightBg ? 'btn-outline-secondary' : 'btn-outline-light']"
+    :class="['collapse-button',
+             'btn',
+             isSeamless ? 'btn-seamless' : isLightBg ? 'btn-outline-secondary' : 'btn-outline-light']"
   >
     <span
       :class="['collapse-icon', 'glyphicon', 'glyphicon-menu-down', {'opened': isOpenBool}]"
@@ -23,6 +25,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    isSeamless: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     isOpenBool() {
@@ -33,6 +39,16 @@ export default {
 </script>
 
 <style>
+    .btn-seamless {
+        color: inherit;
+        border-color: inherit;
+    }
+
+    .btn-seamless:hover {
+        color: inherit;
+        background-color: inherit;
+    }
+
     .collapse-button {
         font-size: 10px !important;
         float: right;

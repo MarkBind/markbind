@@ -102,6 +102,12 @@ Some common mistakes are as such:
 If you are unsure what elements are allowed within other elements, or what constitutes invalid HTML in general, a good resource to reference would be the [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span).
 </box>
 
+<box type="info" seamless>
+Modern browsers have robust inbuilt mechanisms to auto-correct common causes of hydration. Therefore, to avoid high false positive rate, Markbind has a minimalist rule-based validation against violations. The code for this is located in `core/src/utils/htmlValidationUtils.ts`. 
+
+Please help extend it when violations that cause hydration on browsers are spotted.
+</box>
+
 Note that the list only included the common causes of hydration issue that MarkBind developers have ran into. There may be other causes of hydration issue that are not listed here (although unlikely).
 
 {% from "njk/common.njk" import previous_next %}

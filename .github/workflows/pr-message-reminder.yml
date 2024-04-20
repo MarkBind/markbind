@@ -20,6 +20,8 @@ jobs:
     remind-pr-author:
         if: github.event_name == 'pull_request'
         runs-on: ubuntu-latest
+        permissions:
+          contents: read
     
         steps:
           - uses: actions/checkout@v3
