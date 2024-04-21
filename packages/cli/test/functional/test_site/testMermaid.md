@@ -61,11 +61,17 @@ Add gantt diagram to demo page      : 20h
 Add another diagram to demo page    : 48h
 </mermaid>
 
-<panel type="minimal" header="This is your header for a Panel, click me to expand!">
+<panel type="minimal" header="This is to test Mermaid diagrams work in panel.">
 <mermaid>
 pie title Pets adopted by volunteers
     "Dogs" : 386
     "Cats" : 85
     "Rats" : 15
 </mermaid>
+</panel>
+
+<include src="testMermaidFragment.md" />
+
+<panel type="minimal" header="This is to test Mermaid diagrams works when included inside a panel.">
+<include src="testMermaidFragment.md" />
 </panel>
