@@ -23,7 +23,9 @@ To enable this plugin, add `mermaid` to your site's plugins.
 }
 ```
 
-Optionally, you can specify an alternative URL to load the Mermaid code in the plugin context.
+<panel header="Optional: Specify an alternative URL to load the Mermaid code">
+
+By default, the plugin loads the Mermaid code from a CDN URL. However, you can optionally specify an alternative URL to load the Mermaid code from a different source.
 
 ```js {heading="site.json"}
 {
@@ -38,6 +40,8 @@ Optionally, you can specify an alternative URL to load the Mermaid code in the p
   }
 }
 ```
+
+</panel>
 
 To create a Mermaid diagram, use the `<mermaid>` tag and provide the diagram definition within the tag.
 
