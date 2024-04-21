@@ -26,8 +26,8 @@
     "codeBlockWrapButtons",
     "web3Form",
     "codeBlockCopyButtons",
-    "mermaid",
-    "dataTable"
+    "dataTable",
+    "mermaid"
   ],
   "pluginsContext" : {
     "filterTags" : {
