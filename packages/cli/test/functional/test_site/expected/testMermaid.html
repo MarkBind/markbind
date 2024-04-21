@@ -265,13 +265,35 @@
           Add another diagram to demo page : 48h
         </div>
         <panel type="minimal"><template #header>
-            <p>This is your header for a Panel, click me to expand!</p>
+            <p>This is to test Mermaid diagrams work in panel.</p>
           </template>
           <div class="mermaid" v-mermaid>
             pie title Pets adopted by volunteers
             "Dogs" : 386
             "Cats" : 85
             "Rats" : 15
+          </div>
+        </panel>
+        <div>
+          <div class="mermaid" v-mermaid>
+            graph TD;
+            A-->B;
+            A-->C;
+            B-->D;
+            C-->D;
+          </div>
+        </div>
+        <panel type="minimal"><template #header>
+            <p>This is to test Mermaid diagrams works when included inside a panel.</p>
+          </template>
+          <div>
+            <div class="mermaid" v-mermaid>
+              graph TD;
+              A-->B;
+              A-->C;
+              B-->D;
+              C-->D;
+            </div>
           </div>
         </panel>
       </div>
