@@ -1,0 +1,10 @@
+/* Make the search box left-aligned */
+div.dt-container div.dt-search {
+    text-align: left;
+    padding: 10px 0;
+}
+
+div.dt-container {
+    /* Necessary to suppress the vertical scrollbar */
+    overflow-y: hidden;
+}
