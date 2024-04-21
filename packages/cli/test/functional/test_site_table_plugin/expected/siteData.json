@@ -1,0 +1,13 @@
+{
+  "enableSearch": true,
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Hello World",
+      "headings": {
+        "welcome-to-markbind": "Welcome to MarkBind"
+      },
+      "headingKeywords": {}
+    }
+  ]
+}
