@@ -70,6 +70,6 @@ pie title Pets adopted by volunteers
 </mermaid>
 </panel>
 
-<include src="testMermaidFragment.md" />
+<include src="testMermaidInclude.md" />
 
-<panel type="minimal" header="This is to test Mermaid diagrams works when included inside a panel." src="testMermaidFragment.md" />
+<panel type="minimal" header="This is to test Mermaid diagrams works when included inside a panel." src="testMermaidInclude.md" />
