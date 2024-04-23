@@ -123,12 +123,19 @@ test('processNode processes quiz with intro slot taking priority over intro attr
 });
 
 test('processNode processes popover attributes and inserts into dom as slots correctly', () => {
-  const warnSpy = jest.spyOn(logger, 'warn');
   processAndVerifyTemplate(testData.PROCESS_POPOVER_ATTRIBUTES,
                            testData.PROCESS_POPOVER_ATTRIBUTES_EXPECTED);
+});
+
+test('processNode processes popover with header slot taking priority over header attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
   processAndVerifyTemplate(testData.PROCESS_POPOVER_HEADER_SLOT_TAKES_PRIORITY,
                            testData.PROCESS_POPOVER_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
   expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_HEADER_WARN_MSG);
+});
+
+test('processNode processes popover with content slot taking priority over content attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
   processAndVerifyTemplate(testData.PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY,
                            testData.PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY_EXPECTED);
   expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_CONTENT_WARN_MSG);
