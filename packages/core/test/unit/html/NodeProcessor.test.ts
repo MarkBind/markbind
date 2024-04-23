@@ -70,6 +70,12 @@ test('processNode processes panel with _alt slot taking priority over alt attrib
   expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_PANEL_ALT_SLOT_TAKES_PRIORITY_WARN_MSG);
 });
 
+test('postProcessNode assigns the correct panel id to panels', () => {
+  processAndVerifyTemplate(testData.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT,
+                           testData.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED,
+                           true);
+});
+
 test('processNode processes question attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_QUESTION_ATTRIBUTES,
                            testData.PROCESS_QUESTION_ATTRIBUTES_EXPECTED);
@@ -209,12 +215,6 @@ test('processNode processes box with header slot taking priority over header att
   processAndVerifyTemplate(testData.PROCESS_BOX_HEADER_SLOT_TAKES_PRIORITY,
                            testData.PROCESS_BOX_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
   expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_BOX_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG);
-});
-
-test('postProcessNode assigns the correct panel id to panels', () => {
-  processAndVerifyTemplate(testData.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT,
-                           testData.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED,
-                           true);
 });
 
 test('processNode processes dropdown header attribute and inserts into DOM as header slot correctly', () => {
