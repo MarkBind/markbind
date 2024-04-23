@@ -234,6 +234,19 @@ export const PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY_EXPECTED = `
 `;
 export const PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY_WARN_MSG = "popover has a content slot, 'content' attribute has no effect.";
 
+export const PROCESS_POPOVER_CONTENT_ATTRIBUTE_TAKES_PRIORITY = `
+<popover content="Some content that should not be overriden" src="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.">
+  Src attribute should not be inserted under panel as slot, but should be deleted.
+</popover>
+`;
+
+export const PROCESS_POPOVER_CONTENT_ATTRIBUTE_TAKES_PRIORITY_EXPECTED = `
+<popover><template #content>Some content that should not be overriden</template>
+  Src attribute should not be inserted under panel as slot, but should be deleted.
+</popover>
+`;
+export const PROCESS_POPOVER_CONTENT_ATTRIBUTE_TAKES_PRIORITY_WARN_MSG = "popover has a 'content' attribute, 'src' attribute has no effect.";
+
 /*
  * Tooltips
  */

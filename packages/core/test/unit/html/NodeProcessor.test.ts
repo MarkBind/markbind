@@ -147,6 +147,13 @@ test('processNode processes popover with content slot taking priority over conte
   expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY_WARN_MSG);
 });
 
+test('processNode processes popover with content attribute taking priority over src attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
+  processAndVerifyTemplate(testData.PROCESS_POPOVER_CONTENT_ATTRIBUTE_TAKES_PRIORITY,
+                           testData.PROCESS_POPOVER_CONTENT_ATTRIBUTE_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_POPOVER_CONTENT_ATTRIBUTE_TAKES_PRIORITY_WARN_MSG);
+});
+
 test('processNode processes tooltip attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_TOOLTIP_CONTENT,
                            testData.PROCESS_TOOLTIP_CONTENT_EXPECTED);
