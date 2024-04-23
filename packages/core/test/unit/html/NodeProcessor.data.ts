@@ -326,6 +326,22 @@ export const PROCESS_TAB_HEADER_EXPECTED = `
 </tab>
 `;
 
+export const PROCESS_TAB_HEADER_SLOT_TAKES_PRIORITY = `
+<tab header="Lorem ipsum">
+  <div slot="header">Some header slot content that should not be overwritten</div>
+  Header attribute should not be inserted under tab as slot, but should be deleted.
+</tab>
+`;
+
+export const PROCESS_TAB_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+<tab>
+  <template #header><div>Some header slot content that should not be overwritten</div></template>
+  Header attribute should not be inserted under tab as slot, but should be deleted.
+</tab>
+`;
+
+export const PROCESS_TAB_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "tab has a header slot, 'header' attribute has no effect.";
+
 export const PROCESS_TAB_GROUP_HEADER = `
 <tab-group header="**Lorem ipsum dolor sit amet**">
   Header attribute should be inserted as header slot and deleted.
@@ -337,6 +353,22 @@ export const PROCESS_TAB_GROUP_HEADER_EXPECTED = `
   Header attribute should be inserted as header slot and deleted.
 </tab-group>
 `;
+
+export const PROCESS_TAB_GROUP_HEADER_SLOT_TAKES_PRIORITY = `
+<tab-group header="Lorem ipsum">
+  <div slot="header">Some header slot content that should not be overwritten</div>
+  Header attribute should not be inserted under tab-group as slot, but should be deleted.
+</tab-group>
+`;
+
+export const PROCESS_TAB_GROUP_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+<tab-group>
+  <template #header><div>Some header slot content that should not be overwritten</div></template>
+  Header attribute should not be inserted under tab-group as slot, but should be deleted.
+</tab-group>
+`;
+
+export const PROCESS_TAB_GROUP_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "tab-group has a header slot, 'header' attribute has no effect.";
 
 /*
  * Boxes

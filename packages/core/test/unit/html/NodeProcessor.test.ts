@@ -176,6 +176,20 @@ test('processNode processes tab & tab-group attributes and inserts into dom as s
                            testData.PROCESS_TAB_GROUP_HEADER_EXPECTED);
 });
 
+test('processNode processes tab with header slot taking priority over header attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
+  processAndVerifyTemplate(testData.PROCESS_TAB_HEADER_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_TAB_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_TAB_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG);
+});
+
+test('processNode processes tab-group with header slot taking priority over header attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
+  processAndVerifyTemplate(testData.PROCESS_TAB_GROUP_HEADER_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_TAB_GROUP_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_TAB_GROUP_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG);
+});
+
 test('processNode processes box attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_BOX_ICON,
                            testData.PROCESS_BOX_ICON_EXPECTED);
