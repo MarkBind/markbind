@@ -217,7 +217,7 @@ export const PROCESS_POPOVER_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 </popover>
 `;
 
-export const PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_HEADER_WARN_MSG = "popover has a header slot, 'header' attribute has no effect.";
+export const PROCESS_POPOVER_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "popover has a header slot, 'header' attribute has no effect.";
 
 export const PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY = `
 <popover content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.">
@@ -232,7 +232,7 @@ export const PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY_EXPECTED = `
   Content attribute should not be inserted under panel as slot, but should be deleted.
 </popover>
 `;
-export const PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_CONTENT_WARN_MSG = "popover has a content slot, 'content' attribute has no effect.";
+export const PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY_WARN_MSG = "popover has a content slot, 'content' attribute has no effect.";
 
 /*
  * Tooltips
