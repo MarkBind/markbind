@@ -73,12 +73,27 @@ test('processNode processes panel with _alt slot taking priority over alt attrib
 test('processNode processes question attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_QUESTION_ATTRIBUTES,
                            testData.PROCESS_QUESTION_ATTRIBUTES_EXPECTED);
+});
+
+test('processNode processes question with header slot taking priority over header attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
   processAndVerifyTemplate(testData.PROCESS_QUESTION_HEADER_SLOT_TAKES_PRIORITY,
                            testData.PROCESS_QUESTION_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_QUESTION_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG);
+});
+
+test('processNode processes question with hint slot taking priority over hint attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
   processAndVerifyTemplate(testData.PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY,
                            testData.PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY_WARN_MSG);
+});
+
+test('processNode processes question with answer slot taking priority over answer attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
   processAndVerifyTemplate(testData.PROCESS_QUESTION_ANSWER_SLOT_TAKES_PRIORITY,
                            testData.PROCESS_QUESTION_ANSWER_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_QUESTION_ANSWER_SLOT_TAKES_PRIORITY_WARN_MSG);
 });
 
 test('processNode processes q-option attributes and inserts into dom as slots correctly', () => {

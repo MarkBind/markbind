@@ -106,6 +106,8 @@ export const PROCESS_QUESTION_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 </question>
 `;
 
+export const PROCESS_QUESTION_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "question has a header slot, 'header' attribute has no effect.";
+
 export const PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY = `
 <question hint="**lorem ipsum**">
 <template slot="hint"></template>
@@ -118,6 +120,8 @@ export const PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY_EXPECTED = `
 </question>
 `;
 
+export const PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY_WARN_MSG = "question has a hint slot, 'hint' attribute has no effect.";
+
 export const PROCESS_QUESTION_ANSWER_SLOT_TAKES_PRIORITY = `
 <question answer="**lorem ipsum**">
 <template slot="answer"></template>
@@ -129,6 +133,8 @@ export const PROCESS_QUESTION_ANSWER_SLOT_TAKES_PRIORITY_EXPECTED = `
 <template #answer></template>
 </question>
 `;
+
+export const PROCESS_QUESTION_ANSWER_SLOT_TAKES_PRIORITY_WARN_MSG = "question has a answer slot, 'answer' attribute has no effect.";
 
 export const PROCESS_QOPTION_ATTRIBUTES = `
 <q-option reason="**lorem ipsum**">
