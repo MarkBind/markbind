@@ -463,4 +463,32 @@ export const PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 
 export const PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "dropdown has a header slot, 'header' attribute has no effect.";
 
+/**
+ * Scroll-to-top button
+ */
+
+export const PROCESS_SCROLL_TOP_BUTTON_ICON = `
+<scroll-top-button icon=":rocket:">
+</scroll-top-button>
+`;
+
+export const PROCESS_SCROLL_TOP_BUTTON_ICON_EXPECTED = `
+<scroll-top-button><template #icon>🚀</template>
+</scroll-top-button>
+`;
+
+export const PROCESS_SCROLL_TOP_BUTTON_ICON_SLOT_TAKES_PRIORITY = `
+<scroll-top-button icon=":question:">
+  <div slot="icon"><md>:rocket:</md></div>
+</scroll-top-button>
+`;
+
+export const PROCESS_SCROLL_TOP_BUTTON_ICON_SLOT_TAKES_PRIORITY_EXPECTED = `
+<scroll-top-button>
+  <template #icon><div><md>:rocket:</md></div></template>
+</scroll-top-button>
+`;
+
+export const PROCESS_SCROLL_TOP_BUTTON_ICON_SLOT_TAKES_PRIORITY_WARN_MSG = "scroll-top-button has a icon slot, 'icon' attribute has no effect.";
+
 /* eslint-enable max-len */

@@ -203,7 +203,7 @@ test('processNode processes box attributes and inserts into dom as slots correct
                            testData.PROCESS_BOX_HEADER_EXPECTED);
 });
 
-test('processNode processes box with icon slot taking priority over header attribute', () => {
+test('processNode processes box with icon slot taking priority over icon attribute', () => {
   const warnSpy = jest.spyOn(logger, 'warn');
   processAndVerifyTemplate(testData.PROCESS_BOX_ICON_SLOT_TAKES_PRIORITY,
                            testData.PROCESS_BOX_ICON_SLOT_TAKES_PRIORITY_EXPECTED);
@@ -227,6 +227,18 @@ test('processNode processes dropdown with header slot taking priority over heade
   processAndVerifyTemplate(testData.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY,
                            testData.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
   expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG);
+});
+
+test('processNode processes scroll-top-button attributes and inserts into dom as slots correctly', () => {
+  processAndVerifyTemplate(testData.PROCESS_SCROLL_TOP_BUTTON_ICON,
+                           testData.PROCESS_SCROLL_TOP_BUTTON_ICON_EXPECTED);
+});
+
+test('processNode processes scroll-top-button with icon slot taking priority over icon attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
+  processAndVerifyTemplate(testData.PROCESS_SCROLL_TOP_BUTTON_ICON_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_SCROLL_TOP_BUTTON_ICON_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_SCROLL_TOP_BUTTON_ICON_SLOT_TAKES_PRIORITY_WARN_MSG);
 });
 
 test('processNode does not log warning when lazy pic has width or height',
