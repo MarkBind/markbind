@@ -162,6 +162,13 @@ test('processNode processes modal attributes and inserts into dom as slots corre
                            testData.PROCESS_MODAL_OK_TEXT_EXPECTED);
 });
 
+test('processNode processes modal with header slot taking priority over header attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
+  processAndVerifyTemplate(testData.PROCESS_MODAL_HEADER_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_MODAL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_MODAL_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG);
+});
+
 test('processNode processes tab & tab-group attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_TAB_HEADER,
                            testData.PROCESS_TAB_HEADER_EXPECTED);

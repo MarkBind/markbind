@@ -294,6 +294,22 @@ export const PROCESS_MODAL_OK_TEXT_EXPECTED = `
 </modal>
 `;
 
+export const PROCESS_MODAL_HEADER_SLOT_TAKES_PRIORITY = `
+<modal header="Lorem ipsum">
+  <div slot="header">Some header slot content that should not be overwritten</div>
+  Header attribute should not be inserted under modal as slot, but should be deleted.
+</modal>
+`;
+
+export const PROCESS_MODAL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+<modal>
+  <template #header><div>Some header slot content that should not be overwritten</div></template>
+  Header attribute should not be inserted under modal as slot, but should be deleted.
+</modal>
+`;
+
+export const PROCESS_MODAL_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "modal has a header slot, 'header' attribute has no effect.";
+
 /*
  * Tab, tab-group
  */
