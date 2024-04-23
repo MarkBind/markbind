@@ -399,6 +399,38 @@ export const PROCESS_BOX_HEADER_EXPECTED = `
 </box>
 `;
 
+export const PROCESS_BOX_ICON_SLOT_TAKES_PRIORITY = `
+<box icon=":question:">
+  <div slot="icon"><md>:rocket:</md></div>
+  Icon attribute should not be inserted under box as slot, but should be deleted.
+</box>
+`;
+
+export const PROCESS_BOX_ICON_SLOT_TAKES_PRIORITY_EXPECTED = `
+<box>
+  <template #icon><div><md>:rocket:</md></div></template>
+  Icon attribute should not be inserted under box as slot, but should be deleted.
+</box>
+`;
+
+export const PROCESS_BOX_ICON_SLOT_TAKES_PRIORITY_WARN_MSG = "box has a icon slot, 'icon' attribute has no effect.";
+
+export const PROCESS_BOX_HEADER_SLOT_TAKES_PRIORITY = `
+<box header="Lorem ipsum">
+  <div slot="header">Some header slot content that should not be overwritten</div>
+  Header attribute should not be inserted under box as slot, but should be deleted.
+</box>
+`;
+
+export const PROCESS_BOX_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+<box>
+  <template #header><div>Some header slot content that should not be overwritten</div></template>
+  Header attribute should not be inserted under box as slot, but should be deleted.
+</box>
+`;
+
+export const PROCESS_BOX_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "box has a header slot, 'header' attribute has no effect.";
+
 /**
  * Dropdowns
  */

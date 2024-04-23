@@ -197,6 +197,20 @@ test('processNode processes box attributes and inserts into dom as slots correct
                            testData.PROCESS_BOX_HEADER_EXPECTED);
 });
 
+test('processNode processes box with icon slot taking priority over header attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
+  processAndVerifyTemplate(testData.PROCESS_BOX_ICON_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_BOX_ICON_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_BOX_ICON_SLOT_TAKES_PRIORITY_WARN_MSG);
+});
+
+test('processNode processes box with header slot taking priority over header attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
+  processAndVerifyTemplate(testData.PROCESS_BOX_HEADER_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_BOX_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_BOX_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG);
+});
+
 test('postProcessNode assigns the correct panel id to panels', () => {
   processAndVerifyTemplate(testData.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT,
                            testData.POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT_EXPECTED,
