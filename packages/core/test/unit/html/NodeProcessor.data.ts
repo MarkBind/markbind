@@ -250,6 +250,22 @@ export const PROCESS_TOOLTIP_CONTENT_EXPECTED = `
 </tooltip>
 `;
 
+export const PROCESS_TOOLTIP_CONTENT_SLOT_TAKES_PRIORITY = `
+<tooltip content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.">
+  <div slot="content">Some content slot that should not be overwritten</div>
+  Content attribute should not be inserted under tooltip as slot, but should be deleted.
+</tooltip>
+`;
+
+export const PROCESS_TOOLTIP_CONTENT_SLOT_TAKES_PRIORITY_EXPECTED = `
+<tooltip>
+  <template #content><div>Some content slot that should not be overwritten</div></template>
+  Content attribute should not be inserted under tooltip as slot, but should be deleted.
+</tooltip>
+`;
+
+export const PROCESS_TOOLTIP_CONTENT_SLOT_TAKES_PRIORITY_WARN_MSG = "tooltip has a content slot, 'content' attribute has no effect.";
+
 /*
  * Modals
  */

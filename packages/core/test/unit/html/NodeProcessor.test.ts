@@ -146,6 +146,13 @@ test('processNode processes tooltip attributes and inserts into dom as slots cor
                            testData.PROCESS_TOOLTIP_CONTENT_EXPECTED);
 });
 
+test('processNode processes tooltip with content slot taking priority over content attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
+  processAndVerifyTemplate(testData.PROCESS_TOOLTIP_CONTENT_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_TOOLTIP_CONTENT_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_TOOLTIP_CONTENT_SLOT_TAKES_PRIORITY_WARN_MSG);
+});
+
 test('processNode processes modal attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_MODAL_HEADER,
                            testData.PROCESS_MODAL_HEADER_EXPECTED);
