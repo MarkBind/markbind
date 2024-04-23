@@ -159,6 +159,8 @@ export const PROCESS_QOPTION_REASON_SLOT_TAKES_PRIORITY_EXPECTED = `
 </q-option>
 `;
 
+export const PROCESS_QOPTION_REASON_SLOT_TAKES_PRIORITY_WARN_MSG = "q-option has a reason slot, 'reason' attribute has no effect.";
+
 export const PROCESS_QUIZ_ATTRIBUTES = `
 <quiz intro="**lorem ipsum**">
 </quiz>

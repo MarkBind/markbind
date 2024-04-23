@@ -99,8 +99,13 @@ test('processNode processes question with answer slot taking priority over answe
 test('processNode processes q-option attributes and inserts into dom as slots correctly', () => {
   processAndVerifyTemplate(testData.PROCESS_QOPTION_ATTRIBUTES,
                            testData.PROCESS_QOPTION_ATTRIBUTES_EXPECTED);
+});
+
+test('processNode processes q-option with reason slot taking priority over reason attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
   processAndVerifyTemplate(testData.PROCESS_QOPTION_REASON_SLOT_TAKES_PRIORITY,
                            testData.PROCESS_QOPTION_REASON_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_QOPTION_REASON_SLOT_TAKES_PRIORITY_WARN_MSG);
 });
 
 test('processNode processes quiz attributes and inserts into dom as slots correctly', () => {
