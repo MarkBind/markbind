@@ -184,6 +184,8 @@ export const PROCESS_QUIZ_INTRO_SLOT_TAKES_PRIORITY_EXPECTED = `
 </quiz>
 `;
 
+export const PROCESS_QUIZ_INTRO_SLOT_TAKES_PRIORITY_WARN_MSG = "quiz has a intro slot, 'intro' attribute has no effect.";
+
 /*
  * Popovers
  */

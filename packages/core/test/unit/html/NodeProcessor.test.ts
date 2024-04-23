@@ -115,6 +115,13 @@ test('processNode processes quiz attributes and inserts into dom as slots correc
                            testData.PROCESS_QUIZ_INTRO_SLOT_TAKES_PRIORITY_EXPECTED);
 });
 
+test('processNode processes quiz with intro slot taking priority over intro attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
+  processAndVerifyTemplate(testData.PROCESS_QUIZ_INTRO_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_QUIZ_INTRO_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_QUIZ_INTRO_SLOT_TAKES_PRIORITY_WARN_MSG);
+});
+
 test('processNode processes popover attributes and inserts into dom as slots correctly', () => {
   const warnSpy = jest.spyOn(logger, 'warn');
   processAndVerifyTemplate(testData.PROCESS_POPOVER_ATTRIBUTES,
