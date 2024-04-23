@@ -43,6 +43,26 @@ export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 
 export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "panel has a header slot, 'header' attribute has no effect.";
 
+export const PROCESS_PANEL_ALT_SLOT_TAKES_PRIORITY = `
+<panel alt="lorem ipsum">
+  <div slot="_alt">
+    Alt slot text
+  </div>
+  Alt attribute should be ignored and deleted while alt slot is reserved.
+</panel>
+`;
+
+export const PROCESS_PANEL_ALT_SLOT_TAKES_PRIORITY_EXPECTED = `
+<panel>
+  <template #_alt><div>
+    Alt slot text
+  </div></template>
+  Alt attribute should be ignored and deleted while alt slot is reserved.
+</panel>
+`;
+
+export const PROCESS_PANEL_ALT_SLOT_TAKES_PRIORITY_WARN_MSG = "panel has a _alt slot, 'alt' attribute has no effect.";
+
 // Post Process
 
 export const POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT = `
