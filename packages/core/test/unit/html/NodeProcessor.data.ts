@@ -491,4 +491,83 @@ export const PROCESS_SCROLL_TOP_BUTTON_ICON_SLOT_TAKES_PRIORITY_EXPECTED = `
 
 export const PROCESS_SCROLL_TOP_BUTTON_ICON_SLOT_TAKES_PRIORITY_WARN_MSG = "scroll-top-button has a icon slot, 'icon' attribute has no effect.";
 
+/**
+ * A-points
+ */
+
+export const PROCESS_A_POINT_HEADER = `
+<a-point x="25%" y="25%" header="lorem ipsum">
+</a-point>
+`;
+
+export const PROCESS_A_POINT_HEADER_EXPECTED = `
+<a-point x="25%" y="25%"><template #header><p>lorem ipsum</p>
+</template>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_CONTENT = `
+<a-point x="25%" y="25%" content="lorem ipsum">
+</a-point>
+`;
+
+export const PROCESS_A_POINT_CONTENT_EXPECTED = `
+<a-point x="25%" y="25%"><template #content><p>lorem ipsum</p>
+</template>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_LABEL = `
+<a-point x="25%" y="25%" label="L">
+</a-point>
+`;
+
+export const PROCESS_A_POINT_LABEL_EXPECTED = `
+<a-point x="25%" y="25%"><template #label><p>L</p>
+</template>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_HEADER_SLOT_TAKES_PRIORITY = `
+<a-point x="25%" y="25%" header="lorem ipsum">
+  <div slot="header">Some header slot content that should not be overwritten</div>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+<a-point x="25%" y="25%">
+  <template #header><div>Some header slot content that should not be overwritten</div></template>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "a-point has a header slot, 'header' attribute has no effect.";
+
+export const PROCESS_A_POINT_CONTENT_SLOT_TAKES_PRIORITY = `
+<a-point x="25%" y="25%" content="lorem ipsum">
+  <div slot="content">Some content slot content that should not be overwritten</div>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_CONTENT_SLOT_TAKES_PRIORITY_EXPECTED = `
+<a-point x="25%" y="25%">
+  <template #content><div>Some content slot content that should not be overwritten</div></template>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_CONTENT_SLOT_TAKES_PRIORITY_WARN_MSG = "a-point has a content slot, 'content' attribute has no effect.";
+
+export const PROCESS_A_POINT_LABEL_SLOT_TAKES_PRIORITY = `
+<a-point x="25%" y="25%" label="L">
+  <div slot="label">O</div>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_LABEL_SLOT_TAKES_PRIORITY_EXPECTED = `
+<a-point x="25%" y="25%">
+  <template #label><div>O</div></template>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_LABEL_SLOT_TAKES_PRIORITY_WARN_MSG = "a-point has a label slot, 'label' attribute has no effect.";
+
 /* eslint-enable max-len */

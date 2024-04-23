@@ -241,6 +241,36 @@ test('processNode processes scroll-top-button with icon slot taking priority ove
   expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_SCROLL_TOP_BUTTON_ICON_SLOT_TAKES_PRIORITY_WARN_MSG);
 });
 
+test('processNode processes a-point attributes and inserts into dom as slots correctly', () => {
+  processAndVerifyTemplate(testData.PROCESS_A_POINT_HEADER,
+                           testData.PROCESS_A_POINT_HEADER_EXPECTED);
+  processAndVerifyTemplate(testData.PROCESS_A_POINT_CONTENT,
+                           testData.PROCESS_A_POINT_CONTENT_EXPECTED);
+  processAndVerifyTemplate(testData.PROCESS_A_POINT_LABEL,
+                           testData.PROCESS_A_POINT_LABEL_EXPECTED);
+});
+
+test('processNode processes a-point with header slot taking priority over header attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
+  processAndVerifyTemplate(testData.PROCESS_A_POINT_HEADER_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_A_POINT_HEADER_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_A_POINT_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG);
+});
+
+test('processNode processes a-point with content slot taking priority over content attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
+  processAndVerifyTemplate(testData.PROCESS_A_POINT_CONTENT_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_A_POINT_CONTENT_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_A_POINT_CONTENT_SLOT_TAKES_PRIORITY_WARN_MSG);
+});
+
+test('processNode processes a-point with label slot taking priority over label attribute', () => {
+  const warnSpy = jest.spyOn(logger, 'warn');
+  processAndVerifyTemplate(testData.PROCESS_A_POINT_LABEL_SLOT_TAKES_PRIORITY,
+                           testData.PROCESS_A_POINT_LABEL_SLOT_TAKES_PRIORITY_EXPECTED);
+  expect(warnSpy).toHaveBeenCalledWith(testData.PROCESS_A_POINT_LABEL_SLOT_TAKES_PRIORITY_WARN_MSG);
+});
+
 test('processNode does not log warning when lazy pic has width or height',
      () => {
        const nodeProcessor = getNewDefaultNodeProcessor();
