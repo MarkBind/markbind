@@ -13,9 +13,9 @@
 
 GitHub Actions are a powerful tool for automating workflows. However, it is important to ensure that your workflows are secure to prevent malicious actors from exploiting them.
 
-</div>
-
 **Here are some best practices to follow when working on GitHub Actions workflows.**
+
+</div>
 
 ### Minimally scoped credentials
 Every credential used in the workflow should have the minimum required permissions to execute the job. Without explicit specification of permissions, the default permissions are used, which are usually more permissive than necessary.
