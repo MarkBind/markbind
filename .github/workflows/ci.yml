@@ -32,7 +32,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-      - run: pip3 install setuptools
+      - run: brew install python-setuptools
       - run: npm run setup
       - run: npm run test
       - name: Upload coverage report to Codecov
