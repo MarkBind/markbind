@@ -201,6 +201,10 @@
     {
       "src": "testSourceContainScript.md",
       "title": "Test: If source contains script or css, when included, the script or css should be included"
+    },
+    {
+      "src": "testMermaid.md",
+      "title": "Rendering of diagrams via mermaid-js"
     }
   ],
   "pagesExclude": ["**/*-fragment.md"],
@@ -227,7 +231,8 @@
     "filterTags",
     "googleAnalytics",
     "mathDelimiters",
-    "web3Form"
+    "web3Form",
+    "mermaid"
   ],
   "pluginsContext": {
     "testMarkbindPlugin": {

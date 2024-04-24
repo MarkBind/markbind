@@ -1,0 +1,28 @@
+{
+  "baseUrl": "",
+  "titlePrefix": "",
+  "titleSuffix": "",
+  "ignore": [
+    "_markbind/layouts/*",
+    "_markbind/logs/*",
+    "_site/*",
+    "site.json",
+    "*.md",
+    "*.njk",
+    ".git/*",
+    "expected/*"
+  ],
+  "pagesExclude": ["node_modules/*"],
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Hello World"
+    }
+  ],
+  "deploy": {
+    "message": "Site Update."
+  },
+  "plugins": [
+    "dataTable"
+  ]
+}
