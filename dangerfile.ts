@@ -6,13 +6,18 @@ interface Couplings {
 }
 
 const couplings: Couplings = {
-  '.github/workflows/check-file-diff.yml': [
-    'package.json',
-    'babel.config.js',
+  'packages/core/src/html/CustomListIconProcessor.ts': [
+    'docs/userGuide/syntax/lists.md',
+    'packages/cli/test/functional/test_site/testList.md',
+    'packages/cli/test/functional/test_site/expected/testList.html',
+    'packages/cli/test/functional/test_site/expected/testList.page-vue-render.js',
   ],
-  'babel.config.js': [
-    'package.json',
-    'lerna.json',
+  'package.json': [
+    'package-lock.json',
+  ],
+  'packages/core/template/project/developerGuide/Configuration.md': [
+    'packages/cli/test/functional/test_site_templates/test_project/expected/developerGuide/Configuration.html',
+    'packages/cli/test/functional/test_site_templates/test_project/expected/developerGuide/Configuration.page-vue-render.js',
   ],
 };
 
