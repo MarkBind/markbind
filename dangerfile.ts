@@ -36,8 +36,8 @@ Promise.resolve().then(() => {
   });
 
   if (messages.length > 0) {
-    logger.info(`Detected issues with file couplings:\n${messages.join('\n')}`);
-    logger.info('Please ensure implementation changes are accompanied '
+    logger.warn(`Detected issues with file couplings:\n${messages.join('\n')}`);
+    logger.warn('Please ensure implementation changes are accompanied '
      + 'by corresponding test or documentation updates.');
   } else {
     logger.info('All file couplings are correctly updated.');
