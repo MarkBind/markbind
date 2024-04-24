@@ -381,4 +381,4 @@ Note that:
   * Result: 'tlylt' will be updated to have both icons(code and doc)
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('githubActions/markbindReusableWorkflows', 'styleGuides') }}
+{{ previous_next('githubActions/workflowSecurity', 'styleGuides') }}

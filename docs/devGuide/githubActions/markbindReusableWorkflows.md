@@ -28,4 +28,4 @@ Refer to the [development guide of markbind-action](./markbindAction.html) for t
 * As there is no need to release the reusable workflows in order for others to use, the workflows will be updated and maintained in the master branch (without doing a release).
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('markbindAction', '../projectManagement') }}
+{{ previous_next('markbindAction', 'workflowSecurity') }}
