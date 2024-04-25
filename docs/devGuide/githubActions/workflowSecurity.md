@@ -65,7 +65,7 @@ This method triggers workflows based on the latest commit of the pull request's 
 
 <box type="warning" seamless>
 
-This method could be limiting since the codebase checked out, using `actions/checkout`, is not up to date for the pull request. This means that the code checked out is not the code that is being tested. This could lead to false positives or false negatives in the testing process.
+This method could be limiting since the codebase checked out, using `actions/checkout`, is not up to date for the pull request. This means that the codebase checked out is not the codebase that is being tested. This could lead to false positives or false negatives in the testing process.
 
 </box>
 
