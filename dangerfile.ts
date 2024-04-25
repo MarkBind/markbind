@@ -9,8 +9,6 @@ const couplings: Couplings = {
   'packages/core/src/html/CustomListIconProcessor.ts': [
     'docs/userGuide/syntax/lists.md',
     'packages/cli/test/functional/test_site/testList.md',
-    'packages/cli/test/functional/test_site/expected/testList.html',
-    'packages/cli/test/functional/test_site/expected/testList.page-vue-render.js',
   ],
   'package.json': ['package-lock.json'],
   'packages/core/template/project/developerGuide/Configuration.md': [
