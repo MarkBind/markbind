@@ -21,7 +21,7 @@ GitHub Actions are a powerful tool for automating workflows. However, it is impo
 Every credential used in the workflow should have the minimum required permissions to execute the job. Without explicit specification of permissions, the default permissions are used, which are usually more permissive than necessary.
 
 Use the ‘permissions’ key to make sure the `GITHUB_TOKEN` is configured with the least privileges for each job.
-
+For example, to restrict the `GITHUB_TOKEN` to read-only:
 ```yaml
 jobs:
   read-content-at-job-level:
@@ -51,7 +51,7 @@ When a workflow is triggered by the `pull_request_target` event, the `GITHUB_TOK
 
 This event should not be used with `actions/checkout` as it can give write permission and secrets access to untrusted code from the forked code. Any building step, script execution, or even action call could be used to compromise the entire repository.
 
-This can be fixed by adding code to ensure that the code being checked out belongs to the base branch.
+This can be fixed by adding code to ensure that the codebase being checked out, using the action, belongs to the base branch.
 This can be done using:
 {% raw %}
 ```yaml
@@ -59,17 +59,17 @@ This can be done using:
   with:
     ref: ${{ github.base_ref }}
 ```
+{% endraw %}
 
 This method triggers workflows based on the latest commit of the pull request's base branch. Workflows on the base branch aren't affected by changes on feature branches, avoiding execution of malicious code in <tooltip content="Continuous Integration">CI</tooltip>.
 
 <box type="warning" seamless>
-{% endraw %}
 
 This method could be limiting since the code checked out is not up to date for the pull request. This means that the code checked out is not the code that is being tested. This could lead to false positives or false negatives in the testing process.
 
 </box>
 
-Another solution that allows `pull_request_target` to work securely with `actions/checkout` used on the pull request branch, is to implement running workflow only on approval by trusted users, such that the workflow is only run after checking for malicious code on the feature branch.
+Another solution that allows `pull_request_target` to work securely with `actions/checkout` on the pull request branch, is to implement running workflow only on approval by trusted users. This means that the workflow is only run after a user has checked for malicious code on the feature branch manually and approves the run.
 
 Information about reviewing workflows can be found [here](https://docs.github.com/en/actions/managing-workflow-runs/reviewing-deployments).
 
