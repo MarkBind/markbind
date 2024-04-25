@@ -38,7 +38,7 @@ jobs:
 
 **Environment variables**, like {% raw %} `${{ secrets.GITHUB_TOKEN }}` {% endraw %}, should be limited by scope, and should be declared at the step level when possible.
 
-### Pull_request_target event
+### Security precautions when using `pull_request_target` event
 Read access is the most permissive access to be given for pull requests from public forked repositories to maintain security.
 
 <box type="info" seamless>
@@ -51,7 +51,7 @@ When a workflow is triggered by the `pull_request_target` event, the `GITHUB_TOK
 
 This event should not be used with `actions/checkout` as it can give write permission and secrets access to untrusted code from the forked code. Any building step, script execution, or even action call could be used to compromise the entire repository.
 
-This can be fixed by adding code to ensure that the codebase being checked out, using the action, belongs to the base branch.
+This can be fixed by adding code to ensure that the codebase being checked out, using `actions/checkout`, belongs to the base branch.
 This can be done using:
 {% raw %}
 ```yaml
@@ -65,7 +65,7 @@ This method triggers workflows based on the latest commit of the pull request's 
 
 <box type="warning" seamless>
 
-This method could be limiting since the code checked out is not up to date for the pull request. This means that the code checked out is not the code that is being tested. This could lead to false positives or false negatives in the testing process.
+This method could be limiting since the codebase checked out, using `actions/checkout`, is not up to date for the pull request. This means that the code checked out is not the code that is being tested. This could lead to false positives or false negatives in the testing process.
 
 </box>
 
