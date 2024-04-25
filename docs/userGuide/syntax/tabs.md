@@ -1,3 +1,5 @@
+{% from "userGuide/components/advanced.md" import slot_info_trigger %}
+
 ## Tabs
 
 <include src="codeAndOutput.md" boilerplate >
@@ -39,13 +41,13 @@ active | `Number` | `0` | Active Tab index (0-based)
 `tab`:
 Name | Type | Default | Description
 --- | --- | --- | ---
-header | `String` | `null` | Tab title.
+header{{slot_info_trigger}} | `String` | `null` | Tab title.
 disabled | `Boolean` | `false` | Whether Tab is clickable and can be activated.
 
 `tab-group`:
 Name | Type | Default | Description
 --- | --- | --- | ---
-header | `String` | `null` | Tab Group title.
+header{{slot_info_trigger}} | `String` | `null` | Tab Group title.
 disabled | `Boolean` | `false` | Whether Tab Group is clickable and can be activated.
 
 <box type="info">

@@ -381,8 +381,7 @@ Simply place the `<question>` components you want to include into the `<quiz>` c
 ****Quiz Options and Slots****
 Name | Type | Default | Description
 --- | --- | --- | ---
-intro | `String` | `''` | Quiz intro markup above the question count.
-intro | Slot | `Click start to begin` | Quiz intro markup. Overrides the `intro` attribute if both are present.
+intro{{slot_info_trigger}} | `String` | `Click start to begin` | Quiz intro markup above the question count.
 
 <!-- Included in syntax cheat sheet -->
 <div id="short" class="d-none">

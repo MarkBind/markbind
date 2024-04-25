@@ -215,7 +215,7 @@ To safeguard against unintended consequences, consider directly incorporating th
 Name | Type | Default | Description
 --- | --- | --- | ---
 header{{slot_info_trigger}} | `String` | `''` | The clickable text on the Panel's header. Supports MarkDown text.
-alt | `String` | Panel header | The clickable text on the minimised Panel. Supports MarkDown text.
+alt{{slot_info_trigger}}| `String` | Panel header | The clickable text on the minimised Panel. Supports MarkDown text. When using slots, the slot name is `_alt`.
 expandable | `Boolean`| `true` | Whether Panel is expandable.
 expanded | `Boolean` | `false` | Whether Panel is expanded or collapsed when loaded in.
 minimized | `Boolean` | `false` | Whether Panel is minimized.
