@@ -1,5 +1,6 @@
 ## Diagrams
 
+### PlantUML Diagrams
 You can use the [PlantUML](http://plantuml.com/) syntax to add diagrams.
 
 <box type="warning">
@@ -159,3 +160,7 @@ bob -> bob ++ : self call
 <include src="diagrams.md#puml-examples" />
 
 </div>
+
+### Mermaid Diagrams
+
+<include src="{{ baseUrl }}/userGuide/plugins/mermaid.md#content" />

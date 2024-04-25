@@ -104,6 +104,14 @@ plain text ...
 </variable>
 </include>
 
+<box background-color="#C51E3A" color="white">
+  
+  :bulb: Seamless panels inherit the background colour and text colour of any parents!
+  <br/>
+  <panel type="seamless" header="This is an example seamless panel">
+    This is its content.
+  </panel>
+</box>
 
 **Show/Hide buttons using `no-switch`, `no-close`, or `no-minimized-switch`.**
 
@@ -167,6 +175,8 @@ To safeguard against unintended consequences, consider directly incorporating th
 </variable>
 </include>
 
+<include src="includes.md#baseUrl-warning"/>
+
 **If `preload` attribute is provided, the panel body will load the HTML when the page renders instead of after being expanded.**
 
 <include src="codeAndOutput.md" boilerplate >
@@ -205,7 +215,7 @@ To safeguard against unintended consequences, consider directly incorporating th
 Name | Type | Default | Description
 --- | --- | --- | ---
 header{{slot_info_trigger}} | `String` | `''` | The clickable text on the Panel's header. Supports MarkDown text.
-alt | `String` | Panel header | The clickable text on the minimised Panel. Supports MarkDown text.
+alt{{slot_info_trigger}}| `String` | Panel header | The clickable text on the minimised Panel. Supports MarkDown text. When using slots, the slot name is `_alt`.
 expandable | `Boolean`| `true` | Whether Panel is expandable.
 expanded | `Boolean` | `false` | Whether Panel is expanded or collapsed when loaded in.
 minimized | `Boolean` | `false` | Whether Panel is minimized.

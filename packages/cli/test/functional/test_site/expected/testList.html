@@ -16,10 +16,6 @@
   <link rel="stylesheet" href="/test_site/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" href="/test_site/markbind/css/codeblock-dark.min.css">
   <link rel="stylesheet" href="/test_site/markbind/css/markbind.min.css">
-  <script src="/test_site/markbind/js/polyfill.min.js"></script>
-  <script src="/test_site/markbind/js/vue.min.js"></script>
-  <script src="/test_site/markbind/js/markbind.min.js"></script>
-  <script src="testList.page-vue-render.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/web3Form/web-3-form.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
@@ -237,6 +233,14 @@
           </li>
         </ul>
         <ol>
+          <li>One item with text-icons of lists</li>
+        </ol>
+        <ul style="list-style-type: none; padding-inline-start: 0px;">
+          <li texts="['(a)','(b)','(c)']" style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">(a)</span>
+            <div>item 1</div>
+          </li>
+        </ul>
+        <ol>
           <li>One item + nested list</li>
         </ol>
         <ul>
@@ -286,6 +290,88 @@
                 </li>
               </ul>
             </div>
+          </li>
+        </ul>
+        <ol>
+          <li>Text-icons of lists test</li>
+        </ol>
+        <ul style="list-style-type: none; padding-inline-start: 0px;">
+          <li texts="['(a)','(b)','(c)']" style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">(a)</span>
+            <div>item 1</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">(b)</span>
+            <div>item 1</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">(c)</span>
+            <div>item 1</div>
+          </li>
+        </ul>
+        <ol>
+          <li>Text-icons of lists outflow test</li>
+        </ol>
+        <ul style="list-style-type: none; padding-inline-start: 0px;">
+          <li texts="['(a)','(b)','(c)']" style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">(a)</span>
+            <div>item 1</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">(b)</span>
+            <div>item 1</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">(c)</span>
+            <div>item 1</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">(c)</span>
+            <div>item 1</div>
+          </li>
+        </ul>
+        <ol>
+          <li>Text-icons of lists stop on override test</li>
+        </ol>
+        <ul style="list-style-type: none; padding-inline-start: 0px;">
+          <li texts="['(a)','(b)','(c)','(d)']" style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">(a)</span>
+            <div>item 1</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">(b)</span>
+            <div>item 1</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">OVERRIDE</span>
+            <div>item 1</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">OVERRIDE</span>
+            <div>item 1</div>
+          </li>
+        </ul>
+        <ol>
+          <li>Text-icons of lists does not stop on once override test</li>
+        </ol>
+        <ul style="list-style-type: none; padding-inline-start: 0px;">
+          <li texts="['(a)','(b)','(c)','(d)']" style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">(a)</span>
+            <div>item 1</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">(b)</span>
+            <div>item 1</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">OVERRIDE</span>
+            <div>item 1</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">(c)</span>
+            <div>item 1</div>
+          </li>
+        </ul>
+        <ol>
+          <li>Text-icons of lists can use double escape to include quote test</li>
+        </ol>
+        <ul style="list-style-type: none; padding-inline-start: 0px;">
+          <li texts="['\'a\'','\'b\'','\'c\'','\'d\'']" style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">'a'</span>
+            <div>item 1</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">'b'</span>
+            <div>item 1</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">'c'</span>
+            <div>item 1</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">'d'</span>
+            <div>item 1</div>
           </li>
         </ul>
         <ol>
@@ -383,6 +469,45 @@
                   </div>
                 </li>
                 <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">Second layer</span>
+                  <div>Sub-item B4</div>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+        <ol>
+          <li>Text inheritance test with text-icons of lists</li>
+        </ol>
+        <ul style="list-style-type: none; padding-inline-start: 0px;">
+          <li texts="['11','12','13','14']" style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">11</span>
+            <div>Item A</div>
+          </li>
+          <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">12</span>
+            <div>Item B
+              <ul style="list-style-type: none; padding-inline-start: 0px;">
+                <li texts="['21','22','23','24']" style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">21</span>
+                  <div>Sub-item B1</div>
+                </li>
+                <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">22</span>
+                  <div>Sub-item B2</div>
+                </li>
+                <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">23</span>
+                  <div>Sub-item B3
+                    <ul style="list-style-type: none; padding-inline-start: 0px;">
+                      <li texts="['31','32','33','34']" style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">31</span>
+                        <div>Sub-sub-item B3.1</div>
+                      </li>
+                      <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">32</span>
+                        <div>Sub-sub-item B3.2
+                          <ul>
+                            <li>Sub-sub-sub-item B3.2.1</li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li style="display: flex;"><span aria-hidden="true" style="line-height: unset; margin-inline-end: 0.35em; align-self: flex-start; flex-shrink: 0;">24</span>
                   <div>Sub-item B4</div>
                 </li>
               </ul>
@@ -1037,6 +1162,10 @@
   </div>
 </body>
 <script src="/test_site/markbind/js/bootstrap-utility.min.js"></script>
+<script src="/test_site/markbind/js/polyfill.min.js"></script>
+<script src="/test_site/markbind/js/vue.min.js"></script>
+<script src="/test_site/markbind/js/markbind.min.js"></script>
+<script src="testList.page-vue-render.js"></script>
 <script>
   MarkBind.setupWithSearch()
 </script>
@@ -1085,5 +1214,18 @@
             })
         }
     </script>
+<script type="module">
+    import mermaid from 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs';
+    document.addEventListener('DOMContentLoaded', () => {
+      mermaid.initialize({});
+      Vue.directive('mermaid', {
+        inserted: function(el) {
+          mermaid.run({
+            nodes: [el]
+          });
+        }
+      });
+    });
+  </script>
 
 </html>

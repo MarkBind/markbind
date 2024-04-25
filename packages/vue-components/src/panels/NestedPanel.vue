@@ -5,7 +5,13 @@
     :class="['card-container', addClass]"
   >
     <span class="morph">
-      <button :class="['morph-display-wrapper', 'btn', btnType]" @click="open()">
+      <button
+        :class="['morph-display-wrapper',
+                 {'morph-display-wrapper-seamless': isSeamless},
+                 'btn',
+                 btnType]"
+        @click="open()"
+      >
         <div
           v-if="!noMinimizedSwitch"
           class="minimal-caret-wrapper"
@@ -27,7 +33,7 @@
     ref="cardContainer"
     :class="['card-container', addClass]"
   >
-    <div :class="['card', { 'expandable-card': isExpandableCard }, borderType]">
+    <div :class="['card', { 'expandable-card': isExpandableCard, 'card-seamless': isSeamless }, borderType]">
       <div
         :class="['card-header',{'header-toggle':isExpandableCard}, cardType, borderType]"
         @click.prevent.stop="isExpandableCard && toggle()"
@@ -40,8 +46,8 @@
         </div>
         <div
           ref="headerWrapper"
-          :class="['header-wrapper card-title', cardType,
-                   {'text-white':!isLightBg, 'header-transparent':!shouldShowHeader}]"
+          :class="[{'header-wrapper-seamless': isSeamless}, 'header-wrapper card-title', cardType,
+                   {'text-white':!isLightBg && !isSeamless, 'header-transparent':!shouldShowHeader}]"
         >
           <slot name="header"></slot>
         </div>
@@ -96,6 +102,7 @@
             <panel-switch
               v-show="isExpandableCard && bottomSwitchBool"
               :is-open="localExpanded"
+              :is-seamless="isSeamless"
               @click.native.stop.prevent="toggle(true)"
             />
           </div>
@@ -133,8 +140,10 @@ export default {
       return this.type === 'seamless';
     },
     btnType() {
-      if (this.isSeamless || this.type === 'light') {
+      if (this.type === 'light') {
         return 'btn-outline-secondary';
+      } else if (this.isSeamless) {
+        return '';
       }
       return `btn-outline-${this.type || 'secondary'}`;
     },
@@ -151,12 +160,12 @@ export default {
     },
     cardType() {
       if (this.isSeamless) {
-        return 'bg-white';
+        return 'bg-transparent';
       }
       return `bg-${this.type || 'light'}`;
     },
     isLightBg() {
-      return this.cardType === 'bg-light' || this.cardType === 'bg-white' || this.cardType === 'bg-warning';
+      return this.cardType === 'bg-light' || this.cardType === 'bg-warning';
     },
   },
 };
@@ -175,6 +184,13 @@ export default {
     .seamless-button {
         opacity: 0;
         transition: 0.3s opacity;
+        color: inherit;
+        border-color: inherit;
+    }
+
+    .seamless-button:hover {
+        border-color: transparent;
+        background-color: color-mix(in srgb, currentcolor 25%, transparent);
     }
 
     .card-header:hover .seamless-button {
@@ -229,6 +245,10 @@ export default {
         width: 100%;
     }
 
+    .card-seamless {
+        background-color: inherit;
+    }
+
     .card-title {
         display: inline-block;
         font-size: 1em;
@@ -279,6 +299,8 @@ export default {
 
     .card-collapse > hr {
         margin-top: 0;
+        background-color: currentcolor;
+        opacity: 0.5;
     }
 
     .card-group > .card-container > .expandable-card {
@@ -292,7 +314,7 @@ export default {
 
     .bottom-button-wrapper > .collapse-button {
         margin-top: 5px;
-        opacity: 0.2;
+        opacity: 0.5;
     }
 
     .bottom-button-wrapper > .collapse-button:hover {
@@ -322,6 +344,14 @@ export default {
         margin-top: 5px;
         display: flex;
         align-items: center;
+    }
+
+    .morph-display-wrapper-seamless {
+        color: inherit;
+    }
+
+    .morph-display-wrapper-seamless:hover {
+        color: inherit;
     }
 
     /* Bootstrap extra small(xs) responsive breakpoint */
