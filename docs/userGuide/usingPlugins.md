@@ -65,6 +65,7 @@ MarkBind has a set of built-in plugins that can be used immediately without inst
 <include src="plugins/mathDelimiters.md" />
 <include src="plugins/web3Form.md" />
 <include src="plugins/dataTable.md" />
+<include src="plugins/mermaid.md" />
 
 ## Using External Plugins
 

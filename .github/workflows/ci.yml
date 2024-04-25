@@ -32,6 +32,8 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+      - if: matrix.platform == 'macos-latest'
+        run: brew install python-setuptools
       - run: npm run setup
       - run: npm run test
       - name: Upload coverage report to Codecov
