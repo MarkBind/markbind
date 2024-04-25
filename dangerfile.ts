@@ -11,12 +11,6 @@ const couplings: Couplings = {
     'packages/cli/test/functional/test_site/testList.md',
   ],
   'package.json': ['package-lock.json'],
-  'packages/core/template/project/developerGuide/Configuration.md': [
-    'packages/cli/test/functional/test_site_templates/test_project/'
-    + 'expected/developerGuide/Configuration.html',
-    'packages/cli/test/functional/test_site_templates/test_project/'
-    + 'expected/developerGuide/Configuration.page-vue-render.js',
-  ],
 };
 
 const { git } = danger;
