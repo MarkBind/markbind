@@ -60,7 +60,7 @@ Please be alerted that when using the `{texts="['text1', 'text2', 'text3']"}` sy
 
 <panel header="Notes on having single quote `'` inside text"  minimized>
 
-If you want to use `'` in you text icon, you need to escape it with double escape sequence. 
+If you want to use `'` in your text bullet point, you need to escape it with double escape sequence. 
 <include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
