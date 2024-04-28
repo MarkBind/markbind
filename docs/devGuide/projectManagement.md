@@ -367,7 +367,7 @@ Note that:
 
    <box type="info" icon=":fas-question:" icon-color="info" seamless header='About Milestones'>
 
-   Previously, we used milestones to help manage versions, adding a milestone to an issue once related PRs had been merged. However, there was confusion over the use of milestones and labels, adding a milestone was often forgotten, and ultimately it was not sufficiently useful to the team.
+   Previously, we used milestones to help manage versions, adding a milestone to an issue once related PRs had been merged. However, there was confusion over the use of milestones and labels and adding a milestone was often forgotten. Hence, ultimately it was not sufficiently useful to the team.
    </box>
 
 {% from "njk/common.njk" import previous_next %}
