@@ -32,6 +32,10 @@ This page explains how to set up your development environment to start contribut
    * `dot -V` (for Graphviz - optional on Windows)
    * `python3 -V`
 
+<box type="warning" seamless>
+
+With Node LTS (v20), the python used has updated to 3.12, and [you may get an error](https://github.com/MarkBind/markbind/issues/2496). You can solve this issue by installing setuptools or deprecating the versions used.
+</box>
 <box type="tip" seamless>
 
 We recommend the **WebStorm IDE** or **VS Code** for working with MarkBind code.
