@@ -179,7 +179,7 @@ You can utilize any [CSS size unit](https://www.w3schools.com/cssref/css_units.p
 
 If either the `i-width` or the `i-height` of an image is not specified, the unspecified dimension will adjust to maintain the image's original aspect ratio. For example, for an image of size 800x600 (4:3), if `i-width` is set to 400px, its height will be 300px.
 
-**The icon and text's appearance can be further customized by adding a `i-class` and `t-class` attribute respectively.**
+**The icon and text's appearance <tooltip content="Examples: [text classes](https://getbootstrap.com/docs/5.1/utilities/text/#font-size), [badge classes](https://getbootstrap.com/docs/5.1/components/badge/) and more supported by bootstrap">can be further customized</tooltip> by adding a `i-class` and `t-class` attribute respectively.**
 
 <div id="main-example-markbind">
 
@@ -191,7 +191,7 @@ If either the `i-width` or the `i-height` of an image is not specified, the unsp
   * Item 2.1 { icon="fas-question-circle" i-class="badge rounded-pill my-1 bg-success text-white" }
   * Item 2.2
   * Item 2.3 { i-class="badge rounded-pill my-1 bg-primary text-white"}
-* Item 3 { t-class="text-primary my-2" }
+* Item 3 { t-class="text-primary my-2 fst-italic" }
   * Item 3.1 
   * Item 3.2  { icon="fas-question-circle" i-class="badge rounded my-1 bg-danger text-white" }
   * Item 3.3 
