@@ -22,13 +22,6 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
 * **If the PR is very simple** (e.g. correcting a simple typo), one approval is sufficient for merging. Other PRs need two approvals.
 
-* **Once the first approval is given** from a developer, assign a version milestone to the PR (this is usually the next version, unless there is a justification for delaying the merging to future versions).
-
-  <box type="info" seamless>
-
-  **Note:** Should there be a subsequent rejection by other reviewers (or an error is spotted), the version milestone is removed immediately. The version milestone should only be restored once the new approvals come in.
-  </box>
-
 * **Once the second approval is given** from a ==senior developer== (or there are >= 3 approvals given from anyone), the PR can be merged immediately.<br>
   If there is no second approval yet, wait for a day before merging the PR without the second approval.
 
@@ -67,7 +60,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
    <box type="info" seamless>
 
-   **Reason:** The release manager may not review all PRs, so please add the label to highlight the version impact of the PR. This helps to clarify which milestone the PR should be assigned to.
+   **Reason:** The release manager may not review all PRs, so please add the label to highlight the version impact of the PR.
    </box>
 
 1. **Draft the release note for breaking changes**.
@@ -75,13 +68,6 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    <box type="info" seamless>
 
    **Reason:** The release manager may not have the full details of the PR, so please work with the PR author to prepare a release note (if applicable) in the PR description.
-   </box>
-
-1. **Set a milestone** to the PR.
-
-   <box type="info" seamless>
-
-   **Reason:** We may have missed it during the "Approval" stage, so please add the version milestone if it is missing, so that the drafting of the release notes during the release process will be easier.
    </box>
 
 1. Tip: how to **undo an accidental merge commit.**
@@ -120,7 +106,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
    <box type="info" seamless>
 
-   * Double check that the PRs are correctly set to the milestone for the new version. Review the definition of [SEMVER](https://semver.org/) and the impact of the PRs.
+   * Double check that the PRs are appropriate for the new version. Review the definition of [SEMVER](https://semver.org/) and the impact of the PRs.
    * We will specify updated version numbers exactly to ensure that each version will consistently fetch the same versioned internal packages.
    * The end result of this command is version commit with an appropriate tag. We will make use of the generated tag and commit message later.
    * Do not push this commit to the remote repository yet.
@@ -205,10 +191,6 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    ```sh
    $ npm run deploy:ug
    ```
-
-1. **Update milestones**. Close the [milestone on GitHub](https://github.com/MarkBind/markbind/milestones) and all issues in that milestone.
-
-   Also create a new milestone for the next iterations. Recommended to have at least two upcoming milestones opened. Use the format `vA.B.C` for the milestone title.
 
 1. **Release on GitHub**.
 
@@ -379,6 +361,14 @@ Note that:
   * E.g "@all-contributors please add tlylt for code"
   * Some time later: "@all-contributors please add tlylt for doc"
   * Result: 'tlylt' will be updated to have both icons(code and doc)
+
+
+## Other Notes
+
+   <box type="info" icon=":fas-question:" icon-color="info" seamless header='About Milestones'>
+
+   Previously, we used milestones to help manage versions, adding a milestone to an issue once related PRs had been merged. However, there was confusion over the use of milestones and labels, adding a milestone was often forgotten, and ultimately it was not sufficiently useful to the team.
+   </box>
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('githubActions/workflowSecurity', 'styleGuides') }}
