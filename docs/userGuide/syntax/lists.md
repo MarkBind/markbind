@@ -187,7 +187,7 @@ If either the `i-width` or the `i-height` of an image is not specified, the unsp
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 * Item 1 { icon="/images/deer.jpg" text="Deer" i-width="60px" height="17px" i-class="rounded" t-class="text-warning my-2" }
-* Item 2 { t-class="text-info my-2" }
+* Item 2 { t-class="text-info my-2 fw-bold" }
   * Item 2.1 { icon="fas-question-circle" i-class="badge rounded-pill my-1 bg-success text-white" }
   * Item 2.2
   * Item 2.3 { i-class="badge rounded-pill my-1 bg-primary text-white"}
