@@ -15,7 +15,7 @@ Get started in 5 minutes: https://markbind.org/userGuide/gettingStarted.html
 
 **The MarkBind website for the current MarkBind release is at https://markbind.org/**.
 
-The website for the latest master branch (not yet released to the public) is at https://markbind-master.netlify.com.
+The website for the latest master branch (not yet released to the public) is at https://markbind-master.netlify.app.
 
 ## Want to help?
 
