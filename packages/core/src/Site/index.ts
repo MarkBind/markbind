@@ -1405,6 +1405,8 @@ export class Site {
           email: 'deploy@appveyor.com',
         };
       } else if (process.env.GITHUB_ACTIONS) {
+        // Set cache folder to a location Github Actions can find.
+        process.env.CACHE_DIR = path.join(process.env.GITHUB_WORKSPACE || '', 'gh-pages', '.cache');
         repoSlug = Site.extractRepoSlug(options.repo, process.env.GITHUB_REPOSITORY);
 
         options.user = {
