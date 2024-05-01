@@ -74,7 +74,7 @@ You can add the `--help` flag to any command to show the help screen. <br>
 </include>
 <include src="tip.md" boilerplate >
 <span id="tip_body">
-The `init` command populates the project with the [default project template](https://markbind-init-typical.netlify.com/). Refer to [templates](templates.html) section to learn how to use a different template.
+The `init` command populates the project with the [default project template](https://markbind-init-typical.netlify.app/). Refer to [templates](templates.html) section to learn how to use a different template.
 </span>
 </include>
 
