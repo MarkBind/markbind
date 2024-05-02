@@ -27,11 +27,22 @@
   ],
   "plugins" : [
     "filterTags",
-    "codeBlockCopyButtons"
+    "mathDelimiters",
+    "codeBlockWrapButtons",
+    "web3Form",
+    "codeBlockCopyButtons",
+    "dataTable",
+    "mermaid"
   ],
   "pluginsContext" : {
     "filterTags" : {
       "tags": ["environment--dg"]
+    },
+    "mathDelimiters": {
+      "delimiters": ["beg_end"]
+    },
+    "web3Form": {
+      "accessKey": [""]
     }
   },
   "deploy": {

@@ -70,6 +70,10 @@ module.exports = {
   },
 };
 ```
+<box type="warning">
+
+Remember to update `dg-site.json`, `site.json`, and `ug-site.json` in the docs folder when updating the requirements for `site.json`.
+</box>
 
 ```js
 // site.json
