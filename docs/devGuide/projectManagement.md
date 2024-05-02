@@ -362,6 +362,28 @@ Note that:
   * Some time later: "@all-contributors please add tlylt for doc"
   * Result: 'tlylt' will be updated to have both icons(code and doc)
 
+## Managing the repository
+
+### Projects
+As the number of issues increases, prioritising and triaging work may become more tricky even with labels. We may want to prioritise certain issues for particular version releases, or to work towards an overall vision of MarkBind. For this purpose, it may be useful to use [GitHub Projects](https://github.com/MarkBind/markbind/projects?query=is%3Aopen).
+
+#### Instructions:
+
+1. Read through the issues in the repository to understand what's in the backlog.
+1. Decide what goals the team is working towards. Examples: "Better Logging", "Necessary Updates", "User Demand", "Bugfix", and "Developer Experience".
+1. Create the GitHub project (keeping in mind how long it should take) and update the project details.
+1. Add relevant issues to the project and use it to track progress.
+
+#### Some tips / principles from current use:
+
+* **Don't treat the project as a strict guide**, only a tool to prioritise tasks and discover issues to work on. If another issue catches your fancy or an urgent fix comes up that is not on the roadmap, you can work on that instead.
+* These projects are "product roadmaps" to **help teams communicate and collaborate**.
+* [This roadmap](https://github.com/MarkBind/markbind/projects/4) tracks some bigger issues that MarkBind aims to focus on.
+* The main goal is to **triage issues** and perhaps **track progress** in the repository perhaps on a yearly basis. 
+  * You can **triage issues into more than just "todo"** - [this roadmap](https://github.com/orgs/MarkBind/projects/1/views/4) used in 2024 into "KIV/Discussion", "Todo", and "Implementation Needed"; the latter is used for issues that are very straightforward, while the first was used for issues where the precise implementation might require some discussion or be more complex. 
+  * You can **write project details** to clarify your project organisation.
+  * You can use **multiple views**, such as Kanban, tables, or calendar, depending on what best suits your needs.
+  * You can use **custom fields** - [this roadmap](https://github.com/orgs/MarkBind/projects/1/views/5) used in 2024 categorised the issues into bigger picture goals that were set earlier.
 
 ## Other Notes
 
