@@ -369,10 +369,10 @@ As the number of issues increases, prioritising and triaging work may become mor
 
 #### Instructions:
 
-1. Read through the issues in the repository to understand what's in the backlog
-1. Decide what goals the team is working towards. Examples: "Better Logging", "Necessary Updates", "User Demand", "Bugfix", and "Developer Experience"
-1. Create the GitHub project (keeping in mind how long it should take) and update the project details
-1. Add relevant issues to the project and use it to track progress
+1. Read through the issues in the repository to understand what's in the backlog.
+1. Decide what goals the team is working towards. Examples: "Better Logging", "Necessary Updates", "User Demand", "Bugfix", and "Developer Experience".
+1. Create the GitHub project (keeping in mind how long it should take) and update the project details.
+1. Add relevant issues to the project and use it to track progress.
 
 #### Some tips / principles from current use:
 
@@ -381,9 +381,9 @@ As the number of issues increases, prioritising and triaging work may become mor
 * [This roadmap](https://github.com/MarkBind/markbind/projects/4) tracks some bigger issues that MarkBind aims to focus on.
 * The main goal is to **triage issues** and perhaps **track progress** in the repository perhaps on a yearly basis. 
   * You can **triage issues into more than just "todo"** - [this roadmap](https://github.com/orgs/MarkBind/projects/1/views/4) used in 2024 into "KIV/Discussion", "Todo", and "Implementation Needed"; the latter is used for issues that are very straightforward, while the first was used for issues where the precise implementation might require some discussion or be more complex. 
-  * You can **write project details** to clarify your project organisation
+  * You can **write project details** to clarify your project organisation.
   * You can use **multiple views**, such as Kanban, tables, or calendar, depending on what best suits your needs.
-  * You can use **custom fields** - [this roadmap](https://github.com/orgs/MarkBind/projects/1/views/5) used in 2024 categorised the issues into bigger picture goals that were set earlier
+  * You can use **custom fields** - [this roadmap](https://github.com/orgs/MarkBind/projects/1/views/5) used in 2024 categorised the issues into bigger picture goals that were set earlier.
 
 ## Other Notes
 
