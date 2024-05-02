@@ -21,7 +21,11 @@
   "plugins" : [
     "filterTags",
     "mathDelimiters",
-    "codeBlockCopyButtons"
+    "codeBlockWrapButtons",
+    "web3Form",
+    "codeBlockCopyButtons",
+    "dataTable",
+    "mermaid"
   ],
   "pluginsContext" : {
     "filterTags" : {
@@ -29,6 +33,9 @@
     },
     "mathDelimiters": {
       "delimiters": ["beg_end"]
+    },
+    "web3Form": {
+      "accessKey": [""]
     }
   },
   "headingIndexingLevel": 6,
