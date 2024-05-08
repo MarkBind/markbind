@@ -25,24 +25,13 @@
     "*.pptx",
     "CNAME"
   ],
-  "plugins" : [
+  "plugins": [
     "filterTags",
-    "mathDelimiters",
-    "codeBlockWrapButtons",
-    "web3Form",
-    "codeBlockCopyButtons",
-    "dataTable",
-    "mermaid"
+    "codeBlockCopyButtons"
   ],
-  "pluginsContext" : {
-    "filterTags" : {
+  "pluginsContext": {
+    "filterTags": {
       "tags": ["environment--dg"]
-    },
-    "mathDelimiters": {
-      "delimiters": ["beg_end"]
-    },
-    "web3Form": {
-      "accessKey": [""]
     }
   },
   "deploy": {
