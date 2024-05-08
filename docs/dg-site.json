@@ -6,17 +6,10 @@
   },
   "pages": [
     {
-      "glob": [
-        "*.md",
-        "devGuide/*.md",
-        "devGuide/*/*.md"
-      ]
+      "glob": ["*.md", "devGuide/*.md", "devGuide/*/*.md"]
     },
     {
-      "src": [
-        "index.md",
-        "devGuide/index.md"
-      ],
+      "src": ["index.md", "devGuide/index.md"],
       "searchable": "no"
     }
   ],
@@ -38,9 +31,7 @@
   ],
   "pluginsContext": {
     "filterTags": {
-      "tags": [
-        "environment--dg"
-      ]
+      "tags": ["environment--dg"]
     }
   },
   "deploy": {
