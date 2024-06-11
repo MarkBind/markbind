@@ -96,12 +96,14 @@ To instruct [GitHub Actions](https://docs.github.com/en/actions) to build and de
 name: Deploy MarkBind Site
 on:
   push:
-    branches: master
+    branches: main
 
 jobs:
   build:
     runs-on: ubuntu-latest
     name: test
+    permissions:
+      contents: write
     env:
       GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
     steps:
