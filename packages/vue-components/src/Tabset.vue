@@ -28,6 +28,9 @@
           :class="{active:t.active}"
           :disabled="t.disabled"
         >
+          <template #header>
+            <span v-html="t.headerRendered"></span>
+          </template>
           <li v-for="(tab, tabIndex) in t.tabs" :key="tabIndex">
             <a
               class="nav-link"
