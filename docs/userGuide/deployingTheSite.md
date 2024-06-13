@@ -129,7 +129,7 @@ MarkBind provides a helper GitHub Action that you can use to simplify your workf
 name: Deploy MarkBind Site
 on:
   push:
-    branches: master
+    branches: main
 
 jobs: 
   build_and_deploy:
