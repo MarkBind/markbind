@@ -96,7 +96,7 @@ To instruct [GitHub Actions](https://docs.github.com/en/actions) to build and de
 name: Deploy MarkBind Site
 on:
   push:
-    branches: main
+    branches: master
 
 jobs:
   build:
@@ -114,6 +114,10 @@ jobs:
       - run: npm i -g markbind-cli
       - run: markbind deploy --ci
 ```
+<box type="info">
+
+This documentation currently uses `master` as the default branch name. If your repository uses `main` as the default branch, you will need to update the references to `master` accordingly. For instance, when specifying the branch for deployment, replace instances of `master` with `main` to match your repository's configuration.
+</box>
 
 <box type="info">
 
@@ -129,7 +133,7 @@ MarkBind provides a helper GitHub Action that you can use to simplify your workf
 name: Deploy MarkBind Site
 on:
   push:
-    branches: main
+    branches: master
 
 jobs: 
   build_and_deploy:
