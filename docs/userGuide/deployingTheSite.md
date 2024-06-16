@@ -38,6 +38,11 @@
 
 **MarkBind can easily deploy a site to [GitHub pages](https://help.github.com/categories/github-pages-basics/)** if the project root directory is also a GitHub repo.
 
+<box type="info">
+
+This documentation currently uses `master` as the default branch name. If your repository uses `main` as the default branch, you will need to update the references to `master` accordingly. For instance, when specifying the branch for deployment, replace instances of `master` with `main` to match your repository's configuration.
+</box>
+
 ### Using the `markbind deploy` command
 
 Running the **`markbind deploy`** command will deploy the most recent build of your site to the `gh-pages` branch of the repo `origin` and will be available.
@@ -114,10 +119,6 @@ jobs:
       - run: npm i -g markbind-cli
       - run: markbind deploy --ci
 ```
-<box type="info">
-
-This documentation currently uses `master` as the default branch name. If your repository uses `main` as the default branch, you will need to update the references to `master` accordingly. For instance, when specifying the branch for deployment, replace instances of `master` with `main` to match your repository's configuration.
-</box>
 
 <box type="info">
 
@@ -167,8 +168,8 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
   <tab header="Add your repository on `travis-ci.com`">
 
 1. [Sign in to Travis](https://travis-ci.com/signin) using your GitHub account.
-1. Accept the authorisation for Travis CI when you are redirected to GitHub.
-1. Go to the [Repositories page](https://travis-ci.com/account/repositories), and click on the green _Activate_ button.<br>
+2. Accept the authorisation for Travis CI when you are redirected to GitHub.
+3. Go to the [Repositories page](https://travis-ci.com/account/repositories), and click on the green _Activate_ button.<br>
   %%{{ icon_info }} If you are already using Travis CI, click on the white _Manage Repositories on GitHub_ button instead.%%
 1. Select the repository with the MarkBind site, and add the Travis CI GitHub App to the repository by clicking the green _Approve and Install_ button.
 
