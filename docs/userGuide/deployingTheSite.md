@@ -168,8 +168,8 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
   <tab header="Add your repository on `travis-ci.com`">
 
 1. [Sign in to Travis](https://travis-ci.com/signin) using your GitHub account.
-2. Accept the authorisation for Travis CI when you are redirected to GitHub.
-3. Go to the [Repositories page](https://travis-ci.com/account/repositories), and click on the green _Activate_ button.<br>
+1. Accept the authorisation for Travis CI when you are redirected to GitHub.
+1. Go to the [Repositories page](https://travis-ci.com/account/repositories), and click on the green _Activate_ button.<br>
   %%{{ icon_info }} If you are already using Travis CI, click on the white _Manage Repositories on GitHub_ button instead.%%
 1. Select the repository with the MarkBind site, and add the Travis CI GitHub App to the repository by clicking the green _Approve and Install_ button.
 
