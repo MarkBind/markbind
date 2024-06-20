@@ -25,11 +25,9 @@
           :key="index"
           class="nav-item"
           :class="{active:t.active}"
+          :tabgroup-header="t.headerRendered"
           :disabled="t.disabled"
         >
-          <template #header>
-            <span v-html="t.headerRendered"></span>
-          </template>
           <li v-for="(tab, tabIndex) in t.tabs" :key="tabIndex">
             <a
               class="nav-link"
