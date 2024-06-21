@@ -125,7 +125,13 @@ jobs:
 The sample `deploy.yml` workflow above uses the [default GitHub Token secret](https://docs.github.com/en/actions/reference/authentication-in-a-workflow) that is generated automatically for each GitHub Actions workflow. You may also use a [GitHub Personal Access Token](#generating-a-github-personal-access-token) in place of the default GitHub Token.
 </box>
 
-Once you have created the file, commit and push the file to your repo. GitHub Actions should start to build and deploy your MarkBind site. You can verify this by visiting `www.github.com/<org|username>/<repo>/actions`.
+Once you have created the file, commit and push the file to your repo. 
+
+For the first deployment on GitHub Pages, you will need to manually configure and enable GitHub Pages. 
+* Navigate to the `Settings > Pages` section on GitHub for your repository. 
+* Select `Deploy from a branch`  in the `Source` dropdown, and set the source branch to the root of the `gh-pages` branch. 
+
+GitHub Actions should start to build and deploy your MarkBind site. You can verify this by visiting `www.github.com/<org|username>/<repo>/actions`.
 
 <box type="tip" id="markbind-action-tip">
 
