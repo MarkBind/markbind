@@ -47,8 +47,6 @@ This documentation currently uses `master` as the default branch name. If your r
 
 Running the **`markbind deploy`** command will deploy the most recent build of your site to the `gh-pages` branch of the repo `origin` and will be available.
 
-Then, navigate to the `Settings > Pages` section on GitHub for that repository and set the source to the root of the `gh-pages` branch. You can read [this source](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site) on GitHub Pages for more details.
-
 Your site will be online at `http://<username|org>.github.io/<repo>` (e.g., http://se-edu.github.io/se-book).
 
 <div id="warning-about-baseUrl">
@@ -127,9 +125,7 @@ The sample `deploy.yml` workflow above uses the [default GitHub Token secret](ht
 
 Once you have created the file, commit and push the file to your repo. 
 
-For the first deployment on GitHub Pages, you will need to manually configure and enable GitHub Pages. 
-* Navigate to the `Settings > Pages` section on GitHub for your repository. 
-* Select `Deploy from a branch`  in the `Source` dropdown, and set the source branch to the root of the `gh-pages` branch. 
+Then, navigate to the `Settings > Pages` section on GitHub for that repository and set the source to the root of the `gh-pages` branch. You can read [this source](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#creating-your-site) on GitHub Pages for more details.
 
 GitHub Actions should start to build and deploy your MarkBind site. You can verify this by visiting `www.github.com/<org|username>/<repo>/actions`.
 
