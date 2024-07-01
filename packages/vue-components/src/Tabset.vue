@@ -25,7 +25,7 @@
           :key="index"
           class="nav-item"
           :class="{active:t.active}"
-          :tabgroup-header="t.headerRendered"
+          :header="t.headerRendered"
           :disabled="t.disabled"
         >
           <li v-for="(tab, tabIndex) in t.tabs" :key="tabIndex">

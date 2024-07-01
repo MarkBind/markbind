@@ -11,7 +11,7 @@
         :class="{'disabled': disabledBool}"
         data-bs-toggle="dropdown"
       >
-        <span v-html="tabgroupHeader"></span>
+        <span v-html="header"></span>
       </a>
     </slot>
     <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-end': menuAlignRight }]">
@@ -70,7 +70,7 @@ export default {
       type: String,
       default: 'light',
     },
-    tabgroupHeader: {
+    header: {
       type: String,
       default: '',
     },
