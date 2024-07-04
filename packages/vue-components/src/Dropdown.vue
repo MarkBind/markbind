@@ -11,6 +11,7 @@
         :class="{'disabled': disabledBool}"
         data-bs-toggle="dropdown"
       >
+        <slot name="header"></slot>
         <span v-html="header"></span>
       </a>
     </slot>
