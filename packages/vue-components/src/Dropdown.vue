@@ -12,7 +12,7 @@
         data-bs-toggle="dropdown"
       >
         <slot name="header"></slot>
-        <span> {{ tabGroupHeader }}</span>
+        <span>{{ tabGroupHeader }}</span>
       </a>
     </slot>
     <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-end': menuAlignRight }]">
