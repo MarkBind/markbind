@@ -43,6 +43,26 @@ export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 
 export const PROCESS_PANEL_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "panel has a header slot, 'header' attribute has no effect.";
 
+export const PROCESS_PANEL_ALT_SLOT_TAKES_PRIORITY = `
+<panel alt="lorem ipsum">
+  <div slot="_alt">
+    Alt slot text
+  </div>
+  Alt attribute should be ignored and deleted while alt slot is reserved.
+</panel>
+`;
+
+export const PROCESS_PANEL_ALT_SLOT_TAKES_PRIORITY_EXPECTED = `
+<panel>
+  <template #_alt><div>
+    Alt slot text
+  </div></template>
+  Alt attribute should be ignored and deleted while alt slot is reserved.
+</panel>
+`;
+
+export const PROCESS_PANEL_ALT_SLOT_TAKES_PRIORITY_WARN_MSG = "panel has a _alt slot, 'alt' attribute has no effect.";
+
 // Post Process
 
 export const POST_PROCESS_PANEL_ID_ASSIGNED_USING_HEADER_SLOT = `
@@ -86,6 +106,8 @@ export const PROCESS_QUESTION_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 </question>
 `;
 
+export const PROCESS_QUESTION_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "question has a header slot, 'header' attribute has no effect.";
+
 export const PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY = `
 <question hint="**lorem ipsum**">
 <template slot="hint"></template>
@@ -98,6 +120,8 @@ export const PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY_EXPECTED = `
 </question>
 `;
 
+export const PROCESS_QUESTION_HINT_SLOT_TAKES_PRIORITY_WARN_MSG = "question has a hint slot, 'hint' attribute has no effect.";
+
 export const PROCESS_QUESTION_ANSWER_SLOT_TAKES_PRIORITY = `
 <question answer="**lorem ipsum**">
 <template slot="answer"></template>
@@ -109,6 +133,8 @@ export const PROCESS_QUESTION_ANSWER_SLOT_TAKES_PRIORITY_EXPECTED = `
 <template #answer></template>
 </question>
 `;
+
+export const PROCESS_QUESTION_ANSWER_SLOT_TAKES_PRIORITY_WARN_MSG = "question has a answer slot, 'answer' attribute has no effect.";
 
 export const PROCESS_QOPTION_ATTRIBUTES = `
 <q-option reason="**lorem ipsum**">
@@ -133,6 +159,8 @@ export const PROCESS_QOPTION_REASON_SLOT_TAKES_PRIORITY_EXPECTED = `
 </q-option>
 `;
 
+export const PROCESS_QOPTION_REASON_SLOT_TAKES_PRIORITY_WARN_MSG = "q-option has a reason slot, 'reason' attribute has no effect.";
+
 export const PROCESS_QUIZ_ATTRIBUTES = `
 <quiz intro="**lorem ipsum**">
 </quiz>
@@ -155,6 +183,8 @@ export const PROCESS_QUIZ_INTRO_SLOT_TAKES_PRIORITY_EXPECTED = `
 <template #intro></template>
 </quiz>
 `;
+
+export const PROCESS_QUIZ_INTRO_SLOT_TAKES_PRIORITY_WARN_MSG = "quiz has a intro slot, 'intro' attribute has no effect.";
 
 /*
  * Popovers
@@ -187,7 +217,7 @@ export const PROCESS_POPOVER_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 </popover>
 `;
 
-export const PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_HEADER_WARN_MSG = "popover has a header slot, 'header' attribute has no effect.";
+export const PROCESS_POPOVER_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "popover has a header slot, 'header' attribute has no effect.";
 
 export const PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY = `
 <popover content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.">
@@ -202,7 +232,20 @@ export const PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY_EXPECTED = `
   Content attribute should not be inserted under panel as slot, but should be deleted.
 </popover>
 `;
-export const PROCESS_POPOVER_ATTRIBUTES_NO_OVERRIDE_CONTENT_WARN_MSG = "popover has a content slot, 'content' attribute has no effect.";
+export const PROCESS_POPOVER_CONTENT_SLOT_TAKES_PRIORITY_WARN_MSG = "popover has a content slot, 'content' attribute has no effect.";
+
+export const PROCESS_POPOVER_CONTENT_ATTRIBUTE_TAKES_PRIORITY = `
+<popover content="Some content that should not be overriden" src="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.">
+  Src attribute should not be inserted under panel as slot, but should be deleted.
+</popover>
+`;
+
+export const PROCESS_POPOVER_CONTENT_ATTRIBUTE_TAKES_PRIORITY_EXPECTED = `
+<popover><template #content>Some content that should not be overriden</template>
+  Src attribute should not be inserted under panel as slot, but should be deleted.
+</popover>
+`;
+export const PROCESS_POPOVER_CONTENT_ATTRIBUTE_TAKES_PRIORITY_WARN_MSG = "popover has a 'content' attribute, 'src' attribute has no effect.";
 
 /*
  * Tooltips
@@ -219,6 +262,22 @@ export const PROCESS_TOOLTIP_CONTENT_EXPECTED = `
   <button>Content attribute should be inserted as _content internal slot</button>
 </tooltip>
 `;
+
+export const PROCESS_TOOLTIP_CONTENT_SLOT_TAKES_PRIORITY = `
+<tooltip content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel tellus elit.">
+  <div slot="content">Some content slot that should not be overwritten</div>
+  Content attribute should not be inserted under tooltip as slot, but should be deleted.
+</tooltip>
+`;
+
+export const PROCESS_TOOLTIP_CONTENT_SLOT_TAKES_PRIORITY_EXPECTED = `
+<tooltip>
+  <template #content><div>Some content slot that should not be overwritten</div></template>
+  Content attribute should not be inserted under tooltip as slot, but should be deleted.
+</tooltip>
+`;
+
+export const PROCESS_TOOLTIP_CONTENT_SLOT_TAKES_PRIORITY_WARN_MSG = "tooltip has a content slot, 'content' attribute has no effect.";
 
 /*
  * Modals
@@ -248,6 +307,22 @@ export const PROCESS_MODAL_OK_TEXT_EXPECTED = `
 </modal>
 `;
 
+export const PROCESS_MODAL_HEADER_SLOT_TAKES_PRIORITY = `
+<modal header="Lorem ipsum">
+  <div slot="header">Some header slot content that should not be overwritten</div>
+  Header attribute should not be inserted under modal as slot, but should be deleted.
+</modal>
+`;
+
+export const PROCESS_MODAL_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+<modal>
+  <template #header><div>Some header slot content that should not be overwritten</div></template>
+  Header attribute should not be inserted under modal as slot, but should be deleted.
+</modal>
+`;
+
+export const PROCESS_MODAL_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "modal has a header slot, 'header' attribute has no effect.";
+
 /*
  * Tab, tab-group
  */
@@ -264,6 +339,22 @@ export const PROCESS_TAB_HEADER_EXPECTED = `
 </tab>
 `;
 
+export const PROCESS_TAB_HEADER_SLOT_TAKES_PRIORITY = `
+<tab header="Lorem ipsum">
+  <div slot="header">Some header slot content that should not be overwritten</div>
+  Header attribute should not be inserted under tab as slot, but should be deleted.
+</tab>
+`;
+
+export const PROCESS_TAB_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+<tab>
+  <template #header><div>Some header slot content that should not be overwritten</div></template>
+  Header attribute should not be inserted under tab as slot, but should be deleted.
+</tab>
+`;
+
+export const PROCESS_TAB_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "tab has a header slot, 'header' attribute has no effect.";
+
 export const PROCESS_TAB_GROUP_HEADER = `
 <tab-group header="**Lorem ipsum dolor sit amet**">
   Header attribute should be inserted as header slot and deleted.
@@ -275,6 +366,22 @@ export const PROCESS_TAB_GROUP_HEADER_EXPECTED = `
   Header attribute should be inserted as header slot and deleted.
 </tab-group>
 `;
+
+export const PROCESS_TAB_GROUP_HEADER_SLOT_TAKES_PRIORITY = `
+<tab-group header="Lorem ipsum">
+  <div slot="header">Some header slot content that should not be overwritten</div>
+  Header attribute should not be inserted under tab-group as slot, but should be deleted.
+</tab-group>
+`;
+
+export const PROCESS_TAB_GROUP_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+<tab-group>
+  <template #header><div>Some header slot content that should not be overwritten</div></template>
+  Header attribute should not be inserted under tab-group as slot, but should be deleted.
+</tab-group>
+`;
+
+export const PROCESS_TAB_GROUP_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "tab-group has a header slot, 'header' attribute has no effect.";
 
 /*
  * Boxes
@@ -304,6 +411,38 @@ export const PROCESS_BOX_HEADER_EXPECTED = `
   Header attribute should be inserted as header slot and deleted.
 </box>
 `;
+
+export const PROCESS_BOX_ICON_SLOT_TAKES_PRIORITY = `
+<box icon=":question:">
+  <div slot="icon"><md>:rocket:</md></div>
+  Icon attribute should not be inserted under box as slot, but should be deleted.
+</box>
+`;
+
+export const PROCESS_BOX_ICON_SLOT_TAKES_PRIORITY_EXPECTED = `
+<box>
+  <template #icon><div><md>:rocket:</md></div></template>
+  Icon attribute should not be inserted under box as slot, but should be deleted.
+</box>
+`;
+
+export const PROCESS_BOX_ICON_SLOT_TAKES_PRIORITY_WARN_MSG = "box has a icon slot, 'icon' attribute has no effect.";
+
+export const PROCESS_BOX_HEADER_SLOT_TAKES_PRIORITY = `
+<box header="Lorem ipsum">
+  <div slot="header">Some header slot content that should not be overwritten</div>
+  Header attribute should not be inserted under box as slot, but should be deleted.
+</box>
+`;
+
+export const PROCESS_BOX_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+<box>
+  <template #header><div>Some header slot content that should not be overwritten</div></template>
+  Header attribute should not be inserted under box as slot, but should be deleted.
+</box>
+`;
+
+export const PROCESS_BOX_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "box has a header slot, 'header' attribute has no effect.";
 
 /**
  * Dropdowns
@@ -336,5 +475,112 @@ export const PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
 `;
 
 export const PROCESS_DROPDOWN_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "dropdown has a header slot, 'header' attribute has no effect.";
+
+/**
+ * Scroll-to-top button
+ */
+
+export const PROCESS_SCROLL_TOP_BUTTON_ICON = `
+<scroll-top-button icon=":rocket:">
+</scroll-top-button>
+`;
+
+export const PROCESS_SCROLL_TOP_BUTTON_ICON_EXPECTED = `
+<scroll-top-button><template #icon>🚀</template>
+</scroll-top-button>
+`;
+
+export const PROCESS_SCROLL_TOP_BUTTON_ICON_SLOT_TAKES_PRIORITY = `
+<scroll-top-button icon=":question:">
+  <div slot="icon"><md>:rocket:</md></div>
+</scroll-top-button>
+`;
+
+export const PROCESS_SCROLL_TOP_BUTTON_ICON_SLOT_TAKES_PRIORITY_EXPECTED = `
+<scroll-top-button>
+  <template #icon><div><md>:rocket:</md></div></template>
+</scroll-top-button>
+`;
+
+export const PROCESS_SCROLL_TOP_BUTTON_ICON_SLOT_TAKES_PRIORITY_WARN_MSG = "scroll-top-button has a icon slot, 'icon' attribute has no effect.";
+
+/**
+ * A-points
+ */
+
+export const PROCESS_A_POINT_HEADER = `
+<a-point x="25%" y="25%" header="lorem ipsum">
+</a-point>
+`;
+
+export const PROCESS_A_POINT_HEADER_EXPECTED = `
+<a-point x="25%" y="25%"><template #header><p>lorem ipsum</p>
+</template>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_CONTENT = `
+<a-point x="25%" y="25%" content="lorem ipsum">
+</a-point>
+`;
+
+export const PROCESS_A_POINT_CONTENT_EXPECTED = `
+<a-point x="25%" y="25%"><template #content><p>lorem ipsum</p>
+</template>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_LABEL = `
+<a-point x="25%" y="25%" label="L">
+</a-point>
+`;
+
+export const PROCESS_A_POINT_LABEL_EXPECTED = `
+<a-point x="25%" y="25%"><template #label><p>L</p>
+</template>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_HEADER_SLOT_TAKES_PRIORITY = `
+<a-point x="25%" y="25%" header="lorem ipsum">
+  <div slot="header">Some header slot content that should not be overwritten</div>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_HEADER_SLOT_TAKES_PRIORITY_EXPECTED = `
+<a-point x="25%" y="25%">
+  <template #header><div>Some header slot content that should not be overwritten</div></template>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_HEADER_SLOT_TAKES_PRIORITY_WARN_MSG = "a-point has a header slot, 'header' attribute has no effect.";
+
+export const PROCESS_A_POINT_CONTENT_SLOT_TAKES_PRIORITY = `
+<a-point x="25%" y="25%" content="lorem ipsum">
+  <div slot="content">Some content slot content that should not be overwritten</div>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_CONTENT_SLOT_TAKES_PRIORITY_EXPECTED = `
+<a-point x="25%" y="25%">
+  <template #content><div>Some content slot content that should not be overwritten</div></template>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_CONTENT_SLOT_TAKES_PRIORITY_WARN_MSG = "a-point has a content slot, 'content' attribute has no effect.";
+
+export const PROCESS_A_POINT_LABEL_SLOT_TAKES_PRIORITY = `
+<a-point x="25%" y="25%" label="L">
+  <div slot="label">O</div>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_LABEL_SLOT_TAKES_PRIORITY_EXPECTED = `
+<a-point x="25%" y="25%">
+  <template #label><div>O</div></template>
+</a-point>
+`;
+
+export const PROCESS_A_POINT_LABEL_SLOT_TAKES_PRIORITY_WARN_MSG = "a-point has a label slot, 'label' attribute has no effect.";
 
 /* eslint-enable max-len */

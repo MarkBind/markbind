@@ -8,7 +8,7 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 5.4.0">
+  <meta name="generator" content="MarkBind 5.5.2">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tooltip Spacing Test</title>
   <link rel="stylesheet" href="/test_site/markbind/css/bootstrap.min.css">
@@ -16,10 +16,6 @@
   <link rel="stylesheet" href="/test_site/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" href="/test_site/markbind/css/codeblock-dark.min.css">
   <link rel="stylesheet" href="/test_site/markbind/css/markbind.min.css">
-  <script src="/test_site/markbind/js/polyfill.min.js"></script>
-  <script src="/test_site/markbind/js/vue.min.js"></script>
-  <script src="/test_site/markbind/js/markbind.min.js"></script>
-  <script src="testTooltipSpacing.page-vue-render.js"></script>
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/web3Form/web-3-form.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
@@ -235,6 +231,10 @@
   </div>
 </body>
 <script src="/test_site/markbind/js/bootstrap-utility.min.js"></script>
+<script src="/test_site/markbind/js/polyfill.min.js"></script>
+<script src="/test_site/markbind/js/vue.min.js"></script>
+<script src="/test_site/markbind/js/markbind.min.js"></script>
+<script src="testTooltipSpacing.page-vue-render.js"></script>
 <script>
   MarkBind.setupWithSearch()
 </script>
@@ -283,5 +283,18 @@
             })
         }
     </script>
+<script type="module">
+    import mermaid from 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs';
+    document.addEventListener('DOMContentLoaded', () => {
+      mermaid.initialize({});
+      Vue.directive('mermaid', {
+        inserted: function(el) {
+          mermaid.run({
+            nodes: [el]
+          });
+        }
+      });
+    });
+  </script>
 
 </html>

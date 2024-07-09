@@ -36,6 +36,45 @@
   </variable>
 </include>
 
+**You can also use `{texts="['text1', 'text2', 'text3']"}` syntax to add text customisation to a level quickly**
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
+* Item 1 { texts="['(a)','(b)','(c)','(d)']" }
+  * sub level not applied as per norm
+* Item 2
+* You can override once like this { text="OverrideOnce" once=true }
+* Item 3
+* Item 4
+* Last text config will be applied when the list length exceeds texts
+* Another last text
+* You can override like this { text="OVERRIDE" }
+* Another overrided text
+  </variable>
+</include>
+
+<box type=warning seamless>
+
+Please be alerted that when using the `{texts="['text1', 'text2', 'text3']"}` syntax, you need to have`""` outside the array, and use `''` for the string inside the array.
+
+<panel header="Notes on having single quote `'` inside text"  minimized>
+
+If you want to use `'` in your text bullet point, you need to escape it with double escape sequence. 
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">markdown</variable>
+<variable name="code">
+1. Text-icons of lists can use double escape to include quote test
+* item 1 { texts="['\\'a\\'','\\'b\\'','\\'c\\'']" }
+* item 1
+* item 1
+  </variable>
+</include>
+</panel>
+</box>
+
+
+
 <box type=info seamless>
 
 Customization will be carried over to the other items within the **same level of the list**.
@@ -140,7 +179,7 @@ You can utilize any [CSS size unit](https://www.w3schools.com/cssref/css_units.p
 
 If either the `i-width` or the `i-height` of an image is not specified, the unspecified dimension will adjust to maintain the image's original aspect ratio. For example, for an image of size 800x600 (4:3), if `i-width` is set to 400px, its height will be 300px.
 
-**The icon and text's appearance can be further customized by adding a `i-class` and `t-class` attribute respectively.**
+**The icon and text's appearance <tooltip content="Examples: [text classes](https://getbootstrap.com/docs/5.1/utilities/text/#font-size), [badge classes](https://getbootstrap.com/docs/5.1/components/badge/) and more supported by bootstrap">can be further customized</tooltip> by adding a `i-class` and `t-class` attribute respectively.**
 
 <div id="main-example-markbind">
 
@@ -148,11 +187,11 @@ If either the `i-width` or the `i-height` of an image is not specified, the unsp
 <variable name="highlightStyle">markdown</variable>
 <variable name="code">
 * Item 1 { icon="/images/deer.jpg" text="Deer" i-width="60px" height="17px" i-class="rounded" t-class="text-warning my-2" }
-* Item 2 { t-class="text-info my-2" }
+* Item 2 { t-class="text-info my-2 fw-bold" }
   * Item 2.1 { icon="fas-question-circle" i-class="badge rounded-pill my-1 bg-success text-white" }
   * Item 2.2
   * Item 2.3 { i-class="badge rounded-pill my-1 bg-primary text-white"}
-* Item 3 { t-class="text-primary my-2" }
+* Item 3 { t-class="text-primary my-2 fst-italic" }
   * Item 3.1 
   * Item 3.2  { icon="fas-question-circle" i-class="badge rounded my-1 bg-danger text-white" }
   * Item 3.3 

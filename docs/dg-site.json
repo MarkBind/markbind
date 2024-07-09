@@ -25,12 +25,12 @@
     "*.pptx",
     "CNAME"
   ],
-  "plugins" : [
+  "plugins": [
     "filterTags",
     "codeBlockCopyButtons"
   ],
-  "pluginsContext" : {
-    "filterTags" : {
+  "pluginsContext": {
+    "filterTags": {
       "tags": ["environment--dg"]
     }
   },

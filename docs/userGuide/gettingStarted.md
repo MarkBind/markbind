@@ -19,6 +19,11 @@
   %%{{ icon_ticked }}%% [Node.js](https://nodejs.org) {{ node_version }} or higher installed
 </div>
 
+<box type="warning" seamless>
+
+With Node LTS (v20), the python used has updated to 3.12, and [you may get an error](https://github.com/MarkBind/markbind/issues/2496). You can solve this issue by installing setuptools or deprecating the versions used.
+</box>
+
 There are a few ways to install MarkBind, select one that is most suitable for your use case. If you are unsure, we recommend using the first method.
 
 ## Method 1: Install MarkBind globally with npm
@@ -69,7 +74,7 @@ You can add the `--help` flag to any command to show the help screen. <br>
 </include>
 <include src="tip.md" boilerplate >
 <span id="tip_body">
-The `init` command populates the project with the [default project template](https://markbind-init-typical.netlify.com/). Refer to [templates](templates.html) section to learn how to use a different template.
+The `init` command populates the project with the [default project template](https://markbind-init-typical.netlify.app/). Refer to [templates](templates.html) section to learn how to use a different template.
 </span>
 </include>
 

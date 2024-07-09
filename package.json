@@ -40,7 +40,8 @@
     "walk-sync": "^2.0.2"
   },
   "dependencies": {
-    "bootstrap-icons": "^1.11.3",
+    "@markbind/core": "^5.4.0",
+    "danger": "^12.1.0",
     "postcss": "^8.4.35"
   }
 }

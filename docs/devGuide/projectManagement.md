@@ -22,13 +22,6 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
 * **If the PR is very simple** (e.g. correcting a simple typo), one approval is sufficient for merging. Other PRs need two approvals.
 
-* **Once the first approval is given** from a developer, assign a version milestone to the PR (this is usually the next version, unless there is a justification for delaying the merging to future versions).
-
-  <box type="info" seamless>
-
-  **Note:** Should there be a subsequent rejection by other reviewers (or an error is spotted), the version milestone is removed immediately. The version milestone should only be restored once the new approvals come in.
-  </box>
-
 * **Once the second approval is given** from a ==senior developer== (or there are >= 3 approvals given from anyone), the PR can be merged immediately.<br>
   If there is no second approval yet, wait for a day before merging the PR without the second approval.
 
@@ -67,7 +60,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
    <box type="info" seamless>
 
-   **Reason:** The release manager may not review all PRs, so please add the label to highlight the version impact of the PR. This helps to clarify which milestone the PR should be assigned to.
+   **Reason:** The release manager may not review all PRs, so please add the label to highlight the version impact of the PR.
    </box>
 
 1. **Draft the release note for breaking changes**.
@@ -75,13 +68,6 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    <box type="info" seamless>
 
    **Reason:** The release manager may not have the full details of the PR, so please work with the PR author to prepare a release note (if applicable) in the PR description.
-   </box>
-
-1. **Set a milestone** to the PR.
-
-   <box type="info" seamless>
-
-   **Reason:** We may have missed it during the "Approval" stage, so please add the version milestone if it is missing, so that the drafting of the release notes during the release process will be easier.
    </box>
 
 1. Tip: how to **undo an accidental merge commit.**
@@ -120,7 +106,7 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
    <box type="info" seamless>
 
-   * Double check that the PRs are correctly set to the milestone for the new version. Review the definition of [SEMVER](https://semver.org/) and the impact of the PRs.
+   * Double check that the PRs are appropriate for the new version. Review the definition of [SEMVER](https://semver.org/) and the impact of the PRs.
    * We will specify updated version numbers exactly to ensure that each version will consistently fetch the same versioned internal packages.
    * The end result of this command is version commit with an appropriate tag. We will make use of the generated tag and commit message later.
    * Do not push this commit to the remote repository yet.
@@ -205,10 +191,6 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    ```sh
    $ npm run deploy:ug
    ```
-
-1. **Update milestones**. Close the [milestone on GitHub](https://github.com/MarkBind/markbind/milestones) and all issues in that milestone.
-
-   Also create a new milestone for the next iterations. Recommended to have at least two upcoming milestones opened. Use the format `vA.B.C` for the milestone title.
 
 1. **Release on GitHub**.
 
@@ -380,5 +362,35 @@ Note that:
   * Some time later: "@all-contributors please add tlylt for doc"
   * Result: 'tlylt' will be updated to have both icons(code and doc)
 
+## Managing the repository
+
+### Projects
+As the number of issues increases, prioritising and triaging work may become more tricky even with labels. We may want to prioritise certain issues for particular version releases, or to work towards an overall vision of MarkBind. For this purpose, it may be useful to use [GitHub Projects](https://github.com/MarkBind/markbind/projects?query=is%3Aopen).
+
+#### Instructions:
+
+1. Read through the issues in the repository to understand what's in the backlog.
+1. Decide what goals the team is working towards. Examples: "Better Logging", "Necessary Updates", "User Demand", "Bugfix", and "Developer Experience".
+1. Create the GitHub project (keeping in mind how long it should take) and update the project details.
+1. Add relevant issues to the project and use it to track progress.
+
+#### Some tips / principles from current use:
+
+* **Don't treat the project as a strict guide**, only a tool to prioritise tasks and discover issues to work on. If another issue catches your fancy or an urgent fix comes up that is not on the roadmap, you can work on that instead.
+* These projects are "product roadmaps" to **help teams communicate and collaborate**.
+* [This roadmap](https://github.com/MarkBind/markbind/projects/4) tracks some bigger issues that MarkBind aims to focus on.
+* The main goal is to **triage issues** and perhaps **track progress** in the repository perhaps on a yearly basis. 
+  * You can **triage issues into more than just "todo"** - [this roadmap](https://github.com/orgs/MarkBind/projects/1/views/4) used in 2024 into "KIV/Discussion", "Todo", and "Implementation Needed"; the latter is used for issues that are very straightforward, while the first was used for issues where the precise implementation might require some discussion or be more complex. 
+  * You can **write project details** to clarify your project organisation.
+  * You can use **multiple views**, such as Kanban, tables, or calendar, depending on what best suits your needs.
+  * You can use **custom fields** - [this roadmap](https://github.com/orgs/MarkBind/projects/1/views/5) used in 2024 categorised the issues into bigger picture goals that were set earlier.
+
+## Other Notes
+
+   <box type="info" icon=":fas-question:" icon-color="info" seamless header='About Milestones'>
+
+   Previously, we used milestones to help manage versions, adding a milestone to an issue once related PRs had been merged. However, there was confusion over the use of milestones and labels and adding a milestone was often forgotten. Hence, ultimately it was not sufficiently useful to the team.
+   </box>
+
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('githubActions/markbindReusableWorkflows', 'styleGuides') }}
+{{ previous_next('githubActions/workflowSecurity', 'styleGuides') }}

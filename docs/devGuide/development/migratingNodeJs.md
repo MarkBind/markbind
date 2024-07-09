@@ -70,6 +70,8 @@ Switch to use the Node.js version that you are migrating to.
     - Update Node.js and npm version in documentation. See [Update to use Node 16](https://github.com/MarkBind/markbind/pull/2233/files#diff-0f8e38868f41667abec6adacbb5131fbd6999c4913fc43e3429390b744f7a1f3) as an example. <box type="tip" seamless>
       Don't forget to update the version numbers in the example config files in <a tags="environment--combined" href="/userGuide/deployingTheSite.html">Deploying the Site</a><a tags="environment--dg" href="https://markbind.org/userGuide/deployingTheSite.html">Deploying the Site</a>!
       </box>
+7. Update `neftlify.toml`
+    - The `neftlify.toml` file in the `markbind` repo's root directory is used to deploy our documentation site to Netlify. Update the `NODE_VERSION` value to the new Node.js version.
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('writingPlugins', '../design/projectStructure') }}
