@@ -1,10 +1,8 @@
 import { mount } from '@vue/test-utils';
 import Dropdown from '../Dropdown.vue';
-import Submenu from '../Submenu.vue';
 
 const DEFAULT_STUBS = {
   'dropdown': Dropdown,
-  'submenu': Submenu,
 };
 
 const DROPDOWN = `

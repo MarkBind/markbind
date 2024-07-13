@@ -24,7 +24,7 @@
           v-else
           :key="index"
           class="nav-item"
-          :header="t.headerRendered"
+          :tab-group-header="t.headerRendered"
           :class="{active:t.active}"
           :disabled="t.disabled"
         >
