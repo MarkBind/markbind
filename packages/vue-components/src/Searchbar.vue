@@ -1,6 +1,7 @@
 <template>
   <div style="position: relative;" class="dropdown">
     <div v-if="algolia" id="algolia-search-input"></div>
+    <div v-if="pagefind" id="pagefind-search-input"></div>
     <template v-else>
       <input
         v-model="value"
@@ -85,6 +86,10 @@ export default {
       default: false,
     },
     algolia: {
+      type: Boolean,
+      default: false,
+    },
+    pagefind: {
       type: Boolean,
       default: false,
     },
