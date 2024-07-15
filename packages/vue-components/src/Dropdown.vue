@@ -12,6 +12,7 @@
         data-bs-toggle="dropdown"
       >
         <slot name="header"></slot>
+        <span>{{ tabGroupHeader }}</span>
       </a>
     </slot>
     <slot name="dropdown-menu" :class="[{ 'show': show }, { 'dropdown-menu-end': menuAlignRight }]">
@@ -69,6 +70,10 @@ export default {
     type: {
       type: String,
       default: 'light',
+    },
+    tabGroupHeader: {
+      type: String,
+      default: '',
     },
     menuAlignRight: {
       type: Boolean,
