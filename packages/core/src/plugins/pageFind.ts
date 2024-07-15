@@ -7,6 +7,7 @@ const DEFAULT_UI = 'https://cdn.jsdelivr.net/npm/@pagefind/default-ui@1.0.4/+esm
 
 const JS_FILE_NAME = 'pageFindAssets/pagefind-ui.min.js';
 const CSS_FILE_NAME = 'pageFindAssets/pagefind-ui.min.css';
+const ADDTIONAL_CSS_FILE_NAME = 'pageFindAssets/pagefind-ui-additional.css';
 const PAGEFIND_INPUT_SELECTOR = '#pagefind-search-input';
 
 function genScript() {
@@ -35,20 +36,6 @@ export = {
     },
   },
   getScripts: () => [`<script src="${JS_FILE_NAME}"></script>`, genScript()],
-  getLinks: () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`],
-
-
-  // Another option is to directly replace it during the processing.
-
-  // Called after the page is rendered
-  // postRender: (_pluginContext: PluginContext, _frontmatter: FrontMatter, content: string) => {
-  //   const $ = cheerio.load(content);
-
-  //   // const $pagefind = $('.pagefind');
-  //   // $pagefind.append(addPagefindUI());
-  //   $('#my-div').append(addPagefindUI());
-
-  //   // How should I add it in
-  //   return $.html();
-  // },
+  getLinks: () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`,
+    `<link rel="stylesheet" href="${ADDTIONAL_CSS_FILE_NAME}">`],
 };

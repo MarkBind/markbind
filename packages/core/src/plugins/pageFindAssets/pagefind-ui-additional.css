@@ -1,0 +1,14 @@
+/* custom-pagefind-ui.css */
+
+/* General Pagefind UI styling */
+:root {
+    --pagefind-ui-border: #000000; /* Black border color */
+    --pagefind-ui-border-width: 2px; /* Border width */
+    --pagefind-ui-border-radius: 8px; /* Border radius */
+    --pagefind-ui-image-border-radius: 8px; /* Image border radius */
+  }
+  
+/* Additional custom styles for dark mode if needed */
+body.dark {
+--pagefind-ui-border: #000000; /* Black border color for dark mode */
+}
