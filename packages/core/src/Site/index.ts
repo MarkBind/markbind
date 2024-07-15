@@ -1400,6 +1400,13 @@ export class Site {
     };
     options.message = options.message.concat(' [skip ci]');
 
+    // Globally set Cache Directory to /node_modules/.cache for gh-pages
+    if (!process.env.CACHE_DIR || ['true', 'false', '1', '0'].includes(process.env.CACHE_DIR)) {
+      const cacheDirectory = path.join(this.rootPath, 'node_modules', '.cache');
+      fs.emptydirSync(path.join(cacheDirectory, 'gh-pages'));
+      process.env.CACHE_DIR = cacheDirectory;
+    }
+
     if (ciTokenVar) {
       const ciToken = _.isBoolean(ciTokenVar) ? 'GITHUB_TOKEN' : ciTokenVar;
       if (!process.env[ciToken]) {
@@ -1424,7 +1431,7 @@ export class Site {
         };
       } else if (process.env.GITHUB_ACTIONS) {
         // Set cache folder to a location Github Actions can find.
-        process.env.CACHE_DIR = path.join(process.env.GITHUB_WORKSPACE || '', 'gh-pages', '.cache');
+        process.env.CACHE_DIR = path.join(process.env.GITHUB_WORKSPACE || '.cache');
         repoSlug = Site.extractRepoSlug(options.repo, process.env.GITHUB_REPOSITORY);
 
         options.user = {
