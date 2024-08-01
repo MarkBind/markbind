@@ -529,8 +529,9 @@ export class Site {
       await this.copyOcticonsAsset();
       await this.copyMaterialIconsAsset();
       await this.writeSiteData();
-      // TODO (gerteck)
-      await this.indexSiteWithPagefind();
+      if (this.siteConfig.plugins.includes('pagefind')) {
+        await this.indexSiteWithPagefind();
+      }
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
         this.backgroundBuildNotViewedFiles();
@@ -571,12 +572,11 @@ export class Site {
     }
   }
 
-  // TODO (gerteck)
   /**
-   * Indexes all the pages of the site using pagefind
+   * Indexes all the pages of the site using pagefind for pagefind plugin.
    */
   async indexSiteWithPagefind() {
-    logger.info('Creating Pagefind Search Index...');
+    logger.info('Creating Pagefind Search Index');
     const { createIndex, close } = await import('pagefind');
     const newIndex = await createIndex({
       keepIndexUrl: true,
@@ -585,8 +585,7 @@ export class Site {
     });
     const { index } = newIndex;
     if (index) {
-      logger.info('Indexing pages...');
-      logger.info(`output path: ${this.outputPath}`);
+      logger.info('Indexing pages for PageFind');
       await index.addDirectory({ path: this.outputPath });
       await index.writeFiles({ outputPath: `${this.outputPath}/pagefind` });
     }
