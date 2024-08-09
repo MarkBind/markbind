@@ -306,7 +306,7 @@ export default {
     }
 
     .dropdown-menu-hidden {
-      visibility: hidden;
+        visibility: hidden;
     }
 </style>
 
