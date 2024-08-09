@@ -20,6 +20,7 @@
         {{ placeholder }}
       </div>
     </template>
+    <!-- <div class="relative-position"> -->
     <ul ref="dropdown" :class="dropdownMenuClasses">
       <li
         v-for="(item, index) in items"
@@ -35,6 +36,7 @@
         </a>
       </li>
     </ul>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -187,8 +189,8 @@ export default {
       return [
         'dropdown-menu',
         'search-dropdown-menu',
-        { show: this.showDropdown },
-        { 'd-none': !this.showDropdown },
+        { 'show': this.showDropdown },
+        { 'dropdown-menu-hidden': !this.showDropdown },
         { 'dropdown-menu-end': this.menuAlignRight },
       ];
     },
@@ -303,6 +305,10 @@ export default {
         border-bottom: 0;
         visibility: hidden;
         overflow: hidden;
+    }
+
+    .dropdown-menu-hidden {
+      visibility: hidden;
     }
 </style>
 
