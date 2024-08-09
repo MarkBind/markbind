@@ -20,7 +20,6 @@
         {{ placeholder }}
       </div>
     </template>
-    <!-- <div class="relative-position"> -->
     <ul ref="dropdown" :class="dropdownMenuClasses">
       <li
         v-for="(item, index) in items"
@@ -36,7 +35,6 @@
         </a>
       </li>
     </ul>
-    <!-- </div> -->
   </div>
 </template>
 
