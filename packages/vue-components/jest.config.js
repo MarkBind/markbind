@@ -12,7 +12,7 @@ module.exports = {
   ],
   'testEnvironment': 'jsdom',
   'transform': {
-    '.*\\.(vue)$': 'vue-jest',
+    '.*\\.vue$': '@vue/vue2-jest',
     '^.+\\.js$': ['babel-jest', { rootMode: 'upward' }],
   },
   'snapshotSerializers': ['jest-serializer-vue'],
