@@ -187,8 +187,8 @@ export default {
       return [
         'dropdown-menu',
         'search-dropdown-menu',
-        { show: this.showDropdown },
-        { 'd-none': !this.showDropdown },
+        { 'show': this.showDropdown },
+        { 'dropdown-menu-hidden': !this.showDropdown },
         { 'dropdown-menu-end': this.menuAlignRight },
       ];
     },
@@ -303,6 +303,10 @@ export default {
         border-bottom: 0;
         visibility: hidden;
         overflow: hidden;
+    }
+
+    .dropdown-menu-hidden {
+        visibility: hidden;
     }
 </style>
 
