@@ -1,6 +1,6 @@
 // import cheerio from 'cheerio';
 // import { PluginContext, FrontMatter } from './Plugin';
-// todo: (gerteck) find a way to import the UI and Script from the working directory, if possible.
+// todo: find a way to import the UI and Script from the working directory.
 // const DEFAULT_UI = 'https://cdn.jsdelivr.net/npm/@pagefind/default-ui@1.0.4/+esm';
 
 const JS_FILE_NAME = 'pageFindAssets/pagefind-ui.min.js';

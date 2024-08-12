@@ -585,7 +585,6 @@ export class Site {
     });
     const { index } = newIndex;
     if (index) {
-      logger.info('Indexing pages for PageFind');
       await index.addDirectory({ path: this.outputPath });
       await index.writeFiles({ outputPath: `${this.outputPath}/pagefind` });
     }
