@@ -16,7 +16,7 @@ This page explains how to set up your development environment to start contribut
 ## Prerequisites
 
 1. **Node.js** ({{ node_dev_version }} or higher) with<br>
-   **npm** v8 or higher
+   **npm** v10 or higher
 
 1. **Java** 8 or higher, and<br>
    **Graphviz** ({{ graphviz_version }} or higher, _installation is optional on Windows_) <br>
@@ -32,10 +32,6 @@ This page explains how to set up your development environment to start contribut
    * `dot -V` (for Graphviz - optional on Windows)
    * `python3 -V`
 
-<box type="warning" seamless>
-
-With Node LTS (v20), the python used has updated to 3.12, and [you may get an error](https://github.com/MarkBind/markbind/issues/2496). You can solve this issue by installing setuptools or deprecating the versions used.
-</box>
 <box type="tip" seamless>
 
 We recommend the **WebStorm IDE** or **VS Code** for working with MarkBind code.

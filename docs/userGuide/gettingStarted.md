@@ -19,11 +19,6 @@
   %%{{ icon_ticked }}%% [Node.js](https://nodejs.org) {{ node_version }} or higher installed
 </div>
 
-<box type="warning" seamless>
-
-With Node LTS (v20), the python used has updated to 3.12, and [you may get an error](https://github.com/MarkBind/markbind/issues/2496). You can solve this issue by installing setuptools or deprecating the versions used.
-</box>
-
 There are a few ways to install MarkBind, select one that is most suitable for your use case. If you are unsure, we recommend using the first method.
 
 ## Method 1: Install MarkBind globally with npm

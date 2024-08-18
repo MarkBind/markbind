@@ -113,7 +113,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '20'
       - run: npm i -g markbind-cli
       - run: markbind deploy --ci
 ```
@@ -201,7 +201,7 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
     ```yml
     language: node_js
     node_js:
-      - 16
+      - 20
     install:
       - npm i -g markbind-cli
     script: markbind build
@@ -269,7 +269,7 @@ The `repo` value can be changed to your specific repository as desired.
 
     ```yml
     environment:
-      nodejs_version: '16'
+      nodejs_version: 20'
     
     branches:
       only:
@@ -316,8 +316,8 @@ Commit and push `appveyor.yml` to your GitHub repository. Thereafter, AppVeyor C
         steps:
           - checkout
           - node/install:
-              node-version: "16"
-              npm-version: "8"
+              node-version: "20"
+              npm-version: "10"
               install-yarn: false
           - run: node --version
           - run: npm i -g markbind-cli
@@ -436,7 +436,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
       - name: Build MarkBind website
         run: |
           npm install -g markbind-cli
@@ -506,7 +506,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
       - name: Build PR preview url
         id: pr-url
         run: |
