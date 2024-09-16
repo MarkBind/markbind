@@ -16,7 +16,7 @@ This page explains how to set up your development environment to start contribut
 ## Prerequisites
 
 1. **Node.js** ({{ node_dev_version }} or higher) with<br>
-   **npm** v8 or higher
+   a recent version of **npm**
 
 1. **Java** 8 or higher, and<br>
    **Graphviz** ({{ graphviz_version }} or higher, _installation is optional on Windows_) <br>
