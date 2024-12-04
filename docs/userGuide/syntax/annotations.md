@@ -72,17 +72,12 @@ Style the shape to achieve the same effect.
 
 <include src="codeAndOutput.md" boilerplate>
 <variable name="code">
-
 <annotate src="../../images/annotateSampleImage.png" width="500" alt="Sample Image">
-  <a-point x="75%" y="50%" content="This point is 75% from the left and 50% from the top">
-    <span class="badge bg-primary">Badge label</span>
+  <a-point x="40%" y="-2%" content="Look within this box">
+    <div style="width: 330px; height: 150px; border: 2px solid red; margin: 20px auto;"></div>
   </a-point>
-  <a-point x="25%" y="50%" content="This point is 25% from the left and 50% from the top">
-    <pic src="../../images/deer.jpg" width="50" height="50">
-  </a-point>
-  <!-- Customised Annotate Point with styling-->
-  <a-point x="50%" y="50%" content="This point is 25% from the left and 50% from the top">
-    <div style="opacity: 90%; color: red">Custom</div>
+  <a-point x="50%" y="75%" content="You should pay attention to this!">
+    <div style="opacity: 90%; color: red; font-size: 40px">!!</div>
   </a-point>
 </annotate>
 </variable>
