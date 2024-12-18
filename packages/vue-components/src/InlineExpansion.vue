@@ -11,12 +11,10 @@
 </template>
 
 <script>
-
 export default {
   props: {
     expandedText: {
       type: String,
-      default: '',
       required: true,
     },
     collapsedText: {
@@ -33,23 +31,17 @@ export default {
       isExpanded: false,
     };
   },
+  computed: {
+    processedCollapsedText() {
+      const textToProcess = this.collapsedText || this.expandedText || '';
+      return textToProcess.length > this.maxChars
+        ? `${textToProcess.slice(0, this.maxChars - 3)}...`
+        : textToProcess;
+    },
+  },
   methods: {
     toggleExpansion() {
       this.isExpanded = !this.isExpanded;
-    },
-    processedCollapsedText() {
-      // If collapsedText is provided
-      if (this.collapsedText) {
-        return this.collapsedText.length > this.maxChars
-          ? `${this.collapsedText.slice(0, this.maxChars - 3)}...`
-          : this.collapsedText;
-      }
-      // If collapsedText is not provided
-      if (this.expandedText.length > this.maxChars) {
-        return `${this.expandedText.slice(0, this.maxChars - 3)}...`;
-      }
-
-      return this.expandedText;
     },
   },
 };
