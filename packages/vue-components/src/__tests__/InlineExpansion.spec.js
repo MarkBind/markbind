@@ -13,7 +13,7 @@ describe('InlineExpansion.vue', () => {
       propsData: defaultProps,
     });
     await wrapper.vm.$nextTick();
-    expect(wrapper.find('p').text()).toBe('Short version');
+    expect(wrapper.find('button.inline-panel').text()).toBe('Short version');
   });
 
   it('displays truncated collapsedText if it exceeds maxChars', async () => {
@@ -25,7 +25,7 @@ describe('InlineExpansion.vue', () => {
       },
     });
     await wrapper.vm.$nextTick();
-    expect(wrapper.find('p').text()).toBe('This is a custom ...');
+    expect(wrapper.find('button.inline-panel').text()).toBe('This is a custom ...');
   });
 
   it('falls back to expandedText if collapsedText is not provided', async () => {
@@ -37,7 +37,7 @@ describe('InlineExpansion.vue', () => {
       },
     });
     await wrapper.vm.$nextTick();
-    expect(wrapper.find('p').text()).toBe('This is a very lo...');
+    expect(wrapper.find('button.inline-panel').text()).toBe('This is a very lo...');
   });
 
   it('displays truncated collapsedText if it exceeds maxChars and expandedText is missing', async () => {
@@ -49,7 +49,7 @@ describe('InlineExpansion.vue', () => {
       },
     });
     await wrapper.vm.$nextTick();
-    expect(wrapper.find('p').text()).toBe('This is a very lo...');
+    expect(wrapper.find('button.inline-panel').text()).toBe('This is a very lo...');
   });
 
   it('displays collapsedText truncated to maxChars when expandedText is provided', async () => {
@@ -61,7 +61,7 @@ describe('InlineExpansion.vue', () => {
       },
     });
     await wrapper.vm.$nextTick();
-    expect(wrapper.find('p').text()).toBe('This is a very lo...');
+    expect(wrapper.find('button.inline-panel').text()).toBe('This is a very lo...');
   });
 
   it('handles missing expandedText gracefully', async () => {
@@ -72,7 +72,7 @@ describe('InlineExpansion.vue', () => {
       },
     });
     await wrapper.vm.$nextTick();
-    expect(wrapper.find('p').text()).toBe('Short version');
+    expect(wrapper.find('button.inline-panel').text()).toBe('Short version');
   });
 
   it('handles missing expandedText and collapsedText gracefully', async () => {
@@ -83,10 +83,10 @@ describe('InlineExpansion.vue', () => {
       },
     });
     await wrapper.vm.$nextTick();
-    expect(wrapper.find('p').text()).toBe('');
+    expect(wrapper.find('button.inline-panel').text()).toBe('');
   });
 
-  // Test for Button
+  // Test for Button Toggle
   it('toggles between collapsed and expanded text when button is clicked', async () => {
     const wrapper = mount(InlineExpansion, {
       propsData: {
@@ -97,18 +97,18 @@ describe('InlineExpansion.vue', () => {
     });
 
     // Initially, we expect the collapsed text to be shown
-    expect(wrapper.find('p').text()).toBe('This is some coll...');
+    expect(wrapper.find('button.inline-panel').text()).toBe('This is some coll...');
 
     // Simulate clicking the button to expand the text
-    await wrapper.find('button').trigger('click');
+    await wrapper.find('button.inline-panel').trigger('click');
 
     // Now we expect the expanded text to be shown
-    expect(wrapper.find('p').text()).toBe('This is the expanded text.');
+    expect(wrapper.find('button.inline-panel').text()).toBe('This is the expanded text.');
 
     // Simulate clicking the button to collapse the text again
-    await wrapper.find('button').trigger('click');
+    await wrapper.find('button.inline-panel').trigger('click');
 
     // Expect the collapsed text to show again
-    expect(wrapper.find('p').text()).toBe('This is some coll...');
+    expect(wrapper.find('button.inline-panel').text()).toBe('This is some coll...');
   });
 });

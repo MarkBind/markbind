@@ -71,6 +71,10 @@
       "title": "Thumbnails Test"
     },
     {
+      "src": "testInlineExpansion.md",
+      "title": "Inline Expansion Test"
+    },
+    {
       "src": "testPlantUML.md",
       "title": "PlantUML Test"
     },

@@ -1,11 +1,8 @@
 <template>
   <div>
-    <!-- Text Displayed -->
-    <p>{{ isExpanded ? expandedText : processedCollapsedText }}</p>
-
     <!-- Toggle between Collapsed and Expanded -->
-    <button @click="toggleExpansion">
-      {{ isExpanded ? 'Collapse' : 'Expand' }}
+    <button class="inline-panel" @click="toggleExpansion">
+      {{ isExpanded ? expandedText : processedCollapsedText }}
     </button>
   </div>
 </template>
@@ -46,3 +43,16 @@ export default {
   },
 };
 </script>
+
+<style>
+    .inline-panel {
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        padding: 6px 8px;
+        border-radius: 5px;
+        color: #444;
+        margin: 0 8px 6px 0;
+        display: inline-block;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+</style>
