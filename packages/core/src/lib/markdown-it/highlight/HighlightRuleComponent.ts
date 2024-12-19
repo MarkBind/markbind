@@ -133,7 +133,13 @@ export class HighlightRuleComponent {
 
     if (highlightSpaces) {
       const leadingSpaces = line.match(/^\s*/)?.[0].length || 0;
-      return [Math.max(0, start - leadingSpaces), Math.max(0, end - leadingSpaces)];
+      if (start !== line.length) {
+        start = Math.max(0, start - leadingSpaces);
+      }
+
+      if (end !== line.length) {
+        end = Math.max(0, end - leadingSpaces);
+      }
     }
 
     return [start, end];
