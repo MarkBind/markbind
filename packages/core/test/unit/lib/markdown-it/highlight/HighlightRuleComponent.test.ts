@@ -86,6 +86,11 @@ describe('computeCharBounds, with whitespace highlighting', () => {
     const bounds = HighlightRuleComponent.computeCharBounds([30, 40], '  some text', true);
     expect(bounds).toEqual(['  some text'.length, '  some text'.length]);
   });
+
+  test('handles line-length end correctly', () => {
+    const bounds = HighlightRuleComponent.computeCharBounds([0, 4], '  abcd', true);
+    expect(bounds).toEqual([0, 4]);
+  });
 });
 
 describe('computeWordBounds', () => {

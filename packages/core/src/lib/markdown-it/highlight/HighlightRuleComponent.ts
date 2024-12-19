@@ -108,8 +108,12 @@ export class HighlightRuleComponent {
     let [start, end] = bound;
 
     if (start === UNBOUNDED) {
-      start = indents.length;
-    } else {
+      if (highlightSpaces) {
+        start = 0;
+      } else {
+        start = indents.length;
+      }
+    } else if (!highlightSpaces) {
       start += indents.length;
       // Clamp values
       if (start < indents.length) {
@@ -117,29 +121,23 @@ export class HighlightRuleComponent {
       } else if (start > line.length) {
         start = line.length;
       }
+    } else if (start > line.length) {
+      start = line.length;
     }
 
     if (end === UNBOUNDED) {
       end = line.length;
-    } else {
+    } else if (!highlightSpaces) {
       end += indents.length;
+
       // Clamp values
       if (end < indents.length) {
         end = indents.length;
       } else if (end > line.length) {
         end = line.length;
       }
-    }
-
-    if (highlightSpaces) {
-      const leadingSpaces = line.match(/^\s*/)?.[0].length || 0;
-      if (start !== line.length) {
-        start = Math.max(0, start - leadingSpaces);
-      }
-
-      if (end !== line.length) {
-        end = Math.max(0, end - leadingSpaces);
-      }
+    } else if (end > line.length) {
+      end = line.length;
     }
 
     return [start, end];
