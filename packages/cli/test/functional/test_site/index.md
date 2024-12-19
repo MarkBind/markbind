@@ -349,6 +349,8 @@ and **this**.
 
 **Test nunjucks raw tags**
 
+<include src="testInlineExpansion.md" />
+
 {% raw %}
 
 <div v-pre>{{ variable interpolation syntax can be used with v-pre }}</div>
