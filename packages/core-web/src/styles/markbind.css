@@ -1,260 +1,84 @@
-@import url("../../asset/css/codeblock-light.min.css") print;
+@import url('../../asset/css/codeblock-light.min.css') print;
 
 :root {
-    --sticky-header-height: 0;
+  --sticky-header-height: 0;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 blockquote {
-    border-left: 0.25em solid #dfe2e5;
-    color: #6a737d;
-    padding: 0 1rem;
+  border-left: 0.25em solid #dfe2e5;
+  color: #6a737d;
+  padding: 0 1rem;
 }
 
 code {
-    background: #f8f8f8;
-    border-radius: 3px;
-    padding: 0.2em 0.4em;
-    word-break: normal;
+  background: #f8f8f8;
+  border-radius: 3px;
+  padding: 0.2em 0.4em;
+  word-break: normal;
 }
 
 mark code {
-    background: #ffffffd4;
+  background: #ffffffd4;
 }
 
 pre.hljs > code {
-    background: none;
+  background: none;
 }
 
 pre > code.hljs {
-    background-clip: padding-box;
-    border-radius: 5px;
-    counter-reset: line;
-    width: 100%;
+  background-clip: padding-box;
+  border-radius: 5px;
+  counter-reset: line;
+  width: 100%;
 }
 
 pre > code.hljs[heading] {
-    border-top-right-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .code-block {
-    position: relative;
+  position: relative;
 }
 
 .code-block-heading {
-    border-radius: 6px 6px 0 0;
-    float: right;
-    font-size: 85%;
-    line-height: 1;
-    margin-top: 5px;
-    max-width: 85%;
-    overflow-wrap: break-word;
-    padding: 0.25em 0.4em;
-    text-align: right;
+  border-radius: 6px 6px 0 0;
+  float: right;
+  font-size: 85%;
+  line-height: 1;
+  margin-top: 5px;
+  max-width: 85%;
+  overflow-wrap: break-word;
+  padding: 0.25em 0.4em;
+  text-align: right;
 }
 
 .inline-markdown-heading {
-    line-height: 1.5;
+  line-height: 1.5;
 }
 
 .code-block-content {
-    clear: both;
-    display: block;
+  clear: both;
+  display: block;
 }
 
 @media print {
-    pre > code.hljs {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        word-break: break-all;
-    }
+  pre > code.hljs {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
 
-    .hljs:not(.inline).line-numbers-print > span {
-        padding: 0 0.5em 0 3.5em;
-        position: relative;
-    }
-
-    /* display line numbers beside each span */
-    .hljs:not(.inline).line-numbers-print > span::before {
-        border-right: 1px solid #ddd;
-        display: inline-block;
-        color: #888;
-        content: counter(line);
-        counter-increment: line;
-        left: 0;
-        margin-right: 0.5em;
-        padding-right: 0.5em;
-        position: absolute;
-        text-align: right;
-        top: 0;
-        width: 3em;
-        height: 100%;
-    }
-
-    /* force printing the highlighting colour */
-    .hljs span.highlighted{
-        -webkit-print-color-adjust:exact;
-        background:#e6e6fa !important;
-    }
-}
-
-kbd {
-    background-color: #fafbfc;
-    border: 1px solid #c6cbd1;
-    border-bottom-color: #959da5;
-    box-shadow: inset 0 -1px 0 #959da5;
-    color: #444d56;
-}
-
-.btn:active,
-.btn:focus {
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-code.hljs.inline {
-    display: initial;
-    padding: 0.2em 0.4em;
-}
-
-.markbind-table {
-    width: auto;
-}
-
-.radio-list-item,
-.task-list-item {
-    list-style-type: none;
-    margin: 0 0 0 -1.2em;
-}
-
-.radio-list-item label {
-    font-weight: inherit;
-}
-
-.table-striped > thead,
-.table-striped > tbody > tr:nth-of-type(even) {
-    background-color: #fff;
-}
-
-/**
-  * Holy Grail Layout
-  *
-  * This section covers the common styles used within Header, Footer and Side Navigation bars
-  */
-
-/* Header */
-
-header[sticky] {
-    position: sticky;
-    top: 0;
-    transition: transform 0.3s ease-in-out;
-    width: 100%;
-    z-index: 1001;
-}
-
-header[sticky].hide-header {
-    transform: translateY(calc(-1 * var(--sticky-header-height)));
-}
-
-span.anchor {
-    position: relative;
-    top: calc(-1 * var(--sticky-header-height) - 1rem);
-}
-
-/* #app is treated as the main container */
-#app {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-/* Footer */
-footer {
-    background-color: #f5f5f5;
-    color: dimgrey;
-    padding: 10px 0;
-}
-
-/* TODO move this back to markdown-it-attr if bundling is implemented */
-.dimmed {
-    color: #777;
-}
-
-.large {
-    font-size: 125%;
-}
-
-.small {
-    font-size: 80%;
-}
-
-.underline {
-    text-decoration: underline;
-}
-
-.mkb-text-red {
-    color: red !important;
-}
-
-.mkb-text-green {
-    color: green !important;
-}
-
-.mkb-text-blue {
-    color: blue !important;
-}
-
-.mkb-text-cyan {
-    color: cyan !important;
-}
-
-.mkb-text-magenta {
-    color: magenta !important;
-}
-
-.mkb-text-yellow {
-    color: yellow !important;
-}
-
-.mkb-text-black {
-    color: black !important;
-}
-
-.mkb-text-white {
-    color: white !important;
-}
-
-/* Bootstrap small(sm) responsive breakpoint */
-@media (width <= 767.98px) {
-    .dropdown-menu > li > a {
-        white-space: normal;
-    }
-
-    .navbar-nav .open .dropdown-menu {
-        background-color: #fff;
-    }
-}
-
-/* Footnote anchor */
-
-li.footnote-item:target {
-    background-color: #eee;
-}
-
-.hljs:not(.inline) > span {
-    display: block;
-}
-
-.hljs:not(.inline).line-numbers > span {
+  .hljs:not(.inline).line-numbers-print > span {
     padding: 0 0.5em 0 3.5em;
     position: relative;
-}
+  }
 
-/* display line numbers beside each span */
-.hljs:not(.inline).line-numbers > span::before {
+  /* display line numbers beside each span */
+  .hljs:not(.inline).line-numbers-print > span::before {
     border-right: 1px solid #ddd;
     display: inline-block;
     color: #888;
@@ -268,118 +92,296 @@ li.footnote-item:target {
     top: 0;
     width: 3em;
     height: 100%;
+  }
+
+  /* force printing the highlighting colour */
+  .hljs span.highlighted {
+    -webkit-print-color-adjust: exact;
+    background: #e6e6fa !important;
+  }
+}
+
+kbd {
+  background-color: #fafbfc;
+  border: 1px solid #c6cbd1;
+  border-bottom-color: #959da5;
+  box-shadow: inset 0 -1px 0 #959da5;
+  color: #444d56;
+}
+
+.btn:active,
+.btn:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+code.hljs.inline {
+  display: initial;
+  padding: 0.2em 0.4em;
+}
+
+.markbind-table {
+  width: auto;
+}
+
+.radio-list-item,
+.task-list-item {
+  list-style-type: none;
+  margin: 0 0 0 -1.2em;
+}
+
+.radio-list-item label {
+  font-weight: inherit;
+}
+
+.table-striped > thead,
+.table-striped > tbody > tr:nth-of-type(even) {
+  background-color: #fff;
+}
+
+/**
+  * Holy Grail Layout
+  *
+  * This section covers the common styles used within Header, Footer and Side Navigation bars
+  */
+
+/* Header */
+
+header[sticky] {
+  position: sticky;
+  top: 0;
+  transition: transform 0.3s ease-in-out;
+  width: 100%;
+  z-index: 1001;
+}
+
+header[sticky].hide-header {
+  transform: translateY(calc(-1 * var(--sticky-header-height)));
+}
+
+span.anchor {
+  position: relative;
+  top: calc(-1 * var(--sticky-header-height) - 1rem);
+}
+
+/* #app is treated as the main container */
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Footer */
+footer {
+  background-color: #f5f5f5;
+  color: dimgrey;
+  padding: 10px 0;
+}
+
+/* TODO move this back to markdown-it-attr if bundling is implemented */
+.dimmed {
+  color: #777;
+}
+
+.large {
+  font-size: 125%;
+}
+
+.small {
+  font-size: 80%;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.mkb-text-red {
+  color: red !important;
+}
+
+.mkb-text-green {
+  color: green !important;
+}
+
+.mkb-text-blue {
+  color: blue !important;
+}
+
+.mkb-text-cyan {
+  color: cyan !important;
+}
+
+.mkb-text-magenta {
+  color: magenta !important;
+}
+
+.mkb-text-yellow {
+  color: yellow !important;
+}
+
+.mkb-text-black {
+  color: black !important;
+}
+
+.mkb-text-white {
+  color: white !important;
+}
+
+/* Bootstrap small(sm) responsive breakpoint */
+@media (width <= 767.98px) {
+  .dropdown-menu > li > a {
+    white-space: normal;
+  }
+
+  .navbar-nav .open .dropdown-menu {
+    background-color: #fff;
+  }
+}
+
+/* Footnote anchor */
+
+li.footnote-item:target {
+  background-color: #eee;
+}
+
+.hljs:not(.inline) > span {
+  display: block;
+}
+
+.hljs:not(.inline).line-numbers > span {
+  padding: 0 0.5em 0 3.5em;
+  position: relative;
+}
+
+/* display line numbers beside each span */
+.hljs:not(.inline).line-numbers > span::before {
+  border-right: 1px solid #ddd;
+  display: inline-block;
+  color: #888;
+  content: counter(line);
+  counter-increment: line;
+  left: 0;
+  margin-right: 0.5em;
+  padding-right: 0.5em;
+  position: absolute;
+  text-align: right;
+  top: 0;
+  width: 3em;
+  height: 100%;
 }
 
 /* styles for triggers and tooltips */
 .trigger {
-    border-bottom: 1px dotted currentcolor;
+  border-bottom: 1px dotted currentcolor;
 }
 
 .trigger-click {
-    cursor: pointer;
-    border-bottom: 1px dashed currentcolor;
+  cursor: pointer;
+  border-bottom: 1px dashed currentcolor;
 }
 
 .trigger-click:focus {
-    outline: none;
+  outline: none;
 }
 
 /* "Copy" and "wrap text" code block buttons */
 pre {
-    position: relative;
-    display: flex;
+  position: relative;
+  display: flex;
 }
 
 button.function-btn {
-    border: 1px solid #d7dadc;
-    border-radius: 5px;
-    color: darkgray;
-    cursor: pointer;
-    display: none;
-    margin: 0.17rem;
-    padding: 0.35rem;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    white-space: nowrap;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #d7dadc;
+  border-radius: 5px;
+  color: darkgray;
+  cursor: pointer;
+  display: none;
+  margin: 0.17rem;
+  padding: 0.35rem;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  white-space: nowrap;
 }
 
 button.function-btn + button.function-btn {
-    right: 36px;
+  right: 36px;
 }
 
 pre:hover > .function-btn-container > button.function-btn {
-    display: block;
+  display: block;
 }
 
 .function-btn:hover {
-    transition: all 0.5s ease;
-    color: gray;
+  transition: all 0.5s ease;
+  color: gray;
 }
 
 .function-btn-body {
-    align-items: center;
-    display: flex;
+  align-items: center;
+  display: flex;
 }
 
 .function-btn svg {
-    fill: currentcolor;
+  fill: currentcolor;
 }
 
 /* Wrap class used for "wrap text" button. */
 code.wrap {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    word-break: break-all;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 /* Octicon sizing */
 .octicon {
-    height: 1em;
-    width: 1em;
+  height: 1em;
+  width: 1em;
 }
 
 /* styles for <hr> */
 hr {
-    border-top: solid 1px rgb(0 0 0 / 10%);
-    background-color: transparent;
-    opacity: 1;
+  border-top: solid 1px rgb(0 0 0 / 10%);
+  background-color: transparent;
+  opacity: 1;
 }
 
 hr.dotted {
-    border-top-width: 0.1rem;
-    border-top-style: dotted;
+  border-top-width: 0.1rem;
+  border-top-style: dotted;
 }
 
 hr.double {
-    border-top-width: 0.2rem;
-    border-top-style: double;
+  border-top-width: 0.2rem;
+  border-top-style: double;
 }
 
 hr.dashed {
-    border-top-width: 0.1rem;
-    border-top-style: dashed;
+  border-top-width: 0.1rem;
+  border-top-style: dashed;
 }
 
 hr.thick {
-    border-top-width: 0.15rem;
+  border-top-width: 0.15rem;
 }
 
 hr.thick-1 {
-    border-top-width: 0.25rem;
+  border-top-width: 0.25rem;
 }
 
 hr.thick-2 {
-    border-top-width: 0.5rem;
+  border-top-width: 0.5rem;
 }
 
 hr.thick-3 {
-    border-top-width: 0.75rem;
+  border-top-width: 0.75rem;
 }
 
 ol,
 ul {
-    padding-left: 1.5rem;
+  padding-left: 1.5rem;
 }
 
 h1,
@@ -388,20 +390,20 @@ h3,
 h4,
 h5,
 h6 {
-    margin-bottom: 1rem;
-    scroll-margin-top: var(--sticky-header-height);
+  margin-bottom: 1rem;
+  scroll-margin-top: var(--sticky-header-height);
 }
 
 .block-embed {
-    overflow-x: auto;
-    position: relative;
-    width: 100%;
+  overflow-x: auto;
+  position: relative;
+  width: 100%;
 }
 
 .block-embed iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
