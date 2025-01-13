@@ -44,25 +44,52 @@ describe('parseRuleComponent', () => {
   });
 });
 
-describe('computeCharBounds', () => {
+describe('computeCharBounds, no whitespace highlighting', () => {
   test('computes character bounds correctly', () => {
-    const bounds = HighlightRuleComponent.computeCharBounds([2, 5], '  some text');
+    const bounds = HighlightRuleComponent.computeCharBounds([2, 5], '  some text', false);
     expect(bounds).toEqual([4, 7]);
   });
 
   test('handles unbounded start correctly', () => {
-    const bounds = HighlightRuleComponent.computeCharBounds([-1, 4], '  some text');
+    const bounds = HighlightRuleComponent.computeCharBounds([-1, 4], '  some text', false);
     expect(bounds).toEqual([2, 6]);
   });
 
   test('handles unbounded end correctly', () => {
-    const bounds = HighlightRuleComponent.computeCharBounds([3, -1], '  some text');
+    const bounds = HighlightRuleComponent.computeCharBounds([3, -1], '  some text', false);
     expect(bounds).toEqual([5, '  some text'.length]);
   });
 
   test('handles out-of-range bounds correctly', () => {
-    const bounds = HighlightRuleComponent.computeCharBounds([30, 40], '  some text');
+    const bounds = HighlightRuleComponent.computeCharBounds([30, 40], '  some text', false);
     expect(bounds).toEqual(['  some text'.length, '  some text'.length]);
+  });
+});
+
+describe('computeCharBounds, with whitespace highlighting', () => {
+  test('computes character bounds correctly', () => {
+    const bounds = HighlightRuleComponent.computeCharBounds([2, 5], '  some text', true);
+    expect(bounds).toEqual([2, 5]);
+  });
+
+  test('handles unbounded start correctly', () => {
+    const bounds = HighlightRuleComponent.computeCharBounds([-1, 4], '  some text', true);
+    expect(bounds).toEqual([0, 4]);
+  });
+
+  test('handles unbounded end correctly', () => {
+    const bounds = HighlightRuleComponent.computeCharBounds([3, -1], '  some text', true);
+    expect(bounds).toEqual([3, '  some text'.length]);
+  });
+
+  test('handles out-of-range bounds correctly', () => {
+    const bounds = HighlightRuleComponent.computeCharBounds([30, 40], '  some text', true);
+    expect(bounds).toEqual(['  some text'.length, '  some text'.length]);
+  });
+
+  test('handles line-length end correctly', () => {
+    const bounds = HighlightRuleComponent.computeCharBounds([0, 4], '  abcd', true);
+    expect(bounds).toEqual([0, 4]);
   });
 });
 
