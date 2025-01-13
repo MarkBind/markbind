@@ -1,6 +1,6 @@
 import { splitCodeAndIndentation } from './helper';
 
-const LINESLICE_CHAR_REGEX = /(\d+)\[(\d*):(\d*)]/;
+const LINESLICE_CHAR_REGEX = /(\d+)\[(\d*):(\d*)](\+?)/;
 const LINESLICE_WORD_REGEX = /(\d+)\[(\d*)::(\d*)]/;
 const LINEPART_REGEX = /(\d+)\[(["'])((?:\\.|[^\\])*?)\2]/;
 const UNBOUNDED = -1;
@@ -51,6 +51,7 @@ export class HighlightRuleComponent {
       if (!lineNumber) return null;
 
       const isUnbounded = groups.every(x => x === '');
+      const highlightSpaces = groups.pop() === '+';
       if (isUnbounded) {
         return new HighlightRuleComponent(lineNumber, true, []);
       }
@@ -58,7 +59,7 @@ export class HighlightRuleComponent {
       let bound = groups.map(x => (x !== '' ? parseInt(x, 10) : UNBOUNDED)) as [number, number];
       const isCharSlice = sliceMatch === linesliceCharMatch;
       bound = isCharSlice
-        ? HighlightRuleComponent.computeCharBounds(bound, lines[lineNumber - 1])
+        ? HighlightRuleComponent.computeCharBounds(bound, lines[lineNumber - 1], highlightSpaces)
         : HighlightRuleComponent.computeWordBounds(bound, lines[lineNumber - 1]);
 
       return new HighlightRuleComponent(lineNumber, true, [bound]);
@@ -101,13 +102,18 @@ export class HighlightRuleComponent {
    * @param line The given line
    * @returns {[number, number]} The actual bound computed
    */
-  static computeCharBounds(bound: [number, number], line: string): [number, number] {
+  static computeCharBounds(bound: [number, number], line: string,
+                           highlightSpaces: boolean): [number, number] {
     const [indents] = splitCodeAndIndentation(line);
     let [start, end] = bound;
 
     if (start === UNBOUNDED) {
-      start = indents.length;
-    } else {
+      if (highlightSpaces) {
+        start = 0;
+      } else {
+        start = indents.length;
+      }
+    } else if (!highlightSpaces) {
       start += indents.length;
       // Clamp values
       if (start < indents.length) {
@@ -115,18 +121,23 @@ export class HighlightRuleComponent {
       } else if (start > line.length) {
         start = line.length;
       }
+    } else if (start > line.length) {
+      start = line.length;
     }
 
     if (end === UNBOUNDED) {
       end = line.length;
-    } else {
+    } else if (!highlightSpaces) {
       end += indents.length;
+
       // Clamp values
       if (end < indents.length) {
         end = indents.length;
       } else if (end > line.length) {
         end = line.length;
       }
+    } else if (end > line.length) {
+      end = line.length;
     }
 
     return [start, end];
