@@ -105,15 +105,15 @@ export default {
     }
 
     .excerpt-text {
-      font-size: 0.8rem;
-      color: #666;
-      margin-top: 0.3rem;
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 0.3rem;
     }
 
     .wrapped-excerpt {
-      display: block;
-      word-wrap: break-word;
-      white-space: normal;
+        display: block;
+        word-wrap: break-word;
+        white-space: normal;
     }
 
     .page-title {
