@@ -18,6 +18,7 @@ import question from './questions/Question.vue';
 import qOption from './questions/QOption.vue';
 import retriever from './Retriever.vue';
 import searchbar from './Searchbar.vue';
+import pagefindSearchbar from './PagefindSearchbar.vue';
 import tab from './Tab.vue';
 import tabGroup from './TabGroup.vue';
 import tabset from './Tabset.vue';
@@ -48,6 +49,7 @@ const components = {
   qOption,
   retriever,
   searchbar,
+  pagefindSearchbar,
   tab,
   tabGroup,
   tabs: tabset,

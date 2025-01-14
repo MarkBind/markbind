@@ -585,7 +585,9 @@ export class Site {
     });
     const { index } = newIndex;
     if (index) {
-      await index.addDirectory({ path: this.outputPath });
+      const { errors, page_count } = await index.addDirectory({ path: this.outputPath });
+      errors.forEach(error => logger.error(error));
+      logger.info(`Pagefind indexed ${page_count} pages`);
       await index.writeFiles({ outputPath: `${this.outputPath}/pagefind` });
     }
     await close();

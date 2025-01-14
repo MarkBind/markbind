@@ -1,6 +1,6 @@
 <template>
   <div style="position: relative;" class="dropdown">
-    <div v-if="algolia" id="algolia-search-input"></div>
+    <div v-if="defaultUI" id="pagefind-search-input"></div>
     <template v-else>
       <input
         v-model="value"
@@ -14,7 +14,8 @@
         @keyup.down="down"
         @keydown.enter="hit"
         @keydown.esc="reset"
-        @blur="showDropdown = false"
+        @focus="initPagefind"
+        @blur="showDropdown = false;"
       />
       <div class="form-control placeholder-div-hidden">
         {{ placeholder }}
@@ -31,7 +32,7 @@
           @mousedown.prevent="hit"
           @mousemove="setActive(index)"
         >
-          <searchbar-page-item :item="item" :value="value" />
+          <pagefind-searchbar-result-item :item="item" :value="value" />
         </a>
       </li>
     </ul>
@@ -39,194 +40,121 @@
 </template>
 
 <script>
-import searchbarPageItem from './SearchbarPageItem.vue';
-import { delayer, getJSON } from './utils/utils';
-
-const _DELAY_ = 200;
+import PagefindSearchbarResultItem from './PagefindSearchbarResultItem.vue';
 
 export default {
+  // lifecycle hook
   created() {
-    this.items = this.primitiveData;
+    this.items = [];
   },
+
+  // all component props need to be explicitly declared
   props: {
-    data: {
-      type: Array,
-      default: () => [],
-    },
-    limit: {
-      type: Number,
-      default: 8,
-    },
-    async: {
-      type: String,
-      default: '',
-    },
-    keyProp: {
-      type: String,
-      default: null,
-    },
-    onHit: {
-      type: Function,
-      default(items) {
-        this.reset();
-        this.value = items;
-      },
-    },
     placeholder: {
       type: String,
       default: 'Search',
-    },
-    delay: {
-      type: Number,
-      default: _DELAY_,
     },
     menuAlignRight: {
       type: Boolean,
       default: false,
     },
-    algolia: {
+    defaultUI: {
       type: Boolean,
       default: false,
     },
   },
+  // function that returns initial reactive state for component instance
   data() {
     return {
       value: '',
       showDropdown: false,
-      noResults: true,
       current: 0,
       items: [],
     };
   },
+
+  // computed property will only re-evaluate when some of its dependencies have changed
   computed: {
-    primitiveData() {
-      // Returns the total number of matches between an array of regex patterns and string search targets.
-      function getTotalMatches(searchTargets, regexes) {
-        const searchTarget = searchTargets.join(' ');
-
-        return regexes.reduce((total, regex) => {
-          const matches = searchTarget.match(regex);
-          return total + (matches ? matches.length : 0);
-        }, 0);
-      }
-
-      if (this.value.length < 2 || !this.data) {
-        return [];
-      }
-      const pages = [];
-      const regexes = this.value.split(' ')
-        .filter(searchKeyword => searchKeyword !== '')
-        .map(searchKeyword => searchKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-        .map(searchKeyword => new RegExp(searchKeyword, 'ig'));
-      this.data.forEach((entry) => {
-        const {
-          headings,
-          src,
-          title,
-          headingKeywords,
-          frontmatterKeywords,
-        } = entry;
-        const keywords = frontmatterKeywords || '';
-        const displayTitle = title || src.substring(0, src.lastIndexOf('.'));
-
-        const pageSearchTargets = [
-          displayTitle,
-          keywords,
-          ...Object.values(headings),
-          ...Object.values(headingKeywords),
-        ];
-        const totalPageMatches = getTotalMatches(pageSearchTargets, regexes);
-
-        if (totalPageMatches > 0) {
-          const pageHeadings = [];
-
-          Object.entries(headings).forEach(([id, text], idx) => {
-            const matchesHeading = regexes.some(regex => regex.test(text));
-            const matchesKeywords = headingKeywords[id] && headingKeywords[id]
-              .some(keyword => regexes.some(regex => regex.test(keyword)));
-
-            if (matchesHeading || matchesKeywords) {
-              const headingSearchTargets = [
-                text,
-                ...(headingKeywords[id] || []),
-              ];
-              const totalHeadingMatches = getTotalMatches(headingSearchTargets, regexes);
-
-              if (!(idx === 0 && text === displayTitle && !keywords.length)) {
-                pageHeadings.push({
-                  heading: { id, text },
-                  keywords: headingKeywords[id],
-                  src,
-                  totalMatches: totalHeadingMatches,
-                });
-              }
-            }
-          });
-          pageHeadings.sort((a, b) => b.totalMatches - a.totalMatches);
-
-          pages.push({
-            headings: pageHeadings,
-            keywords,
-            src,
-            title: displayTitle,
-            totalMatches: totalPageMatches,
-          });
-        }
-      });
-
-      return pages
-        .sort((a, b) => b.totalMatches - a.totalMatches)
-        .flatMap((page) => {
-          if (page.headings) {
-            return [page, ...page.headings];
-          }
-          return page;
-        });
-    },
     dropdownMenuClasses() {
       return [
         'dropdown-menu',
         'search-dropdown-menu',
-        { show: this.showDropdown },
-        { 'd-none': !this.showDropdown },
+        { 'show': this.showDropdown },
+        { 'dropdown-menu-hidden': !this.showDropdown },
         { 'dropdown-menu-end': this.menuAlignRight },
       ];
     },
   },
+
+  // objects containing desired methods
   methods: {
-    update() {
+    async update() {
       if (!this.value) {
         this.reset();
         return false;
       }
-      if (this.data) {
-        this.items = this.primitiveData;
-        this.showDropdown = this.items.length > 0;
-      }
-      if (this.async) this.query();
+      await this.performSearch();
       return true;
     },
-    query: delayer(function () {
-      getJSON(this.async + this.value).then((data) => {
-        this.items = (this.keyProp ? data[this.keyProp] : data).slice(0, this.limit);
-        this.showDropdown = this.items.length;
-      });
-    }, 'delay', _DELAY_),
+
+    /**
+     * Perform a search using the Pagefind API
+     * We currently limit the subresults to 3 and discard irrelevant data from searchFragments for efficiency.
+     * For each result, we display the title and limit the subresults to 3. Each subresult has an excerpt.
+     */
+    async performSearch() {
+      if (window.Pagefind) {
+        const searchQuery = await window.Pagefind.search(this.value);
+        this.pagefindSearchResult = searchQuery?.results || [];
+        this.searchFragments = await Promise.all(this.pagefindSearchResult.map(r => r.data()));
+
+        // limit subresults to 3
+        this.searchFragments.forEach((fragment) => {
+          fragment.sub_results = fragment.sub_results.slice(0, 3);
+        });
+
+        // extract only usable data and flatten sub_results
+        this.items = this.searchFragments.flatMap((fragment) => {
+          const pageTitle = {
+            title: fragment.meta.title || fragment.url,
+            url: fragment.url,
+          };
+
+          const pageHeaders = fragment.sub_results.map(subResult => ({
+            heading: subResult.title,
+            url: subResult.url,
+            excerpt: subResult.excerpt,
+          }));
+
+          return [pageTitle, ...pageHeaders];
+        });
+
+        this.showDropdown = this.items.length > 0;
+      }
+    },
+
+    initPagefind() {
+      if (window.Pagefind) {
+        window.Pagefind.init();
+      }
+    },
+
+    // reset items to 0, searchbar value, and hide dropdown
     reset() {
       this.items = [];
       this.value = '';
-      this.loading = false;
       this.showDropdown = false;
     },
+    hit(e) {
+      e.preventDefault();
+      window.location.href = this.items[this.current].url;
+    },
+
     setActive(index) {
       this.current = index;
     },
     isActive(index) {
       return this.current === index;
-    },
-    hit(e) {
-      e.preventDefault();
-      this.onHit(this.items[this.current], this);
     },
     down() {
       if (this.current < this.items.length - 1) {
@@ -253,8 +181,9 @@ export default {
       }
     },
   },
+
   components: {
-    searchbarPageItem,
+    PagefindSearchbarResultItem,
   },
 };
 </script>
@@ -303,6 +232,10 @@ export default {
         border-bottom: 0;
         visibility: hidden;
         overflow: hidden;
+    }
+
+    .dropdown-menu-hidden {
+        visibility: hidden;
     }
 </style>
 

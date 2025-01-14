@@ -1,17 +1,14 @@
-// import cheerio from 'cheerio';
-// import { PluginContext, FrontMatter } from './Plugin';
-// todo: find a way to import the UI and Script from the working directory.
-// const DEFAULT_UI = 'https://cdn.jsdelivr.net/npm/@pagefind/default-ui@1.0.4/+esm';
-
+// todo: Find way to bypass MB's auto changing of the path
+// (find a way to import the UI and Script from the working directory.)
 const JS_FILE_NAME = 'pageFindAssets/pagefind-ui.min.js';
 const CSS_FILE_NAME = 'pageFindAssets/pagefind-ui.min.css';
-const ADDTIONAL_CSS_FILE_NAME = 'pageFindAssets/pagefind-ui-additional.css';
+
 const PAGEFIND_INPUT_SELECTOR = '#pagefind-search-input';
 
 /**
- * Generates the script to initialize the PageFind UI
+ * Generates the script to initialize the Default Pagefind UI
  */
-function genScript() {
+function initalizeDefaultPagefindUIScript() {
   return `
     <script>
       window.addEventListener('DOMContentLoaded', (event) => {
@@ -29,15 +26,39 @@ function genScript() {
     </script>`;
 }
 
+/**
+ * Attaches the pagefind search API to the window object
+ */
+function attachPagefindObjectScript() {
+  return `
+    <script>
+      window.addEventListener('DOMContentLoaded', async (event) => {
+        try {
+          const pagefind = await import("/pagefind/pagefind.js");
+          if (pagefind) {
+            window.Pagefind = pagefind;
+            await pagefind.options({ bundlePath: "/pagefind" });
+          }
+        } catch (error) {
+          console.error('Error initializing Pagefind:', error);
+        }
+      });
+    </script>`;
+}
+
 export = {
   tagConfig: {
     pagefind: {
       isSpecial: true,
     },
   },
-  getScripts: () => [`<script src="${JS_FILE_NAME}"></script>`, genScript()],
+  getScripts: () => [
+    `<script src="${JS_FILE_NAME}"></script>`,
+    attachPagefindObjectScript(),
+    initalizeDefaultPagefindUIScript(),
+  ],
   getLinks: () => [
     `<link rel="stylesheet" href="${CSS_FILE_NAME}">`,
-    `<link rel="stylesheet" href="${ADDTIONAL_CSS_FILE_NAME}">`,
+    // `<link rel="stylesheet" href="${ADDITIONAL_CSS_FILE_NAME}">`,
   ],
 };
