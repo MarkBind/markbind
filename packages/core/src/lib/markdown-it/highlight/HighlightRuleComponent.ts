@@ -96,10 +96,12 @@ export class HighlightRuleComponent {
    * comparing the bounds and the line's range.
    *
    * If the bound does not specify either the start or the end bound, the computed bound will default
-   * to the start or end of line, excluding leading whitespaces.
+   * to the start or end of line. The bound will either include or exclude leading whitespaces depending
+   * on the user's preference.
    *
    * @param bound The user-defined bound
    * @param line The given line
+   * @param highlightSpaces Whether to highlight leading whitespaces
    * @returns {[number, number]} The actual bound computed
    */
   static computeCharBounds(bound: [number, number], line: string,
