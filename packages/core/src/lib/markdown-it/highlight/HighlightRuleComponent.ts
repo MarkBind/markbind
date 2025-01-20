@@ -43,15 +43,21 @@ export class HighlightRuleComponent {
     const linesliceWordMatch = compString.match(LINESLICE_WORD_REGEX);
     const sliceMatch = linesliceCharMatch || linesliceWordMatch;
     if (sliceMatch) {
-      // There are four capturing groups: [full match, line number, start bound, end bound]
+      // There are four/five capturing groups: [full match, line number, start bound,
+      //                                        end bound,highlight spaces]
       const groups = sliceMatch.slice(1); // discard full match
 
       const lineNumber = HighlightRuleComponent
         .isValidLineNumber(groups.shift() ?? '', 1, lines.length, lineNumberOffset);
       if (!lineNumber) return null;
 
+      let highlightSpaces = false;
+      if (sliceMatch === linesliceCharMatch) {
+        highlightSpaces = groups.pop() === '+';
+      }
+
       const isUnbounded = groups.every(x => x === '');
-      const highlightSpaces = groups.pop() === '+';
+
       if (isUnbounded) {
         return new HighlightRuleComponent(lineNumber, true, []);
       }
