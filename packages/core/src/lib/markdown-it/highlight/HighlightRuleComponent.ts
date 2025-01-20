@@ -1,6 +1,6 @@
 import { splitCodeAndIndentation } from './helper';
 
-const LINESLICE_CHAR_REGEX = /(\d+)\[(\d*):(\d*)](\+?)/;
+const LINESLICE_CHAR_REGEX = /(_?)(\d+)\[(\d*):(\d*)]/;
 const LINESLICE_WORD_REGEX = /(\d+)\[(\d*)::(\d*)]/;
 const LINEPART_REGEX = /(\d+)\[(["'])((?:\\.|[^\\])*?)\2]/;
 const UNBOUNDED = -1;
@@ -43,18 +43,18 @@ export class HighlightRuleComponent {
     const linesliceWordMatch = compString.match(LINESLICE_WORD_REGEX);
     const sliceMatch = linesliceCharMatch || linesliceWordMatch;
     if (sliceMatch) {
-      // There are four/five capturing groups: [full match, line number, start bound,
-      //                                        end bound,highlight spaces]
+      // There are four/five capturing groups: [full match, is highlight spaces (for char slice),
+      //                                        line number, start bound, end bound]
       const groups = sliceMatch.slice(1); // discard full match
+
+      let isHighlightSpaces = false;
+      if (sliceMatch === linesliceCharMatch) {
+        isHighlightSpaces = groups.shift() === '_';
+      }
 
       const lineNumber = HighlightRuleComponent
         .isValidLineNumber(groups.shift() ?? '', 1, lines.length, lineNumberOffset);
       if (!lineNumber) return null;
-
-      let highlightSpaces = false;
-      if (sliceMatch === linesliceCharMatch) {
-        highlightSpaces = groups.pop() === '+';
-      }
 
       const isUnbounded = groups.every(x => x === '');
 
@@ -65,7 +65,7 @@ export class HighlightRuleComponent {
       let bound = groups.map(x => (x !== '' ? parseInt(x, 10) : UNBOUNDED)) as [number, number];
       const isCharSlice = sliceMatch === linesliceCharMatch;
       bound = isCharSlice
-        ? HighlightRuleComponent.computeCharBounds(bound, lines[lineNumber - 1], highlightSpaces)
+        ? HighlightRuleComponent.computeCharBounds(bound, lines[lineNumber - 1], isHighlightSpaces)
         : HighlightRuleComponent.computeWordBounds(bound, lines[lineNumber - 1]);
 
       return new HighlightRuleComponent(lineNumber, true, [bound]);
@@ -107,21 +107,21 @@ export class HighlightRuleComponent {
    *
    * @param bound The user-defined bound
    * @param line The given line
-   * @param highlightSpaces Whether to highlight leading whitespaces
+   * @param isHighlightSpaces Whether to highlight leading whitespaces
    * @returns {[number, number]} The actual bound computed
    */
   static computeCharBounds(bound: [number, number], line: string,
-                           highlightSpaces: boolean): [number, number] {
+                           isHighlightSpaces: boolean): [number, number] {
     const [indents] = splitCodeAndIndentation(line);
     let [start, end] = bound;
 
     if (start === UNBOUNDED) {
-      if (highlightSpaces) {
+      if (isHighlightSpaces) {
         start = 0;
       } else {
         start = indents.length;
       }
-    } else if (!highlightSpaces) {
+    } else if (!isHighlightSpaces) {
       start += indents.length;
       // Clamp values
       if (start < indents.length) {
@@ -135,7 +135,7 @@ export class HighlightRuleComponent {
 
     if (end === UNBOUNDED) {
       end = line.length;
-    } else if (!highlightSpaces) {
+    } else if (!isHighlightSpaces) {
       end += indents.length;
 
       // Clamp values
