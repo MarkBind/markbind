@@ -36,6 +36,7 @@ module.exports = function colourtext_plugin(md) {
     [109, '#m#'],
     [121, '#y#'],
     [107, '#k#'],
+    [118, '#v#'],
     [119, '#w#'],
   ]);
   const delimMarkerToClassMap = new Map([
@@ -46,6 +47,7 @@ module.exports = function colourtext_plugin(md) {
     ['#m#', 'mkb-text-magenta'],
     ['#y#', 'mkb-text-yellow'],
     ['#k#', 'mkb-text-black'],
+    ['#v#', 'mkb-text-violet'],
     ['#w#', 'mkb-text-white'],
   ]);
 
@@ -59,7 +61,7 @@ module.exports = function colourtext_plugin(md) {
 
     if (marker === 35/* # */ &&
       acsiiCodeToTokenMap.has(state.src.charCodeAt(start + 1)) &&
-      start + 2 <= max && 
+      start + 2 <= max &&
       state.src.charCodeAt(start + 2) === 35/* # */
       ) {
       state.scanDelims(state.pos, true);
