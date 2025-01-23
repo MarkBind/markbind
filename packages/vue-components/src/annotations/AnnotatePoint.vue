@@ -260,6 +260,10 @@ export default {
         text-align: center;
     }
 
+    .hover-label > * {
+        margin: 0;
+    }
+
     .hover-wrapper {
         z-index: 0;
         background: transparent;
