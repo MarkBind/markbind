@@ -44,7 +44,7 @@ describe('parseRuleComponent', () => {
   });
 });
 
-describe('computeCharBounds, no whitespace highlighting', () => {
+describe('computeCharBounds, relative to indent-level', () => {
   test('computes character bounds correctly', () => {
     const bounds = HighlightRuleComponent.computeCharBounds([2, 5], '  some text', false);
     expect(bounds).toEqual([4, 7]);
@@ -66,7 +66,7 @@ describe('computeCharBounds, no whitespace highlighting', () => {
   });
 });
 
-describe('computeCharBounds, with whitespace highlighting', () => {
+describe('computeCharBounds, absolute value bounds', () => {
   test('computes character bounds correctly', () => {
     const bounds = HighlightRuleComponent.computeCharBounds([2, 5], '  some text', true);
     expect(bounds).toEqual([2, 5]);
