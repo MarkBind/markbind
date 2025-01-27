@@ -57,7 +57,6 @@ export class HighlightRuleComponent {
       if (!lineNumber) return null;
 
       const isUnbounded = groups.every(x => x === '');
-
       if (isUnbounded) {
         return new HighlightRuleComponent(lineNumber, true, []);
       }
@@ -115,36 +114,17 @@ export class HighlightRuleComponent {
     let [start, end] = bound;
 
     if (start === UNBOUNDED) {
-      if (isAbsoluteIndexing) {
-        start = 0;
-      } else {
-        start = indents.length;
-      }
-    } else if (!isAbsoluteIndexing) {
-      start += indents.length;
-      // Clamp values
-      if (start < indents.length) {
-        start = indents.length;
-      } else if (start > line.length) {
-        start = line.length;
-      }
-    } else if (start > line.length) {
-      start = line.length;
+      start = isAbsoluteIndexing ? 0 : indents.length;
+    } else {
+      start = isAbsoluteIndexing ? start : Math.max(start + indents.length, indents.length);
+      start = Math.min(start, line.length);
     }
 
     if (end === UNBOUNDED) {
       end = line.length;
-    } else if (!isAbsoluteIndexing) {
-      end += indents.length;
-
-      // Clamp values
-      if (end < indents.length) {
-        end = indents.length;
-      } else if (end > line.length) {
-        end = line.length;
-      }
-    } else if (end > line.length) {
-      end = line.length;
+    } else {
+      end = isAbsoluteIndexing ? end : Math.max(end + indents.length, indents.length);
+      end = Math.min(end, line.length);
     }
 
     return [start, end];

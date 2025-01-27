@@ -87,9 +87,9 @@ describe('computeCharBounds, absolute value bounds', () => {
     expect(bounds).toEqual(['  some text'.length, '  some text'.length]);
   });
 
-  test('handles line-length end correctly', () => {
-    const bounds = HighlightRuleComponent.computeCharBounds([0, 4], '  abcd', true);
-    expect(bounds).toEqual([0, 4]);
+  test('handles bounds spanning from start to line length correctly', () => {
+    const bounds = HighlightRuleComponent.computeCharBounds([0, 11], '  some text', true);
+    expect(bounds).toEqual([0, 11]);
   });
 });
 
