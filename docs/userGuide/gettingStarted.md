@@ -35,7 +35,7 @@ Visit the [Node.js download page](https://nodejs.org/en/download).
   3. Run the provided commands in your terminal to install Node.js and npm.
 
 After installation, in your terminal run:
-```bash
+```
 node -v
 npm -v
 ```
@@ -133,7 +133,7 @@ To stop the web server, go to the console running the `serve` command and press 
 
 ++**5. Updating your MarkBind version**++
 
-After you have installed MarkBind, you may want to update to the latest version of MarkBind in the future.
+After you have installed MarkBind, you can update to the latest version by running:
 
 ```
 npm install -g markbind-cli@latest
