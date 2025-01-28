@@ -19,6 +19,30 @@
   %%{{ icon_ticked }}%% [Node.js](https://nodejs.org) {{ node_version }} or higher installed
 </div>
 
+++**Installing Node.js and npm**++
+
+<box type="info" light>
+If you already have Node.js ({{ node_version }} or higher) and npm installed, you can skip this section.
+</box>
+
+Visit the [Node.js download page](https://nodejs.org/en/download). 
+
+- **Windows/macOS can download a prebuilt installer** 
+  - This automatically sets up npm.
+- **Command Line Option (any OS)**  
+  1. Select your **OS** and architecture from the dropdowns on the same page.
+  2. Make sure to choose **“with npm”**.
+  3. Run the provided commands in your terminal to install Node.js and npm.
+
+After installation, in your terminal run:
+```bash
+node -v
+npm -v
+```
+The versions should match or exceed the requirements mentioned in the Prerequisites.
+
+---
+
 There are a few ways to install MarkBind, select one that is most suitable for your use case. If you are unsure, we recommend using the first method.
 
 ## Method 1: Install MarkBind globally with npm
@@ -55,11 +79,12 @@ Usage: ...
 <tabs>
   <tab header="Initializing a new project">
 
-Navigate into an empty directory and run the following command to initialize a skeletal MarkBind site in that directory. It will create several new files in the directory e.g., `index.md`, `site.json`.
+Navigate into an empty directory and run: 
 
 ```
 markbind init
 ```
+This command creates a skeletal MarkBind site in that directory, with files like `index.md` and `site.json`.
 
 <include src="tip.md" boilerplate >
 <span id="tip_body">
