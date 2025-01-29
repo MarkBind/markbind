@@ -19,7 +19,7 @@
   %%{{ icon_ticked }}%% [Node.js](https://nodejs.org) {{ node_version }} or higher installed
 </div>
 
-++**Installing Node.js and npm**++
+<panel header=":fa-solid-circle-info: Installing Node.js & npm">
 
 <box type="info" light>
 If you already have Node.js ({{ node_version }} or higher) and npm installed, you can skip this section.
@@ -40,6 +40,8 @@ node -v
 npm -v
 ```
 The versions should match or exceed the requirements mentioned in the Prerequisites.
+
+</panel>
 
 ---
 
