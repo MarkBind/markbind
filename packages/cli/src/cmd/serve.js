@@ -52,6 +52,7 @@ function serve(userSpecifiedRoot, options) {
   } catch (error) {
     logger.error(error.message);
     process.exitCode = 1;
+    process.exit();
   }
 
   const logsFolder = path.join(rootFolder, '_markbind/logs');
