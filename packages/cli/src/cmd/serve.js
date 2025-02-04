@@ -24,6 +24,12 @@ function isIPAddressZero(address) {
   return patternForZero.test(address);
 }
 
+function isValidIpAddress(address) {
+  const patternForIp = /^(\d{1,3}\.){3}\d{1,3}$/;
+
+  return patternForIp.test(address);
+}
+
 function questionAsync(question) {
   const readlineInterface = readline.createInterface({ input: process.stdin, output: process.stdout });
 
@@ -100,6 +106,12 @@ function serve(userSpecifiedRoot, options) {
           logger.info('Website generation is cancelled.');
           process.exit();
         }
+      }
+
+      if (!isValidIpAddress(serverConfig.host)) {
+        logger.error(`Invalid IP address: ${serverConfig.host}`);
+        process.exitCode = 1;
+        process.exit();
       }
 
       serverConfig.mount.push([config.baseUrl || '/', outputFolder]);
