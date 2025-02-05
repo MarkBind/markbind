@@ -201,7 +201,7 @@ Optionally, you can provide the reason for the particular option using the `<q-o
     Focus groups
   </q-option>
   <div slot="hint">
-  There is more than one correct answer!
+  There can be more than one correct answer, but only one can be selected!
   </div>
 </question>
 {% endset %}
