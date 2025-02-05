@@ -14,7 +14,7 @@
 <div class="indented">
 
   %%{{ icon_ticked }}%% a basic knowledge of [Markdown](https://www.markdownguide.org/basic-syntax/) and [HTML](https://www.w3schools.com/html/) syntax<br>
-  %%{{ icon_ticked }}%% a basic knowledge of running CLI commands<br>
+  %%{{ icon_ticked }}%% a basic knowledge of running [CLI commands](https://www.w3schools.com/whatis/whatis_cli.asp)<br>
   %%{{ icon_ticked }}%% a recent version of [npm](https://www.npmjs.com/get-npm) installed<br>
   %%{{ icon_ticked }}%% [Node.js](https://nodejs.org) {{ node_version }} or higher installed
 </div>
@@ -27,9 +27,9 @@ If you already have Node.js ({{ node_version }} or higher) and npm installed, yo
 
 Visit the [Node.js download page](https://nodejs.org/en/download). 
 
-- **Windows/macOS can download a prebuilt installer** 
+- **Option 1: Download a prebuilt installer (Windows/MacOS)** 
   - This automatically sets up npm.
-- **Command Line Option (any OS)**  
+- **Option 2: Install through the Command Line (any OS)**  
   1. Select your **OS** and architecture from the dropdowns on the same page.
   2. Make sure to choose **“with npm”**.
   3. Run the provided commands in your terminal to install Node.js and npm.
@@ -39,7 +39,7 @@ After installation, in your terminal run:
 node -v
 npm -v
 ```
-The versions should match or exceed the requirements mentioned in the Prerequisites.
+The versions for `node` and `npm` should match or exceed the requirements mentioned in the Prerequisites.
 
 </panel>
 
