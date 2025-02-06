@@ -9,6 +9,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const clientConfig = require('./webpack.client.config');
 const serverConfig = require('./webpack.server.config');
 
+// webpack.dev.js is used in `markbind serve` for hot reloading
 module.exports = {
   clientEntry: (publicPath) => {
     const webpackClientDevConfig = merge(clientConfig, {

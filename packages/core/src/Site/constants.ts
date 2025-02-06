@@ -15,7 +15,21 @@ import uniq from 'lodash/uniq';
 export const INDEX_MARKDOWN_FILE = 'index.md';
 export const SITE_CONFIG_NAME = 'site.json';
 export const LAZY_LOADING_SITE_FILE_NAME = 'LazyLiveReloadLoadingSite.html';
-export const _ = {
+export const _: {
+  difference: typeof difference;
+  differenceWith: typeof differenceWith;
+  flatMap: typeof flatMap;
+  has: typeof has;
+  isBoolean: typeof isBoolean;
+  isEmpty: typeof isEmpty;
+  isEqual: typeof isEqual;
+  isUndefined: typeof isUndefined;
+  noop: typeof noop;
+  omitBy: typeof omitBy;
+  startCase: typeof startCase;
+  union: typeof union;
+  uniq: typeof uniq;
+} = {
   difference,
   differenceWith,
   flatMap,

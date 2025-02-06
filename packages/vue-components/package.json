@@ -29,20 +29,14 @@
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-env": "^7.25.0",
     "@babel/runtime": "^7.10.5",
-    "@vue/test-utils": "^1.3.6",
-    "@vue/vue2-jest": "^27.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^27.5.1",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.6.0",
     "eslint-plugin-vue": "^7.9.0",
-    "floating-vue": "1.0.0-beta.14",
+    "floating-vue": "^5.2.2",
     "jest": "^27.5.1",
-    "jest-serializer-vue": "^2.0.2",
-    "portal-vue": "^2.1.7",
-    "vue": "^2.6.14",
-    "vue-final-modal": "^2.4.1",
-    "vue-loader": "^15.9.3"
+    "vue": "3.3.11"
   },
   "private": true
 }

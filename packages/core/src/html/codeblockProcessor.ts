@@ -145,7 +145,7 @@ export function highlightCodeBlock(node: MbNode) {
     const bounds = lineNode.attribs['hl-data'].split(',').map(boundStr => boundStr.split('-').map(Number));
     bounds.forEach(([start, end]) => traverseLinePart(lineNode, start, end));
 
-    delete lineNode.attribs['hl-data'];
+    delete (lineNode.attribs as { [key: string]: string })['hl-data'];
   });
 }
 

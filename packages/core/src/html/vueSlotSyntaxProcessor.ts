@@ -61,7 +61,7 @@ export function transformOldSlotSyntax(node: MbNode) {
     if (child.attribs && _.has(child.attribs, 'slot')) {
       const vslotShorthandName = `#${child.attribs.slot}`;
       child.attribs[vslotShorthandName] = '';
-      delete child.attribs.slot;
+      delete (child.attribs as { [key: string]: string }).slot; // Fix here
     }
   });
 }

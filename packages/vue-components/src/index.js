@@ -4,84 +4,89 @@ import 'floating-vue/dist/style.css';
 /* eslint-enable import/no-extraneous-dependencies */
 
 // Custom / modified components and components from yuche/vue-strap
-import box from './Box.vue';
-import breadcrumb from './Breadcrumb.vue';
-import closeable from './directives/Closeable';
-import dropdown from './Dropdown.vue';
-import navbar from './Navbar.vue';
-import panel from './Panel.vue';
-import annotate from './annotations/Annotate.vue';
-import aPoint from './annotations/AnnotatePoint.vue';
-import pic from './Pic.vue';
-import quiz from './questions/Quiz.vue';
-import question from './questions/Question.vue';
-import qOption from './questions/QOption.vue';
-import retriever from './Retriever.vue';
-import searchbar from './Searchbar.vue';
-import tab from './Tab.vue';
-import tabGroup from './TabGroup.vue';
-import tabset from './Tabset.vue';
-import thumbnail from './Thumbnail.vue';
-import trigger from './Trigger.vue';
-import siteNav from './SiteNav.vue';
-import submenu from './Submenu.vue';
-import siteNavButton from './SiteNavButton.vue';
-import pageNavButton from './PageNavButton.vue';
-import overlay from './Overlay.vue';
-import overlaySource from './OverlaySource.vue';
-import popover from './Popover.vue';
-import tooltip from './Tooltip.vue';
-import modal from './Modal.vue';
-import scrollTopButton from './ScrollTopButton.vue';
+// import box from './Box.vue';
+// import breadcrumb from './Breadcrumb.vue';
+// import closeable from './directives/Closeable';
+// import dropdown from './Dropdown.vue';
+// import navbar from './Navbar.vue';
+// import panel from './Panel.vue';
+// import annotate from './annotations/Annotate.vue';
+// import aPoint from './annotations/AnnotatePoint.vue';
+// import pic from './Pic.vue';
+// import quiz from './questions/Quiz.vue';
+// import question from './questions/Question.vue';
+// import qOption from './questions/QOption.vue';
+// import retriever from './Retriever.vue';
+// import searchbar from './Searchbar.vue';
+// import tab from './Tab.vue';
+// import tabGroup from './TabGroup.vue';
+// import tabset from './Tabset.vue';
+// import thumbnail from './Thumbnail.vue';
+// import trigger from './Trigger.vue';
+// import siteNav from './SiteNav.vue';
+// import submenu from './Submenu.vue';
+// import siteNavButton from './SiteNavButton.vue';
+// import pageNavButton from './PageNavButton.vue';
+// import overlay from './Overlay.vue';
+// import overlaySource from './OverlaySource.vue';
+// import popover from './Popover.vue';
+// import tooltip from './Tooltip.vue';
+// import modal from './Modal.vue';
+// import scrollTopButton from './ScrollTopButton.vue';
 
 const components = {
-  box,
-  breadcrumb,
-  dropdown,
-  navbar,
-  panel,
-  annotate,
-  aPoint,
-  pic,
-  quiz,
-  question,
-  qOption,
-  retriever,
-  searchbar,
-  tab,
-  tabGroup,
-  tabs: tabset,
-  thumbnail,
-  trigger,
-  siteNav,
-  submenu,
-  siteNavButton,
-  pageNavButton,
-  overlay,
-  overlaySource,
-  popover,
-  tooltip,
-  modal,
+  // box,
+  // breadcrumb,
+  // dropdown,
+  // navbar,
+  // panel,
+  // annotate,
+  // aPoint,
+  // pic,
+  // quiz,
+  // question,
+  // qOption,
+  // retriever,
+  // searchbar,
+  // tab,
+  // tabGroup,
+  // tabs: tabset,
+  // thumbnail,
+  // trigger,
+  // siteNav,
+  // submenu,
+  // siteNavButton,
+  // pageNavButton,
+  // overlay,
+  // overlaySource,
+  // popover,
+  // tooltip,
+  // modal,
   'VPopover': Dropdown,
   'VTooltip': Tooltip,
-  scrollTopButton,
+  // scrollTopButton,
 };
 
 const directives = {
-  closeable,
+  // closeable,
 };
 
-function install(Vue) {
+// ensure this doesnt break current usage
+
+// eslint-disable-next-line no-unused-vars
+function install(app, options) {
   Object.keys(directives).forEach((key) => {
-    Vue.directive(key, directives[key]);
+    app.directive(key, directives[key]);
   });
   Object.keys(components).forEach((key) => {
-    Vue.component(key, components[key]);
+    app.component(key, components[key]);
   });
 }
 
 const plugin = { install };
 
+// unnecessary to export component and directives
+// confirm again
 export default {
   plugin,
   components,
