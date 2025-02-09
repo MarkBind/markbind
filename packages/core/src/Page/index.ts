@@ -559,7 +559,7 @@ export class Page {
     pageVueServerRenderer.savePageForHotReload(this, content, pageNav);
 
     // Compile the page into Vue application and outputs the render function into script for browser
-    await pageVueServerRenderer.compileVuePageAndCreateScript(content, this.pageConfig, this.asset);
+    await pageVueServerRenderer.savePageContent(content, this.pageConfig, this.asset);
 
     // Wait for all pages resources to be generated before writing to disk
     await LockManager.waitForLockRelease();

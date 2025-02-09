@@ -43,7 +43,7 @@
 <script src="{{ asset.polyfillJs }}"></script>
 <script src="{{ asset.vue }}"></script>
 <script src="{{ asset.markBindJs }}"></script>
-<script type="module" src="{{ asset.pageVueRenderJs }}"></script>
+<script src="{{ asset.pageContent }}"></script>
 <script>
   {% if enableSearch %}MarkBind.setupWithSearch(){% else %}MarkBind.setup(){% endif %}
 </script>

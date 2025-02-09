@@ -1,5 +1,5 @@
-/* global render:readonly */
-// render() exists in dynamically generated script by Page/index.js
+/* global pageContent:readonly */
+// pageContent exist in dynamically generated script by Page/index.js
 // see PageVueServerRenderer.ts
 
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -180,7 +180,7 @@ function setup() {
    * address the hydration issue accordingly.
    */
   const app = createSSRApp({
-    render,
+    template: pageContent,
     ...appFactory(),
     mounted() {
       executeAfterMountedRoutines();
@@ -199,7 +199,7 @@ function setupWithSearch() {
    */
   const app = createSSRApp({
     // eslint-disable-next-line no-eval
-    render,
+    template: pageContent,
     ...appFactory(),
     mounted() {
       executeAfterMountedRoutines();
