@@ -8,8 +8,10 @@ export enum HIGHLIGHT_TYPES {
 
 export class HighlightRule {
   ruleComponents: HighlightRuleComponent[];
-  constructor(ruleComponents: HighlightRuleComponent[]) {
+  color?: string;
+  constructor(ruleComponents: HighlightRuleComponent[], color?: string) {
     this.ruleComponents = ruleComponents;
+    this.color = color;
   }
 
   static parseAllRules(allRules: string, lineOffset: number, tokenContent: string) {
@@ -52,7 +54,10 @@ export class HighlightRule {
       return null;
     }
 
-    return new HighlightRule(components as HighlightRuleComponent[]);
+    // After converting each to a HighlightRuleComponent, we extract the color
+    const color = components.find(c => c?.color)?.color;
+
+    return new HighlightRule(components as HighlightRuleComponent[], color);
   }
 
   shouldApplyHighlight(lineNumber: number) {
@@ -70,6 +75,7 @@ export class HighlightRule {
   getHighlightType(lineNumber: number): {
     highlightType: HIGHLIGHT_TYPES,
     bounds: Array<[number, number]> | null
+    color?: string
   } {
     // Applied rule is the first component until deduced otherwise
     let [appliedRule] = this.ruleComponents;
@@ -77,13 +83,13 @@ export class HighlightRule {
       // For cases like 2[:]-3 (or 2-3[:]), the highlight would be line highlight
       // across all the ranges
       if (this.ruleComponents.some(comp => comp.isUnboundedSlice())) {
-        return { highlightType: HIGHLIGHT_TYPES.WholeLine, bounds: null };
+        return { highlightType: HIGHLIGHT_TYPES.WholeLine, bounds: null, color: this.color };
       }
 
       const [startCompare, endCompare] = this.ruleComponents.map(comp => comp.compareLine(lineNumber));
       if (startCompare < 0 && endCompare > 0) {
         // In-between range
-        return { highlightType: HIGHLIGHT_TYPES.WholeText, bounds: null };
+        return { highlightType: HIGHLIGHT_TYPES.WholeText, bounds: null, color: this.color };
       }
 
       const [startRule, endRule] = this.ruleComponents;
@@ -93,11 +99,11 @@ export class HighlightRule {
 
     if (appliedRule.isSlice) {
       return appliedRule.isUnboundedSlice()
-        ? { highlightType: HIGHLIGHT_TYPES.WholeLine, bounds: null }
-        : { highlightType: HIGHLIGHT_TYPES.PartialText, bounds: appliedRule.bounds };
+        ? { highlightType: HIGHLIGHT_TYPES.WholeLine, bounds: null, color:appliedRule.color }
+        : { highlightType: HIGHLIGHT_TYPES.PartialText, bounds: appliedRule.bounds, color: appliedRule.color };
     }
     // Line number only
-    return { highlightType: HIGHLIGHT_TYPES.WholeText, bounds: null };
+    return { highlightType: HIGHLIGHT_TYPES.WholeText, bounds: null, color: appliedRule.color };
   }
 
   isLineRange() {

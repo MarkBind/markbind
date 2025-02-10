@@ -100,6 +100,8 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
     highlightRules = HighlightRule.parseAllRules(highlightLinesInput, -startFromZeroBased, str);
   }
 
+  const color = getAttribute(token, 'color');
+
   if (lang && hljs.getLanguage(lang)) {
     try {
       /* With highlightjs version >= v10.7.0, usage of continuation is deprecated
@@ -160,7 +162,7 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
       const { highlightType, bounds } = rules[i].getHighlightType(currentLineNumber);
 
       if (highlightType === HIGHLIGHT_TYPES.WholeLine) {
-        return Highlighter.highlightWholeLine(line);
+        return Highlighter.highlightWholeLine(line, color);
       } else if (highlightType === HIGHLIGHT_TYPES.WholeText) {
         lineHighlightType = HIGHLIGHT_TYPES.WholeText;
       } else if (
@@ -173,14 +175,17 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
     }
 
     if (lineHighlightType === HIGHLIGHT_TYPES.WholeText) {
-      return Highlighter.highlightWholeText(line);
+      return Highlighter.highlightWholeText(line, color);
     }
 
-    return Highlighter.highlightPartOfText(line, rawBounds);
+    return Highlighter.highlightPartOfText(line, rawBounds, color);
   }).join('');
 
   token.attrJoin('class', 'hljs');
   if (highlighted) {
+    if (color) {
+      token.attrJoin('style', `background-color: ${color};`);
+    }
     token.attrJoin('class', lang);
   }
 

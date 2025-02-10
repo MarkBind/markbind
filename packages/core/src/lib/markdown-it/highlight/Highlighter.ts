@@ -1,16 +1,20 @@
 import { collateAllIntervals, splitCodeAndIndentation } from './helper';
 
 export class Highlighter {
-  static highlightWholeLine(code: string) {
-    return `<span class="highlighted">${code}\n</span>`;
+  static highlightWholeLine(code: string, color ?: string) {
+
+    const style = color ? `style="background-color:${color}"` : '';
+    return `<span class="highlighted" ${style}>${code}\n</span>`;
   }
 
-  static highlightWholeText(code: string) {
+  static highlightWholeText(code: string, color ?: string) {
+
+    const style = color ? `style="background-color:${color}"` : '';
     const [indents, content] = splitCodeAndIndentation(code);
-    return `<span>${indents}<span class="highlighted">${content}</span>\n</span>`;
+    return `<span>${indents}<span class="highlighted" ${style}>${content}</span>\n</span>`;
   }
 
-  static highlightPartOfText(code: string, bounds: Array<[number, number]>) {
+  static highlightPartOfText(code: string, bounds: Array<[number, number]>, color?: string) {
     /*
       * Note: As part-of-text highlighting requires walking over the node of the generated
       * html by highlight.js, highlighting will be applied in NodeProcessor instead.
@@ -18,6 +22,8 @@ export class Highlighter {
     */
     const mergedBounds = collateAllIntervals(bounds);
     const dataStr = mergedBounds.map(bound => bound.join('-')).join(',');
-    return `<span hl-data=${dataStr}>${code}\n</span>`;
+
+    const style = color ? `style="background-color:${color}"` : '';
+    return `<span hl-data=${dataStr} ${style}>${code}\n</span>`;
   }
 }

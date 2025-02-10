@@ -22,6 +22,14 @@ MarkBind source files can be as simple as basic Markdown, but you can also [**us
 
 Here are some simple text-formatting examples:
 
+```java {.line-numbers highlight-lines="2" color="blue"}
+
+public static sum() {
+  return x + 7
+}
+
+```
+
 Syntax scheme | Code | Output
 --------------|------|-------
 Markdown | `**bold text** _italic text_` | **bold text** _italic text_
