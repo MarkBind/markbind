@@ -24,8 +24,14 @@ function isIPAddressZero(address) {
   return patternForZero.test(address);
 }
 
+/**
+ * Referenced from StackOverflow:
+ * https://stackoverflow.com/questions/5284147/validating-ipv4-addresses-with-regexp
+ *
+ * Credits to Danail Gabenski
+ */
 function isValidIpAddress(address) {
-  const patternForIp = /^(\d{1,3}\.){3}\d{1,3}$/;
+  const patternForIp = /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/;
 
   return patternForIp.test(address);
 }
