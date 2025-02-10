@@ -300,10 +300,12 @@ button.function-btn {
     color: darkgray;
     cursor: pointer;
     display: none;
+    height: 30px;
     margin: 0.17rem;
     padding: 0.35rem;
     position: absolute;
     right: 0;
+    width: 30px;
     text-align: center;
     white-space: nowrap;
 }

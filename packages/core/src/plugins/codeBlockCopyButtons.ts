@@ -22,6 +22,18 @@ const COPY_ICON = `
 </svg>
 `;
 
+const TICK_ICON = `
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="2 2 22 22"
+  >
+    <path d="M 19.28125 5.28125 L 9 15.5625 L 4.71875 11.28125 L 3.28125 12.71875 L 8.28125 17.71875 
+    L 9 18.40625 L 9.71875 17.71875 L 20.71875 6.71875 Z"></path>
+  </svg>
+`;
+
 function getButtonHTML() {
   const html = `<button onclick="copyCodeBlock(this)" class="function-btn d-print-none">
     <div class="function-btn-body">
@@ -35,6 +47,7 @@ const copyCodeBlockScript = `<script>
     function copyCodeBlock(element) {
         const pre = element.parentElement.parentElement;
         const codeElement = pre.querySelector('code');
+        const copyButton = element;
 
         // create dummy text element to select() the text field
         const textElement = document.createElement('textarea');
@@ -44,6 +57,10 @@ const copyCodeBlockScript = `<script>
 
         document.execCommand('copy');
         document.body.removeChild(textElement);
+        copyButton.innerHTML = \`${TICK_ICON}\`;
+        setTimeout(() => {
+            copyButton.innerHTML = \`${COPY_ICON}\`;
+        }, 3000);
     }
     </script>`;
 
