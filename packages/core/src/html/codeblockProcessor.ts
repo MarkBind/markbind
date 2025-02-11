@@ -1,12 +1,12 @@
 import cheerio from 'cheerio';
-import has from 'lodash/has';
+import isObject from 'lodash/isObject';
 import { NodeOrText, MbNode } from '../utils/node';
 
 import md from '../lib/markdown-it';
 import * as util from '../lib/markdown-it/utils';
 
 const _ = {
-  has,
+  isObject,
 };
 
 interface TraverseLinePartData {
@@ -138,14 +138,11 @@ export function highlightCodeBlock(node: MbNode) {
   }
 
   codeNode.children.forEach((lineNode) => {
-    if ((!lineNode.attribs) || !_.has(lineNode.attribs, 'hl-data')) {
-      return;
+    if (_.isObject(lineNode.attribs) && 'hl-data' in lineNode.attribs) {
+      const bounds = lineNode.attribs['hl-data'].split(',').map(boundStr => boundStr.split('-').map(Number));
+      bounds.forEach(([start, end]) => traverseLinePart(lineNode, start, end));
+      delete lineNode.attribs['hl-data'];
     }
-
-    const bounds = lineNode.attribs['hl-data'].split(',').map(boundStr => boundStr.split('-').map(Number));
-    bounds.forEach(([start, end]) => traverseLinePart(lineNode, start, end));
-
-    delete (lineNode.attribs as { [key: string]: string })['hl-data'];
   });
 }
 

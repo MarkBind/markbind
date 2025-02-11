@@ -1,9 +1,7 @@
-import has from 'lodash/has';
 import find from 'lodash/find';
 import { MbNode, NodeOrText, parseHTML } from '../utils/node';
 
 const _ = {
-  has,
   find,
 };
 
@@ -58,10 +56,10 @@ export function shiftSlotNodeDeeper(node: MbNode) {
  */
 export function transformOldSlotSyntax(node: MbNode) {
   node.children.forEach((child) => {
-    if (child.attribs && _.has(child.attribs, 'slot')) {
+    if (child.attribs && 'slot' in child.attribs) {
       const vslotShorthandName = `#${child.attribs.slot}`;
       child.attribs[vslotShorthandName] = '';
-      delete (child.attribs as { [key: string]: string }).slot; // Fix here
+      delete child.attribs.slot;
     }
   });
 }
