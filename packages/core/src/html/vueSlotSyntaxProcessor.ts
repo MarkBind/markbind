@@ -53,6 +53,7 @@ export function shiftSlotNodeDeeper(node: MbNode) {
 
 /*
  * Transforms deprecated vue slot syntax (slot="test") into the updated Vue slot shorthand syntax (#test).
+ * Used to support old slot syntax for backward conmpatibility.
  */
 export function transformOldSlotSyntax(node: MbNode) {
   node.children.forEach((child) => {
