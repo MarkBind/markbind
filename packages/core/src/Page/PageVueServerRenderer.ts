@@ -98,7 +98,8 @@ async function renderVuePage(renderFn: string): Promise<string> {
   });
   app.use(plugin);
   const html = await renderToString(app);
-  return html;
+  const wrappedHtml = `<div id="app">${html}</div>`;
+  return wrappedHtml;
 }
 
 interface PageEntry {

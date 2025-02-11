@@ -553,7 +553,6 @@ export class Page {
 
     this.collectHeadingsAndKeywords(pageContent);
 
-    content = `<div id="app">${content}</div>`;
     checkForVueHydrationViolation(content, this.pageConfig.sourcePath);
 
     // Compile the page into Vue application and outputs the render function into script for browser
@@ -575,6 +574,7 @@ export class Page {
 
     this.filterIconAssets(content, vueSsrHtml);
     if (process.env.TEST_MODE) {
+      content = `<div id="app">${content}</div>`;
       await this.outputPageHtml(content);
     } else {
       await this.outputPageHtml(vueSsrHtml);
