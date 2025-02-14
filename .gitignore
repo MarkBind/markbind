@@ -70,6 +70,8 @@ packages/cli/test/functional/test_site_templates/test_project/expected/diagrams/
 *.d.ts.map
 *.tsbuildinfo
 
+dangerfile.js
+
 # --- packages/core ---
 
 # Ignore JS files that are compiled from TS
