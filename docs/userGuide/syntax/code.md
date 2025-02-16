@@ -24,6 +24,10 @@ Features:
 * Line highlighting
 * Code block headers
 
+<box type="info">
+Tabs (i.e. "\t") are automatically converted to 4 whitespaces by default.
+</box>
+
 ##### Syntax coloring
 
 To enable syntax coloring, specify a language next to the backticks before the fenced code block.
@@ -203,7 +207,7 @@ Type | Format | Example
 -----|--------|--------
 **Full text highlight**<br>Highlights the entirety of the text portion of the line | The line numbers as-is (subject to the starting line number set in `start-from`). | `3`, `5`
 **Substring highlight**<br>Highlights _all_ occurrences of a substring in the line | `lineNumber[part]`<br><br>_Limitations_: `part` must be wrapped in quotes. If `part` contains a quote, escape it with a backslash (`\`). | `3['Inventory']`,`4['It\'s designed']`
-**Character-bounded highlight**<br>Highlights a specific range of characters in the line | `lineNumber[start:end]`, highlights from character position `start` up to (but not including) `end`.<br><br>Character positions start from `0` as the first non-whitespace character, upwards.<br><br>Omit either `start`/`end` to highlight from the start / up to the end, respectively.<br><br>To use absolute positions (i.e. including leading whitespace), add a `+` symbol to the beginning of the rule: `+lineNumber[start:end]`<br><br> _Note: Tabs are automatically converted to 4 spaces by default._ | `19[1:5]`,`30[10:]`,`35[:20]`, `+3[1:4]`
+**Character-bounded highlight**<br>Highlights a specific range of characters in the line | `lineNumber[start:end]`, highlights from character position `start` up to (but not including) `end`.<br><br>Character positions start from `0` as the first non-whitespace character, upwards.<br><br>Omit either `start`/`end` to highlight from the start / up to the end, respectively.<br><br>To use absolute positions (i.e. including leading whitespace), add a `+` symbol to the beginning of the rule: `+lineNumber[start:end]` | `19[1:5]`,`30[10:]`,`35[:20]`, `+3[1:4]`
 **Word-bounded highlight**<br>Highlights a specific range of words in the line | `lineNumber[start::end]`, highlights from word position `start` up to (but not including) `end`.<br><br>Word positions start from `0` as the first word (sequence of non-whitespace characters), upwards.<br><br>Omit either `start`/`end` to highlight from the start / up to the end, respectively. | `5[2::4]`,`9[1::]`,`11[::5]`
 **Full line highlight**<br>Highlights the entirety of the line | `lineNumber[:]` | `7[:]`
 
