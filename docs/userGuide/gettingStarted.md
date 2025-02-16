@@ -14,10 +14,36 @@
 <div class="indented">
 
   %%{{ icon_ticked }}%% a basic knowledge of [Markdown](https://www.markdownguide.org/basic-syntax/) and [HTML](https://www.w3schools.com/html/) syntax<br>
-  %%{{ icon_ticked }}%% a basic knowledge of running CLI commands<br>
+  %%{{ icon_ticked }}%% a basic knowledge of running [CLI commands](https://www.w3schools.com/whatis/whatis_cli.asp)<br>
   %%{{ icon_ticked }}%% a recent version of [npm](https://www.npmjs.com/get-npm) installed<br>
   %%{{ icon_ticked }}%% [Node.js](https://nodejs.org) {{ node_version }} or higher installed
 </div>
+
+<panel header=":fa-solid-circle-info: Installing Node.js & npm">
+
+<box type="info" light>
+If you already have Node.js ({{ node_version }} or higher) and npm installed, you can skip this section.
+</box>
+
+Visit the [Node.js download page](https://nodejs.org/en/download). 
+
+- **Option 1: Download a prebuilt installer (Windows/MacOS)** 
+  - This automatically sets up npm.
+- **Option 2: Install through the Command Line (any OS)**  
+  1. Select your **OS** and architecture from the dropdowns on the same page.
+  2. Make sure to choose **“with npm”**.
+  3. Run the provided commands in your terminal to install Node.js and npm.
+
+After installation, in your terminal run:
+```
+node -v
+npm -v
+```
+The versions for `node` and `npm` should match or exceed the requirements mentioned in the Prerequisites.
+
+</panel>
+
+---
 
 There are a few ways to install MarkBind, select one that is most suitable for your use case. If you are unsure, we recommend using the first method.
 
@@ -55,11 +81,12 @@ Usage: ...
 <tabs>
   <tab header="Initializing a new project">
 
-Navigate into an empty directory and run the following command to initialize a skeletal MarkBind site in that directory. It will create several new files in the directory e.g., `index.md`, `site.json`.
+Navigate into an empty directory and run: 
 
 ```
 markbind init
 ```
+This command creates a skeletal MarkBind site in that directory, with files like `index.md` and `site.json`.
 
 <include src="tip.md" boilerplate >
 <span id="tip_body">
@@ -108,7 +135,7 @@ To stop the web server, go to the console running the `serve` command and press 
 
 ++**5. Updating your MarkBind version**++
 
-After you have installed MarkBind, you may want to update to the latest version of MarkBind in the future.
+After you have installed MarkBind, you can update to the latest version by running:
 
 ```
 npm install -g markbind-cli@latest
