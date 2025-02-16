@@ -44,3 +44,5 @@ packages/vue-components/src/utils/NodeList.js
 packages/vue-components/src/utils/utils.js
 
 # --- packages/vue-components end ---
+
+dangerfile.js
