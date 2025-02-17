@@ -51,6 +51,10 @@ function serve(userSpecifiedRoot, options) {
     }
   } catch (error) {
     logger.error(error.message);
+    logger.error('This directory does not appear to contain a valid MarkBind site.\n'
+              + '\n'
+              + 'To create a new MarkBind site, run:\n'
+              + '   markbind init');
     process.exitCode = 1;
     process.exit();
   }
