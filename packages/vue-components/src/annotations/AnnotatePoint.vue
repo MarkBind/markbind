@@ -204,10 +204,10 @@ export default {
       const labelText = labelSlotContent?.[0]?.children?.[0]?.text;
       const labelHeader = headerSlotContent?.[0]?.children?.[0]?.text;
 
-      if (labelText === undefined && labelHeader !== undefined) {
+      if (labelText === undefined && labelHeader !== undefined) { // Label is not defined
         return labelHeader;
       }
-      if (labelText !== undefined && labelHeader === undefined) {
+      if (labelText !== undefined && labelHeader === undefined) { // Header is not defined
         return labelText;
       }
 
