@@ -198,13 +198,20 @@ export default {
       return (this.hasContent || this.hasHeader) && (this.legend === 'popover' || this.legend === 'both');
     },
     computedBottomHeader() {
-      if (this.label !== '' && this.header === '') {
-        return this.label;
+      const labelSlotContent = this.$scopedSlots.label?.();
+      const headerSlotContent = this.$scopedSlots.header?.();
+
+      const labelText = labelSlotContent?.[0]?.children?.[0]?.text;
+      const labelHeader = headerSlotContent?.[0]?.children?.[0]?.text;
+
+      if (labelText === undefined && labelHeader !== undefined) { // Label is not defined
+        return labelHeader;
       }
-      if (this.label === '' && this.header !== '') {
-        return this.header;
+      if (labelText !== undefined && labelHeader === undefined) { // Header is not defined
+        return labelText;
       }
-      return `${this.label}: ${this.header}`;
+
+      return `${labelText}: ${labelHeader}`;
     },
   },
   methods: {
@@ -258,6 +265,10 @@ export default {
         pointer-events: none;
         z-index: 2;
         text-align: center;
+    }
+
+    .hover-label > * {
+        margin: 0;
     }
 
     .hover-wrapper {
