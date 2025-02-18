@@ -1,5 +1,5 @@
-/* global pageContent:readonly */
-// pageContent exist in dynamically generated script by Page/index.js
+/* global render:readonly */
+// render exist in dynamically generated script by Page/index.js
 // see PageVueServerRenderer.ts
 
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -173,14 +173,10 @@ window.handleSiteNavClick = function (elem, useAnchor = true) {
 };
 
 function setup() {
-  /*
-   * For SSR, if we mount onto the wrong element (without data-server-rendered attribute) in our SSR setup,
-   * hydration will fail silently and turn into client-side rendering, which is not what we want.
-   * Thus, we will always force hydration so that we always know when hydration has failed, so that we can
-   * address the hydration issue accordingly.
-   */
+  // render exist in global window object
+  // see PageVueServerRenderer.ts
   const app = createSSRApp({
-    template: pageContent,
+    render,
     ...appFactory(),
     mounted() {
       executeAfterMountedRoutines();
@@ -191,15 +187,10 @@ function setup() {
 }
 
 function setupWithSearch() {
-  /*
-   * For SSR, if we mount onto the wrong element (without data-server-rendered attribute) in our SSR setup,
-   * hydration will fail silently and turn into client-side rendering, which is not what we want.
-   * Thus, we will always force hydration so that we always know when hydration has failed, so that we can
-   * address the hydration issue accordingly.
-   */
+  // render exist in global window object
+  // see PageVueServerRenderer.ts
   const app = createSSRApp({
-    // eslint-disable-next-line no-eval
-    template: pageContent,
+    render,
     ...appFactory(),
     mounted() {
       executeAfterMountedRoutines();

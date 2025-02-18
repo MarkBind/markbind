@@ -4,10 +4,10 @@
   due to the usage of `module`. Hence, the use of the above `eslint-disable`.
 */
 import * as Vue from 'vue';
-import { createApp } from 'vue';
-import { renderToString } from '@vue/server-renderer';
-import { compileTemplate } from '@vue/compiler-sfc';
-import type { SFCTemplateCompileOptions, CompilerOptions } from '@vue/compiler-sfc';
+import { createSSRApp } from 'vue';
+import { renderToString } from 'vue/server-renderer';
+import { compileTemplate } from 'vue/compiler-sfc';
+import type { SFCTemplateCompileOptions, CompilerOptions } from 'vue/compiler-sfc';
 
 import path from 'path';
 import fs from 'fs-extra';
@@ -92,7 +92,7 @@ async function renderVuePage(renderFn: string): Promise<string> {
   // Pass in Vue epxected to be available globally
   // eslint-disable-next-line @typescript-eslint/no-implied-eval
   const render = new Function('Vue', renderFn)(Vue);
-  const app = createApp({
+  const app = createSSRApp({
     render,
     ...appFactory(),
   });
