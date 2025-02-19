@@ -181,7 +181,7 @@ Here we showcase some use cases of the Annotate feature.
 | opacity   | `String` | `'0.3'`     | The opacity of the point.<br>Supports range of values from `0` to `1`. <br> Does not work with customised shapes                                                                                                        |
 | fontSize  | `String` | `'14'`      | The font size of the label.<br>Supports any pixel size smaller than size of the point.                                                                                        |
 | textColor | `String` | `'black'`   | The color of the label.<br>Supports any color in the CSS color format. E.g. `red`, `#ffffff`, `rgb(66, 135, 245)`, etc.                                                       |
-| legend    | `String` | `'popover'` | The position of the Annotate Point content and header.<br>Supports: `popover`, `bottom`, `both`.                                                                              |
+| legend    | `String` | `'popover'` | The position of the Annotate Point content and header.<br> The `label` property must be defined for it to be displayed in the legend.<br>Supports: `popover`, `bottom`, `both`.                                                                              |
 
 ****`<annotate>` Options****
 
