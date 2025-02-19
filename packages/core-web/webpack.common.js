@@ -1,7 +1,6 @@
 /* eslint-env node */
 const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
-const webpack = require('webpack');
 
 module.exports = {
   context: __dirname,
@@ -46,10 +45,8 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      __VUE_OPTIONS_API__: true,
-    }),
-    new VueLoaderPlugin(),
-  ],
+  externals: {
+    vue: 'Vue',
+  },
+  plugins: [new VueLoaderPlugin()],
 };
