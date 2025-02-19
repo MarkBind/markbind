@@ -125,7 +125,7 @@ export default {
       return false;
     });
   },
-  beforeDestroy() {
+  beforeUnmount() {
     const $el = $(this.$refs.submenu);
     $el.offBlur();
     $el.findChildren('a,button').off();

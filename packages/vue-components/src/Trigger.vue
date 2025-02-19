@@ -109,7 +109,9 @@ export default {
   },
   mounted() {
     // <input> tags need to be handled separately as they need to retain focus on inputs
-    this.isInput = this.$slots.default && this.$slots.default.some(node => node.tag === 'input');
+    // Use $slots.default() to get an array of VNodes
+    const slotContent = this.$slots.default ? this.$slots.default().map(vnode => vnode.type) : [];
+    this.isInput = slotContent.includes('input');
 
     if (!this.for) {
       return;

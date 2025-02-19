@@ -68,7 +68,7 @@ export default {
       this.$parent.tabs.push(this);
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this._tabset.activeNumber === this.index) { this._tabset.activeNumber = 0; }
     if (this._ingroup) {
       const tabIndex = this.$parent.tabs.indexOf(this);

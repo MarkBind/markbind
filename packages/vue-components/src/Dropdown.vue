@@ -22,7 +22,7 @@
     </slot>
   </li>
   <submenu v-else-if="isSubmenu" ref="submenu">
-    <template v-for="(node, name) in $scopedSlots" #[name]>
+    <template v-for="(node, name) in $slots" #[name]>
       <slot :name="name"></slot>
     </template>
   </submenu>
@@ -114,10 +114,10 @@ export default {
       return this.$parent && (this.$parent.menu || this.$parent.submenu);
     },
     slots() {
-      return this.$scopedSlots.default;
+      return this.$slots.default;
     },
     hasBefore() {
-      return !!this.$scopedSlots.before;
+      return !!this.$slots.before;
     },
     btnWithBefore() {
       return this.hasBefore ? 'btn-with-before' : '';
@@ -184,7 +184,7 @@ export default {
       this.hideDropdownMenu();
     });
   },
-  beforeDestroy() {
+  beforeUnmount() {
     const $el = $(this.$refs.dropdown);
     $el.offBlur();
     $el.findChildren('a,button').off();

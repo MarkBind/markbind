@@ -1,5 +1,5 @@
 module.exports = {
-  bind(el) {
+  beforeMount(el) {
     function onClose() {
       el.dataset.isShown = 'false';
       showLabel.style.display = '';

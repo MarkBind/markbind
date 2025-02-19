@@ -1,7 +1,7 @@
 <template>
   <transition :name="questions ? 'question' : null" @after-leave="showNextQuestion">
     <div v-if="active" :class="['card', 'question', shakeClass, addClass]">
-      <div v-if="$scopedSlots.header" class="card-header alert-light border-bottom border-light text-dark">
+      <div v-if="$slots.header" class="card-header alert-light border-bottom border-light text-dark">
         <slot name="header"></slot>
       </div>
       <div class="card-body">
@@ -62,7 +62,7 @@
           class="float-end"
         >
           <button
-            v-if="$scopedSlots.hint && !showHint"
+            v-if="$slots.hint && !showHint"
             key="hint"
             type="button"
             class="btn btn-success q-btn ms-1"
@@ -71,7 +71,7 @@
             Hint
           </button>
           <button
-            v-if="qState.state === 0 && !(isTextWithoutKeywords() && !$scopedSlots.answer)"
+            v-if="qState.state === 0 && !(isTextWithoutKeywords() && !$slots.answer)"
             key="check"
             type="button"
             class="btn btn-primary q-btn ms-1"
@@ -114,11 +114,15 @@
 
 <script>
 import { STATE_CORRECT, STATE_FRESH, STATE_WRONG } from './QuestionConstants';
+import box from '../Box.vue';
 import QuizQuestionMixin from './QuizQuestionMixin';
 
 export default {
   name: 'Question',
   mixins: [QuizQuestionMixin],
+  components: {
+    box,
+  },
   props: {
     type: {
       type: String,
@@ -155,7 +159,7 @@ export default {
     showCardFooter() {
       // Hide the card footer when 'there are no more buttons to click',
       // and the tick / cross circle is not shown
-      const isHintNotProvidedOrIsShown = !this.$scopedSlots.hint || this.showHint;
+      const isHintNotProvidedOrIsShown = !this.$slots.hint || this.showHint;
       return !(this.isTextWithoutKeywords()
         && isHintNotProvidedOrIsShown
         && this.qState.answered
