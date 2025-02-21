@@ -31,6 +31,8 @@ module.exports = {
           },
         ],
       },
+      // Suppress webpack building asset details
+      stats: 'errors-warnings',
       plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),

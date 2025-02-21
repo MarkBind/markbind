@@ -15,6 +15,8 @@ module.exports = merge(config, {
       // to "stub" global browser variables which are not present during server rendering
       'window': undefined,
       'document': undefined,
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: true,
     }),
   ],
 });
