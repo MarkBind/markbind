@@ -33,7 +33,7 @@ export default {
       return ~this.tabs.indexOf(this._tabset.show);
     },
     headerRendered() {
-      return this.$refs.header.innerHTML;
+      return this.$refs.header.textContent.trim();
     },
     disabledBool() {
       return coerce.boolean(this.disabled);

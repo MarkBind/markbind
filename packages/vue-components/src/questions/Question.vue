@@ -208,7 +208,7 @@ export default {
         noIntermediateResult: this.noIntermediateResult,
       };
     }
-    return undefined;
+    return {};
   },
   methods: {
     keywordsSplitTrimmed() {

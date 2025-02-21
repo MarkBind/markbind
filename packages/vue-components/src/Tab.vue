@@ -46,7 +46,7 @@ export default {
     },
   },
   created() {
-    this._ingroup = this.$parent && this.$parent._tabgroup;
+    this._ingroup = this.$parent && '_tabgroup' in this.$parent;
     let tabset = this;
     while (tabset && tabset._tabset !== true && tabset.$parent) {
       tabset = tabset.$parent;

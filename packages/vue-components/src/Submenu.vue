@@ -114,13 +114,15 @@ export default {
         if (isShowing || this.disabledBool) { return false; }
         e.currentTarget.click();
         const fullMenu = this.$parent.$parent;
-        fullMenu.$children.forEach((menuItem) => {
-          if (menuItem.$el === this.$el) {
-            menuItem.$refs.submenu.showSubmenu();
-          } else {
-            menuItem.$refs.submenu.hideSubmenu();
-          }
-        });
+        if (fullMenu.$children && fullMenu.$children.length > 0) {
+          fullMenu.$children.forEach((menuItem) => {
+            if (menuItem.$el === this.$el) {
+              menuItem.$refs.submenu.showSubmenu();
+            } else {
+              menuItem.$refs.submenu.hideSubmenu();
+            }
+          });
+        }
       }
       return false;
     });
