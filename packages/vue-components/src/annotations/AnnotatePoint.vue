@@ -273,6 +273,7 @@ export default {
 
     .hover-wrapper {
         z-index: 0;
+        cursor: pointer;
         background: transparent;
         display: inline-flex;
         align-items: center;
