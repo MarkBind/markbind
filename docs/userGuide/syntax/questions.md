@@ -153,7 +153,7 @@ Optionally, you can provide the reason for the particular option using the `<q-o
 {% set mcqQuestion %}
 <question type="mcq" header="Which of these **contradicts** the heuristics recommended when creating test cases with multiple inputs?">
   <!-- Insert the reason for the option using the reason attribute -->
-  <q-option reason="This is **correct**. We need to figure out if a positive test case works!">
+  <q-option reason="This option **does not contradict the heuristics recommended**. We need to figure out if a positive test case works!">
     Each valid test input should appear at least once in a test case that doesn’t have any invalid inputs.
   </q-option>
   <q-option>
@@ -184,6 +184,32 @@ Optionally, you can provide the reason for the particular option using the `<q-o
 </include>
 
 <box type="tip" seamless>MCQ questions can have multiple correct options!</box>
+
+{% set mcqQuestionWithMultipleAnswers %}
+<question type="mcq" header="Which of these is an example of gathering requirements for a product?">
+  <!-- Insert the reason for the option using the reason attribute -->
+  <q-option reason="Studying existing products can unearth shortcomings of existing solutions that can be addressed by a new product" correct>
+    Product surveys
+  </q-option>
+  <q-option reason="Observing users in their natural work environment is a way to uncover product requirements" correct>
+    Observation
+  </q-option>
+  <q-option reason="Assuming user needs directly opposes the idea of identifying the needs the product is made to solve">
+    User assumptions
+  </q-option>
+  <q-option reason="Focus groups can help to understand a specific issue, process, product, advertisement, etc." correct>
+    Focus groups
+  </q-option>
+  <div slot="hint">
+  There can be more than one correct answer, but only one can be selected!
+  </div>
+</question>
+{% endset %}
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">{{ mcqQuestionWithMultipleAnswers }}</variable>
+</include>
 
 **Checkbox Questions**
 
