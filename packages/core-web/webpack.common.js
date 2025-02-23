@@ -1,6 +1,6 @@
 /* eslint-env node */
 const path = require('path');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
   context: __dirname,
@@ -44,6 +44,9 @@ module.exports = {
         ],
       },
     ],
+  },
+  externals: {
+    vue: 'Vue',
   },
   plugins: [new VueLoaderPlugin()],
 };

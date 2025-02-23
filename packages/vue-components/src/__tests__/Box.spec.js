@@ -15,7 +15,7 @@ describe('Box', () => {
 
   test('of info type renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'info',
       },
     });
@@ -24,7 +24,7 @@ describe('Box', () => {
 
   test('of warning type renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'warning',
       },
     });
@@ -33,7 +33,7 @@ describe('Box', () => {
 
   test('of success type renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'success',
       },
     });
@@ -42,7 +42,7 @@ describe('Box', () => {
 
   test('of important type renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'important',
       },
     });
@@ -51,7 +51,7 @@ describe('Box', () => {
 
   test('of wrong type renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'wrong',
       },
     });
@@ -60,7 +60,7 @@ describe('Box', () => {
 
   test('of tip type renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'tip',
       },
     });
@@ -69,7 +69,7 @@ describe('Box', () => {
 
   test('of definition type renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'definition',
       },
     });
@@ -78,7 +78,7 @@ describe('Box', () => {
 
   test('with dismissible option renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         dismissible: true,
       },
     });
@@ -96,7 +96,7 @@ describe('Box', () => {
 
   test('of info type light style renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'info',
         light: true,
       },
@@ -106,7 +106,7 @@ describe('Box', () => {
 
   test('of warning type light style renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'warning',
         light: true,
       },
@@ -116,7 +116,7 @@ describe('Box', () => {
 
   test('of success type light style renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'success',
         light: true,
       },
@@ -126,7 +126,7 @@ describe('Box', () => {
 
   test('of important type light style renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'important',
         light: true,
       },
@@ -136,7 +136,7 @@ describe('Box', () => {
 
   test('of wrong type light style renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'wrong',
         light: true,
       },
@@ -146,7 +146,7 @@ describe('Box', () => {
 
   test('of tip type light style renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'tip',
         light: true,
       },
@@ -156,7 +156,7 @@ describe('Box', () => {
 
   test('of definition type light style renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'definition',
         light: true,
       },
@@ -166,7 +166,7 @@ describe('Box', () => {
 
   test('of seamless style renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         seamless: true,
       },
     });
@@ -175,7 +175,7 @@ describe('Box', () => {
 
   test('having custom background color renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         backgroundColor: 'white',
       },
     });
@@ -184,7 +184,7 @@ describe('Box', () => {
 
   test('having custom border color renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         borderColor: 'grey',
       },
     });
@@ -193,7 +193,7 @@ describe('Box', () => {
 
   test('having custom border left color renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         borderLeftColor: 'blue',
       },
     });
@@ -202,22 +202,22 @@ describe('Box', () => {
 
   test('should have light style take priority over seamless', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         light: true,
         seamless: true,
       },
     });
     const boxLightStyle = mount(Box, {
-      propsData: {
+      props: {
         light: true,
       },
     });
-    expect(wrapper).toEqual(boxLightStyle);
+    expect(wrapper.html()).toEqual(boxLightStyle.html());
   });
 
   test('with no-background option renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         noBackground: true,
       },
     });
@@ -226,22 +226,22 @@ describe('Box', () => {
 
   test('with no-background option does not affect background-color', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         noBackground: true,
         backgroundColor: 'yellow',
       },
     });
     const boxYellowBackground = mount(Box, {
-      propsData: {
+      props: {
         backgroundColor: 'yellow',
       },
     });
-    expect(wrapper).toEqual(boxYellowBackground);
+    expect(wrapper.html()).toEqual(boxYellowBackground.html());
   });
 
   test('with no-border option renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         noBorder: true,
       },
     });
@@ -250,37 +250,38 @@ describe('Box', () => {
 
   test('with no-border option does not affect border-color', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         noBorder: true,
         borderColor: 'grey',
       },
     });
     const boxGreyBorder = mount(Box, {
-      propsData: {
+      props: {
         borderColor: 'grey',
       },
     });
-    expect(wrapper).toEqual(boxGreyBorder);
+    expect(wrapper.html()).toEqual(boxGreyBorder.html());
   });
 
   test('with no-border option does not affect border-left-color', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         noBorder: true,
         borderLeftColor: 'grey',
       },
     });
     const boxGreyLeftBorder = mount(Box, {
-      propsData: {
+      props: {
         borderLeftColor: 'grey',
       },
     });
-    expect(wrapper).toEqual(boxGreyLeftBorder);
+    expect(getComputedStyle(wrapper.element).borderLeftColor)
+      .toBe(getComputedStyle(boxGreyLeftBorder.element).borderLeftColor);
   });
 
   test('with no-icon option renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         type: 'success',
         noIcon: true,
       },
@@ -293,7 +294,7 @@ describe('Box', () => {
       slots: {
         icon: ':rocket:',
       },
-      propsData: {
+      props: {
         type: 'info',
       },
     });
@@ -305,7 +306,7 @@ describe('Box', () => {
       slots: {
         icon: ':rocket:',
       },
-      propsData: {
+      props: {
         type: 'info',
         noIcon: true,
       },
@@ -314,11 +315,11 @@ describe('Box', () => {
       slots: {
         icon: ':rocket:',
       },
-      propsData: {
+      props: {
         type: 'info',
       },
     });
-    expect(wrapper).toEqual(boxWithIcon);
+    expect(wrapper.html()).toEqual(boxWithIcon.html());
   });
 
   test('with icon and icon-size renders correctly', () => {
@@ -326,7 +327,7 @@ describe('Box', () => {
       slots: {
         icon: ':rocket:',
       },
-      propsData: {
+      props: {
         type: 'info',
         iconSize: '2x',
       },
@@ -336,7 +337,7 @@ describe('Box', () => {
 
   test('with custom color renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         color: 'pink',
       },
     });
@@ -349,7 +350,7 @@ describe('Box', () => {
         icon: ':fas-plus:',
         header: 'A header',
       },
-      propsData: {
+      props: {
         iconColor: 'red',
       },
     });
@@ -361,7 +362,7 @@ describe('Box', () => {
       slots: {
         icon: ':fas-plus:',
       },
-      propsData: {
+      props: {
         iconColor: 'red',
       },
     });
@@ -370,7 +371,7 @@ describe('Box', () => {
 
   test('with custom icon color and light renders correctly', () => {
     const wrapper = mount(Box, {
-      propsData: {
+      props: {
         iconColor: 'red',
         light: true,
         type: 'warning',

@@ -21,6 +21,10 @@ const DEFAULT_STUBS = {
   'box': true,
 };
 
+const DEFAULT_GLOBAL_MOUNT_OPTIONS = {
+  stubs: DEFAULT_STUBS,
+};
+
 const MCQ_QUESTION = `
 <question type="mcq">
   ... Mcq question ...
@@ -69,7 +73,7 @@ describe('Quizzes', () => {
         default: '',
         intro: '<h1>Intro</h1>',
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     expect(wrapper.element).toMatchSnapshot();
@@ -80,7 +84,7 @@ describe('Quizzes', () => {
       slots: {
         default: MCQ_QUESTION,
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click 'begin'
@@ -101,7 +105,7 @@ describe('Quizzes', () => {
       slots: {
         default: CHECKBOX_QUESTION,
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click 'begin'
@@ -123,7 +127,7 @@ describe('Quizzes', () => {
       slots: {
         default: BLANKS_QUESTION,
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // click 'begin'
@@ -144,7 +148,7 @@ describe('Quizzes', () => {
       slots: {
         default: TEXT_QUESTION,
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click 'begin'
@@ -165,7 +169,7 @@ describe('Quizzes', () => {
       slots: {
         default: [MCQ_QUESTION, TEXT_QUESTION, CHECKBOX_QUESTION, BLANKS_QUESTION],
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click 'begin'
@@ -213,7 +217,7 @@ describe('Quizzes', () => {
       slots: {
         default: [MCQ_QUESTION, TEXT_QUESTION],
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click 'begin'
@@ -248,7 +252,7 @@ describe('Quizzes', () => {
       slots: {
         default: [MCQ_QUESTION, TEXT_QUESTION, CHECKBOX_QUESTION],
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click 'begin'

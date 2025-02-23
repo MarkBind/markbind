@@ -48,7 +48,7 @@ export default {
     this.togglePageNavButton();
     $(window).on('resize', this.togglePageNavButton);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     $(window).off('resize', this.togglePageNavButton);
   },
 };

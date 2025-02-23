@@ -86,7 +86,7 @@ export default {
       return '';
     },
     slots() {
-      return this.$scopedSlots;
+      return this.$slots;
     },
     themeOptions() {
       switch (this.type) {
@@ -107,7 +107,7 @@ export default {
     // e.g http://site.org/foo/bar/index.html -> ['foo','bar','index.html']
     splitUrl(url) {
       const u = new URL(normalizeUrl(url));
-      return `${u.pathname}`.substr(1).split('/');
+      return `${u.pathname}`.slice(1).split('/');
     },
     isEqualExceptLast(hParts, uParts) {
       for (let i = 0; i < hParts.length - 1; i += 1) {
@@ -274,7 +274,7 @@ export default {
       }
     });
   },
-  beforeDestroy() {
+  beforeUnmount() {
     $('.dropdown', this.$el).off('click').offBlur();
     $(window).off('resize', this.toggleLowerNavbar);
     $(this.$refs.navbarDefault).off('wheel');
@@ -344,12 +344,12 @@ export default {
         }
 
         .navbar-default a,
-        >>> .dropdown-toggle {
+        :deep(.dropdown-toggle) {
             margin: 0 auto;
             width: max-content;
         }
 
-        >>> .dropdown {
+        :deep(.dropdown) {
             display: flex;
             align-items: center;
         }
@@ -394,7 +394,7 @@ export default {
         align-items: center;
     }
 
-    >>> .dropdown-current {
+    :deep(.dropdown-current) {
         color: #fff !important;
         background: #007bff;
     }
@@ -408,13 +408,13 @@ export default {
     }
 
     /* Navbar link highlight for current page */
-    .navbar.navbar-dark .navbar-nav >>> .current:not(.dropdown) a,
-    .navbar.navbar-dark .navbar-nav >>> .dropdown.current > a {
+    .navbar.navbar-dark .navbar-nav :deep(current:not(.dropdown) a),
+    .navbar.navbar-dark .navbar-nav :deep(.dropdown.current > a) {
         color: #fff;
     }
 
-    .navbar.navbar-light .navbar-nav >>> .current:not(.dropdown) a,
-    .navbar.navbar-light .navbar-nav >>> .dropdown.current > a {
+    .navbar.navbar-light .navbar-nav :deep(.current:not(.dropdown)) a,
+    .navbar.navbar-light .navbar-nav :deep(.dropdown.current > a) {
         color: #000;
     }
 </style>
