@@ -27,12 +27,12 @@ markbind init --template minimal
 
 ## Supported Templates
 
-Name    | Template key | Description | Quick Deploy
-----    | -------      | ----------- | ------------
-Default | `default`    | Default template if `--template` is unspecified. Includes core features such as site and page navigation for a more convenient quick start. | <a href="https://app.netlify.com/start/deploy?repository=https://github.com/MarkBind/init-typical-netlify"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>
-Minimal | `minimal`    | Minimalistic template that gets you started quickly. | <a href="https://app.netlify.com/start/deploy?repository=https://github.com/MarkBind/init-minimal-netlify"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>
-Project     | `project`        | Project documentation template serves as a good starting point for project developers. This template includes both a user guide and a developer guide, with some formatted dummy content. | <a href="https://markbind-template-project.netlify.app/"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>
-Portfolio | `portfolio` | Portfolio template to quickly build your portfolio. | <a href="https://markbind-template-portfolio.netlify.app/"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>
+Name    | Template key | Description | Quick Deploy | Sample Site
+----    | -------      | ----------- | ------------ | -------
+Default | `default`    | Default template if `--template` is unspecified. Includes core features such as site and page navigation for a more convenient quick start. | <a href="https://app.netlify.com/start/deploy?repository=https://github.com/MarkBind/init-typical-netlify"><img src="https://www.netlify.com/img/deploy/button.svg" /></a> | <a href='https://markbind-template-typical.netlify.app'><img src="../images/preview-icon.png" width="50" height="50" title="Preview"></a>
+Minimal | `minimal`    | Minimalistic template that gets you started quickly. | <a href="https://app.netlify.com/start/deploy?repository=https://github.com/MarkBind/init-minimal-netlify"><img src="https://www.netlify.com/img/deploy/button.svg" /></a> | <a href='https://markbind-template-minimal.netlify.app'><img src="../images/preview-icon.png" width="50" height="50" title="Preview"></a>
+Project     | `project`        | Project documentation template serves as a good starting point for project developers. This template includes both a user guide and a developer guide, with some formatted dummy content. | <a href="https://markbind-template-project.netlify.app/"><img src="https://www.netlify.com/img/deploy/button.svg" /></a> | <a href="https://markbind-template-project.netlify.app/"><img src="../images/preview-icon.png" width="50" height="50" title="Preview"></a>
+Portfolio | `portfolio` | Portfolio template to quickly build your portfolio. | <a href="https://markbind-template-portfolio.netlify.app/"><img src="https://www.netlify.com/img/deploy/button.svg" /></a> | <a href="https://portfolio-template-markbind.netlify.app/"><img src="../images/preview-icon.png" width="50" height="50" title="Preview"></a>
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('addingNavigationButtons', '') }}
