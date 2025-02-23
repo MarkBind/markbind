@@ -200,21 +200,6 @@ describe('Box', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  test('should have light style take priority over seamless', () => {
-    const wrapper = mount(Box, {
-      props: {
-        light: true,
-        seamless: true,
-      },
-    });
-    const boxLightStyle = mount(Box, {
-      props: {
-        light: true,
-      },
-    });
-    expect(wrapper.html()).toEqual(boxLightStyle.html());
-  });
-
   test('with no-background option renders correctly', () => {
     const wrapper = mount(Box, {
       props: {
@@ -224,21 +209,6 @@ describe('Box', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  test('with no-background option does not affect background-color', () => {
-    const wrapper = mount(Box, {
-      props: {
-        noBackground: true,
-        backgroundColor: 'yellow',
-      },
-    });
-    const boxYellowBackground = mount(Box, {
-      props: {
-        backgroundColor: 'yellow',
-      },
-    });
-    expect(wrapper.html()).toEqual(boxYellowBackground.html());
-  });
-
   test('with no-border option renders correctly', () => {
     const wrapper = mount(Box, {
       props: {
@@ -246,37 +216,6 @@ describe('Box', () => {
       },
     });
     expect(wrapper.element).toMatchSnapshot();
-  });
-
-  test('with no-border option does not affect border-color', () => {
-    const wrapper = mount(Box, {
-      props: {
-        noBorder: true,
-        borderColor: 'grey',
-      },
-    });
-    const boxGreyBorder = mount(Box, {
-      props: {
-        borderColor: 'grey',
-      },
-    });
-    expect(wrapper.html()).toEqual(boxGreyBorder.html());
-  });
-
-  test('with no-border option does not affect border-left-color', () => {
-    const wrapper = mount(Box, {
-      props: {
-        noBorder: true,
-        borderLeftColor: 'grey',
-      },
-    });
-    const boxGreyLeftBorder = mount(Box, {
-      props: {
-        borderLeftColor: 'grey',
-      },
-    });
-    expect(getComputedStyle(wrapper.element).borderLeftColor)
-      .toBe(getComputedStyle(boxGreyLeftBorder.element).borderLeftColor);
   });
 
   test('with no-icon option renders correctly', () => {
@@ -299,27 +238,6 @@ describe('Box', () => {
       },
     });
     expect(wrapper.element).toMatchSnapshot();
-  });
-
-  test('with no-icon option does not affect icon set by icon', () => {
-    const wrapper = mount(Box, {
-      slots: {
-        icon: ':rocket:',
-      },
-      props: {
-        type: 'info',
-        noIcon: true,
-      },
-    });
-    const boxWithIcon = mount(Box, {
-      slots: {
-        icon: ':rocket:',
-      },
-      props: {
-        type: 'info',
-      },
-    });
-    expect(wrapper.html()).toEqual(boxWithIcon.html());
   });
 
   test('with icon and icon-size renders correctly', () => {
@@ -378,5 +296,84 @@ describe('Box', () => {
       },
     });
     expect(wrapper.element).toMatchSnapshot();
+  });
+
+  test('should have light style take priority over seamless', () => {
+    const wrapper = mount(Box, {
+      props: {
+        light: true,
+        seamless: true,
+      },
+    });
+    const boxLightStyle = mount(Box, {
+      props: {
+        light: true,
+      },
+    });
+    expect(wrapper.html()).toEqual(boxLightStyle.html());
+  });
+
+  test('with no-icon option does not affect icon set by icon', () => {
+    const wrapper = mount(Box, {
+      slots: {
+        icon: ':rocket:',
+      },
+      props: {
+        type: 'info',
+        noIcon: true,
+      },
+    });
+    const boxWithIcon = mount(Box, {
+      slots: {
+        icon: ':rocket:',
+      },
+      props: {
+        type: 'info',
+      },
+    });
+    expect(wrapper.html()).toEqual(boxWithIcon.html());
+  });
+
+  test('with no-background option does not affect background-color', () => {
+    const wrapper = mount(Box, {
+      props: {
+        noBackground: true,
+        backgroundColor: 'yellow',
+      },
+    });
+    const style = wrapper.element.style.backgroundColor;
+    expect(style).toBe('yellow');
+  });
+
+  test('with no-border option does not affect border-color', () => {
+    const wrapper = mount(Box, {
+      props: {
+        noBorder: true,
+        borderColor: 'grey',
+      },
+    });
+    const boxGreyBorder = mount(Box, {
+      props: {
+        borderColor: 'grey',
+      },
+    });
+    expect(getComputedStyle(wrapper.element).borderColor)
+      .toBe(getComputedStyle(boxGreyBorder.element).borderColor);
+  });
+
+  test('with no-border option does not affect border-left-color', () => {
+    const wrapper = mount(Box, {
+      props: {
+        noBorder: true,
+        borderLeftColor: 'grey',
+      },
+    });
+    const boxGreyLeftBorder = mount(Box, {
+      props: {
+        borderLeftColor: 'grey',
+      },
+    });
+    expect(getComputedStyle(wrapper.element).borderLeftColor)
+      .toBe(getComputedStyle(boxGreyLeftBorder.element).borderLeftColor);
   });
 });

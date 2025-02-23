@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import { defineComponent, h } from 'vue';
 import Question from '../questions/Question.vue';
 import QOption from '../questions/QOption.vue';
 
@@ -272,13 +273,13 @@ describe('Checkbox Questions and QOptions', () => {
 });
 
 describe('Blank Questions and QOptions', () => {
-  test('of unanswered with shown hint and header renders correctly', async () => {
-    const option = {
-      render(h) {
-        return h(QOption, { props: { keywords: 'key' } });
-      },
-    };
+  const option = defineComponent({
+    render() {
+      return h(QOption, { keywords: 'key' });
+    },
+  });
 
+  test('of unanswered with shown hint and header renders correctly', async () => {
     const wrapper = mount(Question, {
       props: { type: 'blanks' },
       slots: {
@@ -302,12 +303,6 @@ describe('Blank Questions and QOptions', () => {
   });
 
   test('of answered correctly with unshown hint without header renders correctly', async () => {
-    const option = {
-      render(h) {
-        return h(QOption, { props: { keywords: 'key' } });
-      },
-    };
-
     const wrapper = mount(Question, {
       props: {
         type: 'blanks',
@@ -342,12 +337,6 @@ describe('Blank Questions and QOptions', () => {
   });
 
   test('of checked wrongly with shown hint without header renders correctly', async () => {
-    const option = {
-      render(h) {
-        return h(QOption, { props: { keywords: 'key' } });
-      },
-    };
-
     const wrapper = mount(Question, {
       props: {
         type: 'blanks',
@@ -388,12 +377,6 @@ describe('Blank Questions and QOptions', () => {
   });
 
   test('of checked wrongly with unshown hint with header with intermediate renders correctly', async () => {
-    const option = {
-      render(h) {
-        return h(QOption, { props: { keywords: 'key' } });
-      },
-    };
-
     const wrapper = mount(Question, {
       props: {
         type: 'blanks',
@@ -432,12 +415,6 @@ describe('Blank Questions and QOptions', () => {
   });
 
   test('of answered wrongly with header without hint renders correctly', async () => {
-    const option = {
-      render(h) {
-        return h(QOption, { props: { keywords: 'key' } });
-      },
-    };
-
     const wrapper = mount(Question, {
       props: {
         type: 'blanks',

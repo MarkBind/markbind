@@ -23,11 +23,11 @@
       shift-cross-axis
     >
       <!-- floating-vue triggers must be elements that receive mouse events, hence an empty @click -->
-      <span v-if="!isInput" @click.stop>
+      <!-- However, input elements are handled separately as they will lose focus when wrapped in a span -->
+      <slot v-if="isInput"></slot>
+      <span v-else @click.stop>
         <slot></slot>
       </span>
-      <!-- However, input elements are handled separately as they will lose focus when wrapped in a span -->
-      <slot v-else></slot>
       <template #popper>
         <div class="popover-container">
           <h3 v-if="hasHeader" class="popover-header">
@@ -72,15 +72,15 @@ export default {
       return this.trigger.split(' ');
     },
     hasHeader() {
+      console.log(`has header: ${!!this.$slots.header}`);
       return !!this.$slots.header;
+    },
+    isInput() {
+      return Boolean(this.$slots.default && this.$slots.default().some(vnode => vnode.type === 'input'));
     },
   },
   mounted() {
     this.targetEl = this.$el;
-    // <input> tags need to be handled separately as they need to retain focus on inputs
-    const slotContent = this.$slots.default ? this.$slots.default().map(vnode => vnode.type) : [];
-    this.isInput = slotContent.includes('input');
-
     this.isMounted = true;
   },
 };

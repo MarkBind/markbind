@@ -1,16 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Blank Questions and QOptions of answered correctly with unshown hint without header renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
+      
+      
       Question content
+      
       <div
         class="form-control blanks-form-control danger"
       >
@@ -19,9 +25,8 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
         >
           <input
             class="form-control"
-            disabled="disabled"
+            disabled=""
           />
-           
           <div
             class="col-auto"
           >
@@ -30,29 +35,24 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
                 class="fa fa-times text-danger blanks-cross"
               />
             </div>
-             
-            <!---->
+            <!--v-if-->
           </div>
-           
           <div
             class="col-auto blanks-keywords"
           >
             <strong>
+               Keywords:  
               
-        Keywords: 
-        
               <span
                 class="badge rounded-pill bg-light text-dark fw-normal"
               >
-                
-          key
-        
+                key
               </span>
+              
             </strong>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control danger"
@@ -62,9 +62,8 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
         >
           <input
             class="form-control"
-            disabled="disabled"
+            disabled=""
           />
-           
           <div
             class="col-auto"
           >
@@ -73,29 +72,24 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
                 class="fa fa-times text-danger blanks-cross"
               />
             </div>
-             
-            <!---->
+            <!--v-if-->
           </div>
-           
           <div
             class="col-auto blanks-keywords"
           >
             <strong>
+               Keywords:  
               
-        Keywords: 
-        
               <span
                 class="badge rounded-pill bg-light text-dark fw-normal"
               >
-                
-          key
-        
+                key
               </span>
+              
             </strong>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control danger"
@@ -105,9 +99,8 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
         >
           <input
             class="form-control"
-            disabled="disabled"
+            disabled=""
           />
-           
           <div
             class="col-auto"
           >
@@ -116,29 +109,24 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
                 class="fa fa-check text-success"
               />
             </div>
-             
-            <!---->
+            <!--v-if-->
           </div>
-           
           <div
             class="col-auto blanks-keywords"
           >
             <strong>
+               Keywords:  
               
-        Keywords: 
-        
               <span
                 class="badge rounded-pill bg-light text-dark fw-normal"
               >
-                
-          key
-        
+                key
               </span>
+              
             </strong>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control danger"
@@ -148,9 +136,8 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
         >
           <input
             class="form-control"
-            disabled="disabled"
+            disabled=""
           />
-           
           <div
             class="col-auto"
           >
@@ -159,66 +146,54 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
                 class="fa fa-times text-danger blanks-cross"
               />
             </div>
-             
-            <!---->
+            <!--v-if-->
           </div>
-           
           <div
             class="col-auto blanks-keywords"
           >
             <strong>
+               Keywords:  
               
-        Keywords: 
-        
               <span
                 class="badge rounded-pill bg-light text-dark fw-normal"
               >
-                
-          key
-        
+                key
               </span>
+              
             </strong>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
-       
-      <!---->
+      
+      <!--v-if-->
+      <!--v-if-->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-check text-success border-success result-icon"
       />
-       
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
         <button
           class="btn btn-success q-btn ms-1"
           type="button"
         >
-          
-          Hint
-        
+           Hint 
         </button>
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </transition-group-stub>
     </div>
   </div>
@@ -226,20 +201,28 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
 `;
 
 exports[`Blank Questions and QOptions of answered wrongly with header without hint renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question shake"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
     >
+      
       blanks question header
+      
     </div>
-     
     <div
       class="card-body"
     >
+      
+      
       Question content
+      
       <div
         class="form-control blanks-form-control danger"
       >
@@ -248,9 +231,8 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
         >
           <input
             class="form-control"
-            disabled="disabled"
+            disabled=""
           />
-           
           <div
             class="col-auto"
           >
@@ -259,29 +241,24 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
                 class="fa fa-times text-danger blanks-cross"
               />
             </div>
-             
-            <!---->
+            <!--v-if-->
           </div>
-           
           <div
             class="col-auto blanks-keywords"
           >
             <strong>
+               Keywords:  
               
-        Keywords: 
-        
               <span
                 class="badge rounded-pill bg-light text-dark fw-normal"
               >
-                
-          key
-        
+                key
               </span>
+              
             </strong>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control danger"
@@ -291,9 +268,8 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
         >
           <input
             class="form-control"
-            disabled="disabled"
+            disabled=""
           />
-           
           <div
             class="col-auto"
           >
@@ -302,29 +278,24 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
                 class="fa fa-check text-success"
               />
             </div>
-             
-            <!---->
+            <!--v-if-->
           </div>
-           
           <div
             class="col-auto blanks-keywords"
           >
             <strong>
+               Keywords:  
               
-        Keywords: 
-        
               <span
                 class="badge rounded-pill bg-light text-dark fw-normal"
               >
-                
-          key
-        
+                key
               </span>
+              
             </strong>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control danger"
@@ -334,9 +305,8 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
         >
           <input
             class="form-control"
-            disabled="disabled"
+            disabled=""
           />
-           
           <div
             class="col-auto"
           >
@@ -345,29 +315,24 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
                 class="fa fa-times text-danger blanks-cross"
               />
             </div>
-             
-            <!---->
+            <!--v-if-->
           </div>
-           
           <div
             class="col-auto blanks-keywords"
           >
             <strong>
+               Keywords:  
               
-        Keywords: 
-        
               <span
                 class="badge rounded-pill bg-light text-dark fw-normal"
               >
-                
-          key
-        
+                key
               </span>
+              
             </strong>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control danger"
@@ -377,9 +342,8 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
         >
           <input
             class="form-control"
-            disabled="disabled"
+            disabled=""
           />
-           
           <div
             class="col-auto"
           >
@@ -388,59 +352,49 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
                 class="fa fa-times text-danger blanks-cross"
               />
             </div>
-             
-            <!---->
+            <!--v-if-->
           </div>
-           
           <div
             class="col-auto blanks-keywords"
           >
             <strong>
+               Keywords:  
               
-        Keywords: 
-        
               <span
                 class="badge rounded-pill bg-light text-dark fw-normal"
               >
-                
-          key
-        
+                key
               </span>
+              
             </strong>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
-       
-      <!---->
+      
+      <!--v-if-->
+      <!--v-if-->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
       />
-       
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </transition-group-stub>
     </div>
   </div>
@@ -448,16 +402,22 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
 `;
 
 exports[`Blank Questions and QOptions of checked wrongly with shown hint without header renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question shake"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
+      
+      
       Question content
+      
       <div
         class="form-control blanks-form-control"
       >
@@ -467,19 +427,15 @@ exports[`Blank Questions and QOptions of checked wrongly with shown hint without
           <input
             class="form-control"
           />
-           
           <div
             class="col-auto"
           >
-            <!---->
-             
-            <!---->
+            <!--v-if-->
+            <!--v-if-->
           </div>
-           
-          <!---->
+          <!--v-if-->
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control"
@@ -490,19 +446,15 @@ exports[`Blank Questions and QOptions of checked wrongly with shown hint without
           <input
             class="form-control"
           />
-           
           <div
             class="col-auto"
           >
-            <!---->
-             
-            <!---->
+            <!--v-if-->
+            <!--v-if-->
           </div>
-           
-          <!---->
+          <!--v-if-->
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control"
@@ -513,19 +465,15 @@ exports[`Blank Questions and QOptions of checked wrongly with shown hint without
           <input
             class="form-control"
           />
-           
           <div
             class="col-auto"
           >
-            <!---->
-             
-            <!---->
+            <!--v-if-->
+            <!--v-if-->
           </div>
-           
-          <!---->
+          <!--v-if-->
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control"
@@ -536,67 +484,60 @@ exports[`Blank Questions and QOptions of checked wrongly with shown hint without
           <input
             class="form-control"
           />
-           
           <div
             class="col-auto"
           >
-            <!---->
-             
-            <!---->
+            <!--v-if-->
+            <!--v-if-->
           </div>
-           
-          <!---->
+          <!--v-if-->
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
-       
+      
+      <!--v-if-->
+      <!--v-if-->
       <box-stub
+        addclass=""
         class="mb-0 mt-3"
+        dismissible="false"
+        light="false"
+        nobackground="false"
+        noborder="false"
+        noicon="false"
+        seamless="false"
+        theme=""
         type="tip"
-      >
-        blanks question hint
-      </box-stub>
+      />
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
       />
-       
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
         <button
           class="btn btn-info q-btn ms-1"
           type="button"
         >
-          
-          Show
-        
+           Show 
         </button>
-         
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Retry
-        
+           Retry 
         </button>
       </transition-group-stub>
     </div>
@@ -605,20 +546,28 @@ exports[`Blank Questions and QOptions of checked wrongly with shown hint without
 `;
 
 exports[`Blank Questions and QOptions of checked wrongly with unshown hint with header with intermediate renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question shake"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
     >
+      
       blanks question header
+      
     </div>
-     
     <div
       class="card-body"
     >
+      
+      
       Question content
+      
       <div
         class="form-control blanks-form-control"
       >
@@ -628,23 +577,19 @@ exports[`Blank Questions and QOptions of checked wrongly with unshown hint with 
           <input
             class="form-control"
           />
-           
           <div
             class="col-auto"
           >
-            <!---->
-             
+            <!--v-if-->
             <div>
               <i
                 class="fa fa-check text-success"
               />
             </div>
           </div>
-           
-          <!---->
+          <!--v-if-->
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control"
@@ -655,23 +600,19 @@ exports[`Blank Questions and QOptions of checked wrongly with unshown hint with 
           <input
             class="form-control"
           />
-           
           <div
             class="col-auto"
           >
-            <!---->
-             
+            <!--v-if-->
             <div>
               <i
                 class="fa fa-check text-success"
               />
             </div>
           </div>
-           
-          <!---->
+          <!--v-if-->
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control"
@@ -682,23 +623,19 @@ exports[`Blank Questions and QOptions of checked wrongly with unshown hint with 
           <input
             class="form-control"
           />
-           
           <div
             class="col-auto"
           >
-            <!---->
-             
+            <!--v-if-->
             <div>
               <i
                 class="fa fa-check text-success"
               />
             </div>
           </div>
-           
-          <!---->
+          <!--v-if-->
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control"
@@ -709,73 +646,58 @@ exports[`Blank Questions and QOptions of checked wrongly with unshown hint with 
           <input
             class="form-control"
           />
-           
           <div
             class="col-auto"
           >
-            <!---->
-             
+            <!--v-if-->
             <div>
               <i
                 class="fa fa-times text-danger blanks-cross"
               />
             </div>
           </div>
-           
-          <!---->
+          <!--v-if-->
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
-       
-      <!---->
+      
+      <!--v-if-->
+      <!--v-if-->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
       />
-       
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
         <button
           class="btn btn-success q-btn ms-1"
           type="button"
         >
-          
-          Hint
-        
+           Hint 
         </button>
-         
-        <!---->
-         
-        <!---->
-         
+        <!--v-if-->
+        <!--v-if-->
         <button
           class="btn btn-info q-btn ms-1"
           type="button"
         >
-          
-          Show
-        
+           Show 
         </button>
-         
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Retry
-        
+           Retry 
         </button>
       </transition-group-stub>
     </div>
@@ -784,20 +706,28 @@ exports[`Blank Questions and QOptions of checked wrongly with unshown hint with 
 `;
 
 exports[`Blank Questions and QOptions of unanswered with shown hint and header renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
     >
+      
       unanswered blanks question header
+      
     </div>
-     
     <div
       class="card-body"
     >
+      
+      
       Question content
+      
       <div
         class="form-control blanks-form-control"
       >
@@ -807,19 +737,15 @@ exports[`Blank Questions and QOptions of unanswered with shown hint and header r
           <input
             class="form-control"
           />
-           
           <div
             class="col-auto"
           >
-            <!---->
-             
-            <!---->
+            <!--v-if-->
+            <!--v-if-->
           </div>
-           
-          <!---->
+          <!--v-if-->
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control"
@@ -830,19 +756,15 @@ exports[`Blank Questions and QOptions of unanswered with shown hint and header r
           <input
             class="form-control"
           />
-           
           <div
             class="col-auto"
           >
-            <!---->
-             
-            <!---->
+            <!--v-if-->
+            <!--v-if-->
           </div>
-           
-          <!---->
+          <!--v-if-->
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control"
@@ -853,19 +775,15 @@ exports[`Blank Questions and QOptions of unanswered with shown hint and header r
           <input
             class="form-control"
           />
-           
           <div
             class="col-auto"
           >
-            <!---->
-             
-            <!---->
+            <!--v-if-->
+            <!--v-if-->
           </div>
-           
-          <!---->
+          <!--v-if-->
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
       <div
         class="form-control blanks-form-control"
@@ -876,59 +794,54 @@ exports[`Blank Questions and QOptions of unanswered with shown hint and header r
           <input
             class="form-control"
           />
-           
           <div
             class="col-auto"
           >
-            <!---->
-             
-            <!---->
+            <!--v-if-->
+            <!--v-if-->
           </div>
-           
-          <!---->
+          <!--v-if-->
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
-       
+      
+      <!--v-if-->
+      <!--v-if-->
       <box-stub
+        addclass=""
         class="mb-0 mt-3"
+        dismissible="false"
+        light="false"
+        nobackground="false"
+        noborder="false"
+        noicon="false"
+        seamless="false"
+        theme=""
         type="tip"
-      >
-        blanks question hint
-      </box-stub>
+      />
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
-      <!---->
-       
+      <!--v-if-->
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
-        <!---->
-         
+        <!--v-if-->
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Check
-        
+           Check 
         </button>
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </transition-group-stub>
     </div>
   </div>
@@ -936,16 +849,23 @@ exports[`Blank Questions and QOptions of unanswered with shown hint and header r
 `;
 
 exports[`Checkbox Questions and QOptions of answered correctly with unshown hint without header renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
+      
+      
       Question content
+      
+      
       <div
         class="form-control danger"
       >
@@ -954,17 +874,17 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
         >
           <input
             class="checkbox"
-            disabled="disabled"
+            disabled=""
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 1 - incorrect, not selected
+            
           </div>
-           
           <div
             class="col-auto"
           >
@@ -975,9 +895,10 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
             </div>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control danger"
       >
@@ -986,17 +907,17 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
         >
           <input
             class="checkbox"
-            disabled="disabled"
+            disabled=""
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 2 - incorrect, not selected, with reason
+            
           </div>
-           
           <div
             class="col-auto"
           >
@@ -1007,17 +928,19 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
             </div>
           </div>
         </label>
-         
         <div>
           <hr />
-           
           <div
             class="reason"
           >
+            
             opt 2 reason
+            
           </div>
         </div>
       </div>
+      
+      
       <div
         class="form-control success"
       >
@@ -1026,17 +949,17 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
         >
           <input
             class="checkbox"
-            disabled="disabled"
+            disabled=""
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 3 - correct, selected
+            
           </div>
-           
           <div
             class="col-auto"
           >
@@ -1047,9 +970,10 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
             </div>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control success"
       >
@@ -1058,17 +982,17 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
         >
           <input
             class="checkbox"
-            disabled="disabled"
+            disabled=""
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 4 - correct, selected, with reason
+            
           </div>
-           
           <div
             class="col-auto"
           >
@@ -1079,53 +1003,47 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
             </div>
           </div>
         </label>
-         
         <div>
           <hr />
-           
           <div
             class="reason"
           >
+            
             opt 4 reason
+            
           </div>
         </div>
       </div>
-       
-      <!---->
-       
-      <!---->
-       
-      <!---->
+      
+      
+      <!--v-if-->
+      <!--v-if-->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-check text-success border-success result-icon"
       />
-       
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
         <button
           class="btn btn-success q-btn ms-1"
           type="button"
         >
-          
-          Hint
-        
+           Hint 
         </button>
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </transition-group-stub>
     </div>
   </div>
@@ -1133,20 +1051,29 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
 `;
 
 exports[`Checkbox Questions and QOptions of answered wrongly with header without hint renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question shake"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
     >
+      
       Checkbox question header
+      
     </div>
-     
     <div
       class="card-body"
     >
+      
+      
       Question content
+      
+      
       <div
         class="form-control danger"
       >
@@ -1155,17 +1082,17 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
         >
           <input
             class="checkbox"
-            disabled="disabled"
+            disabled=""
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 1 - incorrect, selected
+            
           </div>
-           
           <div
             class="col-auto"
           >
@@ -1176,9 +1103,10 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
             </div>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control danger"
       >
@@ -1187,17 +1115,17 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
         >
           <input
             class="checkbox"
-            disabled="disabled"
+            disabled=""
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 2 - incorrect, selected, with reason
+            
           </div>
-           
           <div
             class="col-auto"
           >
@@ -1208,17 +1136,19 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
             </div>
           </div>
         </label>
-         
         <div>
           <hr />
-           
           <div
             class="reason"
           >
+            
             opt 2 reason
+            
           </div>
         </div>
       </div>
+      
+      
       <div
         class="form-control success"
       >
@@ -1227,17 +1157,17 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
         >
           <input
             class="checkbox"
-            disabled="disabled"
+            disabled=""
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 3 - correct, selected
+            
           </div>
-           
           <div
             class="col-auto"
           >
@@ -1248,9 +1178,10 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
             </div>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control success"
       >
@@ -1259,17 +1190,17 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
         >
           <input
             class="checkbox"
-            disabled="disabled"
+            disabled=""
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 4 - correct, not selected, with reason
+            
           </div>
-           
           <div
             class="col-auto"
           >
@@ -1280,46 +1211,42 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
             </div>
           </div>
         </label>
-         
         <div>
           <hr />
-           
           <div
             class="reason"
           >
+            
             opt 4 reason
+            
           </div>
         </div>
       </div>
-       
-      <!---->
-       
-      <!---->
-       
-      <!---->
+      
+      
+      <!--v-if-->
+      <!--v-if-->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
       />
-       
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </transition-group-stub>
     </div>
   </div>
@@ -1327,16 +1254,23 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
 `;
 
 exports[`Checkbox Questions and QOptions of checked wrongly with shown hint without header renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question shake"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
+      
+      
       Question content
+      
+      
       <div
         class="form-control alert-light text-dark border border-secondary"
       >
@@ -1348,22 +1282,23 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 1 - incorrect, selected
+            
           </div>
-           
           <div
             class="col-auto"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control alert-light text-dark border border-secondary"
       >
@@ -1375,22 +1310,23 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 2 - incorrect, selected, with reason
+            
           </div>
-           
           <div
             class="col-auto"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control alert-light text-dark border border-secondary"
       >
@@ -1402,22 +1338,23 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 3 - correct, selected
+            
           </div>
-           
           <div
             class="col-auto"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control alert-light text-dark border border-secondary"
       >
@@ -1429,69 +1366,66 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 4 - correct, selected, with reason
+            
           </div>
-           
           <div
             class="col-auto"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
-       
+      
+      
+      <!--v-if-->
+      <!--v-if-->
       <box-stub
+        addclass=""
         class="mb-0 mt-3"
+        dismissible="false"
+        light="false"
+        nobackground="false"
+        noborder="false"
+        noicon="false"
+        seamless="false"
+        theme=""
         type="tip"
-      >
-        checkbox question hint
-      </box-stub>
+      />
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
       />
-       
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
         <button
           class="btn btn-info q-btn ms-1"
           type="button"
         >
-          
-          Show
-        
+           Show 
         </button>
-         
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Retry
-        
+           Retry 
         </button>
       </transition-group-stub>
     </div>
@@ -1500,20 +1434,29 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
 `;
 
 exports[`Checkbox Questions and QOptions of unanswered with header without hint renders correctly  1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
     >
+      
       Checkbox question header
+      
     </div>
-     
     <div
       class="card-body"
     >
+      
+      
       Question content
+      
+      
       <div
         class="form-control alert-light text-dark border border-secondary"
       >
@@ -1525,22 +1468,23 @@ exports[`Checkbox Questions and QOptions of unanswered with header without hint 
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 1 - incorrect, selected
+            
           </div>
-           
           <div
             class="col-auto"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control"
       >
@@ -1552,22 +1496,23 @@ exports[`Checkbox Questions and QOptions of unanswered with header without hint 
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 2 - incorrect, not selected, with reason
+            
           </div>
-           
           <div
             class="col-auto"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control alert-light text-dark border border-secondary"
       >
@@ -1579,22 +1524,23 @@ exports[`Checkbox Questions and QOptions of unanswered with header without hint 
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 3 - correct, selected
+            
           </div>
-           
           <div
             class="col-auto"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control"
       >
@@ -1606,56 +1552,49 @@ exports[`Checkbox Questions and QOptions of unanswered with header without hint 
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 4 - correct, not selected, with reason
+            
           </div>
-           
           <div
             class="col-auto"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
-       
-      <!---->
+      
+      
+      <!--v-if-->
+      <!--v-if-->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
-      <!---->
-       
+      <!--v-if-->
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
-        <!---->
-         
+        <!--v-if-->
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Check
-        
+           Check 
         </button>
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </transition-group-stub>
     </div>
   </div>
@@ -1663,16 +1602,23 @@ exports[`Checkbox Questions and QOptions of unanswered with header without hint 
 `;
 
 exports[`Mcq Questions and QOptions of answered correctly with unshown hint without header renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
+      
+      
       Question content
+      
+      
       <div
         class="form-control danger"
       >
@@ -1694,7 +1640,6 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -1704,13 +1649,13 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 1 - incorrect, not selected
+            
           </div>
-           
           <div
             class="col-1"
           >
@@ -1721,9 +1666,10 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
             </div>
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control danger"
       >
@@ -1745,7 +1691,6 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -1755,13 +1700,13 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 2 - incorrect, not selected, with reason
+            
           </div>
-           
           <div
             class="col-1"
           >
@@ -1772,17 +1717,19 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
             </div>
           </div>
         </div>
-         
         <div>
           <hr />
-           
           <div
             class="reason"
           >
+            
             opt 2 reason
+            
           </div>
         </div>
       </div>
+      
+      
       <div
         class="form-control success"
       >
@@ -1804,7 +1751,6 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -1814,13 +1760,13 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 3 - correct, selected
+            
           </div>
-           
           <div
             class="col-1"
           >
@@ -1831,9 +1777,10 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
             </div>
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control success"
       >
@@ -1855,7 +1802,6 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -1865,13 +1811,13 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 4 - correct, not selected, with reason
+            
           </div>
-           
           <div
             class="col-1"
           >
@@ -1882,53 +1828,47 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
             </div>
           </div>
         </div>
-         
         <div>
           <hr />
-           
           <div
             class="reason"
           >
+            
             opt 4 reason
+            
           </div>
         </div>
       </div>
-       
-      <!---->
-       
-      <!---->
-       
-      <!---->
+      
+      
+      <!--v-if-->
+      <!--v-if-->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-check text-success border-success result-icon"
       />
-       
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
         <button
           class="btn btn-success q-btn ms-1"
           type="button"
         >
-          
-          Hint
-        
+           Hint 
         </button>
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </transition-group-stub>
     </div>
   </div>
@@ -1936,20 +1876,29 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
 `;
 
 exports[`Mcq Questions and QOptions of answered wrongly with header without hint renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question shake"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
     >
+      
       mcq question header
+      
     </div>
-     
     <div
       class="card-body"
     >
+      
+      
       Question content
+      
+      
       <div
         class="form-control danger"
       >
@@ -1971,7 +1920,6 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -1981,13 +1929,13 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 1 - incorrect, not selected
+            
           </div>
-           
           <div
             class="col-1"
           >
@@ -1998,9 +1946,10 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
             </div>
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control danger"
       >
@@ -2022,7 +1971,6 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -2032,13 +1980,13 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 2 - incorrect, selected, with reason
+            
           </div>
-           
           <div
             class="col-1"
           >
@@ -2049,17 +1997,19 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
             </div>
           </div>
         </div>
-         
         <div>
           <hr />
-           
           <div
             class="reason"
           >
+            
             opt 2 reason
+            
           </div>
         </div>
       </div>
+      
+      
       <div
         class="form-control success"
       >
@@ -2081,7 +2031,6 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -2091,13 +2040,13 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 3 - correct, not selected
+            
           </div>
-           
           <div
             class="col-1"
           >
@@ -2108,9 +2057,10 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
             </div>
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control success"
       >
@@ -2132,7 +2082,6 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -2142,13 +2091,13 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 4 - correct, not selected, with reason
+            
           </div>
-           
           <div
             class="col-1"
           >
@@ -2159,46 +2108,42 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
             </div>
           </div>
         </div>
-         
         <div>
           <hr />
-           
           <div
             class="reason"
           >
+            
             opt 4 reason
+            
           </div>
         </div>
       </div>
-       
-      <!---->
-       
-      <!---->
-       
-      <!---->
+      
+      
+      <!--v-if-->
+      <!--v-if-->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
       />
-       
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </transition-group-stub>
     </div>
   </div>
@@ -2206,16 +2151,23 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
 `;
 
 exports[`Mcq Questions and QOptions of checked wrongly with shown hint without header renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question shake"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
+      
+      
       Question content
+      
+      
       <div
         class="form-control"
       >
@@ -2237,7 +2189,6 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -2247,22 +2198,23 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 1 - incorrect, not selected
+            
           </div>
-           
           <div
             class="col-1"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control alert-light text-dark border border-secondary"
       >
@@ -2284,7 +2236,6 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -2294,22 +2245,23 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 2 - incorrect, selected, with reason
+            
           </div>
-           
           <div
             class="col-1"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control"
       >
@@ -2331,7 +2283,6 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -2341,22 +2292,23 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 3 - correct, not selected
+            
           </div>
-           
           <div
             class="col-1"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control"
       >
@@ -2378,7 +2330,6 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -2388,69 +2339,66 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 4 - correct, not selected, with reason
+            
           </div>
-           
           <div
             class="col-1"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
-       
+      
+      
+      <!--v-if-->
+      <!--v-if-->
       <box-stub
+        addclass=""
         class="mb-0 mt-3"
+        dismissible="false"
+        light="false"
+        nobackground="false"
+        noborder="false"
+        noicon="false"
+        seamless="false"
+        theme=""
         type="tip"
-      >
-        mcq question hint
-      </box-stub>
+      />
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
       />
-       
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
         <button
           class="btn btn-info q-btn ms-1"
           type="button"
         >
-          
-          Show
-        
+           Show 
         </button>
-         
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Retry
-        
+           Retry 
         </button>
       </transition-group-stub>
     </div>
@@ -2459,20 +2407,29 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
 `;
 
 exports[`Mcq Questions and QOptions of unanswered with shown hint and header renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question shake"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
     >
+      
       unanswered mcq question header
+      
     </div>
-     
     <div
       class="card-body"
     >
+      
+      
       Question content
+      
+      
       <div
         class="form-control"
       >
@@ -2494,7 +2451,6 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -2504,22 +2460,23 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 1 - incorrect, not selected
+            
           </div>
-           
           <div
             class="col-1"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control"
       >
@@ -2541,7 +2498,6 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -2551,22 +2507,23 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 2 - incorrect, not selected, with reason
+            
           </div>
-           
           <div
             class="col-1"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control"
       >
@@ -2588,7 +2545,6 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -2598,22 +2554,23 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 3 - correct, selected
+            
           </div>
-           
           <div
             class="col-1"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
+      
+      
       <div
         class="form-control"
       >
@@ -2635,7 +2592,6 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -2645,61 +2601,60 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 4 - correct, not selected, with reason
+            
           </div>
-           
           <div
             class="col-1"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
-       
+      
+      
+      <!--v-if-->
+      <!--v-if-->
       <box-stub
+        addclass=""
         class="mb-0 mt-3"
+        dismissible="false"
+        light="false"
+        nobackground="false"
+        noborder="false"
+        noicon="false"
+        seamless="false"
+        theme=""
         type="tip"
-      >
-        mcq question hint
-      </box-stub>
+      />
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
-      <!---->
-       
+      <!--v-if-->
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
-        <!---->
-         
+        <!--v-if-->
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Check
-        
+           Check 
         </button>
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </transition-group-stub>
     </div>
   </div>
@@ -2707,65 +2662,60 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
 `;
 
 exports[`Text Questions of answered correctly with answer without header, hint, keywords renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question shake"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
-      Question content 
+      
+      Question content
+      
       <div
         class="mb-2"
       >
         <textarea
           class="form-control"
         />
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
+      <!--v-if-->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
       />
-       
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
         <button
           class="btn btn-info q-btn ms-1"
           type="button"
         >
-          
-          Show
-        
+           Show 
         </button>
-         
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Retry
-        
+           Retry 
         </button>
       </transition-group-stub>
     </div>
@@ -2774,86 +2724,80 @@ exports[`Text Questions of answered correctly with answer without header, hint, 
 `;
 
 exports[`Text Questions of answered correctly with answer, unshown hint without header renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
-      Question content 
+      
+      Question content
+      
       <div
         class="mb-2"
       >
         <textarea
           class="form-control"
-          disabled="disabled"
+          disabled=""
         />
-         
         <div>
           <hr />
-           
           <strong>
-            
-            Keywords: 
+             Keywords:  
             
             <span
               class="badge rounded-pill bg-light text-dark fw-normal"
             >
-              
               abc
-            
             </span>
             <span
               class="badge rounded-pill bg-light text-dark fw-normal"
             >
-              
               123
-            
             </span>
+            
           </strong>
         </div>
       </div>
-       
       <div
         class="answer"
       >
+        
         text question answer
+        
       </div>
-       
-      <!---->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-check text-success border-success result-icon"
       />
-       
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
         <button
           class="btn btn-success q-btn ms-1"
           type="button"
         >
-          
-          Hint
-        
+           Hint 
         </button>
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </transition-group-stub>
     </div>
   </div>
@@ -2861,83 +2805,81 @@ exports[`Text Questions of answered correctly with answer, unshown hint without 
 `;
 
 exports[`Text Questions of answered wrongly with answer, header without hint renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question shake"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
     >
+      
       Text question header
+      
     </div>
-     
     <div
       class="card-body"
     >
-      Question content 
+      
+      Question content
+      
       <div
         class="mb-2"
       >
         <textarea
           class="form-control"
-          disabled="disabled"
+          disabled=""
         />
-         
         <div>
           <hr />
-           
           <strong>
-            
-            Keywords: 
+             Keywords:  
             
             <span
               class="badge rounded-pill bg-light text-dark fw-normal"
             >
-              
               abc
-            
             </span>
             <span
               class="badge rounded-pill bg-light text-dark fw-normal"
             >
-              
               123
-            
             </span>
+            
           </strong>
         </div>
       </div>
-       
       <div
         class="answer"
       >
+        
         text question answer
+        
       </div>
-       
-      <!---->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
       />
-       
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </transition-group-stub>
     </div>
   </div>
@@ -2945,70 +2887,71 @@ exports[`Text Questions of answered wrongly with answer, header without hint ren
 `;
 
 exports[`Text Questions of checked wrongly with answer shown hint without header renders correctly 1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question shake"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
-      Question content 
+      
+      Question content
+      
       <div
         class="mb-2"
       >
         <textarea
           class="form-control"
         />
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <box-stub
+        addclass=""
         class="mb-0 mt-3"
+        dismissible="false"
+        light="false"
+        nobackground="false"
+        noborder="false"
+        noicon="false"
+        seamless="false"
+        theme=""
         type="tip"
-      >
-        text question hint
-      </box-stub>
+      />
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
       />
-       
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
         <button
           class="btn btn-info q-btn ms-1"
           type="button"
         >
-          
-          Show
-        
+           Show 
         </button>
-         
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Retry
-        
+           Retry 
         </button>
       </transition-group-stub>
     </div>
@@ -3017,59 +2960,66 @@ exports[`Text Questions of checked wrongly with answer shown hint without header
 `;
 
 exports[`Text Questions of unanswered with shown hint, header without answer renders correctly  1`] = `
-<transition-stub>
+<transition-stub
+  appear="false"
+  css="true"
+  persisted="false"
+>
   <div
     class="card question"
   >
     <div
       class="card-header alert-light border-bottom border-light text-dark"
     >
+      
       Text question header
+      
     </div>
-     
     <div
       class="card-body"
     >
-      Question content 
+      
+      Question content
+      
       <div
         class="mb-2"
       >
         <textarea
           class="form-control"
         />
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <box-stub
+        addclass=""
         class="mb-0 mt-3"
+        dismissible="false"
+        light="false"
+        nobackground="false"
+        noborder="false"
+        noicon="false"
+        seamless="false"
+        theme=""
         type="tip"
-      >
-        text question hint
-      </box-stub>
+      />
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
-      <!---->
-       
+      <!--v-if-->
       <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
         name="q-btn"
+        persisted="false"
         tag="div"
       >
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
-         
-        <!---->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
       </transition-group-stub>
     </div>
   </div>

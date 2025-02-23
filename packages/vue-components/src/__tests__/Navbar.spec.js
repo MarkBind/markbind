@@ -1,11 +1,13 @@
 import { mount } from '@vue/test-utils';
 import Navbar from '../Navbar.vue';
+import Overlay from '../Overlay.vue';
 import PageNavButton from '../PageNavButton.vue';
 import SiteNavButton from '../SiteNavButton.vue';
 
 const DEFAULT_STUBS = {
   'page-nav-button': PageNavButton,
   'site-nav-button': SiteNavButton,
+  'Overlay': Overlay,
 };
 
 const NAVBAR_BRAND = '<a href="#" title="Home" class="navbar-brand">Your Logo</a>';

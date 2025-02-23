@@ -1,4 +1,4 @@
-import { config, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Quiz from '../questions/Quiz.vue';
 import Question from '../questions/Question.vue';
 import QOption from '../questions/QOption.vue';
@@ -10,19 +10,17 @@ import QOption from '../questions/QOption.vue';
  - Score screen
  */
 
-// Prevent default transition stubs to allow @after-leave to be triggered
-config.stubs = {
-  transition: false,
-};
-
 const DEFAULT_STUBS = {
-  'question': Question,
-  'q-option': QOption,
   'box': true,
+  'transition': false,
 };
 
 const DEFAULT_GLOBAL_MOUNT_OPTIONS = {
   stubs: DEFAULT_STUBS,
+  components: {
+    'question': Question,
+    'q-option': QOption,
+  },
 };
 
 const MCQ_QUESTION = `
