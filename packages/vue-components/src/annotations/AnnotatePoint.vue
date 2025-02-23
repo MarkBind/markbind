@@ -197,8 +197,8 @@ export default {
       return (this.hasContent || this.hasHeader) && (this.legend === 'popover' || this.legend === 'both');
     },
     computedBottomHeader() {
-      const labelSlotContent = this.$scopedSlots.label?.();
-      const headerSlotContent = this.$scopedSlots.header?.();
+      const labelSlotContent = this.$slots.label?.();
+      const headerSlotContent = this.$slots.header?.();
 
       const labelText = labelSlotContent?.[0]?.children?.[0]?.text;
       const labelHeader = headerSlotContent?.[0]?.children?.[0]?.text;
