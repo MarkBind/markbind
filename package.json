@@ -44,7 +44,6 @@
   "dependencies": {
     "@markbind/core": "^5.4.0",
     "danger": "^12.1.0",
-    "postcss": "^8.4.35",
-    "vue": "3.3.11"
+    "postcss": "^8.4.35"
   }
 }
