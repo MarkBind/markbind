@@ -72,7 +72,6 @@ export default {
       return this.trigger.split(' ');
     },
     hasHeader() {
-      console.log(`has header: ${!!this.$slots.header}`);
       return !!this.$slots.header;
     },
     isInput() {

@@ -10,6 +10,12 @@ const TRIGGER_STUB = {
   slots: {
     default: 'Trigger for a modal',
   },
+  global: {
+    stubs: {
+      'v-tooltip': true,
+      'v-popover': true,
+    },
+  },
 };
 
 const DEFAULT_MODAL_HEADER = 'test modal header';

@@ -18,9 +18,6 @@ module.exports = {
     '.*\\.vue$': '@vue/vue3-jest',
     '^.+\\.js$': ['babel-jest', { rootMode: 'upward' }],
   },
-  'moduleNameMapper': {
-    '^vue$': '<rootDir>/node_modules/vue',
-  },
   'globals': {
     'vue-jest': {
       compilerOptions: {

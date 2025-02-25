@@ -50,7 +50,6 @@ export default {
   data() {
     return {
       targetEl: {},
-      isInput: false,
       isMounted: false,
     };
   },
@@ -58,13 +57,14 @@ export default {
     triggers() {
       return this.trigger.split(' ');
     },
+    isInput() {
+      // <input> tags need to be handled separately as they need to retain focus on inputs
+      if (!this.$slots.default) return false;
+      return this.$slots.default().some(vnode => vnode.type === 'input');
+    },
   },
   mounted() {
     this.targetEl = this.$el;
-    // <input> tags need to be handled separately as they need to retain focus on inputs
-    // Use $slots.default() to get an array of VNodes
-    const slotContent = this.$slots.default ? this.$slots.default().map(vnode => vnode.type) : [];
-    this.isInput = slotContent.includes('input');
     this.isMounted = true;
   },
 };

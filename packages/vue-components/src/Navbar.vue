@@ -408,7 +408,7 @@ export default {
     }
 
     /* Navbar link highlight for current page */
-    .navbar.navbar-dark .navbar-nav :deep(current:not(.dropdown) a),
+    .navbar.navbar-dark .navbar-nav :deep(.current:not(.dropdown) a),
     .navbar.navbar-dark .navbar-nav :deep(.dropdown.current > a) {
         color: #fff;
     }
