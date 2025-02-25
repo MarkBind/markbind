@@ -5,18 +5,20 @@ const DEFAULT_CDN_ADDRESS = 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.m
 
 function genScript(address: string) {
   return `<script type="module">
-    import mermaid from '${address || DEFAULT_CDN_ADDRESS}';
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
+    const mermaidElements = document.querySelectorAll('.mermaid');
+    if (mermaidElements.length > 0) {
+      const { default: mermaid } = await import('${address || DEFAULT_CDN_ADDRESS}');
       mermaid.initialize({});
       Vue.directive('mermaid', {
-        inserted: function(el) {
+        inserted(el) {
           mermaid.run({
             nodes: [el]
           });
         }
       });
-    });
-  </script>`;
+    }});
+   </script>`;
 }
 
 export = {
