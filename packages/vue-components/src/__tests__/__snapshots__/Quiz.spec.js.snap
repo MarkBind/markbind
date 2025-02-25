@@ -10,27 +10,23 @@ exports[`Quizzes intro screen with intro text renders correctly 1`] = `
     <div
       class="card-body"
     >
+      
       <h1>
         Intro
       </h1>
-       
+      
       <h5>
         0 questions
       </h5>
-       
       <hr />
-       
       <button
         class="btn btn-primary d-inline-block"
         type="button"
       >
-        
-          Start
-        
+         Start 
       </button>
     </div>
   </div>
-   
   <div
     class="progress intro-outro-card"
     style="height: 1px; display: none;"
@@ -43,8 +39,9 @@ exports[`Quizzes intro screen with intro text renders correctly 1`] = `
       role="progressbar"
     />
   </div>
-    
-  <!---->
+  
+  
+  <!--v-if-->
 </div>
 `;
 
@@ -52,8 +49,7 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
 <div
   class="quiz-container"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="progress intro-outro-card"
     style="height: 1px;"
@@ -67,18 +63,17 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
       style="width: 50%;"
     />
   </div>
-   
+  
+  
   <div
     class="card question"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
       
-  ... Mcq question ...
-  
+       ... Mcq question ... 
       <div
         class="form-control"
       >
@@ -100,7 +95,6 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -110,23 +104,21 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 1 correct
+            
           </div>
-           
           <div
             class="col-1"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
       <div
         class="form-control"
       >
@@ -148,7 +140,6 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -158,23 +149,21 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 2
+            
           </div>
-           
           <div
             class="col-1"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
       <div
         class="form-control"
       >
@@ -196,7 +185,6 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -206,52 +194,57 @@ exports[`Quizzes with 2 questions retry goes back to first 1`] = `
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 3
+            
           </div>
-           
           <div
             class="col-1"
           >
-            <!---->
+            <!--v-if-->
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
-       
-      <!---->
+      
+      <!--v-if-->
+      <!--v-if-->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
-      <!---->
-       
-      <div
+      <!--v-if-->
+      <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
+        name="q-btn"
+        persisted="false"
+        tag="div"
       >
+        <!--v-if-->
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Check
-        
+           Check 
         </button>
-      </div>
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+      </transition-group-stub>
     </div>
   </div>
-  <!---->
-   
-  <!---->
+  
+  
+  <!--v-if-->
+  
+  
+  <!--v-if-->
 </div>
 `;
 
@@ -259,8 +252,7 @@ exports[`Quizzes with 3 questions 2 clicks on next goes to the second question 1
 <div
   class="quiz-container"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="progress intro-outro-card"
     style="height: 1px;"
@@ -274,64 +266,68 @@ exports[`Quizzes with 3 questions 2 clicks on next goes to the second question 1
       style="width: 66.66666666666666%;"
     />
   </div>
-   
-  <!---->
+  
+  
+  <!--v-if-->
+  
+  
   <div
     class="card question"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
       
-  ... Text question ...
-   
+       ... Text question ... 
+      
       <div
         class="mb-2"
       >
         <textarea
           class="form-control"
         />
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
+      <!--v-if-->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
-      <!---->
-       
-      <div
+      <!--v-if-->
+      <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
+        name="q-btn"
+        persisted="false"
+        tag="div"
       >
         <button
           class="btn btn-success q-btn ms-1"
           type="button"
         >
-          
-          Hint
-        
+           Hint 
         </button>
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Check
-        
+           Check 
         </button>
-      </div>
+        <!--v-if-->
+        <!--v-if-->
+        <!--v-if-->
+      </transition-group-stub>
     </div>
   </div>
-  <!---->
-   
-  <!---->
+  
+  
+  <!--v-if-->
+  
+  
+  <!--v-if-->
 </div>
 `;
 
@@ -339,8 +335,7 @@ exports[`Quizzes with all questions marks 3/4 correct shows ending screen 1`] = 
 <div
   class="quiz-container"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="progress intro-outro-card"
     style="height: 1px; display: none;"
@@ -354,12 +349,20 @@ exports[`Quizzes with all questions marks 3/4 correct shows ending screen 1`] = 
       style="width: 125%;"
     />
   </div>
-   
-  <!---->
-  <!---->
-  <!---->
-  <!---->
-   
+  
+  
+  <!--v-if-->
+  
+  
+  <!--v-if-->
+  
+  
+  <!--v-if-->
+  
+  
+  <!--v-if-->
+  
+  
   <div
     class="card intro-outro-card"
   >
@@ -369,11 +372,8 @@ exports[`Quizzes with all questions marks 3/4 correct shows ending screen 1`] = 
       <h4
         class="mb-3"
       >
-        
-          Well done!
-        
+        Well done!
       </h4>
-       
       <svg
         height="120px"
         viewBox="0 0 100 100"
@@ -385,7 +385,6 @@ exports[`Quizzes with all questions marks 3/4 correct shows ending screen 1`] = 
           cy="50"
           r="42"
         />
-         
         <circle
           class="score-circle"
           cx="50"
@@ -395,7 +394,6 @@ exports[`Quizzes with all questions marks 3/4 correct shows ending screen 1`] = 
           style="stroke-dashoffset: 66; stroke: #51c2f8;"
           transform="rotate(-90, 50, 50)"
         />
-         
         <text
           class="score"
           textLength="56"
@@ -405,16 +403,12 @@ exports[`Quizzes with all questions marks 3/4 correct shows ending screen 1`] = 
           3 / 4
         </text>
       </svg>
-       
       <hr />
-       
       <button
         class="btn btn-outline-primary"
         type="button"
       >
-        
-          Retry
-        
+         Retry 
       </button>
     </div>
   </div>
@@ -425,8 +419,7 @@ exports[`Quizzes with blanks question marked incorrect shows next button after a
 <div
   class="quiz-container"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="progress intro-outro-card"
     style="height: 1px;"
@@ -440,18 +433,16 @@ exports[`Quizzes with blanks question marked incorrect shows next button after a
       style="width: 100%;"
     />
   </div>
-   
+  
   <div
     class="card question"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
       
-  ... Blanks question ...
-  
+       ... Blanks question ... 
       <div
         class="form-control blanks-form-control danger"
       >
@@ -460,9 +451,8 @@ exports[`Quizzes with blanks question marked incorrect shows next button after a
         >
           <input
             class="form-control"
-            disabled="disabled"
+            disabled=""
           />
-           
           <div
             class="col-auto"
           >
@@ -471,10 +461,8 @@ exports[`Quizzes with blanks question marked incorrect shows next button after a
                 class="fa fa-check text-success"
               />
             </div>
-             
-            <!---->
+            <!--v-if-->
           </div>
-           
           <div
             class="col-auto blanks-keywords"
           >
@@ -483,10 +471,8 @@ exports[`Quizzes with blanks question marked incorrect shows next button after a
             </strong>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
       <div
         class="form-control blanks-form-control danger"
       >
@@ -495,9 +481,8 @@ exports[`Quizzes with blanks question marked incorrect shows next button after a
         >
           <input
             class="form-control"
-            disabled="disabled"
+            disabled=""
           />
-           
           <div
             class="col-auto"
           >
@@ -506,31 +491,25 @@ exports[`Quizzes with blanks question marked incorrect shows next button after a
                 class="fa fa-times text-danger blanks-cross"
               />
             </div>
-             
-            <!---->
+            <!--v-if-->
           </div>
-           
           <div
             class="col-auto blanks-keywords"
           >
             <strong>
+               Keywords:  
               
-        Keywords: 
-        
               <span
                 class="badge rounded-pill bg-light text-dark fw-normal"
               >
-                
-          key
-        
+                key
               </span>
+              
             </strong>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
       <div
         class="form-control blanks-form-control danger"
       >
@@ -539,9 +518,8 @@ exports[`Quizzes with blanks question marked incorrect shows next button after a
         >
           <input
             class="form-control"
-            disabled="disabled"
+            disabled=""
           />
-           
           <div
             class="col-auto"
           >
@@ -550,10 +528,8 @@ exports[`Quizzes with blanks question marked incorrect shows next button after a
                 class="fa fa-check text-success"
               />
             </div>
-             
-            <!---->
+            <!--v-if-->
           </div>
-           
           <div
             class="col-auto blanks-keywords"
           >
@@ -562,40 +538,42 @@ exports[`Quizzes with blanks question marked incorrect shows next button after a
             </strong>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
-       
-      <!---->
+      
+      <!--v-if-->
+      <!--v-if-->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
       />
-       
-      <div
+      <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
+        name="q-btn"
+        persisted="false"
+        tag="div"
       >
+        <!--v-if-->
+        <!--v-if-->
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Next
-        
+           Next 
         </button>
-      </div>
+        <!--v-if-->
+        <!--v-if-->
+      </transition-group-stub>
     </div>
   </div>
-   
-  <!---->
+  
+  <!--v-if-->
 </div>
 `;
 
@@ -603,8 +581,7 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
 <div
   class="quiz-container"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="progress intro-outro-card"
     style="height: 1px;"
@@ -618,18 +595,16 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
       style="width: 100%;"
     />
   </div>
-   
+  
   <div
     class="card question"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
       
-  ... Checkbox question ...
-  
+       ... Checkbox question ... 
       <div
         class="form-control success"
       >
@@ -638,17 +613,17 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
         >
           <input
             class="checkbox"
-            disabled="disabled"
+            disabled=""
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 1 correct
+            
           </div>
-           
           <div
             class="col-auto"
           >
@@ -659,10 +634,8 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
             </div>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
       <div
         class="form-control danger"
       >
@@ -671,17 +644,17 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
         >
           <input
             class="checkbox"
-            disabled="disabled"
+            disabled=""
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 2
+            
           </div>
-           
           <div
             class="col-auto"
           >
@@ -692,10 +665,8 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
             </div>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
       <div
         class="form-control success"
       >
@@ -704,17 +675,17 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
         >
           <input
             class="checkbox"
-            disabled="disabled"
+            disabled=""
             onclick="event.stopPropagation()"
             type="checkbox"
           />
-           
           <div
             class="col content"
           >
+            
             opt 3 correct
+            
           </div>
-           
           <div
             class="col-auto"
           >
@@ -725,40 +696,42 @@ exports[`Quizzes with checkbox question marked incorrect shows next button after
             </div>
           </div>
         </label>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
-       
-      <!---->
+      
+      <!--v-if-->
+      <!--v-if-->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
       />
-       
-      <div
+      <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
+        name="q-btn"
+        persisted="false"
+        tag="div"
       >
+        <!--v-if-->
+        <!--v-if-->
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Next
-        
+           Next 
         </button>
-      </div>
+        <!--v-if-->
+        <!--v-if-->
+      </transition-group-stub>
     </div>
   </div>
-   
-  <!---->
+  
+  <!--v-if-->
 </div>
 `;
 
@@ -766,8 +739,7 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
 <div
   class="quiz-container"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="progress intro-outro-card"
     style="height: 1px;"
@@ -781,18 +753,16 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
       style="width: 100%;"
     />
   </div>
-   
+  
   <div
     class="card question"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
       
-  ... Mcq question ...
-  
+       ... Mcq question ... 
       <div
         class="form-control success"
       >
@@ -814,7 +784,6 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -824,13 +793,13 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 1 correct
+            
           </div>
-           
           <div
             class="col-1"
           >
@@ -841,10 +810,8 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
             </div>
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
       <div
         class="form-control danger"
       >
@@ -866,7 +833,6 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -876,13 +842,13 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 2
+            
           </div>
-           
           <div
             class="col-1"
           >
@@ -893,10 +859,8 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
             </div>
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
       <div
         class="form-control danger"
       >
@@ -918,7 +882,6 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
                 stroke="black"
                 stroke-width="4"
               />
-               
               <circle
                 cx="50"
                 cy="50"
@@ -928,13 +891,13 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
               />
             </svg>
           </div>
-           
           <div
             class="col content"
           >
+            
             opt 3
+            
           </div>
-           
           <div
             class="col-1"
           >
@@ -945,40 +908,42 @@ exports[`Quizzes with mcq question marked correct shows next button after answer
             </div>
           </div>
         </div>
-         
-        <!---->
+        <!--v-if-->
       </div>
-       
-      <!---->
-       
-      <!---->
-       
-      <!---->
+      
+      <!--v-if-->
+      <!--v-if-->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-check text-success border-success result-icon"
       />
-       
-      <div
+      <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
+        name="q-btn"
+        persisted="false"
+        tag="div"
       >
+        <!--v-if-->
+        <!--v-if-->
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Next
-        
+           Next 
         </button>
-      </div>
+        <!--v-if-->
+        <!--v-if-->
+      </transition-group-stub>
     </div>
   </div>
-   
-  <!---->
+  
+  <!--v-if-->
 </div>
 `;
 
@@ -986,8 +951,7 @@ exports[`Quizzes with text question marked correct shows next button after answe
 <div
   class="quiz-container"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="progress intro-outro-card"
     style="height: 1px;"
@@ -1001,83 +965,80 @@ exports[`Quizzes with text question marked correct shows next button after answe
       style="width: 100%;"
     />
   </div>
-   
+  
   <div
     class="card question"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="card-body"
     >
       
-  ... Text question ...
-   
+       ... Text question ... 
+      
       <div
         class="mb-2"
       >
         <textarea
           class="form-control"
-          disabled="disabled"
+          disabled=""
         />
-         
         <div>
           <hr />
-           
           <strong>
-            
-            Keywords: 
+             Keywords:  
             
             <span
               class="badge rounded-pill bg-light text-dark fw-normal"
             >
-              
               abc
-            
             </span>
+            
           </strong>
         </div>
       </div>
-       
       <div
         class="answer"
       >
+        
         text question answer
+        
       </div>
-       
-      <!---->
+      <!--v-if-->
     </div>
-     
     <div
       class="card-footer alert-light border-top border-light text-dark"
     >
       <i
         class="fa fa-check text-success border-success result-icon"
       />
-       
-      <div
+      <transition-group-stub
+        appear="false"
         class="float-end"
+        css="true"
+        name="q-btn"
+        persisted="false"
+        tag="div"
       >
         <button
           class="btn btn-success q-btn ms-1"
           type="button"
         >
-          
-          Hint
-        
+           Hint 
         </button>
+        <!--v-if-->
         <button
           class="btn btn-primary q-btn ms-1"
           type="button"
         >
-          
-          Next
-        
+           Next 
         </button>
-      </div>
+        <!--v-if-->
+        <!--v-if-->
+      </transition-group-stub>
     </div>
   </div>
-   
-  <!---->
+  
+  <!--v-if-->
 </div>
 `;

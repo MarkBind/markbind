@@ -1,9 +1,7 @@
-import has from 'lodash/has';
 import find from 'lodash/find';
 import { MbNode, NodeOrText, parseHTML } from '../utils/node';
 
 const _ = {
-  has,
   find,
 };
 
@@ -55,10 +53,11 @@ export function shiftSlotNodeDeeper(node: MbNode) {
 
 /*
  * Transforms deprecated vue slot syntax (slot="test") into the updated Vue slot shorthand syntax (#test).
+ * Used to support old slot syntax for backward conmpatibility.
  */
 export function transformOldSlotSyntax(node: MbNode) {
   node.children.forEach((child) => {
-    if (child.attribs && _.has(child.attribs, 'slot')) {
+    if (child.attribs && 'slot' in child.attribs) {
       const vslotShorthandName = `#${child.attribs.slot}`;
       child.attribs[vslotShorthandName] = '';
       delete child.attribs.slot;

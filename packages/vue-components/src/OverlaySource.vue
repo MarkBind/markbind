@@ -5,8 +5,8 @@
       <component
         :is="tagName"
         v-bind="$attrs"
-        :class="[$vnode.data.staticClass || '', 'mb-mobile-nav']"
-        :style="$vnode.data.staticStyle"
+        :class="[$attrs.class || '', 'mb-mobile-nav']"
+        :style="$attrs.style"
       >
         <slot></slot>
       </component>

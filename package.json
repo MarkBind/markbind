@@ -1,7 +1,9 @@
 {
   "name": "root",
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "prebuild:backend": "npm run clean",
     "build:backend": "tsc --noEmitOnError",
