@@ -5,45 +5,37 @@ const DEFAULT_CDN_ADDRESS = 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.m
 
 function genScript(address: string) {
   return `<script type="module">
-  let mermaidLoaded = false;
+  // Global promise to track Mermaid loading state, ensure only loaded once
+  if (!window.mermaidPromise) {
+    window.mermaidPromise = import('${address || DEFAULT_CDN_ADDRESS}')
+      .then(({ default: mermaid }) => {
+        mermaid.initialize({});
+        return mermaid;
+      })
+      .catch((error) => {
+        console.error("Mermaid failed to load:", error);
+        throw error;
+      });
+  }
 
-  // Register mermaid directive for Vue 2 outside event listener
   Vue.directive('mermaid', {
     inserted(el) {
-      // Dynamically import mermaid only if not loaded
-      if (!mermaidLoaded) {
-        import('${address || DEFAULT_CDN_ADDRESS}')
-          .then(({ default: mermaid }) => {
-            mermaid.initialize({});
-            mermaidLoaded = true; // Mark mermaid as loaded
-
-            mermaid.run({
-              nodes: [el]
-            });
-          })
-          .catch((error) => {
-            console.error("Mermaid failed to load:", error);
-          });
-      } else {
-        // If already loaded, just run mermaid on the current element
-        const { default: mermaid } = require('${address || DEFAULT_CDN_ADDRESS}');
-        mermaid.run({
-          nodes: [el]
-        });
-      }
+      window.mermaidPromise.then((mermaid) => {
+        mermaid.run({nodes: [el]});
+      }).catch((error) => {
+        console.error("Mermaid failed to process element:", error);
+      });
     }
   });
 
-  // Wait for the document to be ready
   document.addEventListener('DOMContentLoaded', () => {
     const mermaidElements = document.querySelectorAll('.mermaid');
     
-    // If there are mermaid elements, apply the directive logic
+    // Apply directive if there are mermaid elements.
+    // Trigger inserted hook for each element
     if (mermaidElements.length > 0) {
       mermaidElements.forEach(el => {
-        // Trigger the inserted hook for each element to process it
         Vue.nextTick(() => {
-          // We manually call the directive logic
           const directive = Vue.options.directives['mermaid'];
           if (directive && directive.inserted) {
             directive.inserted(el);
