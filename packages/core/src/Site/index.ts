@@ -1010,8 +1010,7 @@ export class Site {
         }
         progressBar.tick();
       } catch (err) {
-        logger.error(err);
-        throw new Error(`Error while generating ${page.pageConfig.sourcePath}`);
+        throw new Error(`Error while generating ${page.pageConfig.sourcePath}: ${err}`);
       }
     });
     return isCompleted;
