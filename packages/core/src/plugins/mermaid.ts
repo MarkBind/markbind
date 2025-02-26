@@ -5,51 +5,26 @@ const DEFAULT_CDN_ADDRESS = 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.m
 
 function genScript(address: string) {
   return `<script type="module">
-    if (!window.mermaidPromise) {
-      window.mermaidPromise = null;
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
-      const mermaidElements = document.querySelectorAll('.mermaid');
-      
+      const mermaidElements = document.querySelectorAll('pre.mermaid');
+
       if (mermaidElements.length === 0) {
         return;
       }
-      
-      if (!window.mermaidPromise) {
-        window.mermaidPromise = import('${address || DEFAULT_CDN_ADDRESS}')
-          .then(({ default: mermaid }) => {
-            mermaid.initialize({});
-            console.log('Mermaid loaded successfully.');
-            return mermaid;
-          })
-          .catch((error) => {
-            console.error('Mermaid failed to load:', error);
-            window.mermaidPromise = null;
-          });
-      }
 
-      Vue.directive('mermaid', {
-        inserted(el) {
-          window.mermaidPromise.then((mermaid) => {
-            if (mermaid) {
-              mermaid.run({ nodes: [el] });
-            }
-          });
+      (async () => {
+        try {
+          const { default: mermaid } = await import('${address || DEFAULT_CDN_ADDRESS}');
+          mermaid.initialize();
+
+          // Manually run, does not trigger as dynamically imported.
+          mermaid.run();
+        } catch (error) {
+          console.error('Mermaid failed to load:', error);
         }
-      });
-
-      // Process existing Mermaid elements
-      mermaidElements.forEach(el => {
-        Vue.nextTick(() => {
-          const directive = Vue.options.directives['mermaid'];
-          if (directive && directive.inserted) {
-            directive.inserted(el);
-          }
-        });
-      });
+      })();
     });
-    </script>`;
+  </script>`;
 }
 
 export = {
@@ -64,7 +39,7 @@ export = {
 
     $('mermaid').each((index: number, node: cheerio.Element) => {
       const $node = $(node);
-      $node.replaceWith(`<div class="mermaid" v-mermaid>${$node.html()}</div>`);
+      $node.replaceWith(`<pre class="mermaid">${$node.html()}</pre>`);
     });
 
     return $.html();
