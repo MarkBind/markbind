@@ -275,9 +275,9 @@ export default {
     }
     
     .element-wrapper > * {
-        /* position: relative;
+        position: relative;
         z-index: 1;
-        cursor: pointer; */
+        cursor: pointer;
     }
 
     .hover-wrapper {
