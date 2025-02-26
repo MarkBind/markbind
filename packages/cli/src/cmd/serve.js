@@ -24,6 +24,18 @@ function isIPAddressZero(address) {
   return patternForZero.test(address);
 }
 
+/**
+ * Referenced from StackOverflow:
+ * https://stackoverflow.com/questions/5284147/validating-ipv4-addresses-with-regexp
+ *
+ * Credits to Danail Gabenski
+ */
+function isValidIpAddress(address) {
+  const patternForIp = /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/;
+
+  return patternForIp.test(address);
+}
+
 function questionAsync(question) {
   const readlineInterface = readline.createInterface({ input: process.stdin, output: process.stdout });
 
@@ -106,6 +118,12 @@ function serve(userSpecifiedRoot, options) {
           logger.info('Website generation is cancelled.');
           process.exit();
         }
+      }
+
+      if (!isValidIpAddress(serverConfig.host)) {
+        logger.error(`Invalid IP address: ${serverConfig.host}`);
+        process.exitCode = 1;
+        process.exit();
       }
 
       serverConfig.mount.push([config.baseUrl || '/', outputFolder]);
