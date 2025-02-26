@@ -26,10 +26,12 @@
             shift-cross-axis
           >
             <div class="hover-wrapper">
-              <slot>
-                <button class="hover-point" :style="pointStyle">
-                </button>
-              </slot>
+              <div class="element-wrapper">
+                <slot>
+                  <button class="hover-point" :style="pointStyle">
+                  </button>
+                </slot>
+              </div>
               <div class="hover-label" :style="labelStyle">
                 <slot name="label"></slot>
               </div>
@@ -269,6 +271,12 @@ export default {
 
     .hover-label > * {
         margin: 0;
+    }
+
+    .element-wrapper > * {
+        position: relative;
+        z-index: 1;
+        cursor: pointer;
     }
 
     .hover-wrapper {
