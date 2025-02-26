@@ -7,7 +7,7 @@ import cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
-import cryptoJS from 'crypto-js';
+import crypto = require('crypto');
 
 import * as fsUtil from '../../utils/fsUtil';
 import * as logger from '../../utils/logger';
@@ -42,7 +42,7 @@ let graphvizCheckCompleted = false;
  * @param content puml dsl used to generate the puml diagram
  */
 function generateDiagram(imageOutputPath: string, content: string) {
-  const hashKey = cryptoJS.MD5(imageOutputPath + content).toString();
+  const hashKey = crypto.createHash('md5').update(imageOutputPath + content).digest('hex').toString();
 
   // Avoid generating twice
   if (processedDiagrams.has(imageOutputPath) && processedDiagrams.get(imageOutputPath)?.hashKey === hashKey) {
@@ -164,7 +164,7 @@ export = {
         delete node.attribs.name;
       } else {
         const normalizedContent = pumlContent.replace(/\r\n/g, '\n');
-        const hashedContent = cryptoJS.MD5(normalizedContent).toString();
+        const hashedContent = crypto.createHash('md5').update(normalizedContent).digest('hex').toString();
         pathFromRootToImage = `${hashedContent}${PUML_EXT}`;
       }
 
