@@ -32,7 +32,6 @@
                   </button>
                 </slot>
               </div>
-              
               <div class="hover-label" :style="labelStyle">
                 <slot name="label"></slot>
               </div>
@@ -273,7 +272,7 @@ export default {
     .hover-label > * {
         margin: 0;
     }
-    
+
     .element-wrapper > * {
         position: relative;
         z-index: 1;
