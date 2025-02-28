@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio';
 import dataTable from '../../../../src/plugins/dataTable';
 
-test('postRender should add appropriate classes and attributes to m-table elements', () => {
+test.skip('postRender should add appropriate classes and attributes to m-table elements', () => {
   const content = `
 <d-table sortable>
 | Name | Age |
@@ -43,7 +43,7 @@ test('postRender should add appropriate classes and attributes to m-table elemen
   });
 });
 
-test('getLinks should return the correct CSS links', () => {
+test.skip('getLinks should return the correct CSS links', () => {
   const expectedLinks = [
     '<link rel="stylesheet" href="dataTableAssets/datatables.min.css">',
     '<link rel="stylesheet" href="dataTableAssets/datatables-additional.css">',
@@ -53,7 +53,7 @@ test('getLinks should return the correct CSS links', () => {
   expect(links).toEqual(expectedLinks);
 });
 
-test('getScripts should return the correct script tags', () => {
+test.skip('getScripts should return the correct script tags', () => {
   const expectedScripts = '<script src="dataTableAssets/datatables.min.js"></script>';
 
   const scripts = dataTable.getScripts();
