@@ -5,25 +5,76 @@ const DEFAULT_CDN_ADDRESS = 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.m
 
 function genScript(address: string) {
   return `<script type="module">
-    document.addEventListener('DOMContentLoaded', () => {
-      const mermaidElements = document.querySelectorAll('pre.mermaid');
+    // Only initialize mermaidPromise when needed
+    window.mermaidPromise = null;
+    
+    // Function to load mermaid if not already loaded
+    const loadMermaid = () => {
+      if (window.mermaidPromise === null) {
+        window.mermaidPromise = import('${address || DEFAULT_CDN_ADDRESS}')
+          .then(({ default: mermaid }) => {
+            mermaid.initialize({
+              startOnLoad: false,
+              securityLevel: 'loose'
+            });
+            console.log('Mermaid loaded successfully');
+            return mermaid;
+          })
+          .catch((error) => {
+            console.error('Mermaid failed to load:', error);
+            window.mermaidPromise = false;
+            return null;
+          });
+      }
+      return window.mermaidPromise;
+    };
+
+    // Function to render mermaid diagrams
+    const renderMermaidDiagrams = () => {
+      const mermaidElements = document.querySelectorAll('.mermaid:not(.processed)');
 
       if (mermaidElements.length === 0) {
-        return;
+        return Promise.resolve();
       }
+      
+      return loadMermaid().then(mermaid => {
+        if (!mermaid) return;
+        
+        return mermaid.run({ nodes: Array.from(mermaidElements) })
+          .then(() => {
+            mermaidElements.forEach(el => {
+              el.classList.add('processed');
+            });
+          })
+          .catch(err => console.error('Error rendering mermaid diagrams:', err));
+      });
+    };
 
-      (async () => {
-        try {
-          const { default: mermaid } = await import('${address || DEFAULT_CDN_ADDRESS}');
-          mermaid.initialize();
-
-          // Manually run, does not trigger as dynamically imported.
-          mermaid.run();
-        } catch (error) {
-          console.error('Mermaid failed to load:', error);
-        }
-      })();
+    document.addEventListener('DOMContentLoaded', () => {
+      const hasMermaidDiagrams = document.querySelectorAll('.mermaid').length > 0;
+      
+      if (hasMermaidDiagrams) {
+        renderMermaidDiagrams();
+      }
+      
+      // Setup Vue directive for dynamically added diagrams
+      if (typeof Vue !== 'undefined') {
+        Vue.directive('mermaid', {
+          inserted: function(el) {
+            if (!el.classList.contains('processed')) {
+              loadMermaid().then(mermaid => {
+                if (!mermaid) return;
+                
+                return mermaid.run({ nodes: [el] })
+                  .then(() => {el.classList.add('processed');})
+                  .catch(err => console.error('Error rendering dynamic mermaid diagram:', err));
+              });
+            }
+          }
+        });
+      }
     });
+
   </script>`;
 }
 
@@ -39,7 +90,7 @@ export = {
 
     $('mermaid').each((index: number, node: cheerio.Element) => {
       const $node = $(node);
-      $node.replaceWith(`<pre class="mermaid">${$node.html()}</pre>`);
+      $node.replaceWith(`<div class="mermaid" v-mermaid>${$node.html()}</div>`);
     });
 
     return $.html();
