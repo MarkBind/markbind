@@ -133,7 +133,8 @@ function serve(userSpecifiedRoot, options) {
       }
 
       if (!isValidIpAddress(serverConfig.host)) {
-        logger.error(`Invalid IP address: ${serverConfig.host}`);
+        logger.error(`The provided IP address "${serverConfig.host}" is invalid. `
+                    + 'Please enter a valid IPv4 or IPv6 address and try again.');
         process.exitCode = 1;
         process.exit();
       }
