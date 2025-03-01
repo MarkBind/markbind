@@ -27,8 +27,9 @@ function isIPAddressZero(address) {
 /**
  * Referenced from StackOverflow:
  * https://stackoverflow.com/questions/5284147/validating-ipv4-addresses-with-regexp
+ * https://stackoverflow.com/questions/53497/regular-expression-that-matches-valid-ipv6-addresses
  *
- * Credits to Danail Gabenski
+ * Credits to Danail Gabenski, David M. Syzdek
  */
 function isValidIpAddress(address) {
   const patternForIpV4 = /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?){4}$/;
