@@ -31,7 +31,11 @@ function isIPAddressZero(address) {
  *
  * Credits to Danail Gabenski, David M. Syzdek
  */
-function isValidIpAddress(address) {
+function isValidServeHost(address) {
+  if (address === 'localhost') {
+    return true;
+  }
+
   const patternForIpV4 = /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?){4}$/;
   const patternForIpV6 = new RegExp(
     '^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}'
@@ -138,7 +142,7 @@ function serve(userSpecifiedRoot, options) {
         }
       }
 
-      if (!isValidIpAddress(serverConfig.host)) {
+      if (!isValidServeHost(serverConfig.host)) {
         logger.error(`The provided IP address "${serverConfig.host}" is invalid. `
                     + 'Please enter a valid IPv4 or IPv6 address and try again.');
         process.exitCode = 1;
