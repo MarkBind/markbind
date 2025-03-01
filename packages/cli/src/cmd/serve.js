@@ -36,7 +36,7 @@ function isValidServeHost(address) {
     return true;
   }
 
-  const patternForIpV4 = /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?){4}$/;
+  const patternForIpV4 = /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/;
   const patternForIpV6 = new RegExp(
     '^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}'
   + '|([0-9a-fA-F]{1,4}:){1,7}:'
