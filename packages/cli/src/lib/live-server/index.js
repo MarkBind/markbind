@@ -284,7 +284,8 @@ LiveServer.start = function(options) {
     } else if (e.code === 'EADDRNOTAVAIL') {
       console.log('%s is not available. Trying another address'.yellow, host);
       setTimeout(function() {
-        server.listen(port, '127.0.0.1');
+        host = "127.0.0.1";
+        server.listen(port, host);
       }, 1000);
     }
      else {
