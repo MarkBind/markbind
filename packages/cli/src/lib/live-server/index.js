@@ -299,7 +299,8 @@ LiveServer.start = function(options) {
 
     var address = server.address();
     var serveHost = address.address;
-    var openHost = host;
+    var isIpv6 = address.family === 'IPv6';
+    var openHost = isIpv6 && host !== 'localhost' ? `[${host}]` : host;
 
     var serveURL = protocol + '://' + serveHost + ':' + address.port;
     var openURL = protocol + '://' + openHost + ':' + address.port;
