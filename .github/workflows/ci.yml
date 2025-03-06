@@ -35,9 +35,9 @@ jobs:
       - if: matrix.platform == 'macos-latest'
         run: brew install python-setuptools
       - run: npm run setup
-      - run: npm run test
       - name: Verify dependencies (Check that packages are local)
-        run: npm list @markbind/core-web
+        run: npm list @markbind/core-web @markbind/core
+      - run: npm run test
       - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v3
         env:
