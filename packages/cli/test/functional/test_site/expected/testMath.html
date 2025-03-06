@@ -491,7 +491,7 @@ M834 80h400000v40h-400000z" />
 </body>
 <script src="/test_site/markbind/js/bootstrap-utility.min.js"></script>
 <script src="/test_site/markbind/js/polyfill.min.js"></script>
-<script src="/test_site/markbind/js/vue.min.js"></script>
+<script src="/test_site/markbind/js/vue.global.prod.min.js"></script>
 <script src="/test_site/markbind/js/markbind.min.js"></script>
 <script src="testMath.page-vue-render.js"></script>
 <script>
@@ -542,18 +542,5 @@ M834 80h400000v40h-400000z" />
             })
         }
     </script>
-<script type="module">
-    import mermaid from 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs';
-    document.addEventListener('DOMContentLoaded', () => {
-      mermaid.initialize({});
-      Vue.directive('mermaid', {
-        inserted: function(el) {
-          mermaid.run({
-            nodes: [el]
-          });
-        }
-      });
-    });
-  </script>
 
 </html>
