@@ -4,7 +4,7 @@ import Breadcrumb from '../Breadcrumb.vue';
 
 const SITENAV_START = `
 <nav id="site-nav">
-<div class="nav-component slim-scroll>
+<div class="nav-component" slim-scroll>
 <div class="site-nav-root">
 <ul class="site-nav-list site-nav-list-root">
 `;
@@ -161,7 +161,7 @@ describe('Breadcrumb', () => {
     });
 
     expect(wrapper.element).toMatchSnapshot();
-    wrapper.destroy();
+    wrapper.unmount();
   });
 
   test('one link from sitenav', async () => {
@@ -174,8 +174,8 @@ describe('Breadcrumb', () => {
     await nextTick();
 
     expect(wrapper.element).toMatchSnapshot();
-    sitenav.destroy();
-    wrapper.destroy();
+    sitenav.unmount();
+    wrapper.unmount();
   });
 
   test('dropdown non-link from sitenav', async () => {
@@ -188,8 +188,8 @@ describe('Breadcrumb', () => {
     await nextTick();
 
     expect(wrapper.element).toMatchSnapshot();
-    sitenav.destroy();
-    wrapper.destroy();
+    sitenav.unmount();
+    wrapper.unmount();
   });
 
   test('dropdown link from sitenav', async () => {
@@ -202,7 +202,7 @@ describe('Breadcrumb', () => {
     await nextTick();
 
     expect(wrapper.element).toMatchSnapshot();
-    sitenav.destroy();
-    wrapper.destroy();
+    sitenav.unmount();
+    wrapper.unmount();
   });
 });
