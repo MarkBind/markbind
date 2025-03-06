@@ -5,8 +5,8 @@
 </template>
 
 <script>
-/* eslint-disable vue/one-component-per-file */
-
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { createApp } from 'vue';
 import { getFragmentByHash, toBoolean } from './utils/utils';
 
 export default {
@@ -28,6 +28,7 @@ export default {
       default: false,
     },
   },
+  emits: ['src-loaded'],
   data() {
     return {
       /*
@@ -92,13 +93,14 @@ export default {
           };
 
           // Mount result in retriever
-          const TempComponent = Vue.extend({
+          const TempComponent = {
             template: `<div>\n${result}\n</div>`,
             data() {
               return rootData;
             },
-          });
-          new TempComponent().$mount(this.$el);
+          };
+          const app = createApp(TempComponent);
+          app.mount(this.$el);
           this.$emit('src-loaded');
         })
         .catch((error) => {

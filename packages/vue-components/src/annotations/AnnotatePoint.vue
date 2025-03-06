@@ -115,12 +115,11 @@ export default {
     return {
       targetEl: {},
       isMounted: false,
-      width: this.width,
-      height: this.height,
-      src: this.src,
+      width: this.parentWidth,
+      height: this.parentHeight,
     };
   },
-  inject: ['width', 'height', 'src'],
+  inject: ['parentWidth', 'parentHeight', 'src'],
   computed: {
     pointPosition() {
       this.computeImage(() => {
@@ -177,10 +176,10 @@ export default {
       return 0;
     },
     hasHeader() {
-      return !!this.$scopedSlots.header;
+      return !!this.$slots.header;
     },
     hasContent() {
-      return !!this.$scopedSlots.content;
+      return !!this.$slots.content;
     },
     hasWidth() {
       return this.width !== '';
@@ -189,7 +188,7 @@ export default {
       return this.height !== '';
     },
     hasLabel() {
-      return !!this.$scopedSlots.label;
+      return !!this.$slots.label;
     },
     hasBottomText() {
       return this.legend === 'bottom' || this.legend === 'both';
@@ -198,8 +197,8 @@ export default {
       return (this.hasContent || this.hasHeader) && (this.legend === 'popover' || this.legend === 'both');
     },
     computedBottomHeader() {
-      const labelSlotContent = this.$scopedSlots.label?.();
-      const headerSlotContent = this.$scopedSlots.header?.();
+      const labelSlotContent = this.$slots.label?.();
+      const headerSlotContent = this.$slots.header?.();
 
       const labelText = labelSlotContent?.[0]?.children?.[0]?.text;
       const labelHeader = headerSlotContent?.[0]?.children?.[0]?.text;

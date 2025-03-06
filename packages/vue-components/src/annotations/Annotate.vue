@@ -88,8 +88,8 @@ export default {
   },
   provide() {
     return {
-      width: this.width,
-      height: this.height,
+      parentWidth: this.width,
+      parentHeight: this.height,
       src: this.src,
     };
   },
