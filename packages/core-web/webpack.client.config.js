@@ -8,4 +8,7 @@ module.exports = merge(config, {
   entry: {
     markbind: path.join(__dirname, 'src', 'index.js'),
   },
+  externals: {
+    vue: 'Vue',
+  },
 });

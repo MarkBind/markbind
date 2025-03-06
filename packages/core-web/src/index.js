@@ -1,14 +1,17 @@
-/* global pageVueRenderFn:readonly, pageVueStaticRenderFns:readonly */
-// pageVueRenderFn and pageVueStaticRenderFns exist in dynamically generated script by Page/index.js
+/* global render:readonly */
+// render exist in dynamically generated script by Page/index.js
+// see PageVueServerRenderer.ts
 
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { createSSRApp } from 'vue';
 import vueCommonAppFactory from './VueCommonAppFactory';
+
+// eslint-disable-next-line import/no-extraneous-dependencies
 import './styles/index.css';
 import './print';
 
 const { MarkBindVue, appFactory } = vueCommonAppFactory;
-
-Vue.use(MarkBindVue.plugin);
+const { plugin } = MarkBindVue;
 
 function scrollToUrlAnchorHeading() {
   if (window.location.hash) {
@@ -170,44 +173,32 @@ window.handleSiteNavClick = function (elem, useAnchor = true) {
 };
 
 function setup() {
-  const vm = new Vue({
-    render(createElement) {
-      return pageVueRenderFn.call(this, createElement);
-    },
-    staticRenderFns: pageVueStaticRenderFns,
+  // render exist in global window object
+  // see PageVueServerRenderer.ts
+  const app = createSSRApp({
+    render,
     ...appFactory(),
     mounted() {
       executeAfterMountedRoutines();
     },
   });
-  /*
-   * For SSR, if we mount onto the wrong element (without data-server-rendered attribute) in our SSR setup,
-   * hydration will fail silently and turn into client-side rendering, which is not what we want.
-   * Thus, we will always force hydration so that we always know when hydration has failed, so that we can
-   * address the hydration issue accordingly.
-   */
-  vm.$mount('#app', true); // second parameter, 'true', enables force hydration
+  app.use(plugin);
+  app.mount('#app');
 }
 
 function setupWithSearch() {
-  const vm = new Vue({
-    render(createElement) {
-      return pageVueRenderFn.call(this, createElement);
-    },
-    staticRenderFns: pageVueStaticRenderFns,
+  // render exist in global window object
+  // see PageVueServerRenderer.ts
+  const app = createSSRApp({
+    render,
     ...appFactory(),
     mounted() {
       executeAfterMountedRoutines();
       updateSearchData(this);
     },
   });
-  /*
-   * For SSR, if we mount onto the wrong element (without data-server-rendered attribute) in our SSR setup,
-   * hydration will fail silently and turn into client-side rendering, which is not what we want.
-   * Thus, we will always force hydration so that we always know when hydration has failed, so that we can
-   * address the hydration issue accordingly.
-   */
-  vm.$mount('#app', true); // second parameter, 'true', enables force hydration
+  app.use(plugin);
+  app.mount('#app');
 }
 
 export default { setup, setupWithSearch };

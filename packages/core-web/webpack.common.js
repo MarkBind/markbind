@@ -45,8 +45,5 @@ module.exports = {
       },
     ],
   },
-  externals: {
-    vue: 'Vue',
-  },
   plugins: [new VueLoaderPlugin()],
 };
