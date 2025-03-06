@@ -80,7 +80,7 @@
             Check
           </button>
           <button
-            v-if="qState.state !== 0 && questions"
+            v-show="qState.state !== 0 && questions"
             key="active"
             type="button"
             class="btn btn-primary q-btn ms-1"
@@ -89,7 +89,7 @@
             Next
           </button>
           <button
-            v-if="retryState"
+            v-show="retryState"
             key="show"
             type="button"
             class="btn btn-info q-btn ms-1"
@@ -98,7 +98,7 @@
             Show
           </button>
           <button
-            v-if="retryState"
+            v-show="retryState"
             key="retry"
             type="button"
             class="btn btn-primary q-btn ms-1"
