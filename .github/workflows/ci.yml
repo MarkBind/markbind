@@ -36,6 +36,8 @@ jobs:
         run: brew install python-setuptools
       - run: npm run setup
       - run: npm run test
+      - name: Verify dependencies (Check that packages are local)
+        run: npm list @markbind/core-web
       - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v3
         env:
