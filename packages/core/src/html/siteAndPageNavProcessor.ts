@@ -74,7 +74,7 @@ export class PageNavProcessor {
   }
 
   static transformPrintContainer(node: MbNode) {
-    node.attribs.class = 'page-nav-print d-none d-print-block';
+    node.attribs.class = 'page-nav-print d-print-block';
     node.attribs['v-pre'] = '';
     node.name = 'div';
   }
