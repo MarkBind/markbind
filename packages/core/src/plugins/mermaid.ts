@@ -5,17 +5,14 @@ const DEFAULT_CDN_ADDRESS = 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.m
 
 function genScript(address: string) {
   return `<script type="module">
-    // Only initialize mermaidPromise when needed
     window.mermaidPromise = null;
     
-    // Function to load mermaid if not already loaded
     const loadMermaid = () => {
       if (window.mermaidPromise === null) {
         window.mermaidPromise = import('${address || DEFAULT_CDN_ADDRESS}')
           .then(({ default: mermaid }) => {
             mermaid.initialize({
               startOnLoad: false,
-              securityLevel: 'loose'
             });
             console.log('Mermaid loaded successfully');
             return mermaid;
@@ -29,50 +26,61 @@ function genScript(address: string) {
       return window.mermaidPromise;
     };
 
-    // Function to render mermaid diagrams
-    const renderMermaidDiagrams = () => {
-      const mermaidElements = document.querySelectorAll('.mermaid:not(.processed)');
-
-      if (mermaidElements.length === 0) {
+    const renderMermaidDiagrams = (elements) => {
+      if (!elements || elements.length === 0) {
         return Promise.resolve();
       }
-      
+
       return loadMermaid().then(mermaid => {
         if (!mermaid) return;
-        
-        return mermaid.run({ nodes: Array.from(mermaidElements) })
-          .then(() => {
-            mermaidElements.forEach(el => {
-              el.classList.add('processed');
-            });
-          })
+        return mermaid.run({ nodes: Array.from(elements) })
           .catch(err => console.error('Error rendering mermaid diagrams:', err));
       });
     };
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const hasMermaidDiagrams = document.querySelectorAll('.mermaid').length > 0;
-      
-      if (hasMermaidDiagrams) {
-        renderMermaidDiagrams();
-      }
-      
-      // Setup Vue directive for dynamically added diagrams
-      if (typeof Vue !== 'undefined') {
-        Vue.directive('mermaid', {
-          inserted: function(el) {
-            if (!el.classList.contains('processed')) {
-              loadMermaid().then(mermaid => {
-                if (!mermaid) return;
-                
-                return mermaid.run({ nodes: [el] })
-                  .then(() => {el.classList.add('processed');})
-                  .catch(err => console.error('Error rendering dynamic mermaid diagram:', err));
-              });
-            }
+    const setupMermaidObserver = () => {
+      const observer = new MutationObserver((mutations) => {
+        let newMermaidElements = [];
+        
+        mutations.forEach(mutation => {
+          if (mutation.addedNodes.length) {
+            mutation.addedNodes.forEach(node => {
+              if (node.nodeType === 1 && node.classList && 
+                  node.classList.contains('mermaid')) {
+                newMermaidElements.push(node);
+              }
+              
+              if (node.nodeType === 1 && node.querySelectorAll) {
+                const mermaidInNode = node.querySelectorAll('.mermaid');
+                if (mermaidInNode.length) {
+                  newMermaidElements = [...newMermaidElements, ...mermaidInNode];
+                }
+              }
+            });
           }
         });
+        
+        if (newMermaidElements.length > 0) {
+          renderMermaidDiagrams(newMermaidElements);
+        }
+      });
+      
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+      
+      return observer;
+    };
+
+    // Initialize on DOM content loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      const existingDiagrams = document.querySelectorAll('.mermaid');
+      if (existingDiagrams.length > 0) {
+        renderMermaidDiagrams(existingDiagrams);
       }
+      
+      setupMermaidObserver();
     });
 
   </script>`;
@@ -87,12 +95,15 @@ export = {
   getScripts: (pluginContext: PluginContext) => [genScript(pluginContext.address)],
   postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => {
     const $ = cheerio.load(content);
-
-    $('mermaid').each((index: number, node: cheerio.Element) => {
-      const $node = $(node);
-      $node.replaceWith(`<div class="mermaid" v-mermaid>${$node.html()}</div>`);
-    });
-
+    const mermaidTags = $('mermaid');
+    if (mermaidTags.length > 0) {
+      mermaidTags.each((index: number, node: cheerio.Element) => {
+        const $node = $(node);
+        $node.replaceWith(`<pre class="mermaid">
+          ${$node.html()}
+          </pre>`);
+      });
+    }
     return $.html();
   },
 };

@@ -285,7 +285,7 @@ li.footnote-item:target {
 }
 
 /* "Copy" and "wrap text" code block buttons */
-pre {
+pre:has(.function-btn-container) {
     position: relative;
     display: flex;
 }
