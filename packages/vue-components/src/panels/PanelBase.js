@@ -34,6 +34,10 @@ export default {
       type: [Boolean, String],
       default: false,
     },
+    noPageBreak: {
+      type: Boolean,
+      default: false,
+    },
     popupUrl: {
       type: String,
       default: null,
@@ -267,5 +271,14 @@ export default {
     if (!this.localMinimized) {
       this.initPanel();
     }
+  },
+  containerStyle() {
+    let containerStyle;
+
+    if (this.noPageBreak) {
+      containerStyle = 'no-page-break';
+    }
+
+    return containerStyle;
   },
 };
