@@ -284,7 +284,8 @@ LiveServer.start = function(options) {
     } else if (e.code === 'EADDRNOTAVAIL') {
       console.log('%s is not available. Trying another address'.yellow, host);
       setTimeout(function() {
-        server.listen(port, '127.0.0.1');
+        host = "127.0.0.1";
+        server.listen(port, host);
       }, 1000);
     }
      else {
@@ -299,7 +300,8 @@ LiveServer.start = function(options) {
 
     var address = server.address();
     var serveHost = address.address;
-    var openHost = host;
+    var isIpv6 = address.family === 'IPv6';
+    var openHost = isIpv6 && host !== 'localhost' ? `[${host}]` : host;
 
     var serveURL = protocol + '://' + serveHost + ':' + address.port;
     var openURL = protocol + '://' + openHost + ':' + address.port;
