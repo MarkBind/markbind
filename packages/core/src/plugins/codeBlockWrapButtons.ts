@@ -9,6 +9,8 @@ import {
 } from './codeBlockButtonsAssets/codeBlockButtonsContainer';
 import type { PluginContext } from './Plugin';
 
+const CSS_FILE_NAME = 'codeBlockButtonsAssets/codeBlockButtons.css';
+
 const WRAP_ICON = `
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
   width="18" height="18" viewBox="0 0 18 18" version="1.1">
@@ -49,6 +51,7 @@ const wrapCodeBlockScript = `<script>
     </script>`;
 
 export = {
+  getLinks: () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`],
   getScripts: () => [wrapCodeBlockScript],
   processNode: (_: PluginContext, node: MbNode) => {
     if (node.name === 'pre' && node.children?.some(child => child.name === 'code')) {
