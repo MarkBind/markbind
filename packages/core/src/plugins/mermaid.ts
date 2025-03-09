@@ -99,9 +99,7 @@ export = {
     if (mermaidTags.length > 0) {
       mermaidTags.each((index: number, node: cheerio.Element) => {
         const $node = $(node);
-        $node.replaceWith(`<pre class="mermaid">
-          ${$node.html()}
-          </pre>`);
+        $node.replaceWith(`<pre class="mermaid">${$node.html()}</pre>`);
       });
     }
     return $.html();

@@ -205,7 +205,6 @@
         <p><strong>Mermaid Test</strong></p>
         <h4 id="test-some-sample-mermaid-diagrams-load">Test some sample Mermaid diagrams load<a class="fa fa-anchor" href="#test-some-sample-mermaid-diagrams-load" onclick="event.stopPropagation()"></a></h4>
         <pre class="mermaid">
-
 %%{init: { "theme": "neutral" } }%%
 
 graph TD;
@@ -213,19 +212,15 @@ A-->B;
 A-->C;
 B-->D;
 C-->D;
-
-          </pre>
+</pre>
         <pre class="mermaid">
-
 graph TD;
     A-->B;
     A-->C;
     B-->D;
     C-->D;
-
-          </pre>
+</pre>
         <pre class="mermaid">
-
 sequenceDiagram
     participant Alice
     participant Bob
@@ -237,10 +232,8 @@ sequenceDiagram
     John-->>Alice: Great!
     John->>Bob: How about you?
     Bob-->>John: Jolly good!
-
-          </pre>
+</pre>
         <pre class="mermaid">
-
 gantt
 dateFormat  YYYY-MM-DD
 title Adding GANTT diagram to mermaid
@@ -267,8 +260,7 @@ section Last section
 Describe gantt syntax               :after doc1, 3d
 Add gantt diagram to demo page      : 20h
 Add another diagram to demo page    : 48h
-
-          </pre>
+</pre>
         <h4 id="test-standard-formatting-of-mermaid-diagrams-load-using-pre">Test standard formatting of Mermaid diagrams load (using pre)<a class="fa fa-anchor" href="#test-standard-formatting-of-mermaid-diagrams-load-using-pre" onclick="event.stopPropagation()"></a></h4>
         <pre class="mermaid">
   graph LR
@@ -281,24 +273,20 @@ Add another diagram to demo page    : 48h
             <p>This is to test Mermaid diagrams work in panel.</p>
           </template>
           <pre class="mermaid">
-
 pie title Pets adopted by volunteers
     "Dogs" : 386
     "Cats" : 85
     "Rats" : 15
-
-          </pre>
+</pre>
         </panel>
         <div>
           <pre class="mermaid">
-
 graph TD;
     A-->B;
     A-->C;
     B-->D;
     C-->D;
-
-          </pre>
+</pre>
         </div>
         <panel type="minimal" src="/test_site/testMermaidInclude._include_.html"><template #header>
             <p>This is to test Mermaid diagrams works when included inside a panel.</p>
