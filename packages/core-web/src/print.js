@@ -10,8 +10,6 @@ const PAGE_NAV_PRINT_CONTAINER = 'page-nav-print';
  */
 function removeActiveStyle(container) {
   const activeElements = container.querySelectorAll('a.active');
-  console.log(activeElements.length ? `Removed active style from ${activeElements.length} elements.`
-    : 'Did not find any active elements.');
   activeElements.forEach((activeElement) => {
     activeElement.classList.remove('active');
   });
@@ -38,7 +36,6 @@ function removePageNavPrint() {
   tocElements.forEach((tocElement) => {
     tocElement.remove();
   });
-  return tocElements.length > 0;
 }
 
 // Insert page navigation into the <page-nav-print> containers.
@@ -47,25 +44,16 @@ window.addEventListener('beforeprint', () => {
   const pageNavPrintContainers = document.querySelectorAll(`.${PAGE_NAV_PRINT_CONTAINER}`);
 
   if (pageNav && pageNavPrintContainers.length >= 1) {
-    // console.log(
-    //   removePageNavPrint() ? 'Removed clones in beforeprint'
-    //     : 'Did not remove clones in beforeprint'); // remove any existing clones
     pageNavPrintContainers.forEach((container) => {
       const pageNavClone = clonePageNav(pageNav);
-      const pageNavClone2 = clonePageNav(pageNav);
       container.appendChild(pageNavClone);
-      container.appendChild(pageNavClone2);
-      console.log('hi');
-      console.log(container);
     });
   }
 });
 
 // Remove page navigation clones.
 window.addEventListener('afterprint', () => {
-  // console.log(
-  //   removePageNavPrint() ? 'Removed clones in beforeprint'
-  //     : 'Did not remove clones in beforeprint');
+  removePageNavPrint();
 });
 
 // Check for wrapping in code blocks and adds line numbers if necessary
