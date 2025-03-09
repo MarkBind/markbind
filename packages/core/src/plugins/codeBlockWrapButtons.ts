@@ -51,8 +51,10 @@ const wrapCodeBlockScript = `<script>
 export = {
   getScripts: () => [wrapCodeBlockScript],
   processNode: (_: PluginContext, node: MbNode) => {
-    if (node.name === 'pre' && !doesFunctionBtnContainerExistInNode(node)) {
-      cheerio(node).append(CONTAINER_HTML);
+    if (node.name === 'pre' && node.children?.some(child => child.name === 'code')) {
+      if (!doesFunctionBtnContainerExistInNode(node)) {
+        cheerio(node).append(CONTAINER_HTML);
+      }
     } else if (isFunctionBtnContainer(node)) {
       cheerio(node).append(getButtonHTML());
     }
