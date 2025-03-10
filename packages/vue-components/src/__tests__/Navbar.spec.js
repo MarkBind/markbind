@@ -1,11 +1,13 @@
 import { mount } from '@vue/test-utils';
 import Navbar from '../Navbar.vue';
+import Overlay from '../Overlay.vue';
 import PageNavButton from '../PageNavButton.vue';
 import SiteNavButton from '../SiteNavButton.vue';
 
 const DEFAULT_STUBS = {
   'page-nav-button': PageNavButton,
   'site-nav-button': SiteNavButton,
+  'Overlay': Overlay,
 };
 
 const NAVBAR_BRAND = '<a href="#" title="Home" class="navbar-brand">Your Logo</a>';
@@ -44,7 +46,9 @@ describe('Navbar and secondary navbar', () => {
         default: NAVBAR_CONTENT,
         'lower-navbar': OMIT_PAGE_AND_SITE_NAV_BUTTONS,
       },
-      stubs: DEFAULT_STUBS,
+      global: {
+        stubs: DEFAULT_STUBS,
+      },
     });
 
     expect(wrapper.element).toMatchSnapshot();
@@ -57,7 +61,9 @@ describe('Navbar and secondary navbar', () => {
         default: NAVBAR_CONTENT,
         'lower-navbar': SITE_NAV_BUTTON,
       },
-      stubs: DEFAULT_STUBS,
+      global: {
+        stubs: DEFAULT_STUBS,
+      },
     });
 
     expect(wrapper.element).toMatchSnapshot();
@@ -70,7 +76,9 @@ describe('Navbar and secondary navbar', () => {
         default: NAVBAR_CONTENT,
         'lower-navbar': PAGE_NAV_BUTTON,
       },
-      stubs: DEFAULT_STUBS,
+      global: {
+        stubs: DEFAULT_STUBS,
+      },
     });
 
     expect(wrapper.element).toMatchSnapshot();
@@ -83,7 +91,9 @@ describe('Navbar and secondary navbar', () => {
         default: NAVBAR_CONTENT,
         'lower-navbar': SITE_AND_PAGE_NAV_BUTTONS,
       },
-      stubs: DEFAULT_STUBS,
+      global: {
+        stubs: DEFAULT_STUBS,
+      },
     });
 
     expect(wrapper.element).toMatchSnapshot();
@@ -131,9 +141,11 @@ describe('Mobile nav buttons test:', () => {
            default: NAVBAR_CONTENT,
            'lower-navbar': lowerNavbarSlot,
          },
-         stubs: {
-           ...DEFAULT_STUBS,
-           'overlay': true,
+         global: {
+           stubs: {
+             ...DEFAULT_STUBS,
+             'overlay': true,
+           },
          },
        });
 
@@ -142,6 +154,6 @@ describe('Mobile nav buttons test:', () => {
 
        expect(navComponent.vm.portalName).toBe(portalName);
 
-       wrapper.destroy();
+       wrapper.unmount();
      });
 });

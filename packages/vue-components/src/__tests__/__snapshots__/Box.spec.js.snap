@@ -5,25 +5,23 @@ exports[`Box having custom background color renders correctly 1`] = `
   class="alert box-container alert-default"
   style="background-color: white; border-color: white;"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
-      <!---->
-       
-      <!---->
-       
+      <!--v-if-->
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -34,25 +32,23 @@ exports[`Box having custom border color renders correctly 1`] = `
   class="alert box-container alert-default"
   style="border: 1px solid grey;"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
-      <!---->
-       
-      <!---->
-       
+      <!--v-if-->
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -63,25 +59,23 @@ exports[`Box having custom border left color renders correctly 1`] = `
   class="alert box-container alert-default"
   style="border-left: 5px solid blue;"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
-      <!---->
-       
-      <!---->
-       
+      <!--v-if-->
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -91,27 +85,24 @@ exports[`Box of default type with content renders correctly  1`] = `
 <div
   class="alert box-container alert-default"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
-      <!---->
-       
-      <!---->
-       
+      <!--v-if-->
+      <!--v-if-->
       <div
         class="contents"
       >
+        
         This is the default box
+        
       </div>
-       
-      <!---->
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -121,31 +112,31 @@ exports[`Box of definition type light style renders correctly 1`] = `
 <div
   class="alert box-container border-primary alert-border-left"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
-        class="icon-wrapper  text-primary"
+        class="icon-wrapper text-primary"
       >
+        
         <i
           class="fas fa-atlas"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -155,31 +146,31 @@ exports[`Box of definition type renders correctly 1`] = `
 <div
   class="alert box-container alert-primary"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
         class="icon-wrapper"
       >
+        
         <i
           class="fas fa-atlas"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -189,31 +180,31 @@ exports[`Box of important type light style renders correctly 1`] = `
 <div
   class="alert box-container border-danger alert-border-left"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
-        class="icon-wrapper  text-danger"
+        class="icon-wrapper text-danger"
       >
+        
         <i
           class="fas fa-flag"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -223,31 +214,31 @@ exports[`Box of important type renders correctly 1`] = `
 <div
   class="alert box-container alert-danger"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
         class="icon-wrapper"
       >
+        
         <i
           class="fas fa-flag"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -257,31 +248,31 @@ exports[`Box of info type light style renders correctly 1`] = `
 <div
   class="alert box-container border-info alert-border-left"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
-        class="icon-wrapper  text-info"
+        class="icon-wrapper text-info"
       >
+        
         <i
           class="fas fa-info"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -291,31 +282,31 @@ exports[`Box of info type renders correctly 1`] = `
 <div
   class="alert box-container alert-info"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
         class="icon-wrapper"
       >
+        
         <i
           class="fas fa-info"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -325,28 +316,26 @@ exports[`Box of seamless style renders correctly 1`] = `
 <div
   class="alert box-container seamless"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
-      <!---->
-       
+      <!--v-if-->
       <div
         aria-hidden="true"
         class="vertical-divider alert-default"
       />
-       
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -356,31 +345,31 @@ exports[`Box of success type light style renders correctly 1`] = `
 <div
   class="alert box-container border-success alert-border-left"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
-        class="icon-wrapper  text-success"
+        class="icon-wrapper text-success"
       >
+        
         <i
           class="fas fa-check"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -390,31 +379,31 @@ exports[`Box of success type renders correctly 1`] = `
 <div
   class="alert box-container alert-success"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
         class="icon-wrapper"
       >
+        
         <i
           class="fas fa-check"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -424,31 +413,31 @@ exports[`Box of tip type light style renders correctly 1`] = `
 <div
   class="alert box-container border-success alert-border-left"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
-        class="icon-wrapper  text-success"
+        class="icon-wrapper text-success"
       >
+        
         <i
           class="fas fa-lightbulb"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -458,31 +447,31 @@ exports[`Box of tip type renders correctly 1`] = `
 <div
   class="alert box-container alert-success"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
         class="icon-wrapper"
       >
+        
         <i
           class="fas fa-lightbulb"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -492,31 +481,31 @@ exports[`Box of warning type light style renders correctly 1`] = `
 <div
   class="alert box-container border-warning alert-border-left"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
-        class="icon-wrapper  text-warning"
+        class="icon-wrapper text-warning"
       >
+        
         <i
           class="fas fa-exclamation"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -526,31 +515,31 @@ exports[`Box of warning type renders correctly 1`] = `
 <div
   class="alert box-container alert-warning"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
         class="icon-wrapper"
       >
+        
         <i
           class="fas fa-exclamation"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -560,31 +549,31 @@ exports[`Box of wrong type light style renders correctly 1`] = `
 <div
   class="alert box-container border-danger alert-border-left"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
-        class="icon-wrapper  text-danger"
+        class="icon-wrapper text-danger"
       >
+        
         <i
           class="fas fa-times"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -594,31 +583,31 @@ exports[`Box of wrong type renders correctly 1`] = `
 <div
   class="alert box-container alert-danger"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
         class="icon-wrapper"
       >
+        
         <i
           class="fas fa-times"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -628,26 +617,24 @@ exports[`Box with custom color renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
-      <!---->
-       
-      <!---->
-       
+      <!--v-if-->
+      <!--v-if-->
       <div
         class="contents"
         style="color: pink;"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -657,8 +644,7 @@ exports[`Box with custom icon color and header renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
@@ -669,30 +655,31 @@ exports[`Box with custom icon color and header renders correctly 1`] = `
         class="icon-wrapper"
         style="color: red;"
       >
+        
         :fas-plus:
+        
       </div>
-       
       <div
         class="box-header"
       >
+        
         A header
+        
       </div>
-       
-      <!---->
+      <!--v-if-->
     </div>
-     
     <div
       class="box-body-wrapper box-body-wrapper-with-heading"
     >
-      <!---->
-       
-      <!---->
-       
+      <!--v-if-->
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -702,32 +689,32 @@ exports[`Box with custom icon color and light renders correctly 1`] = `
 <div
   class="alert box-container border-warning alert-border-left"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
-        class="icon-wrapper  text-warning"
+        class="icon-wrapper text-warning"
         style="color: red;"
       >
+        
         <i
           class="fas fa-exclamation"
         />
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -737,13 +724,11 @@ exports[`Box with custom icon color and no header renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
@@ -751,16 +736,18 @@ exports[`Box with custom icon color and no header renders correctly 1`] = `
         class="icon-wrapper"
         style="color: red;"
       >
+        
         :fas-plus:
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -770,24 +757,22 @@ exports[`Box with dismissible option renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper alert-dismissible-box"
     >
-      <!---->
-       
-      <!---->
-       
+      <!--v-if-->
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
+      >
+        
+        
+      </div>
       <button
         aria-label="Close"
         class="btn-close"
@@ -803,37 +788,35 @@ exports[`Box with header renders correctly 1`] = `
 <div
   class="alert box-container alert-default"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
     <div
       class="box-header-wrapper"
     >
-      <!---->
-       
+      <!--v-if-->
       <div
         class="box-header"
       >
+        
         A header
+        
       </div>
-       
-      <!---->
+      <!--v-if-->
     </div>
-     
     <div
       class="box-body-wrapper box-body-wrapper-with-heading"
     >
-      <!---->
-       
-      <!---->
-       
+      <!--v-if-->
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -843,29 +826,29 @@ exports[`Box with icon and icon-size renders correctly 1`] = `
 <div
   class="alert box-container alert-info"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
         class="icon-wrapper fa-2x"
       >
+        
         :rocket:
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -875,29 +858,29 @@ exports[`Box with icon renders correctly 1`] = `
 <div
   class="alert box-container alert-info"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
       <div
         class="icon-wrapper"
       >
+        
         :rocket:
+        
       </div>
-       
-      <!---->
-       
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -907,25 +890,23 @@ exports[`Box with no-background option renders correctly 1`] = `
 <div
   class="alert box-container alert-default no-background"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
-      <!---->
-       
-      <!---->
-       
+      <!--v-if-->
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -935,25 +916,23 @@ exports[`Box with no-border option renders correctly 1`] = `
 <div
   class="alert box-container alert-default no-border"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
-      <!---->
-       
-      <!---->
-       
+      <!--v-if-->
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>
@@ -963,25 +942,23 @@ exports[`Box with no-icon option renders correctly 1`] = `
 <div
   class="alert box-container alert-success"
 >
-  <!---->
-   
+  <!--v-if-->
   <div
     class="header-and-body"
   >
-    <!---->
-     
+    <!--v-if-->
     <div
       class="box-body-wrapper"
     >
-      <!---->
-       
-      <!---->
-       
+      <!--v-if-->
+      <!--v-if-->
       <div
         class="contents"
-      />
-       
-      <!---->
+      >
+        
+        
+      </div>
+      <!--v-if-->
     </div>
   </div>
 </div>

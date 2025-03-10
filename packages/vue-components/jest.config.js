@@ -11,9 +11,18 @@ module.exports = {
     'vue',
   ],
   'testEnvironment': 'jsdom',
+  'testEnvironmentOptions': {
+    'customExportConditions': ['node', 'node-addons'],
+  },
   'transform': {
-    '.*\\.vue$': '@vue/vue2-jest',
+    '.*\\.vue$': '@vue/vue3-jest',
     '^.+\\.js$': ['babel-jest', { rootMode: 'upward' }],
   },
-  'snapshotSerializers': ['jest-serializer-vue'],
+  'globals': {
+    'vue-jest': {
+      compilerOptions: {
+        comments: false,
+      },
+    },
+  },
 };
