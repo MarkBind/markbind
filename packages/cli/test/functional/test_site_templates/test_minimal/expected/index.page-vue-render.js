@@ -1,10 +1,4 @@
 
-    var pageVueRenderFn = function anonymous(
-) {
-with(this){return _c('div',{attrs:{"id":"app"}},[_c('header'),_v(" "),_c('div',{attrs:{"id":"flex-body"}},[_m(0),_v(" "),_c('scroll-top-button')],1),_v(" "),_c('footer')])}
-};
-    var pageVueStaticRenderFns = [function anonymous(
-) {
-with(this){return _c('div',{attrs:{"id":"content-wrapper"}},[_c('h1',{attrs:{"id":"welcome-to-markbind"}},[_v("Welcome to MarkBind"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#welcome-to-markbind","onclick":"event.stopPropagation()"}})]),_v(" "),_c('p',[_v("This is a minimalistic template. To learn more about authoring contents in MarkBind, visit the "),_c('a',{attrs:{"href":"https://markbind.org/userGuide/authoringContents.html"}},[_v("User Guide")]),_v(".")])])}
-}];
+    const renderFn = new Function("const { createElementVNode: _createElementVNode, createTextVNode: _createTextVNode, resolveComponent: _resolveComponent, createVNode: _createVNode, Fragment: _Fragment, openBlock: _openBlock, createElementBlock: _createElementBlock } = Vue\n\nconst _hoisted_1 = /*#__PURE__*/_createElementVNode(\"header\", null, null, -1 /* HOISTED */)\nconst _hoisted_2 = { id: \"flex-body\" }\nconst _hoisted_3 = /*#__PURE__*/_createElementVNode(\"div\", { id: \"content-wrapper\" }, [\n  /*#__PURE__*/_createElementVNode(\"h1\", { id: \"welcome-to-markbind\" }, [\n    /*#__PURE__*/_createTextVNode(\"Welcome to MarkBind\"),\n    /*#__PURE__*/_createElementVNode(\"a\", {\n      class: \"fa fa-anchor\",\n      href: \"#welcome-to-markbind\",\n      onclick: \"event.stopPropagation()\"\n    })\n  ]),\n  /*#__PURE__*/_createElementVNode(\"p\", null, [\n    /*#__PURE__*/_createTextVNode(\"This is a minimalistic template. To learn more about authoring contents in MarkBind, visit the \"),\n    /*#__PURE__*/_createElementVNode(\"a\", { href: \"https://markbind.org/userGuide/authoringContents.html\" }, \"User Guide\"),\n    /*#__PURE__*/_createTextVNode(\".\")\n  ])\n], -1 /* HOISTED */)\nconst _hoisted_4 = /*#__PURE__*/_createElementVNode(\"footer\", null, null, -1 /* HOISTED */)\n\nreturn function render(_ctx, _cache) {\n  const _component_scroll_top_button = _resolveComponent(\"scroll-top-button\")\n\n  return (_openBlock(), _createElementBlock(_Fragment, null, [\n    _hoisted_1,\n    _createElementVNode(\"div\", _hoisted_2, [\n      _hoisted_3,\n      _createVNode(_component_scroll_top_button)\n    ]),\n    _hoisted_4\n  ], 64 /* STABLE_FRAGMENT */))\n}");
+    var render = renderFn();
   

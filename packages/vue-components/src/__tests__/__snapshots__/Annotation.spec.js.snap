@@ -34,17 +34,17 @@ exports[`Annotation with customised annotation points 1`] = `
               <div
                 class="hover-wrapper"
               >
-                
                 <div
                   class="element-wrapper"
                 >
+                  
                   <div
                     style="color: red;"
                   >
                     Hi
                   </div>
+                  
                 </div>
-                
                 <div
                   class="hover-label"
                   style="font-size: 14px; color: black;"
@@ -82,13 +82,14 @@ exports[`Annotation with customised annotation points 1`] = `
                 <div
                   class="element-wrapper"
                 >
+                  
                   <span
                     class="badge bg-primary"
                   >
                     Primary
                   </span>
+                  
                 </div>
-                 
                 <div
                   class="hover-label"
                   style="font-size: 14px; color: black;"
@@ -146,12 +147,13 @@ exports[`Annotation with different visual annotation points 1`] = `
                 <div
                   class="element-wrapper"
                 >
+                  
                   <button
                     class="hover-point"
                     style="background-color: green; opacity: 0.3; width: 40px; height: 40px; cursor: default;"
                   />
+                  
                 </div>
-                 
                 <div
                   class="hover-label"
                   style="font-size: 14px; color: black;"
@@ -189,12 +191,13 @@ exports[`Annotation with different visual annotation points 1`] = `
                 <div
                   class="element-wrapper"
                 >
+                  
                   <button
                     class="hover-point"
                     style="background-color: green; opacity: 0.3; width: 60px; height: 60px; cursor: default;"
                   />
+                  
                 </div>
-                 
                 <div
                   class="hover-label"
                   style="font-size: 14px; color: black;"
@@ -232,12 +235,13 @@ exports[`Annotation with different visual annotation points 1`] = `
                 <div
                   class="element-wrapper"
                 >
+                  
                   <button
                     class="hover-point"
                     style="background-color: green; opacity: 0.3; width: 40px; height: 40px; cursor: default;"
                   />
+                  
                 </div>
-                 
                 <div
                   class="hover-label"
                   style="font-size: 14px; color: black;"
@@ -275,12 +279,13 @@ exports[`Annotation with different visual annotation points 1`] = `
                 <div
                   class="element-wrapper"
                 >
+                  
                   <button
                     class="hover-point"
                     style="background-color: red; opacity: 0.3; width: 40px; height: 40px; cursor: default;"
                   />
+                  
                 </div>
-                 
                 <div
                   class="hover-label"
                   style="font-size: 14px; color: black;"
@@ -318,12 +323,13 @@ exports[`Annotation with different visual annotation points 1`] = `
                 <div
                   class="element-wrapper"
                 >
+                  
                   <button
                     class="hover-point"
                     style="background-color: green; opacity: 0.7; width: 40px; height: 40px; cursor: default;"
                   />
+                  
                 </div>
-                 
                 <div
                   class="hover-label"
                   style="font-size: 14px; color: black;"
@@ -361,12 +367,13 @@ exports[`Annotation with different visual annotation points 1`] = `
                 <div
                   class="element-wrapper"
                 >
+                  
                   <button
                     class="hover-point"
                     style="background-color: green; opacity: 0.3; width: 40px; height: 40px; cursor: default;"
                   />
+                  
                 </div>
-                 
                 <div
                   class="hover-label"
                   style="font-size: 14px; color: black;"
@@ -404,12 +411,13 @@ exports[`Annotation with different visual annotation points 1`] = `
                 <div
                   class="element-wrapper"
                 >
+                  
                   <button
                     class="hover-point"
                     style="background-color: black; opacity: 1; width: 40px; height: 40px; cursor: default;"
                   />
+                  
                 </div>
-                 
                 <div
                   class="hover-label"
                   style="font-size: 14px; color: white;"
@@ -447,12 +455,13 @@ exports[`Annotation with different visual annotation points 1`] = `
                 <div
                   class="element-wrapper"
                 >
+                  
                   <button
                     class="hover-point"
                     style="background-color: green; opacity: 0.3; width: 40px; height: 40px; cursor: default;"
                   />
+                  
                 </div>
-                 
                 <div
                   class="hover-label"
                   style="font-size: 30px; color: black;"
@@ -510,12 +519,13 @@ exports[`Annotation with markdown in header, content and label 1`] = `
                 <div
                   class="element-wrapper"
                 >
+                  
                   <button
                     class="hover-point"
                     style="background-color: green; opacity: 0.3; width: 40px; height: 40px; cursor: default;"
                   />
+                  
                 </div>
-                 
                 <div
                   class="hover-label"
                   style="font-size: 14px; color: black;"
@@ -553,12 +563,13 @@ exports[`Annotation with markdown in header, content and label 1`] = `
                 <div
                   class="element-wrapper"
                 >
+                  
                   <button
                     class="hover-point"
                     style="background-color: green; opacity: 0.3; width: 40px; height: 40px; cursor: default;"
                   />
+                  
                 </div>
-                 
                 <div
                   class="hover-label"
                   style="font-size: 14px; color: black;"
@@ -596,12 +607,13 @@ exports[`Annotation with markdown in header, content and label 1`] = `
                 <div
                   class="element-wrapper"
                 >
+                  
                   <button
                     class="hover-point"
                     style="background-color: green; opacity: 0.3; width: 40px; height: 40px; cursor: default;"
                   />
+                  
                 </div>
-                 
                 <div
                   class="hover-label"
                   style="font-size: 14px; color: black;"
