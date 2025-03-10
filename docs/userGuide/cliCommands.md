@@ -68,6 +68,8 @@ Usage: markbind <command>
 </div>
 <hr><!-- ========================================================================== -->
 
+<div id="serve-command">
+
 ### `serve` Command
 <br>
 
@@ -136,6 +138,7 @@ The caveat is that not building all pages during the initial process, or not reb
 * `markbind serve -p 8888 -s otherSite.json` : Serves the site in Port 8888 from the current working directory, using `otherSite.json` as the site configuration file.
 
 </panel>
+</div>
 
 <hr><!-- ========================================================================== -->
 
