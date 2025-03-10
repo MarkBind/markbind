@@ -388,7 +388,7 @@ export default {
 
     @media print {
         .no-page-break {
-          page-break-inside: avoid;
+            page-break-inside: avoid;
         }
     }
 </style>
