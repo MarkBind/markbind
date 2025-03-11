@@ -5,12 +5,4 @@ module.exports = {
   testEnvironment: 'node',
   collectCoverage: true,
   testMatch: ['**/*.test.ts', '**/filterIconAssets.test.js'],
-  // Disable type-checking for test files until we have fully adapted to TypeScript.
-  // Temporarily remove the below lines if you need to type-check the test files
-  // as you run the tests.
-  // globals: {
-  //   'ts-jest': {
-  //     isolatedModules: true,
-  //   },
-  // },
 };
