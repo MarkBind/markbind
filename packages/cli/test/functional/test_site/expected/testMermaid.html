@@ -203,81 +203,90 @@
       <div id="content-wrapper">
         <breadcrumb></breadcrumb>
         <p><strong>Mermaid Test</strong></p>
-        <div class="mermaid" v-mermaid>
-          %%{init: { "theme": "neutral" } }%%
+        <h4 id="test-some-sample-mermaid-diagrams-load">Test some sample Mermaid diagrams load<a class="fa fa-anchor" href="#test-some-sample-mermaid-diagrams-load" onclick="event.stopPropagation()"></a></h4>
+        <pre class="mermaid">
+%%{init: { "theme": "neutral" } }%%
 
-          graph TD;
-          A-->B;
-          A-->C;
-          B-->D;
-          C-->D;
-        </div>
-        <div class="mermaid" v-mermaid>
-          graph TD;
-          A-->B;
-          A-->C;
-          B-->D;
-          C-->D;
-        </div>
-        <div class="mermaid" v-mermaid>
-          sequenceDiagram
-          participant Alice
-          participant Bob
-          Alice->>John: Hello John, how are you?
-          loop Healthcheck
-          John->>John: Fight against hypochondria
-          end
-          Note right of John: Rational thoughts <br>prevail!
-          John-->>Alice: Great!
-          John->>Bob: How about you?
-          Bob-->>John: Jolly good!
-        </div>
-        <div class="mermaid" v-mermaid>
-          gantt
-          dateFormat YYYY-MM-DD
-          title Adding GANTT diagram to mermaid
-          section A section
-          Completed task :done, des1, 2014-01-06,2014-01-08
-          Active task :active, des2, 2014-01-09, 3d
-          Future task : des3, after des2, 5d
-          Future task2 : des4, after des3, 5d
+graph TD;
+A-->B;
+A-->C;
+B-->D;
+C-->D;
+</pre>
+        <pre class="mermaid">
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+</pre>
+        <pre class="mermaid">
+sequenceDiagram
+    participant Alice
+    participant Bob
+    Alice->>John: Hello John, how are you?
+    loop Healthcheck
+        John->>John: Fight against hypochondria
+    end
+    Note right of John: Rational thoughts <br>prevail!
+    John-->>Alice: Great!
+    John->>Bob: How about you?
+    Bob-->>John: Jolly good!
+</pre>
+        <pre class="mermaid">
+gantt
+dateFormat  YYYY-MM-DD
+title Adding GANTT diagram to mermaid
+section A section
+Completed task            :done,    des1, 2014-01-06,2014-01-08
+Active task               :active,  des2, 2014-01-09, 3d
+Future task               :         des3, after des2, 5d
+Future task2               :         des4, after des3, 5d
 
-          section Critical tasks
-          Completed task in the critical line :crit, done, 2014-01-06,24h
-          Implement parser and jison :crit, done, after des1, 2d
-          Create tests for parser :crit, active, 3d
-          Future task in critical line :crit, 5d
-          Create tests for renderer :2d
-          Add to mermaid :1d
+section Critical tasks
+Completed task in the critical line :crit, done, 2014-01-06,24h
+Implement parser and jison          :crit, done, after des1, 2d
+Create tests for parser             :crit, active, 3d
+Future task in critical line        :crit, 5d
+Create tests for renderer           :2d
+Add to mermaid                      :1d
 
-          section Documentation
-          Describe gantt syntax :active, a1, after des1, 3d
-          Add gantt diagram to demo page :after a1 , 20h
-          Add another diagram to demo page :doc1, after a1 , 48h
+section Documentation
+Describe gantt syntax               :active, a1, after des1, 3d
+Add gantt diagram to demo page      :after a1  , 20h
+Add another diagram to demo page    :doc1, after a1  , 48h
 
-          section Last section
-          Describe gantt syntax :after doc1, 3d
-          Add gantt diagram to demo page : 20h
-          Add another diagram to demo page : 48h
-        </div>
+section Last section
+Describe gantt syntax               :after doc1, 3d
+Add gantt diagram to demo page      : 20h
+Add another diagram to demo page    : 48h
+</pre>
+        <h4 id="test-standard-formatting-of-mermaid-diagrams-load-using-pre">Test standard formatting of Mermaid diagrams load (using pre)<a class="fa fa-anchor" href="#test-standard-formatting-of-mermaid-diagrams-load-using-pre" onclick="event.stopPropagation()"></a></h4>
+        <pre class="mermaid">
+  graph LR
+      A --- B
+      B-->C[fa:fa-ban forbidden]
+      B-->D(fa:fa-spinner);
+</pre>
+        <h4 id="test-dynamically-loaded-mermaid-diagrams">Test dynamically loaded Mermaid diagrams<a class="fa fa-anchor" href="#test-dynamically-loaded-mermaid-diagrams" onclick="event.stopPropagation()"></a></h4>
         <panel type="minimal"><template #header>
             <p>This is to test Mermaid diagrams work in panel.</p>
           </template>
-          <div class="mermaid" v-mermaid>
-            pie title Pets adopted by volunteers
-            "Dogs" : 386
-            "Cats" : 85
-            "Rats" : 15
-          </div>
+          <pre class="mermaid">
+pie title Pets adopted by volunteers
+    "Dogs" : 386
+    "Cats" : 85
+    "Rats" : 15
+</pre>
         </panel>
         <div>
-          <div class="mermaid" v-mermaid>
-            graph TD;
-            A-->B;
-            A-->C;
-            B-->D;
-            C-->D;
-          </div>
+          <pre class="mermaid">
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+</pre>
         </div>
         <panel type="minimal" src="/test_site/testMermaidInclude._include_.html"><template #header>
             <p>This is to test Mermaid diagrams works when included inside a panel.</p>
@@ -353,17 +362,84 @@
         }
     </script>
 <script type="module">
-    import mermaid from 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs';
-    document.addEventListener('DOMContentLoaded', () => {
-      mermaid.initialize({});
-      Vue.directive('mermaid', {
-        inserted: function(el) {
-          mermaid.run({
-            nodes: [el]
+    window.mermaidPromise = null;
+    
+    const loadMermaid = () => {
+      if (window.mermaidPromise === null) {
+        window.mermaidPromise = import('https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs')
+          .then(({ default: mermaid }) => {
+            mermaid.initialize({
+              startOnLoad: false,
+            });
+            console.log('Mermaid loaded successfully');
+            return mermaid;
+          })
+          .catch((error) => {
+            console.error('Mermaid failed to load:', error);
+            window.mermaidPromise = false;
+            return null;
           });
+      }
+      return window.mermaidPromise;
+    };
+
+    const renderMermaidDiagrams = (elements) => {
+      if (!elements || elements.length === 0) {
+        return Promise.resolve();
+      }
+
+      return loadMermaid().then(mermaid => {
+        if (!mermaid) return;
+        return mermaid.run({ nodes: Array.from(elements) })
+          .catch(err => console.error('Error rendering mermaid diagrams:', err));
+      });
+    };
+
+    const setupMermaidObserver = () => {
+      const observer = new MutationObserver((mutations) => {
+        let newMermaidElements = [];
+        
+        mutations.forEach(mutation => {
+          if (mutation.addedNodes.length) {
+            mutation.addedNodes.forEach(node => {
+              if (node.nodeType === 1 && node.classList && 
+                  node.classList.contains('mermaid')) {
+                newMermaidElements.push(node);
+              }
+              
+              if (node.nodeType === 1 && node.querySelectorAll) {
+                const mermaidInNode = node.querySelectorAll('.mermaid');
+                if (mermaidInNode.length) {
+                  newMermaidElements = [...newMermaidElements, ...mermaidInNode];
+                }
+              }
+            });
+          }
+        });
+        
+        if (newMermaidElements.length > 0) {
+          renderMermaidDiagrams(newMermaidElements);
         }
       });
+      
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+      
+      return observer;
+    };
+
+    // Initialize on DOM content loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      const existingDiagrams = document.querySelectorAll('.mermaid');
+      if (existingDiagrams.length > 0) {
+        renderMermaidDiagrams(existingDiagrams);
+      }
+      
+      setupMermaidObserver();
     });
+
   </script>
 
 </html>
