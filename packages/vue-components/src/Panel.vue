@@ -4,7 +4,7 @@
     :panel-id="panelId"
     v-bind="$attrs"
   >
-    <template v-for="(node, name) in $scopedSlots" #[name]>
+    <template v-for="(node, name) in $slots" #[name]>
       <slot :name="name"></slot>
     </template>
   </minimal-panel>
@@ -14,7 +14,7 @@
     :type="type"
     v-bind="$attrs"
   >
-    <template v-for="(node, name) in $scopedSlots" #[name]>
+    <template v-for="(node, name) in $slots" #[name]>
       <slot :name="name"></slot>
     </template>
   </nested-panel>

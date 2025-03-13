@@ -11,6 +11,7 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
       <div
         class="navbar-left"
       >
+        
         <a
           class="navbar-brand"
           href="#"
@@ -18,14 +19,15 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
         >
           Your Logo
         </a>
+        
       </div>
-       
       <div
         class="navbar-default"
       >
         <ul
           class="navbar-nav me-auto mt-2 mt-lg-0"
         >
+          
           <li
             class="current"
           >
@@ -36,7 +38,6 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
               Topic 1
             </a>
           </li>
-           
           <li>
             <a
               class="nav-link"
@@ -45,22 +46,23 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
               Topic 2
             </a>
           </li>
+          
         </ul>
       </div>
-       
-      <!---->
+      <!--v-if-->
     </div>
   </nav>
-   
   <div
     class="lower-navbar-container"
     style="display: none;"
   >
+    
     <div
       class="nav-menu-container"
     >
-      <!---->
+      <!--v-if-->
     </div>
+    
   </div>
 </div>
 `;
@@ -76,6 +78,7 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
       <div
         class="navbar-left"
       >
+        
         <a
           class="navbar-brand"
           href="#"
@@ -83,14 +86,15 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
         >
           Your Logo
         </a>
+        
       </div>
-       
       <div
         class="navbar-default"
       >
         <ul
           class="navbar-nav me-auto mt-2 mt-lg-0"
         >
+          
           <li
             class="current"
           >
@@ -101,7 +105,6 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
               Topic 1
             </a>
           </li>
-           
           <li>
             <a
               class="nav-link"
@@ -110,24 +113,24 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
               Topic 2
             </a>
           </li>
+          
         </ul>
       </div>
-       
-      <!---->
+      <!--v-if-->
     </div>
   </nav>
-   
   <div
     class="lower-navbar-container"
     style="display: none;"
   >
+    
     <div
       class="nav-menu-container"
     >
-      <!---->
-       
-      <!---->
+      <!--v-if-->
+      <!--v-if-->
     </div>
+    
   </div>
 </div>
 `;
@@ -143,6 +146,7 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
       <div
         class="navbar-left"
       >
+        
         <a
           class="navbar-brand"
           href="#"
@@ -150,14 +154,15 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
         >
           Your Logo
         </a>
+        
       </div>
-       
       <div
         class="navbar-default"
       >
         <ul
           class="navbar-nav me-auto mt-2 mt-lg-0"
         >
+          
           <li
             class="current"
           >
@@ -168,7 +173,6 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
               Topic 1
             </a>
           </li>
-           
           <li>
             <a
               class="nav-link"
@@ -177,22 +181,23 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
               Topic 2
             </a>
           </li>
+          
         </ul>
       </div>
-       
-      <!---->
+      <!--v-if-->
     </div>
   </nav>
-   
   <div
     class="lower-navbar-container"
     style="display: none;"
   >
+    
     <div
       class="nav-menu-container"
     >
-      <!---->
+      <!--v-if-->
     </div>
+    
   </div>
 </div>
 `;
@@ -208,6 +213,7 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
       <div
         class="navbar-left"
       >
+        
         <a
           class="navbar-brand"
           href="#"
@@ -215,14 +221,15 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
         >
           Your Logo
         </a>
+        
       </div>
-       
       <div
         class="navbar-default"
       >
         <ul
           class="navbar-nav me-auto mt-2 mt-lg-0"
         >
+          
           <li
             class="current"
           >
@@ -233,7 +240,6 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
               Topic 1
             </a>
           </li>
-           
           <li>
             <a
               class="nav-link"
@@ -242,18 +248,19 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
               Topic 2
             </a>
           </li>
+          
         </ul>
       </div>
-       
-      <!---->
+      <!--v-if-->
     </div>
   </nav>
-   
   <div
     class="lower-navbar-container"
     style="display: none;"
   >
+    
     <div />
+    
   </div>
 </div>
 `;

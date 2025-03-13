@@ -38,13 +38,15 @@ const MARKDOWN_ANNOTATION_POINTS = `
 describe('Annotation', () => {
   test('with different visual annotation points', async () => {
     const wrapper = mount(Annotation, {
-      propsData: {
+      props: {
         src: './annotateSampleImage.png',
       },
       slots: {
         default: ANNOTATION_POINTS,
       },
-      stubs: DEFAULT_STUBS,
+      global: {
+        stubs: DEFAULT_STUBS,
+      },
     });
     await wrapper.vm.$nextTick();
     expect(wrapper.element).toMatchSnapshot();
@@ -52,13 +54,15 @@ describe('Annotation', () => {
 
   test('with customised annotation points', async () => {
     const wrapper = mount(Annotation, {
-      propsData: {
+      props: {
         src: './annotateSampleImage.png',
       },
       slots: {
         default: CUSTOMISED_ANNOTATION_POINTS,
       },
-      stubs: DEFAULT_STUBS,
+      global: {
+        stubs: DEFAULT_STUBS,
+      },
     });
     await wrapper.vm.$nextTick();
     expect(wrapper.element).toMatchSnapshot();
@@ -66,13 +70,15 @@ describe('Annotation', () => {
 
   test('with markdown in header, content and label', async () => {
     const wrapper = mount(Annotation, {
-      propsData: {
+      props: {
         src: './annotateSampleImage.png',
       },
       slots: {
         default: MARKDOWN_ANNOTATION_POINTS,
       },
-      stubs: DEFAULT_STUBS,
+      global: {
+        stubs: DEFAULT_STUBS,
+      },
     });
     await wrapper.vm.$nextTick();
     expect(wrapper.element).toMatchSnapshot();

@@ -14,7 +14,7 @@ export default {
       default: undefined,
     },
     showNextQuestion: {
-      default: '',
+      default: undefined,
     },
   },
   methods: {

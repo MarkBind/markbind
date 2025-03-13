@@ -4,19 +4,25 @@ exports[`Dropdown with submenu dropdown 1`] = `
 <div
   class="btn-group"
 >
-   
+  
+  
+  
   <button
     class="btn dropdown-toggle btn-light"
     data-bs-reference="parent"
     data-bs-toggle="dropdown"
     type="button"
   >
+    
     Test Dropdown
+    
   </button>
-   
+  
+  
   <ul
     class="dropdown-menu"
   >
+    
     <li>
       <a
         class="dropdown-item"
@@ -25,7 +31,6 @@ exports[`Dropdown with submenu dropdown 1`] = `
         Dropdown Item 1
       </a>
     </li>
-     
     <li>
       <a
         class="dropdown-item"
@@ -34,7 +39,6 @@ exports[`Dropdown with submenu dropdown 1`] = `
         Dropdown Item 2
       </a>
     </li>
-     
     <li>
       <a
         class="dropdown-item"
@@ -43,7 +47,9 @@ exports[`Dropdown with submenu dropdown 1`] = `
         Dropdown Item 3
       </a>
     </li>
+    
   </ul>
+  
 </div>
 `;
 
@@ -51,19 +57,25 @@ exports[`Dropdown with submenu dropdown with one level of submenu 1`] = `
 <div
   class="btn-group"
 >
-   
+  
+  
+  
   <button
     class="btn dropdown-toggle btn-light"
     data-bs-reference="parent"
     data-bs-toggle="dropdown"
     type="button"
   >
+    
     Test Dropdown
+    
   </button>
-   
+  
+  
   <ul
     class="dropdown-menu"
   >
+    
     <li>
       <a
         class="dropdown-item"
@@ -72,7 +84,6 @@ exports[`Dropdown with submenu dropdown with one level of submenu 1`] = `
         Dropdown Item 1
       </a>
     </li>
-     
     <li>
       <a
         class="dropdown-item"
@@ -81,7 +92,6 @@ exports[`Dropdown with submenu dropdown with one level of submenu 1`] = `
         Dropdown Item 2
       </a>
     </li>
-     
     <li>
       <a
         class="dropdown-item"
@@ -90,20 +100,26 @@ exports[`Dropdown with submenu dropdown with one level of submenu 1`] = `
         Dropdown Item 3
       </a>
     </li>
-     
     <li
       class="dropdown-submenu dropend"
       header="Submenu Level 1"
     >
+      
       <a
         class="dropdown-item submenu-toggle"
         data-bs-toggle="dropdown"
         role="button"
-      />
-       
+      >
+        
+        
+      </a>
+      
+      
       <ul
         class="dropdown-menu"
       >
+        
+        
         <li>
           <a
             class="dropdown-item"
@@ -112,7 +128,6 @@ exports[`Dropdown with submenu dropdown with one level of submenu 1`] = `
             Nested Dropdown Item 1
           </a>
         </li>
-         
         <li>
           <a
             class="dropdown-item"
@@ -121,9 +136,14 @@ exports[`Dropdown with submenu dropdown with one level of submenu 1`] = `
             Nested Dropdown Item 2
           </a>
         </li>
+        
+        
       </ul>
+      
     </li>
+    
   </ul>
+  
 </div>
 `;
 
@@ -131,32 +151,45 @@ exports[`Dropdown with submenu dropdown with two levels of submenu 1`] = `
 <div
   class="btn-group"
 >
-   
+  
+  
+  
   <button
     class="btn dropdown-toggle btn-light"
     data-bs-reference="parent"
     data-bs-toggle="dropdown"
     type="button"
   >
+    
     Test Dropdown
+    
   </button>
-   
+  
+  
   <ul
     class="dropdown-menu"
   >
+    
     <li
       class="dropdown-submenu dropend"
       header="Submenu Level 1"
     >
+      
       <a
         class="dropdown-item submenu-toggle"
         data-bs-toggle="dropdown"
         role="button"
-      />
-       
+      >
+        
+        
+      </a>
+      
+      
       <ul
         class="dropdown-menu"
       >
+        
+        
         <li>
           <a
             class="dropdown-item"
@@ -165,7 +198,6 @@ exports[`Dropdown with submenu dropdown with two levels of submenu 1`] = `
             Nested Dropdown Item 1
           </a>
         </li>
-         
         <li>
           <a
             class="dropdown-item"
@@ -174,20 +206,26 @@ exports[`Dropdown with submenu dropdown with two levels of submenu 1`] = `
             Nested Dropdown Item 2
           </a>
         </li>
-         
         <li
           class="dropdown-submenu dropend"
           header="Submenu Level 2"
         >
+          
           <a
             class="dropdown-item submenu-toggle"
             data-bs-toggle="dropdown"
             role="button"
-          />
-           
+          >
+            
+            
+          </a>
+          
+          
           <ul
             class="dropdown-menu"
           >
+            
+            
             <li>
               <a
                 class="dropdown-item"
@@ -196,10 +234,18 @@ exports[`Dropdown with submenu dropdown with two levels of submenu 1`] = `
                 Nested Submenu Item
               </a>
             </li>
+            
+            
           </ul>
+          
         </li>
+        
+        
       </ul>
+      
     </li>
+    
   </ul>
+  
 </div>
 `;

@@ -3,49 +3,52 @@
   Note: the function `requireFromString` causes eslint to detect a false-positive
   due to the usage of `module`. Hence, the use of the above `eslint-disable`.
 */
-import Vue from 'vue';
+import * as Vue from 'vue';
+import { createSSRApp } from 'vue';
+import { renderToString } from 'vue/server-renderer';
+import { compileTemplate } from 'vue/compiler-sfc';
+import type { SFCTemplateCompileOptions, CompilerOptions } from 'vue/compiler-sfc';
+
 import path from 'path';
 import fs from 'fs-extra';
-import * as VueCompiler from 'vue-template-compiler';
-import { createRenderer } from 'vue-server-renderer';
 import * as logger from '../utils/logger';
 import type { PageConfig, PageAssets } from './PageConfig';
 import type { Page } from '.';
-/* eslint-enable import/no-import-module-exports */
 
 let bundle = require('@markbind/core-web/dist/js/vueCommonAppFactory.min');
 
-const { renderToString } = createRenderer();
-
-interface PageEntry {
-  page: Page;
-  compiledVuePage: VueCompiler.CompiledResultFunctions;
-  pageNav: string;
-}
-
-// hold the mapping of sourcePath to latest built pages (for hot-reload dev purposes)
-const pageEntries: Record<string, PageEntry> = {};
-
 /**
- * Compiles page into Vue Application to get the page render function and places
- * it into a script so that the browser can retrieve the page render function to
- * render the page during Vue mounting.
+ * Compiles a Vue page template into a JavaScript function returning render function
+ * and saves it as a script file so that the browser can access to
+ * generate VDOM during Vue mounting and conduct patching.
  *
  * This is to avoid the overhead of compiling the page into Vue application
  * on the client's browser (alleviates FOUC). It is also the pre-requisite to enable SSR.
+ * See https://github.com/vuejs/core/blob/main/packages/compiler-core/src/options.ts for
+ * compilerOptionTypes
  *
  * @param content Page content to be compiled into Vue app
  */
-async function compileVuePageAndCreateScript(
-  content: string, pageConfig: PageConfig, pageAsset: PageAssets):
-  Promise<VueCompiler.CompiledResultFunctions> {
-  // Compile Vue Page
-  const compiledVuePage = VueCompiler.compileToFunctions(content);
+async function compileVuePageCreateAndReturnScript(
+  content: string, pageConfig: PageConfig, pageAsset: PageAssets) {
+  const compilerOptions: CompilerOptions = {
+    runtimeModuleName: 'vue',
+    runtimeGlobalName: 'Vue',
+    mode: 'function',
+  };
 
-  // Set up script content
-  const outputContent = `
-    var pageVueRenderFn = ${compiledVuePage.render};
-    var pageVueStaticRenderFns = [${compiledVuePage.staticRenderFns}];
+  const templateOptions: SFCTemplateCompileOptions = {
+    source: content,
+    filename: pageConfig.sourcePath,
+    id: pageConfig.sourcePath,
+    compilerOptions,
+  };
+  const compiled = compileTemplate(templateOptions);
+  const outputContent = compiled.code;
+
+  const scriptContent = `
+    const renderFn = new Function(${JSON.stringify(outputContent)});
+    var render = renderFn();
   `;
 
   // Get script file name
@@ -61,32 +64,8 @@ async function compileVuePageAndCreateScript(
   // Get script's absolute file path to output script file
   const dirName = path.dirname(pageConfig.resultPath);
   const filePath = path.join(dirName, scriptFileName);
-
-  await fs.outputFile(filePath, outputContent);
-
-  return compiledVuePage;
-}
-
-/**
- * Renders Vue page app into html string (Vue SSR).
- * This function will install the MarkBindVue plugin and render the built Vue page content into html string.
- */
-async function renderVuePage(compiledVuePage: VueCompiler.CompiledResultFunctions): Promise<string> {
-  const { MarkBindVue, appFactory } = bundle;
-
-  const { components, directives } = MarkBindVue;
-
-  const VueAppPage = new Vue({
-    render(createElement: any) {
-      return compiledVuePage.render.apply(this, createElement);
-    },
-    staticRenderFns: compiledVuePage.staticRenderFns,
-    components,
-    directives,
-    ...appFactory(),
-  });
-
-  return renderToString(VueAppPage);
+  await fs.outputFile(filePath, scriptContent);
+  return outputContent;
 }
 
 /**
@@ -103,6 +82,45 @@ function requireFromString(src: string, filename: string) {
 }
 
 /**
+ * Renders Vue page app into html string (Vue SSR).
+ * This function will install the MarkBindVue plugin and render the built Vue page content into html string.
+ */
+async function renderVuePage(renderFn: string): Promise<string> {
+  const { MarkBindVue, appFactory } = bundle;
+  const { plugin } = MarkBindVue;
+
+  // Pass in Vue epxected to be available globally
+  // eslint-disable-next-line @typescript-eslint/no-implied-eval
+  const render = new Function('Vue', renderFn)(Vue);
+  const app = createSSRApp({
+    render,
+    ...appFactory(),
+  });
+  app.use(plugin);
+  const html = await renderToString(app);
+  const wrappedHtml = `<div id="app">${html}</div>`;
+  return wrappedHtml;
+}
+
+interface PageEntry {
+  page: Page;
+  renderFn: string;
+  pageNav: string;
+}
+
+// hold the mapping of sourcePath to latest built pages (for hot-reload dev purposes)
+const pageEntries: Record<string, PageEntry> = {};
+
+function savePageRenderFnForHotReload(page: Page, pageNav: string, renderFn: string) {
+  const pageEntry = {
+    page,
+    pageNav,
+    renderFn,
+  };
+  pageEntries[page.pageConfig.sourcePath] = pageEntry;
+}
+
+/**
  * Retrieves the latest updated MarkBindVue bundle from webpack compiler watcher,
  * re-render all the built pages, and output the page html files.
  * This function will only be used in development mode (for MarkBindVue bundle hot-reloading purposes).
@@ -115,15 +133,15 @@ Bundle is regenerated by webpack and built pages are re-rendered with the latest
   bundle = requireFromString(newBundle, '');
 
   Object.values(pageEntries).forEach(async (pageEntry) => {
-    const { page, compiledVuePage } = pageEntry;
-    const renderedVuePageContent = await renderVuePage(compiledVuePage);
+    const { page, renderFn } = pageEntry;
+    const renderedVuePageContent = await renderVuePage(renderFn);
     page.outputPageHtml(renderedVuePageContent);
   });
 }
 
 export const pageVueServerRenderer = {
-  compileVuePageAndCreateScript,
+  compileVuePageCreateAndReturnScript,
   renderVuePage,
   updateMarkBindVueBundle,
-  pageEntries,
+  savePageRenderFnForHotReload,
 };

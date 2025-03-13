@@ -17,4 +17,7 @@ module.exports = merge(config, {
       'document': undefined,
     }),
   ],
+  externals: {
+    vue: 'vue',
+  },
 });

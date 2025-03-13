@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import { defineComponent, h } from 'vue';
 import Question from '../questions/Question.vue';
 import QOption from '../questions/QOption.vue';
 
@@ -24,25 +25,29 @@ const DEFAULT_STUBS = {
   'box': true,
 };
 
+const DEFAULT_GLOBAL_MOUNT_OPTIONS = {
+  provide: DEFAULT_INJECTIONS,
+  stubs: DEFAULT_STUBS,
+};
+
 describe('Mcq Questions and QOptions', () => {
   test('of unanswered with shown hint and header renders correctly', async () => {
     const wrapper = mount(Question, {
-      propsData: { type: 'mcq' },
+      props: { type: 'mcq' },
       slots: {
         default: [
           'Question content',
           '<q-option>opt 1 - incorrect, not selected</q-option>',
           '<q-option>opt 2 - incorrect, not selected, with reason'
-            + '<template #reason>opt 2 reason</template></q-option>',
+          + '<template #reason>opt 2 reason</template></q-option>',
           '<q-option correct>opt 3 - correct, selected</q-option>',
           '<q-option correct>opt 4 - correct, not selected, with reason'
-            + '<template #reason>opt 4 reason</template></q-option>',
+          + '<template #reason>opt 4 reason</template></q-option>',
         ],
         header: 'unanswered mcq question header',
         hint: 'mcq question hint',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click hint
@@ -55,21 +60,20 @@ describe('Mcq Questions and QOptions', () => {
 
   test('of answered correctly with unshown hint without header renders correctly', async () => {
     const wrapper = mount(Question, {
-      propsData: { type: 'mcq' },
+      props: { type: 'mcq' },
       slots: {
         default: [
           'Question content',
           '<q-option>opt 1 - incorrect, not selected</q-option>',
           '<q-option>opt 2 - incorrect, not selected, with reason'
-            + '<template #reason>opt 2 reason</template></q-option>',
+          + '<template #reason>opt 2 reason</template></q-option>',
           '<q-option correct>opt 3 - correct, selected</q-option>',
           '<q-option correct>opt 4 - correct, not selected, with reason'
-            + '<template #reason>opt 4 reason</template></q-option>',
+          + '<template #reason>opt 4 reason</template></q-option>',
         ],
         hint: 'unshown mcq question hint',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // click option 2
@@ -88,21 +92,20 @@ describe('Mcq Questions and QOptions', () => {
 
   test('of checked wrongly with shown hint without header renders correctly', async () => {
     const wrapper = mount(Question, {
-      propsData: { type: 'mcq' },
+      props: { type: 'mcq' },
       slots: {
         default: [
           'Question content',
           '<q-option>opt 1 - incorrect, not selected</q-option>',
           '<q-option>opt 2 - incorrect, selected, with reason'
-            + '<template #reason>opt 2 reason</template></q-option>',
+          + '<template #reason>opt 2 reason</template></q-option>',
           '<q-option correct>opt 3 - correct, not selected</q-option>',
           '<q-option correct>opt 4 - correct, not selected, with reason'
-            + '<template #reason>opt 4 reason</template></q-option>',
+          + '<template #reason>opt 4 reason</template></q-option>',
         ],
         hint: 'mcq question hint',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // click option 2
@@ -119,21 +122,20 @@ describe('Mcq Questions and QOptions', () => {
 
   test('of answered wrongly with header without hint renders correctly', async () => {
     const wrapper = mount(Question, {
-      propsData: { type: 'mcq' },
+      props: { type: 'mcq' },
       slots: {
         default: [
           'Question content',
           '<q-option>opt 1 - incorrect, not selected</q-option>',
           '<q-option>opt 2 - incorrect, selected, with reason'
-            + '<template #reason>opt 2 reason</template></q-option>',
+          + '<template #reason>opt 2 reason</template></q-option>',
           '<q-option correct>opt 3 - correct, not selected</q-option>',
           '<q-option correct>opt 4 - correct, not selected, with reason'
-            + '<template #reason>opt 4 reason</template></q-option>',
+          + '<template #reason>opt 4 reason</template></q-option>',
         ],
         header: 'mcq question header',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // click option 2
@@ -150,21 +152,20 @@ describe('Mcq Questions and QOptions', () => {
 describe('Checkbox Questions and QOptions', () => {
   test('of unanswered with header without hint renders correctly ', async () => {
     const wrapper = mount(Question, {
-      propsData: { type: 'checkbox' },
+      props: { type: 'checkbox' },
       slots: {
         default: [
           'Question content',
           '<q-option>opt 1 - incorrect, selected</q-option>',
           '<q-option>opt 2 - incorrect, not selected, with reason'
-            + '<template #reason>opt 2 reason</template></q-option>',
+          + '<template #reason>opt 2 reason</template></q-option>',
           '<q-option correct>opt 3 - correct, selected</q-option>',
           '<q-option correct>opt 4 - correct, not selected, with reason'
-            + '<template #reason>opt 4 reason</template></q-option>',
+          + '<template #reason>opt 4 reason</template></q-option>',
         ],
         header: 'Checkbox question header',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click options 1 & 3
@@ -176,21 +177,20 @@ describe('Checkbox Questions and QOptions', () => {
 
   test('of answered correctly with unshown hint without header renders correctly', async () => {
     const wrapper = mount(Question, {
-      propsData: { type: 'checkbox' },
+      props: { type: 'checkbox' },
       slots: {
         default: [
           'Question content',
           '<q-option>opt 1 - incorrect, not selected</q-option>',
           '<q-option>opt 2 - incorrect, not selected, with reason'
-            + '<template #reason>opt 2 reason</template></q-option>',
+          + '<template #reason>opt 2 reason</template></q-option>',
           '<q-option correct>opt 3 - correct, selected</q-option>',
           '<q-option correct>opt 4 - correct, selected, with reason'
-            + '<template #reason>opt 4 reason</template></q-option>',
+          + '<template #reason>opt 4 reason</template></q-option>',
         ],
         hint: 'checkbox question hint',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // click options 3 & 4
@@ -208,21 +208,20 @@ describe('Checkbox Questions and QOptions', () => {
 
   test('of checked wrongly with shown hint without header renders correctly', async () => {
     const wrapper = mount(Question, {
-      propsData: { type: 'checkbox' },
+      props: { type: 'checkbox' },
       slots: {
         default: [
           'Question content',
           '<q-option>opt 1 - incorrect, selected</q-option>',
           '<q-option>opt 2 - incorrect, selected, with reason'
-            + '<template #reason>opt 2 reason</template></q-option>',
+          + '<template #reason>opt 2 reason</template></q-option>',
           '<q-option correct>opt 3 - correct, selected</q-option>',
           '<q-option correct>opt 4 - correct, selected, with reason'
-            + '<template #reason>opt 4 reason</template></q-option>',
+          + '<template #reason>opt 4 reason</template></q-option>',
         ],
         hint: 'checkbox question hint',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // click 'hint'
@@ -242,21 +241,20 @@ describe('Checkbox Questions and QOptions', () => {
 
   test('of answered wrongly with header without hint renders correctly', async () => {
     const wrapper = mount(Question, {
-      propsData: { type: 'checkbox' },
+      props: { type: 'checkbox' },
       slots: {
         default: [
           'Question content',
           '<q-option>opt 1 - incorrect, selected</q-option>',
           '<q-option>opt 2 - incorrect, selected, with reason'
-            + '<template #reason>opt 2 reason</template></q-option>',
+          + '<template #reason>opt 2 reason</template></q-option>',
           '<q-option correct>opt 3 - correct, selected</q-option>',
           '<q-option correct>opt 4 - correct, not selected, with reason'
-            + '<template #reason>opt 4 reason</template></q-option>',
+          + '<template #reason>opt 4 reason</template></q-option>',
         ],
         header: 'Checkbox question header',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // click options 1 & 2 & 3
@@ -275,15 +273,15 @@ describe('Checkbox Questions and QOptions', () => {
 });
 
 describe('Blank Questions and QOptions', () => {
-  test('of unanswered with shown hint and header renders correctly', async () => {
-    const option = {
-      render(h) {
-        return h(QOption, { props: { keywords: 'key' } });
-      },
-    };
+  const option = defineComponent({
+    render() {
+      return h(QOption, { keywords: 'key' });
+    },
+  });
 
+  test('of unanswered with shown hint and header renders correctly', async () => {
     const wrapper = mount(Question, {
-      propsData: { type: 'blanks' },
+      props: { type: 'blanks' },
       slots: {
         default: [
           'Question content',
@@ -295,8 +293,7 @@ describe('Blank Questions and QOptions', () => {
         header: 'unanswered blanks question header',
         hint: 'blanks question hint',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click hint
@@ -306,14 +303,8 @@ describe('Blank Questions and QOptions', () => {
   });
 
   test('of answered correctly with unshown hint without header renders correctly', async () => {
-    const option = {
-      render(h) {
-        return h(QOption, { props: { keywords: 'key' } });
-      },
-    };
-
     const wrapper = mount(Question, {
-      propsData: {
+      props: {
         type: 'blanks',
         threshold: 0.25,
       },
@@ -327,8 +318,7 @@ describe('Blank Questions and QOptions', () => {
         ],
         hint: 'blanks question hint',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // set correct input for blank 3
@@ -347,14 +337,8 @@ describe('Blank Questions and QOptions', () => {
   });
 
   test('of checked wrongly with shown hint without header renders correctly', async () => {
-    const option = {
-      render(h) {
-        return h(QOption, { props: { keywords: 'key' } });
-      },
-    };
-
     const wrapper = mount(Question, {
-      propsData: {
+      props: {
         type: 'blanks',
         threshold: 0.76,
         noIntermediateResult: true,
@@ -369,8 +353,7 @@ describe('Blank Questions and QOptions', () => {
         ],
         hint: 'blanks question hint',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // set correct input for blank 1
@@ -394,14 +377,8 @@ describe('Blank Questions and QOptions', () => {
   });
 
   test('of checked wrongly with unshown hint with header with intermediate renders correctly', async () => {
-    const option = {
-      render(h) {
-        return h(QOption, { props: { keywords: 'key' } });
-      },
-    };
-
     const wrapper = mount(Question, {
-      propsData: {
+      props: {
         type: 'blanks',
         threshold: 1,
       },
@@ -416,8 +393,7 @@ describe('Blank Questions and QOptions', () => {
         header: 'blanks question header',
         hint: 'blanks question hint',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // set correct input for blank 1
@@ -439,14 +415,8 @@ describe('Blank Questions and QOptions', () => {
   });
 
   test('of answered wrongly with header without hint renders correctly', async () => {
-    const option = {
-      render(h) {
-        return h(QOption, { props: { keywords: 'key' } });
-      },
-    };
-
     const wrapper = mount(Question, {
-      propsData: {
+      props: {
         type: 'blanks',
         threshold: 0.5,
       },
@@ -460,8 +430,7 @@ describe('Blank Questions and QOptions', () => {
         ],
         header: 'blanks question header',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // set correct input for blank 2
@@ -484,14 +453,13 @@ describe('Blank Questions and QOptions', () => {
 describe('Text Questions', () => {
   test('of unanswered with shown hint, header without answer renders correctly ', async () => {
     const wrapper = mount(Question, {
-      propsData: { type: 'text' },
+      props: { type: 'text' },
       slots: {
         default: 'Question content',
         header: 'Text question header',
         hint: 'text question hint',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // click 'hint'
@@ -502,7 +470,7 @@ describe('Text Questions', () => {
 
   test('of answered correctly with answer, unshown hint without header renders correctly', async () => {
     const wrapper = mount(Question, {
-      propsData: {
+      props: {
         type: 'text',
         keywords: 'abc,123',
       },
@@ -511,8 +479,7 @@ describe('Text Questions', () => {
         hint: 'text question hint',
         answer: 'text question answer',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // type answer into textarea
@@ -526,13 +493,12 @@ describe('Text Questions', () => {
 
   test('of answered correctly with answer without header, hint, keywords renders correctly', async () => {
     const wrapper = mount(Question, {
-      propsData: { type: 'text' },
+      props: { type: 'text' },
       slots: {
         default: 'Question content',
         answer: 'text question answer',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // type answer into textarea
@@ -546,7 +512,7 @@ describe('Text Questions', () => {
 
   test('of checked wrongly with answer shown hint without header renders correctly', async () => {
     const wrapper = mount(Question, {
-      propsData: {
+      props: {
         type: 'text',
         keywords: 'abc,123',
       },
@@ -555,8 +521,7 @@ describe('Text Questions', () => {
         hint: 'text question hint',
         answer: 'text question answer',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // click 'hint'
@@ -577,7 +542,7 @@ describe('Text Questions', () => {
 
   test('of answered wrongly with answer, header without hint renders correctly', async () => {
     const wrapper = mount(Question, {
-      propsData: {
+      props: {
         type: 'text',
         keywords: 'abc,123',
       },
@@ -586,8 +551,7 @@ describe('Text Questions', () => {
         header: 'Text question header',
         answer: 'text question answer',
       },
-      provide: DEFAULT_INJECTIONS,
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // type answer into textarea
