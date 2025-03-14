@@ -762,7 +762,35 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/89335739?v=4",
       "profile": "https://github.com/Incogdino",
       "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "AgentHagu",
+      "name": "Adrian Leonardo Liang",
+      "avatar_url": "https://avatars.githubusercontent.com/u/50906253?v=4",
+      "profile": "https://github.com/AgentHagu",
+      "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "seah-minlong",
+      "name": "Minlong",
+      "avatar_url": "https://avatars.githubusercontent.com/u/86313670?v=4",
+      "profile": "https://github.com/seah-minlong",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "IanCheah",
+      "name": "IanCheah",
+      "avatar_url": "https://avatars.githubusercontent.com/u/103352463?v=4",
+      "profile": "https://github.com/IanCheah",
+      "contributions": [
+        "doc"
       ]
     }
   ],
