@@ -772,6 +772,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "seah-minlong",
+      "name": "Minlong",
+      "avatar_url": "https://avatars.githubusercontent.com/u/86313670?v=4",
+      "profile": "https://github.com/seah-minlong",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
