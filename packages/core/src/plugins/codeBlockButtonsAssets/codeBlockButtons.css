@@ -1,0 +1,50 @@
+/* "Copy" and "wrap text" code block buttons */
+pre:has(.function-btn-container) {
+    position: relative;
+    display: flex;
+}
+
+button.function-btn {
+    border: 1px solid #d7dadc;
+    border-radius: 5px;
+    color: darkgray;
+    cursor: pointer;
+    display: none;
+    height: 30px;
+    margin: 0.17rem;
+    padding: 0.35rem;
+    position: absolute;
+    right: 0;
+    width: 30px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+button.function-btn + button.function-btn {
+    right: 36px;
+}
+
+pre:hover > .function-btn-container > button.function-btn {
+    display: block;
+}
+
+.function-btn:hover {
+    transition: all 0.5s ease;
+    color: gray;
+}
+
+.function-btn-body {
+    align-items: center;
+    display: flex;
+}
+
+.function-btn svg {
+    fill: currentcolor;
+}
+
+/* Wrap class used for "wrap text" button. */
+code.wrap {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+}
