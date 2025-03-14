@@ -4,5 +4,5 @@ module.exports = {
   preset: 'ts-jest/presets/js-with-babel',
   testEnvironment: 'node',
   collectCoverage: true,
-  testMatch: ['**/*.test.ts', '**/filterIconAssets.test.js'],
+  testMatch: ['**/*.test.ts'],
 };
