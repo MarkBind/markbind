@@ -125,7 +125,9 @@ The caveat is that not building all pages during the initial process, or not reb
    Force live reload to process all files in the site, instead of just the relevant files. This option is useful when you are modifying a file that is not a file type monitored by the <trigger trigger="click" for="modal:cliCommands-livePreview">live preview</trigger> feature.
 
 * `-a <address>`, `--address <address>`<br>
-    Specify the server address/host (Default is 127.0.0.1).
+    Specify the server address/host (Default is 127.0.0.1). <br>
+    Supports both IPv4 and IPv6 addresses. <br>
+    {{ icon_examples }} `-a 192.168.0.1`, `-a ::1`
 
 * `-p <port>`, `--port <port>`<br>
     Serve the website in the specified port (Default is 8080).
