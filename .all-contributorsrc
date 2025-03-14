@@ -763,6 +763,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "IanCheah",
+      "name": "IanCheah",
+      "avatar_url": "https://avatars.githubusercontent.com/u/103352463?v=4",
+      "profile": "https://github.com/IanCheah",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
