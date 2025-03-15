@@ -21,7 +21,12 @@
       </ul>
     </slot>
   </li>
-  <submenu v-else-if="isSubmenu" ref="submenu">
+  <submenu
+    v-else-if="isSubmenu"
+    ref="submenu"
+    @submenu-show="handleSubmenuShow"
+    @submenu-register="handleSubmenuRegister"
+  >
     <template v-for="(node, name) in $slots" #[name]>
       <slot :name="name"></slot>
     </template>
@@ -84,13 +89,38 @@ export default {
       default: '',
     },
   },
-  provide: { hasParentDropdown: true },
+  provide() {
+    const registry = {
+      submenus: [],
+      registerSubmenu: (submenu) => {
+        registry.submenus.push(submenu);
+      },
+      hideAllExcept: (exceptSubmenu) => {
+        registry.submenus.forEach((submenu) => {
+          if (submenu !== exceptSubmenu) {
+            submenu.hideSubmenu();
+          } else {
+            submenu.showSubmenu();
+          }
+        });
+      },
+    };
+    return {
+      // Indicate to children that exists this parent dropdown
+      hasParentDropdown: true,
+      // provide this layer registry to direct children
+      submenuRegistry: registry,
+    };
+  },
   inject: {
     hasParentDropdown: {
       default: undefined,
     },
     isParentNavbar: {
       default: false,
+    },
+    submenuRegistry: {
+      default: undefined,
     },
   },
   data() {
@@ -99,6 +129,11 @@ export default {
     };
   },
   computed: {
+    parentRegistry() {
+      // If this is a nested dropdown, submenuRegistry
+      // will be provided by parent dropdown.
+      return this.hasParentDropdown ? this.submenuRegistry : null;
+    },
     btnType() {
       return `btn-${this.type}`;
     },
@@ -157,6 +192,18 @@ export default {
           preventOverflowOnMobile(ul);
         }
       });
+    },
+    handleSubmenuShow(submenu) {
+      // Tell parent dropdown to hide other submenus
+      if (this.hasParentDropdown && this.parentRegistry) {
+        this.parentRegistry.hideAllExcept(submenu);
+      }
+    },
+    handleSubmenuRegister(submenu) {
+      // Tell parent dropdown to register this submenu
+      if (this.hasParentDropdown && this.parentRegistry) {
+        this.parentRegistry.registerSubmenu(submenu);
+      }
     },
   },
   mounted() {

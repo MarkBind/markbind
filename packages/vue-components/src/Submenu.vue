@@ -39,6 +39,7 @@ export default {
       default: false,
     },
   },
+  emits: ['submenu-show', 'submenu-register'],
   data() {
     return {
       show: false,
@@ -92,6 +93,7 @@ export default {
   },
   mounted() {
     const $el = $(this.$refs.submenu);
+    this.$emit('submenu-register', this);
     if (this.show) {
       this.showSubmenu();
     }
@@ -113,16 +115,7 @@ export default {
         const isShowing = $el.findChildren('ul.show').length > 0;
         if (isShowing || this.disabledBool) { return false; }
         e.currentTarget.click();
-        const fullMenu = this.$parent.$parent;
-        if (fullMenu.$children && fullMenu.$children.length > 0) {
-          fullMenu.$children.forEach((menuItem) => {
-            if (menuItem.$el === this.$el) {
-              menuItem.$refs.submenu.showSubmenu();
-            } else {
-              menuItem.$refs.submenu.hideSubmenu();
-            }
-          });
-        }
+        this.$emit('submenu-show', this);
       }
       return false;
     });
