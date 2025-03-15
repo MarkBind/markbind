@@ -4,7 +4,7 @@ import Breadcrumb from '../Breadcrumb.vue';
 
 const SITENAV_START = `
 <nav id="site-nav">
-<div class="nav-component" slim-scroll>
+<div class="nav-component slim-scroll">
 <div class="site-nav-root">
 <ul class="site-nav-list site-nav-list-root">
 `;

@@ -14,6 +14,7 @@ import fs from 'fs-extra';
 import * as logger from '../utils/logger';
 import type { PageConfig, PageAssets } from './PageConfig';
 import type { Page } from '.';
+/* eslint-enable import/no-import-module-exports */
 
 let bundle = require('@markbind/core-web/dist/js/vueCommonAppFactory.min');
 
@@ -35,6 +36,7 @@ async function compileVuePageCreateAndReturnScript(
     runtimeModuleName: 'vue',
     runtimeGlobalName: 'Vue',
     mode: 'function',
+    whitespace: 'preserve',
   };
 
   const templateOptions: SFCTemplateCompileOptions = {
@@ -89,7 +91,7 @@ async function renderVuePage(renderFn: string): Promise<string> {
   const { MarkBindVue, appFactory } = bundle;
   const { plugin } = MarkBindVue;
 
-  // Pass in Vue epxected to be available globally
+  // Pass in Vue which is expected to be available globally
   // eslint-disable-next-line @typescript-eslint/no-implied-eval
   const render = new Function('Vue', renderFn)(Vue);
   const app = createSSRApp({
