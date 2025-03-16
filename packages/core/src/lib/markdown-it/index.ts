@@ -100,8 +100,6 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
     highlightRules = HighlightRule.parseAllRules(highlightLinesInput, -startFromZeroBased, str);
   }
 
-  const color = getAttribute(token, 'color');
-
   if (lang && hljs.getLanguage(lang)) {
     try {
       /* With highlightjs version >= v10.7.0, usage of continuation is deprecated
@@ -147,45 +145,40 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
   // wrap all lines with <span> so we can number them
   str = lines.map((line, index) => {
     const currentLineNumber = index + 1;
-    // Rules that affects this line
-    const rules = highlightRules.filter(
-      highlightRule => highlightRule.shouldApplyHighlight(currentLineNumber));
-    if (rules.length === 0) {
-      // not highlighted
-      return `<span>${line}\n</span>`;
-    }
-
-    const rawBounds: Array<[number, number]> = [];
-    let lineHighlightType = HIGHLIGHT_TYPES.PartialText;
-    // Priority: WholeLine > WholeText > PartialText
-    for (let i = 0; i < rules.length; i += 1) {
-      const { highlightType, bounds } = rules[i].getHighlightType(currentLineNumber);
-
-      if (highlightType === HIGHLIGHT_TYPES.WholeLine) {
-        return Highlighter.highlightWholeLine(line, color);
-      } else if (highlightType === HIGHLIGHT_TYPES.WholeText) {
-        lineHighlightType = HIGHLIGHT_TYPES.WholeText;
-      } else if (
-        highlightType === HIGHLIGHT_TYPES.PartialText
-        && lineHighlightType === HIGHLIGHT_TYPES.PartialText
-        && bounds !== null
-      ) {
-        bounds.forEach(bound => rawBounds.push(bound));
+    let highlightedLine = line; // Start with the original line
+  
+    // Collect all bounds and colors for partial text highlights
+    const boundsWithColors: Array<{ bounds: [number, number], color: string }> = [];
+  
+    for (const rule of highlightRules) {
+      const results = rule.getHighlightType(currentLineNumber);
+      for (const result of results) {
+        const { highlightType, bounds, color } = result;
+  
+        if (highlightType === HIGHLIGHT_TYPES.WholeLine) {
+          // If it's a whole line highlight, return immediately
+          return Highlighter.highlightWholeLine(highlightedLine, color);
+        } else if (highlightType === HIGHLIGHT_TYPES.WholeText) {
+          // If it's a whole text highlight, return immediately
+          return Highlighter.highlightWholeText(highlightedLine, color);
+        } else if (highlightType === HIGHLIGHT_TYPES.PartialText && bounds) {
+          // Collect bounds and colors for partial text highlights
+          for (const bound of bounds) {
+            boundsWithColors.push({ bounds: bound, color: color || '#e6e6fa' });
+          }
+        }
       }
     }
-
-    if (lineHighlightType === HIGHLIGHT_TYPES.WholeText) {
-      return Highlighter.highlightWholeText(line, color);
+  
+    if (boundsWithColors.length > 0) {
+      return Highlighter.highlightPartOfText(line, boundsWithColors);
     }
-
-    return Highlighter.highlightPartOfText(line, rawBounds, color);
+  
+    return `<span>${highlightedLine}\n</span>`;
   }).join('');
 
   token.attrJoin('class', 'hljs');
   if (highlighted) {
-    if (color) {
-      token.attrJoin('style', `background-color: ${color};`);
-    }
     token.attrJoin('class', lang);
   }
 

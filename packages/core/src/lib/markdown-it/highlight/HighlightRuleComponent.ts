@@ -3,20 +3,16 @@ import { splitCodeAndIndentation } from './helper';
 const LINESLICE_CHAR_REGEX = /(\d+)\[(\d*):(\d*)]/;
 const LINESLICE_WORD_REGEX = /(\d+)\[(\d*)::(\d*)]/;
 const LINEPART_REGEX = /(\d+)\[(["'])((?:\\.|[^\\])*?)\2]/;
-const COLOR_REGEX = /color=["'](\w+)["']/;
 const UNBOUNDED = -1;
 
 export class HighlightRuleComponent {
   lineNumber: number;
   isSlice: boolean;
   bounds: Array<[number, number]>;
-  color?: string;
-
   constructor(lineNumber: number, isSlice: boolean = false, bounds: Array<[number, number]> = [], color?: string) {
     this.lineNumber = lineNumber;
     this.isSlice = isSlice;
     this.bounds = bounds;
-    this.color = color;
   }
 
   static isValidLineNumber(lineNumStr: string, min: number, max: number, offset: number) {
@@ -27,9 +23,6 @@ export class HighlightRuleComponent {
   }
 
   static parseRuleComponent(compString: string, lineNumberOffset: number, lines: string[]) {
-    // Extract the color attribute
-    const colorMatch = compString.match(COLOR_REGEX);
-    const color = colorMatch ? colorMatch[1] : undefined;
     
     // Match line-part syntax
     const linepartMatch = compString.match(LINEPART_REGEX);
@@ -42,7 +35,7 @@ export class HighlightRuleComponent {
 
       const linePart = linePartWithQuotes.replace(/\\'/g, '\'').replace(/\\"/g, '"'); // unescape quotes
       const bounds = HighlightRuleComponent.computeLinePartBounds(linePart, lines[lineNumber - 1]);
-      return new HighlightRuleComponent(lineNumber, true, bounds, color);
+      return new HighlightRuleComponent(lineNumber, true, bounds);
     }
 
     // Match line-slice (character and word variant) syntax
@@ -59,7 +52,7 @@ export class HighlightRuleComponent {
 
       const isUnbounded = groups.every(x => x === '');
       if (isUnbounded) {
-        return new HighlightRuleComponent(lineNumber, true, [], color);
+        return new HighlightRuleComponent(lineNumber, true, []);
       }
 
       let bound = groups.map(x => (x !== '' ? parseInt(x, 10) : UNBOUNDED)) as [number, number];
@@ -68,14 +61,15 @@ export class HighlightRuleComponent {
         ? HighlightRuleComponent.computeCharBounds(bound, lines[lineNumber - 1])
         : HighlightRuleComponent.computeWordBounds(bound, lines[lineNumber - 1]);
 
-      return new HighlightRuleComponent(lineNumber, true, [bound], color);
+      return new HighlightRuleComponent(lineNumber, true, [bound]);
     }
 
     // Match line-number syntax
     const lineNumber = HighlightRuleComponent
       .isValidLineNumber(compString, 1, lines.length, lineNumberOffset);
     if (lineNumber) {
-      return new HighlightRuleComponent(lineNumber, undefined, undefined, color);
+      // return new HighlightRuleComponent(lineNumber, undefined, undefined, color);
+      return new HighlightRuleComponent(lineNumber, undefined, undefined);
     }
 
     // the string is an improperly written rule
