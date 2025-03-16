@@ -304,31 +304,32 @@ LiveServer.start = function(options) {
     var address = server.address();
     // CHANGED: Updated serveHost and openHost to ignore if `0.0.0.0` is used
     // CHANGED: Updated openHost to accomodate IPv6 addresses
-    var serveHost = address.address;
-    var isIpv6 = address.family === 'IPv6';
+    var isIpv6 = address.family === "IPv6";
+    var serveHost = isIpv6 ? `[${address.address}]` : address.address;
     var openHost = isIpv6 && host !== 'localhost' ? `[${host}]` : host;
 
     var serveURL = protocol + '://' + serveHost + ':' + address.port;
     var openURL = protocol + '://' + openHost + ':' + address.port;
 
     var serveURLs = [ serveURL ];
-    if (LiveServer.logLevel > 2 && address.address === "0.0.0.0") {
+    // CHANGED: Updated if condition to include IPv6 zero address
+    if (LiveServer.logLevel > 2 && (address.address === "0.0.0.0" || address.address === "::")) {
       var ifaces = os.networkInterfaces();
       serveURLs = Object.keys(ifaces)
         .map(function(iface) {
           return ifaces[iface];
         })
-        // flatten address data, use only IPv4
+        // CHANGED: Update filter to include only the addresses that match the server address family
         .reduce(function(data, addresses) {
           addresses.filter(function(addr) {
-            return addr.family === "IPv4";
+            return addr.family === address.family;
           }).forEach(function(addr) {
             data.push(addr);
           });
           return data;
         }, [])
         .map(function(addr) {
-          return protocol + "://" + addr.address + ":" + address.port;
+          return protocol + "://" + (isIpv6 ? `[${addr.address}]` : addr.address) + ":" + address.port;
         });
     }
 
