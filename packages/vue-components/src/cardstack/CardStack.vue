@@ -83,39 +83,39 @@ export default {
 </script>
 
 <style scoped>
-.search-bar {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 5px;
-}
+    .search-bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 5px;
+    }
 
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
 
-.grid-container {
-    background-color: rgb(231, 231, 231);
-    border-radius: 8px;
-    padding: 20px;
-    margin: 10px 0px 10px 0px;
-}
+    .grid-container {
+        background-color: rgb(231 231 231);
+        border-radius: 8px;
+        padding: 20px;
+        margin: 10px 0;
+    }
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.form-control {
-    min-width: 12.7em;
-    max-width: 25.4em;
-}
+    .form-control {
+        min-width: 12.7em;
+        max-width: 25.4em;
+    }
 </style>

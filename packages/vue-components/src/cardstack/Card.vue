@@ -85,7 +85,7 @@ export default {
         justify-content: start;
         align-items: center;
         border-style: solid;
-        border-color: rgb(228, 228, 228);
+        border-color: rgb(228 228 228);
         border-width: 0.1px;
         height: 100%;
         padding: 10px;
@@ -98,7 +98,7 @@ export default {
         flex-direction: column;
         justify-content: center;
         margin: 0;
-        padding: 0px;
+        padding: 0;
         width: 100%;
         word-break: break-word;
     }
@@ -111,7 +111,7 @@ export default {
         top: 10;
         width: 100%;
         margin: 0;
-        padding: 0px;
+        padding: 0;
     }
 
     .tag-container {
@@ -124,7 +124,7 @@ export default {
 
     .tag-container > * {
         font-size: 14px;
-        color: rgba(128, 128, 128, 0.638);
+        color: rgba(128 128 128/ 63.8%);
         margin: 0;
         overflow: hidden;
     }
