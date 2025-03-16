@@ -150,7 +150,8 @@ function serve(userSpecifiedRoot, options) {
       const server = liveServer.start(serverConfig);
       server.addListener('listening', () => {
         const address = server.address();
-        const serveHost = address.address;
+        const isIpv6 = address.family === 'IPv6';
+        const serveHost = isIpv6 ? `[${address.address}]` : address.address;
         const servePort = address.port;
         const serveURL = `http://${serveHost}:${servePort}`;
         logger.info(`Serving "${outputFolder}" at ${serveURL}`);
