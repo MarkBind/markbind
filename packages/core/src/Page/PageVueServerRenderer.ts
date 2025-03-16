@@ -99,6 +99,7 @@ async function renderVuePage(renderFn: string): Promise<string> {
     ...appFactory(),
   });
   app.use(plugin);
+  app.config.compilerOptions.whitespace = 'preserve';
   const html = await renderToString(app);
   const wrappedHtml = `<div id="app">${html}</div>`;
   return wrappedHtml;

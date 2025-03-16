@@ -102,7 +102,7 @@ export default {
         width: 92%;
         white-space: normal;
         vertical-align: top;
-        word-break: break-all;
+        word-break: break-word;
     }
 
     .keyword-text {
