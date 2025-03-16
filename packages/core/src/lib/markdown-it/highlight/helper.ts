@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const siteJsonPath = path.join(__dirname, '../../../../../../docs/site.json'); // Adjust path
+const siteJsonPath = path.join(__dirname, '../../../../../../docs/site.json');
 
 export function getCurrentTheme(): string {
   try {
@@ -9,7 +9,7 @@ export function getCurrentTheme(): string {
     return siteConfig.style?.codeTheme || 'light';
   } catch (error) {
     console.error('Error reading site.json:', error);
-    return 'light'; // Fallback to light theme
+    return 'light';
   }
 }
 
@@ -17,8 +17,6 @@ export function getCurrentTheme(): string {
 export function defaultColor(theme: string): string {
   return theme === 'light' ? '#e6e6fa' : '#000000'
 }
-
-// Common helper functions to be used in HighlightRule or HighlightRuleComponent
 
 export function splitCodeAndIndentation(code: string) {
   const codeStartIdx = code.search(/\S|$/);
