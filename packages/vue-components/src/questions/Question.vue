@@ -350,6 +350,7 @@ export default {
     /* Todo: Reimplement button animations for Vue 3 without
       hydration issues or warnings.
     */
+
     /* .q-btn-enter {
         opacity: 0;
         transform: translateY(30px);
