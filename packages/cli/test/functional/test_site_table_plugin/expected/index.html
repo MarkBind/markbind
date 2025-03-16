@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="MarkBind 5.5.3">
+  <meta name="generator" content="MarkBind 5.6.0">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hello World</title>
   <link rel="stylesheet" href="/markbind/css/bootstrap.min.css">
@@ -31,7 +31,7 @@
         <hr>
         <p>Test searchable</p>
         <div class="table-responsive">
-          <table class="markbind-table table table-bordered table-striped searchable-table" id="datatable-0" v-datatable>
+          <table class="markbind-table table table-bordered table-striped searchable-table" id="datatable-0">
             <thead>
               <tr>
                 <th>Name</th>
@@ -80,7 +80,7 @@
         <hr>
         <p>Test sortable</p>
         <div class="table-responsive">
-          <table class="markbind-table table table-bordered table-striped sortable-table" id="datatable-1" v-datatable>
+          <table class="markbind-table table table-bordered table-striped sortable-table" id="datatable-1">
             <thead>
               <tr>
                 <th>Name</th>
@@ -129,7 +129,7 @@
         <hr>
         <p>Test sortable with searchable</p>
         <div class="table-responsive">
-          <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-2" v-datatable>
+          <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-2">
             <thead>
               <tr>
                 <th>Name</th>
@@ -177,105 +177,101 @@
         </div>
         <hr>
         <p>Test table can be included</p>
-        <p><span>
-            <div>
-              <div class="table-responsive">
-                <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-3" v-datatable>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Age</th>
-                      <th>Country</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>John</td>
-                      <td>28</td>
-                      <td>USA</td>
-                    </tr>
-                    <tr>
-                      <td>Emily</td>
-                      <td>32</td>
-                      <td>Canada</td>
-                    </tr>
-                    <tr>
-                      <td>Michael</td>
-                      <td>41</td>
-                      <td>UK</td>
-                    </tr>
-                    <tr>
-                      <td>Sophia</td>
-                      <td>255</td>
-                      <td>Germany</td>
-                    </tr>
-                    <tr>
-                      <td>David</td>
-                      <td>37</td>
-                      <td>Australia</td>
-                    </tr>
-                    <tr>
-                      <td>Emma</td>
-                      <td>29</td>
-                      <td>New Zealand</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </span></p>
+        <div>
+          <div class="table-responsive">
+            <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-3">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Age</th>
+                  <th>Country</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>John</td>
+                  <td>28</td>
+                  <td>USA</td>
+                </tr>
+                <tr>
+                  <td>Emily</td>
+                  <td>32</td>
+                  <td>Canada</td>
+                </tr>
+                <tr>
+                  <td>Michael</td>
+                  <td>41</td>
+                  <td>UK</td>
+                </tr>
+                <tr>
+                  <td>Sophia</td>
+                  <td>255</td>
+                  <td>Germany</td>
+                </tr>
+                <tr>
+                  <td>David</td>
+                  <td>37</td>
+                  <td>Australia</td>
+                </tr>
+                <tr>
+                  <td>Emma</td>
+                  <td>29</td>
+                  <td>New Zealand</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <hr>
         <p>Test table can be included in a panel</p>
         <panel type="minimal"><template #header>
             <p>This is your header for a Panel, click me to expand!</p>
           </template>
-          <p><span>
-              <div>
-                <div class="table-responsive">
-                  <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-4" v-datatable>
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Country</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>John</td>
-                        <td>28</td>
-                        <td>USA</td>
-                      </tr>
-                      <tr>
-                        <td>Emily</td>
-                        <td>32</td>
-                        <td>Canada</td>
-                      </tr>
-                      <tr>
-                        <td>Michael</td>
-                        <td>41</td>
-                        <td>UK</td>
-                      </tr>
-                      <tr>
-                        <td>Sophia</td>
-                        <td>255</td>
-                        <td>Germany</td>
-                      </tr>
-                      <tr>
-                        <td>David</td>
-                        <td>37</td>
-                        <td>Australia</td>
-                      </tr>
-                      <tr>
-                        <td>Emma</td>
-                        <td>29</td>
-                        <td>New Zealand</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </span></p>
+          <div>
+            <div class="table-responsive">
+              <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-4">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Country</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>John</td>
+                    <td>28</td>
+                    <td>USA</td>
+                  </tr>
+                  <tr>
+                    <td>Emily</td>
+                    <td>32</td>
+                    <td>Canada</td>
+                  </tr>
+                  <tr>
+                    <td>Michael</td>
+                    <td>41</td>
+                    <td>UK</td>
+                  </tr>
+                  <tr>
+                    <td>Sophia</td>
+                    <td>255</td>
+                    <td>Germany</td>
+                  </tr>
+                  <tr>
+                    <td>David</td>
+                    <td>37</td>
+                    <td>Australia</td>
+                  </tr>
+                  <tr>
+                    <td>Emma</td>
+                    <td>29</td>
+                    <td>New Zealand</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </panel>
         <hr>
         <p>Test table can be included in a modal</p>
@@ -283,53 +279,51 @@
           <trigger for="modal:loremipsum">trigger</trigger>
         </p>
         <modal id="modal:loremipsum"><template #header><strong>Modal header</strong> 🚀</template>
-          <p><span>
-              <div>
-                <div class="table-responsive">
-                  <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-5" v-datatable>
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Country</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>John</td>
-                        <td>28</td>
-                        <td>USA</td>
-                      </tr>
-                      <tr>
-                        <td>Emily</td>
-                        <td>32</td>
-                        <td>Canada</td>
-                      </tr>
-                      <tr>
-                        <td>Michael</td>
-                        <td>41</td>
-                        <td>UK</td>
-                      </tr>
-                      <tr>
-                        <td>Sophia</td>
-                        <td>255</td>
-                        <td>Germany</td>
-                      </tr>
-                      <tr>
-                        <td>David</td>
-                        <td>37</td>
-                        <td>Australia</td>
-                      </tr>
-                      <tr>
-                        <td>Emma</td>
-                        <td>29</td>
-                        <td>New Zealand</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </span></p>
+          <div>
+            <div class="table-responsive">
+              <table class="markbind-table table table-bordered table-striped sortable-searchable-table" id="datatable-5">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Country</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>John</td>
+                    <td>28</td>
+                    <td>USA</td>
+                  </tr>
+                  <tr>
+                    <td>Emily</td>
+                    <td>32</td>
+                    <td>Canada</td>
+                  </tr>
+                  <tr>
+                    <td>Michael</td>
+                    <td>41</td>
+                    <td>UK</td>
+                  </tr>
+                  <tr>
+                    <td>Sophia</td>
+                    <td>255</td>
+                    <td>Germany</td>
+                  </tr>
+                  <tr>
+                    <td>David</td>
+                    <td>37</td>
+                    <td>Australia</td>
+                  </tr>
+                  <tr>
+                    <td>Emma</td>
+                    <td>29</td>
+                    <td>New Zealand</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </modal>
         <hr>
       </div>
@@ -368,20 +362,72 @@
       return options;
     }
 
-    Vue.directive('datatable', {
-      inserted: function(el, binding) {
-        const options = binding.value || {};
-        const tableOptions = getTableOptions(el);
-        $(el).DataTable({ ...tableOptions, ...options });
-      }
-    });
+    function initializeTables(tables) {
+      if (!tables || tables.length === 0) return;
+      tables.forEach(table => {
+        const options = getTableOptions(table);
+        $(table).DataTable(options);
+        $(table).addClass('dt-processed');
+      });
+    }
+
+    function setupTableObserver() {
+      const observer = new MutationObserver((mutations) => {
+        let newTables = [];
+        
+        mutations.forEach(mutation => {
+          if (mutation.addedNodes.length) {
+            mutation.addedNodes.forEach(node => {
+
+              if (node.nodeType === 1 && node.tagName === 'TABLE' && 
+                  !$(node).hasClass('dt-processed') &&
+                  ($(node).hasClass('sortable-table') || 
+                   $(node).hasClass('searchable-table') || 
+                   $(node).hasClass('sortable-searchable-table'))) {
+                newTables.push(node);
+              }
+              
+              if (node.nodeType === 1 && node.querySelectorAll) {
+                const tablesInNode = node.querySelectorAll(
+                'table.sortable-table:not(.dt-processed), ' +
+                'table.searchable-table:not(.dt-processed), ' +
+                'table.sortable-searchable-table:not(.dt-processed)');
+                if (tablesInNode.length) {
+                  newTables = [...newTables, ...tablesInNode];
+                }
+              }
+            });
+          }
+        });
+
+        if (newTables.length > 0) {
+          initializeTables(newTables);
+        }
+      });
+      
+      // Start observing the entire document for changes
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+      
+      return observer;
+    }
 
     document.addEventListener('DOMContentLoaded', function() {
-      $('table.sortable-table, table.searchable-table, table.sortable-searchable-table').each(function() {
-        const options = getTableOptions(this);
-        $(this).DataTable(options);
-      });
+      // Process any existing tables
+      const existingTables = document.querySelectorAll(
+        'table.sortable-table:not(.dt-processed), ' +
+        'table.searchable-table:not(.dt-processed), ' +
+        'table.sortable-searchable-table:not(.dt-processed)'
+      );
+      if (existingTables.length > 0) {
+        initializeTables(existingTables);
+      }
+      
+      setupTableObserver();
     });
+
   </script>
 
 </html>

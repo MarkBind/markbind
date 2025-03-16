@@ -37,3 +37,17 @@ describe('highlightWholeText', () => {
 //     expect(result).toBe('<span hl-data=0-4,10-14>const x = 10;\n</span>');
 //   });
 // });
+//   test('handles non-overlapping bounds correctly', () => {
+//     const code = 'const x = 10;';
+//     const bounds: Array<[number, number]> = [[0, 4], [10, 14]];
+//     const result = Highlighter.highlightPartOfText(code, bounds);
+//     expect(result).toBe('<span hl-data=0-4,10-14>const x = 10;\n</span>');
+//   });
+
+//   test('handles tabs in code correctly', () => {
+//     const code = '\tconst x = 10;';
+//     const bounds: Array<[number, number]> = [[0, 4], [8, 10]];
+//     const result = Highlighter.highlightPartOfText(code, bounds);
+//     expect(result).toBe('<span hl-data=0-4,8-10>    const x = 10;\n</span>');
+//   });
+// });

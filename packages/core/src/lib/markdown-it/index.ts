@@ -73,6 +73,7 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
   const token = tokens[idx];
   const lang = token.info || '';
   let str = token.content;
+  str = str.replace(/\t/g, '    '); // Convert tabs to 4 spaces by default
   let highlighted = false;
   let lines: string[] = [];
 

@@ -27,6 +27,8 @@ export class Highlighter {
       const [start, end] = bounds; // each bound is an array of 2 integers
       return `${start}-${end}:${color}`; // include color for each bound
     }).join(',');
+
+    const formattedCode = code.replace(/\t/g, '    '); // Convert tabs to 4 spaces by default
   
     // Wrap the code in a span with the hl-data attribute
     return `<span hl-data="${dataStr}">${code}\n</span>`;
