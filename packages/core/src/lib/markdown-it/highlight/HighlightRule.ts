@@ -84,7 +84,6 @@ export class HighlightRule {
       const startLine = startRule.lineNumber;
       const endLine = endRule.lineNumber;
   
-      // Check if the current line is within the range
       if (lineNumber >= startLine && lineNumber <= endLine) {
         // If any component is an unbounded slice, highlight the whole line
         if (startRule.isUnboundedSlice() || endRule.isUnboundedSlice()) {
@@ -94,11 +93,32 @@ export class HighlightRule {
             color: this.color,
           });
         } else {
-          results.push({
-            highlightType: HIGHLIGHT_TYPES.WholeText,
-            bounds: null,
-            color: this.color,
-          });
+          if (lineNumber === startLine || lineNumber === endLine) {
+            // Apply the rule component for the start or end line
+            const appliedRule = lineNumber === startLine ? startRule : endRule;
+  
+            if (appliedRule.isSlice && appliedRule.bounds.length > 0) {
+              // If the rule has bounds, it's a PartialText highlight
+              results.push({
+                highlightType: HIGHLIGHT_TYPES.PartialText,
+                bounds: appliedRule.bounds,
+                color: this.color,
+              });
+            } else {
+              results.push({
+                highlightType: HIGHLIGHT_TYPES.WholeText,
+                bounds: null,
+                color: this.color,
+              });
+            }
+          } else {
+            // For lines within the range (not at the boundaries), apply WholeText
+            results.push({
+              highlightType: HIGHLIGHT_TYPES.WholeText,
+              bounds: null,
+              color: this.color,
+            });
+          }
         }
       }
     }
@@ -107,18 +127,34 @@ export class HighlightRule {
     for (const ruleComponent of this.ruleComponents) {
       if (ruleComponent.compareLine(lineNumber) === 0) {
         if (ruleComponent.isSlice) {
-          results.push({
-            highlightType: ruleComponent.isUnboundedSlice()
-              ? HIGHLIGHT_TYPES.WholeLine
-              : HIGHLIGHT_TYPES.PartialText,
-            bounds: ruleComponent.bounds,
-            color: this.color || this.color,
-          });
+          if (ruleComponent.isUnboundedSlice()) {
+            // Unbounded slice: WholeLine highlight
+            results.push({
+              highlightType: HIGHLIGHT_TYPES.WholeLine,
+              bounds: null,
+              color: this.color,
+            });
+          } else if (ruleComponent.bounds.length > 0) {
+            // Bounded slice: PartialText highlight
+            results.push({
+              highlightType: HIGHLIGHT_TYPES.PartialText,
+              bounds: ruleComponent.bounds,
+              color: this.color,
+            });
+          } else {
+            // No bounds: WholeText highlight
+            results.push({
+              highlightType: HIGHLIGHT_TYPES.WholeText,
+              bounds: null,
+              color: this.color,
+            });
+          }
         } else {
+          // Not a slice: WholeText highlight
           results.push({
             highlightType: HIGHLIGHT_TYPES.WholeText,
             bounds: null,
-            color: this.color || this.color,
+            color: this.color,
           });
         }
       }
