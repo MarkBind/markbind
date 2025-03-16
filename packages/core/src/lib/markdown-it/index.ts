@@ -9,6 +9,7 @@ import * as logger from '../../utils/logger';
 
 import { HighlightRule, HIGHLIGHT_TYPES } from './highlight/HighlightRule';
 import { Highlighter } from './highlight/Highlighter';
+import { defaultColor, getCurrentTheme } from './highlight/helper';
 
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
@@ -154,17 +155,17 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
       const results = rule.getHighlightType(currentLineNumber);
       for (const result of results) {
         const { highlightType, bounds, color } = result;
-  
+        const highlightColor = color || defaultColor(getCurrentTheme());
         if (highlightType === HIGHLIGHT_TYPES.WholeLine) {
           // If it's a whole line highlight, return immediately
-          return Highlighter.highlightWholeLine(highlightedLine, color);
+          return Highlighter.highlightWholeLine(highlightedLine, highlightColor);
         } else if (highlightType === HIGHLIGHT_TYPES.WholeText) {
           // If it's a whole text highlight, return immediately
-          return Highlighter.highlightWholeText(highlightedLine, color);
+          return Highlighter.highlightWholeText(highlightedLine, highlightColor);
         } else if (highlightType === HIGHLIGHT_TYPES.PartialText && bounds) {
           // Collect bounds and colors for partial text highlights
           for (const bound of bounds) {
-            boundsWithColors.push({ bounds: bound, color: color || '#e6e6fa' });
+            boundsWithColors.push({ bounds: bound, color: highlightColor });
           }
         }
       }

@@ -1,3 +1,23 @@
+import * as fs from 'fs';
+import * as path from 'path';
+
+const siteJsonPath = path.join(__dirname, '../../../../../../docs/site.json'); // Adjust path
+
+export function getCurrentTheme(): string {
+  try {
+    const siteConfig = JSON.parse(fs.readFileSync(siteJsonPath, 'utf-8'));
+    return siteConfig.style?.codeTheme || 'light';
+  } catch (error) {
+    console.error('Error reading site.json:', error);
+    return 'light'; // Fallback to light theme
+  }
+}
+
+
+export function defaultColor(theme: string): string {
+  return theme === 'light' ? '#e6e6fa' : '#000000'
+}
+
 // Common helper functions to be used in HighlightRule or HighlightRuleComponent
 
 export function splitCodeAndIndentation(code: string) {
