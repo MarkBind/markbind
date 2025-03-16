@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardStack markdown in header, content 1`] = `
+<div
+  class="grid-container"
+>
+  <span
+    class="search-bar"
+  >
+    <input
+      class="form-control search-bar"
+      placeholder="Search"
+      type="text"
+    />
+  </span>
+   
+  <div
+    class="container"
+  >
+    <div
+      class="row justify-content-starts gy-3"
+    >
+      <div
+        class="col-md-6"
+        header="### Headers"
+        style="display: none;"
+      >
+        <div
+          class="article-container"
+        >
+          <div
+            class="card-header-container"
+          />
+           
+          <div
+            class="card-content-container"
+          />
+           
+          <br />
+           
+          <!---->
+        </div>
+      </div>
+       
+      <div
+        class="col-md-6"
+        header="### Italics"
+        style="display: none;"
+      >
+        <div
+          class="article-container"
+        >
+          <div
+            class="card-header-container"
+          />
+           
+          <div
+            class="card-content-container"
+          />
+           
+          <br />
+           
+          <!---->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CardStack should not hide cards when no filter is provided 1`] = `
+<div
+  class="grid-container"
+>
+  <span
+    class="search-bar"
+  >
+    <input
+      class="form-control search-bar"
+      placeholder="Search"
+      type="text"
+    />
+  </span>
+   
+  <div
+    class="container"
+  >
+    <div
+      class="row justify-content-starts gy-3"
+    >
+      <div
+        class="col-md-6"
+        header="Normal Body"
+        style="display: none;"
+      >
+        <div
+          class="article-container"
+        >
+          <div
+            class="card-header-container"
+          />
+           
+          <div
+            class="card-content-container"
+          >
+            
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
+      incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+      exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  
+          </div>
+           
+          <br />
+           
+          <div
+            class="tag-container"
+          >
+            <p
+              class="truncate"
+              title="Normal"
+            >
+              
+        Tags: Normal
+      
+            </p>
+          </div>
+        </div>
+      </div>
+       
+      <div
+        class="col-md-6"
+        header="Short Body"
+      >
+        <div
+          class="article-container"
+        >
+          <div
+            class="card-header-container"
+          />
+           
+          <div
+            class="card-content-container"
+          >
+            
+      Lorem ipsum dolor sit amet, consectetur adipisicing
+  
+          </div>
+           
+          <br />
+           
+          <div
+            class="tag-container"
+          >
+            <p
+              class="truncate"
+              title="Short"
+            >
+              
+        Tags: Short
+      
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CardStack should not hide cards when no filter is provided 2`] = `
+<div
+  class="grid-container"
+>
+  <span
+    class="search-bar"
+  >
+    <input
+      class="form-control search-bar"
+      placeholder="Search"
+      type="text"
+    />
+  </span>
+   
+  <div
+    class="container"
+  >
+    <div
+      class="row justify-content-starts gy-3"
+    >
+      <div
+        class="col-md-6"
+        style="display: none;"
+      >
+        <div
+          class="article-container"
+        >
+          <div
+            class="card-header-container"
+          />
+           
+          <div
+            class="card-content-container"
+          />
+           
+          <br />
+           
+          <!---->
+        </div>
+      </div>
+       
+      <div
+        class="col-md-6"
+        style="display: none;"
+      >
+        <div
+          class="article-container"
+        >
+          <div
+            class="card-header-container"
+          />
+           
+          <div
+            class="card-content-container"
+          />
+           
+          <br />
+           
+          <!---->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
