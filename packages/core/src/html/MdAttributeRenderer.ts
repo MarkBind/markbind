@@ -161,6 +161,13 @@ export class MdAttributeRenderer {
   }
 
   /*
+   * Card Stack
+   */
+  processCardAttributes(node: MbNode) {
+    this.processSlotAttribute(node, 'header', false);
+  }
+
+  /*
    * Dropdowns
    */
 
