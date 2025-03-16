@@ -158,6 +158,7 @@ function entryPoint(staticHandler, file) {
  */
 LiveServer.start = function(options) {
   options = options || {};
+  // CHANGED: changed default host value from '0.0.0.0' to '127.0.0.1'
   var host = options.host ?? '127.0.0.1';
   var port = options.port ?? 8080; // 0 means random
   var root = options.root || process.cwd();
@@ -281,6 +282,8 @@ LiveServer.start = function(options) {
       setTimeout(function() {
         server.listen(0, host);
       }, 1000);
+    
+    // CHANGED: Added handling for EADDRNOTAVAIL error
     } else if (e.code === 'EADDRNOTAVAIL') {
       console.log('%s is not available. Trying another address'.yellow, host);
       setTimeout(function() {
@@ -299,6 +302,8 @@ LiveServer.start = function(options) {
     LiveServer.server = server;
 
     var address = server.address();
+    // CHANGED: Updated serveHost and openHost to ignore if `0.0.0.0` is used
+    // CHANGED: Updated openHost to accomodate IPv6 addresses
     var serveHost = address.address;
     var isIpv6 = address.family === 'IPv6';
     var openHost = isIpv6 && host !== 'localhost' ? `[${host}]` : host;
