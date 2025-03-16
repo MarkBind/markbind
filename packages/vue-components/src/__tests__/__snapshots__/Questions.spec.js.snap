@@ -191,9 +191,27 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
            Hint 
         </button>
         <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
+        <button
+          class="btn btn-info q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Show 
+        </button>
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Retry 
+        </button>
       </transition-group-stub>
     </div>
   </div>
@@ -392,9 +410,27 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
       >
         <!--v-if-->
         <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
+        <button
+          class="btn btn-info q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Show 
+        </button>
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Retry 
+        </button>
       </transition-group-stub>
     </div>
   </div>
@@ -526,15 +562,23 @@ exports[`Blank Questions and QOptions of checked wrongly with shown hint without
       >
         <!--v-if-->
         <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
         <button
           class="btn btn-info q-btn ms-1"
+          style=""
           type="button"
         >
            Show 
         </button>
         <button
           class="btn btn-primary q-btn ms-1"
+          style=""
           type="button"
         >
            Retry 
@@ -686,15 +730,23 @@ exports[`Blank Questions and QOptions of checked wrongly with unshown hint with 
            Hint 
         </button>
         <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
         <button
           class="btn btn-info q-btn ms-1"
+          style=""
           type="button"
         >
            Show 
         </button>
         <button
           class="btn btn-primary q-btn ms-1"
+          style=""
           type="button"
         >
            Retry 
@@ -839,9 +891,27 @@ exports[`Blank Questions and QOptions of unanswered with shown hint and header r
         >
            Check 
         </button>
-        <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
+        <button
+          class="btn btn-info q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Show 
+        </button>
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Retry 
+        </button>
       </transition-group-stub>
     </div>
   </div>
@@ -1041,9 +1111,27 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
            Hint 
         </button>
         <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
+        <button
+          class="btn btn-info q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Show 
+        </button>
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Retry 
+        </button>
       </transition-group-stub>
     </div>
   </div>
@@ -1244,9 +1332,27 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
       >
         <!--v-if-->
         <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
+        <button
+          class="btn btn-info q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Show 
+        </button>
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Retry 
+        </button>
       </transition-group-stub>
     </div>
   </div>
@@ -1414,15 +1520,23 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
       >
         <!--v-if-->
         <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
         <button
           class="btn btn-info q-btn ms-1"
+          style=""
           type="button"
         >
            Show 
         </button>
         <button
           class="btn btn-primary q-btn ms-1"
+          style=""
           type="button"
         >
            Retry 
@@ -1592,9 +1706,27 @@ exports[`Checkbox Questions and QOptions of unanswered with header without hint 
         >
            Check 
         </button>
-        <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
+        <button
+          class="btn btn-info q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Show 
+        </button>
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Retry 
+        </button>
       </transition-group-stub>
     </div>
   </div>
@@ -1866,9 +1998,27 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
            Hint 
         </button>
         <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
+        <button
+          class="btn btn-info q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Show 
+        </button>
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Retry 
+        </button>
       </transition-group-stub>
     </div>
   </div>
@@ -2141,9 +2291,27 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
       >
         <!--v-if-->
         <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
+        <button
+          class="btn btn-info q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Show 
+        </button>
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Retry 
+        </button>
       </transition-group-stub>
     </div>
   </div>
@@ -2387,15 +2555,23 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
       >
         <!--v-if-->
         <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
         <button
           class="btn btn-info q-btn ms-1"
+          style=""
           type="button"
         >
            Show 
         </button>
         <button
           class="btn btn-primary q-btn ms-1"
+          style=""
           type="button"
         >
            Retry 
@@ -2652,9 +2828,27 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
         >
            Check 
         </button>
-        <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
+        <button
+          class="btn btn-info q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Show 
+        </button>
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Retry 
+        </button>
       </transition-group-stub>
     </div>
   </div>
@@ -2704,15 +2898,23 @@ exports[`Text Questions of answered correctly with answer without header, hint, 
       >
         <!--v-if-->
         <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
         <button
           class="btn btn-info q-btn ms-1"
+          style=""
           type="button"
         >
            Show 
         </button>
         <button
           class="btn btn-primary q-btn ms-1"
+          style=""
           type="button"
         >
            Retry 
@@ -2795,9 +2997,27 @@ exports[`Text Questions of answered correctly with answer, unshown hint without 
            Hint 
         </button>
         <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
+        <button
+          class="btn btn-info q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Show 
+        </button>
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Retry 
+        </button>
       </transition-group-stub>
     </div>
   </div>
@@ -2877,9 +3097,27 @@ exports[`Text Questions of answered wrongly with answer, header without hint ren
       >
         <!--v-if-->
         <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
+        <button
+          class="btn btn-info q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Show 
+        </button>
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Retry 
+        </button>
       </transition-group-stub>
     </div>
   </div>
@@ -2940,15 +3178,23 @@ exports[`Text Questions of checked wrongly with answer shown hint without header
       >
         <!--v-if-->
         <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
         <button
           class="btn btn-info q-btn ms-1"
+          style=""
           type="button"
         >
            Show 
         </button>
         <button
           class="btn btn-primary q-btn ms-1"
+          style=""
           type="button"
         >
            Retry 
@@ -3017,9 +3263,27 @@ exports[`Text Questions of unanswered with shown hint, header without answer ren
       >
         <!--v-if-->
         <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
-        <!--v-if-->
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Next 
+        </button>
+        <button
+          class="btn btn-info q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Show 
+        </button>
+        <button
+          class="btn btn-primary q-btn ms-1"
+          style="display: none;"
+          type="button"
+        >
+           Retry 
+        </button>
       </transition-group-stub>
     </div>
   </div>

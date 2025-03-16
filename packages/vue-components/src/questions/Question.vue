@@ -80,7 +80,7 @@
             Check
           </button>
           <button
-            v-if="qState.state !== 0 && questions"
+            v-show="qState.state !== 0 && questions"
             key="active"
             type="button"
             class="btn btn-primary q-btn ms-1"
@@ -89,7 +89,7 @@
             Next
           </button>
           <button
-            v-if="retryState"
+            v-show="retryState"
             key="show"
             type="button"
             class="btn btn-info q-btn ms-1"
@@ -98,7 +98,7 @@
             Show
           </button>
           <button
-            v-if="retryState"
+            v-show="retryState"
             key="retry"
             type="button"
             class="btn btn-primary q-btn ms-1"
@@ -344,10 +344,13 @@ export default {
 
     .q-btn {
         border-radius: 2.5em;
-        transition: opacity 0.5s, transform 0.7s;
+        transition: opacity 0s, transform 0s;
     }
 
-    .q-btn-enter {
+    /* Todo: Reimplement button animations for Vue 3 without
+      hydration issues or warnings.
+    */
+    /* .q-btn-enter {
         opacity: 0;
         transform: translateY(30px);
     }
@@ -359,7 +362,7 @@ export default {
 
     .q-btn-leave-active {
         position: absolute;
-    }
+    } */
 
     .card-header {
         font-size: 1.05em;
