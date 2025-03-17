@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <div :class="[addClass, 'printable-tabs']">
+  <div :class="[addClass, 'printable-tabs', noPageBreak ? 'no-page-break' : '',]">
     <!-- Nav tabs -->
     <ul
       class="nav nav-tabs d-print-none"
@@ -66,6 +66,10 @@ export default {
     addClass: {
       type: String,
       default: '',
+    },
+    noPageBreak: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
