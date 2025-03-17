@@ -48,14 +48,14 @@ Test sortable with searchable
 ---
 Test table can be included
 
-<span><include src="others/tableToBeIncluded.md" /></span>
+<include src="others/tableToBeIncluded.md" />
 
 ---
 Test table can be included in a panel
 
 <panel type="minimal" header="This is your header for a Panel, click me to expand!">
 
-<span><include src="others/tableToBeIncluded.md" /></span>
+<include src="others/tableToBeIncluded.md" />
 
 </panel>
 
@@ -65,7 +65,7 @@ Test table can be included in a modal
 <trigger for="modal:loremipsum">trigger</trigger>
 <modal header="**Modal header** :rocket:" id="modal:loremipsum">
 
-<span><include src="others/tableToBeIncluded.md" /></span>
+<include src="others/tableToBeIncluded.md" />
 
 </modal>
 
