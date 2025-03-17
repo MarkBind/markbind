@@ -143,6 +143,13 @@ function serve(userSpecifiedRoot, options) {
   site
     .readSiteConfig()
     .then(async (config) => {
+      if (!isValidServeHost(serverConfig.host)) {
+        logger.error(`The provided IP address "${serverConfig.host}" is invalid. `
+                    + 'Please enter a valid IPv4 or IPv6 address and try again.');
+        process.exitCode = 1;
+        process.exit();
+      }
+
       if (isIPAddressZero(serverConfig.host)) {
         const response = await questionAsync(
           'WARNING: Using the address \'0.0.0.0\' could potentially expose your server to the internet, '
@@ -154,13 +161,6 @@ function serve(userSpecifiedRoot, options) {
           logger.info('Website generation is cancelled.');
           process.exit();
         }
-      }
-
-      if (!isValidServeHost(serverConfig.host)) {
-        logger.error(`The provided IP address "${serverConfig.host}" is invalid. `
-                    + 'Please enter a valid IPv4 or IPv6 address and try again.');
-        process.exitCode = 1;
-        process.exit();
       }
 
       serverConfig.mount.push([config.baseUrl || '/', outputFolder]);
