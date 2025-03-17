@@ -334,15 +334,19 @@ LiveServer.start = function(options) {
     }
 
     // Output
+    // CHANGED: Refactor logging code
     if (LiveServer.logLevel >= 1) {
-      if (serveURL === openURL)
-        if (serveURLs.length === 1) {
-          console.log(("Serving \"%s\" at %s").green, root, serveURLs[0]);
-        } else {
-          console.log(("Serving \"%s\" at\n\t%s").green, root, serveURLs.join("\n\t"));
-        }
-      else
-        console.log(("Serving \"%s\" at %s (%s)").green, root, openURL, serveURL);
+      // If not equal, explicitly state the URL opened in browser
+      if (serveURL !== openURL) {
+        console.log('Opening "%s" at %s'.green, root, openURL);
+      }
+
+      // If multiple addresses are available, format differently
+      const serveMessage =
+        serveURLs.length === 1
+          ? `Serving "${root}" at ${serveURL}`
+          : `Serving "${root}" at\n\t${serveURLs.join("\n\t")}`;
+      console.log(serveMessage.green);
     }
 
     // Launch browser
