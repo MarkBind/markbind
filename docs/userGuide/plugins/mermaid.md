@@ -8,7 +8,7 @@ This plugin allows you to utilize [Mermaid](https://mermaid-js.github.io/mermaid
 
 <box type="info">
 
-All supported diagrams are available in [the Mermaid official documentation](https://mermaid-js.github.io/mermaid/).
+All supported diagrams are available in [the Mermaid official documentation](https://mermaid-js.github.io/mermaid/). Here are some [examples](https://mermaid.js.org/syntax/examples.html) to quickly get started!
 
 </box>
 
@@ -43,7 +43,9 @@ By default, the plugin loads the Mermaid code from a CDN URL. However, you can o
 
 </panel>
 
-To create a Mermaid diagram, use the `<mermaid>` tag and provide the diagram definition within the tag.
+<br>
+
+To create a Mermaid diagram, use the `<mermaid>` tag and provide the diagram definition within the tag. Usage of standard Mermaid syntax using the `<pre class="mermaid">` block directly in Markdown files is also supported for users who prefer to do so.
 
 {{ icon_example }} Pie Chart:
 
@@ -56,6 +58,15 @@ pie title Pets adopted by volunteers
     "Cats" : 85
     "Rats" : 15
 </mermaid>
+<pre class="mermaid">
+%%{init: {"pie": {"textPosition": 0.5}, "themeVariables": {"pieOuterStrokeWidth": "5px"}, 'theme': 'dark'} }%%
+pie showData
+    title Key elements in Product X
+    "Calcium" : 42.96
+    "Potassium" : 50.05
+    "Magnesium" : 10.01
+    "Iron" :  5
+</pre>
 </variable>
 </include>
 
@@ -108,5 +119,6 @@ gitGraph
 </variable>
 </include>
 
-The plugin automatically converts the `<mermaid>` tags into appropriate `<div>` elements with the necessary classes and attributes for rendering the diagrams using the Mermaid library.
-<div>
+The plugin automatically converts the `<mermaid>` tags into appropriate `<pre>` elements for rendering the diagrams using the Mermaid library.
+
+</div>

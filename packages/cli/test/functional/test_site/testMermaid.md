@@ -1,5 +1,7 @@
 **Mermaid Test**
 
+#### Test some sample Mermaid diagrams load
+
 <mermaid>
 %%{init: { "theme": "neutral" } }%%
 
@@ -60,6 +62,17 @@ Describe gantt syntax               :after doc1, 3d
 Add gantt diagram to demo page      : 20h
 Add another diagram to demo page    : 48h
 </mermaid>
+
+#### Test standard formatting of Mermaid diagrams load (using pre)
+
+<pre class="mermaid">
+  graph LR
+      A --- B
+      B-->C[fa:fa-ban forbidden]
+      B-->D(fa:fa-spinner);
+</pre>
+
+#### Test dynamically loaded Mermaid diagrams
 
 <panel type="minimal" header="This is to test Mermaid diagrams work in panel.">
 <mermaid>

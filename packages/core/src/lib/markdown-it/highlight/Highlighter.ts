@@ -18,6 +18,7 @@ export class Highlighter {
     */
     const mergedBounds = collateAllIntervals(bounds);
     const dataStr = mergedBounds.map(bound => bound.join('-')).join(',');
-    return `<span hl-data=${dataStr}>${code}\n</span>`;
+    const formattedCode = code.replace(/\t/g, '    '); // Convert tabs to 4 spaces by default
+    return `<span hl-data=${dataStr}>${formattedCode}\n</span>`;
   }
 }

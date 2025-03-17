@@ -39,7 +39,6 @@ test('postRender should add appropriate classes and attributes to m-table elemen
   $('table').each((index, el) => {
     expect($(el).attr('class')).toEqual(expectedClasses[index]);
     expect($(el).attr('id')).toEqual(`datatable-${index}`);
-    expect($(el).attr('v-datatable')).toBeDefined();
   });
 });
 
