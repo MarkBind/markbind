@@ -12,6 +12,7 @@ import './print';
 
 const { MarkBindVue, appFactory } = vueCommonAppFactory;
 const { plugin } = MarkBindVue;
+window.MarkBindVuePlugin = plugin;
 
 function scrollToUrlAnchorHeading() {
   if (window.location.hash) {
@@ -35,7 +36,7 @@ function detectAndApplyHeaderStyles() {
   function getHeaderHeight() {
     const headerComputedStyle = window.getComputedStyle(headerEl, null);
     return headerEl.clientHeight - parseFloat(headerComputedStyle.paddingTop)
-        - parseFloat(headerComputedStyle.paddingBottom);
+      - parseFloat(headerComputedStyle.paddingBottom);
   }
 
   let headerHeight = getHeaderHeight();

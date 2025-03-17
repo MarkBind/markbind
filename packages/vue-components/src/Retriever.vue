@@ -100,6 +100,7 @@ export default {
             },
           };
           const app = createApp(TempComponent);
+          app.use(window.MarkBindVuePlugin);
           app.mount(this.$el);
           this.$emit('src-loaded');
         })
