@@ -9,9 +9,13 @@
       </div>
       <br />
       <div v-if="hasTag" class="tag-container">
-        <p :title="formatedTags" class="truncate">
-          Tags: {{ formatedTags }}
-        </p>
+        <span
+          v-for="(cardTag, index) in exposedTags"
+          :key="index"
+          :class="['badge', cardTag[1]]"
+        >
+          {{ cardTag[0] }}
+        </span>
       </div>
     </div>
   </div>
@@ -37,6 +41,7 @@ export default {
     return {
       isMounted: false,
       disableCard: false,
+      exposedTags: [],
     };
   },
   components: {
@@ -54,17 +59,22 @@ export default {
       const isEmptyContent = this.$slots.header === undefined && this.$slots.default === undefined;
       return this.disabled || this.disableCard || isEmptyContent;
     },
-    computedTags() {
-      return this.tag ? this.tag.split(',').map(tag => tag.trim()) : [];
+    computeTags() {
+      const tagSet = new Set();
+      if (this.tag !== '') {
+        this.tag.split(',')
+          .map(tag => tag.trim())
+          .forEach(tag => tagSet.add(tag));
+      }
+      return this.tag !== '' ? Array.from(tagSet) : [];
+    },
+    formatTags() {
+      // Retrieves tags with styling from parent and returns tags relevant to card
+      const allTags = this.$parent.collectTags();
+      return allTags.filter(tag => this.computeTags.includes(tag[0]));
     },
     computedKeywords() {
       return this.keywords ? this.keywords.split(',').map(keyword => keyword.trim()) : [];
-    },
-    formatedTags() {
-      let tagList = this.tag.split(',');
-      tagList = tagList.map(tag => tag.trim());
-
-      return tagList.join(', ');
     },
     hasTag() {
       return !!this.tag;
@@ -74,8 +84,10 @@ export default {
   },
   mounted() {
     this.isMounted = true;
+    this.exposedTags = this.formatTags;
   },
 };
+
 </script>
 
 <style scoped>
@@ -119,13 +131,10 @@ export default {
         width: 100%;
         height: auto;
         display: inline-block;
-        white-space: nowrap;
+        overflow: hidden;
     }
 
-    .tag-container > * {
-        font-size: 14px;
-        color: rgba(128 128 128/ 63.8%);
-        margin: 0;
-        overflow: hidden;
+    .tag-container > span {
+        margin-right: 5px;
     }
 </style>
