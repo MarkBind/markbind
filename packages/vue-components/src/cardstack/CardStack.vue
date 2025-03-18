@@ -69,13 +69,28 @@ export default {
       });
       return Array.from(tagSet);
     },
+    collectPrimitiveData() {
+      const primitiveMap = new Map();
+
+      this.$children.forEach((child) => {
+        const tags = child.computeTags;
+        const keywords = child.computedKeywords;
+        const header = child.headerText;
+        const searchTarget = tags.join(' ') + keywords.join(' ') + header;
+
+        primitiveMap.set(searchTarget, child);
+      });
+
+      return primitiveMap;
+    },
     update() {
+      // Calculated value at time of search
       const regexes = this.value.split(' ')
         .filter(searchKeyword => searchKeyword !== '')
         .map(searchKeyword => searchKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
         .map(searchKeyword => new RegExp(searchKeyword, 'ig'));
 
-      this.$children.forEach((child) => {
+      this.primitiveValues.forEach((child, searchTarget) => {
         if (child.$props.disabled) {
           return;
         }
@@ -85,10 +100,6 @@ export default {
           return;
         }
 
-        const tags = child.computeTags;
-        const keywords = child.computedKeywords;
-        const header = ''; // child.$slots.header;
-        const searchTarget = tags.join(' ') + keywords.join(' ') + header;
         regexes.forEach((regex) => {
           if (searchTarget.match(regex)) {
             child.$data.disableCard = false;
@@ -114,11 +125,13 @@ export default {
         'bg-light text-dark',
         'bg-dark',
       ],
+      primitiveValues: new Map(),
     };
   },
   mounted() {
     this.isMounted = true;
     this.tags = this.collectTags();
+    this.primitiveValues = this.collectPrimitiveData();
   },
 };
 

@@ -1,7 +1,7 @@
 <template>
   <div v-show="!computeDisabled" :class="`col-md-${computedBlock}`">
     <div class="article-container" :style="computedWidth">
-      <div class="card-header-container">
+      <div ref="header" class="card-header-container">
         <slot name="header"></slot>
       </div>
       <div class="card-content-container">
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import $ from '../utils/NodeList';
+
 export default {
   props: {
     tag: {
@@ -42,6 +44,7 @@ export default {
       isMounted: false,
       disableCard: false,
       exposedTags: [],
+      headerText: '',
     };
   },
   components: {
@@ -68,6 +71,15 @@ export default {
       }
       return this.tag !== '' ? Array.from(tagSet) : [];
     },
+    computeHeaders() {
+      let headers = '';
+      $(this.$refs.header).forEach((element) => {
+        if (element.innerText !== undefined && element.innerText !== '') {
+          headers += element.innerText;
+        }
+      });
+      return headers;
+    },
     formatTags() {
       // Retrieves tags with styling from parent and returns tags relevant to card
       const allTags = this.$parent.collectTags();
@@ -85,9 +97,9 @@ export default {
   mounted() {
     this.isMounted = true;
     this.exposedTags = this.formatTags;
+    this.headerText = this.computeHeaders;
   },
 };
-
 </script>
 
 <style scoped>
