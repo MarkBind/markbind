@@ -221,5 +221,6 @@ function serve(userSpecifiedRoot, options) {
 
 module.exports = {
   serve,
+  isIPAddressZero,
   isValidServeHost,
 };
