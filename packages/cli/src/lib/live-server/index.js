@@ -15,6 +15,7 @@
  * The **only** changes are prefaced with a CHANGED comment
  */
 
+const e = require('cors');
 var fs = require('fs'),
   connect = require('connect'),
   serveIndex = require('serve-index'),
@@ -334,19 +335,18 @@ LiveServer.start = function(options) {
     }
 
     // Output
-    // CHANGED: Refactor logging code
+    // CHANGED: Update log code to log all addresses when serveURL !== openURL
     if (LiveServer.logLevel >= 1) {
-      // If not equal, explicitly state the URL opened in browser
-      if (serveURL !== openURL) {
-        console.log('Opening "%s" at %s'.green, root, openURL);
-      }
-
-      // If multiple addresses are available, format differently
-      const serveMessage =
-        serveURLs.length === 1
-          ? `Serving "${root}" at ${serveURL}`
-          : `Serving "${root}" at\n\t${serveURLs.join("\n\t")}`;
-      console.log(serveMessage.green);
+      if (serveURL === openURL)
+        if (serveURLs.length === 1) {
+          console.log(("Serving \"%s\" at %s").green, root, serveURLs[0]);
+        } else {
+          console.log(("Serving \"%s\" at\n\t%s").green, root, serveURLs.join("\n\t"));
+        }
+      else
+        serveURLs.forEach(serveURL => {
+          console.log(("Serving \"%s\" at %s (%s)").green, root, openURL, serveURL);
+        })
     }
 
     // Launch browser
