@@ -127,7 +127,7 @@ The caveat is that not building all pages during the initial process, or not reb
 * `-a <address>`, `--address <address>`<br>
     Specify the server address/host (Default is 127.0.0.1). <br>
     Supports both IPv4 and IPv6 addresses. <br>
-    {{ icon_examples }} `-a 192.168.0.1`, `-a ::1`
+    {{ icon_examples }} `-a 127.0.0.1`, `-a ::1`
 
 * `-p <port>`, `--port <port>`<br>
     Serve the website in the specified port (Default is 8080).
