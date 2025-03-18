@@ -15,7 +15,6 @@
  * The **only** changes are prefaced with a CHANGED comment
  */
 
-const e = require('cors');
 var fs = require('fs'),
   connect = require('connect'),
   serveIndex = require('serve-index'),
