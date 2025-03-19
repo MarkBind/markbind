@@ -13,14 +13,17 @@
         </template>
       </span>
       <div class="tag-container">
-        Tags:
-        <span
-          v-for="(tag, index) in tags"
-          :key="index"
-          :class="['badge', tag[1]]"
-        >
-          {{ tag[0] }}
-        </span>
+        <span>Tags:</span>
+        <div class="tag-badge-container">
+          <span
+            v-for="(tag, index) in tags"
+            :key="index"
+            :class="['badge', tag[1]]"
+            @click="update"
+          >
+            {{ tag[0] }}
+          </span>
+        </div>
       </div>
     </div>
     <div class="container">
@@ -185,11 +188,21 @@ export default {
     }
 
     .tag-container {
+        display: flex;
+        flex-direction: row;
         width: 50%;
         text-align: right
     }
 
-    .tag-container > span {
-        margin-right: 5px;
+    .tag-badge-container {
+        display: flex;
+        flex-flow: row wrap;
+        width: 100%;
     }
+
+    .tag-badge-container > span {
+        margin: 2px;
+        cursor: pointer;
+    }
+
 </style>

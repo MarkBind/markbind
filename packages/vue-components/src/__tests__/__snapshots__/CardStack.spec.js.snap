@@ -20,9 +20,13 @@ exports[`CardStack markdown in header, content 1`] = `
     <div
       class="tag-container"
     >
-      
-      Tags:
-      
+      <span>
+        Tags:
+      </span>
+       
+      <div
+        class="tag-badge-container"
+      />
     </div>
   </div>
    
@@ -38,19 +42,21 @@ exports[`CardStack markdown in header, content 1`] = `
         style="display: none;"
       >
         <div
-          class="article-container"
+          class="card"
         >
           <div
-            class="card-header-container"
-          />
-           
-          <div
-            class="card-content-container"
-          />
-           
-          <br />
-           
-          <!---->
+            class="card-body article-container"
+          >
+            <!---->
+             
+            <div
+              class="card-text"
+            />
+             
+            <br />
+             
+            <!---->
+          </div>
         </div>
       </div>
        
@@ -60,19 +66,21 @@ exports[`CardStack markdown in header, content 1`] = `
         style="display: none;"
       >
         <div
-          class="article-container"
+          class="card"
         >
           <div
-            class="card-header-container"
-          />
-           
-          <div
-            class="card-content-container"
-          />
-           
-          <br />
-           
-          <!---->
+            class="card-body article-container"
+          >
+            <!---->
+             
+            <div
+              class="card-text"
+            />
+             
+            <br />
+             
+            <!---->
+          </div>
         </div>
       </div>
     </div>
@@ -100,16 +108,21 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
     <div
       class="tag-container"
     >
-      
-      Tags:
-      
-      <span
-        class="badge bg-primary"
-      >
-        
-        Short
-      
+      <span>
+        Tags:
       </span>
+       
+      <div
+        class="tag-badge-container"
+      >
+        <span
+          class="badge bg-primary"
+        >
+          
+          Short
+        
+        </span>
+      </div>
     </div>
   </div>
    
@@ -125,27 +138,29 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
         style="display: none;"
       >
         <div
-          class="article-container"
+          class="card"
         >
           <div
-            class="card-header-container"
-          />
-           
-          <div
-            class="card-content-container"
+            class="card-body article-container"
           >
-            
+            <!---->
+             
+            <div
+              class="card-text"
+            >
+              
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
       incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
       exercitation ullamco laboris nisi ut aliquip ex ea commodo
   
+            </div>
+             
+            <br />
+             
+            <div
+              class="tag-container"
+            />
           </div>
-           
-          <br />
-           
-          <div
-            class="tag-container"
-          />
         </div>
       </div>
        
@@ -154,32 +169,34 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
         header="Short Body"
       >
         <div
-          class="article-container"
+          class="card"
         >
           <div
-            class="card-header-container"
-          />
-           
-          <div
-            class="card-content-container"
+            class="card-body article-container"
           >
-            
-      Lorem ipsum dolor sit amet, consectetur adipisicing
-  
-          </div>
-           
-          <br />
-           
-          <div
-            class="tag-container"
-          >
-            <span
-              class="badge bg-primary"
+            <!---->
+             
+            <div
+              class="card-text"
             >
               
-        Short
-      
-            </span>
+      Lorem ipsum dolor sit amet, consectetur adipisicing
+  
+            </div>
+             
+            <br />
+             
+            <div
+              class="tag-container"
+            >
+              <span
+                class="badge bg-primary"
+              >
+                
+          Short
+        
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -208,9 +225,13 @@ exports[`CardStack should not hide cards when no filter is provided 2`] = `
     <div
       class="tag-container"
     >
-      
-      Tags:
-      
+      <span>
+        Tags:
+      </span>
+       
+      <div
+        class="tag-badge-container"
+      />
     </div>
   </div>
    
@@ -225,19 +246,21 @@ exports[`CardStack should not hide cards when no filter is provided 2`] = `
         style="display: none;"
       >
         <div
-          class="article-container"
+          class="card"
         >
           <div
-            class="card-header-container"
-          />
-           
-          <div
-            class="card-content-container"
-          />
-           
-          <br />
-           
-          <!---->
+            class="card-body article-container"
+          >
+            <!---->
+             
+            <div
+              class="card-text"
+            />
+             
+            <br />
+             
+            <!---->
+          </div>
         </div>
       </div>
        
@@ -246,19 +269,21 @@ exports[`CardStack should not hide cards when no filter is provided 2`] = `
         style="display: none;"
       >
         <div
-          class="article-container"
+          class="card"
         >
           <div
-            class="card-header-container"
-          />
-           
-          <div
-            class="card-content-container"
-          />
-           
-          <br />
-           
-          <!---->
+            class="card-body article-container"
+          >
+            <!---->
+             
+            <div
+              class="card-text"
+            />
+             
+            <br />
+             
+            <!---->
+          </div>
         </div>
       </div>
     </div>
