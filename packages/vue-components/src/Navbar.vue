@@ -296,7 +296,7 @@ export default {
             padding-left: 1rem;
         }
 
-        .navbar-left * {
+        .navbar-left :deep(*) {
             white-space: normal;
         }
 
@@ -329,13 +329,14 @@ export default {
             width: 100%;
         }
 
-        .navbar-default > ul > * {
+        /* Deep applies to slotted components and deep children */
+        .navbar-default > ul > :deep(*) {
             background: rgb(0 0 0 / 20%);
             padding: 0.3125rem 0.625rem;
             flex-grow: 1;
         }
 
-        .navbar-light .navbar-default > ul > * {
+        .navbar-light .navbar-default > ul > :deep(*) {
             background: rgb(0 0 0 / 5%);
         }
 
