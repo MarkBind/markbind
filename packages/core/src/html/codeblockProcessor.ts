@@ -22,7 +22,7 @@ interface TraverseLinePartData {
  * @param hlEnd The highlight end position, relative to the start of the line part
  * @returns  An object that contains data to be used by the node's parent.
  */
-function traverseLinePart(node: NodeOrText, hlStart: number, hlEnd: number): TraverseLinePartData {
+function traverseLinePart(node: NodeOrText, hlStart: number, hlEnd: number, color?: string): TraverseLinePartData {
   const resData: TraverseLinePartData = {
     numCharsTraversed: 0,
     shouldParentHighlight: false,
@@ -74,7 +74,7 @@ function traverseLinePart(node: NodeOrText, hlStart: number, hlEnd: number): Tra
 
   const highlightData = node.children.map((child) => {
     const [relativeHlStart, relativeHlEnd] = [hlStart, hlEnd].map(x => x - resData.numCharsTraversed);
-    const data = traverseLinePart(child, relativeHlStart, relativeHlEnd);
+    const data = traverseLinePart(child, relativeHlStart, relativeHlEnd, color);
     resData.numCharsTraversed += data.numCharsTraversed;
     return data;
   });
@@ -88,8 +88,7 @@ function traverseLinePart(node: NodeOrText, hlStart: number, hlEnd: number): Tra
     return resData;
   }
 
-  /*
-   * If node level highlighting is not possible, highlight the individual children as needed.
+  /*needed.
    * For text nodes, it is trickier, as we have to wrap the text inside a <span> first.
    * Essentially, we have to change the text node to become a tag node.
    */
@@ -102,18 +101,18 @@ function traverseLinePart(node: NodeOrText, hlStart: number, hlEnd: number): Tra
 
     if (child.type === 'tag') {
       child.attribs = child.attribs ?? {};
-      child.attribs.class = child.attribs.class ? `${child.attribs.class} highlighted` : 'highlighted';
+      child.attribs.style = child.attribs.style ? `${child.attribs.style} background-color: ${color};` : `background-color: ${color}`;
       return;
     }
 
     if (!data.highlightRange) {
-      cheerio(child).wrap('<span class="highlighted"></span>');
+      cheerio(child).wrap(`<span style="background-color: ${color}"></span>`);
     } else {
       const [start, end] = data.highlightRange;
       const cleaned = util.unescapeHtml(child.data);
       const split = [cleaned.substring(0, start), cleaned.substring(start, end), cleaned.substring(end)];
       const [pre, highlighted, post] = split.map(md.utils.escapeHtml);
-      const newElement = cheerio(`<span>${pre}<span class="highlighted">${highlighted}</span>${post}</span>`);
+      const newElement = cheerio(`<span>${pre}<span style="background-color: ${color}">${highlighted}</span>${post}</span>`);
       cheerio(child).replaceWith(newElement);
     }
   });
@@ -142,9 +141,14 @@ export function highlightCodeBlock(node: MbNode) {
       return;
     }
 
-    const bounds = lineNode.attribs['hl-data'].split(',').map(boundStr => boundStr.split('-').map(Number));
-    bounds.forEach(([start, end]) => traverseLinePart(lineNode, start, end));
-
+    const bounds = lineNode.attribs['hl-data']
+      .split(',')
+      .map(boundStr => {
+        const [range, color] = boundStr.split(':');
+        const [start, end] = range.split('-');
+        return [start, end, color]; // we are guaranteed to have a color here
+      });
+    bounds.forEach(([start, end, color]) => traverseLinePart(lineNode, Number(start), Number(end), color));
     delete lineNode.attribs['hl-data'];
   });
 }

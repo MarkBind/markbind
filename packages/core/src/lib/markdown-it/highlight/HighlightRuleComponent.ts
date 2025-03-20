@@ -9,8 +9,7 @@ export class HighlightRuleComponent {
   lineNumber: number;
   isSlice: boolean;
   bounds: Array<[number, number]>;
-
-  constructor(lineNumber: number, isSlice: boolean = false, bounds: Array<[number, number]> = []) {
+  constructor(lineNumber: number, isSlice: boolean = false, bounds: Array<[number, number]> = [], color?: string) {
     this.lineNumber = lineNumber;
     this.isSlice = isSlice;
     this.bounds = bounds;
@@ -24,6 +23,7 @@ export class HighlightRuleComponent {
   }
 
   static parseRuleComponent(compString: string, lineNumberOffset: number, lines: string[]) {
+    
     // Match line-part syntax
     const linepartMatch = compString.match(LINEPART_REGEX);
     if (linepartMatch) {
@@ -74,7 +74,8 @@ export class HighlightRuleComponent {
     const lineNumber = HighlightRuleComponent
       .isValidLineNumber(compString, 1, lines.length, lineNumberOffset);
     if (lineNumber) {
-      return new HighlightRuleComponent(lineNumber);
+      // return new HighlightRuleComponent(lineNumber, undefined, undefined, color);
+      return new HighlightRuleComponent(lineNumber, undefined, undefined);
     }
 
     // the string is an improperly written rule
