@@ -29,10 +29,15 @@ const WRAP_ICON = `
 </svg>
 `;
 
+const WRAP_MESSAGE = 'Wrap Text';
+
 function getButtonHTML() {
   const html = `<button onclick="toggleCodeBlockWrap(this)" class="function-btn d-print-none">
+    <div class="tooltip-container">
+    <span class="tooltiptext">${WRAP_MESSAGE}</span>
     <div class="function-btn-body">
-      ${WRAP_ICON}
+    ${WRAP_ICON}
+    </div>
     </div>
     </button>`;
   return html;
