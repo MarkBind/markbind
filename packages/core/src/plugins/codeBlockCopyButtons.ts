@@ -24,6 +24,10 @@ const COPY_ICON = `
 </svg>
 `;
 
+const COPY_MESSAGE = 'Copy';
+
+const COPY_MESSAGE_SUCCESS = 'Copied!';
+
 const TICK_ICON = `
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -38,8 +42,11 @@ const TICK_ICON = `
 
 function getButtonHTML() {
   const html = `<button onclick="copyCodeBlock(this)" class="function-btn d-print-none">
+    <div class="tooltip-container">
+    <span class="tooltiptext">${COPY_MESSAGE}</span>
     <div class="function-btn-body">
     ${COPY_ICON}
+    </div>
     </div>
     </button>`;
   return html;
@@ -49,7 +56,8 @@ const copyCodeBlockScript = `<script>
     function copyCodeBlock(element) {
         const pre = element.parentElement.parentElement;
         const codeElement = pre.querySelector('code');
-        const copyButton = element;
+        const copyButtonBody = element.querySelector('.function-btn-body');
+        const tooltipText = element.querySelector(".tooltiptext");
 
         // create dummy text element to select() the text field
         const textElement = document.createElement('textarea');
@@ -59,9 +67,11 @@ const copyCodeBlockScript = `<script>
 
         document.execCommand('copy');
         document.body.removeChild(textElement);
-        copyButton.innerHTML = \`${TICK_ICON}\`;
+        copyButtonBody.innerHTML = \`${TICK_ICON}\`;
+        tooltipText.innerText  = \'${COPY_MESSAGE_SUCCESS}\';
         setTimeout(() => {
-            copyButton.innerHTML = \`${COPY_ICON}\`;
+            copyButtonBody.innerHTML = \`${COPY_ICON}\`;
+            tooltipText.innerText  = \'${COPY_MESSAGE}\';
         }, 3000);
     }
     </script>`;
