@@ -158,6 +158,7 @@ function entryPoint(staticHandler, file) {
  */
 LiveServer.start = function(options) {
   options = options || {};
+  // CHANGED: changed default host value from '0.0.0.0' to '127.0.0.1'
   var host = options.host ?? '127.0.0.1';
   var port = options.port ?? 8080; // 0 means random
   var root = options.root || process.cwd();
@@ -281,10 +282,13 @@ LiveServer.start = function(options) {
       setTimeout(function() {
         server.listen(0, host);
       }, 1000);
+    
+    // CHANGED: Added handling for EADDRNOTAVAIL error
     } else if (e.code === 'EADDRNOTAVAIL') {
       console.log('%s is not available. Trying another address'.yellow, host);
       setTimeout(function() {
-        server.listen(port, '127.0.0.1');
+        host = "127.0.0.1";
+        server.listen(port, host);
       }, 1000);
     }
      else {
@@ -298,34 +302,39 @@ LiveServer.start = function(options) {
     LiveServer.server = server;
 
     var address = server.address();
-    var serveHost = address.address;
-    var openHost = host;
+    // CHANGED: Updated serveHost and openHost to ignore if `0.0.0.0` is used
+    // CHANGED: Updated openHost to accomodate IPv6 addresses
+    var isIpv6 = address.family === "IPv6";
+    var serveHost = isIpv6 ? `[${address.address}]` : address.address;
+    var openHost = isIpv6 && host !== 'localhost' ? `[${host}]` : host;
 
     var serveURL = protocol + '://' + serveHost + ':' + address.port;
     var openURL = protocol + '://' + openHost + ':' + address.port;
 
     var serveURLs = [ serveURL ];
-    if (LiveServer.logLevel > 2 && address.address === "0.0.0.0") {
+    // CHANGED: Updated if condition to include IPv6 zero address
+    if (LiveServer.logLevel > 2 && (address.address === "0.0.0.0" || address.address === "::")) {
       var ifaces = os.networkInterfaces();
       serveURLs = Object.keys(ifaces)
         .map(function(iface) {
           return ifaces[iface];
         })
-        // flatten address data, use only IPv4
+        // CHANGED: Update filter to include only the addresses that match the server address family
         .reduce(function(data, addresses) {
           addresses.filter(function(addr) {
-            return addr.family === "IPv4";
+            return addr.family === address.family;
           }).forEach(function(addr) {
             data.push(addr);
           });
           return data;
         }, [])
         .map(function(addr) {
-          return protocol + "://" + addr.address + ":" + address.port;
+          return protocol + "://" + (isIpv6 ? `[${addr.address}]` : addr.address) + ":" + address.port;
         });
     }
 
     // Output
+    // CHANGED: Update log code to log all addresses when serveURL !== openURL
     if (LiveServer.logLevel >= 1) {
       if (serveURL === openURL)
         if (serveURLs.length === 1) {
@@ -334,7 +343,9 @@ LiveServer.start = function(options) {
           console.log(("Serving \"%s\" at\n\t%s").green, root, serveURLs.join("\n\t"));
         }
       else
-        console.log(("Serving \"%s\" at %s (%s)").green, root, openURL, serveURL);
+        serveURLs.forEach(serveURL => {
+          console.log(("Serving \"%s\" at %s (%s)").green, root, openURL, serveURL);
+        })
     }
 
     // Launch browser
