@@ -46,6 +46,14 @@ function isValidServeHost(address) {
   return isIpv4Address(address) || isIpv6Address(address);
 }
 
+function isIPAddressZero(address) {
+  const patternForIPv4Zero = /^0(\.0)*$/;
+  const patternForIPv6Zero = /^([0]{0,4}:){0,7}([0]{0,4}){0,1}$/;
+
+  return patternForIPv4Zero.test(address) || patternForIPv6Zero.test(address);
+}
+
 module.exports = {
   isValidServeHost,
+  isIPAddressZero,
 };

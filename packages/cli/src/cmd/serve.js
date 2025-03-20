@@ -20,13 +20,8 @@ const {
 
 const {
   isValidServeHost,
+  isIPAddressZero,
 } = require('../util/ipUtil');
-
-function isIPAddressZero(address) {
-  const patternForZero = /^0(\.0)*$/;
-
-  return patternForZero.test(address);
-}
 
 function questionAsync(question) {
   const readlineInterface = readline.createInterface({ input: process.stdin, output: process.stdout });
@@ -108,8 +103,8 @@ function serve(userSpecifiedRoot, options) {
 
       if (isIPAddressZero(serverConfig.host)) {
         const response = await questionAsync(
-          'WARNING: Using the address \'0.0.0.0\' could potentially expose your server to the internet, '
-          + 'which may pose security risks. \n'
+          'WARNING: Using the address \'0.0.0.0\' or \'::\' could potentially expose your server '
+          + 'to the internet, which may pose security risks. \n'
           + 'Proceed with caution? [y/N] ');
         if (response.toLowerCase() === 'y') {
           logger.info('Proceeding to generate website');
@@ -160,7 +155,8 @@ function serve(userSpecifiedRoot, options) {
       const server = liveServer.start(serverConfig);
       server.addListener('listening', () => {
         const address = server.address();
-        const serveHost = address.address;
+        const isIpv6 = address.family === 'IPv6';
+        const serveHost = isIpv6 ? `[${address.address}]` : address.address;
         const servePort = address.port;
         const serveURL = `http://${serveHost}:${servePort}`;
         logger.info(`Serving "${outputFolder}" at ${serveURL}`);
