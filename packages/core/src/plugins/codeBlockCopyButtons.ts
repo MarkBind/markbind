@@ -67,11 +67,11 @@ const copyCodeBlockScript = `<script>
 
         document.execCommand('copy');
         document.body.removeChild(textElement);
-        copyButtonBody.innerHTML = \`${TICK_ICON}\`;
-        tooltipText.innerText  = \'${COPY_MESSAGE_SUCCESS}\';
+        copyButtonBody.innerHTML = '${TICK_ICON}';
+        tooltipText.innerText  = '${COPY_MESSAGE_SUCCESS}';
         setTimeout(() => {
-            copyButtonBody.innerHTML = \`${COPY_ICON}\`;
-            tooltipText.innerText  = \'${COPY_MESSAGE}\';
+            copyButtonBody.innerHTML = '${COPY_ICON}';
+            tooltipText.innerText  = '${COPY_MESSAGE}';
         }, 3000);
     }
     </script>`;
