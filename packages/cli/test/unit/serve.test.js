@@ -1,4 +1,4 @@
-const { isValidServeHost } = require('../../src/cmd/serve');
+const { isIPAddressZero, isValidServeHost } = require('../../src/cmd/serve');
 
 describe('isValidServeHost', () => {
   test('returns true for localhost', () => {
@@ -38,5 +38,28 @@ describe('isValidServeHost', () => {
     expect(isValidServeHost('2001:db8::1::1')).toBe(false);
     expect(isValidServeHost('2001:db8::zzzz')).toBe(false);
     expect(isValidServeHost('12345::1')).toBe(false);
+  });
+});
+
+describe('isIPAddressZero', () => {
+  test('returns true for IPv4 zero address', () => {
+    expect(isIPAddressZero('0.0.0.0')).toBe(true);
+  });
+
+  test('returns false for IPv4 non-zero address', () => {
+    expect(isIPAddressZero('127.0.0.1')).toBe(false);
+  });
+
+  test('returns true for IPv6 zero address', () => {
+    expect(isIPAddressZero('::')).toBe(true);
+    expect(isIPAddressZero('0:0:0:0:0:0:0:0')).toBe(true);
+    expect(isIPAddressZero('0::')).toBe(true);
+    expect(isIPAddressZero('::0')).toBe(true);
+    expect(isIPAddressZero('0:0::0:0')).toBe(true);
+    expect(isIPAddressZero('0000::0000')).toBe(true);
+  });
+
+  test('returns false for IPv6 non-zero address', () => {
+    expect(isIPAddressZero('2001:db8::2:1')).toBe(false);
   });
 });
