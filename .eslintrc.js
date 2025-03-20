@@ -53,8 +53,8 @@ module.exports = {
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "project": [
-          "./tsconfig.json",
-          "./packages/core/tsconfig.json",
+          "./tsconfig.lint.json",
+          "./packages/core/tsconfig.lint.json",
         ],
       },
       "plugins": ["@typescript-eslint", "lodash"],
