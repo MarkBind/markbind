@@ -248,6 +248,15 @@ describe('Box', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
+  test('with no-page-break option renders correctly', () => {
+    const wrapper = mount(Box, {
+      propsData: {
+        noPageBreak: true,
+      },
+    });
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
   test('with no-border option does not affect border-color', () => {
     const wrapper = mount(Box, {
       propsData: {

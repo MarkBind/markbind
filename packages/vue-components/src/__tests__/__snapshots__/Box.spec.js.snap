@@ -986,3 +986,31 @@ exports[`Box with no-icon option renders correctly 1`] = `
   </div>
 </div>
 `;
+
+exports[`Box with no-page-break option renders correctly 1`] = `
+<div
+  class="alert box-container alert-default no-page-break"
+>
+  <!---->
+   
+  <div
+    class="header-and-body"
+  >
+    <!---->
+     
+    <div
+      class="box-body-wrapper"
+    >
+      <!---->
+       
+      <!---->
+       
+      <div
+        class="contents"
+      />
+       
+      <!---->
+    </div>
+  </div>
+</div>
+`;

@@ -223,6 +223,7 @@ expand-headerless | `Boolean` | `false` | Whether to hide the header text when t
 peek | `Boolean` | `false` | Whether to show part of the content when the Panel is collapsed.
 no-close | `Boolean` | `false` | Whether to show the close button.
 no-switch | `Boolean` | `false` | Whether to show the expand switch.
+no-page-break | `Boolean` | `false`| Prints the panel fully on a single page by moving it to a new page if needed.
 bottom-switch | `Boolean` | `true` | Whether to show an expand switch at the bottom of the panel. Independent of no-switch.
 popup-url | `String` | | The URL that the popup window will navigate to. The URL can be absolute or relative.
 preload | `Boolean` | `false` | Whether the content is loaded immediately from `src`.
