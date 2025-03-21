@@ -102,3 +102,100 @@ The search feature searches the `card` components of the `cardstack` by header, 
 
 Specifing them can help improve searchability of your `cardstack` component!
 </box>
+
+
+<div id="short" class="d-none">
+
+```html
+<cardstack searchable blocks="2">
+    <card header="**Basic Card** :rocket:" tag="Basic Card" keywords="Basic">
+        This is a basic card.<br>
+        Click on this <trigger for="modal:triggerBait" trigger="click">trigger!</trigger>.
+        <modal header="**You clicked on a Trigger!** :rocket:" id="modal:triggerBait">
+          <md>You have just triggered a modal controlled by a trigger called trigger! :rofl:</md>
+        </modal>
+    </card>
+    <card header="A *markdown* header" tag="Markdown, header, Cool" keywords="">
+        You can apply markdown to headers and body elements!
+        <box type="warning">
+        <md>>**Like** *this* [cool](#cardstacks) `text` :cool:</md>
+        </box>
+    </card>
+    <card header="Card with Image" keywords="Super duper cool" tag="Image, Cool">
+      <annotate src="../../images/annotateSampleImage.png" height="500" alt="Sample Image">
+        <a-point x="2%" y="13%" content="I am annotated" header="Annotated point"  opacity="0.2" size="20"/>
+      </annotate>
+    </card>
+    <card header="Disabled card" tag="Disabled" keywords="Disabled" disabled>
+      This card is disabled and will not show
+    </card>
+    <card header="An **interesting** question" tag="Question, Markdown" keywords="">
+      <question type="checkbox" header="Which of the following is correct?" hint="Think out of the box! :fas-box:">
+        <pic src="{{baseUrl}}/images/math-question.jpg" alt="math question image" height="200" class="d-block mx-auto">
+        <small><md>Adapted from [Daily Mail](https://www.dailymail.co.uk/femail/article-4702868/Can-pass-intelligence-test.html)</md>
+        </small>
+        </pic>
+        <q-option correct reason="Multiply the numbers on the left together and add the leftmost number!">
+          96
+        </q-option>
+        <q-option reason="Under normal circumstances, this would be correct.">
+          19
+        </q-option>
+        <q-option correct reason="Simply add the running sum of the results as well!">
+          40
+        </q-option>
+        <q-option>
+          811
+        </q-option>
+      </question>
+    </card>
+</cardstack>
+```
+</div>
+
+<div id="examples" class="d-none">
+
+<cardstack searchable blocks="2">
+    <card header="**Basic Card** :rocket:" tag="Basic Card" keywords="Basic">
+        This is a basic card.<br>
+        Click on this <trigger for="modal:triggerBait" trigger="click">trigger!</trigger>.
+        <modal header="**You clicked on a Trigger!** :rocket:" id="modal:triggerBait">
+          <md>You have just triggered a modal controlled by a trigger called trigger! :rofl:</md>
+        </modal>
+    </card>
+    <card header="A *markdown* header" tag="Markdown, header, Cool" keywords="">
+        You can apply markdown to headers and body elements!
+        <box type="warning">
+        <md>>**Like** *this* [cool](#cardstacks) `text` :cool:</md>
+        </box>
+    </card>
+    <card header="Card with Image" keywords="Super duper cool" tag="Image, Cool">
+      <annotate src="../../images/annotateSampleImage.png" height="500" alt="Sample Image">
+        <a-point x="2%" y="13%" content="I am annotated" header="Annotated point"  opacity="0.2" size="20"/>
+      </annotate>
+    </card>
+    <card header="Disabled card" tag="Disabled" keywords="Disabled" disabled>
+      This card is disabled and will not show
+    </card>
+    <card header="An **interesting** question" tag="Question, Markdown" keywords="">
+      <question type="checkbox" header="Which of the following is correct?" hint="Think out of the box! :fas-box:">
+        <pic src="{{baseUrl}}/images/math-question.jpg" alt="math question image" height="200" class="d-block mx-auto">
+        <small><md>Adapted from [Daily Mail](https://www.dailymail.co.uk/femail/article-4702868/Can-pass-intelligence-test.html)</md>
+        </small>
+        </pic>
+        <q-option correct reason="Multiply the numbers on the left together and add the leftmost number!">
+          96
+        </q-option>
+        <q-option reason="Under normal circumstances, this would be correct.">
+          19
+        </q-option>
+        <q-option correct reason="Simply add the running sum of the results as well!">
+          40
+        </q-option>
+        <q-option>
+          811
+        </q-option>
+      </question>
+    </card>
+</cardstack>
+</div>
