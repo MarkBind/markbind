@@ -72,7 +72,7 @@ The CLI application uses and further builds on the interface exposed by the core
 
 ### MarkBind core-web library
 
-This package houses the various frontend assets used in the core package. It bundles all the essential client-side assets and UI logic needed for rendering and enhancing the generated static sites. It also builds a Node-compatible bundle of Vue components and app setup logic which is used by MarkBind's server-side renderer to pre-render pages during the build process, before hydration.
+This package houses the various frontend assets used in the core package. It bundles all the essential client-side assets and UI logic needed for rendering and enhancing the generated static sites. It also builds a Node-compatible bundle of Vue components and app setup logic which is used by MarkBind's server-side renderer to pre-render pages during the build process.
 
 **External Assets include:**
 * Vue.js runtime (client side)
