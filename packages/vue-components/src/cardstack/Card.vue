@@ -68,8 +68,10 @@ export default {
       return `${100 / block}%`;
     },
     computedBlock() {
+      const allowedBlocks = [6, 4, 3, 2, 1];
       const block = this.$parent.$props.blocks;
-      return Math.floor(12 / block);
+      const parseBlock = allowedBlocks.find(value => value <= block) || 1;
+      return Math.floor(12 / parseBlock);
     },
     computeDisabled() {
       const isEmptyContent = this.$slots.header === undefined && this.$slots.default === undefined;
@@ -101,7 +103,7 @@ export default {
     },
     computeKeywords() {
       const parseKeywords = this.keywords.split(',').map(keyword => keyword.trim());
-      return parseKeywords.join(',');
+      return parseKeywords.join(', ');
     },
     hasTag() {
       return !!this.tag;

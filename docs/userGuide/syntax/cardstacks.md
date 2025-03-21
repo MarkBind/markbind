@@ -86,7 +86,7 @@
 `cardstack`:
 Name | Type | Default | Description
 --- | --- | --- | ---
-blocks | `String` | `2` | Number of `card` columns per row.<br> Supports: `1`, `2`, `4`, `6`
+blocks | `String` | `2` | Number of `card` columns per row.<br> Supports: `1`, `2`, `3`, `4`, `6`
 searchable | `Boolean` | `false` | Whether the card stack is searchable.
 
 `card`:
