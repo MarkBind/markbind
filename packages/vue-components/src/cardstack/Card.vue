@@ -22,7 +22,7 @@
           <span
             v-for="(key, index) in exposedTags"
             :key="index"
-            :class="['badge', key[1].badgeColor, tag-container]"
+            :class="['badge', key[1].badgeColor, 'tag-container']"
           >
             {{ key[0] }}
           </span>
