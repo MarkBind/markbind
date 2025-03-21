@@ -212,6 +212,9 @@ export class NodeProcessor {
       case 'tooltip':
         this.mdAttributeRenderer.processTooltip(node);
         break;
+      case 'card':
+        this.mdAttributeRenderer.processCardAttributes(node);
+        break;
       case 'modal':
         this.processModal(node);
         break;
