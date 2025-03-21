@@ -16,12 +16,16 @@
         <span>Tags:</span>
         <div class="tag-badge-container">
           <span
-            v-for="(tag, index) in tags"
+            v-for="(key, index) in tags"
             :key="index"
-            :class="['badge', tag[1]]"
-            @click="update"
+            :class="['badge', key[1].badgeColor]"
+            @click="updateTag(key[0])"
           >
-            {{ tag[0] }}
+            {{ key[0] }}
+            <span class="badge bg-light text-dark tag-indicator">
+              <span v-if="computeShowTag(key[0])">✓</span>
+              <span v-else>&nbsp;&nbsp;&nbsp;</span>
+            </span>
           </span>
         </div>
       </div>
@@ -55,24 +59,29 @@ export default {
   },
   methods: {
     collectTags() {
-      // Retrieves all child tags and returns a unique set of tags with style
-      const tagSet = new Set();
+      // Generate tag mapping between unique tags and badge colors
+      const tagMap = new Map();
       let index = 0;
+
       this.$children.forEach((child) => {
-        if (child.$props.disabled) {
-          return;
-        }
+        if (child.$props.disabled) return;
+
         child.computeTags.forEach((tag) => {
-          if (!tagSet.has(tag)) {
-            const badgeColor = this.badgeColors[index % this.badgeColors.length];
-            tagSet.add([tag, badgeColor]);
+          // "tag" -> {badgeColor, children : [child], disableTag: false}
+          if (!tagMap.has(tag)) {
+            const color = this.badgeColors[index % this.badgeColors.length];
+            const tagMapping = { badgeColor: color, children: [child] };
+            tagMap.set(tag, tagMapping);
             index += 1;
+          } else {
+            tagMap.get(tag).children.push(child);
           }
         });
       });
-      return Array.from(tagSet);
+
+      return Array.from(tagMap.entries());
     },
-    collectPrimitiveData() {
+    collectSearchData() {
       const primitiveMap = new Map();
 
       this.$children.forEach((child) => {
@@ -87,14 +96,13 @@ export default {
       return primitiveMap;
     },
     update() {
-      // Calculated value at time of search
       const regexes = this.value.split(' ')
         .filter(searchKeyword => searchKeyword !== '')
         .map(searchKeyword => searchKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
         .map(searchKeyword => new RegExp(searchKeyword, 'ig'));
 
-      this.primitiveValues.forEach((child, searchTarget) => {
-        if (child.$props.disabled) {
+      this.searchDataValues.forEach((child, searchTarget) => {
+        if (child.$props.disabled || child.$data.disableTag) {
           return;
         }
 
@@ -113,11 +121,38 @@ export default {
         });
       });
     },
+    updateTag(tagName) {
+      if (this.selectedTags.includes(tagName)) {
+        this.selectedTags = this.selectedTags.filter(tag => tag !== tagName);
+      } else {
+        this.selectedTags.push(tagName);
+      }
+
+      if (this.selectedTags.length === 0) {
+        this.$children.forEach((child) => {
+          if (child.$props.disabled) return;
+
+          child.$data.disableTag = false;
+        });
+      } else {
+        this.$children.forEach((child) => {
+          if (child.$props.disabled) return;
+
+          const tags = child.computeTags;
+          const containsActiveTag = tags.some(tag => this.selectedTags.includes(tag));
+          child.$data.disableTag = !containsActiveTag;
+        });
+      }
+    },
+    computeShowTag(tagName) {
+      return this.selectedTags.includes(tagName);
+    },
   },
   data() {
     return {
       value: '',
       tags: [],
+      selectedTags: [],
       badgeColors: [
         'bg-primary',
         'bg-secondary',
@@ -128,13 +163,13 @@ export default {
         'bg-light text-dark',
         'bg-dark',
       ],
-      primitiveValues: new Map(),
+      searchDataValues: new Map(),
     };
   },
   mounted() {
     this.isMounted = true;
     this.tags = this.collectTags();
-    this.primitiveValues = this.collectPrimitiveData();
+    this.searchDataValues = this.collectSearchData();
   },
 };
 
@@ -205,4 +240,8 @@ export default {
         cursor: pointer;
     }
 
+    .tag-indicator {
+        width: 18px;
+        height: 100%;
+    }
 </style>

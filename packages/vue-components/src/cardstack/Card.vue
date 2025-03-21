@@ -17,11 +17,11 @@
         <br />
         <div v-if="hasTag" class="tag-container">
           <span
-            v-for="(cardTag, index) in exposedTags"
+            v-for="(key, index) in exposedTags"
             :key="index"
-            :class="['badge', cardTag[1]]"
+            :class="['badge', key[1].badgeColor]"
           >
-            {{ cardTag[0] }}
+            {{ key[0] }}
           </span>
         </div>
       </div>
@@ -54,6 +54,8 @@ export default {
       exposedTags: [],
       headerText: '',
       hasHeader: true,
+      showTag: true,
+      disableTag: false,
     };
   },
   components: {
@@ -69,13 +71,14 @@ export default {
     },
     computeDisabled() {
       const isEmptyContent = this.$slots.header === undefined && this.$slots.default === undefined;
-      return this.disabled || this.disableCard || isEmptyContent;
+      return this.disabled || this.disableCard || isEmptyContent || this.disableTag;
     },
     computeTags() {
       const tagSet = new Set();
       if (this.tag !== '') {
         this.tag.split(',')
           .map(tag => tag.trim())
+          .filter(tag => tag !== '')
           .forEach(tag => tagSet.add(tag));
       }
       return this.tag !== '' ? Array.from(tagSet) : [];
