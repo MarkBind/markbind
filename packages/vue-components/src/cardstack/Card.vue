@@ -15,11 +15,14 @@
           <slot></slot>
         </div>
         <br />
-        <div v-if="hasTag" class="tag-container">
+        <div v-if="hasTag" class="key-container">
+          <span class="keyword-container">
+            <em>{{ computeKeywords }}</em>
+          </span>
           <span
             v-for="(key, index) in exposedTags"
             :key="index"
-            :class="['badge', key[1].badgeColor]"
+            :class="['badge', key[1].badgeColor, tag-container]"
           >
             {{ key[0] }}
           </span>
@@ -54,7 +57,6 @@ export default {
       exposedTags: [],
       headerText: '',
       hasHeader: true,
-      showTag: true,
       disableTag: false,
     };
   },
@@ -97,8 +99,9 @@ export default {
       const allTags = this.$parent.collectTags();
       return allTags.filter(tag => this.computeTags.includes(tag[0]));
     },
-    computedKeywords() {
-      return this.keywords ? this.keywords.split(',').map(keyword => keyword.trim()) : [];
+    computeKeywords() {
+      const parseKeywords = this.keywords.split(',').map(keyword => keyword.trim());
+      return parseKeywords.join(',');
     },
     hasTag() {
       return !!this.tag;
@@ -126,16 +129,20 @@ export default {
         height: 100%;
     }
 
-    .tag-container {
+    .key-container {
         margin-top: auto;
         width: 100%;
         height: auto;
-        display: flex;
         display: inline-block;
         overflow: hidden;
     }
 
-    .tag-container > span {
+    .keyword-container {
+        color: grey;
+        font-size: 12px;
+    }
+
+    .key-container > span {
         margin-right: 5px;
     }
 </style>

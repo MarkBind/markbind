@@ -165,8 +165,17 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
             <br />
              
             <div
-              class="tag-container"
-            />
+              class="key-container"
+            >
+              <span
+                class="keyword-container"
+              >
+                <em>
+                  Body
+                </em>
+              </span>
+               
+            </div>
           </div>
         </div>
       </div>
@@ -194,8 +203,16 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
             <br />
              
             <div
-              class="tag-container"
+              class="key-container"
             >
+              <span
+                class="keyword-container"
+              >
+                <em>
+                  Body
+                </em>
+              </span>
+               
               <span
                 class="badge bg-primary"
               >

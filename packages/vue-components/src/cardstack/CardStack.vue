@@ -86,9 +86,9 @@ export default {
 
       this.$children.forEach((child) => {
         const tags = child.computeTags;
-        const keywords = child.computedKeywords;
+        const keywords = child.computeKeywords;
         const header = child.headerText;
-        const searchTarget = tags.join(' ') + keywords.join(' ') + header;
+        const searchTarget = tags.join(' ') + keywords + header;
 
         primitiveMap.set(searchTarget, child);
       });
