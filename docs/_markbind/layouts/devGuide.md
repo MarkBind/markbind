@@ -16,6 +16,7 @@
   * [Implement a New Feature]({{baseUrl}}/devGuide/bootcamp/implementAFeature.html)
 * Development :expanded:
   * [Setting up]({{baseUrl}}/devGuide/development/settingUp.html)
+  * [Exploring Codebase]({{baseUrl}}/devGuide/development/exploringCodebase.html)
   * [Workflow]({{baseUrl}}/devGuide/development/workflow.html)
   * [Writing Components]({{baseUrl}}/devGuide/development/writingComponents.html)
   * [Writing Plugins]({{baseUrl}}/devGuide/development/writingPlugins.html)
