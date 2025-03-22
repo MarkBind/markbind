@@ -18,13 +18,32 @@ This page provides an overview of how Vue is integrated into MarkBind's architec
 Vue is the frontend framework used to power MarkBind’s dynamic UI components and client-side interactivity. Vue components are rendered both on the server and browser depending on the context:
 
 * **Server-side Rendering (SSR)**: Used for better performance, SEO, and to reduce Flash-of-Unstyled-Content (FOUC).
-* **Client-side Rendering (CSR)**: Used to **hydrate** or load additional content dynamically, enabling interactivity after the page loads.
+* **Client-side Hydration**: After the server-rendered HTML is delivered to the browser, the Vue app takes over to hydrate the static HTML. This process involves attaching event listeners and enabling interactivity, ensuring the page becomes fully interactive.
+* **Client-side Rendering (CSR)**: Used to load additional content dynamically, enabling interactivity after the page loads. For example, components like `<panel>` with `preload='false'` are dynamically loaded via CSR.
+
+<box type="info">
 
 For more details on how MarkBind uses Vue for server-side rendering and hydration (and the common caveats developers should be aware of, including hydration issues), refer to the [Server Side Rendering](serverSideRendering.md) page.
+</box>
 
 ## Custom Vue Components
 
-MarkBind uses a library of custom Vue components, which are a mix of Bootstrap-based components and those tailored for educational websites. These components are designed to meet the specific needs of MarkBind's use cases. For more details, refer to the [UI components library](projectStructure.md#ui-components-library).
+MarkBind uses a library of custom Vue components, which are a mix of Bootstrap-based components and those tailored for educational websites. These components are designed to meet the specific needs of MarkBind's use cases. For a list of some components and directives added for MarkBind's use, refer to the [UI components library](projectStructure.md#ui-components-library).
+
+Vue components are particularly useful for implementing complex features and interactivity that go beyond what static HTML and Markdown can provide. For details implementing a MarkBind component as a Vue component, refer [here](../development/writingComponents.md#vue-components).
+
+### What Vue is Used For
+
+Vue components in MarkBind are used for:
+
+* **Encapsulating Complex Behavior**: Vue components allow for reusable, self-contained logic and interactivity.
+
+* **Dynamic Content Loading**: Components like `<panel>` with `preload='false'` use Vue to dynamically load content after the page is rendered.
+
+* **Interactive Features**: Components like modals, quizzes, and tooltips rely on Vue for their interactive behavior.
+
+* **Integration with External Libraries**: Vue components can wrap external libraries (e.g., Vue Final Modal for modals) to provide a seamless user experience.
+
 
 ## Markbind's Server-Side Rendering (SSR) using Vue
 
@@ -34,7 +53,7 @@ MarkBind leverages [Server-side Rendering (SSR)](https://vuejs.org/guide/scaling
 
 MarkBind uses Server-side Rendering (SSR) to pre-render page content into static HTML during the build process. Here is an overview of the workflow during the build process:
 
-1. **Server-side Compilation of Render Function**: MarkBind takes the HTML page content and compiles it into a render function using the `compileTemplate` function from [`vue/compiler-sfc`](https://www.npmjs.com/package/@vue/compiler-sfc). This render function is saved as a JavaScript file  (e.g., `<page-name>.page-vue-render.js`) in the same directory as the HTML file. This script file is served alongside the static HTML and injected into the final page template, for the purpose of hydration. It is also directly used in SSR to generate the static HTML.
+1. **Server-side Compilation of Render Function**: MarkBind takes the final HTML page content (product of [Content Processing Flow](architecture.md#content-processing-flow)) and compiles it into a render function using the `compileTemplate` function from [`vue/compiler-sfc`](https://www.npmjs.com/package/@vue/compiler-sfc). This render function is saved as a JavaScript file  (e.g., `<page-name>.page-vue-render.js`) in the same directory as the HTML file. This script file is served alongside the static HTML and injected into the final page template, for the purpose of hydration. It is also directly used in SSR to generate the static HTML.
 
 
 1. **Server-side Render of HTML**: On the server, MarkBind initializes a separate Vue instance solely for SSR. It registers the custom Vue components and directives bundled by core-web onto this Vue instance. The Vue instance uses the render function previously compiled to generate static HTML via the `renderToString` function from [`vue/server-renderer`](https://www.npmjs.com/package/@vue/server-renderer).
@@ -52,7 +71,10 @@ In specific cases, MarkBind uses **Client-side Rendering (CSR)** exclusively to 
 
 ## Detailed Vue App Setup and Execution Flow
 
-> This section provides a deeper look into how MarkBind sets up and initializes the Vue application on the client side. It is intended for developers who are interested in understanding the underlying execution flow in more detail.
+<box type="tip" seamless>
+
+This section provides a deeper look into how MarkBind sets up and initializes the Vue application on the client side. It is intended for developers who are interested in understanding the underlying execution flow in more detail.
+</box>
 
 The core Vue app is initialized in `core-web/src/index.js`, which serves as the entry point for the client-side Vue application. This file is part of the `packages/core-web/` library — a client-side bundle generated by MarkBind. It contains initialization scripts, the bundled UI components library, and shared logic used across all rendered sites. This bundle is included in the final site HTML and executed in the web browser when a user visits a generated MarkBind site.
 
