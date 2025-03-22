@@ -24,6 +24,7 @@
 * Design :expanded:
   * [Project Structure]({{baseUrl}}/devGuide/design/projectStructure.html)
   * [Architecture]({{baseUrl}}/devGuide/design/architecture.html)
+  * [Vue Integration]({{baseUrl}}/devGuide/design/vueIntegration.html)
   * [Server Side Rendering]({{baseUrl}}/devGuide/design/serverSideRendering.html)
 * GitHub Actions
   * [Overview]({{baseUrl}}/devGuide/githubActions/overview.html)

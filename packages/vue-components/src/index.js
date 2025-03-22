@@ -1,7 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Dropdown, Tooltip } from 'floating-vue';
+import { vfmPlugin } from 'vue-final-modal';
+import PortalVue from 'portal-vue';
 import 'floating-vue/dist/style.css';
-/* eslint-enable import/no-extraneous-dependencies */
 
 // Custom / modified components and components from yuche/vue-strap
 import box from './Box.vue';
@@ -71,19 +72,20 @@ const directives = {
   closeable,
 };
 
-function install(Vue) {
-  Object.keys(directives).forEach((key) => {
-    Vue.directive(key, directives[key]);
-  });
+// eslint-disable-next-line no-unused-vars
+function install(app, options) {
   Object.keys(components).forEach((key) => {
-    Vue.component(key, components[key]);
+    app.component(key, components[key]);
   });
+  Object.keys(directives).forEach((key) => {
+    app.directive(key, directives[key]);
+  });
+  app.use(vfmPlugin);
+  app.use(PortalVue);
 }
 
 const plugin = { install };
 
 export default {
   plugin,
-  components,
-  directives,
 };

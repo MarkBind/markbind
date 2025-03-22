@@ -1,7 +1,7 @@
 module.exports = {
   'extends': [
     '../../.eslintrc.js',
-    'plugin:vue/recommended',
+    'plugin:vue/vue3-recommended',
   ],
   'globals': {
     'Vue': 'readonly',
@@ -19,5 +19,6 @@ module.exports = {
     ],
     'vue/max-attributes-per-line': ['error', { 'singleline': 2 }],
     'vue/order-in-components': 'off',
+    'vue/multi-word-component-names': 'off',
   },
 };

@@ -39,7 +39,8 @@ Here is a short list of questions to check your understanding of Vue:
 
 If there are any doubts regarding the questions above, here are some good resources to refer to:
 
-* [Vue Official Documentation](https://vuejs.org/v2/guide)
+* [Vue 3 Official Documentation](https://vuejs.org/guide/introduction)
+* [Vue Server-Side Rendering (SSR)](https://vuejs.org/guide/scaling-up/ssr.html#server-side-rendering-ssr)
 * [Evan You - Inside Vue Components - Laracon EU 2017](https://www.youtube.com/watch?v=wZN_FtZRYC8&ab_channel=LaraconEU)
 </box>
 
