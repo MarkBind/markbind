@@ -232,8 +232,8 @@ There are **two ways** you can specify a color:
 Note:
 1. Do note that the color value must be a **valid CSS background style**, limited to **color names** and **hex codes**.
 2. A default color will be used if the color is not specified
-  1. `#e6e6fa` for light theme
-  2. `#000000` for dark theme
+    - `#e6e6fa` for light theme
+    - `#000000` for dark theme
 
 Markbind provides support for the following shorthands
 
