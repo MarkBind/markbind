@@ -106,23 +106,23 @@ export class HighlightRule {
             color: this.color,
           });
         } else if (lineNumber === startLine || lineNumber === endLine) {
-            // Apply the rule component for the start or end line
-            const appliedRule = lineNumber === startLine ? startRule : endRule;
+          // Apply the rule component for the start or end line
+          const appliedRule = lineNumber === startLine ? startRule : endRule;
 
-            if (appliedRule.isSlice && appliedRule.bounds.length > 0) {
-              // If the rule has bounds, it's a PartialText highlight
-              results.push({
-                highlightType: HIGHLIGHT_TYPES.PartialText,
-                bounds: appliedRule.bounds,
-                color: this.color,
-              });
-            } else {
-              results.push({
-                highlightType: HIGHLIGHT_TYPES.WholeText,
-                bounds: null,
-                color: this.color,
-              });
-            }
+          if (appliedRule.isSlice && appliedRule.bounds.length > 0) {
+            // If the rule has bounds, it's a PartialText highlight
+            results.push({
+              highlightType: HIGHLIGHT_TYPES.PartialText,
+              bounds: appliedRule.bounds,
+              color: this.color,
+            });
+          } else {
+            results.push({
+              highlightType: HIGHLIGHT_TYPES.WholeText,
+              bounds: null,
+              color: this.color,
+            });
+          }
         } else {
           // For lines within the range (not at the boundaries), apply WholeText
           results.push({
@@ -138,12 +138,16 @@ export class HighlightRule {
     this.ruleComponents.forEach((ruleComponent) => {
       if (ruleComponent.compareLine(lineNumber) === 0) {
         if (ruleComponent.isSlice) {
-          const highlightType = ruleComponent.isUnboundedSlice()
-            ? HIGHLIGHT_TYPES.WholeLine
-            : ruleComponent.bounds.length > 0
-            ? HIGHLIGHT_TYPES.PartialText
-            : HIGHLIGHT_TYPES.WholeText;
-    
+          let highlightType;
+
+          if (ruleComponent.isUnboundedSlice()) {
+            highlightType = HIGHLIGHT_TYPES.WholeLine;
+          } else if (ruleComponent.bounds.length > 0) {
+            highlightType = HIGHLIGHT_TYPES.PartialText;
+          } else {
+            highlightType = HIGHLIGHT_TYPES.WholeText;
+          }
+
           results.push({
             highlightType,
             bounds: ruleComponent.isUnboundedSlice() ? null : ruleComponent.bounds,
@@ -158,7 +162,6 @@ export class HighlightRule {
         }
       }
     });
-    
 
     return results;
   }

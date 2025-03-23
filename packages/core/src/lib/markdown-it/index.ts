@@ -169,6 +169,8 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
             boundsWithColors.push({ bounds: bound, color: highlightColor });
           });
         }
+
+        return undefined;
       });
     });
 

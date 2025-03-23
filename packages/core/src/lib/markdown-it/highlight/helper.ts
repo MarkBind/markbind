@@ -6,9 +6,8 @@ export function splitCodeAndIndentation(code: string) {
 }
 
 export function collateAllIntervalsWithColors(
-  boundsWithColors: Array<{ bounds: [number, number], 
-  color: string }>
-  ) {
+  boundsWithColors: Array<{ bounds: [number, number], color: string }>,
+) {
   boundsWithColors.sort((a, b) => a.bounds[0] - b.bounds[0]);
 
   const merged: Array<{ bounds: [number, number], color: string }> = [];

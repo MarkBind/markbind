@@ -23,10 +23,10 @@ interface TraverseLinePartData {
  * @returns  An object that contains data to be used by the node's parent.
  */
 function traverseLinePart(
-  node: NodeOrText, 
-  hlStart: number, 
-  hlEnd: number, 
-  color?: string
+  node: NodeOrText,
+  hlStart: number,
+  hlEnd: number,
+  color?: string,
 ): TraverseLinePartData {
   const resData: TraverseLinePartData = {
     numCharsTraversed: 0,
@@ -113,7 +113,7 @@ function traverseLinePart(
         return;
       }
       // Apply the 'highlighted' class if no color is provided
-      child.attribs.class = child.attribs.class 
+      child.attribs.class = child.attribs.class
         ? `${child.attribs.class} highlighted`
         : 'highlighted';
     }
@@ -129,7 +129,7 @@ function traverseLinePart(
       const cleaned = util.unescapeHtml(child.data);
       const split = [cleaned.substring(0, start), cleaned.substring(start, end), cleaned.substring(end)];
       const [pre, highlighted, post] = split.map(md.utils.escapeHtml);
-      
+
       if (color) {
         const newElement = cheerio(`
           <span>
@@ -139,7 +139,7 @@ function traverseLinePart(
               </span>
             ${post}
           </span>`);
-        cheerio(child).replaceWith(newElement);    
+        cheerio(child).replaceWith(newElement);
       } else {
         const newElement = cheerio(`
           <span>
@@ -168,7 +168,7 @@ export function highlightCodeBlock(node: MbNode) {
   if (!node.children) {
     return;
   }
-  const codeNode = node.children.find((c) => c.name === 'code');
+  const codeNode = node.children.find(c => c.name === 'code');
   if (!codeNode || (!codeNode.children)) {
     return;
   }
