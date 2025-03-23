@@ -109,8 +109,6 @@
 /* MarkBind-customized styles */
 .hljs span.highlighted {
     background: #000000;
-    padding: 0px 2px;
-    border-radius: 5px;
 }
 
 .hljs.inline {

@@ -2,6 +2,7 @@ import cheerio from 'cheerio';
 import has from 'lodash/has';
 import { NodeOrText, MbNode } from '../utils/node';
 
+import md from '../lib/markdown-it';
 import * as util from '../lib/markdown-it/utils';
 
 const _ = {
@@ -102,8 +103,8 @@ function traverseLinePart(node: NodeOrText, hlStart: number, hlEnd: number, colo
       child.attribs = child.attribs ?? {};
       if (color) {
         child.attribs.style = child.attribs.style 
-          ? `${child.attribs.style} background-color: ${color};  border-radius: 5px` 
-          : `background-color: ${color}; padding 0px 2px; border-radius: 5px`;
+          ? `${child.attribs.style} background-color: ${color};` 
+          : `background-color: ${color};`;
         return;
       } else {
         // Apply the 'highlighted' class if no color is provided
@@ -115,25 +116,19 @@ function traverseLinePart(node: NodeOrText, hlStart: number, hlEnd: number, colo
 
     if (!data.highlightRange) {
       if (color) {
-        cheerio(child).wrap(`<span style="background-color: ${color}; padding: 0px 2px; border-radius: 5px;"></span>`);
+        cheerio(child).wrap(`<span style="background-color: ${color};"></span>`);
       } else {
         cheerio(child).wrap(`<span class="highlighted"></span>`);
       }
     } else {
-      // const [start, end] = data.highlightRange;
-      // const cleaned = util.unescapeHtml(child.data);
-      // const split = [cleaned.substring(0, start), cleaned.substring(start, end), cleaned.substring(end)];
-      // const [pre, highlighted, post] = split.map(md.utils.escapeHtml);
       const [start, end] = data.highlightRange;
       const cleaned = util.unescapeHtml(child.data);
-      const pre = cleaned.substring(0, start); // Text before the highlight
-      const highlighted = cleaned.substring(start, end); // Highlighted text (including spaces)
-      const post = cleaned.substring(end); // Text after the highlight
-      console.log(`start is ${start} and end is ${end} pre is ${pre} highlighted is ${highlighted} post is ${post}`)
+      const split = [cleaned.substring(0, start), cleaned.substring(start, end), cleaned.substring(end)];
+      const [pre, highlighted, post] = split.map(md.utils.escapeHtml);
       
       if (color) {
-        const newElement = cheerio(`<span>${pre}<span style="display: inline-block; background-color: ${color}; padding: 0px 2px; border-radius: 5px;">${highlighted}</span>${post}</span>`);
-        cheerio(child).replaceWith(newElement);
+        const newElement = cheerio(`<span>${pre}<span style="background-color: ${color};">${highlighted}</span>${post}</span>`);
+        cheerio(child).replaceWith(newElement);    
       } else {
         const newElement = cheerio(`<span>${pre}<span class="highlighted">${highlighted}</span>${post}</span>`);
         cheerio(child).replaceWith(newElement);
