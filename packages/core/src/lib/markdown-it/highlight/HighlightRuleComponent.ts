@@ -9,7 +9,11 @@ export class HighlightRuleComponent {
   lineNumber: number;
   isSlice: boolean;
   bounds: Array<[number, number]>;
-  constructor(lineNumber: number, isSlice: boolean = false, bounds: Array<[number, number]> = [], color?: string) {
+  constructor(
+    lineNumber: number, 
+    isSlice: boolean = false, 
+    bounds: Array<[number, number]> = [], 
+  ) {
     this.lineNumber = lineNumber;
     this.isSlice = isSlice;
     this.bounds = bounds;
@@ -23,7 +27,6 @@ export class HighlightRuleComponent {
   }
 
   static parseRuleComponent(compString: string, lineNumberOffset: number, lines: string[]) {
-    
     // Match line-part syntax
     const linepartMatch = compString.match(LINEPART_REGEX);
     if (linepartMatch) {

@@ -5,18 +5,20 @@ export function splitCodeAndIndentation(code: string) {
   return [indents, content];
 }
 
-export function collateAllIntervalsWithColors(boundsWithColors: Array<{ bounds: [number, number], color: string }>) {
+export function collateAllIntervalsWithColors(
+  boundsWithColors: Array<{ bounds: [number, number], 
+  color: string }>
+  ) {
   boundsWithColors.sort((a, b) => a.bounds[0] - b.bounds[0]);
 
   const merged: Array<{ bounds: [number, number], color: string }> = [];
   let current = boundsWithColors[0];
 
-  for (let i = 1; i < boundsWithColors.length; i++) {
+  for (let i = 1; i < boundsWithColors.length; i += 1) {
     const next = boundsWithColors[i];
-    if (next.bounds[0] <= (current.bounds[1] - 1)) { 
+    if (next.bounds[0] <= (current.bounds[1] - 1)) {
       // merge if overlap
       current.bounds[1] = Math.max(current.bounds[1], next.bounds[1]);
-      current.color = current.color;
     } else {
       merged.push(current);
       current = next;

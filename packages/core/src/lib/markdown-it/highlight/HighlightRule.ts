@@ -8,14 +8,14 @@ export enum HIGHLIGHT_TYPES {
 
 // Define color mappings
 const COLOR_MAPPING: { [key: string]: string } = {
-  'r': 'red',
-  'g': 'green',
-  'b': 'blue',
-  'c': 'cyan',
-  'm': 'magenta',
-  'y': 'yellow',
-  'k': 'black',
-  'w': 'white',
+  r: 'red',
+  g: 'green',
+  b: 'blue',
+  c: 'cyan',
+  m: 'magenta',
+  y: 'yellow',
+  k: 'black',
+  w: 'white',
 };
 
 export class HighlightRule {
@@ -90,13 +90,13 @@ export class HighlightRule {
     color?: string
   }[] {
     const results = [];
-  
+
     // Handle line range logic if this is a line range
     if (this.isLineRange()) {
       const [startRule, endRule] = this.ruleComponents;
       const startLine = startRule.lineNumber;
       const endLine = endRule.lineNumber;
-  
+
       if (lineNumber >= startLine && lineNumber <= endLine) {
         // If any component is an unbounded slice, highlight the whole line
         if (startRule.isUnboundedSlice() || endRule.isUnboundedSlice()) {
@@ -105,11 +105,10 @@ export class HighlightRule {
             bounds: null,
             color: this.color,
           });
-        } else {
-          if (lineNumber === startLine || lineNumber === endLine) {
+        } else if (lineNumber === startLine || lineNumber === endLine) {
             // Apply the rule component for the start or end line
             const appliedRule = lineNumber === startLine ? startRule : endRule;
-  
+
             if (appliedRule.isSlice && appliedRule.bounds.length > 0) {
               // If the rule has bounds, it's a PartialText highlight
               results.push({
@@ -124,46 +123,8 @@ export class HighlightRule {
                 color: this.color,
               });
             }
-          } else {
-            // For lines within the range (not at the boundaries), apply WholeText
-            results.push({
-              highlightType: HIGHLIGHT_TYPES.WholeText,
-              bounds: null,
-              color: this.color,
-            });
-          }
-        }
-      }
-    }
-  
-    // Iterate over all rule components to find matches for the current line
-    for (const ruleComponent of this.ruleComponents) {
-      if (ruleComponent.compareLine(lineNumber) === 0) {
-        if (ruleComponent.isSlice) {
-          if (ruleComponent.isUnboundedSlice()) {
-            // Unbounded slice: WholeLine highlight
-            results.push({
-              highlightType: HIGHLIGHT_TYPES.WholeLine,
-              bounds: null,
-              color: this.color,
-            });
-          } else if (ruleComponent.bounds.length > 0) {
-            // Bounded slice: PartialText highlight
-            results.push({
-              highlightType: HIGHLIGHT_TYPES.PartialText,
-              bounds: ruleComponent.bounds,
-              color: this.color,
-            });
-          } else {
-            // No bounds: WholeText highlight
-            results.push({
-              highlightType: HIGHLIGHT_TYPES.WholeText,
-              bounds: null,
-              color: this.color,
-            });
-          }
         } else {
-          // Not a slice: WholeText highlight
+          // For lines within the range (not at the boundaries), apply WholeText
           results.push({
             highlightType: HIGHLIGHT_TYPES.WholeText,
             bounds: null,
@@ -172,7 +133,33 @@ export class HighlightRule {
         }
       }
     }
-  
+
+    // Iterate over all rule components to find matches for the current line
+    this.ruleComponents.forEach((ruleComponent) => {
+      if (ruleComponent.compareLine(lineNumber) === 0) {
+        if (ruleComponent.isSlice) {
+          const highlightType = ruleComponent.isUnboundedSlice()
+            ? HIGHLIGHT_TYPES.WholeLine
+            : ruleComponent.bounds.length > 0
+            ? HIGHLIGHT_TYPES.PartialText
+            : HIGHLIGHT_TYPES.WholeText;
+    
+          results.push({
+            highlightType,
+            bounds: ruleComponent.isUnboundedSlice() ? null : ruleComponent.bounds,
+            color: this.color,
+          });
+        } else {
+          results.push({
+            highlightType: HIGHLIGHT_TYPES.WholeText,
+            bounds: null,
+            color: this.color,
+          });
+        }
+      }
+    });
+    
+
     return results;
   }
 

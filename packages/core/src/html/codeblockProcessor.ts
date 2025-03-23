@@ -22,7 +22,12 @@ interface TraverseLinePartData {
  * @param hlEnd The highlight end position, relative to the start of the line part
  * @returns  An object that contains data to be used by the node's parent.
  */
-function traverseLinePart(node: NodeOrText, hlStart: number, hlEnd: number, color?: string): TraverseLinePartData {
+function traverseLinePart(
+  node: NodeOrText, 
+  hlStart: number, 
+  hlEnd: number, 
+  color?: string
+): TraverseLinePartData {
   const resData: TraverseLinePartData = {
     numCharsTraversed: 0,
     shouldParentHighlight: false,
@@ -88,7 +93,7 @@ function traverseLinePart(node: NodeOrText, hlStart: number, hlEnd: number, colo
     return resData;
   }
 
-  /*needed.
+  /*
    * For text nodes, it is trickier, as we have to wrap the text inside a <span> first.
    * Essentially, we have to change the text node to become a tag node.
    */
@@ -102,16 +107,15 @@ function traverseLinePart(node: NodeOrText, hlStart: number, hlEnd: number, colo
     if (child.type === 'tag') {
       child.attribs = child.attribs ?? {};
       if (color) {
-        child.attribs.style = child.attribs.style 
-          ? `${child.attribs.style} background-color: ${color};` 
+        child.attribs.style = child.attribs.style
+          ? `${child.attribs.style} background-color: ${color};`
           : `background-color: ${color};`;
         return;
-      } else {
-        // Apply the 'highlighted' class if no color is provided
-        child.attribs.class = child.attribs.class 
-          ? `${child.attribs.class} highlighted`
-          : 'highlighted';
       }
+      // Apply the 'highlighted' class if no color is provided
+      child.attribs.class = child.attribs.class 
+        ? `${child.attribs.class} highlighted`
+        : 'highlighted';
     }
 
     if (!data.highlightRange) {
@@ -127,10 +131,24 @@ function traverseLinePart(node: NodeOrText, hlStart: number, hlEnd: number, colo
       const [pre, highlighted, post] = split.map(md.utils.escapeHtml);
       
       if (color) {
-        const newElement = cheerio(`<span>${pre}<span style="background-color: ${color};">${highlighted}</span>${post}</span>`);
+        const newElement = cheerio(`
+          <span>
+            ${pre}
+              <span style="background-color: ${color};">
+                ${highlighted}
+              </span>
+            ${post}
+          </span>`);
         cheerio(child).replaceWith(newElement);    
       } else {
-        const newElement = cheerio(`<span>${pre}<span class="highlighted">${highlighted}</span>${post}</span>`);
+        const newElement = cheerio(`
+          <span>
+            ${pre}
+              <span class="highlighted">
+                ${highlighted}
+              </span>
+            ${post}
+          </span>`);
         cheerio(child).replaceWith(newElement);
       }
     }
@@ -150,7 +168,7 @@ export function highlightCodeBlock(node: MbNode) {
   if (!node.children) {
     return;
   }
-  const codeNode = node.children.find(c => c.name === 'code');
+  const codeNode = node.children.find((c) => c.name === 'code');
   if (!codeNode || (!codeNode.children)) {
     return;
   }
@@ -162,7 +180,7 @@ export function highlightCodeBlock(node: MbNode) {
 
     const bounds = lineNode.attribs['hl-data']
       .split(',')
-      .map(boundStr => {
+      .map((boundStr) => {
         const [range, color] = boundStr.split(':');
         const [start, end] = range.split('-');
         return [start, end, color];

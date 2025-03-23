@@ -147,35 +147,35 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
   // wrap all lines with <span> so we can number them
   str = lines.map((line, index) => {
     const currentLineNumber = index + 1;
-    let highlightedLine = line; // Start with the original line
-  
+    const highlightedLine = line; // Start with the original line
+
     // Collect all bounds and colors for partial text highlights
     const boundsWithColors: Array<{ bounds: [number, number], color: string }> = [];
-  
-    for (const rule of highlightRules) {
+
+    highlightRules.forEach((rule) => {
       const results = rule.getHighlightType(currentLineNumber);
-      for (const result of results) {
-        const { highlightType, bounds, color } = result;
+
+      results.forEach(({ highlightType, bounds, color }) => {
         const highlightColor = color || '';
+
         if (highlightType === HIGHLIGHT_TYPES.WholeLine) {
-          // If it's a whole line highlight, return immediately
           return Highlighter.highlightWholeLine(highlightedLine, highlightColor);
-        } else if (highlightType === HIGHLIGHT_TYPES.WholeText) {
-          // If it's a whole text highlight, return immediately
-          return Highlighter.highlightWholeText(highlightedLine, highlightColor);
-        } else if (highlightType === HIGHLIGHT_TYPES.PartialText && bounds) {
-          // Collect bounds and colors for partial text highlights
-          for (const bound of bounds) {
-            boundsWithColors.push({ bounds: bound, color: highlightColor });
-          }
         }
-      }
-    }
-  
+        if (highlightType === HIGHLIGHT_TYPES.WholeText) {
+          return Highlighter.highlightWholeText(highlightedLine, highlightColor);
+        }
+        if (highlightType === HIGHLIGHT_TYPES.PartialText && bounds) {
+          bounds.forEach((bound) => {
+            boundsWithColors.push({ bounds: bound, color: highlightColor });
+          });
+        }
+      });
+    });
+
     if (boundsWithColors.length > 0) {
       return Highlighter.highlightPartOfText(line, boundsWithColors);
     }
-  
+
     return `<span>${highlightedLine}\n</span>`;
   }).join('');
 
