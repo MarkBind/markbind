@@ -22,6 +22,7 @@ Features:
 * Syntax coloring
 * Line numbering
 * Line highlighting
+* Custom colors
 * Code block headers
 
 <box type="info">
@@ -220,6 +221,74 @@ Type | Format | Example
 **Ranged full line highlight**<br>Like ranged full text highlight, but highlights the entirety of the lines | `lineStart[:]-lineEnd` or `lineStart-lineEnd[:]` | `1[:]-5`,`10-12[:]`
 **Ranged character-bounded highlight**<br>Highlights the text portion of the lines within the range, but starts/ends at an arbitrary character | `lineStart[start:]-lineEnd` or `lineStart-lineEnd[:end]` | `3[2:]-7`, `4-9[:17]`
 **Ranged word-bounded highlight**<br>Like ranged character-bounded highlight, but starts/ends at an arbitrary word | `lineStart[start::]-lineEnd` or `lineStart-lineEnd[::end]` | `16[1::]-20`,`22-24[::3]`
+
+##### Custom Colors
+On top of line highlighting, you can apply custom colors to inline blocks by appending `@color` to the syntax. This allows you to highlight specific parts of your inline code with different colors. 
+
+There are **two ways** you can specify a color:
+1. **Using Color Names**: You can use standard color names like `red`, `green`, `blue`, etc.
+2. **Using Hex Codes**: You can also use hex color codes like `#ff0000` (red) or `#00ff00` (green). 
+
+Note:
+1. Do note that the color value must be a **valid CSS background style**, limited to **color names** and **hex codes**.
+2. A default color will be used if the color is not specified
+  1. `#e6e6fa` for light theme
+  2. `#000000` for dark theme
+
+Markbind provides support for the following shorthands
+
+Letter | Colour
+--- | ---
+r | red
+g | green
+b | blue
+c | cyan
+m | magenta
+y | yellow
+k | black
+w | white
+
+Here are some example usage with the same examples as above:
+
+**Using Color Names**:
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
+```js {.line-numbers highlight-lines="1['function']@yellow, 2['a']@pink, 2['b']@orange, 4['diff']"}
+function subtract(a, b) {
+    const diff = a - b;
+    console.log(`${a} + ${b} = ${diff}`);
+    return diff;
+}
+```
+</variable>
+</include>
+
+**Using Hex Codes**:
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
+```js {.line-numbers highlight-lines="1[0:3]@#00ff00, 1[6:10]@#ff00ff, 2[5:]@#e6e6e6, 3[:6]@#0000ff, +4[:6]"}
+function multiply(a, b) {
+    const product = a * b;
+    console.log('Product = ${product}');
+    return product;
+}
+```
+</variable>
+</include>
+
+**Using Shorthands**:
+<include src="codeAndOutputCode.md" boilerplate >
+<variable name="code">
+```js {.line-numbers highlight-lines="1[1::3]@y, 1[5::7]@k, 2[2::]@m, 3[::3]"}
+// Function returns the distance travelled assuming constant speed
+function calculateDistance(speed, time) {
+    const distance = speed * time;
+    console.log(`Distance travelled = ${distance}`);
+    return distance;
+}
+```
+</variable>
+</include>
 
 ##### Heading
 To add a heading, add the attribute `heading` with the heading text as the value, as shown below.
