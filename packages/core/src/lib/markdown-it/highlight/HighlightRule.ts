@@ -6,6 +6,18 @@ export enum HIGHLIGHT_TYPES {
   PartialText,
 }
 
+// Define color mappings
+const COLOR_MAPPING: { [key: string]: string } = {
+  'r': 'red',
+  'g': 'green',
+  'b': 'blue',
+  'c': 'cyan',
+  'm': 'magenta',
+  'y': 'yellow',
+  'k': 'black',
+  'w': 'white',
+};
+
 export class HighlightRule {
   ruleComponents: HighlightRuleComponent[];
   color?: string;
@@ -56,7 +68,8 @@ export class HighlightRule {
       return null;
     }
 
-    return new HighlightRule(components as HighlightRuleComponent[], inputColor);
+    const color: string = inputColor && COLOR_MAPPING[inputColor] ? COLOR_MAPPING[inputColor] : inputColor;
+    return new HighlightRule(components as HighlightRuleComponent[], color);
   }
 
   shouldApplyHighlight(lineNumber: number) {
