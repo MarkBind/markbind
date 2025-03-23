@@ -9,7 +9,7 @@ import * as logger from '../../utils/logger';
 
 import { HighlightRule, HIGHLIGHT_TYPES } from './highlight/HighlightRule';
 import { Highlighter } from './highlight/Highlighter';
-import { defaultColor, getCurrentTheme } from './highlight/helper';
+// import { defaultColor, getCurrentTheme } from './highlight/helper';
 
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
@@ -156,7 +156,7 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
       const results = rule.getHighlightType(currentLineNumber);
       for (const result of results) {
         const { highlightType, bounds, color } = result;
-        const highlightColor = color || defaultColor(getCurrentTheme());
+        const highlightColor = color || '';
         if (highlightType === HIGHLIGHT_TYPES.WholeLine) {
           // If it's a whole line highlight, return immediately
           return Highlighter.highlightWholeLine(highlightedLine, highlightColor);

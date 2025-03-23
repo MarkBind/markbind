@@ -1,23 +1,3 @@
-import * as fs from 'fs';
-import * as path from 'path';
-
-const siteJsonPath = path.join(__dirname, '../../../../../../docs/site.json');
-
-export function getCurrentTheme(): string {
-  try {
-    const siteConfig = JSON.parse(fs.readFileSync(siteJsonPath, 'utf-8'));
-    return siteConfig.style?.codeTheme || 'light';
-  } catch (error) {
-    console.error('Error reading site.json:', error);
-    return 'light';
-  }
-}
-
-
-export function defaultColor(theme: string): string {
-  return theme === 'light' ? '#e6e6fa' : '#000000'
-}
-
 export function splitCodeAndIndentation(code: string) {
   const codeStartIdx = code.search(/\S|$/);
   const indents = code.substring(0, codeStartIdx);
