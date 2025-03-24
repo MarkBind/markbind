@@ -16,7 +16,7 @@ export class Highlighter {
   static highlightPartOfText(
     code: string,
     boundsWithColors: Array<{ bounds: [number, number], color: string }>,
-    ) {
+  ) {
     /*
     * Note: As part-of-text highlighting requires walking over the node of the generated
     * html by highlight.js, highlighting will be applied in NodeProcessor instead.
