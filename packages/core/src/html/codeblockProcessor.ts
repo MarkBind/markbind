@@ -120,9 +120,9 @@ function traverseLinePart(
 
     if (!data.highlightRange) {
       if (color) {
-        cheerio(child).wrap(`<span style="background-color: ${color};"></span>`);
+        cheerio(child).wrap(`<span style='background-color: ${color};'></span>`);
       } else {
-        cheerio(child).wrap(`<span class="highlighted"></span>`);
+        cheerio(child).wrap('<span class="highlighted"></span>');
       }
     } else {
       const [start, end] = data.highlightRange;
@@ -134,7 +134,7 @@ function traverseLinePart(
         const newElement = cheerio(`
           <span>
             ${pre}
-              <span style="background-color: ${color};">
+              <span style='background-color: ${color};'>
                 ${highlighted}
               </span>
             ${post}
