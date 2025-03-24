@@ -73,16 +73,3 @@ function checkForWrappingAndAddLineNumbers() {
 window.addEventListener('beforeprint', () => {
   checkForWrappingAndAddLineNumbers();
 });
-
-// Append "preload" attribute to all the panels
-
-// Test: remove "preload" attribute from all the panels
-function removePreload() {
-  document.querySelectorAll('card-container').forEach((block) => {
-    block.attributes.removeNamedItem('preload');
-  });
-}
-
-window.addEventListener('beforeinput', () => {
-  removePreload();
-});
