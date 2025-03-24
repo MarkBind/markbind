@@ -151,28 +151,30 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
 
     // Collect all bounds and colors for partial text highlights
     const boundsWithColors: Array<{ bounds: [number, number], color: string }> = [];
-
-    highlightRules.forEach((rule) => {
+    const hasImmediateReturn = highlightRules.some((rule) => {
       const results = rule.getHighlightType(currentLineNumber);
-
-      results.forEach(({ highlightType, bounds, color }) => {
+      return results.some((result) => {
+        const { highlightType, bounds, color } = result;
         const highlightColor = color || '';
-
         if (highlightType === HIGHLIGHT_TYPES.WholeLine) {
-          return Highlighter.highlightWholeLine(highlightedLine, highlightColor);
-        }
-        if (highlightType === HIGHLIGHT_TYPES.WholeText) {
-          return Highlighter.highlightWholeText(highlightedLine, highlightColor);
-        }
-        if (highlightType === HIGHLIGHT_TYPES.PartialText && bounds) {
+          str = Highlighter.highlightWholeLine(highlightedLine, highlightColor);
+          return true;
+        } else if (highlightType === HIGHLIGHT_TYPES.WholeText) {
+          str = Highlighter.highlightWholeText(highlightedLine, highlightColor);
+          return true;
+        } else if (highlightType === HIGHLIGHT_TYPES.PartialText && bounds) {
           bounds.forEach((bound) => {
             boundsWithColors.push({ bounds: bound, color: highlightColor });
           });
+          return false;
         }
-
-        return undefined;
+        return false;
       });
     });
+
+    if (hasImmediateReturn) {
+      return str;
+    }
 
     if (boundsWithColors.length > 0) {
       return Highlighter.highlightPartOfText(line, boundsWithColors);

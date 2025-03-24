@@ -2,15 +2,14 @@ import { collateAllIntervalsWithColors, splitCodeAndIndentation } from './helper
 
 export class Highlighter {
   static highlightWholeLine(code: string, color?: string) {
-    // no point adding padding here
-    const style = color ? `style="background-color:${color};"` : 'style=""';
-    return `<span class="highlighted" ${style}>${code}\n</span>`;
+    const style = color ? `style="background-color:${color};"` : 'class="highlighted"';
+    return `<span ${style}>${code}\n</span>`;
   }
 
   static highlightWholeText(code: string, color?: string) {
-    const style = color ? `style="background-color:${color};"` : 'style=""';
+    const style = color ? `style="background-color:${color};"` : 'class="highlighted"';
     const [indents, content] = splitCodeAndIndentation(code);
-    return `<span>${indents}<span class="highlighted" ${style}>${content}</span>\n</span>`;
+    return `<span>${indents}<span ${style}>${content}</span>\n</span>`;
   }
 
   static highlightPartOfText(

@@ -131,24 +131,12 @@ function traverseLinePart(
       const [pre, highlighted, post] = split.map(md.utils.escapeHtml);
 
       if (color) {
-        const newElement = cheerio(`
-          <span>
-            ${pre}
-              <span style='background-color: ${color};'>
-                ${highlighted}
-              </span>
-            ${post}
-          </span>`);
+        const s = `<span>${pre}<span style='background-color: ${color};'>${highlighted}</span>${post}</span>`;
+        const newElement = cheerio(s);
         cheerio(child).replaceWith(newElement);
       } else {
-        const newElement = cheerio(`
-          <span>
-            ${pre}
-              <span class="highlighted">
-                ${highlighted}
-              </span>
-            ${post}
-          </span>`);
+        const str = `<span>${pre}<span class="highlighted">${highlighted}</span>${post}</span>`;
+        const newElement = cheerio(str);
         cheerio(child).replaceWith(newElement);
       }
     }
