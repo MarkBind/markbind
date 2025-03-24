@@ -117,3 +117,43 @@ describe('NestedPanels', () => {
     );
   });
 });
+
+describe('NestedPanels print behavior', () => {
+  test('card body should have d-print-none class when collapsed', async () => {
+    const wrapper = mount(NestedPanel, {
+      propsData: {
+        expandable: true,
+        expanded: true,
+        preload: true,
+      },
+      slots: {
+        header: 'test header',
+      },
+    });
+
+    wrapper.vm.toggle(false);
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.find('.card-body').classes()).toContain('d-print-none');
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  test('card body should not have d-print-none class when expanded', async () => {
+    const wrapper = mount(NestedPanel, {
+      propsData: {
+        expandable: true,
+        expanded: false,
+        preload: true,
+      },
+      slots: {
+        header: 'test header',
+      },
+    });
+
+    wrapper.vm.toggle(false);
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.find('.card-body').classes()).not.toContain('d-print-none');
+    expect(wrapper.element).toMatchSnapshot();
+  });
+});
