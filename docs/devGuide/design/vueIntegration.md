@@ -44,6 +44,11 @@ Vue components in MarkBind are used for:
 
 * **Integration with External Libraries**: Vue components can wrap external libraries (e.g., Vue Final Modal for modals) to provide a seamless user experience.
 
+## Custom Vue Directives
+
+In addition to custom Vue components, MarkBind also makes use of custom Vue directives to provide enhanced interactivity and DOM manipulation behaviors. These directives encapsulate logic that operates directly on the DOM elements, complementing the declarative nature of Vue templates.
+
+* For example, the `v-closeable` directive, used here to [remove content](/userGuide/reusingcontents.md#allowing-users-to-remove-some-contents), provides functionality to toggle the visibility of content sections. It dynamically wraps the directive’s target content in a container, adds a close button and show label, and sets up the necessary event handlers.
 
 ## Markbind's Server-Side Rendering (SSR) using Vue
 
