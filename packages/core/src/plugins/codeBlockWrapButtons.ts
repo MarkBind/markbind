@@ -31,8 +31,10 @@ const WRAP_ICON = `
 
 const WRAP_MESSAGE = 'Wrap Text';
 
+const UNWRAP_MESSAGE = 'Unwrap Text';
+
 function getButtonHTML() {
-  const html = `<button onclick="toggleCodeBlockWrap(this)" class="function-btn d-print-none">
+  const html = `<button onclick="toggleCodeBlockWrap(this)" class="function-btn d-print-none wrap-button">
     <div class="tooltip-container">
     <span class="tooltiptext">${WRAP_MESSAGE}</span>
     <div class="function-btn-body">
@@ -46,11 +48,14 @@ function getButtonHTML() {
 const wrapCodeBlockScript = `<script>
     function toggleCodeBlockWrap(element) {
       const pre = element.parentElement.parentElement;
+      const tooltipText = element.querySelector(".tooltiptext");
       const classList = pre.querySelector('code').classList; 
       if (classList.contains('wrap')) {
           classList.remove('wrap');
+          tooltipText.innerText  = \`${WRAP_MESSAGE}\`;
       } else {
           classList.add('wrap')
+          tooltipText.innerText  = \`${UNWRAP_MESSAGE}\`;
       }
     }
     </script>`;

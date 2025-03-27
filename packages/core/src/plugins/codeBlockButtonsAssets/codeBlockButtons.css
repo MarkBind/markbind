@@ -21,6 +21,10 @@ button.function-btn {
     white-space: nowrap;
 }
 
+pre:has(.hljs.wrap) .wrap-button {
+    background-color: rgb(229 229 229);
+}
+
 button.function-btn + button.function-btn {
     right: 36px;
 }
