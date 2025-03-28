@@ -7,18 +7,18 @@ describe('parseAllRules', () => {
     const rules = HighlightRule.parseAllRules(allRules, 0, 'line1\nline2\nline3\nline4\nline5\n');
     expect(rules).toHaveLength(2);
     expect(rules[0]).toBeInstanceOf(HighlightRule);
-    expect(rules[0].getHighlightType(3).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
+    expect(rules[0].getHighlightType(3)[0].highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
     expect(rules[1]).toBeInstanceOf(HighlightRule);
-    expect(rules[1].getHighlightType(4).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
-    expect(rules[1].getHighlightType(5).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
+    expect(rules[1].getHighlightType(4)[0].highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
+    expect(rules[1].getHighlightType(5)[0].highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
   });
 
   test('ignores invalid rules', () => {
     const allRules = 'invalid,3-4';
     const rules = HighlightRule.parseAllRules(allRules, 0, 'line1\nline2\nline3\nline4\n');
     expect(rules).toHaveLength(1);
-    expect(rules[0].getHighlightType(3).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
-    expect(rules[0].getHighlightType(4).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
+    expect(rules[0].getHighlightType(3)[0].highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
+    expect(rules[0].getHighlightType(4)[0].highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
   });
 });
 
@@ -69,25 +69,25 @@ describe('getHighlightType', () => {
   const wholeLineRule = rules[4];
 
   test('returns WholeLine for two lines', () => {
-    expect(wholeLinesRule.getHighlightType(1).highlightType).toBe(HIGHLIGHT_TYPES.WholeLine);
-    expect(wholeLinesRule.getHighlightType(2).highlightType).toBe(HIGHLIGHT_TYPES.WholeLine);
+    expect(wholeLinesRule.getHighlightType(1)[0].highlightType).toBe(HIGHLIGHT_TYPES.WholeLine);
+    expect(wholeLinesRule.getHighlightType(2)[0].highlightType).toBe(HIGHLIGHT_TYPES.WholeLine);
   });
 
   test('returns WholeText for in between lines', () => {
-    expect(wholeTextsRule.getHighlightType(7).highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
+    expect(wholeTextsRule.getHighlightType(7)[0].highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
   });
 
   test('returns WholeText for single line', () => {
-    const { highlightType } = wholeTextRule.getHighlightType(3);
+    const { highlightType } = wholeTextRule.getHighlightType(3)[0];
     expect(highlightType).toBe(HIGHLIGHT_TYPES.WholeText);
   });
 
   test('returns WholeLine for single line', () => {
-    expect(wholeLineRule.getHighlightType(9).highlightType).toBe(HIGHLIGHT_TYPES.WholeLine);
+    expect(wholeLineRule.getHighlightType(9)[0].highlightType).toBe(HIGHLIGHT_TYPES.WholeLine);
   });
 
   test('returns PartialText for bounded slice', () => {
-    const { highlightType, bounds } = partialTextRule.getHighlightType(4);
+    const { highlightType, bounds } = partialTextRule.getHighlightType(4)[0];
     expect(highlightType).toBe(HIGHLIGHT_TYPES.PartialText);
     expect(bounds).toEqual([[1, 5]]);
   });
