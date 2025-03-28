@@ -110,15 +110,13 @@ export default {
           child.$data.disableCard = false;
           return;
         }
-
+        let matched = false;
         regexes.forEach((regex) => {
           if (searchTarget.match(regex)) {
-            child.$data.disableCard = false;
-            return true;
+            matched = true;
           }
-          child.$data.disableCard = true;
-          return false;
         });
+        child.$data.disableCard = !matched;
       });
     },
     updateTag(tagName) {
