@@ -529,6 +529,7 @@ export class Site {
       await this.copyOcticonsAsset();
       await this.copyMaterialIconsAsset();
       await this.writeSiteData();
+      // await this.indexSiteWithPagefind();
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
         this.backgroundBuildNotViewedFiles();
@@ -568,6 +569,23 @@ export class Site {
       await Site.rejectHandler(error, [this.tempPath, this.outputPath]);
     }
   }
+
+  /**
+   * Indexes all the pages of the site using pagefind
+  async indexSiteWithPagefind() {
+    const { createIndex, close } = await import('pagefind'); //eslint-disable-line
+    const newIndex = await createIndex({
+      keepIndexUrl: true,
+      verbose: true,
+      logfile: 'debug.log',
+    });
+    const { index } = newIndex;
+    if (index) {
+      await index.addDirectory({ path: this.outputPath });
+      await index.writeFiles({ outputPath: `${this.outputPath}/pagefind` });
+    }
+    await close();
+  } */
 
   /**
    * Adds all pages except the viewed pages to toRebuild, flagging them for lazy building later.
