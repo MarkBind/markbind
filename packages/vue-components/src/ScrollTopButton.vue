@@ -102,7 +102,7 @@ export default {
   mounted() {
     this.initScrollTopButton();
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.destroyScrollTopButton();
   },
 };

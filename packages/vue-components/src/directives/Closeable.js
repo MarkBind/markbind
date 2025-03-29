@@ -1,5 +1,5 @@
 module.exports = {
-  bind(el) {
+  mounted(el) {
     function onClose() {
       el.dataset.isShown = 'false';
       showLabel.style.display = '';
@@ -31,7 +31,7 @@ module.exports = {
       const closeButton = document.createElement('span');
       closeButton.classList.add('closeable-button', 'label', 'label-default', 'hidden-print');
       closeButton.style.cssText += 'display: none; position: absolute; top: 0; '
-          + 'left: 0; cursor: pointer;background: #d9534f';
+        + 'left: 0; cursor: pointer;background: #d9534f';
       closeButton.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
       closeButton.addEventListener('click', onClose);
       return closeButton;

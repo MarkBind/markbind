@@ -21,8 +21,13 @@
       </ul>
     </slot>
   </li>
-  <submenu v-else-if="isSubmenu" ref="submenu">
-    <template v-for="(node, name) in $scopedSlots" #[name]>
+  <submenu
+    v-else-if="isSubmenu"
+    ref="submenu"
+    @submenu-show="handleSubmenuShow"
+    @submenu-register="handleSubmenuRegister"
+  >
+    <template v-for="(node, name) in $slots" #[name]>
       <slot :name="name"></slot>
     </template>
   </submenu>
@@ -84,13 +89,38 @@ export default {
       default: '',
     },
   },
-  provide: { hasParentDropdown: true },
+  provide() {
+    const registry = {
+      submenus: [],
+      registerSubmenu: (submenu) => {
+        registry.submenus.push(submenu);
+      },
+      hideAllExcept: (exceptSubmenu) => {
+        registry.submenus.forEach((submenu) => {
+          if (submenu !== exceptSubmenu) {
+            submenu.hideSubmenu();
+          } else {
+            submenu.showSubmenu();
+          }
+        });
+      },
+    };
+    return {
+      // Indicate to children that exists this parent dropdown
+      hasParentDropdown: true,
+      // provide this layer registry to direct children
+      submenuRegistry: registry,
+    };
+  },
   inject: {
     hasParentDropdown: {
       default: undefined,
     },
     isParentNavbar: {
       default: false,
+    },
+    submenuRegistry: {
+      default: undefined,
     },
   },
   data() {
@@ -99,6 +129,11 @@ export default {
     };
   },
   computed: {
+    parentRegistry() {
+      // If this is a nested dropdown, submenuRegistry
+      // will be provided by parent dropdown.
+      return this.hasParentDropdown ? this.submenuRegistry : null;
+    },
     btnType() {
       return `btn-${this.type}`;
     },
@@ -114,10 +149,10 @@ export default {
       return this.$parent && (this.$parent.menu || this.$parent.submenu);
     },
     slots() {
-      return this.$scopedSlots.default;
+      return this.$slots.default;
     },
     hasBefore() {
-      return !!this.$scopedSlots.before;
+      return !!this.$slots.before;
     },
     btnWithBefore() {
       return this.hasBefore ? 'btn-with-before' : '';
@@ -158,6 +193,18 @@ export default {
         }
       });
     },
+    handleSubmenuShow(submenu) {
+      // Tell parent dropdown to hide other submenus
+      if (this.hasParentDropdown && this.parentRegistry) {
+        this.parentRegistry.hideAllExcept(submenu);
+      }
+    },
+    handleSubmenuRegister(submenu) {
+      // Tell parent dropdown to register this submenu
+      if (this.hasParentDropdown && this.parentRegistry) {
+        this.parentRegistry.registerSubmenu(submenu);
+      }
+    },
   },
   mounted() {
     const $el = $(this.$refs.dropdown);
@@ -184,7 +231,7 @@ export default {
       this.hideDropdownMenu();
     });
   },
-  beforeDestroy() {
+  beforeUnmount() {
     const $el = $(this.$refs.dropdown);
     $el.offBlur();
     $el.findChildren('a,button').off();

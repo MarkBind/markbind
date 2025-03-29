@@ -103,6 +103,10 @@ export default {
     wrapperElement.style.width = `${this.imageSize}px`;
     wrapperElement.style.height = `${this.imageSize}px`;
     wrapperElement.style.lineHeight = `${this.imageSize}px`;
+    const img = this.$refs.pic;
+    if (img && img.complete) {
+      this.computeImgSize();
+    }
   },
   methods: {
     computeImgSize() {

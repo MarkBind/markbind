@@ -100,7 +100,7 @@ We forked it from the original [yuche/vue-strap](https://github.com/yuche/vue-st
 
 **The key dependencies used are:**
 
-* [Vue.js](http://vuejs.org/) (required ^v2.x.x, test with v2.6.14).
+* [Vue.js](http://vuejs.org/) (required ^v3.x.x, test with v3.3.11).
 
 * [Bootstrap CSS](http://getbootstrap.com/) (required 5.x.x, test with 5.1.3). MarkBind's Vue components doesn't depend on a very precise version of Bootstrap.
 
