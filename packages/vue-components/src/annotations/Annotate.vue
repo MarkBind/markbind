@@ -86,6 +86,12 @@ export default {
       }
     },
   },
+  mounted() {
+    const img = this.$refs.pic;
+    if (img && img.complete) {
+      this.computeWidthAndHeight();
+    }
+  },
   provide() {
     return {
       parentWidth: this.width,
