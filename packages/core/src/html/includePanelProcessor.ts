@@ -334,13 +334,19 @@ export function processPopoverSrc(node: MbNode, context: Context, pageSources: P
 
   // No need to process url contents
   if (isUrl) {
-    const error = new Error('URLs are not allowed in the \'src\' attribute');
-    logger.warn(`${error.message}
-      File: ${context.cwf}
-      URL provided: ${node.attribs.src}
-      
-      Please check the \`src\` attribute in the popover element.
-      Ensure it doesn't contain a URL (e.g., "http://www.example.com").`);
+    const error = new Error("URLs are not allowed in the 'src' attribute");
+
+    if (process.env.TEST_MODE) {
+      logger.info('Invalid case of URL in popover element caught successfully');
+    } else {
+      logger.error(`${error.message}
+       File: ${context.cwf}
+       URL provided: ${node.attribs.src}
+        
+       Please check the \`src\` attribute in the popover element.
+       Ensure it doesn't contain a URL (e.g., "http://www.example.com").`);
+    }
+
     cheerio(node).replaceWith(createErrorNode(node, error));
     return context;
   }
