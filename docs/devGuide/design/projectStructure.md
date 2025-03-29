@@ -14,6 +14,8 @@
 This page gives you an overview of the MarkBind's internal project structure.
 </div>
 
+<div id="packages-overview">
+
 ## Packages
 
 The MarkBind project is developed in a <tooltip content="We follow a monorepo approach, similar to Babel and other open source projects. To see a discussion on the pros and cons of this approach, read [here](https://github.com/babel/babel/blob/main/doc/design/monorepo.md).">monorepo</tooltip> ([MarkBind/markbind](https://github.com/MarkBind/markbind)) of 4 packages:
@@ -159,6 +161,7 @@ Some custom components and directives are also added for MarkBind's use.
   * TabGroup.vue
 
   * Tabset.vue
+</div>
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('../development/migratingToTypeScript', 'architecture') }}
