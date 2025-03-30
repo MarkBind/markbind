@@ -12,7 +12,9 @@
       :style="navbarHeight"
       @click="toggleNavMenu"
     >
-      <portal-target :name="portalName" multiple />
+      <div class="portal-root-element">
+        <portal-target :name="portalName" multiple />
+      </div>
     </div>
   </div>
 </template>
