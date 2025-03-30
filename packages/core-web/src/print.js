@@ -44,9 +44,9 @@ window.addEventListener('beforeprint', () => {
   const pageNavPrintContainers = document.querySelectorAll(`.${PAGE_NAV_PRINT_CONTAINER}`);
 
   if (pageNav && pageNavPrintContainers.length >= 1) {
-    removePageNavPrint(); // remove any existing clones
     pageNavPrintContainers.forEach((container) => {
-      container.appendChild(clonePageNav(pageNav));
+      const pageNavClone = clonePageNav(pageNav);
+      container.appendChild(pageNavClone);
     });
   }
 });
