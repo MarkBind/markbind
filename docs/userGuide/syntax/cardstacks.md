@@ -8,70 +8,117 @@ A `cardstack` component is used in conjunction with one or more `card` component
 - `card`: Card contains the information to display.
 
 Each `card` contains `tag` and `keyword` field:
-- `Keywords`: Adds to the search space but does not allow users to filter them manually. 
-- `Tags`: Adds to the search space and also provides readers a way to filter the cards according to the selected tags.  
+- `Keywords`: Adds to the search space but does not allow users to filter them manually. Add keywords when the content have different known aliases.
+- `Tags`: Adds to the search space and also provides readers a way to filter the cards according to the selected tags. Add tags to categorise the content. 
 
 <box type="info">
 
-The search feature searches the `card` components of the `cardstack` by header, tags and keywords specified within each card component. 
+The search feature searches the `card` components of `cardstack` by header, tags and keywords specified within each card component. 
 
-Specifing them can help improve searchability of your `cardstack` component!
+Specifying them can help improve searchability of the `cardstack` component!
+
+For example, if a card is about "Machine Learning," you might tag it as `AI` and `Data Science` and add keywords like `ML` and `Artificial Intelligence` to improve searchability.
 </box>
 
 <include src="codeAndOutputSeparate.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 <cardstack searchable blocks="2">
-  <card header="**Card Content** 🚀 _with inline markdown_" tag="Card 1" keywords="example">
-    This is a basic card with a trigger.<br>
-    Click on this <trigger for="modal:info" trigger="click">trigger</trigger>.
-    <modal header="Modal Example" id="modal:info">
-      <md>You have triggered a modal! 🎉</md>
-    </modal>
+  <card header="**Winston Churchill**" tag="Success, Perseverance">
+    Success is not final, failure is not fatal: it is the courage to continue that counts - Winston Churchill
   </card>
-  <card header="**Card Title**" tag="Card 2" keywords="">
-    Supporting text content.
+  <card header="**Albert Einstein**" tag="Success, Perseverance">
+    In the middle of every difficulty lies opportunity - Albert Einstein
   </card>
-  <card header="**Card containing code**" tag="Code" keywords="Card">
-
-    ```
-    public static void main(String[] args) {
-      print('Hello world!');
-    }
-    ```
+  <card header="**Theodore Roosevelt**" tag="Motivation , Hard Work">
+    Do what you can, with what you have, where you are - Theodore Roosevelt
   </card>
-    <card header="Card with Image" keywords="AND, XOR, gate" tag="Image, Circuit">
-    <annotate src="../../images/annotateSampleImage.png" height="150" alt="Circuit diagram">
-      <a-point x="2%" y="13%" content="This is input A" header="Point A"  opacity="0.2" size="20"/>
-    </annotate>
+  <card header="**Steve Jobs**" tag="Happiness  , Mindset">
+    Your time is limited, so don’t waste it living someone else’s life - Steve Jobs
   </card>
 </cardstack>
 </variable>
-
 <variable name="output">
 <cardstack searchable blocks="2">
-  <card header="**Card Content** 🚀 _with inline markdown_" tag="Card 1" keywords="example">
-    This is a basic card with a trigger.<br>
-    Click on this <trigger for="modal:info" trigger="click">trigger</trigger>.
-    <modal header="Modal Example" id="modal:info">
-      <md>You have triggered a modal! 🎉</md>
-    </modal>
+  <card header="**Winston Churchill**" tag="Success, Perseverance">
+    Success is not final, failure is not fatal: it is the courage to continue that counts - Winston Churchill
   </card>
-  <card header="**Card Title**" tag="Card 2" keywords="">
-    Supporting text content.
+  <card header="**Albert Einstein**" tag="Success, Perseverance">
+    In the middle of every difficulty lies opportunity - Albert Einstein
   </card>
-  <card header="**Card containing code**" tag="Code" keywords="Card">
+  <card header="**Theodore Roosevelt**" tag="Motivation , Hard Work">
+    Do what you can, with what you have, where you are - Theodore Roosevelt
+  </card>
+  <card header="**Steve Jobs**" tag="Happiness  , Mindset">
+    Your time is limited, so don’t waste it living someone else’s life - Steve Jobs
+  </card>
+</cardstack>
+</variable>
+</include>
 
-  ```
-  public static void main(String[] args) {
-    print('Hello world!');
-  }
-  ```
+You can also utilise card stacks to implement a searchable list of questions.
+
+<include src="codeAndOutputSeparate.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<cardstack searchable blocks="1">
+  <card header="**Multiple Response Question**" tag="MRQ" keywords="Mutliple Response Question, Math, Algebra">
+    <!-- Details of questions omitted. -->
   </card>
-    <card header="Card with Image" keywords="AND, XOR, gate" tag="Image, Circuit">
-    <annotate src="../../images/annotateSampleImage.png" height="150" alt="Circuit diagram">
-      <a-point x="2%" y="13%" content="This is input A" header="Point A"  opacity="0.2" size="20"/>
-    </annotate>
+  <card header="**Multiple Choice Question**" tag="MCQ" keywords="Mutliple Choice Question, Test cases, testing">
+    <!-- Details of questions omitted. -->
+  </card>
+</cardstack>
+</variable>
+<variable name="output">
+<cardstack searchable blocks="1">
+  <card header="**Multiple Response Question**" tag="MRQ" keywords="Mutliple Response Question, Math, Algebra">
+    <question type="checkbox" header="Which of the following is correct?" hint="Think out of the box! :fas-box:">
+      <pic src="{{baseUrl}}/images/math-question.jpg" alt="math question image" height="200" class="d-block mx-auto">
+        <small><md>Adapted from [Daily Mail](https://www.dailymail.co.uk/femail/article-4702868/Can-pass-intelligence-test.html)</md>
+        </small>
+      </pic>
+      <q-option correct reason="Multiply the numbers on the left together and add the leftmost number!">
+        96
+      </q-option>
+      <q-option reason="Under normal circumstances, this would be correct.">
+        19
+      </q-option>
+      <q-option correct reason="Simply add the running sum of the results as well!">
+        40
+      </q-option>
+      <q-option>
+        811
+      </q-option>
+    </question>
+  </card>
+
+  <card header="**Multiple Choice Question**" tag="MCQ" keywords="Mutliple Choice Question, Test cases, testing">
+    <question type="mcq" header="Which of these **contradicts** the heuristics recommended when creating test cases with multiple inputs?">
+      <!-- Insert the reason for the option using the reason attribute -->
+      <q-option reason="This option **does not contradict the heuristics recommended**. We need to figure out if a positive test case works!">
+        Each valid test input should appear at least once in a test case that doesn’t have any invalid inputs.
+      </q-option>
+      <q-option>
+        It is ok to combine valid values for different inputs.
+      </q-option>
+      <q-option>
+        No more than one invalid test input should be in a given test case.
+      </q-option>
+      <!-- Use the 'correct' attribute to indicate an option as correct. -->
+      <q-option correct>
+        All invalid test inputs must be tested together.
+        <!-- Optionally, you may use a reason slot instead of a reason attribute. -->
+        <div slot="reason">
+        If you test all invalid test inputs together, you will not know if each one of the invalid inputs are handled
+        correctly by the SUT.
+        This is because most SUTs return an error message upon encountering the first invalid input.
+        </div>
+      </q-option>
+      <div slot="hint">
+      How do you figure out which inputs are wrong? (or correct)
+      </div>
+    </question>
   </card>
 </cardstack>
 </variable>
