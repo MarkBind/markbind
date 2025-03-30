@@ -17,17 +17,6 @@ exports[`CardStack markdown in header, content 1`] = `
       />
     </span>
      
-    <div
-      class="tag-container"
-    >
-      <span>
-        Tags:
-      </span>
-       
-      <div
-        class="tag-badge-container"
-      />
-    </div>
   </div>
    
   <div
@@ -105,32 +94,20 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
       />
     </span>
      
-    <div
-      class="tag-container"
+    <span
+      class="badge bg-primary tag-badge"
     >
-      <span>
-        Tags:
-      </span>
-       
-      <div
-        class="tag-badge-container"
+      
+      Short 
+      
+      <span
+        class="badge bg-light text-dark tag-indicator"
       >
-        <span
-          class="badge bg-primary"
-        >
-          
-          Short
-          
-          <span
-            class="badge bg-light text-dark tag-indicator"
-          >
-            <span>
-                 
-            </span>
-          </span>
+        <span>
+             
         </span>
-      </div>
-    </div>
+      </span>
+    </span>
   </div>
    
   <div
@@ -246,17 +223,6 @@ exports[`CardStack should not hide cards when no filter is provided 2`] = `
       />
     </span>
      
-    <div
-      class="tag-container"
-    >
-      <span>
-        Tags:
-      </span>
-       
-      <div
-        class="tag-badge-container"
-      />
-    </div>
   </div>
    
   <div

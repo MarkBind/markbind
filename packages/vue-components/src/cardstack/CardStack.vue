@@ -1,7 +1,7 @@
 <template>
   <div class="grid-container">
     <div class="header-row">
-      <span class="search-bar">
+      <span v-if="searchable" class="search-bar">
         <template v-if="searchable">
           <input
             v-model="value"
@@ -12,23 +12,18 @@
           />
         </template>
       </span>
-      <div class="tag-container">
-        <span>Tags:</span>
-        <div class="tag-badge-container">
-          <span
-            v-for="(key, index) in tags"
-            :key="index"
-            :class="['badge', key[1].badgeColor]"
-            @click="updateTag(key[0])"
-          >
-            {{ key[0] }}
-            <span class="badge bg-light text-dark tag-indicator">
-              <span v-if="computeShowTag(key[0])">✓</span>
-              <span v-else>&nbsp;&nbsp;&nbsp;</span>
-            </span>
-          </span>
-        </div>
-      </div>
+      <span
+        v-for="(key, index) in tags"
+        :key="index"
+        :class="['badge', key[1].badgeColor, 'tag-badge']"
+        @click="updateTag(key[0])"
+      >
+        {{ key[0] }}&nbsp;
+        <span class="badge bg-light text-dark tag-indicator">
+          <span v-if="computeShowTag(key[0])">✓</span>
+          <span v-else>&nbsp;&nbsp;&nbsp;</span>
+        </span>
+      </span>
     </div>
     <div class="container">
       <div class="row justify-content-starts gy-3">
@@ -176,10 +171,12 @@ export default {
 <style scoped>
     .header-row {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: start;
         margin: 0;
-        padding: 0;
+        padding: 0 24px;
+        flex-flow: row wrap;
+        gap: 2px;
     }
 
     .search-bar {
@@ -189,8 +186,6 @@ export default {
         align-items: center;
         margin: 0;
         padding: 5px;
-        width: 50%;
-
     }
 
     .row {
@@ -220,22 +215,23 @@ export default {
         max-width: 25.4em;
     }
 
-    .tag-container {
+    /* .tag-container {
         display: flex;
         flex-direction: row;
         width: 50%;
         text-align: right
-    }
+    } */
 
-    .tag-badge-container {
+    /* .tag-badge-container {
         display: flex;
         flex-flow: row wrap;
         width: 100%;
-    }
-
-    .tag-badge-container > span {
+    } */
+    .tag-badge {
         margin: 2px;
         cursor: pointer;
+        height: inherit;
+        padding: 5px;
     }
 
     .tag-indicator {
