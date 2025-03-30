@@ -1,10 +1,10 @@
 module.exports = {
-  bind() {
+  beforeMount() {
     const wrappingElement = document.createElement('div');
     this.el.replaceWith(wrappingElement);
     wrappingElement.appendChild(this.el);
   },
-  update(direction) {
+  updated(direction) {
     this.el.style.float = direction;
     console.log(direction);
   }

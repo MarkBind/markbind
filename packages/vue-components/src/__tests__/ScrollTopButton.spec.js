@@ -29,7 +29,7 @@ describe('ScrollTopButton', () => {
 
   test('button position is rendered correctly', async () => {
     const wrapper = await mount(ScrollTopButton, {
-      propsData: {
+      props: {
         right: '100%',
         bottom: '100%',
       },
@@ -42,7 +42,7 @@ describe('ScrollTopButton', () => {
       slots: {
         icon: ':fas-plus:',
       },
-      propsData: {
+      props: {
         iconSize: '2x',
         iconColor: 'red',
       },
