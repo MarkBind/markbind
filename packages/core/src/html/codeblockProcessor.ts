@@ -121,7 +121,7 @@ function traverseLinePart(
     if (!data.highlightRange) {
       if (color) {
         cheerio(child).wrap(`<span style='background-color: ${color};'></span>`);
-      } else {
+      } else if (child.type === 'text') {
         cheerio(child).wrap('<span class="highlighted"></span>');
       }
     } else {
