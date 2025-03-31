@@ -91,6 +91,36 @@ describe('getHighlightType', () => {
     expect(highlightType).toBe(HIGHLIGHT_TYPES.PartialText);
     expect(bounds).toEqual([[1, 5]]);
   });
+
+  test('returns WholeText with color mapping', () => {
+    const rule = HighlightRule.parseRule('3@r', 0, ['line1', 'line2', 'line3']);
+    const result = rule?.getHighlightType(3);
+    expect(result?.[0]).toEqual({
+      highlightType: HIGHLIGHT_TYPES.WholeText,
+      bounds: null,
+      color: 'red',
+    });
+  });
+
+  test('returns WholeLine for unbounded slice', () => {
+    const rule = HighlightRule.parseRule('3[:]', 0, ['line1', 'line2', 'line3']);
+    const result = rule?.getHighlightType(3);
+    expect(result?.[0]).toEqual({
+      highlightType: HIGHLIGHT_TYPES.WholeLine,
+      bounds: null,
+      color: undefined,
+    });
+  });
+
+  test('returns PartialText with bounds', () => {
+    const rule = HighlightRule.parseRule('3[1:4]@b', 0, ['line1', 'line2', 'line3']);
+    const result = rule?.getHighlightType(3);
+    expect(result?.[0]).toEqual({
+      highlightType: HIGHLIGHT_TYPES.PartialText,
+      bounds: [[1, 4]],
+      color: 'blue',
+    });
+  });
 });
 
 describe('isLineRange', () => {

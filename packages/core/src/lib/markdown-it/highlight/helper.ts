@@ -8,6 +8,10 @@ export function splitCodeAndIndentation(code: string) {
 export function collateAllIntervalsWithColors(
   boundsWithColors: Array<{ bounds: [number, number], color: string }>,
 ) {
+  if (boundsWithColors.length === 0) {
+    return [];
+  }
+
   boundsWithColors.sort((a, b) => a.bounds[0] - b.bounds[0]);
 
   const merged: Array<{ bounds: [number, number], color: string }> = [];
@@ -18,6 +22,7 @@ export function collateAllIntervalsWithColors(
     if (next.bounds[0] <= (current.bounds[1] - 1)) {
       // merge if overlap
       current.bounds[1] = Math.max(current.bounds[1], next.bounds[1]);
+      current.color = next.color;
     } else {
       merged.push(current);
       current = next;
