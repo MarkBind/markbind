@@ -13,7 +13,7 @@
         </template>
       </span>
       <span
-        v-for="(key, index) in tags"
+        v-for="(key, index) in cardStackRef.tagMapping"
         :key="index"
         :class="['badge', key[1].badgeColor, 'tag-badge']"
         @click="updateTag(key[0])"
@@ -34,6 +34,16 @@
 </template>
 
 <script>
+const BADGE_COLOURS = [
+  'bg-primary',
+  'bg-secondary',
+  'bg-success',
+  'bg-danger',
+  'bg-warning text-dark',
+  'bg-info text-dark',
+  'bg-light text-dark',
+  'bg-dark',
+];
 
 export default {
   props: {
@@ -52,51 +62,19 @@ export default {
   },
   computed: {
   },
+  provide() {
+    return {
+      cardStackRef: this.cardStackRef,
+    };
+  },
   methods: {
-    collectTags() {
-      // Generate tag mapping between unique tags and badge colors
-      const tagMap = new Map();
-      let index = 0;
-
-      this.$children.forEach((child) => {
-        if (child.$props.disabled) return;
-
-        child.computeTags.forEach((tag) => {
-          // "tag" -> {badgeColor, children : [child], disableTag: false}
-          if (!tagMap.has(tag)) {
-            const color = this.badgeColors[index % this.badgeColors.length];
-            const tagMapping = { badgeColor: color, children: [child] };
-            tagMap.set(tag, tagMapping);
-            index += 1;
-          } else {
-            tagMap.get(tag).children.push(child);
-          }
-        });
-      });
-
-      return Array.from(tagMap.entries());
-    },
-    collectSearchData() {
-      const primitiveMap = new Map();
-
-      this.$children.forEach((child) => {
-        const tags = child.computeTags;
-        const keywords = child.computeKeywords;
-        const header = child.headerText;
-        const searchTarget = tags.join(' ') + keywords + header;
-
-        primitiveMap.set(searchTarget, child);
-      });
-
-      return primitiveMap;
-    },
     update() {
       const regexes = this.value.split(' ')
         .filter(searchKeyword => searchKeyword !== '')
         .map(searchKeyword => searchKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
         .map(searchKeyword => new RegExp(searchKeyword, 'ig'));
 
-      this.searchDataValues.forEach((child, searchTarget) => {
+      this.cardStackRef.searchData.forEach((child, searchTarget) => {
         if (child.$props.disabled || child.$data.disableTag) {
           return;
         }
@@ -122,13 +100,9 @@ export default {
       }
 
       if (this.selectedTags.length === 0) {
-        this.$children.forEach((child) => {
-          if (child.$props.disabled) return;
-
-          child.$data.disableTag = false;
-        });
+        this.showAllTags();
       } else {
-        this.$children.forEach((child) => {
+        this.cardStackRef.children.forEach((child) => {
           if (child.$props.disabled) return;
 
           const tags = child.computeTags;
@@ -136,6 +110,13 @@ export default {
           child.$data.disableTag = !containsActiveTag;
         });
       }
+    },
+    showAllTags() {
+      this.cardStackRef.children.forEach((child) => {
+        if (child.$props.disabled) return;
+
+        child.$data.disableTag = false;
+      });
     },
     computeShowTag(tagName) {
       return this.selectedTags.includes(tagName);
@@ -146,23 +127,49 @@ export default {
       value: '',
       tags: [],
       selectedTags: [],
-      badgeColors: [
-        'bg-primary',
-        'bg-secondary',
-        'bg-success',
-        'bg-danger',
-        'bg-warning text-dark',
-        'bg-info text-dark',
-        'bg-light text-dark',
-        'bg-dark',
-      ],
-      searchDataValues: new Map(),
+      cardStackRef: {
+        rawTags: [],
+        tagMapping: [],
+        children: [],
+        searchData: new Map(),
+        updateTagMapping() {
+          const tags = this.rawTags;
+          const tagMap = new Map();
+          let index = 0;
+
+          tags.forEach((tag) => {
+            // "tag" -> {badgeColor, children : [child], disableTag: false}
+            if (!tagMap.has(tag)) {
+              const color = BADGE_COLOURS[index % BADGE_COLOURS.length];
+              const tagMapping = { badgeColor: color, children: [], disableTag: false };
+              tagMap.set(tag, tagMapping);
+              index += 1;
+            }
+          });
+          this.tagMapping = Array.from(tagMap.entries());
+        },
+        updateSearchData() {
+          const primitiveMap = new Map();
+
+          this.children.forEach((child) => {
+            const rawTags = child.computeTags;
+            const keywords = child.computeKeywords;
+            const header = child.headerText;
+            const searchTarget = rawTags.join(' ') + keywords + header;
+
+            primitiveMap.set(searchTarget, child);
+          });
+
+          this.searchData = primitiveMap;
+        },
+        updateRawTags(tags) {
+          this.rawTags.push(...tags);
+        },
+      },
     };
   },
   mounted() {
     this.isMounted = true;
-    this.tags = this.collectTags();
-    this.searchDataValues = this.collectSearchData();
   },
 };
 

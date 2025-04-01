@@ -58,10 +58,12 @@ export default {
       headerText: '',
       hasHeader: true,
       disableTag: false,
+      cardStack: null,
     };
   },
   components: {
   },
+  inject: ['cardStackRef'], // Inject the ref
   computed: {
     computedWidth() {
       const block = this.$parent.$props.blocks;
@@ -85,7 +87,8 @@ export default {
           .filter(tag => tag !== '')
           .forEach(tag => tagSet.add(tag));
       }
-      return this.tag !== '' ? Array.from(tagSet) : [];
+
+      return (!this.disabled && this.tag !== '') ? Array.from(tagSet) : [];
     },
     computeHeaders() {
       let headers = '';
@@ -97,8 +100,8 @@ export default {
       return headers;
     },
     formatTags() {
-      // Retrieves tags with styling from parent and returns tags relevant to card
-      const allTags = this.$parent.collectTags();
+      // Retrieves tags with styling from parent and returns tags relevant to cards
+      const allTags = this.cardStack.tagMapping;
       return allTags.filter(tag => this.computeTags.includes(tag[0]));
     },
     computeKeywords() {
@@ -112,10 +115,16 @@ export default {
   methods: {
   },
   mounted() {
+    this.cardStack = this.cardStackRef;
     this.isMounted = true;
-    this.exposedTags = this.formatTags;
     this.headerText = this.computeHeaders;
     this.hasHeader = this.headerText !== '';
+
+    this.cardStack.updateRawTags(this.computeTags);
+    this.cardStack.updateTagMapping();
+    this.cardStack.children.push(this);
+    this.cardStack.updateSearchData();
+    this.exposedTags = this.formatTags;
   },
 };
 </script>

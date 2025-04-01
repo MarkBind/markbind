@@ -16,62 +16,23 @@ exports[`CardStack markdown in header, content 1`] = `
         type="text"
       />
     </span>
-     
+    
+    
   </div>
-   
   <div
     class="container"
   >
     <div
       class="row justify-content-starts gy-3"
     >
-      <div
-        class="col-md-6"
+      
+      <card
         header="### Headers"
-        style="display: none;"
-      >
-        <div
-          class="card"
-        >
-          <div
-            class="card-body article-container"
-          >
-            <!---->
-             
-            <div
-              class="card-text"
-            />
-             
-            <br />
-             
-            <!---->
-          </div>
-        </div>
-      </div>
-       
-      <div
-        class="col-md-6"
+      />
+      <card
         header="### Italics"
-        style="display: none;"
-      >
-        <div
-          class="card"
-        >
-          <div
-            class="card-body article-container"
-          >
-            <!---->
-             
-            <div
-              class="card-text"
-            />
-             
-            <br />
-             
-            <!---->
-          </div>
-        </div>
-      </div>
+      />
+      
     </div>
   </div>
 </div>
@@ -93,114 +54,32 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
         type="text"
       />
     </span>
-     
-    <span
-      class="badge bg-primary tag-badge"
-    >
-      
-      Short 
-      
-      <span
-        class="badge bg-light text-dark tag-indicator"
-      >
-        <span>
-             
-        </span>
-      </span>
-    </span>
+    
+    
   </div>
-   
   <div
     class="container"
   >
     <div
       class="row justify-content-starts gy-3"
     >
-      <div
-        class="col-md-6"
+      
+      <card
+        disabled=""
         header="Normal Body"
-        style="display: none;"
+        keywords="Body"
+        tag="Normal"
       >
-        <div
-          class="card"
-        >
-          <div
-            class="card-body article-container"
-          >
-            <!---->
-             
-            <div
-              class="card-text"
-            >
-              
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
-      incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-      exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  
-            </div>
-             
-            <br />
-             
-            <div
-              class="key-container"
-            >
-              <span
-                class="keyword-container"
-              >
-                <em>
-                  Body
-                </em>
-              </span>
-               
-            </div>
-          </div>
-        </div>
-      </div>
-       
-      <div
-        class="col-md-6"
+         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+      </card>
+      <card
         header="Short Body"
+        keywords="Body"
+        tag="Short"
       >
-        <div
-          class="card"
-        >
-          <div
-            class="card-body article-container"
-          >
-            <!---->
-             
-            <div
-              class="card-text"
-            >
-              
-      Lorem ipsum dolor sit amet, consectetur adipisicing
-  
-            </div>
-             
-            <br />
-             
-            <div
-              class="key-container"
-            >
-              <span
-                class="keyword-container"
-              >
-                <em>
-                  Body
-                </em>
-              </span>
-               
-              <span
-                class="badge bg-primary tag-container"
-              >
-                
-          Short
-        
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+         Lorem ipsum dolor sit amet, consectetur adipisicing 
+      </card>
+      
     </div>
   </div>
 </div>
@@ -222,60 +101,19 @@ exports[`CardStack should not hide cards when no filter is provided 2`] = `
         type="text"
       />
     </span>
-     
+    
+    
   </div>
-   
   <div
     class="container"
   >
     <div
       class="row justify-content-starts gy-3"
     >
-      <div
-        class="col-md-6"
-        style="display: none;"
-      >
-        <div
-          class="card"
-        >
-          <div
-            class="card-body article-container"
-          >
-            <!---->
-             
-            <div
-              class="card-text"
-            />
-             
-            <br />
-             
-            <!---->
-          </div>
-        </div>
-      </div>
-       
-      <div
-        class="col-md-6"
-        style="display: none;"
-      >
-        <div
-          class="card"
-        >
-          <div
-            class="card-body article-container"
-          >
-            <!---->
-             
-            <div
-              class="card-text"
-            />
-             
-            <br />
-             
-            <!---->
-          </div>
-        </div>
-      </div>
+      
+      <card />
+      <card />
+      
     </div>
   </div>
 </div>
