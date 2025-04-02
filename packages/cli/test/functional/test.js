@@ -29,6 +29,14 @@ const execOptions = {
   stdio: ['inherit', 'inherit', 'inherit'],
 };
 
+const expectedErrors = ["URLs are not allowed in the 'src' attribute"];
+
+console.log(`NOTE: The following ${expectedErrors.length} errors are expected to be thrown 
+during the test run:`);
+expectedErrors.forEach((error, index) => {
+  console.log(`${index + 1}: ${error}`);
+});
+
 testSites.forEach((siteName) => {
   console.log(`Running ${siteName} tests`);
   try {
