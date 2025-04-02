@@ -86,10 +86,16 @@ export default {
       }
     },
   },
+  mounted() {
+    const img = this.$refs.pic;
+    if (img && img.complete) {
+      this.computeWidthAndHeight();
+    }
+  },
   provide() {
     return {
-      width: this.width,
-      height: this.height,
+      parentWidth: this.width,
+      parentHeight: this.height,
       src: this.src,
     };
   },

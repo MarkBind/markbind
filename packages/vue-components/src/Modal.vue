@@ -57,10 +57,10 @@ export default {
     show: false,
     isMounted: false,
     zoomEffect: {
-      'enter-class': 'modal-zoom',
+      'enter-active-class': 'modal-zoom',
       'enter-to-class': 'modal-zoom-show',
+      'leave-active-class': 'modal-zoom',
       'leave-to-class': 'modal-zoom',
-      'leave-class': 'modal-zoom-show',
     },
   }),
   props: {
