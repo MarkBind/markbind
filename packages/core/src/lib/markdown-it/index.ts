@@ -9,6 +9,7 @@ import * as logger from '../../utils/logger';
 
 import { HighlightRule, HIGHLIGHT_TYPES } from './highlight/HighlightRule';
 import { Highlighter } from './highlight/Highlighter';
+// import { defaultColor, getCurrentTheme } from './highlight/helper';
 
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
@@ -146,38 +147,40 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
   // wrap all lines with <span> so we can number them
   str = lines.map((line, index) => {
     const currentLineNumber = index + 1;
-    // Rules that affects this line
-    const rules = highlightRules.filter(
-      highlightRule => highlightRule.shouldApplyHighlight(currentLineNumber));
-    if (rules.length === 0) {
-      // not highlighted
-      return `<span>${line}\n</span>`;
+    const highlightedLine = line; // Start with the original line
+
+    // Collect all bounds and colors for partial text highlights
+    const boundsWithColors: Array<{ bounds: [number, number], color: string }> = [];
+    const hasImmediateReturn = highlightRules.some((rule) => {
+      const results = rule.getHighlightType(currentLineNumber);
+      return results.some((result) => {
+        const { highlightType, bounds, color } = result;
+        const highlightColor = color || '';
+        if (highlightType === HIGHLIGHT_TYPES.WholeLine) {
+          str = Highlighter.highlightWholeLine(highlightedLine, highlightColor);
+          return true;
+        } else if (highlightType === HIGHLIGHT_TYPES.WholeText) {
+          str = Highlighter.highlightWholeText(highlightedLine, highlightColor);
+          return true;
+        } else if (highlightType === HIGHLIGHT_TYPES.PartialText && bounds) {
+          bounds.forEach((bound) => {
+            boundsWithColors.push({ bounds: bound, color: highlightColor });
+          });
+          return false;
+        }
+        return false;
+      });
+    });
+
+    if (hasImmediateReturn) {
+      return str;
     }
 
-    const rawBounds: Array<[number, number]> = [];
-    let lineHighlightType = HIGHLIGHT_TYPES.PartialText;
-    // Priority: WholeLine > WholeText > PartialText
-    for (let i = 0; i < rules.length; i += 1) {
-      const { highlightType, bounds } = rules[i].getHighlightType(currentLineNumber);
-
-      if (highlightType === HIGHLIGHT_TYPES.WholeLine) {
-        return Highlighter.highlightWholeLine(line);
-      } else if (highlightType === HIGHLIGHT_TYPES.WholeText) {
-        lineHighlightType = HIGHLIGHT_TYPES.WholeText;
-      } else if (
-        highlightType === HIGHLIGHT_TYPES.PartialText
-        && lineHighlightType === HIGHLIGHT_TYPES.PartialText
-        && bounds !== null
-      ) {
-        bounds.forEach(bound => rawBounds.push(bound));
-      }
+    if (boundsWithColors.length > 0) {
+      return Highlighter.highlightPartOfText(line, boundsWithColors);
     }
 
-    if (lineHighlightType === HIGHLIGHT_TYPES.WholeText) {
-      return Highlighter.highlightWholeText(line);
-    }
-
-    return Highlighter.highlightPartOfText(line, rawBounds);
+    return `<span>${highlightedLine}\n</span>`;
   }).join('');
 
   token.attrJoin('class', 'hljs');
