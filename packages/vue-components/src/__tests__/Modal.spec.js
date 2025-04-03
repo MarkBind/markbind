@@ -3,24 +3,30 @@ import Modal from '../Modal.vue';
 import Trigger from '../Trigger.vue';
 
 const TRIGGER_STUB = {
-  propsData: {
+  props: {
     for: 'modal:test',
     trigger: 'click',
   },
   slots: {
     default: 'Trigger for a modal',
   },
+  global: {
+    stubs: {
+      'v-tooltip': true,
+      'v-popover': true,
+    },
+  },
 };
 
 const DEFAULT_MODAL_HEADER = 'test modal header';
 const DEFAULT_MODAL_FOOTER = 'test modal footer';
 const DEFAULT_MODAL_CONTENT = 'Lorem ipsum dolor sit amet, '
-+ 'consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+  + 'consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
 describe('Modal', () => {
   test('should not show header when no header is given', async () => {
     const wrapper = mount(Modal, {
-      propsData: {
+      props: {
         id: 'modal:test',
       },
       slots: {
@@ -38,7 +44,7 @@ describe('Modal', () => {
 
   test('should not show footer when no footer is given', async () => {
     const wrapper = mount(Modal, {
-      propsData: {
+      props: {
         id: 'modal:test',
       },
       slots: {
@@ -56,7 +62,7 @@ describe('Modal', () => {
 
   test('should show footer when both footer and ok-text are given', async () => {
     const wrapper = mount(Modal, {
-      propsData: {
+      props: {
         id: 'modal:test',
         'ok-text': 'test OK button',
       },
@@ -75,7 +81,7 @@ describe('Modal', () => {
 
   test('should be closable by clicking the backdrop by default', async () => {
     const wrapper = mount(Modal, {
-      propsData: {
+      props: {
         id: 'modal:test',
       },
       slots: {
@@ -95,7 +101,7 @@ describe('Modal', () => {
 
   test('should not be closable by clicking the backdrop if backdrop is set as false', async () => {
     const wrapper = mount(Modal, {
-      propsData: {
+      props: {
         id: 'modal:test',
         backdrop: 'false',
       },
@@ -116,7 +122,7 @@ describe('Modal', () => {
 
   test('should be closable using the ok-text button', async () => {
     const wrapper = mount(Modal, {
-      propsData: {
+      props: {
         id: 'modal:test',
         'ok-text': 'test OK button',
       },
@@ -136,7 +142,7 @@ describe('Modal', () => {
 
   test('supports fade effect', async () => {
     const wrapper = mount(Modal, {
-      propsData: {
+      props: {
         id: 'modal:test',
         effect: 'fade',
         header: DEFAULT_MODAL_HEADER,
@@ -155,7 +161,7 @@ describe('Modal', () => {
 
   test('can be small', async () => {
     const wrapper = mount(Modal, {
-      propsData: {
+      props: {
         id: 'modal:test',
         small: true,
       },
@@ -174,7 +180,7 @@ describe('Modal', () => {
 
   test('can be large', async () => {
     const wrapper = mount(Modal, {
-      propsData: {
+      props: {
         id: 'modal:test',
         large: true,
       },
@@ -193,7 +199,7 @@ describe('Modal', () => {
 
   test('can be centered', async () => {
     const wrapper = mount(Modal, {
-      propsData: {
+      props: {
         id: 'modal:test',
         center: true,
       },
