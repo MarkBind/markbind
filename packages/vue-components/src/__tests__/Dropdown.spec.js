@@ -36,7 +36,9 @@ describe('Dropdown with submenu', () => {
         header: 'Test Dropdown',
         default: DROPDOWN,
       },
-      stubs: DEFAULT_STUBS,
+      global: {
+        stubs: DEFAULT_STUBS,
+      },
     });
 
     expect(wrapper.element).toMatchSnapshot();
@@ -48,7 +50,9 @@ describe('Dropdown with submenu', () => {
         header: 'Test Dropdown',
         default: FIRST_LEVEL_NESTED_DROPDOWN,
       },
-      stubs: DEFAULT_STUBS,
+      global: {
+        stubs: DEFAULT_STUBS,
+      },
     });
 
     expect(wrapper.element).toMatchSnapshot();
@@ -60,7 +64,9 @@ describe('Dropdown with submenu', () => {
         header: 'Test Dropdown',
         default: SECOND_LEVEL_NESTED_DROPDOWN,
       },
-      stubs: DEFAULT_STUBS,
+      global: {
+        stubs: DEFAULT_STUBS,
+      },
     });
 
     expect(wrapper.element).toMatchSnapshot();

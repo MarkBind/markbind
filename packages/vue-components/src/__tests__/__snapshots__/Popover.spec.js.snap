@@ -7,8 +7,8 @@ exports[`Popover should not be shown until triggered 1`] = `
   data-mb-component-type="popover"
   tabindex="0"
 >
-  <!---->
-  <!---->
+  <!--v-if-->
+  <!--v-if-->
 </span>
 `;
 
@@ -19,7 +19,7 @@ exports[`Popover should not show header when no header is given 1`] = `
   data-mb-component-type="popover"
   tabindex="0"
 >
-  <!---->
+  <!--v-if-->
   <v-popover-stub
     auto-hide="true"
     delay="0"
@@ -28,11 +28,7 @@ exports[`Popover should not show header when no header is given 1`] = `
     popper-triggers="click"
     shift-cross-axis=""
     triggers="click"
-  >
-    <span>
-      click to show popover
-    </span>
-  </v-popover-stub>
+  />
 </span>
 `;
 
@@ -44,7 +40,7 @@ exports[`Popover should respect the placement attribute 1`] = `
   header="test popover header attribute"
   tabindex="0"
 >
-  <!---->
+  <!--v-if-->
   <v-popover-stub
     auto-hide="true"
     delay="0"
@@ -53,11 +49,7 @@ exports[`Popover should respect the placement attribute 1`] = `
     popper-triggers="click"
     shift-cross-axis=""
     triggers="click"
-  >
-    <span>
-      click to show popover
-    </span>
-  </v-popover-stub>
+  />
 </span>
 `;
 
@@ -69,7 +61,7 @@ exports[`Popover should show header and content 1`] = `
   header="test popover header attribute"
   tabindex="0"
 >
-  <!---->
+  <!--v-if-->
   <v-popover-stub
     auto-hide="true"
     delay="0"
@@ -78,11 +70,7 @@ exports[`Popover should show header and content 1`] = `
     popper-triggers="click"
     shift-cross-axis=""
     triggers="click"
-  >
-    <span>
-      click to show popover
-    </span>
-  </v-popover-stub>
+  />
 </span>
 `;
 
@@ -92,7 +80,7 @@ exports[`Popover should show header and content slots correctly 1`] = `
   data-mb-component-type="popover"
   tabindex="0"
 >
-  <!---->
+  <!--v-if-->
   <v-popover-stub
     auto-hide="true"
     delay="0"
@@ -101,10 +89,6 @@ exports[`Popover should show header and content slots correctly 1`] = `
     popper-triggers="click"
     shift-cross-axis=""
     triggers="click"
-  >
-    <span>
-      click to show popover
-    </span>
-  </v-popover-stub>
+  />
 </span>
 `;

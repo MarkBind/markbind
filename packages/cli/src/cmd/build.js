@@ -17,7 +17,13 @@ function build(userSpecifiedRoot, output, options) {
     rootFolder = cliUtil.findRootFolder(userSpecifiedRoot, options.siteConfig);
   } catch (error) {
     logger.error(error.message);
+    logger.error('This directory does not appear to contain a valid MarkBind site. '
+              + 'Check that you are running the command in the correct directory!\n'
+              + '\n'
+              + 'To create a new MarkBind site, run:\n'
+              + '   markbind init');
     process.exitCode = 1;
+    process.exit();
   }
 
   const defaultOutputRoot = path.join(rootFolder, '_site');

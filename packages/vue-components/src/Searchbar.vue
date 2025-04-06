@@ -45,6 +45,9 @@ import { delayer, getJSON } from './utils/utils';
 const _DELAY_ = 200;
 
 export default {
+  components: {
+    searchbarPageItem,
+  },
   created() {
     this.items = this.primitiveData;
   },
@@ -252,9 +255,6 @@ export default {
         dropdown.scrollTop = currentEntryOffsetBottom - dropdown.clientHeight;
       }
     },
-  },
-  components: {
-    searchbarPageItem,
   },
 };
 </script>

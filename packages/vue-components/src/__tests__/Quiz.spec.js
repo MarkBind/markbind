@@ -1,4 +1,4 @@
-import { config, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Quiz from '../questions/Quiz.vue';
 import Question from '../questions/Question.vue';
 import QOption from '../questions/QOption.vue';
@@ -10,15 +10,17 @@ import QOption from '../questions/QOption.vue';
  - Score screen
  */
 
-// Prevent default transition stubs to allow @after-leave to be triggered
-config.stubs = {
-  transition: false,
+const DEFAULT_STUBS = {
+  'box': true,
+  'transition': false,
 };
 
-const DEFAULT_STUBS = {
-  'question': Question,
-  'q-option': QOption,
-  'box': true,
+const DEFAULT_GLOBAL_MOUNT_OPTIONS = {
+  stubs: DEFAULT_STUBS,
+  components: {
+    'question': Question,
+    'q-option': QOption,
+  },
 };
 
 const MCQ_QUESTION = `
@@ -69,7 +71,7 @@ describe('Quizzes', () => {
         default: '',
         intro: '<h1>Intro</h1>',
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     expect(wrapper.element).toMatchSnapshot();
@@ -80,7 +82,7 @@ describe('Quizzes', () => {
       slots: {
         default: MCQ_QUESTION,
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click 'begin'
@@ -101,7 +103,7 @@ describe('Quizzes', () => {
       slots: {
         default: CHECKBOX_QUESTION,
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click 'begin'
@@ -123,7 +125,7 @@ describe('Quizzes', () => {
       slots: {
         default: BLANKS_QUESTION,
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // click 'begin'
@@ -144,7 +146,7 @@ describe('Quizzes', () => {
       slots: {
         default: TEXT_QUESTION,
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click 'begin'
@@ -165,7 +167,7 @@ describe('Quizzes', () => {
       slots: {
         default: [MCQ_QUESTION, TEXT_QUESTION, CHECKBOX_QUESTION, BLANKS_QUESTION],
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click 'begin'
@@ -213,7 +215,7 @@ describe('Quizzes', () => {
       slots: {
         default: [MCQ_QUESTION, TEXT_QUESTION],
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click 'begin'
@@ -248,7 +250,7 @@ describe('Quizzes', () => {
       slots: {
         default: [MCQ_QUESTION, TEXT_QUESTION, CHECKBOX_QUESTION],
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     // Click 'begin'
