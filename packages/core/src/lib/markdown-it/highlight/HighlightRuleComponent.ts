@@ -77,8 +77,7 @@ export class HighlightRuleComponent {
     const lineNumber = HighlightRuleComponent
       .isValidLineNumber(compString, 1, lines.length, lineNumberOffset);
     if (lineNumber) {
-      // return new HighlightRuleComponent(lineNumber, undefined, undefined, color);
-      return new HighlightRuleComponent(lineNumber, undefined, undefined);
+      return new HighlightRuleComponent(lineNumber);
     }
 
     // the string is an improperly written rule

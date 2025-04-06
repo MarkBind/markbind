@@ -9,7 +9,6 @@ import * as logger from '../../utils/logger';
 
 import { HighlightRule, HIGHLIGHT_TYPES } from './highlight/HighlightRule';
 import { Highlighter } from './highlight/Highlighter';
-// import { defaultColor, getCurrentTheme } from './highlight/helper';
 
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
@@ -144,43 +143,50 @@ markdownIt.renderer.rules.fence = (tokens: Token[],
   }
 
   lines.pop(); // last line is always a single '\n' newline, so we remove it
-  // wrap all lines with <span> so we can number them
   str = lines.map((line, index) => {
     const currentLineNumber = index + 1;
-    const highlightedLine = line; // Start with the original line
 
-    // Collect all bounds and colors for partial text highlights
-    const boundsWithColors: Array<{ bounds: [number, number], color: string }> = [];
-    const hasImmediateReturn = highlightRules.some((rule) => {
-      const results = rule.getHighlightType(currentLineNumber);
-      return results.some((result) => {
-        const { highlightType, bounds, color } = result;
-        const highlightColor = color || '';
-        if (highlightType === HIGHLIGHT_TYPES.WholeLine) {
-          str = Highlighter.highlightWholeLine(highlightedLine, highlightColor);
-          return true;
-        } else if (highlightType === HIGHLIGHT_TYPES.WholeText) {
-          str = Highlighter.highlightWholeText(highlightedLine, highlightColor);
-          return true;
-        } else if (highlightType === HIGHLIGHT_TYPES.PartialText && bounds) {
-          bounds.forEach((bound) => {
-            boundsWithColors.push({ bounds: bound, color: highlightColor });
-          });
-          return false;
-        }
-        return false;
-      });
+    // Firstly, we determine if there are whole line/text highlights
+    const immediateHighlight = highlightRules.flatMap(rule =>
+      rule.getHighlightType(currentLineNumber),
+    ).find(({ highlightType }) => {
+      if (highlightType === HIGHLIGHT_TYPES.WholeLine) {
+        return true;
+      }
+      if (highlightType === HIGHLIGHT_TYPES.WholeText) {
+        return true;
+      }
+      return false;
     });
 
-    if (hasImmediateReturn) {
-      return str;
+    // Apply the WholeLine and WholeText highlight here
+    if (immediateHighlight) {
+      const highlightColor = immediateHighlight.color || '';
+      if (immediateHighlight.highlightType === HIGHLIGHT_TYPES.WholeLine) {
+        return Highlighter.highlightWholeLine(line, highlightColor);
+      }
+      if (immediateHighlight.highlightType === HIGHLIGHT_TYPES.WholeText) {
+        return Highlighter.highlightWholeText(line, highlightColor);
+      }
     }
+
+    // Next, handle partial text highlight logic here
+    const boundsWithColors = highlightRules.flatMap(rule =>
+      rule.getHighlightType(currentLineNumber)
+        .filter(({ highlightType, bounds }) =>
+          highlightType === HIGHLIGHT_TYPES.PartialText && bounds,
+        )
+        .flatMap(({ bounds, color }) =>
+          bounds!.map(bound => ({ bounds: bound, color: color || '' })),
+        ),
+    );
 
     if (boundsWithColors.length > 0) {
       return Highlighter.highlightPartOfText(line, boundsWithColors);
     }
 
-    return `<span>${highlightedLine}\n</span>`;
+    // Default case: wrap in span
+    return `<span>${line}\n</span>`;
   }).join('');
 
   token.attrJoin('class', 'hljs');

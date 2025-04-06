@@ -20,6 +20,7 @@ interface TraverseLinePartData {
  * @param node The node of the line part to be traversed
  * @param hlStart The highlight start position, relative to the start of the line part
  * @param hlEnd The highlight end position, relative to the start of the line part
+ * @param color Optional color for the highlight
  * @returns  An object that contains data to be used by the node's parent.
  */
 function traverseLinePart(
@@ -94,6 +95,7 @@ function traverseLinePart(
   }
 
   /*
+   * If node level highlighting is not possible, highlight the individual children as needed.
    * For text nodes, it is trickier, as we have to wrap the text inside a <span> first.
    * Essentially, we have to change the text node to become a tag node.
    */
@@ -116,6 +118,7 @@ function traverseLinePart(
       child.attribs.class = child.attribs.class
         ? `${child.attribs.class} highlighted`
         : 'highlighted';
+      return;
     }
 
     if (!data.highlightRange) {
