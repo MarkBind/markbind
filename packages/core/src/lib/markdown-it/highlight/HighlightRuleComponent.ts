@@ -1,6 +1,6 @@
 import { splitCodeAndIndentation } from './helper';
 
-const LINESLICE_CHAR_REGEX = /(\d+)\[(\d*):(\d*)]/;
+const LINESLICE_CHAR_REGEX = /(\+?)(\d+)\[(\d*):(\d*)]/;
 const LINESLICE_WORD_REGEX = /(\d+)\[(\d*)::(\d*)]/;
 const LINEPART_REGEX = /(\d+)\[(["'])((?:\\.|[^\\])*?)\2]/;
 const UNBOUNDED = -1;
@@ -43,8 +43,14 @@ export class HighlightRuleComponent {
     const linesliceWordMatch = compString.match(LINESLICE_WORD_REGEX);
     const sliceMatch = linesliceCharMatch || linesliceWordMatch;
     if (sliceMatch) {
-      // There are four capturing groups: [full match, line number, start bound, end bound]
+      // There are four/five capturing groups: [full match, is absolute indexing (for char match),
+      //                                        line number, start bound, end bound]
       const groups = sliceMatch.slice(1); // discard full match
+
+      let isAbsoluteIndexing = false;
+      if (sliceMatch === linesliceCharMatch) {
+        isAbsoluteIndexing = groups.shift() === '+';
+      }
 
       const lineNumber = HighlightRuleComponent
         .isValidLineNumber(groups.shift() ?? '', 1, lines.length, lineNumberOffset);
@@ -58,7 +64,7 @@ export class HighlightRuleComponent {
       let bound = groups.map(x => (x !== '' ? parseInt(x, 10) : UNBOUNDED)) as [number, number];
       const isCharSlice = sliceMatch === linesliceCharMatch;
       bound = isCharSlice
-        ? HighlightRuleComponent.computeCharBounds(bound, lines[lineNumber - 1])
+        ? HighlightRuleComponent.computeCharBounds(bound, lines[lineNumber - 1], isAbsoluteIndexing)
         : HighlightRuleComponent.computeWordBounds(bound, lines[lineNumber - 1]);
 
       return new HighlightRuleComponent(lineNumber, true, [bound]);
@@ -95,38 +101,30 @@ export class HighlightRuleComponent {
    * comparing the bounds and the line's range.
    *
    * If the bound does not specify either the start or the end bound, the computed bound will default
-   * to the start or end of line, excluding leading whitespaces.
+   * to the start or end of line. The bound can be either absolute or relative to the indentation level.
    *
    * @param bound The user-defined bound
    * @param line The given line
+   * @param isAbsoluteIndexing Whether the bound is absolute or relative to the indentation level
    * @returns {[number, number]} The actual bound computed
    */
-  static computeCharBounds(bound: [number, number], line: string): [number, number] {
+  static computeCharBounds(bound: [number, number], line: string,
+                           isAbsoluteIndexing: boolean): [number, number] {
     const [indents] = splitCodeAndIndentation(line);
     let [start, end] = bound;
 
     if (start === UNBOUNDED) {
-      start = indents.length;
+      start = isAbsoluteIndexing ? 0 : indents.length;
     } else {
-      start += indents.length;
-      // Clamp values
-      if (start < indents.length) {
-        start = indents.length;
-      } else if (start > line.length) {
-        start = line.length;
-      }
+      start = isAbsoluteIndexing ? start : Math.max(start + indents.length, indents.length);
+      start = Math.min(start, line.length);
     }
 
     if (end === UNBOUNDED) {
       end = line.length;
     } else {
-      end += indents.length;
-      // Clamp values
-      if (end < indents.length) {
-        end = indents.length;
-      } else if (end > line.length) {
-        end = line.length;
-      }
+      end = isAbsoluteIndexing ? end : Math.max(end + indents.length, indents.length);
+      end = Math.min(end, line.length);
     }
 
     return [start, end];

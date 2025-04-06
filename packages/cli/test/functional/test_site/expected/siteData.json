@@ -472,7 +472,11 @@
     {
       "src": "testMermaid.md",
       "title": "Rendering of diagrams via mermaid-js",
-      "headings": {},
+      "headings": {
+        "test-some-sample-mermaid-diagrams-load": "Test some sample Mermaid diagrams load",
+        "test-standard-formatting-of-mermaid-diagrams-load-using-pre": "Test standard formatting of Mermaid diagrams load (using pre)",
+        "test-dynamically-loaded-mermaid-diagrams": "Test dynamically loaded Mermaid diagrams"
+      },
       "headingKeywords": {}
     }
   ]

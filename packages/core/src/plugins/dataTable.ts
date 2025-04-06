@@ -27,20 +27,72 @@ const initScript = `
       return options;
     }
 
-    Vue.directive('datatable', {
-      inserted: function(el, binding) {
-        const options = binding.value || {};
-        const tableOptions = getTableOptions(el);
-        $(el).DataTable({ ...tableOptions, ...options });
-      }
-    });
+    function initializeTables(tables) {
+      if (!tables || tables.length === 0) return;
+      tables.forEach(table => {
+        const options = getTableOptions(table);
+        $(table).DataTable(options);
+        $(table).addClass('dt-processed');
+      });
+    }
+
+    function setupTableObserver() {
+      const observer = new MutationObserver((mutations) => {
+        let newTables = [];
+        
+        mutations.forEach(mutation => {
+          if (mutation.addedNodes.length) {
+            mutation.addedNodes.forEach(node => {
+
+              if (node.nodeType === 1 && node.tagName === 'TABLE' && 
+                  !$(node).hasClass('dt-processed') &&
+                  ($(node).hasClass('sortable-table') || 
+                   $(node).hasClass('searchable-table') || 
+                   $(node).hasClass('sortable-searchable-table'))) {
+                newTables.push(node);
+              }
+              
+              if (node.nodeType === 1 && node.querySelectorAll) {
+                const tablesInNode = node.querySelectorAll(
+                'table.sortable-table:not(.dt-processed), ' +
+                'table.searchable-table:not(.dt-processed), ' +
+                'table.sortable-searchable-table:not(.dt-processed)');
+                if (tablesInNode.length) {
+                  newTables = [...newTables, ...tablesInNode];
+                }
+              }
+            });
+          }
+        });
+
+        if (newTables.length > 0) {
+          initializeTables(newTables);
+        }
+      });
+      
+      // Start observing the entire document for changes
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+      
+      return observer;
+    }
 
     document.addEventListener('DOMContentLoaded', function() {
-      $('table.sortable-table, table.searchable-table, table.sortable-searchable-table').each(function() {
-        const options = getTableOptions(this);
-        $(this).DataTable(options);
-      });
+      // Process any existing tables
+      const existingTables = document.querySelectorAll(
+        'table.sortable-table:not(.dt-processed), ' +
+        'table.searchable-table:not(.dt-processed), ' +
+        'table.sortable-searchable-table:not(.dt-processed)'
+      );
+      if (existingTables.length > 0) {
+        initializeTables(existingTables);
+      }
+      
+      setupTableObserver();
     });
+
   </script>
 `;
 
@@ -77,8 +129,7 @@ export = {
       const $renderedTable = $(renderedTable);
       $renderedTable.find('table')
         .addClass(tableClass)
-        .attr('id', `datatable-${index}`)
-        .attr('v-datatable', '');
+        .attr('id', `datatable-${index}`);
 
       $node.replaceWith($renderedTable);
     });
