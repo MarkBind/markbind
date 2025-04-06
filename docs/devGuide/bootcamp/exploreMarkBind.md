@@ -349,14 +349,11 @@ You now have modified some of the commonly adjusted site structure and configura
 MarkBind sites can be easily deployed with CLI commands or via CI. Let's try deploying our site via GitHub Actions.
 
 1. Open the `site.json` file in your `mb-dev-xxx` folder.
-1. Change `"baseUrl": "",` to `"baseUrl": "/mb-dev-xxx",` (Note the leading `/` and that the value is the same as your 
-   GitHub repository name).
-1. Create a `.github/workflows/deploy.yml` file with the following content mentioned in the <a 
-   tags="environment--combined" href="/userGuide/deployingTheSite.html#deploying-via-github-actions">GitHub Actions guide</a><a tags="environment--dg" href="https://markbind.org/userGuide/deployingTheSite.html#deploying-via-github-actions">GitHub Actions guide</a>.
+1. Change `"baseUrl": "",` to `"baseUrl": "/mb-dev-xxx",` (Note the leading `/` and that the value is the same as your GitHub repository name).
+1. Create a `.github/workflows/deploy.yml` file with the following content mentioned in the <a tags="environment--combined" href="/userGuide/deployingTheSite.html#deploying-via-github-actions">GitHub Actions guide</a><a tags="environment--dg" href="https://markbind.org/userGuide/deployingTheSite.html#deploying-via-github-actions">GitHub Actions guide</a>.
    1. Note that you should change `branches: master` to `branches: main` if you are using the `main` branch.
 
 <panel src="{{baseUrl}}/userGuide/deployingTheSite.md#markbind-action-tip" header="**MarkBind Action**" type="info" expanded/>
-
 
 4. Ensure that you have added your remote GitHub repository to your local repository with the following command (replace `xxx` with your GitHub username):
     ```bash
