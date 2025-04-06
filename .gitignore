@@ -64,8 +64,8 @@ packages/cli/test/functional/test_site_templates/test_project/expected/diagrams/
 *.iml
 
 # JetBrains configurations
-.idea
-.run
+.idea/
+.run/
 
 # Compiled files from TypeScript
 *.js.map

@@ -349,28 +349,25 @@ You now have modified some of the commonly adjusted site structure and configura
 MarkBind sites can be easily deployed with CLI commands or via CI. Let's try deploying our site via GitHub Actions.
 
 1. Open the `site.json` file in your `mb-dev-xxx` folder.
-2. Change `"baseUrl": "",` to `"baseUrl": "/mb-dev-xxx",` (Note the leading `/` and that the value is the same as your GitHub repository name).
-3. Create a `.github/workflows/deploy.yml` file with the following content mentioned in the <a tags="environment--combined" href="/userGuide/deployingTheSite.html#deploying-via-github-actions">GitHub Actions guide</a><a tags="environment--dg" href="https://markbind.org/userGuide/deployingTheSite.html#deploying-via-github-actions">GitHub Actions guide</a>.
+1. Change `"baseUrl": "",` to `"baseUrl": "/mb-dev-xxx",` (Note the leading `/` and that the value is the same as your 
+   GitHub repository name).
+1. Create a `.github/workflows/deploy.yml` file with the following content mentioned in the <a 
+   tags="environment--combined" href="/userGuide/deployingTheSite.html#deploying-via-github-actions">GitHub Actions guide</a><a tags="environment--dg" href="https://markbind.org/userGuide/deployingTheSite.html#deploying-via-github-actions">GitHub Actions guide</a>.
    1. Note that you should change `branches: master` to `branches: main` if you are using the `main` branch.
 
 <panel src="{{baseUrl}}/userGuide/deployingTheSite.md#markbind-action-tip" header="**MarkBind Action**" type="info" expanded/>
 
-4. Update you GitHub repository settings to enable read and write permissions for Actions.
-   1. Navigate to the Settings > Actions section.
-   2. Under `General` tab, find the `Workflow permissions` section.
-   3. Click to toggle to `Read and write permissions`.
-   4. Save by clicking on the `Save` button.
 
-5. Ensure that you have added your remote GitHub repository to your local repository with the following command (replace `xxx` with your GitHub username):
+4. Ensure that you have added your remote GitHub repository to your local repository with the following command (replace `xxx` with your GitHub username):
     ```bash
     git remote add origin https://github.com/xxx/mb-dev-xxx.git
     ```
-6. Commit and push the changes to the `main` branch with the following commands:
+5. Commit and push the changes to the `main` branch with the following commands:
     ```bash
     git add .
     git commit -m "Update content"
     git push origin main
-7. Update your GitHub repository setting for deploying to GitHub Pages.
+6. Update your GitHub repository setting for deploying to GitHub Pages.
    1. Navigate to the Settings > Pages section on GitHub for that repository and set the source to `Deploy from a branch` and the branch to `gh-pages` and `/(root)`.
 
 <box type="important" light>
