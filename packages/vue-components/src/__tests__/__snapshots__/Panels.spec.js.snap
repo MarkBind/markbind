@@ -110,18 +110,19 @@ exports[`NestedPanels print behavior card body should not have d-print-none clas
       <div
         class="caret-wrapper"
       >
-        <!---->
+        <!--v-if-->
       </div>
-       
       <div
         class="header-wrapper card-title bg-light"
       >
+        
         test header
+        
       </div>
-       
       <div
         class="button-wrapper"
       >
+        
         <button
           class="collapse-button btn btn-outline-secondary"
           type="button"
@@ -131,7 +132,6 @@ exports[`NestedPanels print behavior card body should not have d-print-none clas
             class="collapse-icon glyphicon glyphicon-menu-down opened"
           />
         </button>
-         
         <button
           class="close-button btn btn-outline-secondary"
           type="button"
@@ -141,7 +141,6 @@ exports[`NestedPanels print behavior card body should not have d-print-none clas
             class="glyphicon glyphicon-remove"
           />
         </button>
-         
         <button
           class="popup-button btn btn-outline-secondary"
           style="display: none;"
@@ -152,9 +151,9 @@ exports[`NestedPanels print behavior card body should not have d-print-none clas
             class="glyphicon glyphicon-new-window"
           />
         </button>
+        
       </div>
     </div>
-     
     <div
       class="card-collapse"
       style="max-height: 0px;"
@@ -162,9 +161,9 @@ exports[`NestedPanels print behavior card body should not have d-print-none clas
       <div
         class="card-body"
       >
-         
-        <!---->
-         
+        
+        
+        <!--v-if-->
         <div
           class="bottom-button-wrapper"
         >
@@ -179,16 +178,17 @@ exports[`NestedPanels print behavior card body should not have d-print-none clas
           </button>
         </div>
       </div>
-       
       <hr
         style="display: none;"
       />
     </div>
-     
     <transition-stub
+      appear="false"
+      css="true"
       name="peek-read-more-fade"
+      persisted="false"
     >
-      <!---->
+      <!--v-if-->
     </transition-stub>
   </div>
 </div>

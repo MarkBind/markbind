@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import NestedPanel from '../panels/NestedPanel.vue';
 
 const DEFAULT_STUBS = { 'nested-panel': NestedPanel };
@@ -123,7 +124,7 @@ describe('NestedPanels', () => {
 describe('NestedPanels print behavior', () => {
   test('card body should have d-print-none class when collapsed', async () => {
     const wrapper = mount(NestedPanel, {
-      propsData: {
+      props: {
         expandable: true,
         expanded: true,
         preload: true,
@@ -142,7 +143,7 @@ describe('NestedPanels print behavior', () => {
 
   test('card body should not have d-print-none class when expanded', async () => {
     const wrapper = mount(NestedPanel, {
-      propsData: {
+      props: {
         expandable: true,
         expanded: false,
         preload: true,
@@ -152,8 +153,8 @@ describe('NestedPanels print behavior', () => {
       },
     });
 
-    wrapper.vm.toggle(false);
-    await wrapper.vm.$nextTick();
+    await wrapper.find('.card-header').trigger('click');
+    await nextTick();
 
     expect(wrapper.find('.card-body').classes()).not.toContain('d-print-none');
     expect(wrapper.element).toMatchSnapshot();
