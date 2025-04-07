@@ -172,10 +172,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    noPageBreak: {
-      type: Boolean,
-      default: false,
-    },
     theme: {
       type: String,
       default: '',
@@ -221,10 +217,6 @@ export default {
 
       if (this.noBorder) {
         containerStyle += ' no-border';
-      }
-
-      if (this.noPageBreak) {
-        containerStyle += ' no-page-break';
       }
 
       return containerStyle;
@@ -419,12 +411,6 @@ export default {
 
         .contents {
             padding: 0;
-        }
-    }
-
-    @media print {
-        .no-page-break {
-            page-break-inside: avoid;
         }
     }
 </style>

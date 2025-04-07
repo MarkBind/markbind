@@ -44,9 +44,9 @@ window.addEventListener('beforeprint', () => {
   const pageNavPrintContainers = document.querySelectorAll(`.${PAGE_NAV_PRINT_CONTAINER}`);
 
   if (pageNav && pageNavPrintContainers.length >= 1) {
+    removePageNavPrint(); // remove any existing clones
     pageNavPrintContainers.forEach((container) => {
-      const pageNavClone = clonePageNav(pageNav);
-      container.appendChild(pageNavClone);
+      container.appendChild(clonePageNav(pageNav));
     });
   }
 });
@@ -72,17 +72,4 @@ function checkForWrappingAndAddLineNumbers() {
 
 window.addEventListener('beforeprint', () => {
   checkForWrappingAndAddLineNumbers();
-});
-
-// Append "preload" attribute to all the panels
-
-// Test: remove "preload" attribute from all the panels
-function removePreload() {
-  document.querySelectorAll('card-container').forEach((block) => {
-    block.attributes.removeNamedItem('preload');
-  });
-}
-
-window.addEventListener('beforeinput', () => {
-  removePreload();
 });

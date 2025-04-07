@@ -227,10 +227,6 @@ footer {
     color: white !important;
 }
 
-.mkb-text-violet {
-    color: violet !important;
-}
-
 /* Bootstrap small(sm) responsive breakpoint */
 @media (width <= 767.98px) {
     .dropdown-menu > li > a {
