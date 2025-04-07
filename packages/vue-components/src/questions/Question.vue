@@ -1,15 +1,6 @@
 <template>
   <transition :name="questions ? 'question' : null" @after-leave="showNextQuestion">
-    <div
-      v-if="active"
-      :class="[
-        'card',
-        'question',
-        noPageBreak ? 'no-page-break' : '',
-        shakeClass,
-        addClass
-      ]"
-    >
+    <div v-if="active" :class="['card', 'question', shakeClass, addClass]">
       <div v-if="$slots.header" class="card-header alert-light border-bottom border-light text-dark">
         <slot name="header"></slot>
       </div>
