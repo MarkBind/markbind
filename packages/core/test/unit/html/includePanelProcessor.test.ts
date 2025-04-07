@@ -1,9 +1,23 @@
 import path from 'path';
 import { getNewDefaultNodeProcessor } from '../utils/utils';
+import * as logger from '../../../src/utils/logger';
 
 const fs = require('fs');
 
 jest.mock('fs');
+
+const expectedErrors = [
+  'No such segment \'#doesNotExist\' in file: markbind\\packages\\core\\include.md',
+  'Cyclic reference detected.',
+];
+
+beforeAll(() => {
+  logger.info(`The following ${expectedErrors.length} errors are expected to be thrown 
+during the test run:`);
+  expectedErrors.forEach((error, index) => {
+    logger.info(`${index + 1}: ${error}`);
+  });
+});
 
 afterEach(() => fs.vol.reset());
 
@@ -284,6 +298,7 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
   fs.vol.fromJSON(json, '');
 
   const nodeProcessor = getNewDefaultNodeProcessor();
+  const loggerErrorSpy = jest.spyOn(logger, 'error');
   const result = await nodeProcessor.process(indexPath, index);
 
   const expected = [
@@ -292,6 +307,8 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
   ].join('\n');
 
   expect(result).toEqual(expected);
+  expect(loggerErrorSpy).toHaveBeenCalledWith(expectedErrorMessage);
+  loggerErrorSpy.mockRestore();
 });
 
 test('includeFile replaces <include src="include.md#exists" optional> with <div>', async () => {
@@ -389,11 +406,14 @@ test('includeFile detects cyclic references for static cyclic includes', async (
   ].join('\n');
 
   const nodeProcessor = getNewDefaultNodeProcessor();
+  const loggerErrorSpy = jest.spyOn(logger, 'error');
   const result = await nodeProcessor.process(indexPath, index);
 
   const expected = `<div style="color: red">${expectedErrorMessage}</div>`;
 
   expect(result).toContain(expected);
+  expect(loggerErrorSpy).toHaveBeenCalledWith(expectedErrorMessage);
+  loggerErrorSpy.mockRestore();
 });
 
 test('process include should preserve included frontmatter data', async () => {
