@@ -134,8 +134,8 @@ describe('NestedPanels print behavior', () => {
       },
     });
 
-    wrapper.vm.toggle(false);
-    await wrapper.vm.$nextTick();
+    await wrapper.find('.card-header').trigger('click');
+    await nextTick();
 
     expect(wrapper.find('.card-body').classes()).toContain('d-print-none');
     expect(wrapper.element).toMatchSnapshot();
