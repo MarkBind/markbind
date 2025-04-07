@@ -111,17 +111,8 @@ You can take advantage of [MarkBind's feature for content reuse](reusingContents
 
 #### Optimizing the Print View
 
-To <span class="keyword">hide minimized panels in the _print view_</span>, add the following code to a CSS file used in your site.
-
-```css
-@media print {
-    .card-container > .morph {
-        display: none;
-    }
-}
-```
-
-MarkBind also comes with some built-in optimizations for printing by default:
+MarkBind comes with some built-in optimizations for printing by default:
+- Automatically hiding minimized panels in the _print view_
 - <include src="syntax/code.md#code-print-optimization" />
 
 #### Hiding some info in the generated content
