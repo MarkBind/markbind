@@ -294,7 +294,8 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
   ].join('\n');
 
   expect(result).toEqual(expected);
-  expect(loggerErrorSpy).toHaveBeenCalledWith(new Error(expectedErrorMessage));
+  expect(loggerErrorSpy).toHaveBeenCalledWith(expectedErrorMessage);
+  loggerErrorSpy.mockRestore();
 });
 
 test('includeFile replaces <include src="include.md#exists" optional> with <div>', async () => {
@@ -398,7 +399,8 @@ test('includeFile detects cyclic references for static cyclic includes', async (
   const expected = `<div style="color: red">${expectedErrorMessage}</div>`;
 
   expect(result).toContain(expected);
-  expect(loggerErrorSpy).toHaveBeenCalledWith(new Error(expectedErrorMessage));
+  expect(loggerErrorSpy).toHaveBeenCalledWith(expectedErrorMessage);
+  loggerErrorSpy.mockRestore();
 });
 
 test('process include should preserve included frontmatter data', async () => {
