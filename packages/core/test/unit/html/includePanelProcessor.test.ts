@@ -6,6 +6,19 @@ const fs = require('fs');
 
 jest.mock('fs');
 
+const expectedErrors = [
+  'No such segment \'#doesNotExist\' in file: markbind\\packages\\core\\include.md',
+  'Cyclic reference detected.',
+];
+
+beforeAll(() => {
+  logger.info(`The following ${expectedErrors.length} errors are expected to be thrown 
+during the test run:`);
+  expectedErrors.forEach((error, index) => {
+    logger.info(`${index + 1}: ${error}`);
+  });
+});
+
 afterEach(() => fs.vol.reset());
 
 test('includeFile replaces <include> with <div>', async () => {

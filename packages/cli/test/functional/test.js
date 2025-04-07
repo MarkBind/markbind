@@ -6,6 +6,8 @@ const { compare } = require('./testUtil/compare');
 
 const { cleanupConvert } = require('./testUtil/cleanup');
 
+const logger = require('../../../core/src/utils/logger');
+
 const {
   testSites,
   testConvertSites,
@@ -31,10 +33,10 @@ const execOptions = {
 
 const expectedErrors = ["URLs are not allowed in the 'src' attribute"];
 
-console.log(`NOTE: The following ${expectedErrors.length} errors are expected to be thrown 
+logger.info(`The following ${expectedErrors.length} errors are expected to be thrown 
 during the test run:`);
 expectedErrors.forEach((error, index) => {
-  console.log(`${index + 1}: ${error}`);
+  logger.info(`${index + 1}: ${error}`);
 });
 
 testSites.forEach((siteName) => {
