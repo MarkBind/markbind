@@ -44,7 +44,7 @@ window.addEventListener('beforeprint', () => {
   const pageNavPrintContainers = document.querySelectorAll(`.${PAGE_NAV_PRINT_CONTAINER}`);
 
   if (pageNav && pageNavPrintContainers.length >= 1) {
-    removePageNavPrint();
+    removePageNavPrint(); // remove any existing clones
     pageNavPrintContainers.forEach((container) => {
       const pageNavClone = clonePageNav(pageNav);
       container.appendChild(pageNavClone);
