@@ -197,11 +197,11 @@ export default {
       return this.isSeamless() && this.headerBool();
     },
     headerBool() {
-      return !!this.$scopedSlots.header;
+      return !!this.$slots.header;
     },
     iconBool() {
-      // this.$scopedSlots.icon is either undefined or an object
-      const isIconSlotFilled = !!this.$scopedSlots.icon;
+      // this.$slots.icon() is either undefined or an object
+      const isIconSlotFilled = !!this.$slots.icon;
       return (!this.noIcon && this.type) || isIconSlotFilled;
     },
     containerStyle() {
@@ -344,6 +344,10 @@ export default {
         font-weight: 500;
     }
 
+    :deep(div.box-header > *) {
+        margin-bottom: 0;
+    }
+
     .icon-wrapper {
         display: inline;
         text-align: center;
@@ -422,12 +426,5 @@ export default {
         .no-page-break {
             page-break-inside: avoid;
         }
-    }
-</style>
-
-<!-- TODO move this once we upgrade vue-loader version for scoped deep selectors -->
-<style>
-    div.box-header > * {
-        margin-bottom: 0;
     }
 </style>

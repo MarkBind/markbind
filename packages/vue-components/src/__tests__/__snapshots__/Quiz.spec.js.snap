@@ -10,27 +10,23 @@ exports[`Quizzes intro screen with intro text renders correctly 1`] = `
     <div
       class="card-body"
     >
+      
       <h1>
         Intro
       </h1>
-       
+      
       <h5>
         0 questions
       </h5>
-       
       <hr />
-       
       <button
         class="btn btn-primary d-inline-block"
         type="button"
       >
-        
-          Start
-        
+         Start 
       </button>
     </div>
   </div>
-   
   <div
     class="progress intro-outro-card"
     style="height: 1px; display: none;"
@@ -43,8 +39,9 @@ exports[`Quizzes intro screen with intro text renders correctly 1`] = `
       role="progressbar"
     />
   </div>
-    
-  <!---->
+  
+  
+  <!--v-if-->
 </div>
 `;
 

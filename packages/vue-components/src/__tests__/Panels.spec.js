@@ -15,7 +15,7 @@ const BOX_CONTAINER = `
 describe('NestedPanels', () => {
   test('should show header when collapsed with expandHeaderless as false', async () => {
     const wrapper = mount(NestedPanel, {
-      propsData: {
+      props: {
         expandHeaderless: false,
       },
       slots: {
@@ -28,7 +28,7 @@ describe('NestedPanels', () => {
 
   test('should show header after expand with expandHeaderless as false', async () => {
     const wrapper = mount(NestedPanel, {
-      propsData: {
+      props: {
         expandHeaderless: false,
       },
       slots: {
@@ -44,7 +44,7 @@ describe('NestedPanels', () => {
 
   test('should show header when collapsed with expandHeaderless as true', async () => {
     const wrapper = mount(NestedPanel, {
-      propsData: {
+      props: {
         expandHeaderless: true,
       },
       slots: {
@@ -57,7 +57,7 @@ describe('NestedPanels', () => {
 
   test('should not show header after expand with expandHeaderless as true', async () => {
     const wrapper = mount(NestedPanel, {
-      propsData: {
+      props: {
         expandHeaderless: true,
       },
       slots: {
@@ -73,7 +73,7 @@ describe('NestedPanels', () => {
 
   test('should have span.anchor when id is present', async () => {
     const wrapper = mount(NestedPanel, {
-      propsData: {
+      props: {
         panelId: 'test-id',
       },
       slots: {
@@ -86,7 +86,7 @@ describe('NestedPanels', () => {
 
   test('renders a seamless panel with a transparent background', async () => {
     const wrapper = mount(NestedPanel, {
-      propsData: {
+      props: {
         type: 'seamless',
       },
       slots: {
@@ -105,7 +105,9 @@ describe('NestedPanels', () => {
     };
 
     const wrapper = mount(ParentComponent, {
-      stubs: DEFAULT_STUBS,
+      global: {
+        stubs: DEFAULT_STUBS,
+      },
     });
 
     const parentElement = wrapper.find('div');

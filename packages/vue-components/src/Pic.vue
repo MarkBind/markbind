@@ -72,6 +72,12 @@ export default {
       heightFromWidth: '',
     };
   },
+  mounted() {
+    const img = this.$refs.pic;
+    if (img && img.complete) {
+      this.computeWidthAndHeight();
+    }
+  },
   methods: {
     computeWidthAndHeight() {
       const renderedImg = this.$refs.pic;

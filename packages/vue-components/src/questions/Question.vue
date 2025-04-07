@@ -10,7 +10,7 @@
         addClass
       ]"
     >
-      <div v-if="$scopedSlots.header" class="card-header alert-light border-bottom border-light text-dark">
+      <div v-if="$slots.header" class="card-header alert-light border-bottom border-light text-dark">
         <slot name="header"></slot>
       </div>
       <div class="card-body">
@@ -71,7 +71,7 @@
           class="float-end"
         >
           <button
-            v-if="$scopedSlots.hint && !showHint"
+            v-if="$slots.hint && !showHint"
             key="hint"
             type="button"
             class="btn btn-success q-btn ms-1"
@@ -80,7 +80,7 @@
             Hint
           </button>
           <button
-            v-if="qState.state === 0 && !(isTextWithoutKeywords() && !$scopedSlots.answer)"
+            v-if="qState.state === 0 && !(isTextWithoutKeywords() && !$slots.answer)"
             key="check"
             type="button"
             class="btn btn-primary q-btn ms-1"
@@ -89,7 +89,7 @@
             Check
           </button>
           <button
-            v-if="qState.state !== 0 && questions"
+            v-show="qState.state !== 0 && questions"
             key="active"
             type="button"
             class="btn btn-primary q-btn ms-1"
@@ -98,7 +98,7 @@
             Next
           </button>
           <button
-            v-if="retryState"
+            v-show="retryState"
             key="show"
             type="button"
             class="btn btn-info q-btn ms-1"
@@ -107,7 +107,7 @@
             Show
           </button>
           <button
-            v-if="retryState"
+            v-show="retryState"
             key="retry"
             type="button"
             class="btn btn-primary q-btn ms-1"
@@ -123,11 +123,15 @@
 
 <script>
 import { STATE_CORRECT, STATE_FRESH, STATE_WRONG } from './QuestionConstants';
+import box from '../Box.vue';
 import QuizQuestionMixin from './QuizQuestionMixin';
 
 export default {
   name: 'Question',
   mixins: [QuizQuestionMixin],
+  components: {
+    box,
+  },
   props: {
     type: {
       type: String,
@@ -136,10 +140,6 @@ export default {
     addClass: {
       type: String,
       default: null,
-    },
-    noPageBreak: {
-      type: Boolean,
-      default: false,
     },
 
     // Text question specific props
@@ -168,7 +168,7 @@ export default {
     showCardFooter() {
       // Hide the card footer when 'there are no more buttons to click',
       // and the tick / cross circle is not shown
-      const isHintNotProvidedOrIsShown = !this.$scopedSlots.hint || this.showHint;
+      const isHintNotProvidedOrIsShown = !this.$slots.hint || this.showHint;
       return !(this.isTextWithoutKeywords()
         && isHintNotProvidedOrIsShown
         && this.qState.answered
@@ -217,7 +217,7 @@ export default {
         noIntermediateResult: this.noIntermediateResult,
       };
     }
-    return undefined;
+    return {};
   },
   methods: {
     keywordsSplitTrimmed() {
@@ -324,15 +324,6 @@ export default {
 };
 </script>
 
-/* Use style without scoped here to cascade to children */
-<style>
-    @media print {
-        .no-page-break {
-            page-break-inside: avoid;
-        }
-    }
-</style>
-
 <style scoped>
     .result-icon {
         display: inline-flex;
@@ -362,10 +353,14 @@ export default {
 
     .q-btn {
         border-radius: 2.5em;
-        transition: opacity 0.5s, transform 0.7s;
+        transition: opacity 0s, transform 0s;
     }
 
-    .q-btn-enter {
+    /* Todo: Reimplement button animations for Vue 3 without
+      hydration issues or warnings.
+    */
+
+    /* .q-btn-enter {
         opacity: 0;
         transform: translateY(30px);
     }
@@ -377,7 +372,7 @@ export default {
 
     .q-btn-leave-active {
         position: absolute;
-    }
+    } */
 
     .card-header {
         font-size: 1.05em;

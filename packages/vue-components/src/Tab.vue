@@ -46,7 +46,7 @@ export default {
     },
   },
   created() {
-    this._ingroup = this.$parent && this.$parent._tabgroup;
+    this._ingroup = this.$parent && '_tabgroup' in this.$parent;
     let tabset = this;
     while (tabset && tabset._tabset !== true && tabset.$parent) {
       tabset = tabset.$parent;
@@ -68,7 +68,7 @@ export default {
       this.$parent.tabs.push(this);
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this._tabset.activeNumber === this.index) { this._tabset.activeNumber = 0; }
     if (this._ingroup) {
       const tabIndex = this.$parent.tabs.indexOf(this);

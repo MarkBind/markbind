@@ -7,11 +7,14 @@ exports[`Tabset (Tabs) with Tab and Tab-Group Components renders tabset with bot
   <ul
     class="nav nav-tabs d-print-none nav-tabs"
     role="tablist"
-  />
-   
+  >
+    
+    
+  </ul>
   <div
     class="tab-content"
   >
+    
     <div
       class="tab-pane active printable-tab-pane tab-pane-hide"
       role="tabpanel"
@@ -21,78 +24,45 @@ exports[`Tabset (Tabs) with Tab and Tab-Group Components renders tabset with bot
       >
         <div
           class="nav-link active"
-        />
-      </div>
-       
-      Text in the first tab
-   
-      <hr />
-    </div>
-     
-    <div
-      class="tab-pane active printable-tab-pane tab-pane-hide"
-      role="tabpanel"
-    >
-      <div
-        class="nav-tabs printable-tab-header"
-      >
-        <div
-          class="nav-link active"
-        />
-      </div>
-       
-      Text in the second tab
-   
-      <hr />
-    </div>
-     
-    <div
-      class="printable-tab-group"
-    >
-      <div
-        class="printable-tab-group-header"
-      />
-       
-      <div
-        class="tab-pane active printable-tab-pane tab-pane-hide"
-        role="tabpanel"
-      >
-        <div
-          class="nav-tabs printable-tab-header"
         >
-          <div
-            class="nav-link active"
-          />
-        </div>
-         
-      Some stuff about stars ...
-     
-        <hr />
-      </div>
-       
-      <div
-        class="tab-pane active printable-tab-pane tab-pane-hide"
-        role="tabpanel"
-      >
-        <div
-          class="nav-tabs printable-tab-header"
-        >
-          <div
-            class="nav-link active"
-          />
-        </div>
           
-        <hr />
+          
+        </div>
       </div>
+      
+       Text in the first tab 
+      
+      <hr />
     </div>
-     
+    <div
+      class="tab-pane active printable-tab-pane tab-pane-hide"
+      role="tabpanel"
+    >
+      <div
+        class="nav-tabs printable-tab-header"
+      >
+        <div
+          class="nav-link active"
+        >
+          
+          
+        </div>
+      </div>
+      
+       Text in the second tab 
+      
+      <hr />
+    </div>
     <div
       class="printable-tab-group"
     >
       <div
         class="printable-tab-group-header"
-      />
-       
+      >
+        
+        
+      </div>
+      
       <div
         class="tab-pane active printable-tab-pane tab-pane-hide"
         role="tabpanel"
@@ -102,14 +72,68 @@ exports[`Tabset (Tabs) with Tab and Tab-Group Components renders tabset with bot
         >
           <div
             class="nav-link active"
-          />
+          >
+            
+            
+          </div>
         </div>
-         
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis.
-     
+        
+         Some stuff about stars ... 
+        
         <hr />
       </div>
+      <div
+        class="tab-pane active printable-tab-pane tab-pane-hide"
+        role="tabpanel"
+      >
+        <div
+          class="nav-tabs printable-tab-header"
+        >
+          <div
+            class="nav-link active"
+          >
+            
+            
+          </div>
+        </div>
+        
+        
+        <hr />
+      </div>
+      
     </div>
+    <div
+      class="printable-tab-group"
+    >
+      <div
+        class="printable-tab-group-header"
+      >
+        
+        
+      </div>
+      
+      <div
+        class="tab-pane active printable-tab-pane tab-pane-hide"
+        role="tabpanel"
+      >
+        <div
+          class="nav-tabs printable-tab-header"
+        >
+          <div
+            class="nav-link active"
+          >
+            
+            
+          </div>
+        </div>
+        
+         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis. 
+        
+        <hr />
+      </div>
+      
+    </div>
+    
   </div>
 </div>
 `;
@@ -121,18 +145,24 @@ exports[`Tabset (Tabs) with Tab and Tab-Group Components renders tabset with tab
   <ul
     class="nav nav-tabs d-print-none nav-tabs"
     role="tablist"
-  />
-   
+  >
+    
+    
+  </ul>
   <div
     class="tab-content"
   >
+    
     <div
       class="printable-tab-group"
     >
       <div
         class="printable-tab-group-header"
-      />
-       
+      >
+        
+        
+      </div>
+      
       <div
         class="tab-pane active printable-tab-pane tab-pane-hide"
         role="tabpanel"
@@ -142,14 +172,16 @@ exports[`Tabset (Tabs) with Tab and Tab-Group Components renders tabset with tab
         >
           <div
             class="nav-link active"
-          />
+          >
+            
+            
+          </div>
         </div>
-         
-      Some stuff about stars ...
-     
+        
+         Some stuff about stars ... 
+        
         <hr />
       </div>
-       
       <div
         class="tab-pane active printable-tab-pane tab-pane-hide"
         role="tabpanel"
@@ -159,20 +191,27 @@ exports[`Tabset (Tabs) with Tab and Tab-Group Components renders tabset with tab
         >
           <div
             class="nav-link active"
-          />
+          >
+            
+            
+          </div>
         </div>
-          
+        
+        
         <hr />
       </div>
+      
     </div>
-     
     <div
       class="printable-tab-group"
     >
       <div
         class="printable-tab-group-header"
-      />
-       
+      >
+        
+        
+      </div>
+      
       <div
         class="tab-pane active printable-tab-pane tab-pane-hide"
         role="tabpanel"
@@ -182,14 +221,19 @@ exports[`Tabset (Tabs) with Tab and Tab-Group Components renders tabset with tab
         >
           <div
             class="nav-link active"
-          />
+          >
+            
+            
+          </div>
         </div>
-         
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis.
-     
+        
+         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper ultrices lobortis. 
+        
         <hr />
       </div>
+      
     </div>
+    
   </div>
 </div>
 `;
@@ -201,11 +245,14 @@ exports[`Tabset (Tabs) with Tab and Tab-Group Components renders tabset with tab
   <ul
     class="nav nav-tabs d-print-none nav-tabs"
     role="tablist"
-  />
-   
+  >
+    
+    
+  </ul>
   <div
     class="tab-content"
   >
+    
     <div
       class="tab-pane active printable-tab-pane tab-pane-hide"
       role="tabpanel"
@@ -215,14 +262,16 @@ exports[`Tabset (Tabs) with Tab and Tab-Group Components renders tabset with tab
       >
         <div
           class="nav-link active"
-        />
+        >
+          
+          
+        </div>
       </div>
-       
-      Text in the first tab
-   
+      
+       Text in the first tab 
+      
       <hr />
     </div>
-     
     <div
       class="tab-pane active printable-tab-pane tab-pane-hide"
       role="tabpanel"
@@ -232,13 +281,17 @@ exports[`Tabset (Tabs) with Tab and Tab-Group Components renders tabset with tab
       >
         <div
           class="nav-link active"
-        />
+        >
+          
+          
+        </div>
       </div>
-       
-      Text in the second tab
-   
+      
+       Text in the second tab 
+      
       <hr />
     </div>
+    
   </div>
 </div>
 `;

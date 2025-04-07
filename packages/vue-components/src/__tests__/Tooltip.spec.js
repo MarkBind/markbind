@@ -7,14 +7,16 @@ const DEFAULT_TOOLTIP_CONTENT = 'Lorem ipsum dolor sit amet';
 describe('Tooltip', () => {
   test('should not be shown until triggered', async () => {
     const wrapper = mount(Tooltip, {
-      propsData: {
+      props: {
         trigger: 'click',
         content: DEFAULT_TOOLTIP_CONTENT,
       },
       slots: {
         default: DEFAULT_TOOLTIP_TRIGGER,
       },
-      stubs: ['v-tooltip'],
+      global: {
+        stubs: ['v-tooltip'],
+      },
     });
 
     // don't click on trigger
@@ -23,14 +25,16 @@ describe('Tooltip', () => {
 
   test('should show contents correctly when triggered', async () => {
     const wrapper = mount(Tooltip, {
-      propsData: {
+      props: {
         trigger: 'click',
         content: DEFAULT_TOOLTIP_CONTENT,
       },
       slots: {
         default: DEFAULT_TOOLTIP_TRIGGER,
       },
-      stubs: ['v-tooltip'],
+      global: {
+        stubs: ['v-tooltip'],
+      },
     });
 
     // click on trigger
@@ -41,7 +45,7 @@ describe('Tooltip', () => {
 
   test('should respect the placement attribute', async () => {
     const wrapper = mount(Tooltip, {
-      propsData: {
+      props: {
         trigger: 'click',
         content: DEFAULT_TOOLTIP_CONTENT,
         placement: 'right',
@@ -49,7 +53,9 @@ describe('Tooltip', () => {
       slots: {
         default: DEFAULT_TOOLTIP_TRIGGER,
       },
-      stubs: ['v-tooltip'],
+      global: {
+        stubs: ['v-tooltip'],
+      },
     });
 
     // click on trigger

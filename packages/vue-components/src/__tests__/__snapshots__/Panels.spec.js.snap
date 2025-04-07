@@ -211,16 +211,17 @@ exports[`NestedPanels renders a seamless panel with a transparent background 1`]
           class="glyphicon glyphicon-chevron-right"
         />
       </div>
-       
       <div
         class="header-wrapper-seamless header-wrapper card-title bg-transparent"
       >
+        
         test header
+        
       </div>
-       
       <div
         class="button-wrapper"
       >
+        
         <button
           class="collapse-button btn btn-outline-light"
           style="display: none;"
@@ -231,7 +232,6 @@ exports[`NestedPanels renders a seamless panel with a transparent background 1`]
             class="collapse-icon glyphicon glyphicon-menu-down"
           />
         </button>
-         
         <button
           class="close-button btn btn-outline-light seamless-button"
           type="button"
@@ -241,7 +241,6 @@ exports[`NestedPanels renders a seamless panel with a transparent background 1`]
             class="glyphicon glyphicon-remove"
           />
         </button>
-         
         <button
           class="popup-button btn btn-outline-light seamless-button"
           style="display: none;"
@@ -252,22 +251,23 @@ exports[`NestedPanels renders a seamless panel with a transparent background 1`]
             class="glyphicon glyphicon-new-window"
           />
         </button>
+        
       </div>
     </div>
-     
     <div
       class="card-collapse"
       style="max-height: 0px;"
     >
-      <!---->
-       
+      <!--v-if-->
       <hr />
     </div>
-     
     <transition-stub
+      appear="false"
+      css="true"
       name="peek-read-more-fade"
+      persisted="false"
     >
-      <!---->
+      <!--v-if-->
     </transition-stub>
   </div>
 </div>
@@ -286,18 +286,19 @@ exports[`NestedPanels should have span.anchor when id is present 1`] = `
       <div
         class="caret-wrapper"
       >
-        <!---->
+        <!--v-if-->
       </div>
-       
       <div
         class="header-wrapper card-title bg-light"
       >
+        
         test header
+        
       </div>
-       
       <div
         class="button-wrapper"
       >
+        
         <button
           class="collapse-button btn btn-outline-secondary"
           type="button"
@@ -307,7 +308,6 @@ exports[`NestedPanels should have span.anchor when id is present 1`] = `
             class="collapse-icon glyphicon glyphicon-menu-down"
           />
         </button>
-         
         <button
           class="close-button btn btn-outline-secondary"
           type="button"
@@ -317,7 +317,6 @@ exports[`NestedPanels should have span.anchor when id is present 1`] = `
             class="glyphicon glyphicon-remove"
           />
         </button>
-         
         <button
           class="popup-button btn btn-outline-secondary"
           style="display: none;"
@@ -328,24 +327,25 @@ exports[`NestedPanels should have span.anchor when id is present 1`] = `
             class="glyphicon glyphicon-new-window"
           />
         </button>
+        
       </div>
     </div>
-     
     <div
       class="card-collapse"
       style="max-height: 0px;"
     >
-      <!---->
-       
+      <!--v-if-->
       <hr
         style="display: none;"
       />
     </div>
-     
     <transition-stub
+      appear="false"
+      css="true"
       name="peek-read-more-fade"
+      persisted="false"
     >
-      <!---->
+      <!--v-if-->
     </transition-stub>
   </div>
 </div>
@@ -364,18 +364,19 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
       <div
         class="caret-wrapper"
       >
-        <!---->
+        <!--v-if-->
       </div>
-       
       <div
         class="header-wrapper card-title bg-light header-transparent"
       >
+        
         test header
+        
       </div>
-       
       <div
         class="button-wrapper"
       >
+        
         <button
           class="collapse-button btn btn-outline-secondary"
           type="button"
@@ -385,7 +386,6 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
             class="collapse-icon glyphicon glyphicon-menu-down opened"
           />
         </button>
-         
         <button
           class="close-button btn btn-outline-secondary"
           type="button"
@@ -395,7 +395,6 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
             class="glyphicon glyphicon-remove"
           />
         </button>
-         
         <button
           class="popup-button btn btn-outline-secondary"
           style="display: none;"
@@ -406,9 +405,9 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
             class="glyphicon glyphicon-new-window"
           />
         </button>
+        
       </div>
     </div>
-     
     <div
       class="card-collapse"
       style="max-height: 0px;"
@@ -416,9 +415,9 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
       <div
         class="card-body"
       >
-         
-        <!---->
-         
+        
+        
+        <!--v-if-->
         <div
           class="bottom-button-wrapper"
         >
@@ -433,16 +432,17 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
           </button>
         </div>
       </div>
-       
       <hr
         style="display: none;"
       />
     </div>
-     
     <transition-stub
+      appear="false"
+      css="true"
       name="peek-read-more-fade"
+      persisted="false"
     >
-      <!---->
+      <!--v-if-->
     </transition-stub>
   </div>
 </div>
@@ -461,18 +461,19 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
       <div
         class="caret-wrapper"
       >
-        <!---->
+        <!--v-if-->
       </div>
-       
       <div
         class="header-wrapper card-title bg-light"
       >
+        
         test header
+        
       </div>
-       
       <div
         class="button-wrapper"
       >
+        
         <button
           class="collapse-button btn btn-outline-secondary"
           type="button"
@@ -482,7 +483,6 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
             class="collapse-icon glyphicon glyphicon-menu-down opened"
           />
         </button>
-         
         <button
           class="close-button btn btn-outline-secondary"
           type="button"
@@ -492,7 +492,6 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
             class="glyphicon glyphicon-remove"
           />
         </button>
-         
         <button
           class="popup-button btn btn-outline-secondary"
           style="display: none;"
@@ -503,9 +502,9 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
             class="glyphicon glyphicon-new-window"
           />
         </button>
+        
       </div>
     </div>
-     
     <div
       class="card-collapse"
       style="max-height: 0px;"
@@ -513,9 +512,9 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
       <div
         class="card-body"
       >
-         
-        <!---->
-         
+        
+        
+        <!--v-if-->
         <div
           class="bottom-button-wrapper"
         >
@@ -530,16 +529,17 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
           </button>
         </div>
       </div>
-       
       <hr
         style="display: none;"
       />
     </div>
-     
     <transition-stub
+      appear="false"
+      css="true"
       name="peek-read-more-fade"
+      persisted="false"
     >
-      <!---->
+      <!--v-if-->
     </transition-stub>
   </div>
 </div>
@@ -558,18 +558,19 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
       <div
         class="caret-wrapper"
       >
-        <!---->
+        <!--v-if-->
       </div>
-       
       <div
         class="header-wrapper card-title bg-light"
       >
+        
         test header
+        
       </div>
-       
       <div
         class="button-wrapper"
       >
+        
         <button
           class="collapse-button btn btn-outline-secondary"
           type="button"
@@ -579,7 +580,6 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
             class="collapse-icon glyphicon glyphicon-menu-down"
           />
         </button>
-         
         <button
           class="close-button btn btn-outline-secondary"
           type="button"
@@ -589,7 +589,6 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
             class="glyphicon glyphicon-remove"
           />
         </button>
-         
         <button
           class="popup-button btn btn-outline-secondary"
           style="display: none;"
@@ -600,24 +599,25 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
             class="glyphicon glyphicon-new-window"
           />
         </button>
+        
       </div>
     </div>
-     
     <div
       class="card-collapse"
       style="max-height: 0px;"
     >
-      <!---->
-       
+      <!--v-if-->
       <hr
         style="display: none;"
       />
     </div>
-     
     <transition-stub
+      appear="false"
+      css="true"
       name="peek-read-more-fade"
+      persisted="false"
     >
-      <!---->
+      <!--v-if-->
     </transition-stub>
   </div>
 </div>
@@ -636,18 +636,19 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
       <div
         class="caret-wrapper"
       >
-        <!---->
+        <!--v-if-->
       </div>
-       
       <div
         class="header-wrapper card-title bg-light"
       >
+        
         test header
+        
       </div>
-       
       <div
         class="button-wrapper"
       >
+        
         <button
           class="collapse-button btn btn-outline-secondary"
           type="button"
@@ -657,7 +658,6 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
             class="collapse-icon glyphicon glyphicon-menu-down"
           />
         </button>
-         
         <button
           class="close-button btn btn-outline-secondary"
           type="button"
@@ -667,7 +667,6 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
             class="glyphicon glyphicon-remove"
           />
         </button>
-         
         <button
           class="popup-button btn btn-outline-secondary"
           style="display: none;"
@@ -678,24 +677,25 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
             class="glyphicon glyphicon-new-window"
           />
         </button>
+        
       </div>
     </div>
-     
     <div
       class="card-collapse"
       style="max-height: 0px;"
     >
-      <!---->
-       
+      <!--v-if-->
       <hr
         style="display: none;"
       />
     </div>
-     
     <transition-stub
+      appear="false"
+      css="true"
       name="peek-read-more-fade"
+      persisted="false"
     >
-      <!---->
+      <!--v-if-->
     </transition-stub>
   </div>
 </div>

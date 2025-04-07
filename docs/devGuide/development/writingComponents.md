@@ -115,7 +115,7 @@ It is important to consider reactivity when implementing a component that may ha
 
 Components should be compatible with SSR (Server-Side Rendering). 
 Minimally, there should be no SSR issues (viewable from the browser console), though a lack of warnings does **not** mean that there are no SSR problems. 
-A guide on SSR for MarkBind can be found [here]({{baseUrl}}/devGuide/design/serverSideRendering.html). 
+For more information on SSR in MarkBind, refer to the [Vue Integration guide]({{baseUrl}}/devGuide/design/vueIntegration.html) and [Server-Side Rendering design guide]({{baseUrl}}/devGuide/design/serverSideRendering.html).
 
 Vue-specific tips for resolving SSR issues:
 * The `mount` and `beforeMount` lifecycle hooks will only be executed on the client, not the server
