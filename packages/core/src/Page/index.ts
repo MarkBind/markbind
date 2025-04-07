@@ -553,24 +553,13 @@ export class Page {
 
     this.collectHeadingsAndKeywords(pageContent);
 
-    content = `<div id="app">${content}</div>`;
     checkForVueHydrationViolation(content, this.pageConfig.sourcePath);
 
     // Compile the page into Vue application and outputs the render function into script for browser
-    const compiledVuePage = await pageVueServerRenderer.compileVuePageAndCreateScript(
+    const renderFn = await pageVueServerRenderer.compileVuePageCreateAndReturnScript(
       content, this.pageConfig, this.asset);
 
-    /*
-     * Record render functions of built pages that were compiled
-     * for fast re-render when MarkBindVue bundle hot-reloads
-     */
-    const builtPage = {
-      page: this,
-      compiledVuePage,
-      pageNav,
-    };
-    // Each source path will only contain 1 copy of build/re-build page (the latest one)
-    pageVueServerRenderer.pageEntries[this.pageConfig.sourcePath] = builtPage;
+    pageVueServerRenderer.savePageRenderFnForHotReload(this, pageNav, renderFn);
 
     // Wait for all pages resources to be generated before writing to disk
     await LockManager.waitForLockRelease();
@@ -581,9 +570,10 @@ export class Page {
      * However, for automated testings (e.g. snapshots), we will output the pre SSR-processed HTML content
      * as we want to retain the unrendered DOM for easier reference and checking.
      */
-    const vueSsrHtml = await pageVueServerRenderer.renderVuePage(compiledVuePage);
+    const vueSsrHtml = await pageVueServerRenderer.renderVuePage(renderFn);
     this.filterIconAssets(content, vueSsrHtml);
     if (process.env.TEST_MODE) {
+      content = `<div id="app">${content}</div>`;
       await this.outputPageHtml(content);
     } else {
       await this.outputPageHtml(vueSsrHtml);

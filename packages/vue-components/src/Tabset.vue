@@ -7,10 +7,9 @@
       :class="getNavStyleClass"
       role="tablist"
     >
-      <template v-for="(t, index) in headers">
+      <template v-for="(t, index) in headers" :key="index">
         <li
           v-if="!t._tabgroup"
-          :key="index"
           class="nav-item"
           @click.prevent="select(t)"
         >
@@ -22,7 +21,6 @@
         </li>
         <dropdown
           v-else
-          :key="index"
           class="nav-item"
           :tab-group-header="t.headerRendered"
           :class="{active:t.active}"

@@ -9,6 +9,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const clientConfig = require('./webpack.client.config');
 const serverConfig = require('./webpack.server.config');
 
+// webpack.dev.js is used in `markbind serve -d` for HMR
 module.exports = {
   clientEntry: (publicPath) => {
     const webpackClientDevConfig = merge(clientConfig, {
@@ -30,6 +31,8 @@ module.exports = {
           },
         ],
       },
+      // Suppress webpack building asset details
+      stats: 'errors-warnings',
       plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
@@ -44,7 +47,7 @@ module.exports = {
       webpackHotMiddleware(compiler),
     ];
   },
-  serverEntry: (cb, rootFolder) => {
+  serverEntry: (updateMarkBindVueBundle, rootFolder) => {
     const memDistFolder = path.join(rootFolder, 'dist');
 
     const webpackServerDevConfig = merge(serverConfig, {
@@ -78,7 +81,7 @@ module.exports = {
     const updateBundle = () => {
       if (bundle) {
         ready();
-        cb(bundle);
+        updateMarkBindVueBundle(bundle);
       }
     };
 

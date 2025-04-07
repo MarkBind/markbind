@@ -50,7 +50,7 @@ export default {
     this.toggleSiteNavButton();
     $(window).on('resize', this.toggleSiteNavButton);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     $(window).off('resize', this.toggleSiteNavButton);
   },
 };

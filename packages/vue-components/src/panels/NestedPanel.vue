@@ -110,7 +110,7 @@
               v-show="isExpandableCard && bottomSwitchBool"
               :is-open="localExpanded"
               :is-seamless="isSeamless"
-              @click.native.stop.prevent="toggle(true)"
+              @click.stop.prevent="toggle(true)"
             />
           </div>
         </div>
