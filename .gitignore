@@ -59,6 +59,10 @@ packages/cli/test/functional/test_site/expected/diagrams/usecase.png
 packages/cli/test/functional/test_site/expected/sub_site/inline-output/inline-puml-image.png
 packages/cli/test/functional/test_site_templates/test_project/expected/diagrams/example.png
 
+# macOS
+.DS_Store
+**/.DS_Store
+
 # Vscode configurations
 .vscode/
 *.iml
