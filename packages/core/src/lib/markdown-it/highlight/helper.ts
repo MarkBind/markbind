@@ -1,5 +1,3 @@
-// Common helper functions to be used in HighlightRule or HighlightRuleComponent
-
 export function splitCodeAndIndentation(code: string) {
   const codeStartIdx = code.search(/\S|$/);
   const indents = code.substring(0, codeStartIdx);
@@ -7,23 +5,32 @@ export function splitCodeAndIndentation(code: string) {
   return [indents, content];
 }
 
-// Simplifies and collates multiple bounds applied on a single line to an array of disjointed bounds
-// e.g. [[0, 2], [1, 3], [8, 10]] -> [[0, 3], [8, 10]]
-export function collateAllIntervals(bounds: Array<[number, number]>) {
-  const output: Array<[number, number]> = [];
-  bounds.sort((boundA, boundB) => boundA[0] - boundB[0]);
-  let currStart = bounds[0][0];
-  let currEnd = bounds[0][1];
-  for (let i = 1; i < bounds.length; i += 1) {
-    const [start, end] = bounds[i];
-    if (start <= currEnd) {
-      currEnd = Math.max(currEnd, end);
+export function collateAllIntervalsWithColors(
+  boundsWithColors: Array<{ bounds: [number, number], color: string }>,
+) {
+  if (boundsWithColors.length === 0) {
+    return [];
+  }
+
+  boundsWithColors.sort((a, b) => a.bounds[0] - b.bounds[0]);
+
+  const merged: Array<{ bounds: [number, number], color: string }> = [];
+  let current = boundsWithColors[0];
+
+  for (let i = 1; i < boundsWithColors.length; i += 1) {
+    const next = boundsWithColors[i];
+    if (next.bounds[0] <= (current.bounds[1] - 1)) {
+      // merge if overlap
+      current.bounds[1] = Math.max(current.bounds[1], next.bounds[1]);
+      current.color = next.color;
     } else {
-      output.push([currStart, currEnd]);
-      currStart = start;
-      currEnd = end;
+      merged.push(current);
+      current = next;
     }
   }
-  output.push([currStart, currEnd]);
-  return output;
+
+  // Add the last merged interval
+  merged.push(current);
+
+  return merged;
 }

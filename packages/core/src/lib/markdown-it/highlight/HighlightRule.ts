@@ -6,10 +6,24 @@ export enum HIGHLIGHT_TYPES {
   PartialText,
 }
 
+// Define color mappings
+const COLOR_MAPPING: { [key: string]: string } = {
+  r: 'red',
+  g: 'green',
+  b: 'blue',
+  c: 'cyan',
+  m: 'magenta',
+  y: 'yellow',
+  k: 'black',
+  w: 'white',
+};
+
 export class HighlightRule {
   ruleComponents: HighlightRuleComponent[];
-  constructor(ruleComponents: HighlightRuleComponent[]) {
+  color?: string;
+  constructor(ruleComponents: HighlightRuleComponent[], color?: string) {
     this.ruleComponents = ruleComponents;
+    this.color = color;
   }
 
   static parseAllRules(allRules: string, lineOffset: number, tokenContent: string) {
@@ -43,16 +57,19 @@ export class HighlightRule {
   }
 
   static parseRule(ruleString: string, lineOffset: number, lines: string[]) {
-    const components = this.splitByChar(ruleString, '-')
-      .map(compString => HighlightRuleComponent.parseRuleComponent(compString, lineOffset, lines));
+    // Split by @ (e.g "1[:]@blue" -> ["1[:]", "blue"])
+    const [rulePart, inputColor] = ruleString.split('@');
 
+    const components = this.splitByChar(rulePart, '-')
+      .map(compString => HighlightRuleComponent.parseRuleComponent(compString, lineOffset, lines));
     if (components.some(c => !c)) {
       // Not all components are properly parsed, which means
       // the rule itself is not proper
       return null;
     }
 
-    return new HighlightRule(components as HighlightRuleComponent[]);
+    const color: string = inputColor && COLOR_MAPPING[inputColor] ? COLOR_MAPPING[inputColor] : inputColor;
+    return new HighlightRule(components as HighlightRuleComponent[], color);
   }
 
   shouldApplyHighlight(lineNumber: number) {
@@ -69,35 +86,84 @@ export class HighlightRule {
 
   getHighlightType(lineNumber: number): {
     highlightType: HIGHLIGHT_TYPES,
-    bounds: Array<[number, number]> | null
-  } {
-    // Applied rule is the first component until deduced otherwise
-    let [appliedRule] = this.ruleComponents;
+    bounds: Array<[number, number]> | null,
+    color?: string
+  }[] {
+    const results = [];
+
+    // Handle line range logic if this is a line range
     if (this.isLineRange()) {
-      // For cases like 2[:]-3 (or 2-3[:]), the highlight would be line highlight
-      // across all the ranges
-      if (this.ruleComponents.some(comp => comp.isUnboundedSlice())) {
-        return { highlightType: HIGHLIGHT_TYPES.WholeLine, bounds: null };
-      }
-
-      const [startCompare, endCompare] = this.ruleComponents.map(comp => comp.compareLine(lineNumber));
-      if (startCompare < 0 && endCompare > 0) {
-        // In-between range
-        return { highlightType: HIGHLIGHT_TYPES.WholeText, bounds: null };
-      }
-
       const [startRule, endRule] = this.ruleComponents;
-      // At the range boundaries
-      appliedRule = startCompare === 0 ? startRule : endRule;
+      const startLine = startRule.lineNumber;
+      const endLine = endRule.lineNumber;
+
+      if (lineNumber >= startLine && lineNumber <= endLine) {
+        // If any component is an unbounded slice, highlight the whole line
+        if (startRule.isUnboundedSlice() || endRule.isUnboundedSlice()) {
+          results.push({
+            highlightType: HIGHLIGHT_TYPES.WholeLine,
+            bounds: null,
+            color: this.color,
+          });
+        } else if (lineNumber === startLine || lineNumber === endLine) {
+          // Apply the rule component for the start or end line
+          const appliedRule = lineNumber === startLine ? startRule : endRule;
+
+          if (appliedRule.isSlice && appliedRule.bounds.length > 0) {
+            // If the rule has bounds, it's a PartialText highlight
+            results.push({
+              highlightType: HIGHLIGHT_TYPES.PartialText,
+              bounds: appliedRule.bounds,
+              color: this.color,
+            });
+          } else {
+            results.push({
+              highlightType: HIGHLIGHT_TYPES.WholeText,
+              bounds: null,
+              color: this.color,
+            });
+          }
+        } else {
+          // For lines within the range (not at the boundaries), apply WholeText
+          results.push({
+            highlightType: HIGHLIGHT_TYPES.WholeText,
+            bounds: null,
+            color: this.color,
+          });
+        }
+      }
     }
 
-    if (appliedRule.isSlice) {
-      return appliedRule.isUnboundedSlice()
-        ? { highlightType: HIGHLIGHT_TYPES.WholeLine, bounds: null }
-        : { highlightType: HIGHLIGHT_TYPES.PartialText, bounds: appliedRule.bounds };
-    }
-    // Line number only
-    return { highlightType: HIGHLIGHT_TYPES.WholeText, bounds: null };
+    // Iterate over all rule components to find matches for the current line
+    this.ruleComponents.forEach((ruleComponent) => {
+      if (ruleComponent.compareLine(lineNumber) === 0) {
+        if (ruleComponent.isSlice) {
+          let highlightType;
+
+          if (ruleComponent.isUnboundedSlice()) {
+            highlightType = HIGHLIGHT_TYPES.WholeLine;
+          } else if (ruleComponent.bounds.length > 0) {
+            highlightType = HIGHLIGHT_TYPES.PartialText;
+          } else {
+            highlightType = HIGHLIGHT_TYPES.WholeText;
+          }
+
+          results.push({
+            highlightType,
+            bounds: ruleComponent.isUnboundedSlice() ? null : ruleComponent.bounds,
+            color: this.color,
+          });
+        } else {
+          results.push({
+            highlightType: HIGHLIGHT_TYPES.WholeText,
+            bounds: null,
+            color: this.color,
+          });
+        }
+      }
+    });
+
+    return results;
   }
 
   isLineRange() {
