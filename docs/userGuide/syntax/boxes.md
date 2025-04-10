@@ -239,6 +239,7 @@ seamless | `Boolean` | `false` | Uses a seamless style for the box. If `light` i
 no-border | `Boolean` | `false` | Removes border, except if styled by `border-color` or `border-left-color`. 
 no-background | `Boolean` | `false` | Removes background, except if styled by `background-color` option.
 no-icon | `Boolean` | `false` | Removes icon, except if icon is displayed via `icon` option.
+no-page-break | `Boolean` | `false`| Prints the box fully on a single page by moving it to a new page if needed.
 
 
 <div id="short" class="d-none">

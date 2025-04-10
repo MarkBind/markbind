@@ -401,7 +401,7 @@ test('markdown inline colour syntax works with code blocks', async () => {
   expect(result).toEqual(expected);
 });
 
-test('page-nav-print syntex converts to div element with class', async () => {
+test('page-nav-print syntax converts to div element with class', async () => {
   const nodeProcessor = getNewDefaultNodeProcessor();
   const indexPath = 'index.md';
   let syntaxToTest = '<page-nav-print />';

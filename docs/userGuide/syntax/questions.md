@@ -138,6 +138,7 @@ Name | Type | Default | Description
 type | `String` | `''` | The type of question. Supports `mcq`, `checkbox`, `blanks`, or `text`.
 header{{slot_info_trigger}} | `String` | `''` | The markup to insert into the question header. The header is omitted if this is not provided.
 hint{{slot_info_trigger}}  | `String` | `''` | The content to display in the hint box.
+no-page-break | `Boolean` | `false`| Prints the component fully on a single page by moving it to a new page if needed.
 
 
 #### MCQ and Checkbox Questions {.mt-4 .mb-3}
