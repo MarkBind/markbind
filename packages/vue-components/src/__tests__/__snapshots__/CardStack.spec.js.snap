@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardStack markdown in header, content 1`] = `
+<div
+  class="grid-container"
+>
+  <div
+    class="header-row"
+  >
+    <span
+      class="search-bar"
+    >
+      <input
+        class="form-control search-bar"
+        placeholder="Search"
+        type="text"
+      />
+    </span>
+    
+    
+  </div>
+  <div
+    class="container"
+  >
+    <div
+      class="row justify-content-starts gy-3"
+    >
+      
+      <card
+        header="### Headers"
+      />
+      <card
+        header="### Italics"
+      />
+      
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CardStack should not hide cards when no filter is provided 1`] = `
+<div
+  class="grid-container"
+>
+  <div
+    class="header-row"
+  >
+    <span
+      class="search-bar"
+    >
+      <input
+        class="form-control search-bar"
+        placeholder="Search"
+        type="text"
+      />
+    </span>
+    
+    
+  </div>
+  <div
+    class="container"
+  >
+    <div
+      class="row justify-content-starts gy-3"
+    >
+      
+      <card
+        disabled=""
+        header="Normal Body"
+        keywords="Body"
+        tag="Normal"
+      >
+         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+      </card>
+      <card
+        header="Short Body"
+        keywords="Body"
+        tag="Short"
+      >
+         Lorem ipsum dolor sit amet, consectetur adipisicing 
+      </card>
+      
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CardStack should not hide cards when no filter is provided 2`] = `
+<div
+  class="grid-container"
+>
+  <div
+    class="header-row"
+  >
+    <span
+      class="search-bar"
+    >
+      <input
+        class="form-control search-bar"
+        placeholder="Search"
+        type="text"
+      />
+    </span>
+    
+    
+  </div>
+  <div
+    class="container"
+  >
+    <div
+      class="row justify-content-starts gy-3"
+    >
+      
+      <card />
+      <card />
+      
+    </div>
+  </div>
+</div>
+`;
