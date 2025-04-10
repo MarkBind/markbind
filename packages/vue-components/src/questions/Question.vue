@@ -1,6 +1,15 @@
 <template>
   <transition :name="questions ? 'question' : null" @after-leave="showNextQuestion">
-    <div v-if="active" :class="['card', 'question', shakeClass, addClass]">
+    <div
+      v-if="active"
+      :class="[
+        'card',
+        'question',
+        noPageBreak ? 'no-page-break' : '',
+        shakeClass,
+        addClass
+      ]"
+    >
       <div v-if="$slots.header" class="card-header alert-light border-bottom border-light text-dark">
         <slot name="header"></slot>
       </div>
@@ -131,6 +140,10 @@ export default {
     addClass: {
       type: String,
       default: null,
+    },
+    noPageBreak: {
+      type: Boolean,
+      default: false,
     },
 
     // Text question specific props
@@ -314,6 +327,15 @@ export default {
   },
 };
 </script>
+
+/* Use style without scoped here to cascade to children */
+<style>
+    @media print {
+        .no-page-break {
+            page-break-inside: avoid;
+        }
+    }
+</style>
 
 <style scoped>
     .result-icon {

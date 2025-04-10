@@ -59,7 +59,7 @@ module.exports = function colourtext_plugin(md) {
 
     if (marker === 35/* # */ &&
       acsiiCodeToTokenMap.has(state.src.charCodeAt(start + 1)) &&
-      start + 2 <= max && 
+      start + 2 <= max &&
       state.src.charCodeAt(start + 2) === 35/* # */
       ) {
       state.scanDelims(state.pos, true);

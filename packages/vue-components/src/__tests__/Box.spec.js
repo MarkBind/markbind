@@ -218,6 +218,15 @@ describe('Box', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
+  test('with no-page-break option renders correctly', () => {
+    const wrapper = mount(Box, {
+      props: {
+        noPageBreak: true,
+      },
+    });
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
   test('with no-icon option renders correctly', () => {
     const wrapper = mount(Box, {
       props: {
