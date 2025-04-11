@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import NestedPanel from '../panels/NestedPanel.vue';
 
 const DEFAULT_STUBS = { 'nested-panel': NestedPanel };
@@ -117,5 +118,45 @@ describe('NestedPanels', () => {
     expect(window.getComputedStyle(seamlessPanel.element).backgroundColor).toBe(
       window.getComputedStyle(parentElement.element).backgroundColor,
     );
+  });
+});
+
+describe('NestedPanels print behavior', () => {
+  test('card body should have d-print-none class when collapsed', async () => {
+    const wrapper = mount(NestedPanel, {
+      props: {
+        expandable: true,
+        expanded: true,
+        preload: true,
+      },
+      slots: {
+        header: 'test header',
+      },
+    });
+
+    await wrapper.find('.card-header').trigger('click');
+    await nextTick();
+
+    expect(wrapper.find('.card-body').classes()).toContain('d-print-none');
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  test('card body should not have d-print-none class when expanded', async () => {
+    const wrapper = mount(NestedPanel, {
+      props: {
+        expandable: true,
+        expanded: false,
+        preload: true,
+      },
+      slots: {
+        header: 'test header',
+      },
+    });
+
+    await wrapper.find('.card-header').trigger('click');
+    await nextTick();
+
+    expect(wrapper.find('.card-body').classes()).not.toContain('d-print-none');
+    expect(wrapper.element).toMatchSnapshot();
   });
 });

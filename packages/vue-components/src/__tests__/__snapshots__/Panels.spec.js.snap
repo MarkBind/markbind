@@ -1,5 +1,199 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`NestedPanels print behavior card body should have d-print-none class when collapsed 1`] = `
+<div
+  class="card-container"
+>
+  <div
+    class="card expandable-card"
+  >
+    <div
+      class="card-header header-toggle bg-light"
+    >
+      <div
+        class="caret-wrapper"
+      >
+        <!--v-if-->
+      </div>
+      <div
+        class="header-wrapper card-title bg-light"
+      >
+        
+        test header
+        
+      </div>
+      <div
+        class="button-wrapper"
+      >
+        
+        <button
+          class="collapse-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="collapse-icon glyphicon glyphicon-menu-down"
+          />
+        </button>
+        <button
+          class="close-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-remove"
+          />
+        </button>
+        <button
+          class="popup-button btn btn-outline-secondary"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-new-window"
+          />
+        </button>
+        
+      </div>
+    </div>
+    <div
+      class="card-collapse"
+      style="max-height: none;"
+    >
+      <div
+        class="card-body d-print-none"
+      >
+        
+        
+        <!--v-if-->
+        <div
+          class="bottom-button-wrapper"
+        >
+          <button
+            class="collapse-button btn btn-outline-secondary"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="collapse-icon glyphicon glyphicon-menu-down"
+            />
+          </button>
+        </div>
+      </div>
+      <hr
+        style="display: none;"
+      />
+    </div>
+    <transition-stub
+      appear="false"
+      css="true"
+      name="peek-read-more-fade"
+      persisted="false"
+    >
+      <!--v-if-->
+    </transition-stub>
+  </div>
+</div>
+`;
+
+exports[`NestedPanels print behavior card body should not have d-print-none class when expanded 1`] = `
+<div
+  class="card-container"
+>
+  <div
+    class="card expandable-card"
+  >
+    <div
+      class="card-header header-toggle bg-light"
+    >
+      <div
+        class="caret-wrapper"
+      >
+        <!--v-if-->
+      </div>
+      <div
+        class="header-wrapper card-title bg-light"
+      >
+        
+        test header
+        
+      </div>
+      <div
+        class="button-wrapper"
+      >
+        
+        <button
+          class="collapse-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="collapse-icon glyphicon glyphicon-menu-down opened"
+          />
+        </button>
+        <button
+          class="close-button btn btn-outline-secondary"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-remove"
+          />
+        </button>
+        <button
+          class="popup-button btn btn-outline-secondary"
+          style="display: none;"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            class="glyphicon glyphicon-new-window"
+          />
+        </button>
+        
+      </div>
+    </div>
+    <div
+      class="card-collapse"
+      style="max-height: 0px;"
+    >
+      <div
+        class="card-body"
+      >
+        
+        
+        <!--v-if-->
+        <div
+          class="bottom-button-wrapper"
+        >
+          <button
+            class="collapse-button btn btn-outline-secondary"
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+              class="collapse-icon glyphicon glyphicon-menu-down opened"
+            />
+          </button>
+        </div>
+      </div>
+      <hr
+        style="display: none;"
+      />
+    </div>
+    <transition-stub
+      appear="false"
+      css="true"
+      name="peek-read-more-fade"
+      persisted="false"
+    >
+      <!--v-if-->
+    </transition-stub>
+  </div>
+</div>
+`;
+
 exports[`NestedPanels renders a seamless panel with a transparent background 1`] = `
 <div
   class="card-container"

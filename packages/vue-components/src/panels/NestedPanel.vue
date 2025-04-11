@@ -96,6 +96,7 @@
         <div
           v-if="wasRetrieverLoaded || preloadBool"
           class="card-body"
+          :class="{'d-print-none': !localExpanded}"
         >
           <slot></slot>
           <retriever
