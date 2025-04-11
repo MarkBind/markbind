@@ -120,12 +120,13 @@
             })
         }
     </script>
+<script src="/test_site/plugins/mermaid/mermaid.min.js"></script>
 <script type="module">
     window.mermaidPromise = null;
     
     const loadMermaid = () => {
       if (window.mermaidPromise === null) {
-        window.mermaidPromise = import('https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs')
+        window.mermaidPromise = import('./mermaidAssets/mermaid.min.js')
           .then(({ default: mermaid }) => {
             mermaid.initialize({
               startOnLoad: false,

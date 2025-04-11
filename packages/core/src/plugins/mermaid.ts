@@ -1,7 +1,7 @@
 import cheerio from 'cheerio';
 import { PluginContext, FrontMatter } from './Plugin';
 
-const DEFAULT_CDN_ADDRESS = 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs';
+const DEFAULT_MERMAID_PATH = './mermaidAssets/mermaid.min.js';
 
 function genScript(address: string) {
   return `<script type="module">
@@ -9,7 +9,7 @@ function genScript(address: string) {
     
     const loadMermaid = () => {
       if (window.mermaidPromise === null) {
-        window.mermaidPromise = import('${address || DEFAULT_CDN_ADDRESS}')
+        window.mermaidPromise = import('${address || DEFAULT_MERMAID_PATH}')
           .then(({ default: mermaid }) => {
             mermaid.initialize({
               startOnLoad: false,
@@ -92,7 +92,8 @@ export = {
       isSpecial: true,
     },
   },
-  getScripts: (pluginContext: PluginContext) => [genScript(pluginContext.address)],
+  getScripts: (pluginContext: PluginContext) =>
+    [`<script src="${DEFAULT_MERMAID_PATH}"></script>`, genScript(pluginContext.address)],
   postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => {
     const $ = cheerio.load(content);
     const mermaidTags = $('mermaid');
