@@ -85,55 +85,91 @@ export class HighlightRule {
   }
 
   getHighlightType(lineNumber: number): {
-    highlightType: HIGHLIGHT_TYPES,
-    bounds: Array<[number, number]> | null,
-    color?: string
+    highlightType: HIGHLIGHT_TYPES;
+    bounds: Array<[number, number]> | null;
+    color?: string;
   }[] {
-    const results = [];
+    const results: {
+      highlightType: HIGHLIGHT_TYPES;
+      bounds: Array<[number, number]> | null;
+      color?: string;
+    }[] = [];
 
     // Handle line range logic if this is a line range
     if (this.isLineRange()) {
-      const [startRule, endRule] = this.ruleComponents;
-      const startLine = startRule.lineNumber;
-      const endLine = endRule.lineNumber;
+      const lineRangeResults = this.handleLineRange(lineNumber);
+      results.push(...lineRangeResults);
+    }
 
-      if (lineNumber >= startLine && lineNumber <= endLine) {
-        // If any component is an unbounded slice, highlight the whole line
-        if (startRule.isUnboundedSlice() || endRule.isUnboundedSlice()) {
+    // Now, handle rule components
+    const ruleComponentResults = this.handleRuleComponent(lineNumber);
+    results.push(...ruleComponentResults);
+
+    return results;
+  }
+
+  handleLineRange(lineNumber: number): {
+    highlightType: HIGHLIGHT_TYPES;
+    bounds: Array<[number, number]> | null;
+    color?: string;
+  }[] {
+    const results: {
+      highlightType: HIGHLIGHT_TYPES;
+      bounds: Array<[number, number]> | null;
+      color?: string;
+    }[] = [];
+    const [startRule, endRule] = this.ruleComponents;
+    const startLine = startRule.lineNumber;
+    const endLine = startRule.lineNumber;
+
+    if (lineNumber >= startLine && lineNumber <= endLine) {
+      // If any component is an unbounded slice, highlight the whole line
+      if (startRule.isUnboundedSlice() || endRule.isUnboundedSlice()) {
+        results.push({
+          highlightType: HIGHLIGHT_TYPES.WholeLine,
+          bounds: null,
+          color: this.color,
+        });
+      } else if (lineNumber === startLine || lineNumber === endLine) {
+        // Apply the rule component for the start or end line
+        const appliedRule = lineNumber === startLine ? startRule : endRule;
+
+        if (appliedRule.isSlice && appliedRule.bounds.length > 0) {
+          // If the rule has bounds, it's a PartialText highlight
           results.push({
-            highlightType: HIGHLIGHT_TYPES.WholeLine,
-            bounds: null,
+            highlightType: HIGHLIGHT_TYPES.PartialText,
+            bounds: appliedRule.bounds,
             color: this.color,
           });
-        } else if (lineNumber === startLine || lineNumber === endLine) {
-          // Apply the rule component for the start or end line
-          const appliedRule = lineNumber === startLine ? startRule : endRule;
-
-          if (appliedRule.isSlice && appliedRule.bounds.length > 0) {
-            // If the rule has bounds, it's a PartialText highlight
-            results.push({
-              highlightType: HIGHLIGHT_TYPES.PartialText,
-              bounds: appliedRule.bounds,
-              color: this.color,
-            });
-          } else {
-            results.push({
-              highlightType: HIGHLIGHT_TYPES.WholeText,
-              bounds: null,
-              color: this.color,
-            });
-          }
         } else {
-          // For lines within the range (not at the boundaries), apply WholeText
           results.push({
             highlightType: HIGHLIGHT_TYPES.WholeText,
             bounds: null,
             color: this.color,
           });
         }
+      } else {
+        // For lines within the range (not at the boundaries), apply WholeText
+        results.push({
+          highlightType: HIGHLIGHT_TYPES.WholeText,
+          bounds: null,
+          color: this.color,
+        });
       }
     }
+    return results;
+  }
 
+  handleRuleComponent(lineNumber: number): {
+    highlightType: HIGHLIGHT_TYPES;
+    bounds: Array<[number, number]> | null;
+    color?: string;
+  }[] {
+    const results: {
+      highlightType: HIGHLIGHT_TYPES;
+      bounds: Array<[number, number]> | null;
+      color?: string;
+    }[] = [];
     // Iterate over all rule components to find matches for the current line
     this.ruleComponents.forEach((ruleComponent) => {
       if (ruleComponent.compareLine(lineNumber) === 0) {
