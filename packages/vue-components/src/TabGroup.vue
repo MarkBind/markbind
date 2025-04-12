@@ -32,12 +32,12 @@ export default {
       // eslint-disable-next-line no-bitwise
       return ~this.tabs.indexOf(this._tabset.show);
     },
-    headerRendered() {
-      return this.$refs.header.textContent.trim();
-    },
     disabledBool() {
       return coerce.boolean(this.disabled);
     },
+  },
+  mounted() {
+    this.headerRendered = this.$refs.header.textContent.trim();
   },
   created() {
     this._tabgroup = true;
