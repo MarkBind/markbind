@@ -120,7 +120,7 @@ export class HighlightRule {
     }[] = [];
     const [startRule, endRule] = this.ruleComponents;
     const startLine = startRule.lineNumber;
-    const endLine = startRule.lineNumber;
+    const endLine = endRule.lineNumber;
 
     if (lineNumber >= startLine && lineNumber <= endLine) {
       // If any component is an unbounded slice, highlight the whole line
