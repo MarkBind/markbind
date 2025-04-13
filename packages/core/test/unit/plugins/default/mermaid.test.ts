@@ -117,20 +117,19 @@ test('getScripts should return the correct script tag', () => {
   </script>`;
 
   const scripts = mermaid.getScripts(pluginContext);
-  expect(scripts.length).toBe(2);
-  expect(scripts[1]).toEqual(expectedScript);
+  expect(scripts.length).toBe(1);
+  expect(scripts[0]).toEqual(expectedScript);
 });
 
-test('getScripts should use the default mermaid path if not provided', () => {
+test('getScripts should use the default CDN address if not provided', () => {
   const pluginContext: PluginContext = {};
-  const DEFAULT_MERMAID_PATH = 'mermaidAssets/mermaid.min.js';
 
   const expectedScript = `<script type="module">
     window.mermaidPromise = null;
     
     const loadMermaid = () => {
       if (window.mermaidPromise === null) {
-        window.mermaidPromise = import('${DEFAULT_MERMAID_PATH}')
+        window.mermaidPromise = import('https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs')
           .then(({ default: mermaid }) => {
             mermaid.initialize({
               startOnLoad: false,
@@ -207,6 +206,6 @@ test('getScripts should use the default mermaid path if not provided', () => {
   </script>`;
 
   const scripts = mermaid.getScripts(pluginContext);
-  expect(scripts.length).toBe(2);
-  expect(scripts[1]).toEqual(expectedScript);
+  expect(scripts.length).toBe(1);
+  expect(scripts[0]).toEqual(expectedScript);
 });
