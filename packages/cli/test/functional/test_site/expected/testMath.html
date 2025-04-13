@@ -548,7 +548,7 @@ M834 80h400000v40h-400000z" />
     
     const loadMermaid = () => {
       if (window.mermaidPromise === null) {
-        window.mermaidPromise = import('./mermaidAssets/mermaid.min.js')
+        window.mermaidPromise = import('mermaidAssets/mermaid.min.js')
           .then(({ default: mermaid }) => {
             mermaid.initialize({
               startOnLoad: false,

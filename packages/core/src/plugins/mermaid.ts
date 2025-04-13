@@ -1,7 +1,7 @@
 import cheerio from 'cheerio';
 import { PluginContext, FrontMatter } from './Plugin';
 
-const DEFAULT_MERMAID_PATH = './mermaidAssets/mermaid.min.js';
+const DEFAULT_MERMAID_PATH = 'mermaidAssets/mermaid.min.js';
 
 function genScript(address: string) {
   return `<script type="module">

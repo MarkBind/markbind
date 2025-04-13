@@ -123,7 +123,7 @@ test('getScripts should return the correct script tag', () => {
 
 test('getScripts should use the default mermaid path if not provided', () => {
   const pluginContext: PluginContext = {};
-  const DEFAULT_MERMAID_PATH = './mermaidAssets/mermaid.min.js';
+  const DEFAULT_MERMAID_PATH = 'mermaidAssets/mermaid.min.js';
 
   const expectedScript = `<script type="module">
     window.mermaidPromise = null;
