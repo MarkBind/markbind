@@ -86,10 +86,10 @@ describe('Tabset (Tabs) with Tab and Tab-Group Components', () => {
         header: TABSET_HEADER,
         default: TAB_COMPONENT,
       },
-      propsData: {
+      props: {
         noPageBreak: true,
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
 
     expect(wrapper.element).toMatchSnapshot();
