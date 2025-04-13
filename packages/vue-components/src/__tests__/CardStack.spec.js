@@ -6,6 +6,10 @@ const DEFAULT_STUBS = {
   card: Card,
 };
 
+const DEFAULT_GLOBAL_MOUNT_OPTIONS = {
+  stubs: DEFAULT_STUBS,
+};
+
 const CARDS_CUSTOMISATION = `
   <card header="Normal Body" tag="Normal" keywords="Body" disabled>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
@@ -41,7 +45,7 @@ describe('CardStack', () => {
       slots: {
         default: CARDS_CUSTOMISATION,
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
     await wrapper.vm.$nextTick();
     expect(wrapper.element).toMatchSnapshot();
@@ -56,7 +60,7 @@ describe('CardStack', () => {
       slots: {
         default: EMPTY_CARDS,
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
     await wrapper.vm.$nextTick();
 
@@ -82,7 +86,7 @@ describe('CardStack', () => {
       slots: {
         default: MARKDOWN_CARDS,
       },
-      stubs: DEFAULT_STUBS,
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
     });
     await wrapper.vm.$nextTick();
     expect(wrapper.element).toMatchSnapshot();

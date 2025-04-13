@@ -153,16 +153,44 @@ exports[`Tabset (Tabs) with Tab and Tab-Group Components renders tabset with no-
     class="tab-content"
   >
     
-    <tab
-      header="Tab 1"
+    <div
+      class="tab-pane active printable-tab-pane tab-pane-hide"
+      role="tabpanel"
     >
+      <div
+        class="nav-tabs printable-tab-header"
+      >
+        <div
+          class="nav-link active"
+        >
+          
+          
+        </div>
+      </div>
+      
        Text in the first tab 
-    </tab>
-    <tab
-      header="Tab 2"
+      
+      <hr />
+    </div>
+    <div
+      class="tab-pane active printable-tab-pane tab-pane-hide"
+      role="tabpanel"
     >
+      <div
+        class="nav-tabs printable-tab-header"
+      >
+        <div
+          class="nav-link active"
+        >
+          
+          
+        </div>
+      </div>
+      
        Text in the second tab 
-    </tab>
+      
+      <hr />
+    </div>
     
   </div>
 </div>
