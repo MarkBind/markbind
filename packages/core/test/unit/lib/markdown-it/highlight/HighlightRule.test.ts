@@ -27,6 +27,16 @@ describe('splitByChar', () => {
     const splitResult = HighlightRule.splitByChar('3-4,5', ',');
     expect(splitResult).toEqual(['3-4', '5']);
   });
+
+  test('ignores commas inside quoted strings', () => {
+    const splitResult = HighlightRule.splitByChar("3-4,'5,6',7", ',');
+    expect(splitResult).toEqual(['3-4', "'5,6'", '7']);
+  });
+
+  test('handles escaped quotes in strings', () => {
+    const splitResult = HighlightRule.splitByChar("3-4,'5\\',6',7", ',');
+    expect(splitResult).toEqual(['3-4', "'5\\',6'", '7']);
+  });
 });
 
 describe('parseRule', () => {
@@ -47,6 +57,9 @@ describe('shouldApplyHighlight', () => {
   const rules = HighlightRule.parseAllRules('3-4', 0, 'line1\nline2\nline3\nline4\nline5\n');
   const rule = rules[0];
 
+  const singleLineRules = HighlightRule.parseAllRules('3', 0, 'line1\nline2\nline3\nline4\n');
+  const singleLineRule = singleLineRules[0];
+
   test('returns true within the line range', () => {
     expect(rule.shouldApplyHighlight(3)).toBeTruthy();
     expect(rule.shouldApplyHighlight(4)).toBeTruthy();
@@ -55,6 +68,16 @@ describe('shouldApplyHighlight', () => {
   test('returns false outside the line range', () => {
     expect(rule.shouldApplyHighlight(2)).toBeFalsy();
     expect(rule.shouldApplyHighlight(5)).toBeFalsy();
+  });
+
+  test('returns true for exact line match', () => {
+    expect(singleLineRule.shouldApplyHighlight(3)).toBeTruthy();
+  });
+
+  // Here we test boundary values
+  test('returns false for other line numbers', () => {
+    expect(singleLineRule.shouldApplyHighlight(2)).toBeFalsy();
+    expect(singleLineRule.shouldApplyHighlight(4)).toBeFalsy();
   });
 });
 
@@ -232,6 +255,41 @@ describe('handleRuleComponent', () => {
       {
         highlightType: HIGHLIGHT_TYPES.PartialText,
         bounds: [[1, 3]],
+        color: undefined,
+      },
+    ]);
+  });
+
+  test('returns WholeText for slice with no bounds', () => {
+    const component = new HighlightRuleComponent(5);
+    component.isSlice = true;
+    jest.spyOn(component, 'compareLine').mockReturnValue(0);
+    jest.spyOn(component, 'isUnboundedSlice').mockReturnValue(false);
+
+    const rule = new HighlightRule([component]);
+
+    const result = rule.handleRuleComponent(5);
+    expect(result).toEqual([
+      {
+        highlightType: HIGHLIGHT_TYPES.WholeText, // This tests the else branch
+        bounds: [],
+        color: undefined,
+      },
+    ]);
+  });
+
+  test('returns WholeText for non-slice component', () => {
+    const component = new HighlightRuleComponent(5);
+    component.isSlice = false;
+    jest.spyOn(component, 'compareLine').mockReturnValue(0);
+
+    const rule = new HighlightRule([component]);
+
+    const result = rule.handleRuleComponent(5);
+    expect(result).toEqual([
+      {
+        highlightType: HIGHLIGHT_TYPES.WholeText,
+        bounds: null,
         color: undefined,
       },
     ]);
