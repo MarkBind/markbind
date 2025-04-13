@@ -2,7 +2,10 @@
   <span
     v-if="localMinimized"
     ref="cardContainer"
-    :class="['card-container', addClass]"
+    :class="[
+      'card-container',
+      addClass,
+    ]"
   >
     <span class="morph">
       <button
@@ -31,7 +34,11 @@
   <div
     v-else
     ref="cardContainer"
-    :class="['card-container', addClass]"
+    :class="[
+      'card-container',
+      noPageBreak ? 'no-page-break' : '',
+      addClass,
+    ]"
   >
     <div :class="['card', { 'expandable-card': isExpandableCard, 'card-seamless': isSeamless }, borderType]">
       <div
@@ -377,6 +384,12 @@ export default {
 
         .card-header {
             padding: 0.5rem;
+        }
+    }
+
+    @media print {
+        .no-page-break {
+            page-break-inside: avoid;
         }
     }
 </style>

@@ -138,6 +138,36 @@ exports[`Tabset (Tabs) with Tab and Tab-Group Components renders tabset with bot
 </div>
 `;
 
+exports[`Tabset (Tabs) with Tab and Tab-Group Components renders tabset with no-page-break option 1`] = `
+<div
+  class="printable-tabs no-page-break"
+>
+  <ul
+    class="nav nav-tabs d-print-none nav-tabs"
+    role="tablist"
+  >
+    
+    
+  </ul>
+  <div
+    class="tab-content"
+  >
+    
+    <tab
+      header="Tab 1"
+    >
+       Text in the first tab 
+    </tab>
+    <tab
+      header="Tab 2"
+    >
+       Text in the second tab 
+    </tab>
+    
+  </div>
+</div>
+`;
+
 exports[`Tabset (Tabs) with Tab and Tab-Group Components renders tabset with tab-group 1`] = `
 <div
   class="printable-tabs"
