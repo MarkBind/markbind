@@ -79,4 +79,19 @@ describe('Tabset (Tabs) with Tab and Tab-Group Components', () => {
 
     expect(wrapper.element).toMatchSnapshot();
   });
+
+  test('renders tabset with no-page-break option', () => {
+    const wrapper = mount(Tabset, {
+      slots: {
+        header: TABSET_HEADER,
+        default: TAB_COMPONENT,
+      },
+      propsData: {
+        noPageBreak: true,
+      },
+      stubs: DEFAULT_STUBS,
+    });
+
+    expect(wrapper.element).toMatchSnapshot();
+  });
 });
