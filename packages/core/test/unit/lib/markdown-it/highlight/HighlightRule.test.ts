@@ -123,6 +123,121 @@ describe('getHighlightType', () => {
   });
 });
 
+describe('handleLineRange', () => {
+  test('returns empty array when lineNumber is outside range', () => {
+    const rule = new HighlightRule([
+      new HighlightRuleComponent(5),
+      new HighlightRuleComponent(10),
+    ]);
+    // Before range
+    expect(rule.handleLineRange(3)).toEqual([]);
+    // After range
+    expect(rule.handleLineRange(12)).toEqual([]);
+  });
+
+  test('any component is unbounded slice', () => {
+    const startComponent = new HighlightRuleComponent(5);
+    startComponent.isSlice = true;
+    jest.spyOn(startComponent, 'isUnboundedSlice').mockReturnValue(true);
+
+    const rule = new HighlightRule([
+      startComponent,
+      new HighlightRuleComponent(10),
+    ]);
+
+    // Within range
+    const result = rule.handleLineRange(7);
+    expect(result).toEqual([
+      {
+        highlightType: HIGHLIGHT_TYPES.WholeLine,
+        bounds: null,
+        color: undefined,
+      },
+    ]);
+  });
+
+  test('handles start and end line rules correctly', () => {
+    const startComponent = new HighlightRuleComponent(5);
+    startComponent.isSlice = true;
+    startComponent.bounds = [[1, 3]];
+
+    const endComponent = new HighlightRuleComponent(10);
+    endComponent.isSlice = true;
+    endComponent.bounds = [[4, 6]];
+
+    const rule = new HighlightRule([startComponent, endComponent]);
+
+    // Test start line
+    expect(rule.handleLineRange(5)).toEqual([
+      {
+        highlightType: HIGHLIGHT_TYPES.PartialText,
+        bounds: [[1, 3]],
+        color: undefined,
+      },
+    ]);
+  });
+
+  test('returns WholeText for lines within range (not boundaries)', () => {
+    const rule = new HighlightRule([
+      new HighlightRuleComponent(5),
+      new HighlightRuleComponent(10),
+    ]);
+
+    expect(rule.handleLineRange(7)).toEqual([
+      {
+        highlightType: HIGHLIGHT_TYPES.WholeText,
+        bounds: null,
+        color: undefined,
+      },
+    ]);
+  });
+});
+
+describe('handleRuleComponent', () => {
+  test('returns empty array when no rule matched lineNumber', () => {
+    const component = new HighlightRuleComponent(5);
+    jest.spyOn(component, 'compareLine').mockImplementation(n => n - 5);
+
+    const rule = new HighlightRule([component]);
+
+    expect(rule.handleRuleComponent(3)).toEqual([]);
+  });
+
+  test('returns WholeLine for unbounded slices', () => {
+    const component = new HighlightRuleComponent(5);
+    component.isSlice = true;
+    jest.spyOn(component, 'isUnboundedSlice').mockReturnValue(true);
+    jest.spyOn(component, 'compareLine').mockReturnValue(0);
+
+    const rule = new HighlightRule([component]);
+
+    expect(rule.handleRuleComponent(5)).toEqual([
+      {
+        highlightType: HIGHLIGHT_TYPES.WholeLine,
+        bounds: null,
+        color: undefined,
+      },
+    ]);
+  });
+
+  test('returns PartialText for slices with bounds', () => {
+    const component = new HighlightRuleComponent(5);
+    component.isSlice = true;
+    component.bounds = [[1, 3]];
+    jest.spyOn(component, 'compareLine').mockReturnValue(0);
+
+    const rule = new HighlightRule([component]);
+
+    expect(rule.handleRuleComponent(5)).toEqual([
+      {
+        highlightType: HIGHLIGHT_TYPES.PartialText,
+        bounds: [[1, 3]],
+        color: undefined,
+      },
+    ]);
+  });
+});
+
 describe('isLineRange', () => {
   test('returns true for range', () => {
     const rule = new HighlightRule([new HighlightRuleComponent(3), new HighlightRuleComponent(4)]);
