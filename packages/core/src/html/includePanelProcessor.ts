@@ -187,7 +187,7 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
                                getNextFootnodeNumber: () => number = buildGetNextFootnodeNumber()): Context {
   if (_.isEmpty(node.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
-    logger.error(error);
+    logger.error(error.message);
     cheerio(node).replaceWith(createErrorNode(node, error));
     return context;
   }
@@ -319,7 +319,7 @@ export function processPopoverSrc(node: MbNode, context: Context, pageSources: P
 
   if (_.isEmpty(node.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
-    logger.error(error);
+    logger.error(error.message);
     cheerio(node).replaceWith(createErrorNode(node, error));
     return context;
   }
@@ -376,7 +376,7 @@ export function processPopoverSrc(node: MbNode, context: Context, pageSources: P
     if (actualContent === '') {
       const error = new Error(`No such segment '${hash}' in file: ${actualFilePath}\n`
         + `Missing reference in ${context.cwf}`);
-      logger.error(error);
+      logger.error(error.message);
 
       cheerio(node).replaceWith(createErrorNode(node, error));
 
