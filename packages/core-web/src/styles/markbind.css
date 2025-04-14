@@ -331,6 +331,7 @@ hr.thick-3 {
 ol,
 ul {
     padding-left: 1.5rem;
+    list-style-position: inside;
 }
 
 h1,
