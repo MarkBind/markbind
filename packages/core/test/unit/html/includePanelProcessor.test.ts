@@ -12,8 +12,7 @@ const expectedErrors = [
 ];
 
 beforeAll(() => {
-  logger.info(`The following ${expectedErrors.length} errors are expected to be thrown 
-during the test run:`);
+  logger.info(`The following ${expectedErrors.length} errors are expected to be thrown during the test run:`);
   expectedErrors.forEach((error, index) => {
     logger.info(`${index + 1}: ${error}`);
   });
