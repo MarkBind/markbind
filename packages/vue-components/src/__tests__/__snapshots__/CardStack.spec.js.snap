@@ -1,0 +1,281 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CardStack markdown in header, content 1`] = `
+<div
+  class="grid-container"
+>
+  <div
+    class="header-row"
+  >
+    <span
+      class="search-bar"
+    >
+      <input
+        class="form-control search-bar"
+        placeholder="Search"
+        type="text"
+      />
+    </span>
+    
+    
+  </div>
+  <div
+    class="container"
+  >
+    <div
+      class="row justify-content-starts gy-3"
+    >
+      
+      <div
+        class="col-md-6"
+        header="### Headers"
+        style="display: none;"
+      >
+        <div
+          class="card"
+        >
+          <div
+            class="card-body article-container"
+            style=""
+          >
+            <!--v-if-->
+            <div
+              class="card-text"
+            >
+              
+              
+            </div>
+            <br />
+            <!--v-if-->
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-md-6"
+        header="### Italics"
+        style="display: none;"
+      >
+        <div
+          class="card"
+        >
+          <div
+            class="card-body article-container"
+            style=""
+          >
+            <!--v-if-->
+            <div
+              class="card-text"
+            >
+              
+              
+            </div>
+            <br />
+            <!--v-if-->
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CardStack should not hide cards when no filter is provided 1`] = `
+<div
+  class="grid-container"
+>
+  <div
+    class="header-row"
+  >
+    <span
+      class="search-bar"
+    >
+      <input
+        class="form-control search-bar"
+        placeholder="Search"
+        type="text"
+      />
+    </span>
+    
+    <span
+      class="badge bg-primary tag-badge"
+    >
+      Short  
+      <span
+        class="badge bg-light text-dark tag-indicator"
+      >
+        <span>
+             
+        </span>
+      </span>
+    </span>
+    
+  </div>
+  <div
+    class="container"
+  >
+    <div
+      class="row justify-content-starts gy-3"
+    >
+      
+      <div
+        class="col-md-6"
+        header="Normal Body"
+        style="display: none;"
+      >
+        <div
+          class="card"
+        >
+          <div
+            class="card-body article-container"
+            style=""
+          >
+            <!--v-if-->
+            <div
+              class="card-text"
+            >
+              
+               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+              
+            </div>
+            <br />
+            <div
+              class="key-container"
+            >
+              <span
+                class="keyword-container"
+              >
+                <em>
+                  Body
+                </em>
+              </span>
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-md-6"
+        header="Short Body"
+      >
+        <div
+          class="card"
+        >
+          <div
+            class="card-body article-container"
+            style=""
+          >
+            <!--v-if-->
+            <div
+              class="card-text"
+            >
+              
+               Lorem ipsum dolor sit amet, consectetur adipisicing 
+              
+            </div>
+            <br />
+            <div
+              class="key-container"
+            >
+              <span
+                class="keyword-container"
+              >
+                <em>
+                  Body
+                </em>
+              </span>
+              
+              <span
+                class="badge bg-primary tag-container"
+              >
+                Short
+              </span>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CardStack should not hide cards when no filter is provided 2`] = `
+<div
+  class="grid-container"
+>
+  <div
+    class="header-row"
+  >
+    <span
+      class="search-bar"
+    >
+      <input
+        class="form-control search-bar"
+        placeholder="Search"
+        type="text"
+      />
+    </span>
+    
+    
+  </div>
+  <div
+    class="container"
+  >
+    <div
+      class="row justify-content-starts gy-3"
+    >
+      
+      <div
+        class="col-md-6"
+        style="display: none;"
+      >
+        <div
+          class="card"
+        >
+          <div
+            class="card-body article-container"
+            style=""
+          >
+            <!--v-if-->
+            <div
+              class="card-text"
+            >
+              
+              
+            </div>
+            <br />
+            <!--v-if-->
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-md-6"
+        style="display: none;"
+      >
+        <div
+          class="card"
+        >
+          <div
+            class="card-body article-container"
+            style=""
+          >
+            <!--v-if-->
+            <div
+              class="card-text"
+            >
+              
+              
+            </div>
+            <br />
+            <!--v-if-->
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+`;

@@ -34,10 +34,14 @@ import popover from './Popover.vue';
 import tooltip from './Tooltip.vue';
 import modal from './Modal.vue';
 import scrollTopButton from './ScrollTopButton.vue';
+import cardstack from './cardstack/CardStack.vue';
+import card from './cardstack/Card.vue';
 
 const components = {
   box,
   breadcrumb,
+  cardstack,
+  card,
   dropdown,
   navbar,
   panel,

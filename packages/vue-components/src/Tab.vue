@@ -29,9 +29,6 @@ export default {
     },
   },
   computed: {
-    headerRendered() {
-      return this.$refs.header.innerHTML;
-    },
     active() {
       return this._tabset.show === this;
     },
@@ -44,6 +41,9 @@ export default {
     disabledBool() {
       return toBoolean(this.disabled);
     },
+  },
+  mounted() {
+    this.headerRendered = this.$refs.header?.innerHTML;
   },
   created() {
     this._ingroup = this.$parent && '_tabgroup' in this.$parent;

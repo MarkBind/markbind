@@ -9,8 +9,11 @@ export class HighlightRuleComponent {
   lineNumber: number;
   isSlice: boolean;
   bounds: Array<[number, number]>;
-
-  constructor(lineNumber: number, isSlice: boolean = false, bounds: Array<[number, number]> = []) {
+  constructor(
+    lineNumber: number,
+    isSlice: boolean = false,
+    bounds: Array<[number, number]> = [],
+  ) {
     this.lineNumber = lineNumber;
     this.isSlice = isSlice;
     this.bounds = bounds;
