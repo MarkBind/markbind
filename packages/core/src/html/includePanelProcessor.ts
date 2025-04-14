@@ -40,7 +40,7 @@ function _checkAndWarnFileExists(element: MbNode, context: Context, actualFilePa
     });
     const error = new Error(
       `No such file: ${actualFilePath}\nMissing reference in ${context.cwf}`);
-    logger.error(error);
+    logger.error(error.message);
 
     createErrorNode(element, error);
     return false;
