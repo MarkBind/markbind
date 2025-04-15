@@ -18,7 +18,7 @@
   * [Using Components]({{baseUrl}}/userGuide/usingComponents.html) :expanded:
     * [Presentation]({{baseUrl}}/userGuide/components/presentation.html)
     * [Images & Diagrams]({{baseUrl}}/userGuide/components/imagesAndDiagrams.html)
-    * [Pop-Ups]({{baseUrl}}/userGuide/components/popups.html)
+    * [Popups]({{baseUrl}}/userGuide/components/popups.html)
     * [Navigation]({{baseUrl}}/userGuide/components/navigation.html)
     * [Others]({{baseUrl}}/userGuide/components/others.html)
     * [Advanced]({{baseUrl}}/userGuide/components/advanced.html)
