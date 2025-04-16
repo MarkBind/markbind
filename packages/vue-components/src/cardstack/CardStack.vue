@@ -24,6 +24,13 @@
           <span v-else>&nbsp;&nbsp;&nbsp;</span>
         </span>
       </span>
+      <button
+        class="filter-mode-toggle"
+        :class="['btn', 'btn-sm', filterMode === 'AND' ? 'btn-primary' : 'btn-outline-primary']"
+        @click="toggleFilterMode"
+      >
+        must include
+      </button>
     </div>
     <div class="container">
       <div class="row justify-content-starts gy-3">
@@ -68,6 +75,12 @@ export default {
     };
   },
   methods: {
+    toggleFilterMode() {
+      this.filterMode = this.filterMode === 'OR' ? 'AND' : 'OR';
+      if (this.selectedTags.length > 0) {
+        this.updateTag(null, true);
+      }
+    },
     update() {
       const regexes = this.value.split(' ')
         .filter(searchKeyword => searchKeyword !== '')
@@ -92,11 +105,13 @@ export default {
         child.$data.disableCard = !matched;
       });
     },
-    updateTag(tagName) {
-      if (this.selectedTags.includes(tagName)) {
-        this.selectedTags = this.selectedTags.filter(tag => tag !== tagName);
-      } else {
-        this.selectedTags.push(tagName);
+    updateTag(tagName, forceUpdate = false) {
+      if (!forceUpdate && tagName) {
+        if (this.selectedTags.includes(tagName)) {
+          this.selectedTags = this.selectedTags.filter(tag => tag !== tagName);
+        } else {
+          this.selectedTags.push(tagName);
+        }
       }
 
       if (this.selectedTags.length === 0) {
@@ -106,8 +121,13 @@ export default {
           if (child.$props.disabled) return;
 
           const tags = child.computeTags;
-          const containsActiveTag = tags.some(tag => this.selectedTags.includes(tag));
-          child.$data.disableTag = !containsActiveTag;
+          let showCard;
+          if (this.filterMode === 'AND') {
+            showCard = this.selectedTags.every(tag => tags.includes(tag));
+          } else {
+            showCard = tags.some(tag => this.selectedTags.includes(tag));
+          }
+          child.$data.disableTag = !showCard;
         });
       }
     },
@@ -127,6 +147,7 @@ export default {
       value: '',
       tags: [],
       selectedTags: [],
+      filterMode: 'OR',
       cardStackRef: {
         rawTags: [],
         tagMapping: [],
@@ -244,5 +265,13 @@ export default {
     .tag-indicator {
         width: 18px;
         height: 100%;
+        margin-left: -3px;
+        margin-right: -3px;
+    }
+
+    .filter-mode-toggle {
+        font-size: 0.8rem;
+        margin-left: 8px;
+        padding: 0.2rem 0.5rem;
     }
 </style>
