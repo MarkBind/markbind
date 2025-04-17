@@ -318,7 +318,7 @@ export function processPopoverSrc(node: MbNode, context: Context, pageSources: P
   }
 
   if (_.isEmpty(node.attribs.src)) {
-    const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
+    const error = new Error(`Empty src attribute in popover in: ${context.cwf}`);
     logger.error(error.message);
     cheerio(node).replaceWith(createErrorNode(node, error));
     return context;
