@@ -40,7 +40,7 @@ function _checkAndWarnFileExists(element: MbNode, context: Context, actualFilePa
     });
     const error = new Error(
       `No such file: ${actualFilePath}\nMissing reference in ${context.cwf}`);
-    logger.error(error);
+    logger.error(error.message);
 
     createErrorNode(element, error);
     return false;
@@ -187,7 +187,7 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
                                getNextFootnodeNumber: () => number = buildGetNextFootnodeNumber()): Context {
   if (_.isEmpty(node.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
-    logger.error(error);
+    logger.error(error.message);
     cheerio(node).replaceWith(createErrorNode(node, error));
     return context;
   }
@@ -272,7 +272,7 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
     if (actualContentOrNull === null && !isOptional) {
       const error = new Error(`No such segment '${hash}' in file: ${actualFilePath}\n`
        + `Missing reference in ${context.cwf}`);
-      logger.error(error);
+      logger.error(error.message);
 
       actualContent = cheerio.html(createErrorNode(node, error));
     } else if (actualContentOrNull === '') {
@@ -294,7 +294,7 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
 
     if (childContext.hasExceededMaxCallstackSize()) {
       const error = new CyclicReferenceError(childContext.callStack);
-      logger.error(error);
+      logger.error(error.message);
       cheerio(node).replaceWith(createErrorNode(node, error));
       return context;
     }
@@ -319,7 +319,7 @@ export function processPopoverSrc(node: MbNode, context: Context, pageSources: P
 
   if (_.isEmpty(node.attribs.src)) {
     const error = new Error(`Empty src attribute in include in: ${context.cwf}`);
-    logger.error(error);
+    logger.error(error.message);
     cheerio(node).replaceWith(createErrorNode(node, error));
     return context;
   }
@@ -335,7 +335,7 @@ export function processPopoverSrc(node: MbNode, context: Context, pageSources: P
   // No need to process url contents
   if (isUrl) {
     const error = new Error('URLs are not allowed in the \'src\' attribute');
-    logger.error(error);
+    logger.error(error.message);
     cheerio(node).replaceWith(createErrorNode(node, error));
     return context;
   }
@@ -369,7 +369,7 @@ export function processPopoverSrc(node: MbNode, context: Context, pageSources: P
     if (actualContent === '') {
       const error = new Error(`No such segment '${hash}' in file: ${actualFilePath}\n`
         + `Missing reference in ${context.cwf}`);
-      logger.error(error);
+      logger.error(error.message);
 
       cheerio(node).replaceWith(createErrorNode(node, error));
 
@@ -384,7 +384,7 @@ export function processPopoverSrc(node: MbNode, context: Context, pageSources: P
 
     if (childContext.hasExceededMaxCallstackSize()) {
       const error = new CyclicReferenceError(childContext.callStack);
-      logger.error(error);
+      logger.error(error.message);
       cheerio(node).replaceWith(createErrorNode(node, error));
       return context;
     }
