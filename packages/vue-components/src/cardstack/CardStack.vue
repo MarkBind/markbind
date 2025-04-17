@@ -12,6 +12,18 @@
           />
         </template>
       </span>
+      <span class="toggle-badge badge" @click="toggleFilterMode">
+        match all selected
+
+        <span
+          :class="['btn', 'btn-sm', `tag-badge`]"
+        >
+          <span class="badge bg-light text-dark tag-indicator">
+            <span v-if="filterMode === 'AND'">✓</span>
+            <span v-else>&nbsp;&nbsp;&nbsp;</span>
+          </span>
+        </span>
+      </span>
       <span
         v-for="(key, index) in cardStackRef.tagMapping"
         :key="index"
@@ -24,13 +36,6 @@
           <span v-else>&nbsp;&nbsp;&nbsp;</span>
         </span>
       </span>
-      <button
-        class="filter-mode-toggle"
-        :class="['btn', 'btn-sm', filterMode === 'AND' ? 'btn-primary' : 'btn-outline-primary']"
-        @click="toggleFilterMode"
-      >
-        must include
-      </button>
     </div>
     <div class="container">
       <div class="row justify-content-starts gy-3">
@@ -76,7 +81,7 @@ export default {
   },
   methods: {
     toggleFilterMode() {
-      this.filterMode = this.filterMode === 'OR' ? 'AND' : 'OR';
+      this.filterMode = this.filterMode === 'AND' ? 'OR' : 'AND';
       if (this.selectedTags.length > 0) {
         this.updateTag(null, true);
       }
@@ -271,5 +276,10 @@ export default {
         font-size: 0.8rem;
         margin-left: 8px;
         padding: 0.2rem 0.5rem;
+    }
+
+    .toggle-badge {
+        color: black;
+        cursor: pointer;
     }
 </style>
