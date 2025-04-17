@@ -328,10 +328,13 @@ hr.thick-3 {
     border-top-width: 0.75rem;
 }
 
-ol,
-ul {
+ol{
     padding-left: 1.5rem;
     list-style-position: inside;
+}
+
+ul {
+    padding-left: 1.5rem;
 }
 
 h1,
