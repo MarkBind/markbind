@@ -16,6 +16,22 @@ exports[`CardStack markdown in header, content 1`] = `
         type="text"
       />
     </span>
+    <span
+      class="toggle-badge badge"
+    >
+       match all selected 
+      <span
+        class="btn btn-sm tag-badge"
+      >
+        <span
+          class="badge bg-light text-dark tag-indicator"
+        >
+          <span>
+               
+          </span>
+        </span>
+      </span>
+    </span>
     
     
   </div>
@@ -95,6 +111,22 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
         placeholder="Search"
         type="text"
       />
+    </span>
+    <span
+      class="toggle-badge badge"
+    >
+       match all selected 
+      <span
+        class="btn btn-sm tag-badge"
+      >
+        <span
+          class="badge bg-light text-dark tag-indicator"
+        >
+          <span>
+               
+          </span>
+        </span>
+      </span>
     </span>
     
     <span
@@ -217,6 +249,22 @@ exports[`CardStack should not hide cards when no filter is provided 2`] = `
         placeholder="Search"
         type="text"
       />
+    </span>
+    <span
+      class="toggle-badge badge"
+    >
+       match all selected 
+      <span
+        class="btn btn-sm tag-badge"
+      >
+        <span
+          class="badge bg-light text-dark tag-indicator"
+        >
+          <span>
+               
+          </span>
+        </span>
+      </span>
     </span>
     
     
