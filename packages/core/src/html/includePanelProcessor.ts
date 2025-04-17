@@ -335,7 +335,12 @@ export function processPopoverSrc(node: MbNode, context: Context, pageSources: P
   // No need to process url contents
   if (isUrl) {
     const error = new Error('URLs are not allowed in the \'src\' attribute');
-    logger.error(error.message);
+    logger.error(`${error.message}
+      File: ${context.cwf}
+      URL provided: ${node.attribs.src}
+      
+      Please check the \`src\` attribute in the popover element.
+      Ensure it doesn't contain a URL (e.g., "http://www.example.com").`);
     cheerio(node).replaceWith(createErrorNode(node, error));
     return context;
   }
