@@ -1,9 +1,31 @@
 import path from 'path';
 import { getNewDefaultNodeProcessor } from '../utils/utils';
+import * as logger from '../../../src/utils/logger';
 
 const fs = require('fs');
 
 jest.mock('fs');
+
+const expectedErrors = [
+  'No such segment \'#doesNotExist\' in file: markbind\\packages\\core\\include.md',
+  'Cyclic reference detected.\nLast 5 files processed:\n'
+    + '\tmarkbind\\packages\\core\\index.md\n'
+    + '\tmarkbind\\packages\\core\\include.md\n'
+    + '\tmarkbind\\packages\\core\\index.md\n'
+    + '\tmarkbind\\packages\\core\\include.md\n'
+    + '\tmarkbind\\packages\\core\\index.md',
+];
+
+beforeAll(() => {
+  logger.info(
+    `The following ${
+      expectedErrors.length === 1 ? 'error is' : 'errors are'
+    } expected to be thrown during the test run:`,
+  );
+  expectedErrors.forEach((error, index) => {
+    logger.info(`${index + 1}: ${error}`);
+  });
+});
 
 afterEach(() => fs.vol.reset());
 
