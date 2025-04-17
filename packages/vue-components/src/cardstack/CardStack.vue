@@ -145,7 +145,6 @@ export default {
   data() {
     return {
       value: '',
-      tags: [],
       selectedTags: [],
       filterMode: 'OR',
       cardStackRef: {
@@ -157,7 +156,6 @@ export default {
           const tags = this.rawTags;
           const tagMap = new Map();
           let index = 0;
-
           tags.forEach((tag) => {
             // "tag" -> {badgeColor, children : [child], disableTag: false}
             if (!tagMap.has(tag)) {
