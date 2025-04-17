@@ -1,5 +1,6 @@
 import path from 'path';
 import { getNewDefaultNodeProcessor } from '../utils/utils';
+import * as logger from '../../../src/utils/logger';
 
 const fs = require('fs');
 
@@ -284,6 +285,7 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
   fs.vol.fromJSON(json, '');
 
   const nodeProcessor = getNewDefaultNodeProcessor();
+  const loggerErrorSpy = jest.spyOn(logger, 'error');
   const result = await nodeProcessor.process(indexPath, index);
 
   const expected = [
@@ -292,6 +294,8 @@ test('includeFile replaces <include src="include.md#doesNotExist"> with error <d
   ].join('\n');
 
   expect(result).toEqual(expected);
+  expect(loggerErrorSpy).toHaveBeenCalledWith(expectedErrorMessage);
+  loggerErrorSpy.mockRestore();
 });
 
 test('includeFile replaces <include src="include.md#exists" optional> with <div>', async () => {
@@ -389,11 +393,77 @@ test('includeFile detects cyclic references for static cyclic includes', async (
   ].join('\n');
 
   const nodeProcessor = getNewDefaultNodeProcessor();
+  const loggerErrorSpy = jest.spyOn(logger, 'error');
   const result = await nodeProcessor.process(indexPath, index);
 
   const expected = `<div style="color: red">${expectedErrorMessage}</div>`;
 
   expect(result).toContain(expected);
+  expect(loggerErrorSpy).toHaveBeenCalledWith(expectedErrorMessage);
+  loggerErrorSpy.mockRestore();
+});
+
+test('includeFile replaces <include src="doesNotExist.md> with error <div>', async () => {
+  const indexPath = path.resolve('index.md');
+
+  const index = [
+    '# Index',
+    '<include src="doesNotExist.md" />',
+    '',
+  ].join('\n');
+
+  const expectedErrorMessage = `No such file: ${path.resolve('doesNotExist.md')}\n`
+    + `Missing reference in ${indexPath}`;
+
+  const json = {
+    'index.md': index,
+  };
+
+  fs.vol.fromJSON(json, '');
+
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const loggerErrorSpy = jest.spyOn(logger, 'error');
+  const result = await nodeProcessor.process(indexPath, index);
+
+  const expected = [
+    '<h1 id="index">Index</h1>',
+    `<div style="color: red">${expectedErrorMessage}</div>`,
+  ].join('\n');
+
+  expect(result).toEqual(expected);
+  expect(loggerErrorSpy).toHaveBeenCalledWith(expectedErrorMessage);
+  loggerErrorSpy.mockRestore();
+});
+
+test('includeFile replaces <include src=""> with error <div>', async () => {
+  const indexPath = path.resolve('index.md');
+
+  const index = [
+    '# Index',
+    '<include src="" />',
+    '',
+  ].join('\n');
+
+  const expectedErrorMessage = `Empty src attribute in include in: ${indexPath}`;
+
+  const json = {
+    'index.md': index,
+  };
+
+  fs.vol.fromJSON(json, '');
+
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const loggerErrorSpy = jest.spyOn(logger, 'error');
+  const result = await nodeProcessor.process(indexPath, index);
+
+  const expected = [
+    '<h1 id="index">Index</h1>',
+    `<div style="color: red">${expectedErrorMessage}</div>`,
+  ].join('\n');
+
+  expect(result).toEqual(expected);
+  expect(loggerErrorSpy).toHaveBeenCalledWith(expectedErrorMessage);
+  loggerErrorSpy.mockRestore();
 });
 
 test('process include should preserve included frontmatter data', async () => {
@@ -474,4 +544,187 @@ test('process include with omitFrontmatter should discard included frontmatter d
 
   expect(result).toEqual(expectedHtml);
   expect(nodeProcessor.frontmatter).toEqual(expectedFrontmatter);
+});
+
+test('process popover should replace popover with <div>', async () => {
+  const indexPath = path.resolve('index.md');
+
+  const index = [
+    '# Index',
+    '<popover src="popover.md" />',
+    '',
+  ].join('\n');
+
+  const json = {
+    'index.md': index,
+    'popover.md': [
+      '# Popover',
+      '<div id="popover">Popover content</div>',
+    ].join('\n'),
+  };
+
+  fs.vol.fromJSON(json, '');
+
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const result = await nodeProcessor.process(indexPath, index);
+
+  const expectedHtml = [
+    '<h1 id="index">Index</h1>',
+    '<popover><template #content><h1 id="popover">Popover</h1>',
+    '<div id="popover">Popover content</div></template></popover>',
+  ].join('\n');
+
+  expect(result).toEqual(expectedHtml);
+});
+
+test('process popover with empty src should throw error', async () => {
+  const indexPath = path.resolve('index.md');
+
+  const index = [
+    '# Index',
+    '<popover src="" />',
+    '',
+  ].join('\n');
+
+  const expectedErrorMessage = `Empty src attribute in popover in: ${indexPath}`;
+
+  const json = {
+    'index.md': index,
+  };
+
+  fs.vol.fromJSON(json, '');
+
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const loggerErrorSpy = jest.spyOn(logger, 'error');
+  const result = await nodeProcessor.process(indexPath, index);
+
+  const expected = [
+    '<h1 id="index">Index</h1>',
+    `<div style="color: red">${expectedErrorMessage}</div>`,
+  ].join('\n');
+
+  expect(result).toEqual(expected);
+  expect(loggerErrorSpy).toHaveBeenCalledWith(expectedErrorMessage);
+  loggerErrorSpy.mockRestore();
+});
+
+test('process popover with URL src should throw error', async () => {
+  const indexPath = path.resolve('index.md');
+
+  const index = [
+    '# Index',
+    '<popover src="https://example.com" />',
+    '',
+  ].join('\n');
+
+  const expectedErrorMessage = 'URLs are not allowed in the \'src\' attribute';
+  const expectedLoggerError = `${expectedErrorMessage}
+      File: ${indexPath}
+      URL provided: https://example.com
+      
+      Please check the \`src\` attribute in the popover element.
+      Ensure it doesn't contain a URL (e.g., "http://www.example.com").`;
+
+  const json = {
+    'index.md': index,
+  };
+
+  fs.vol.fromJSON(json, '');
+
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const loggerErrorSpy = jest.spyOn(logger, 'error');
+  const result = await nodeProcessor.process(indexPath, index);
+
+  const expected = [
+    '<h1 id="index">Index</h1>',
+    `<div style="color: red">${expectedErrorMessage}</div>`,
+  ].join('\n');
+
+  expect(result).toEqual(expected);
+  expect(loggerErrorSpy).toHaveBeenCalledWith(expectedLoggerError);
+  loggerErrorSpy.mockRestore();
+});
+
+test('process popover with non-existent segment should throw error', async () => {
+  const indexPath = path.resolve('index.md');
+
+  const index = [
+    '# Index',
+    '<popover src="popover.md#doesNotExist" />',
+    '',
+  ].join('\n');
+
+  const json = {
+    'index.md': index,
+    'popover.md': [
+      '# Popover',
+      '<div id="popover">Popover content</div>',
+    ].join('\n'),
+  };
+
+  fs.vol.fromJSON(json, '');
+
+  const expectedErrorMessage = `No such segment '#doesNotExist' in file: ${path.resolve('popover.md')}`
+    + `\nMissing reference in ${indexPath}`;
+
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const loggerErrorSpy = jest.spyOn(logger, 'error');
+  const result = await nodeProcessor.process(indexPath, index);
+
+  const expected = [
+    '<h1 id="index">Index</h1>',
+    `<div style="color: red">${expectedErrorMessage}</div>`,
+  ].join('\n');
+
+  expect(result).toEqual(expected);
+  expect(loggerErrorSpy).toHaveBeenCalledWith(expectedErrorMessage);
+  loggerErrorSpy.mockRestore();
+});
+
+test('process popover should detect cyclic references', async () => {
+  const indexPath = path.resolve('index.md');
+  const popoverPath = path.resolve('popover.md');
+
+  const index = [
+    '# Index',
+    '<popover src="popover.md">',
+    'Popover Content',
+    '</popover>',
+    '',
+  ].join('\n');
+
+  const popover = [
+    '# Popover',
+    '<popover src="index.md">',
+    'Popover Content',
+    '</popover>',
+    '',
+  ].join('\n');
+
+  const json = {
+    'index.md': index,
+    'popover.md': popover,
+  };
+
+  fs.vol.fromJSON(json, '');
+
+  const expectedErrorMessage = [
+    'Cyclic reference detected.',
+    'Last 5 files processed:',
+    `\t${indexPath}`,
+    `\t${popoverPath}`,
+    `\t${indexPath}`,
+    `\t${popoverPath}`,
+    `\t${indexPath}`,
+  ].join('\n');
+
+  const nodeProcessor = getNewDefaultNodeProcessor();
+  const loggerErrorSpy = jest.spyOn(logger, 'error');
+  const result = await nodeProcessor.process(indexPath, index);
+
+  const expected = `<div style="color: red">${expectedErrorMessage}</div>`;
+
+  expect(result).toContain(expected);
+  expect(loggerErrorSpy).toHaveBeenCalledWith(expectedErrorMessage);
+  loggerErrorSpy.mockRestore();
 });
