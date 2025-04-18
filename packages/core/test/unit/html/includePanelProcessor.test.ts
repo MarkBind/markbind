@@ -7,7 +7,7 @@ const fs = require('fs');
 jest.mock('fs');
 
 const expectedErrors = [
-  'No such segment \'#doesNotExist\' in file: markbind\\packages\\core\\include.md',
+  'No such segment \'#doesNotExist\' in file',
   'Cyclic reference detected.\nLast 5 files processed:\n'
     + '\tmarkbind\\packages\\core\\index.md\n'
     + '\tmarkbind\\packages\\core\\include.md\n'

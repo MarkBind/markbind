@@ -195,7 +195,7 @@ Check the test logs for messages like:
 
 ```
 info: The following 2 errors are expected to be thrown during the test run:
-info: 1: No such segment '#doesNotExist' in file: markbind\packages\core\include.md
+info: 1: No such segment '#doesNotExist' in file
 info: 2: Cyclic reference detected.
 ```
 
@@ -206,7 +206,7 @@ If an error is listed there, it's safe to ignore.
 
 <box type="warning" seamless>
 
-If you're adding tests that are expected to log errors to the console, make sure to **update the corresponding info messages** in the test logs.
+If you're adding tests that are expected to log new errors to the console, make sure to **update the corresponding info messages** in the test logs.
 This ensures that expected errors are properly listed and avoids confusion during test runs.
 </box>
 
