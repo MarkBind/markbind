@@ -34,7 +34,7 @@ const errorWrap = (input: any) => {
 };
 
 // create a wrapper for warning messages
-const warnWarp = (input: any) => {
+const warnWrap = (input: any) => {
   if (progressBar) {
     progressBar.interruptBegin();
     winston.warn(input);
@@ -45,7 +45,7 @@ const warnWarp = (input: any) => {
 };
 
 // create a wrapper for info messages
-const infoWarp = (input: any) => {
+const infoWrap = (input: any) => {
   if (progressBar) {
     progressBar.interruptBegin();
     winston.info(input);
@@ -60,8 +60,8 @@ const { verbose } = winston;
 
 export {
   errorWrap as error,
-  warnWarp as warn,
-  infoWarp as info,
+  warnWrap as warn,
+  infoWrap as info,
   verbose,
   debug,
   setProgressBar,
