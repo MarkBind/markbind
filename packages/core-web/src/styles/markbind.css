@@ -328,10 +328,23 @@ hr.thick-3 {
     border-top-width: 0.75rem;
 }
 
-ol{
-    padding-left: 1.5rem;
-    list-style-position: inside;
+ol {
+    counter-reset: foo;
+    display: table;
+    padding-left: 0.5rem;
 }
+
+ol > li {
+    counter-increment: foo;
+    display: table-row;
+}
+
+ol > li::before {
+    content: counter(foo) ".\00a0";
+    display: table-cell; /* aha! */
+    text-align: right;
+}
+
 
 ul {
     padding-left: 1.5rem;
