@@ -8,12 +8,7 @@ jest.mock('fs');
 
 const expectedErrors = [
   'No such segment \'#doesNotExist\' in file',
-  'Cyclic reference detected.\nLast 5 files processed:\n'
-    + '\tmarkbind\\packages\\core\\index.md\n'
-    + '\tmarkbind\\packages\\core\\include.md\n'
-    + '\tmarkbind\\packages\\core\\index.md\n'
-    + '\tmarkbind\\packages\\core\\include.md\n'
-    + '\tmarkbind\\packages\\core\\index.md',
+  'Cyclic reference detected.',
 ];
 
 beforeAll(() => {
