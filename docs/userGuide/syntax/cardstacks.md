@@ -1,7 +1,7 @@
 {% from "userGuide/components/advanced.md" import slot_info_trigger %}
 
 ## Card Stack
-The Card Stack component allows you to display multiple cards in a structured layout with an optional search functionality. Each card supports various types of content, such as text, images as well as Markbind components.
+The Card Stack component allows you to display a collection of information in the form of a cards layout. The `cardstack` component acts as the container for  `card` components each containing the content you want to show.
 
 A `cardstack` component is used in conjunction with one or more `card` components.
 - `cardstack`: Wrapper used to hold cards and their content.
@@ -23,50 +23,59 @@ For example, if a card is about "Machine Learning," you might tag it as `AI` and
 <include src="codeAndOutputSeparate.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
-<cardstack searchable blocks="2">
+<cardstack searchable>
   <card header="**Winston Churchill**" tag="Success, Perseverance">
-    Success is not final, failure is not fatal: it is the courage to continue that counts - Winston Churchill
+    Success is not final, failure is not fatal: it is the courage to continue that counts
   </card>
   <card header="**Albert Einstein**" tag="Success, Perseverance">
-    In the middle of every difficulty lies opportunity - Albert Einstein
+    In the middle of every difficulty lies opportunity
   </card>
-  <card header="**Theodore Roosevelt**" tag="Motivation , Hard Work">
-    Do what you can, with what you have, where you are - Theodore Roosevelt
+  <card header="**Theodore Roosevelt**" tag="Motivation, Hard Work">
+    Do what you can, with what you have, where you are
   </card>
-  <card header="**Steve Jobs**" tag="Happiness  , Mindset">
-    Your time is limited, so don’t waste it living someone else’s life - Steve Jobs
+  <card header="**Steve Jobs**" tag="Happiness, Mindset">
+    Your time is limited, so don’t waste it living someone else’s life
   </card>
 </cardstack>
 </variable>
 <variable name="output">
-<cardstack searchable blocks="2">
+<cardstack searchable>
   <card header="**Winston Churchill**" tag="Success, Perseverance">
-    Success is not final, failure is not fatal: it is the courage to continue that counts - Winston Churchill
+    Success is not final, failure is not fatal: it is the courage to continue that counts
   </card>
   <card header="**Albert Einstein**" tag="Success, Perseverance">
-    In the middle of every difficulty lies opportunity - Albert Einstein
+    In the middle of every difficulty lies opportunity
   </card>
-  <card header="**Theodore Roosevelt**" tag="Motivation , Hard Work">
-    Do what you can, with what you have, where you are - Theodore Roosevelt
+  <card header="**Theodore Roosevelt**" tag="Motivation, Hard Work">
+    Do what you can, with what you have, where you are
   </card>
-  <card header="**Steve Jobs**" tag="Happiness  , Mindset">
-    Your time is limited, so don’t waste it living someone else’s life - Steve Jobs
+  <card header="**Steve Jobs**" tag="Happiness, Mindset">
+    Your time is limited, so don’t waste it living someone else’s life
   </card>
 </cardstack>
 </variable>
 </include>
 
-You can also utilise card stacks to implement a searchable list of questions.
+As shown in the above example,
+- a `card` can be given a `header` attribute (optional).
+- tags can be added to cards using the `tag` attribute, which can then be used to filter cards.
+- the `searchable` attribute can be used to make the Card Stack searchable based on tags and headers.
+
+In the example given below, a Card Stack is used to show a list of questions and answers, by including `question` components inside `card` components.
 
 <include src="codeAndOutputSeparate.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 <cardstack searchable blocks="1">
   <card header="**Multiple Response Question**" tag="MRQ" keywords="Mutliple Response Question, Math, Algebra">
-    <!-- Details of questions omitted. -->
+    <question type="checkbox" header="Which of the following is correct?" hint="Think out of the box! :fas-box:">
+      <!-- Details of questions omitted. -->
+    </question>
   </card>
   <card header="**Multiple Choice Question**" tag="MCQ" keywords="Mutliple Choice Question, Test cases, testing">
-    <!-- Details of questions omitted. -->
+    <question type="mcq" header="Which of these **contradicts** the heuristics recommended when creating test cases with multiple inputs?">
+      <!-- Details of questions omitted. -->
+    </question>
   </card>
 </cardstack>
 </variable>
@@ -123,6 +132,8 @@ You can also utilise card stacks to implement a searchable list of questions.
 </cardstack>
 </variable>
 </include>
+
+The example above also illustrates how to use the `keywords` attribute to specify additional search terms for a card.
 
 ****Options****
 
