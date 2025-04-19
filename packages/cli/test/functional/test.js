@@ -6,6 +6,8 @@ const { compare } = require('./testUtil/compare');
 
 const { cleanupConvert } = require('./testUtil/cleanup');
 
+const logger = require('../../../core/src/utils/logger');
+
 const {
   testSites,
   testConvertSites,
@@ -28,6 +30,18 @@ process.env.FORCE_COLOR = '3';
 const execOptions = {
   stdio: ['inherit', 'inherit', 'inherit'],
 };
+
+const expectedErrors = ["URLs are not allowed in the 'src' attribute"];
+
+logger.info(
+  `The following ${
+    expectedErrors.length === 1 ? 'error is' : 'errors are'
+  } expected to be thrown during the test run:`,
+);
+
+expectedErrors.forEach((error, index) => {
+  logger.info(`${index + 1}: ${error}`);
+});
 
 testSites.forEach((siteName) => {
   console.log(`Running ${siteName} tests`);
