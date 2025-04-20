@@ -188,7 +188,27 @@ To run the test script, use: `npm run test`
 If you only want to run tests for one of the packages (`packages/*`), simply switch into the appropriate directory and use `npm run test` as well!
 </box>
 
+<box type="info" seamless>
+
+When running `npm run test`, you may see errors in the console. Some of these errors are **expected** as part of the test cases.
+Check the test logs for messages like:
+
+```
+info: The following 2 errors are expected to be thrown during the test run:
+info: 1: No such segment '#doesNotExist' in file
+info: 2: Cyclic reference detected.
+```
+
+If an error is listed there, it's safe to ignore.
+</box>
+
 #### Updating and writing tests
+
+<box type="warning" seamless>
+
+If you're adding tests that are expected to log new errors to the console, make sure to **update the corresponding info messages** in the test logs.
+This ensures that expected errors are properly listed and avoids confusion during test runs.
+</box>
 
 ##### Updating unit tests
 
