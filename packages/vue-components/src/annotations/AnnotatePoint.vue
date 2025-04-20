@@ -202,8 +202,8 @@ export default {
       const labelSlotContent = this.$slots.label?.();
       const headerSlotContent = this.$slots.header?.();
 
-      const labelText = labelSlotContent?.[0]?.children?.[0]?.text;
-      const labelHeader = headerSlotContent?.[0]?.children?.[0]?.text;
+      const labelText = labelSlotContent?.[0]?.children;
+      const labelHeader = headerSlotContent?.[0]?.children;
 
       if (labelText === undefined && labelHeader !== undefined) { // Label is not defined
         return labelHeader;
