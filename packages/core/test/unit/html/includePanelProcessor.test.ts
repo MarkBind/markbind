@@ -9,6 +9,14 @@ jest.mock('fs');
 const expectedErrors = [
   'No such segment \'#doesNotExist\' in file',
   'Cyclic reference detected.',
+  'No such file: doesNotExist.md\n'
+    + 'Missing reference in index.md',
+  'Empty src attribute in include in: index.md',
+  'Empty src attribute in popover in: index.md',
+  'URLs are not allowed in the \'src\' attribute',
+  'No such segment \'#doesNotExist\' in file\n'
+    + 'Missing reference in index.md',
+  'Cyclic reference detected.',
 ];
 
 beforeAll(() => {
