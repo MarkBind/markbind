@@ -60,6 +60,7 @@ As shown in the above example,
 - a `card` can be given a `header` attribute (optional).
 - tags can be added to cards using the `tag` attribute, which can then be used to filter cards.
 - the `searchable` attribute can be used to make the Card Stack searchable based on tags and headers.
+- The `match all selected` toggle filters cards based on an AND condition across the selected tags.
 
 In the example given below, a Card Stack is used to show a list of questions and answers, by including `question` components inside `card` components.
 
