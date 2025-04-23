@@ -273,12 +273,6 @@ export default {
         margin-right: -3px;
     }
 
-    .filter-mode-toggle {
-        font-size: 0.8rem;
-        margin-left: 8px;
-        padding: 0.2rem 0.5rem;
-    }
-
     .toggle-badge {
         color: black;
         cursor: pointer;
