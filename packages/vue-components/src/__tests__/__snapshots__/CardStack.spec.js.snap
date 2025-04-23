@@ -323,7 +323,7 @@ exports[`CardStack should not hide cards when no filter is provided 2`] = `
         </div>
       </div>
       
-    </ddiv>
+    </div>
   </div>
 </div>
 `;
