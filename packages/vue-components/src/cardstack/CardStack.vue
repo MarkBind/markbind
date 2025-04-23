@@ -12,18 +12,6 @@
           />
         </template>
       </span>
-      <span class="toggle-badge badge" @click="toggleFilterMode">
-        match all selected
-
-        <span
-          :class="['btn', 'btn-sm', `tag-badge`]"
-        >
-          <span class="badge bg-light text-dark tag-indicator">
-            <span v-if="filterMode === 'AND'">✓</span>
-            <span v-else>&nbsp;&nbsp;&nbsp;</span>
-          </span>
-        </span>
-      </span>
       <span
         v-for="(key, index) in cardStackRef.tagMapping"
         :key="index"
@@ -34,6 +22,18 @@
         <span class="badge bg-light text-dark tag-indicator">
           <span v-if="computeShowTag(key[0])">✓</span>
           <span v-else>&nbsp;&nbsp;&nbsp;</span>
+        </span>
+      </span>
+      <span class="toggle-badge" @click="toggleFilterMode">
+        match all selected
+
+        <span
+          :class="['btn', 'btn-sm', `tag-badge`]"
+        >
+          <span class="badge bg-light text-dark tag-indicator">
+            <span v-if="filterMode === 'AND'">✓</span>
+            <span v-else>&nbsp;&nbsp;&nbsp;</span>
+          </span>
         </span>
       </span>
     </div>
@@ -216,6 +216,7 @@ export default {
         justify-content: center;
         align-items: center;
         margin: 0;
+        margin-right: 5px;
         padding: 5px;
     }
 
@@ -281,5 +282,6 @@ export default {
     .toggle-badge {
         color: black;
         cursor: pointer;
+        margin-left: 5px;
     }
 </style>

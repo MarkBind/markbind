@@ -16,8 +16,10 @@ exports[`CardStack markdown in header, content 1`] = `
         type="text"
       />
     </span>
+    
+    
     <span
-      class="toggle-badge badge"
+      class="toggle-badge"
     >
        match all selected 
       <span
@@ -32,8 +34,6 @@ exports[`CardStack markdown in header, content 1`] = `
         </span>
       </span>
     </span>
-    
-    
   </div>
   <div
     class="container"
@@ -112,22 +112,6 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
         type="text"
       />
     </span>
-    <span
-      class="toggle-badge badge"
-    >
-       match all selected 
-      <span
-        class="btn btn-sm tag-badge"
-      >
-        <span
-          class="badge bg-light text-dark tag-indicator"
-        >
-          <span>
-               
-          </span>
-        </span>
-      </span>
-    </span>
     
     <span
       class="badge bg-primary tag-badge"
@@ -142,6 +126,22 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
       </span>
     </span>
     
+    <span
+      class="toggle-badge"
+    >
+       match all selected 
+      <span
+        class="btn btn-sm tag-badge"
+      >
+        <span
+          class="badge bg-light text-dark tag-indicator"
+        >
+          <span>
+               
+          </span>
+        </span>
+      </span>
+    </span>
   </div>
   <div
     class="container"
@@ -250,8 +250,10 @@ exports[`CardStack should not hide cards when no filter is provided 2`] = `
         type="text"
       />
     </span>
+    
+    
     <span
-      class="toggle-badge badge"
+      class="toggle-badge"
     >
        match all selected 
       <span
@@ -266,8 +268,6 @@ exports[`CardStack should not hide cards when no filter is provided 2`] = `
         </span>
       </span>
     </span>
-    
-    
   </div>
   <div
     class="container"
@@ -323,7 +323,7 @@ exports[`CardStack should not hide cards when no filter is provided 2`] = `
         </div>
       </div>
       
-    </div>
+    </ddiv>
   </div>
 </div>
 `;
