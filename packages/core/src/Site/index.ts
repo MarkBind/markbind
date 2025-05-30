@@ -1276,7 +1276,7 @@ export class Site {
 
     const copyFontsDir = dirsToCopy.map((dir) => {
       const srcPath = path.join(coreWebRootPath, 'dist', dir);
-      const destPath = path.join(this.siteAssetsDestPath, 'css', dir);
+      const destPath = path.join(this.siteAssetsDestPath, '', dir);
       return fs.copy(srcPath, destPath);
     });
 
