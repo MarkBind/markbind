@@ -68,7 +68,7 @@ function staticServer(root) {
     if (req.method !== 'GET' && req.method !== 'HEAD') return next();
     const reqpath = isFile ? "" : parse(req.url).pathname;
     var hasNoOrigin = !req.headers.origin;
-    var injectCandidates = [ new RegExp("</body>", "i"), new RegExp("</svg>", "g"), new RegExp("</head>", "i")];
+    var injectCandidates = [ new RegExp("</body>", "i"), new RegExp("</svg>", "gi"), new RegExp("</head>", "i")];
     var injectTag = null;
     var injectCount = 0;
 
@@ -109,7 +109,8 @@ function staticServer(root) {
     function inject(stream) {
       if (injectTag) {
         // We need to modify the length given to browser
-        var len = INJECTED_CODE.length * injectCount + res.getHeader('Content-Length');
+        var contentLength = Number(res.getHeader('Content-Length')) || 0;
+        var len = INJECTED_CODE.length * injectCount + contentLength;
         res.setHeader('Content-Length', len);
         var originalPipe = stream.pipe;
         stream.pipe = function(resp) {
