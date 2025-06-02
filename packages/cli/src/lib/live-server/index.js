@@ -100,7 +100,7 @@ function staticServer(root) {
     }
 
     function error(err) {
-      if (err.status === 404) return next();
+      // CHANGED: Removed if condition that checks for 404
       next(err);
     }
 
@@ -259,7 +259,20 @@ LiveServer.start = function(options) {
   });
   app.use(staticServerHandler) // Custom static server
     .use(entryPoint(staticServerHandler, file))
-    .use(serveIndex(root, { icons: true }));
+    .use(serveIndex(root, { icons: true }))
+    // CHANGED: Added error handler to serve 404.html page
+    .use((err, req, res, next) => {
+      if (err.status === 404) {
+        res.statusCode = 404;
+        res.setHeader("Content-Type", "text/html");
+        const notFoundPage = path.join(root, "404.html");
+        fs.createReadStream(notFoundPage).pipe(res)
+      } else {
+        console.error(err.stack);
+        res.statusCode = err.status || 500;
+        res.end("Internal Server Error");
+      }
+    });
 
   var server, protocol;
   if (https !== null) {
