@@ -3,6 +3,7 @@
 // Entry file for MarkBind project
 const program = require('commander');
 
+const chalk = require('chalk');
 const logger = require('./src/util/logger');
 const { build } = require('./src/cmd/build');
 const { deploy } = require('./src/cmd/deploy');
@@ -18,7 +19,7 @@ process.stdout.write(
 
 function printHeader() {
   logger.logo();
-  logger.log(` v${CLI_VERSION}`);
+  logger.log(chalk.greenBright(`✔ MarkBind CLI v${CLI_VERSION}`));
 }
 
 program
