@@ -392,6 +392,8 @@ As the number of issues increases, prioritising and triaging work may become mor
   * You can use **multiple views**, such as Kanban, tables, or calendar, depending on what best suits your needs.
   * You can use **custom fields** - [this roadmap](https://github.com/orgs/MarkBind/projects/1/views/5) used in 2024 categorised the issues into bigger picture goals that were set earlier.
 
+## Managing GitHub teams
+
 ## Other Notes
 
    <box type="info" icon=":fas-question:" icon-color="info" seamless header='About Milestones'>
