@@ -1,4 +1,4 @@
 [submodule "guides"]
   path = guides
-  url = git@github.com:MarkBind/guides.git
+  url = https://github.com/MarkBind/guides.git
 
