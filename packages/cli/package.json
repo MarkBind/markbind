@@ -1,6 +1,6 @@
 {
   "name": "markbind-cli",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "Command line interface for MarkBind",
   "keywords": [
     "mark",
@@ -25,8 +25,8 @@
     "updatetest": "cd test/functional && node updatetest.js"
   },
   "dependencies": {
-    "@markbind/core": "6.0.0",
-    "@markbind/core-web": "6.0.0",
+    "@markbind/core": "6.0.1",
+    "@markbind/core-web": "6.0.1",
     "bluebird": "^3.7.2",
     "chalk": "^3.0.0",
     "cheerio": "^0.22.0",
