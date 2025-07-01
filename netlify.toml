@@ -1,4 +1,2 @@
-[build]
-  command = "npm run deploy:netlify"
-  environment = { NODE_VERSION = "18.20.4"}
-  ignore = "git config --unset-all submodule.guides.url || true"
+[build.environment]
+  GIT_SUBMODULE_STRATEGY = "none"
