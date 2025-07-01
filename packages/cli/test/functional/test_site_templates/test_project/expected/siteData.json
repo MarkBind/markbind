@@ -2,6 +2,12 @@
   "enableSearch": true,
   "pages": [
     {
+      "src": "404.md",
+      "title": "Page not found",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
       "src": "developerGuide/Configuration.md",
       "title": "Configuration guide",
       "headings": {
