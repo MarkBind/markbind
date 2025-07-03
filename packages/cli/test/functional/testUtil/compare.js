@@ -54,6 +54,7 @@ function compare(root, expectedSiteRelativePath = 'expected', siteRelativePath =
   // Vue render JS files (*.page-vue-render.js) are not committed to version control,
   // so we exclude them from the comparison to avoid false positive diffs.
   // Note: Every non-includes .html file has a corresponding js render binary file
+  expectedPaths = filterPageVueRenderFiles(actualPaths);
   actualPaths = filterPageVueRenderFiles(actualPaths);
 
   // Check for file existence of ignoredPaths and that they are present in actualPaths
