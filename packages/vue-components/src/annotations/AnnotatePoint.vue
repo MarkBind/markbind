@@ -124,11 +124,6 @@ export default {
   inject: ['parentWidth', 'parentHeight', 'src'],
   computed: {
     pointPosition() {
-      this.computeImage(() => {
-        this.width = this.parentEl.offsetWidth;
-        this.height = this.parentEl.offsetHeight;
-      });
-
       const relativeX = (this.toDecimal(this.x) - (this.size / 2 / this.width)) * 100;
       const relativeY = (this.toDecimal(this.y) - (this.size / 2 / this.height)) * 100;
 
@@ -216,15 +211,6 @@ export default {
     },
   },
   methods: {
-    // This methods takes in a callback and only runs it when the image is loaded.
-    // Which allows for computation of image size.
-    computeImage(callback) {
-      const image = new Image();
-      image.onload = function () {
-        callback();
-      };
-      image.src = this.src;
-    },
     toDecimal(percent) {
       return parseFloat(percent) / 100;
     },
@@ -233,6 +219,22 @@ export default {
     this.targetEl = this.$el;
     this.isMounted = true;
     this.parentEl = this.$el.parentElement.parentElement.querySelector('.annotate-image');
+    if (!this.parentEl) return;
+
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      const { width, height } = entry.contentRect;
+      this.width = width;
+      this.height = height;
+    });
+
+    observer.observe(this.parentEl);
+    this._resizeObserver = observer;
+  },
+  beforeUnmount() {
+    if (this._resizeObserver) {
+      this._resizeObserver.disconnect();
+    }
   },
 };
 </script>
