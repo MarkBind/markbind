@@ -1,3 +1,6 @@
 [build]
   command = "npm run deploy:netlify"
-  environment = { NODE_VERSION = "18.20.4"}
+  publish = "docs"
+
+[build.environment]
+  GIT_SUBMODULE_STRATEGY = "none"
