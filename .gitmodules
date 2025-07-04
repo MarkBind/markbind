@@ -1,0 +1,3 @@
+[submodule "guides"]
+    path = guides
+    url  = https://github.com/MarkBind/markbind-guides.git
