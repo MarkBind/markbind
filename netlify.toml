@@ -1,6 +1,6 @@
 [build]
-command = "npm run deploy:netlify"
-publish = "docs"
+  command = "npm run deploy:netlify"
+  publish = "docs"
 
 [build.environment]
-GIT_SUBMODULE_STRATEGY = "none"
+  GIT_SUBMODULE_STRATEGY = "none"
