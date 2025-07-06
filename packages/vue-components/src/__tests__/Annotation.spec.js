@@ -35,6 +35,20 @@ const MARKDOWN_ANNOTATION_POINTS = `
   <a-point x="75%" y="75%" label=":rocket:" />
 `;
 
+beforeAll(() => {
+  global.ResizeObserver = class {
+    constructor() {
+      this.observe = jest.fn();
+      this.unobserve = jest.fn();
+      this.disconnect = jest.fn();
+    }
+  };
+});
+
+afterAll(() => {
+  delete global.ResizeObserver;
+});
+
 describe('Annotation', () => {
   test('with different visual annotation points', async () => {
     const wrapper = mount(Annotation, {
