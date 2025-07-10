@@ -36,6 +36,7 @@ module.exports = function colourtext_plugin(md) {
     [109, '#m#'],
     [121, '#y#'],
     [107, '#k#'],
+    [118, '#v#'],
     [119, '#w#'],
   ]);
   const delimMarkerToClassMap = new Map([
@@ -46,6 +47,7 @@ module.exports = function colourtext_plugin(md) {
     ['#m#', 'mkb-text-magenta'],
     ['#y#', 'mkb-text-yellow'],
     ['#k#', 'mkb-text-black'],
+    ['#v#', 'mkb-text-violet'],
     ['#w#', 'mkb-text-white'],
   ]);
 
