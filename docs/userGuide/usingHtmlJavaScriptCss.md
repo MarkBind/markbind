@@ -156,19 +156,24 @@ There are two common ways to add custom CSS in MarkBind:
 
 ### 1. Add a site-wide custom stylesheet
 
-To apply styles across your whole site, create a file called `styles.css` (or similar), and add it to your `site.json` under `head`:
+To apply styles across your whole site, create a file called `styles.css`
+(or similar) in the root of your site (same level as `index.md`), and then
+add it to your `site.json` under the `head` array like so:
 
 ```json
-"head": [
-  {
-    "tagName": "link",
-    "attributes": {
-      "rel": "stylesheet",
-      "href": "/styles.css"
+{
+  "head": [
+    {
+      "tagName": "link",
+      "attributes": {
+        "rel": "stylesheet",
+        "href": "/styles.css"
+      }
     }
-  }
-]
-
+  ]
+}
+```
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('components/advanced', 'tweakingThePageStructure') }}
+
