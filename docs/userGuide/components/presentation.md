@@ -45,6 +45,23 @@ For more information, please refer to this [section]({{baseUrl}}/userGuide/using
 
 <br>
 
+## Card Component
+
+The `<Card>` component is used to present content in a styled card layout, often within a `<CardStack>` for grid-based alignment.
+
+You can now assign a custom `id` to a `<Card>` element. This helps:
+- Link directly to the card via anchor tags (`#card-id`)
+- Target cards using custom CSS or JavaScript
+
+### Example
+
+```html
+<Card id="overview-card">
+  <template #header>Overview</template>
+  This is the content of a card with a custom ID.
+</Card>
+
+
 # Relevant Tips & Tricks
 
 <panel header="Indent components">
