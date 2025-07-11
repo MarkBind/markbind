@@ -356,3 +356,12 @@ and **this**.
 <code>{{ code elements should automatically be assigned v-pre }}</code>
 
 {% endraw %}
+
+<hr>
+
+<header><h2>Card ID Test</h2></header>
+
+<Card id="test-card-id">
+  <template #header>Test Card Header</template>
+  This card has a custom <code>id="test-card-id"</code> and should be accessible via <a href="#test-card-id">this anchor link</a>.
+</Card>
