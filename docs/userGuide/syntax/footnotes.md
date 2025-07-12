@@ -32,6 +32,19 @@ Normal footnotes won't work when used inside the attributes of MarkBind componen
 For example, it won't work in the `header` attribute of [panels](../components/presentation.html#panels).
 </box>
 
+### Footnote Back-Link
+
+Each footnote definition now includes a back-to-reference link (“↩”)  
+that jumps back to the original marker.
+
+**Rendered HTML example:**
+
+```html
+Here is a footnote reference,[^1]
+
+[^1]: This is the footnote. <a href="#fnref1" class="footnote-backref">↩</a>
+
+
 <div id="short" class="d-none">
 
 ```html
