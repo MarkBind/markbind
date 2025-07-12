@@ -1,6 +1,8 @@
 [build]
-  command = "npm run deploy:netlify"
-  publish = "docs"
+command = "npm run deploy:netlify"
+# MarkBind outputs into docs/_site, so publish that
+publish = "docs/_site"
 
 [build.environment]
-  GIT_SUBMODULE_STRATEGY = "none"
+# Prevent Netlify from trying to init submodules
+GIT_SUBMODULE_STRATEGY = "none"
