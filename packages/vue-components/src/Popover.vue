@@ -137,7 +137,7 @@ export default {
     },
     isValidUrl(url) {
       try {
-        void new URL(url);
+        (() => new URL(url))();
         return true;
       } catch (_) {
         return false;
@@ -163,7 +163,7 @@ export default {
     }
 
     .popover-error-message {
-        color: #ff0000;
+        color: #f00;
         font-size: 1.0rem;
         margin-top: 0.25rem;
     }
