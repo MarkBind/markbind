@@ -305,6 +305,29 @@ export function processInclude(node: MbNode, context: Context, pageSources: Page
   return childContext;
 }
 
+function createPopoverInlineErrorSlot(message: string): NodeOrText[] {
+  return [
+    {
+      type: 'tag',
+      name: 'template',
+      attribs: { slot: 'content' },
+      children: [
+        {
+          type: 'tag',
+          name: 'div',
+          attribs: { style: 'color: red;' },
+          children: [
+            {
+              type: 'text',
+              data: message,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+}
+
 /**
  * PreProcesses popovers with the src attribute.
  * Replaces it with an error node if the specified src is invalid.
@@ -318,9 +341,11 @@ export function processPopoverSrc(node: MbNode, context: Context, pageSources: P
   }
 
   if (_.isEmpty(node.attribs.src)) {
-    const error = new Error(`Empty src attribute in popover in: ${context.cwf}`);
-    logger.error(error.message);
-    cheerio(node).replaceWith(createErrorNode(node, error));
+    // const error = new Error(`Empty src attribute in popover in: ${context.cwf}`);
+    const errorMsg = `Empty src attribute in popover in: ${context.cwf}`;
+    logger.error(errorMsg);
+    // cheerio(node).replaceWith(createErrorNode(node, error));
+    node.children = createPopoverInlineErrorSlot(errorMsg);
     return context;
   }
 
@@ -334,14 +359,13 @@ export function processPopoverSrc(node: MbNode, context: Context, pageSources: P
 
   // No need to process url contents
   if (isUrl) {
-    const error = new Error('URLs are not allowed in the \'src\' attribute');
-    logger.error(`${error.message}
-      File: ${context.cwf}
-      URL provided: ${node.attribs.src}
-      
-      Please check the \`src\` attribute in the popover element.
-      Ensure it doesn't contain a URL (e.g., "http://www.example.com").`);
-    cheerio(node).replaceWith(createErrorNode(node, error));
+    const errorMsg
+      = 'URLs are not allowed in the \'src\' attribute.<br>'
+      + `File: ${context.cwf}<br>`
+      + `URL provided: ${node.attribs.src}`;
+
+    logger.error(errorMsg);
+    node.children = createPopoverInlineErrorSlot(errorMsg);
     return context;
   }
 
@@ -372,12 +396,12 @@ export function processPopoverSrc(node: MbNode, context: Context, pageSources: P
     actualContent = $(hash).html() || '';
 
     if (actualContent === '') {
-      const error = new Error(`No such segment '${hash}' in file: ${actualFilePath}\n`
-        + `Missing reference in ${context.cwf}`);
-      logger.error(error.message);
+      const errorMsg
+        = `No such segment '${hash}' in file: ${actualFilePath}\n`
+        + `Missing reference in ${context.cwf}`;
 
-      cheerio(node).replaceWith(createErrorNode(node, error));
-
+      logger.error(errorMsg);
+      node.children = createPopoverInlineErrorSlot(errorMsg);
       return context;
     }
   }
@@ -390,7 +414,7 @@ export function processPopoverSrc(node: MbNode, context: Context, pageSources: P
     if (childContext.hasExceededMaxCallstackSize()) {
       const error = new CyclicReferenceError(childContext.callStack);
       logger.error(error.message);
-      cheerio(node).replaceWith(createErrorNode(node, error));
+      node.children = createPopoverInlineErrorSlot(error.message);
       return context;
     }
   }
