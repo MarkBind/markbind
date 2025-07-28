@@ -4,7 +4,12 @@
     data-mb-component-type="popover"
     tabindex="0"
   >
-    <portal v-if="targetEl.id" :to="'popover:' + targetEl.id">
+
+    <div v-if="localError" class="popover-error-message">
+      {{ localError }}
+    </div>
+
+    <portal v-if="targetEl.id && !localError" :to="'popover:' + targetEl.id">
       <h3 v-if="hasHeader" class="popover-header">
         <slot name="header"></slot>
       </h3>
@@ -13,7 +18,7 @@
       </div>
     </portal><!-- do not delete this comment, it is for the stray space issue (#2419)
  --><v-popover
-      v-if="isMounted"
+      v-if="isMounted && !localError"
       :auto-hide="!isInput"
       :triggers="triggers"
       :popper-triggers="triggers"
@@ -60,11 +65,20 @@ export default {
       type: String,
       default: 'top',
     },
+    src: {
+      type: String,
+      default: '',
+    },
+    header: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
       targetEl: {},
       isMounted: false,
+      localError: '',
     };
   },
   computed: {
@@ -72,7 +86,7 @@ export default {
       return this.trigger.split(' ');
     },
     hasHeader() {
-      return !!this.$slots.header;
+      return !!this.$slots.header || this.header;
     },
     isInput() {
       return Boolean(this.$slots.default && this.$slots.default().some(vnode => vnode.type === 'input'));
@@ -81,6 +95,54 @@ export default {
   mounted() {
     this.targetEl = this.$el;
     this.isMounted = true;
+    this.$nextTick(() => {
+      this.captureAndLocalizeErrors();
+    });
+  },
+  methods: {
+    captureAndLocalizeErrors() {
+      // Method 1: Check for common error patterns in the DOM
+      this.findAndHandleGlobalErrors();
+
+      // Method 2: Validate proactively
+      this.validatePopover();
+    },
+    findAndHandleGlobalErrors() {
+      // Look for error messages that might have been injected elsewhere
+      const popoverErrors = Array.from(document.querySelectorAll('.popover-error'))
+        .filter(el => el.textContent.includes('popover') || el.textContent.includes('src'));
+
+      popoverErrors.forEach((errorEl) => {
+        if (this.$el.contains(errorEl)) {
+          // Error is already in the right place
+          return;
+        }
+
+        // Check if this error belongs to our popover
+        if (errorEl.textContent.includes(this.src)
+            || errorEl.textContent.includes(this.header)) {
+          this.localError = errorEl.textContent;
+          errorEl.remove();
+        }
+      });
+    },
+    validatePopover() {
+      if (!this.src && !this.$slots.content) {
+        this.localError = 'Popover requires either a src attribute or content';
+        return;
+      }
+      if (this.src && !this.isValidUrl(this.src)) {
+        this.localError = 'Invalid popover source URL';
+      }
+    },
+    isValidUrl(url) {
+      try {
+        void new URL(url);
+        return true;
+      } catch (_) {
+        return false;
+      }
+    },
   },
 };
 </script>
@@ -98,5 +160,11 @@ export default {
 
     .v-popper {
         display: inline;
+    }
+
+    .popover-error-message {
+        color: #ff0000;
+        font-size: 1.0rem;
+        margin-top: 0.25rem;
     }
 </style>
