@@ -118,8 +118,13 @@ function render_footnote_anchor(tokens, idx, options, env, slf) {
     id += ':' + tokens[idx].meta.subId;
   }
 
-  /* ↩ with escape code to prevent display as Apple Emoji on iOS */
-  return ' <a href="#fnref' + id + '" class="footnote-backref">\u21A9\uFE0E</a>';
+  // CHANGE HERE
+  // Below line adds backreferences, but doesn't work well with panels, so disabled for now.
+  // Old code:
+  // /* ↩ with escape code to prevent display as Apple Emoji on iOS */
+  // return ' <a href="#fnref' + id + '" class="footnote-backref">\u21a9\uFE0E</a>';
+
+  return '';
 }
 
 

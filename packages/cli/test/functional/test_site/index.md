@@ -356,17 +356,3 @@ and **this**.
 <code>{{ code elements should automatically be assigned v-pre }}</code>
 
 {% endraw %}
-
-<hr>
-
-<header><h2>Footnote Back-Link Test</h2></header>
-
-This test verifies that each footnote includes a ↩ link back to its reference.
-
-Here is a footnote reference,[^1]
-
-[^1]: This is test content for footnote back-link.
-
-When rendered, you should see a ↩ after the footnote, and clicking it
-should scroll back up to the original marker.
-
