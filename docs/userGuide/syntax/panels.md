@@ -227,7 +227,7 @@ no-page-break | `Boolean` | `false`| Prints the panel fully on a single page by 
 bottom-switch | `Boolean` | `true` | Whether to show an expand switch at the bottom of the panel. Independent of no-switch.
 popup-url | `String` | | The URL that the popup window will navigate to. The URL can be absolute or relative.
 preload | `Boolean` | `false` | Whether the content is loaded immediately from `src`.
-src | `String` | | The path to a local file whose content will be loaded into the Panel body. Supports optional #fragment to include specific elements by `id` or Markdown heading with auto-generated `id`.
+src | `String` | | The path to another local markdown `.md` or HTML `.html` file whose content will be loaded into the Panel body. <br> Supports file fragments by specifying `#fragment-id` at the end of the `src` attribute, provided the fragment is wrapped in a `<div>`/`<span>` tag with the matching id.
 type | `String` | `light` | The type or color scheme of the panel (single).<br>Supports: `light`, `dark`, `primary`, `secondary`, `info`, `success`, `warning`, `danger`, `seamless`, `minimal`.
 
 <div id="short" class="d-none">
