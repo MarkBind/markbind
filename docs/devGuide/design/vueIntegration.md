@@ -70,7 +70,7 @@ MarkBind uses Server-side Rendering (SSR) to pre-render page content into static
 
 ## Dynamic Content Loading (Client-Side Rendering)
 
-In specific cases, MarkBind uses **Client-side Rendering (CSR)** exclusively to dynamically load content. A key example is the `<panel>` component. When the `src` attribute is set to a remote page to be loaded as the content, the `preload` attribute is `false` by default. As the content is not preloaded and loaded dynamically after the page is rendered, it wil conduct CSR, where:
+In specific cases, MarkBind uses **Client-side Rendering (CSR)** exclusively to dynamically load content. A key example is the `<panel>` component. When the `src` attribute is set to another local `html` or `md` file to be loaded as the content, the `preload` attribute is `false` by default. As the content is not preloaded and loaded dynamically after the page is rendered, it wil conduct CSR, where:
 * **Generated Separately**: Content is generated outside the main content flow.
 * **Mounted as CSR-Only Vue Apps**: Content is mounted as a separate Vue app after being loaded into the browser.
 
