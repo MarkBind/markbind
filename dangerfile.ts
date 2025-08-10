@@ -1,5 +1,5 @@
+/* eslint-disable no-console */
 import { danger } from 'danger';
-import * as logger from '@markbind/core/src/utils/logger';
 
 interface Couplings {
   [key: string]: string[];
@@ -28,10 +28,10 @@ Promise.resolve().then(() => {
   });
 
   if (messages.length > 0) {
-    logger.warn(`Detected issues with file couplings:\n${messages.join('\n')}`);
-    logger.warn('Please ensure implementation changes are accompanied '
+    console.warn(`Detected issues with file couplings:\n${messages.join('\n')}`);
+    console.warn('Please ensure implementation changes are accompanied '
      + 'by corresponding test or documentation updates.');
   } else {
-    logger.info('All file couplings are correctly updated.');
+    console.info('All file couplings are correctly updated.');
   }
-}).catch((err: Error) => logger.error(err));
+}).catch((err: Error) => console.error(err));
