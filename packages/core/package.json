@@ -84,7 +84,6 @@
     "@types/katex": "^0.16.0",
     "@types/lodash": "^4.14.181",
     "@types/markdown-it": "^12.2.3",
-    "@types/node": "^18.15.0",
     "@types/nunjucks": "^3.2.1",
     "@types/path-is-inside": "^1.0.0",
     "@types/primer__octicons": "^17.11.0",
