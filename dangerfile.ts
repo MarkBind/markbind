@@ -28,10 +28,13 @@ Promise.resolve().then(() => {
   });
 
   if (messages.length > 0) {
-    console.warn(`Detected issues with file couplings:\n${messages.join('\n')}`);
-    console.warn('Please ensure implementation changes are accompanied '
+    console.warn(`WARN: Detected issues with file couplings:\n${messages.join('\n')}`);
+    console.warn('WARN: Please ensure implementation changes are accompanied '
      + 'by corresponding test or documentation updates.');
   } else {
-    console.info('All file couplings are correctly updated.');
+    // JUST FOR TESTING COLOR:
+    console.error('ERR: test error');
+    console.warn('WARN: test');
+    console.info('info: All file couplings are correctly updated.');
   }
 }).catch((err: Error) => console.error(err));
