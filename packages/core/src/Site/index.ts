@@ -1558,11 +1558,11 @@ export class Site {
    * Rebuild all pages
    */
   rebuildSourceFiles
-  = delay(this._rebuildSourceFiles as () => Bluebird<unknown>, 1000) as () => Bluebird<unknown>;
+    = delay(this._rebuildSourceFiles as () => Bluebird<unknown>, 1000) as () => Bluebird<unknown>;
 
   /**
    * Builds pages that are yet to build/rebuild in the background
    */
   backgroundBuildNotViewedFiles
-  = delay(this._backgroundBuildNotViewedFiles as () => Bluebird<unknown>, 1000) as () => Bluebird<unknown>;
+    = delay(this._backgroundBuildNotViewedFiles as () => Bluebird<unknown>, 1000) as () => Bluebird<unknown>;
 }
