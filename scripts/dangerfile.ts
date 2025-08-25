@@ -32,9 +32,6 @@ Promise.resolve().then(() => {
     console.warn('WARN: Please ensure implementation changes are accompanied '
      + 'by corresponding test or documentation updates.');
   } else {
-    // JUST FOR TESTING COLOR:
-    console.error('ERR: test error');
-    console.warn('WARN: test');
     console.info('info: All file couplings are correctly updated.');
   }
 }).catch((err: Error) => console.error(err));
