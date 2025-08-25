@@ -17,7 +17,9 @@ jobs:
         with:
           node-version: '18'
       - run: npm run setup
+      - name: Compile Dangerfile
+        run: npx tsc scripts/dangerfile.ts --outDir scripts --module commonjs
       - name: Run Danger
-        run: npx danger ci
+        run: npx danger ci --dangerfile scripts/dangerfile.js
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
