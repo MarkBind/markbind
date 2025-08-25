@@ -29,6 +29,7 @@
     "@types/node": "^18.15.0",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
+    "danger": "^13.0.4",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^16.1.4",
@@ -42,7 +43,6 @@
     "walk-sync": "^2.0.2"
   },
   "dependencies": {
-    "danger": "^13.0.4",
     "postcss": "^8.4.35"
   }
 }
