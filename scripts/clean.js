@@ -8,7 +8,9 @@
  *
  * The script assumes that the associated compiled files can be
  * detected through the presence of sourcemap files (`.js.map`)
- * instead.
+ * instead. I.e. It looks for `.js.map` files, and assumes
+ * that every `.js`/`.d.ts` with the same base name should be
+ * deleted.
  */
 
 const fs = require('fs');
@@ -20,13 +22,7 @@ const JS_MAP_RE = /\.js\.map$/;
 const COMPILED_FILES_EXTS = ['.d.ts', '.d.ts.map', '.js', '.js.map'];
 
 const packagesDir = path.join(__dirname, '../packages');
-
-const jsMapFiles = walkSync(packagesDir, {
-  globs: ['**/*.js.map'],
-  ignore: ['**/node_modules'],
-  directories: false,
-  includeBasePath: true,
-});
+const currentDir = __dirname;
 
 function removeFile(file) {
   try {
@@ -41,9 +37,21 @@ function removeFile(file) {
   }
 }
 
-jsMapFiles.forEach((jsMapFile) => {
-  COMPILED_FILES_EXTS.forEach((ext) => {
-    const extFile = jsMapFile.replace(JS_MAP_RE, ext);
-    removeFile(extFile);
+function cleanDir(dir) {
+  const jsMapFiles = walkSync(dir, {
+    globs: ['**/*.js.map'],
+    ignore: ['**/node_modules'],
+    directories: false,
+    includeBasePath: true,
   });
-});
+
+  jsMapFiles.forEach((jsMapFile) => {
+    COMPILED_FILES_EXTS.forEach((ext) => {
+      const extFile = jsMapFile.replace(JS_MAP_RE, ext);
+      removeFile(extFile);
+    });
+  });
+}
+
+cleanDir(packagesDir);
+cleanDir(currentDir);
