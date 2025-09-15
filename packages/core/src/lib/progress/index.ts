@@ -1,1 +1,5 @@
-module.exports = require('./node-progress');
+export {
+  ProgressBar,
+  ProgressBarOptions,
+  ProgressBarTokens,
+} from './node-progress';

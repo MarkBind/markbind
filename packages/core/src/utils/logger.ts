@@ -1,8 +1,9 @@
 import winston from 'winston';
+import type { ProgressBar } from '../lib/progress';
 
-let progressBar: any;
+let progressBar: ProgressBar | null = null;
 
-const setProgressBar = (bar: any) => {
+const setProgressBar = (bar: ProgressBar) => {
   progressBar = bar;
 };
 const removeProgressBar = () => {
