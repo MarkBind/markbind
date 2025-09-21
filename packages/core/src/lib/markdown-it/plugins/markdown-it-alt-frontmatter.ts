@@ -74,4 +74,4 @@ export function altFrontmatterPlugin(md: MarkdownIt): void {
     }
     return slf.renderToken(tokens, idx, options);
   };
-};
+}
