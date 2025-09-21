@@ -104,12 +104,15 @@ const processIconString = (iconStr: string) => {
 };
 
 // create a markdown-it plugin to process the icon strings in the markdown
-const markdownItPlugin = markdownItRegExp(
+/**
+ * A Markdown-It plugin that replaces icon syntax matching `ICON_REGEXP` with corresponding HTML.
+ *
+ * This plugin uses a regular expression to detect icon patterns in Markdown content,
+ * and transforms them into HTML using the `getIconHtml` function.
+ */
+const markdownItIconsPlugin = markdownItRegExp(
   ICON_REGEXP,
   (match: string[]) => getIconHtml(match),
 );
 
-module.exports = {
-  markdownItPlugin,
-  processIconString,
-};
+export { markdownItIconsPlugin, processIconString };
