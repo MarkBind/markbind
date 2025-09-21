@@ -5,7 +5,6 @@ describe('unescapeHtml', () => {
     const input = 'Hello &amp; welcome to &lt;MarkBind&gt;! &amp;&lt;&gt;&quot;&#x27;';
     const expected = 'Hello & welcome to <MarkBind>! &<>"\'';
     const result = unescapeHtml(input);
-    
     expect(result).toBe(expected);
   });
 });
