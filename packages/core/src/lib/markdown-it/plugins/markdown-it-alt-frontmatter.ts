@@ -8,7 +8,15 @@ import Renderer from 'markdown-it/lib/renderer';
  * into HTML-style `<frontmatter>` tags.
  * Only if there are two sets of `---` and the content inside contains key-value pairs or blank space.
  */
-export = function alt_frontmatter_plugin(md: MarkdownIt): void {
+
+/**
+ * Markdown-it plugin to parse alternative frontmatter blocks delimited by '---'.
+ *
+ * This plugin detects blocks at the start of a Markdown document that begin and end with '---',
+ * and contain lines in key-value format (e.g., `key: value`). Blank lines within the block are allowed.
+ * If a block is detected, it is rendered as a `<frontmatter>` HTML element containing the block's content.
+ */
+export function altFrontmatterPlugin(md: MarkdownIt): void {
   function alt_frontmatter(state: StateBlock, startLine: number, endLine: number): boolean {
     const fmSymbol = '---';
     const keyValueRegex = /^\w+:\s+.*/;

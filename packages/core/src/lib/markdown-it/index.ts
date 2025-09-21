@@ -10,6 +10,8 @@ import * as logger from '../../utils/logger';
 import { HighlightRule, HIGHLIGHT_TYPES } from './highlight/HighlightRule';
 import { Highlighter } from './highlight/Highlighter';
 
+import { altFrontmatterPlugin } from './plugins/markdown-it-alt-frontmatter';
+
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
 const markdownIt = markdownItImport({ html: true, linkify: true });
@@ -41,7 +43,7 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('./plugins/markdown-it-footnotes'))
   .use(require('./plugins/markdown-it-center-text'))
   .use(require('./plugins/markdown-it-colour-text'))
-  .use(require('./plugins/markdown-it-alt-frontmatter'));
+  .use(altFrontmatterPlugin);
 
 // fix table style
 markdownIt.renderer.rules.table_open = _.constant(
