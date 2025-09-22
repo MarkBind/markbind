@@ -1,5 +1,5 @@
 import octicons from '@primer/octicons';
-import markdownIt from '../../src/lib/markdown-it';
+import markdownIt from '../../../../../src/lib/markdown-it';
 
 const expectedOcticon = octicons['git-pull-request'].toSVG();
 
