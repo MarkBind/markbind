@@ -12,7 +12,7 @@ import Renderer from 'markdown-it/lib/renderer';
 /**
  * Markdown-it plugin to parse alternative frontmatter blocks delimited by '---'.
  *
- * This plugin detects blocks at the start of a Markdown document that begin and end with '---',
+ * This plugin detects blocks anywhere in a Markdown document that begin and end with '---',
  * and contain lines in key-value format (e.g., `key: value`). Blank lines within the block are allowed.
  * If a block is detected, it is rendered as a `<frontmatter>` HTML element containing the block's content.
  */
