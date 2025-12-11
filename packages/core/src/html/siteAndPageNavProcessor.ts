@@ -104,7 +104,7 @@ export function renderSiteNav(node: MbNode) {
 
     $(ulElem).children('li').each((_i2, liElem) => {
       const nestedLists = $(liElem).children('ul');
-      const nestedAnchors = $(liElem).children('a');
+      const nestedAnchors = $(liElem).find('a');
       if (nestedLists.length === 0 && nestedAnchors.length === 0) {
         $(liElem).addClass(customListItemClasses);
         return;
