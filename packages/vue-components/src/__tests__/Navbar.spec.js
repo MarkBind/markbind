@@ -131,31 +131,31 @@ describe('Mobile nav buttons test:', () => {
     ['<div id="page-nav"><a href="x">dummy</a></div>', PAGE_NAV_BUTTON, PageNavButton, 'page-nav'],
     ['<div id="mb-page-nav"><a href="x">dummy</a></div>', PAGE_NAV_BUTTON, PageNavButton, 'mb-page-nav'],
   ])('Nav buttons set the portal name accordingly if the respective selectors are not found.',
-    async (navContent, lowerNavbarSlot, NavComponent, portalName) => {
-      document.getElementById('navContentTarget').innerHTML = navContent;
+     async (navContent, lowerNavbarSlot, NavComponent, portalName) => {
+       document.getElementById('navContentTarget').innerHTML = navContent;
 
-      const wrapper = mount(Navbar, {
-        attachTo: '#navbarTarget',
-        slots: {
-          brand: NAVBAR_BRAND,
-          default: NAVBAR_CONTENT,
-          'lower-navbar': lowerNavbarSlot,
-        },
-        global: {
-          stubs: {
-            ...DEFAULT_STUBS,
-            'overlay': true,
-          },
-        },
-      });
+       const wrapper = mount(Navbar, {
+         attachTo: '#navbarTarget',
+         slots: {
+           brand: NAVBAR_BRAND,
+           default: NAVBAR_CONTENT,
+           'lower-navbar': lowerNavbarSlot,
+         },
+         global: {
+           stubs: {
+             ...DEFAULT_STUBS,
+             'overlay': true,
+           },
+         },
+       });
 
-      const navComponent = wrapper.findComponent(NavComponent);
-      expect(navComponent.exists()).toBe(true);
+       const navComponent = wrapper.findComponent(NavComponent);
+       expect(navComponent.exists()).toBe(true);
 
-      expect(navComponent.vm.portalName).toBe(portalName);
+       expect(navComponent.vm.portalName).toBe(portalName);
 
-      wrapper.unmount();
-    });
+       wrapper.unmount();
+     });
 });
 
 describe('Navbar Highlight Logic', () => {
