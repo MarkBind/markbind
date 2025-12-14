@@ -157,3 +157,45 @@ describe('Mobile nav buttons test:', () => {
        wrapper.unmount();
      });
 });
+
+describe('Navbar Highlight Logic', () => {
+  test('correctly highlights the deepest matching link (Best Match)', async () => {
+    const deepUrl = 'http://localhost/lessons/trail/recordingFolderHistory/index.html';
+    const TEST_NAVBAR_CONTENT = `
+      <li><a href="/index.html" class="nav-link">Home</a></li>
+      <li><a href="/lessons/index.html" class="nav-link">Lessons</a></li>
+      <li><a href="/about/index.html" class="nav-link">About</a></li>
+    `;
+
+    // Test highlightLink(url) method on the component.
+    // Mount it, then call highlightLink manually with test URL.
+    const wrapper = mount(Navbar, {
+      slots: {
+        brand: NAVBAR_BRAND,
+        default: TEST_NAVBAR_CONTENT,
+      },
+      global: {
+        stubs: DEFAULT_STUBS,
+      },
+    });
+
+    // Clear any initial highlighting from mounted()
+    wrapper.findAll('li').forEach(li => li.element.classList.remove('current'));
+
+    // Manually trigger highlight with the problematic URL
+    wrapper.vm.highlightLink(deepUrl);
+    await wrapper.vm.$nextTick();
+
+    const homeLink = wrapper.find('a[href="/index.html"]').element;
+    const lessonsLink = wrapper.find('a[href="/lessons/index.html"]').element;
+
+    const homeLi = homeLink.closest('li');
+    const lessonsLi = lessonsLink.closest('li');
+
+    // Expectation: Lessons should be current because it is deeper / more specific
+    expect(lessonsLi.classList.contains('current')).toBe(true);
+
+    // Expectation: Home should NOT be current (it is a match, but a worse one)
+    expect(homeLi.classList.contains('current')).toBe(false);
+  });
+});
