@@ -131,31 +131,31 @@ describe('Mobile nav buttons test:', () => {
     ['<div id="page-nav"><a href="x">dummy</a></div>', PAGE_NAV_BUTTON, PageNavButton, 'page-nav'],
     ['<div id="mb-page-nav"><a href="x">dummy</a></div>', PAGE_NAV_BUTTON, PageNavButton, 'mb-page-nav'],
   ])('Nav buttons set the portal name accordingly if the respective selectors are not found.',
-     async (navContent, lowerNavbarSlot, NavComponent, portalName) => {
-       document.getElementById('navContentTarget').innerHTML = navContent;
+    async (navContent, lowerNavbarSlot, NavComponent, portalName) => {
+      document.getElementById('navContentTarget').innerHTML = navContent;
 
-       const wrapper = mount(Navbar, {
-         attachTo: '#navbarTarget',
-         slots: {
-           brand: NAVBAR_BRAND,
-           default: NAVBAR_CONTENT,
-           'lower-navbar': lowerNavbarSlot,
-         },
-         global: {
-           stubs: {
-             ...DEFAULT_STUBS,
-             'overlay': true,
-           },
-         },
-       });
+      const wrapper = mount(Navbar, {
+        attachTo: '#navbarTarget',
+        slots: {
+          brand: NAVBAR_BRAND,
+          default: NAVBAR_CONTENT,
+          'lower-navbar': lowerNavbarSlot,
+        },
+        global: {
+          stubs: {
+            ...DEFAULT_STUBS,
+            'overlay': true,
+          },
+        },
+      });
 
-       const navComponent = wrapper.findComponent(NavComponent);
-       expect(navComponent.exists()).toBe(true);
+      const navComponent = wrapper.findComponent(NavComponent);
+      expect(navComponent.exists()).toBe(true);
 
-       expect(navComponent.vm.portalName).toBe(portalName);
+      expect(navComponent.vm.portalName).toBe(portalName);
 
-       wrapper.unmount();
-     });
+      wrapper.unmount();
+    });
 });
 
 describe('Navbar Highlight Logic', () => {
@@ -164,6 +164,7 @@ describe('Navbar Highlight Logic', () => {
     const TEST_NAVBAR_CONTENT = `
       <li><a href="/index.html" class="nav-link">Home</a></li>
       <li><a href="/lessons/index.html" class="nav-link">Lessons</a></li>
+      <li><a href="/lessons/trail/index.html" class="nav-link">Trail</a></li>
       <li><a href="/about/index.html" class="nav-link">About</a></li>
     `;
 
@@ -188,14 +189,17 @@ describe('Navbar Highlight Logic', () => {
 
     const homeLink = wrapper.find('a[href="/index.html"]').element;
     const lessonsLink = wrapper.find('a[href="/lessons/index.html"]').element;
+    const trailLink = wrapper.find('a[href="/lessons/trail/index.html"]').element;
 
     const homeLi = homeLink.closest('li');
     const lessonsLi = lessonsLink.closest('li');
+    const trailLi = trailLink.closest('li');
 
-    // Expectation: Lessons should be current because it is deeper / more specific
-    expect(lessonsLi.classList.contains('current')).toBe(true);
+    // Expectation: Trail should be current because it is the deepest matching link (depth 3 vs 2 vs 1)
+    expect(trailLi.classList.contains('current')).toBe(true);
 
-    // Expectation: Home should NOT be current (it is a match, but a worse one)
+    // Expectation: Shallower matches should NOT be current
+    expect(lessonsLi.classList.contains('current')).toBe(false);
     expect(homeLi.classList.contains('current')).toBe(false);
   });
 });
