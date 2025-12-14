@@ -155,7 +155,7 @@ export default {
       const defHlMode = this.defaultHighlightOn;
       const navLis = [];
       this.$el.querySelectorAll('.navbar-nav').forEach(nav => navLis.push(...Array.from(nav.children)));
-      
+
       // Each li element in navbar grouped with all its own and children links
       const allNavLinkGroups = [];
       for (let i = 0; i < navLis.length; i += 1) {
@@ -164,68 +164,68 @@ export default {
         const navLinks = Array.from(li.querySelectorAll('a.nav-link'));
         const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
         const linksInLi = standardLinks.concat(navLinks).concat(dropdownLinks).filter(a => a.href);
-        
+
         allNavLinkGroups.push({
           li,
-          links: linksInLi, 
-          dropdownLinks
+          links: linksInLi,
+          dropdownLinks,
         });
       }
 
-      // attempt an exact match first, highlight parent li if found
-      for (const group of allNavLinkGroups) {
-        for (const a of group.links) {
+      // 1: Check for Exact Match,return immediately if found
+      for (let i = 0; i < allNavLinkGroups.length; i += 1) {
+        const group = allNavLinkGroups[i];
+        for (let j = 0; j < group.links.length; j += 1) {
+          const a = group.links[j];
           const hlMode = a.getAttribute('highlight-on') || defHlMode;
           if (hlMode !== 'none' && this.isExact(url, a.href)) {
-             group.li.classList.add('current');
-             this.addClassIfDropdown(group.dropdownLinks, a, group.li);
-             return;
+            group.li.classList.add('current');
+            this.addClassIfDropdown(group.dropdownLinks, a, group.li);
+            return;
           }
         }
       }
 
-      // Else, find Best Match (Longest path length, most specific)
+      // 2: Find Best Fuzzy Match
       // Strategies: 'sibling-or-child' (default), 'sibling', 'child'
+      // Tie-breaker: Longest path length (most specific match)
       let bestMatch = null;
       let maxPathLength = -1;
 
-      for (const group of allNavLinkGroups) {
-        for (const a of group.links) {
+      allNavLinkGroups.forEach((group) => {
+        group.links.forEach((a) => {
           const hlMode = a.getAttribute('highlight-on') || defHlMode;
-          if (hlMode === 'none') {
-            continue;
-          }
+          if (hlMode !== 'none') {
+            let isMatch = false;
+            if (hlMode === 'sibling-or-child') {
+              isMatch = this.isSibling(url, a.href) || this.isChild(url, a.href);
+            } else if (hlMode === 'sibling') {
+              isMatch = this.isSibling(url, a.href);
+            } else if (hlMode === 'child') {
+              isMatch = this.isChild(url, a.href);
+            }
 
-          let isMatch = false;
-          if (hlMode === 'sibling-or-child') {
-             isMatch = this.isSibling(url, a.href) || this.isChild(url, a.href);
-          } else if (hlMode === 'sibling') {
-             isMatch = this.isSibling(url, a.href);
-          } else if (hlMode === 'child') {
-             isMatch = this.isChild(url, a.href);
-          }
+            if (isMatch) {
+              const linkParts = this.splitUrl(a.href);
+              const pathLength = linkParts.length;
 
-          // Find the match that is most specific
-          if (isMatch) {
-            const linkParts = this.splitUrl(a.href);
-            const pathLength = linkParts.length;
-
-            if (pathLength > maxPathLength) {
+              if (pathLength > maxPathLength) {
                 maxPathLength = pathLength;
                 bestMatch = {
-                    li: group.li,
-                    a: a,
-                    dropdownLinks: group.dropdownLinks
+                  li: group.li,
+                  a,
+                  dropdownLinks: group.dropdownLinks,
                 };
+              }
             }
           }
-        }
-      }
+        });
+      });
 
       // Apply the highlight to the best match found (if any)
       if (bestMatch) {
-          bestMatch.li.classList.add('current');
-          this.addClassIfDropdown(bestMatch.dropdownLinks, bestMatch.a, bestMatch.li);
+        bestMatch.li.classList.add('current');
+        this.addClassIfDropdown(bestMatch.dropdownLinks, bestMatch.a, bestMatch.li);
       }
     },
     toggleLowerNavbar() {
