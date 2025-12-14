@@ -461,6 +461,16 @@ Contributors typically start by consistently contributing to the project, joinin
  
 With continued high-quality contributions and expertise, members advance to **`senior-developers`**. Those who take on significant responsibilities, such as mentorship or release management, may then assume leadership roles within the **`team-leads`** or **`release-manager-admins`** teams.
 
+### Team Maintenance
+
+To ensure the team structure remains effective and secure, **MarkBind organization members and team maintainers** should regularly review and update the team rosters (e.g., at the start, mid, and end of each semester or year).
+
+**Maintenance Steps:**
+
+1.  **Review Activity**: Identify members who have become inactive or whose contribution level has changed.
+1.  **Promote Members**: Move eligible members up the hierarchy (e.g., from `active-contributors` to `junior-developers`) based on the Contributor Journey.
+1.  **Audit Team Membership**: Ensure there are no "floating" members (members in parent teams like `developers` but not in any child team).
+
 ## Other Notes
 
    <box type="info" icon=":fas-question:" icon-color="info" seamless header='About Milestones'>
