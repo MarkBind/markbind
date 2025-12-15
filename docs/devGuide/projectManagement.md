@@ -392,6 +392,85 @@ As the number of issues increases, prioritising and triaging work may become mor
   * You can use **multiple views**, such as Kanban, tables, or calendar, depending on what best suits your needs.
   * You can use **custom fields** - [this roadmap](https://github.com/orgs/MarkBind/projects/1/views/5) used in 2024 categorised the issues into bigger picture goals that were set earlier.
 
+## Managing GitHub Teams
+
+> About [GitHub Teams](https://docs.github.com/en/organizations/organizing-members-into-teams/about-teams#about-teams): Teams is used to manage admin, read and write access, and for sending notifications. Organization members can send notifications to an entire team by mentioning the team's name.
+
+To ensure efficient project management and code reviews, we organize contributors into GitHub teams with varying levels of access. Teams are used to logically identify and assign roles and permissions in the MarkBind organization and `@mention` them as needed.
+
+### Team Structure
+ 
+We group teams into three main categories based on their role and access rights.
+ 
+*   **Maintainers** (Maintain Access)
+    *   **`maintainers`**: Parent team for permissions.
+    *   **`team-leads`**: Mentors and Team Leads.
+    *   **`release-manager-admins`**: Core members responsible for releases.
+ 
+*   **Developers** (Write Access)
+    *   **`developers`**: Parent team for permissions.
+    *   **`junior-developers`**: Contributors with write access who are building familiarity with the codebase.
+    *   **`senior-developers`**: Experienced developers with deep codebase knowledge.
+ 
+*   **Contributors** (Triage Access)
+    *   **`active-contributors`**: Regular contributors (for pinging).
+ 
+> **Note:** GitHub Roles are split into Read, Triage, Write, Maintain, and Admin.
+ 
+### Contributor Journey
+ 
+The following flowchart illustrates how contributors move between teams as they progress in experience and responsibility.
+ 
+<mermaid>
+flowchart LR
+    %% Entry Points
+    New[New Contributor] -->|Consistent Contribution| Active[active-contributors]
+ 
+    %% Developer Path
+    Active -->| | JrDev[junior-developers]
+    JrDev -->|Demonstrated Expertise| SrDev[senior-developers]
+ 
+    %% Leadership Path
+    SrDev -->|Leadership Role| Leads[team-leads]
+    SrDev -->|Release Management| RM[release-manager-admins]
+ 
+    subgraph Maint [Maintainers Group]
+        direction TB
+        Leads
+        RM
+    end
+    
+    subgraph Devs [Developers Group]
+        direction TB
+        JrDev
+        SrDev
+    end
+ 
+    %% Styling
+    style New fill:#fff,stroke:#333,stroke-dasharray: 5 5
+    style Active fill:#e1f5fe,stroke:#01579b
+    style JrDev fill:#fff9c4,stroke:#fbc02d
+    style SrDev fill:#fff9c4,stroke:#fbc02d
+    style Leads fill:#ffebee,stroke:#b71c1c
+    style RM fill:#ffebee,stroke:#b71c1c
+    style Maint fill:#ffebee,stroke:#b71c1c,stroke-dasharray: 5 5
+    style Devs fill:#fff9c4,stroke:#fbc02d,stroke-dasharray: 5 5
+</mermaid>
+ 
+Contributors typically start by consistently contributing to the project, joining the **`active-contributors`** team. As they demonstrate familiarity with the codebase and build trust through merged PRs, they are promoted to **`junior-developers`** to gain write access.
+ 
+With continued high-quality contributions and expertise, members advance to **`senior-developers`**. Those who take on significant responsibilities, such as mentorship or release management, may then assume leadership roles within the **`team-leads`** or **`release-manager-admins`** teams.
+
+### Team Maintenance
+
+To ensure the team structure remains effective and secure, **MarkBind organization members and team maintainers** should regularly review and update the team rosters (e.g., at the start, mid, and end of each semester or year).
+
+**Maintenance Steps:**
+
+1.  **Review Activity**: Identify members who have become inactive or whose contribution level has changed.
+1.  **Promote Members**: Move eligible members up the hierarchy (e.g., from `active-contributors` to `junior-developers`) based on the Contributor Journey.
+1.  **Audit Team Membership**: Ensure there are no "floating" members (members in parent teams like `developers` but not in any child team).
+
 ## Other Notes
 
    <box type="info" icon=":fas-question:" icon-color="info" seamless header='About Milestones'>
