@@ -91,5 +91,12 @@ module.exports = {
         "@typescript-eslint/type-annotation-spacing": "error",
       },
     },
+    {
+      // New override for scripts folder to allow devDependency imports
+      "files": ["scripts/**/*.ts"],
+      "rules": {
+        "import/no-extraneous-dependencies": "off",
+      },
+    },
   ],
 };

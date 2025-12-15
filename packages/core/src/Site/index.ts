@@ -25,9 +25,9 @@ import * as logger from '../utils/logger';
 import { SITE_CONFIG_NAME, LAZY_LOADING_SITE_FILE_NAME, _ } from './constants';
 import { LayoutManager } from '../Layout';
 import { LayoutConfig } from '../Layout/Layout';
+import { ProgressBar } from '../lib/progress';
 
-// Change when they are migrated to TypeScript
-const ProgressBar = require('../lib/progress');
+// Change when migrated to TypeScript
 require('../patches/htmlparser2');
 
 const url = {
@@ -991,7 +991,7 @@ export class Site {
    * @returns A Promise that resolves to a boolean which indicates whether the generation
    * ran to completion
    */
-  async generatePagesSequential(pages: Page[], progressBar: any): Promise<boolean> {
+  async generatePagesSequential(pages: Page[], progressBar: ProgressBar): Promise<boolean> {
     const startTime = new Date();
     let isCompleted = true;
     await sequentialAsyncForEach(pages, async (page) => {
@@ -1024,7 +1024,7 @@ export class Site {
    * @returns A Promise that resolves to a boolean which indicates whether the generation
    * ran to completion
    */
-  generatePagesAsyncThrottled(pages: Page[], progressBar: any): Promise<boolean> {
+  generatePagesAsyncThrottled(pages: Page[], progressBar: ProgressBar): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const context: PageGenerationContext = {
         startTime: new Date(),
@@ -1072,7 +1072,7 @@ export class Site {
   /**
    * Helper function for generatePagesAsyncThrottled().
    */
-  generateProgressBarStatus(progressBar: any, context: PageGenerationContext,
+  generateProgressBarStatus(progressBar: ProgressBar, context: PageGenerationContext,
                             pageGenerationQueue: (() => Promise<void>)[], resolve: ((arg0: boolean) => any)) {
     // Post-generate guard to ensure no new callbacks are executed on stop
     if (this.backgroundBuildMode && context.startTime < this.stopGenerationTimeThreshold) {

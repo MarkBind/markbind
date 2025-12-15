@@ -46,6 +46,9 @@ packages/core/template/*/_site
 # Generated site (MarkBind)
 packages/cli/test/functional/*/_site
 
+# Ignore .page-vue-render.js files in functional test and subdirectories on update
+packages/cli/test/functional/**/*.page-vue-render.js
+
 # Generated plantUML images in test_site (MarkBind)
 packages/cli/test/functional/test_site/expected/9c9e77fc0a983cb6b592e65733787bec.png
 packages/cli/test/functional/test_site/expected/inline-output.png
@@ -101,4 +104,5 @@ packages/core/src/variables/*.js
 packages/core/test/unit/**/*.js
 packages/core/index.js
 
+packages/core/src/lib/progress/*.js
 # --- packages/core end ---

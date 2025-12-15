@@ -16,6 +16,15 @@ const htmlUnescapedMapping = {
 
 // markdown-it/utils have an escapeHtml function, but not the
 // complementary un-escaping function
+
+// Used in highlighting calculations since
+// markdown-it stores text as escaped HTML entities (e.g. &lt;, &gt;).
+// To correctly measure character positions and split text for partial
+// highlights, we must first decode entities back into their real characters.
+
+/**
+ * Replaces HTML escape sequences in the input string with their corresponding unescaped characters.
+ */
 export function unescapeHtml(str: string) {
   let unescaped = str;
   Object.entries(htmlUnescapedMapping).forEach(([key, value]) => {

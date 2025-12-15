@@ -98,7 +98,7 @@ This is the same <trigger for="pop:trigger_id">trigger</trigger> as last one.
 | trigger                      | `String` | `hover focus` | How the Popover is triggered.<br>Supports: `click`, `focus`, `hover`, or any space-separated combination of these. |
 | header{{slot_info_trigger}}  | `String` | `''`          | Popover header, supports MarkDown text.                                                                            |
 | content{{slot_info_trigger}} | `String` | `''`          | Popover content, supports MarkDown text.                                                                           |
-| src                          | `String` |               | The URL to the remote page to be loaded as the content of the popover.<br>Both `.md` and `.html` are accepted.     |
+| src                          | `String` |               | The path to another local markdown `.md` or HTML `.html` file whose content will be loaded as the content of the popover. <br> Supports file fragments by specifying `#fragment-id` at the end of the `src` attribute, provided the fragment is wrapped in a `<div>`/`<span>` tag with the matching id. |
 | placement                    | `String` | `top`         | How to position the Popover.<br>Supports: `top`, `left`, `right`, `bottom`.                                        |
 
 <box type="info" light>
