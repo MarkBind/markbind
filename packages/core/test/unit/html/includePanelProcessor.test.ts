@@ -19,8 +19,7 @@ const expectedErrors = [
 
 beforeAll(() => {
   logger.info(
-    `The following ${
-      expectedErrors.length === 1 ? 'error is' : 'errors are'
+    `The following ${expectedErrors.length === 1 ? 'error is' : 'errors are'
     } expected to be thrown during the test run:`,
   );
   expectedErrors.forEach((error, index) => {
@@ -136,21 +135,21 @@ test('includeFile import footnote from hash', async () => {
   const nodeProcessor = getNewDefaultNodeProcessor();
   const result = await nodeProcessor.process(indexPath, index);
   const expected = '<div>\n'
-                 + '<p>text<trigger for="pop:footnotefn-1-1"><sup class="footnote-ref"><a aria-describedby="'
-                 + 'footnote-label" href="#fn-1-1">[1]</a></sup>'
-                 + '</trigger></p></div><hr class="footnotes-sep">\n'
-                 + '<section class="footnotes">\n'
-                 + '<ol class="footnotes-list">\n'
-                 + '<popover id="pop:footnotefn-1-1">\n'
-                 + '            <template #content><div>\n'
-                 + '              <p>footnote</p>\n'
-                 + '\n'
-                 + '            </div></template>\n'
-                 + '          </popover>\n'
-                 + '<li id="fn-1-1" class="footnote-item"><p>footnote</p>\n'
-                 + '</li>\n'
-                 + '</ol>\n'
-                 + '</section>\n';
+    + '<p>text<trigger for="pop:footnotefn-1-1"><sup class="footnote-ref"><a aria-describedby="'
+    + 'footnote-label" href="#fn-1-1">[1]</a></sup>'
+    + '</trigger></p></div><hr class="footnotes-sep">\n'
+    + '<section class="footnotes">\n'
+    + '<ol class="footnotes-list">\n'
+    + '<popover id="pop:footnotefn-1-1">\n'
+    + '            <template #content><div>\n'
+    + '              <p>footnote</p>\n'
+    + '\n'
+    + '            </div></template>\n'
+    + '          </popover>\n'
+    + '<li id="fn-1-1" class="footnote-item"><p>footnote</p>\n'
+    + '</li>\n'
+    + '</ol>\n'
+    + '</section>\n';
 
   expect(result).toEqual(expected);
 });
@@ -425,7 +424,7 @@ test('includeFile detects cyclic references for static cyclic includes', async (
   loggerErrorSpy.mockRestore();
 });
 
-test('includeFile replaces <include src="doesNotExist.md> with error <div>', async () => {
+test('includeFile replaces <include src="doesNotExist.md"> with error <div>', async () => {
   const indexPath = path.resolve('index.md');
 
   const index = [
@@ -568,7 +567,7 @@ test('process include with omitFrontmatter should discard included frontmatter d
   expect(nodeProcessor.frontmatter).toEqual(expectedFrontmatter);
 });
 
-test('process popover should replace popover with <div>', async () => {
+test('process popover should replace popover with template content', async () => {
   const indexPath = path.resolve('index.md');
 
   const index = [
