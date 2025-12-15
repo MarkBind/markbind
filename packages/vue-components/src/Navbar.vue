@@ -155,63 +155,77 @@ export default {
       const defHlMode = this.defaultHighlightOn;
       const navLis = [];
       this.$el.querySelectorAll('.navbar-nav').forEach(nav => navLis.push(...Array.from(nav.children)));
-      // attempt an exact match first
+
+      // Each li element in navbar grouped with all its own and children links
+      const allNavLinkGroups = [];
       for (let i = 0; i < navLis.length; i += 1) {
         const li = navLis[i];
         const standardLinks = [li];
         const navLinks = Array.from(li.querySelectorAll('a.nav-link'));
         const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
-        const allNavLinks = standardLinks.concat(navLinks).concat(dropdownLinks).filter(a => a.href);
-        for (let j = 0; j < allNavLinks.length; j += 1) {
-          const a = allNavLinks[j];
+        const linksInLi = standardLinks.concat(navLinks).concat(dropdownLinks).filter(a => a.href);
+
+        allNavLinkGroups.push({
+          li,
+          links: linksInLi,
+          dropdownLinks,
+        });
+      }
+
+      // 1: Check for Exact Match,return immediately if found
+      for (let i = 0; i < allNavLinkGroups.length; i += 1) {
+        const group = allNavLinkGroups[i];
+        for (let j = 0; j < group.links.length; j += 1) {
+          const a = group.links[j];
           const hlMode = a.getAttribute('highlight-on') || defHlMode;
-          if (hlMode === 'none') {
-            // eslint-disable-next-line no-continue
-            continue;
-          }
-          // terminate early on an exact match
-          if (this.isExact(url, a.href)) {
-            li.classList.add('current');
-            this.addClassIfDropdown(dropdownLinks, a, li);
+          if (hlMode !== 'none' && this.isExact(url, a.href)) {
+            group.li.classList.add('current');
+            this.addClassIfDropdown(group.dropdownLinks, a, group.li);
             return;
           }
         }
       }
-      // fallback to user preference, otherwise
-      for (let i = 0; i < navLis.length; i += 1) {
-        const li = navLis[i];
-        const standardLinks = [li];
-        const navLinks = Array.from(li.querySelectorAll('a.nav-link'));
-        const dropdownLinks = Array.from(li.querySelectorAll('a.dropdown-item'));
-        const allNavLinks = standardLinks.concat(navLinks).concat(dropdownLinks).filter(a => a.href);
-        for (let j = 0; j < allNavLinks.length; j += 1) {
-          const a = allNavLinks[j];
+
+      // 2: Find Best Fuzzy Match
+      // Strategies: 'sibling-or-child' (default), 'sibling', 'child'
+      // Tie-breaker: Longest path length (most specific match)
+      let bestMatch = null;
+      let maxPathLength = -1;
+
+      allNavLinkGroups.forEach((group) => {
+        group.links.forEach((a) => {
           const hlMode = a.getAttribute('highlight-on') || defHlMode;
-          if (hlMode === 'none') {
-            // eslint-disable-next-line no-continue
-            continue;
+          if (hlMode !== 'none') {
+            let isMatch = false;
+            if (hlMode === 'sibling-or-child') {
+              isMatch = this.isSibling(url, a.href) || this.isChild(url, a.href);
+            } else if (hlMode === 'sibling') {
+              isMatch = this.isSibling(url, a.href);
+            } else if (hlMode === 'child') {
+              isMatch = this.isChild(url, a.href);
+            }
+
+            if (isMatch) {
+              const linkParts = this.splitUrl(a.href);
+              const pathLength = linkParts.length;
+
+              if (pathLength > maxPathLength) {
+                maxPathLength = pathLength;
+                bestMatch = {
+                  li: group.li,
+                  a,
+                  dropdownLinks: group.dropdownLinks,
+                };
+              }
+            }
           }
-          // Ignores invalid navbar highlight rule
-          if (hlMode === 'sibling-or-child') {
-            if (this.isSibling(url, a.href) || this.isChild(url, a.href)) {
-              li.classList.add('current');
-              this.addClassIfDropdown(dropdownLinks, a, li);
-              return;
-            }
-          } else if (hlMode === 'sibling') {
-            if (this.isSibling(url, a.href)) {
-              li.classList.add('current');
-              this.addClassIfDropdown(dropdownLinks, a, li);
-              return;
-            }
-          } else if (hlMode === 'child') {
-            if (this.isChild(url, a.href)) {
-              li.classList.add('current');
-              this.addClassIfDropdown(dropdownLinks, a, li);
-              return;
-            }
-          }
-        }
+        });
+      });
+
+      // Apply the highlight to the best match found (if any)
+      if (bestMatch) {
+        bestMatch.li.classList.add('current');
+        this.addClassIfDropdown(bestMatch.dropdownLinks, bestMatch.a, bestMatch.li);
       }
     },
     toggleLowerNavbar() {
