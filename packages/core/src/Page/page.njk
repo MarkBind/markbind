@@ -30,6 +30,7 @@
     {%- endfor %}
     {%- endif %}
     {%- if faviconUrl -%} <link rel="icon" href="{{ faviconUrl }}"> {%- endif -%}
+    {%- if pwa -%} <link rel="manifest" href="/manifest.json"> {%- endif -%}
 </head>
 <script>
   const baseUrl = '{{ baseUrl }}'
@@ -62,4 +63,11 @@
     {{ scripts }}
 {%- endfor %}
 {%- endif %}
+{%- if pwa -%}
+<script>
+if ('serviceWorker' in navigator) {
+   navigator.serviceWorker.register("/sw.js");
+}
+</script>
+{%- endif -%}
 </html>

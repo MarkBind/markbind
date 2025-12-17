@@ -162,6 +162,7 @@ export class Page {
       layoutUserScriptsAndStyles: this.asset.layoutUserScriptsAndStyles.join('\n'),
       hasPageNavHeadings,
       dev: this.pageConfig.dev,
+      pwa: this.siteConfig.pwa,
       faviconUrl: this.pageConfig.faviconUrl,
       markBindVersion: `MarkBind ${PACKAGE_VERSION}`,
       title,

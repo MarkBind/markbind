@@ -35,6 +35,10 @@ async function init(root, options) {
       process.exitCode = 1;
     }
   }
+
+  if (options.pwa) {
+    await template.addPwaFunctionality();
+  }
 }
 
 module.exports = {

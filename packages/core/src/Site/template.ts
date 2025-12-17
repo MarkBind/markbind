@@ -11,6 +11,7 @@ import { LAYOUT_DEFAULT_NAME, LAYOUT_FOLDER_PATH } from '../Layout';
 
 const requiredFiles = ['index.md', 'site.json', '_markbind/'];
 
+const PATH_TO_PWA = path.join(__dirname, '../pwa');
 const PATH_TO_TEMPLATE = '../../template';
 const ABOUT_MARKDOWN_FILE = 'about.md';
 const ABOUT_MARKDOWN_DEFAULT = '# About\n'
@@ -88,6 +89,17 @@ export class Template {
     await this.addDefaultLayoutToSiteConfig();
   }
 
+  /**
+   * Adds basic PWA functionality to a MarkBind website.
+   */
+  async addPwaFunctionality() {
+    await this.setSiteConfigPwaVariable();
+
+    this.siteConfig = await SiteConfig.readSiteConfig(this.rootPath, this.siteConfigPath);
+
+    await this.addPwaAssets();
+  }
+
   getPageGlobPaths(page: SiteConfigPage, pagesExclude: string[]) {
     const pageGlobs = page.glob ?? [];
     return walkSync(this.rootPath, {
@@ -130,6 +142,31 @@ export class Template {
     } catch (error) {
       throw new Error(`Failed to copy over ${filePath}`);
     }
+  }
+
+  /**
+   * Copies over basic required files for PWAs to the site.
+   */
+  async addPwaAssets() {
+    return new Promise((resolve, reject) => {
+      fs.access(this.rootPath)
+        .catch(() => fs.mkdirSync(this.rootPath))
+        .then(() => fsUtil.copySyncWithOptions(PATH_TO_PWA, this.rootPath, { overwrite: false }))
+        .then(resolve)
+        .catch(reject);
+    });
+  }
+
+  /**
+   * Updates site config to set PWA variable to true.
+   */
+  async setSiteConfigPwaVariable() {
+    const configPath = path.join(this.rootPath, SITE_CONFIG_NAME);
+    const config = await fs.readJson(configPath);
+
+    config.pwa = true;
+
+    await Template.writeToSiteConfig(config, configPath);
   }
 
   /**

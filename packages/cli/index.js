@@ -37,6 +37,7 @@ program
   .command('init [root]')
   .option('-c, --convert', 'convert a GitHub wiki or docs folder to a MarkBind website')
   .option('-t, --template <type>', 'initialise markbind with a specified template', 'default')
+  .option('-p, --pwa', 'add Progressive Web App (PWA) functionality to a MarkBind website')
   .alias('i')
   .description('init a markbind website project')
   .action((root, options) => {

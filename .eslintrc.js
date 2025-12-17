@@ -98,5 +98,14 @@ module.exports = {
         "import/no-extraneous-dependencies": "off",
       },
     },
+    {
+      // Suppress no-restricted-globals in service workers, since eslint does not allow `self` keyword,
+      // which is standard in service workers.
+      // See: https://github.com/airbnb/javascript/issues/1632
+      "files": ["**/sw.js"],
+      "rules": {
+        "no-restricted-globals": "off",
+      },
+    },
   ],
 };
