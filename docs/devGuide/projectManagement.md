@@ -421,7 +421,41 @@ We group teams into three main categories based on their role and access rights.
  
 The following flowchart illustrates how contributors move between teams as they progress in experience and responsibility.
 
-![Contributor Journey]({{baseUrl}}/images/devGuide/contributorJourney.png)
+<mermaid>
+flowchart LR
+    %% Entry Points
+    New[New Contributor] -->|Consistent Contribution| Active[active-contributors]
+
+    %% Developer Path
+    Active -->| | JrDev[junior-developers]
+    JrDev -->|Demonstrated Expertise| SrDev[senior-developers]
+
+    %% Leadership Path
+    SrDev -->|Leadership Role| Leads[team-leads]
+    SrDev -->|Release Management| RM[release-manager-admins]
+
+    subgraph Maint [Maintainers Group]
+        direction TB
+        Leads
+        RM
+    end
+
+    subgraph Devs [Developers Group]
+        direction TB
+        JrDev
+        SrDev
+    end
+
+    %% Styling
+    style New fill:#fff,stroke:#333,stroke-dasharray: 5 5
+    style Active fill:#e1f5fe,stroke:#01579b
+    style JrDev fill:#fff9c4,stroke:#fbc02d
+    style SrDev fill:#fff9c4,stroke:#fbc02d
+    style Leads fill:#ffebee,stroke:#b71c1c
+    style RM fill:#ffebee,stroke:#b71c1c
+    style Maint fill:#ffebee,stroke:#b71c1c,stroke-dasharray: 5 5
+    style Devs fill:#fff9c4,stroke:#fbc02d,stroke-dasharray: 5 5
+</mermaid>
  
 Contributors typically start by consistently contributing to the project, joining the **`active-contributors`** team. As they demonstrate familiarity with the codebase and build trust through merged PRs, they are promoted to **`junior-developers`** to gain write access.
  
