@@ -4,13 +4,14 @@ const { execSync } = require('child_process');
 
 const { compare } = require('./testUtil/compare');
 
-const { cleanupConvert } = require('./testUtil/cleanup');
+const { cleanupConvert, cleanupConvertPwa } = require('./testUtil/cleanup');
 
 const logger = require('../../../core/src/utils/logger');
 
 const {
   testSites,
   testConvertSites,
+  testConvertPwaSites,
   testTemplateSites,
   plantumlGeneratedFilesForTestSites,
   plantumlGeneratedFilesForConvertSites,
@@ -70,6 +71,23 @@ testConvertSites.forEach((sitePath) => {
     process.exit(1);
   }
   cleanupConvert(path.resolve(__dirname, sitePath));
+});
+
+testConvertPwaSites.forEach((sitePath) => {
+  console.log(`Running ${sitePath} tests`);
+  const nonMarkBindSitePath = path.join(sitePath, 'non_markbind_site');
+  const siteName = sitePath.split('/')[1];
+  try {
+    execSync(`node ../../index.js init ${nonMarkBindSitePath} -c -p`, execOptions);
+    execSync(`node ../../index.js build ${nonMarkBindSitePath}`, execOptions);
+    const siteIgnoredFiles = plantumlGeneratedFilesForConvertSites[siteName];
+    compare(sitePath, 'expected', 'non_markbind_site/_site', siteIgnoredFiles);
+  } catch (err) {
+    printFailedMessage(err, sitePath);
+    cleanupConvertPwa(path.resolve(__dirname, sitePath));
+    process.exit(1);
+  }
+  cleanupConvertPwa(path.resolve(__dirname, sitePath));
 });
 
 testTemplateSites.forEach((templateAndSitePath) => {

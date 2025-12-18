@@ -1,0 +1,26 @@
+{
+  "baseUrl": "",
+  "titlePrefix": "",
+  "titleSuffix": "",
+  "ignore": [
+    "_markbind/layouts/*",
+    "_markbind/logs/*",
+    "_site/*",
+    "site.json",
+    "*.md",
+    "*.njk",
+    ".git/*",
+    ".gitignore",
+    "node_modules/*",
+    "expected/*"
+  ],
+  "pagesExclude": ["node_modules/*"],
+  "pages": [
+    { "src": "index.md" },
+    { "glob": ["**/index.md", "**/*.md"] },
+    { "glob": "**/*.md", "layout": "default.md" },
+    { "glob": "**/*.md", "layout": "default.md" }
+  ],
+  "deploy": { "message": "Site Update." },
+  "pwa": true
+}
