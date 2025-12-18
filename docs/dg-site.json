@@ -27,7 +27,8 @@
   ],
   "plugins": [
     "filterTags",
-    "codeBlockCopyButtons"
+    "codeBlockCopyButtons",
+    "mermaid"
   ],
   "pluginsContext": {
     "filterTags": {
