@@ -157,3 +157,49 @@ describe('Mobile nav buttons test:', () => {
        wrapper.unmount();
      });
 });
+
+describe('Navbar Highlight Logic', () => {
+  test('correctly highlights the deepest matching link (Best Match)', async () => {
+    const deepUrl = 'http://localhost/lessons/trail/recordingFolderHistory/index.html';
+    const TEST_NAVBAR_CONTENT = `
+      <li><a href="/index.html" class="nav-link">Home</a></li>
+      <li><a href="/lessons/index.html" class="nav-link">Lessons</a></li>
+      <li><a href="/lessons/trail/index.html" class="nav-link">Trail</a></li>
+      <li><a href="/about/index.html" class="nav-link">About</a></li>
+    `;
+
+    // Test highlightLink(url) method on the component.
+    // Mount it, then call highlightLink manually with test URL.
+    const wrapper = mount(Navbar, {
+      slots: {
+        brand: NAVBAR_BRAND,
+        default: TEST_NAVBAR_CONTENT,
+      },
+      global: {
+        stubs: DEFAULT_STUBS,
+      },
+    });
+
+    // Clear any initial highlighting from mounted()
+    wrapper.findAll('li').forEach(li => li.element.classList.remove('current'));
+
+    // Manually trigger highlight with the problematic URL
+    wrapper.vm.highlightLink(deepUrl);
+    await wrapper.vm.$nextTick();
+
+    const homeLink = wrapper.find('a[href="/index.html"]').element;
+    const lessonsLink = wrapper.find('a[href="/lessons/index.html"]').element;
+    const trailLink = wrapper.find('a[href="/lessons/trail/index.html"]').element;
+
+    const homeLi = homeLink.closest('li');
+    const lessonsLi = lessonsLink.closest('li');
+    const trailLi = trailLink.closest('li');
+
+    // Expectation: Trail should be current because it is the deepest matching link (depth 3 vs 2 vs 1)
+    expect(trailLi.classList.contains('current')).toBe(true);
+
+    // Expectation: Shallower matches should NOT be current
+    expect(lessonsLi.classList.contains('current')).toBe(false);
+    expect(homeLi.classList.contains('current')).toBe(false);
+  });
+});
