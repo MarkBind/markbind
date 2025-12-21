@@ -59,6 +59,9 @@ Usage: markbind <command>
 * `-t`, `--template` <br>
   When initialising MarkBind, change the template that you start with. See [templates](templates.html).
 
+* `-p`, `--pwa` <br>
+  Initializes MarkBind with the files and configuration needed for a Progressive Web App. See [Progressive Web Apps](progressiveWebApps.html)
+
 {{ icon_examples }}
 * `markbind init` : Initializes the site in the current working directory.
 * `markbind init ./myWebsite` : Initializes the site in `./myWebsite` directory.

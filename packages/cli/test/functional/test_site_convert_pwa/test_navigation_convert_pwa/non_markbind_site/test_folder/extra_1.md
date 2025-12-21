@@ -1,0 +1,1 @@
+# Sample content in another folder which is not named content

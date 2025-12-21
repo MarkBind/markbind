@@ -33,6 +33,8 @@ export class SiteConfig {
 
   style: SiteConfigStyle;
 
+  pwa: boolean;
+
   pages: SiteConfigPage[];
   pagesExclude: string[];
   ignore: string[];
@@ -79,6 +81,8 @@ export class SiteConfig {
     this.style.codeTheme = this.style.codeTheme || 'dark';
     this.style.codeLineNumbers = this.style.codeLineNumbers !== undefined
       ? this.style.codeLineNumbers : false;
+
+    this.pwa = siteConfigJson.pwa || false;
 
     this.pages = siteConfigJson.pages || [];
     this.pagesExclude = siteConfigJson.pagesExclude || [];

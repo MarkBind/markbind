@@ -1,5 +1,6 @@
 const testSites = [
   'test_site',
+  'test_site_pwa',
   'test_site_algolia_plugin',
   'test_site_special_tags',
   'test_site_table_plugin',
@@ -8,6 +9,11 @@ const testSites = [
 const testConvertSites = [
   'test_site_convert/test_basic_convert',
   'test_site_convert/test_navigation_convert',
+];
+
+const testConvertPwaSites = [
+  'test_site_convert_pwa/test_basic_convert_pwa',
+  'test_site_convert_pwa/test_navigation_convert_pwa',
 ];
 
 const testTemplateSites = [
@@ -46,6 +52,7 @@ const plantumlGeneratedFilesForTemplateSites = {
 module.exports = {
   testSites,
   testConvertSites,
+  testConvertPwaSites,
   testTemplateSites,
   plantumlGeneratedFilesForTestSites,
   plantumlGeneratedFilesForConvertSites,

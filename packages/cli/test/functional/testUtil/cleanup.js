@@ -20,6 +20,19 @@ function cleanupConvert(siteName) {
   });
 }
 
+function cleanupConvertPwa(siteName) {
+  cleanupConvert(siteName);
+
+  const filesToRemove = [
+    path.join(siteName, 'non_markbind_site/manifest.json'),
+    path.join(siteName, 'non_markbind_site/sw.js'),
+  ];
+  filesToRemove.forEach((filePath) => {
+    fs.removeSync(filePath);
+  });
+}
+
 module.exports = {
   cleanupConvert,
+  cleanupConvertPwa,
 };

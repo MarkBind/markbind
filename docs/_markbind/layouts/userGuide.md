@@ -36,6 +36,7 @@
   * [Redirecting to a Custom 404 Page]({{baseUrl}}/userGuide/redirectingToACustom404Page.html)
   * [Adding Navigation Buttons]({{baseUrl}}/userGuide/addingNavigationButtons.html)
   * [Templates]({{baseUrl}}/userGuide/templates.html)
+  * [Progressive Web Apps]({{baseUrl}}/userGuide/progressiveWebApps.html)
 * References :expanded:
   * [CLI Commands]({{baseUrl}}/userGuide/cliCommands.html)
   * [Reader-Facing Features]({{baseUrl}}/userGuide/readerFacingFeatures.html)

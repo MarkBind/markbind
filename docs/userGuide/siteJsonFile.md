@@ -20,6 +20,7 @@ Here is a typical `site.json` file:
   "faviconPath": "myfavicon.png",
   "titlePrefix": "FooBar Dev Docs",
   "titleSuffix": "FooBar",
+  "pwa": true,
   "style": {
     "bootstrapTheme": "bootswatch-cerulean",
     "codeTheme": "light",
@@ -108,6 +109,10 @@ Note: `baseUrl` does not support [live preview](glossary.md#live-preview) as the
 #### **`titleSuffix`**
 
 **The suffix for all page titles.** The separator `-` will be inserted by MarkBind.
+
+#### **`pwa`**
+
+**Indicates whether MarkBind should treat this site as a Progressive Web App (PWA).**
 
 #### **`style`**
 

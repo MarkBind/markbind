@@ -1,0 +1,17 @@
+{
+  "enableSearch": true,
+  "pages": [
+    {
+      "src": "contents/inner.md",
+      "title": "Inner site",
+      "headings": {},
+      "headingKeywords": {}
+    },
+    {
+      "src": "index.md",
+      "title": "PWA Site",
+      "headings": {},
+      "headingKeywords": {}
+    }
+  ]
+}
