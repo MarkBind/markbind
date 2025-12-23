@@ -1,0 +1,12 @@
+{
+    "title": "Tricky Site",
+    "pages": [
+        "index.md",
+        "tricky-table-rendering.md",
+        "mermaid-flowchart.md",
+        "plantuml-diagrams.md",
+        "shorthand-syntax.md",
+        "tree-syntax.md",
+        "auto-anchors.md"
+    ]
+}
