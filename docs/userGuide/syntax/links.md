@@ -65,7 +65,7 @@ Links to files of the generated site (e.g., an HTML page or an image file) can b
 
 <div class="indented">
 
-You may link to markdown files using their original extension (**.md**). They will automatically be converted to the configured output extension (default **.html**) when the site is generated. 
+You may link to markdown files using its original extension (**.md**) as it will automatically be converted to a HTML extension (**.html**) when the site is generated.
 
 {{ icon_example }}
 `Click [here](index.md)` --- *auto-conversion* ---> `Click [here](index.html)`
