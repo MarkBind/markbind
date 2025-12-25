@@ -11,6 +11,54 @@
 
 MarkBind does not aim to alter the already robust variable features of Nunjucks, but provides several extensions to it.
 
+### Basic Usage of Variables
+
+You can define variables within a page using the {% raw %}`{% set %}`{% endraw %} tag.
+
+{{ icon_example }} Defining and using a `greeting_message` variable:
+
+<!-- Note: Using codeAndOutputCode.md directly because of need to use {% raw %}{% endraw %} -->
+%%CODE:%%
+<div class="indented">
+
+````markdown
+{% raw %}{% set greeting_message = "Hello, it's a fine day!" %}
+{{ greeting_message }}
+{{ greeting_message }}{% endraw %}
+````
+</div>
+
+%%OUTPUT:%%
+<div class="indented">
+
+<box border-left-color="grey" background-color="white">
+
+{% set greeting_message = "Hello, it's a fine day!" %}
+{{ greeting_message }}
+{{ greeting_message }}
+</box>
+</div>
+
+
+<box type="info" seamless>
+
+**Note:** Variable names should consist of alphanumeric characters and underscores only. Avoid using `-` or `.`. Names are also **case-sensitive** by default (e.g. `myVar` and `myvar` are distinct).
+</box>
+
+<div class="indented">
+
+For more advanced usage, you can refer to the official [Nunjucks documentation](https://mozilla.github.io/nunjucks/templating.html).
+
+</div>
+
+#### Escaping Nunjucks Syntax
+
+If you need to display Nunjucks syntax like {% raw %}`{% ... %}`{% endraw %} literally without processing it, you can enclose it within a {% raw %}`{% raw %}...{% endraw %}`{% endraw %} block.
+
+
+{{ icon_example }} `I want to display {% raw %}{% raw %}{% something here %}{% endraw %}{% endraw %}.` {{ icon_arrow_right }} I want to display {% raw %}{% something here %}{% endraw %}.
+
+
 ### Global Variables
 
 **Global variables are to be defined in the `_markbind/variables.md` file.** Each variable must have an `name` and the value can be any MarkBind-compliant code fragment. The `name` should not contain `-` and `.`. For example, `search-option` and `search.options` are not allowed.
