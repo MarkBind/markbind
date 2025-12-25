@@ -505,6 +505,16 @@ export class Page {
     return '';
   }
 
+  /**
+   * Generates the page content by processing variables, nodes, frontmatter, and plugins.
+   *
+   * If the file extension is not .html, it simply processes variables and writes the content.
+   *
+   * For HTML files (usual case), it also builds the page navigation, handles layout,
+   * collects headings/keywords, and compiles the page into a Vue application for server-side rendering.
+   * Finally, it writes the rendered HTML to the output file.
+   * @param externalManager to manage external dependencies and configuration
+   */
   async generate(externalManager: ExternalManager) {
     this.resetState(); // Reset for live reload
 
@@ -531,6 +541,12 @@ export class Page {
                                             pluginManager, siteLinkManager, this.pageUserScriptsAndStyles);
 
     let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
+
+    if (path.extname(this.pageConfig.resultPath) !== '.html') {
+      await this.writeOutputFile(content);
+      return;
+    }
+
     content = await nodeProcessor.process(this.pageConfig.sourcePath, content) as string;
     this.processFrontmatter(nodeProcessor.frontmatter);
     content = pluginManager.postRender(this.frontmatter, content);
@@ -574,13 +590,25 @@ export class Page {
     this.filterIconAssets(content, vueSsrHtml);
     if (process.env.TEST_MODE) {
       content = `<div id="app">${content}</div>`;
-      await this.outputPageHtml(content);
+      await this.writeOutputFile(content);
     } else {
-      await this.outputPageHtml(vueSsrHtml);
+      await this.writeOutputFile(vueSsrHtml);
     }
   }
 
-  async outputPageHtml(content: string) {
+  /**
+   * Writes the rendered content to the output file.
+   * For non-HTML files, it writes the content directly.
+   * For HTML files, it renders the content into the page template (page.njk) before writing.
+   * @param content The processed page content (with variables substituted, etc.)
+   */
+  async writeOutputFile(content: string) {
+    if (path.extname(this.pageConfig.resultPath) !== '.html') {
+      await fs.outputFile(this.pageConfig.resultPath, content);
+      return;
+    }
+
+    // Prepare data for page.njk template
     const renderedTemplate = this.pageConfig.template.render(
       this.prepareTemplateData(content)); // page.njk
 

@@ -91,23 +91,25 @@ const MARKBIND_LINK_HTML = `<a href='${MARKBIND_WEBSITE_URL}'>MarkBind ${MARKBIN
 type PageCreationConfig = {
   externalScripts: string[],
   frontmatter: FrontMatter,
-  layout: string,
+  layout?: string,
   pageSrc: string,
   searchable: boolean,
   faviconUrl?: string,
   glob?: string,
   globExclude?: string
   title?: string,
+  fileExtension?: string,
 };
 
 type AddressablePage = {
-  frontmatter: FrontMatter,
-  layout: string,
-  searchable: string,
+  frontmatter?: FrontMatter,
+  layout?: string,
+  searchable?: string | boolean,
   src: string,
   externalScripts?: string[],
   faviconUrl?: string,
   title?: string,
+  fileExtension?: string,
 };
 
 type PageGenerationTask = {
@@ -280,7 +282,10 @@ export class Site {
    */
   createPage(config: PageCreationConfig): Page {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
-    const resultPath = path.join(this.outputPath, fsUtil.setExtension(config.pageSrc, '.html'));
+    const outputExtension = config.fileExtension || '.html';
+    const relativePath = path.posix.relative(this.rootPath, sourcePath);
+    const outputPath = fsUtil.setExtension(relativePath, outputExtension);
+    const resultPath = path.join(this.outputPath, outputPath);
 
     const baseAssetsPath = path.posix.join(
       this.siteConfig.baseUrl || '/', TEMPLATE_SITE_ASSET_FOLDER_NAME,
@@ -385,6 +390,7 @@ export class Site {
                                          searchable: page.searchable,
                                          layout: page.layout,
                                          frontmatter: page.frontmatter,
+                                         ...(page.fileExtension && { fileExtension: page.fileExtension }),
                                        }))) as AddressablePage[];
     /*
      Add pages collected from globs and merge properties for pages
@@ -938,9 +944,10 @@ export class Site {
       pageSrc: page.src,
       title: page.title,
       layout: page.layout,
-      frontmatter: page.frontmatter,
-      searchable: page.searchable !== 'no',
+      frontmatter: page.frontmatter || {},
+      searchable: page.searchable !== 'no' && page.searchable !== false,
       externalScripts: page.externalScripts || [],
+      fileExtension: page.fileExtension,
     });
   }
 

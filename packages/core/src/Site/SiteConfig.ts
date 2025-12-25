@@ -13,6 +13,7 @@ export type SiteConfigPage = {
   globExclude?: string,
   searchable?: string | boolean,
   frontmatter?: FrontMatter,
+  fileExtension?: string,
 };
 
 export type SiteConfigStyle = {
