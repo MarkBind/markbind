@@ -138,6 +138,7 @@ _(Optional)_ **The styling options to be applied to the site.** This includes:
 * **`searchable`**: Specifies that the page(s) should be excluded from searching. Default: `yes`.
 * **`externalScripts`**: An array of external scripts to be referenced on the page. Scripts referenced will be run before the layout script.
 * **`frontmatter`**: Specifies properties to add to the frontmatter of a page or glob of pages. Overrides any existing properties if they have the same name, and overrides any frontmatter properties specified in `globalOverride`.
+* **`fileExtension`**: A string that specifies the output file extension (e.g., `".json"`, `".txt"`) for the generated file. If not specified, defaults to `".html"`. Note that non-HTML files do not support frontmatter or scripts.
 
 <div id="page-property-overriding">
 <box type="warning">

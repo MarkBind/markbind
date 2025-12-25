@@ -94,5 +94,56 @@ in your `site.json` file. See the [`pagesExclude` attribute](siteJsonFile.html#p
 
 </modal>
 
+## Generating Custom File Types
+
+You can also use MarkBind to generate non-HTML files, such as `.json` or `.txt`, from your source `.md` files. This is useful for generating dynamic configuration files or other text-based assets that can benefit from MarkBind's variable system.
+
+To do this, specify the `fileExtension` property for the page configuration in your `site.json`, as explained [here](siteJsonFile.html#pages).
+
+<div class="indented">
+
+{{ icon_example }} Generating a `sampleJson.json` from `sampleJson.md`:
+
+**site.json:**
+```json
+{
+  "pages": [
+    {
+      "src": "userGuide/customFileTypes/sampleJson.md",
+      "fileExtension": ".json",
+      "searchable": "no"
+    }
+  ]
+}
+```
+**sampleJson.md:**
+
+{% raw %}
+```md
+{
+    "title": "globalVariables",
+    "description": "This file is served as a .json file, but is sourced from a .md file in the source code.",
+    "baseUrl": "{{baseUrl}}",
+    "timestamp": "{{timestamp}}",
+    "MarkBind": "{{MarkBind}}"
+}
+```
+{% endraw %}
+
+
+**Examples of generated custom files:**
+*   [sampleJson]({{baseUrl}}/userGuide/customFileTypes/sampleJson.json){no-validation} - A JSON file generated from Markdown, utilizing default global nunjucks variables available in MarkBind sites.
+*   [sampleTxt]({{baseUrl}}/userGuide/customFileTypes/sampleTxt.txt){no-validation} - A plain text file generated from Markdown, also utilizing global variables.
+
+
+</div>
+
+**Key Points:**
+*   **Nunjucks Variables**: You can use Nunjucks global variables (like `baseUrl`, `timestamp`) and site variables within these files, just like in your HTML pages.
+*   **No Frontmatter or Scripts**: Unlike standard MarkBind pages, custom file types **do not support frontmatter or scripts**. Frontmatter and script tags will be treated as plain text if included.
+*   **Search**: By default, these files are searchable if `enableSearch` is true for the site. You can disable this by setting `"searchable": "no"` (or `false`) in the page config.
+* **Intra-site validation**: If you are linking such files in other pages in your site, you can use the `{no-validation}` tag, e.g. `[sampleTxt]({{baseUrl}}/userGuide/customFileTypes/sampleTxt.txt){no-validation}` to disable intra-site validation warnings for the link, as MarkBind currently does not support intra-site validation for custom file type links.
+
+
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('authoringContents', 'markBindSyntaxOverview') }}
