@@ -53,7 +53,7 @@ For more advanced usage, you can refer to the official [Nunjucks documentation](
 
 #### Escaping Nunjucks Syntax
 
-If you need to display Nunjucks syntax like {% raw %}`{% ... %}`{% endraw %} literally without processing it, you can wrap it in a {% raw %}`{% raw %}` and `{% endraw %}`{% endraw %} block.
+If you need to display Nunjucks syntax like {% raw %}`{% ... %}`{% endraw %} literally without processing it, you can enclose it within a {% raw %}`{% raw %}...{% endraw %}`{% endraw %} block.
 
 
 {{ icon_example }} `I want to display {% raw %}{% raw %}{% something here %}{% endraw %}{% endraw %}.` {{ icon_arrow_right }} I want to display {% raw %}{% something here %}{% endraw %}.
