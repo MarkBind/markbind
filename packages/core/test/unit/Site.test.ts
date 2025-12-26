@@ -547,6 +547,22 @@ const siteJsonResolvePropertiesTestCases = [
       },
     ],
   },
+  {
+    name: 'Site.json passes fileExtension property',
+    pages: [
+      {
+        glob: '*.md',
+        fileExtension: '.json',
+      },
+    ],
+    expected: [
+      {
+        src: 'index.md',
+        fileExtension: '.json',
+        searchable: undefined,
+      },
+    ],
+  },
 ];
 
 siteJsonResolvePropertiesTestCases.forEach((testCase) => {
