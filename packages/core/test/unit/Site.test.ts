@@ -743,3 +743,34 @@ test('createPage generates correct page config with fileExtension', async () => 
   expect(pageConfig.resultPath).toMatch(/test\.json$/);
   expect(pageConfig.sourcePath).toMatch(/test\.md$/);
 });
+
+test('createNewPage generates correct page config', async () => {
+  const json = {
+    ...PAGE_NJK,
+    'site.json': SITE_JSON_DEFAULT,
+    'test.md': '',
+  };
+  mockFs.vol.fromJSON(json, '');
+
+  const site = new Site(...siteArguments);
+  await site.readSiteConfig();
+  
+  const page = {
+    src: 'test.md',
+    title: 'Test Page',
+    layout: 'default',
+    frontmatter: {},
+    searchable: true,
+    fileExtension: '.json',
+  };
+  
+  site.createNewPage(page as any, undefined);
+
+  // Page is mocked, retrieve the last call to the Page constructor
+  const PageMock = jest.requireMock('../../src/Page').Page;
+  const lastCallIndex = PageMock.mock.calls.length - 1;
+  const lastPageConfig = PageMock.mock.calls[lastCallIndex][0];
+
+  expect(lastPageConfig.resultPath).toMatch(/test\.json$/);
+  expect(lastPageConfig.sourcePath).toMatch(/test\.md$/);
+});
