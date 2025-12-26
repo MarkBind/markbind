@@ -283,7 +283,7 @@ export class Site {
   createPage(config: PageCreationConfig): Page {
     const sourcePath = path.join(this.rootPath, config.pageSrc);
     const outputExtension = config.fileExtension || '.html';
-    const relativePath = path.posix.relative(this.rootPath, sourcePath);
+    const relativePath = fsUtil.ensurePosix(path.relative(this.rootPath, sourcePath));
     const outputPath = fsUtil.setExtension(relativePath, outputExtension);
     const resultPath = path.join(this.outputPath, outputPath);
 
