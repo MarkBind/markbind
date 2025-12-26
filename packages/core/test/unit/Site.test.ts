@@ -754,7 +754,7 @@ test('createNewPage generates correct page config', async () => {
 
   const site = new Site(...siteArguments);
   await site.readSiteConfig();
-  
+
   const page = {
     src: 'test.md',
     title: 'Test Page',
@@ -763,7 +763,7 @@ test('createNewPage generates correct page config', async () => {
     searchable: true,
     fileExtension: '.json',
   };
-  
+
   site.createNewPage(page as any, undefined);
 
   // Page is mocked, retrieve the last call to the Page constructor

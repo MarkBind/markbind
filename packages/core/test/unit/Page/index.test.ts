@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { Page } from '../../../src/Page';
+import { VariableProcessor } from '../../../src/variables/VariableProcessor';
 
 const mockFs = fs as any;
 
@@ -31,33 +32,32 @@ describe('Page', () => {
   };
 
   test('generate writes raw content for non-html files', async () => {
-     mockFs.vol.fromJSON({
-       'test.md': '{"foo": "bar"}',
-     });
+    mockFs.vol.fromJSON({
+      'test.md': '{"foo": "bar"}',
+    });
 
-    const VariableProcessor = require('../../../src/variables/VariableProcessor').VariableProcessor;
     // Mock the VariableProcessor instance to return a specific render method.
     // This is necessary because Page.generate uses VariableProcessor internally.
-    VariableProcessor.mockImplementation(() => ({
-      renderWithSiteVariables: jest.fn(() => '{"foo": "bar"}'),
+    (VariableProcessor as unknown as jest.Mock).mockImplementation(() => ({
+      renderWithSiteVariables: jest.fn().mockReturnValue('{"foo": "bar"}'),
     }));
 
     // Inject the mocked variableProcessor into the Page configuration.
     // The Page constructor assigns this.pageConfig from the passed argument,
     // and subsequent methods use this.pageConfig.variableProcessor.
     const variableProcessor = {
-      renderWithSiteVariables: jest.fn(() => '{"foo": "bar"}'),
+      renderWithSiteVariables: jest.fn().mockReturnValue('{"foo": "bar"}'),
     };
-    
+
     const configWithMock = {
-       ...pageConfig,
-       variableProcessor,
+      ...pageConfig,
+      variableProcessor,
     };
-    
+
     const page = new Page(configWithMock as any, siteConfig as any);
 
     const externalManager = {
-      config: { outputPath: '_site' }, 
+      config: { outputPath: '_site' },
       generateDependencies: jest.fn(),
     };
 
@@ -67,6 +67,5 @@ describe('Page', () => {
     // Verify file content in mocked filesystem
     const content = fs.readFileSync(path.resolve('test.json'), 'utf8');
     expect(content).toEqual('{"foo": "bar"}');
-
   });
 });
