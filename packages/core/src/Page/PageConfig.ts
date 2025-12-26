@@ -65,6 +65,11 @@ export class PageConfig {
    */
   src: string;
   title?: string;
+  /**
+   * The compiled Nunjucks template for the page wrapper (page.njk).
+   * This is used to generate the HTML version of the page, handling the global structure
+   * (html, head, body, scripts) wrapping the processed content.
+   */
   template: Template;
   variableProcessor: VariableProcessor;
   addressablePagesSource: string[];

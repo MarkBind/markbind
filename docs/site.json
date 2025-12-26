@@ -7,6 +7,16 @@
   },
   "pages": [
     {
+      "src": "userGuide/customFileTypes/sampleJson.md",
+      "fileExtension": ".json",
+      "searchable": "no"
+    },
+    {
+      "src": "userGuide/customFileTypes/sampleTxt.md",
+      "fileExtension": ".txt",
+      "searchable": "no"
+    },
+    {
       "glob": ["*.md", "userGuide/*.md", "userGuide/components/*.md", "devGuide/*.md", "devGuide/*/*.md"]
     },
     {

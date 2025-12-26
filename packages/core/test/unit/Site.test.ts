@@ -547,6 +547,38 @@ const siteJsonResolvePropertiesTestCases = [
       },
     ],
   },
+  {
+    name: 'Site.json passes fileExtension property',
+    pages: [
+      {
+        glob: '*.md',
+        fileExtension: '.json',
+      },
+    ],
+    expected: [
+      {
+        src: 'index.md',
+        fileExtension: '.json',
+        searchable: undefined,
+      },
+    ],
+  },
+  {
+    name: 'Site.json merges valid fileExtension property with src',
+    pages: [
+      {
+        src: 'index.md',
+        fileExtension: '.json',
+      },
+    ],
+    expected: [
+      {
+        src: 'index.md',
+        fileExtension: '.json',
+        searchable: undefined,
+      },
+    ],
+  },
 ];
 
 siteJsonResolvePropertiesTestCases.forEach((testCase) => {
@@ -682,4 +714,63 @@ siteJsonPageExclusionTestCases.forEach((testCase) => {
     expect(site.addressablePages)
       .toEqual(testCase.expected);
   });
+});
+
+test('createPage generates correct page config with fileExtension', async () => {
+  const json = {
+    ...PAGE_NJK,
+    'site.json': SITE_JSON_DEFAULT,
+    'test.md': '',
+  };
+  mockFs.vol.fromJSON(json, '');
+
+  const site = new Site(...siteArguments);
+  await site.readSiteConfig();
+  const config = {
+    pageSrc: 'test.md',
+    title: 'Test Page',
+    fileExtension: '.json',
+    searchable: true,
+    frontmatter: {},
+    externalScripts: [],
+  };
+  site.createPage(config);
+
+  // Page is mocked
+  const PageMock = jest.requireMock('../../src/Page').Page;
+  const pageConfig = PageMock.mock.calls[0][0];
+
+  expect(pageConfig.resultPath).toMatch(/test\.json$/);
+  expect(pageConfig.sourcePath).toMatch(/test\.md$/);
+});
+
+test('createNewPage generates correct page config', async () => {
+  const json = {
+    ...PAGE_NJK,
+    'site.json': SITE_JSON_DEFAULT,
+    'test.md': '',
+  };
+  mockFs.vol.fromJSON(json, '');
+
+  const site = new Site(...siteArguments);
+  await site.readSiteConfig();
+
+  const page = {
+    src: 'test.md',
+    title: 'Test Page',
+    layout: 'default',
+    frontmatter: {},
+    searchable: true,
+    fileExtension: '.json',
+  };
+
+  site.createNewPage(page as any, undefined);
+
+  // Page is mocked, retrieve the last call to the Page constructor
+  const PageMock = jest.requireMock('../../src/Page').Page;
+  const lastCallIndex = PageMock.mock.calls.length - 1;
+  const lastPageConfig = PageMock.mock.calls[lastCallIndex][0];
+
+  expect(lastPageConfig.resultPath).toMatch(/test\.json$/);
+  expect(lastPageConfig.sourcePath).toMatch(/test\.md$/);
 });
