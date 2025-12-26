@@ -390,7 +390,7 @@ export class Site {
                                          searchable: page.searchable,
                                          layout: page.layout,
                                          frontmatter: page.frontmatter,
-                                         ...(page.fileExtension && { fileExtension: page.fileExtension }),
+                                         fileExtension: page.fileExtension,
                                        }))) as AddressablePage[];
     /*
      Add pages collected from globs and merge properties for pages
