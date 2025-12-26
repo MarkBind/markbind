@@ -1,5 +1,9 @@
 <template>
-  <div v-show="!computeDisabled" :class="`col-md-${computedBlock}`">
+  <div
+    v-show="!computeDisabled"
+    :class="`col-md-${computedBlock}`"
+    :id="id"
+  >
     <div class="card">
       <div class="card-body article-container" :style="computedWidth">
         <div
@@ -49,6 +53,10 @@ export default {
       type: String,
       default: '',
     },
+      id: {
+        type: String,
+        default: '',
+      },
   },
   data() {
     return {
