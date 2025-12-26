@@ -543,6 +543,12 @@ export class Page {
     let content = variableProcessor.renderWithSiteVariables(this.pageConfig.sourcePath, pageSources);
 
     if (path.extname(this.pageConfig.resultPath) !== '.html') {
+      const hasFrontmatterLike = /^\s*---\s*[\s\S]*?---/m.test(content);
+      const hasScriptTagLike = /<script[\s>]/i.test(content);
+      if (hasFrontmatterLike || hasScriptTagLike) {
+        logger.warn(`Detected frontmatter or <script> tag-like content in non-HTML file "${this.pageConfig.sourcePath}". ` +
+                    'These will be treated as plain text. If this was intentional, you can safely ignore this warning.');
+      }
       await this.writeOutputFile(content);
       return;
     }
