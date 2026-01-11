@@ -43,12 +43,14 @@ expectedErrors.forEach((error, index) => {
   logger.info(`${index + 1}: ${error}`);
 });
 
+const GENERATED_DIRECTORIES_TO_IGNORE = ['pagefind'];
+
 testSites.forEach((siteName) => {
   console.log(`Running ${siteName} tests`);
   try {
     execSync(`node ../../index.js build ${siteName}`, execOptions);
     const siteIgnoredFiles = plantumlGeneratedFilesForTestSites[siteName];
-    compare(siteName, 'expected', '_site', siteIgnoredFiles);
+    compare(siteName, 'expected', '_site', siteIgnoredFiles, GENERATED_DIRECTORIES_TO_IGNORE);
   } catch (err) {
     printFailedMessage(err, siteName);
     process.exit(1);
@@ -63,7 +65,8 @@ testConvertSites.forEach((sitePath) => {
     execSync(`node ../../index.js init ${nonMarkBindSitePath} -c`, execOptions);
     execSync(`node ../../index.js build ${nonMarkBindSitePath}`, execOptions);
     const siteIgnoredFiles = plantumlGeneratedFilesForConvertSites[siteName];
-    compare(sitePath, 'expected', 'non_markbind_site/_site', siteIgnoredFiles);
+    compare(sitePath, 'expected', 'non_markbind_site/_site', siteIgnoredFiles,
+            GENERATED_DIRECTORIES_TO_IGNORE);
   } catch (err) {
     printFailedMessage(err, sitePath);
     cleanupConvert(path.resolve(__dirname, sitePath));
@@ -83,7 +86,7 @@ testTemplateSites.forEach((templateAndSitePath) => {
     execSync(`node ../../index.js init ${siteCreationTempPath} --template ${flag}`, execOptions);
     execSync(`node ../../index.js build ${siteCreationTempPath}`, execOptions);
     const siteIgnoredFiles = plantumlGeneratedFilesForTemplateSites[siteName];
-    compare(sitePath, 'expected', 'tmp/_site', siteIgnoredFiles);
+    compare(sitePath, 'expected', 'tmp/_site', siteIgnoredFiles, GENERATED_DIRECTORIES_TO_IGNORE);
   } catch (err) {
     printFailedMessage(err, sitePath);
     fs.removeSync(path.resolve(__dirname, siteCreationTempPath));

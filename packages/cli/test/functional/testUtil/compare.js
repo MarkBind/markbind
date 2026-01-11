@@ -43,13 +43,19 @@ function filterPageVueRenderFiles(filePaths) {
  * @param {string} expectedSiteRelativePath - Relative path to expected site output (default: "expected")
  * @param {string} siteRelativePath - Relative path to actual generated site output (default: "_site")
  * @param {string} ignoredPaths - Specify any paths to ignore for comparison, but still check for existence.
+ * @param {string[]} ignoredDirectories - Specify any directories to ignore for comparison (e.g. 'pagefind')
  */
-function compare(root, expectedSiteRelativePath = 'expected', siteRelativePath = '_site', ignoredPaths = []) {
+function compare(root,
+                 expectedSiteRelativePath = 'expected',
+                 siteRelativePath = '_site',
+                 ignoredPaths = [],
+                 ignoredDirectories = []) {
   const expectedDirectory = path.join(root, expectedSiteRelativePath);
   const actualDirectory = path.join(root, siteRelativePath);
 
-  let expectedPaths = walkSync(expectedDirectory, { directories: false });
-  let actualPaths = walkSync(actualDirectory, { directories: false });
+  const walkSyncOptions = { directories: false, ignore: ignoredDirectories };
+  let expectedPaths = walkSync(expectedDirectory, walkSyncOptions);
+  let actualPaths = walkSync(actualDirectory, walkSyncOptions);
 
   // Vue render JS files (*.page-vue-render.js) are not committed to version control,
   // so we exclude them from the comparison to avoid false positive diffs.

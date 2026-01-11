@@ -46,6 +46,9 @@ packages/core/template/*/_site
 # Generated site (MarkBind)
 packages/cli/test/functional/*/_site
 
+# Generated pagefind directories for sites and in expected
+packages/cli/test/functional/**/pagefind
+
 # Ignore .page-vue-render.js files in functional test and subdirectories on update
 packages/cli/test/functional/**/*.page-vue-render.js
 
@@ -107,6 +110,8 @@ packages/core/index.js
 packages/core/src/lib/progress/*.js
 # --- packages/core end ---
 
-# Nx for Lerna
 .nx/cache
 .nx/workspace-data
+
+# Pagefind fragments
+*.pf_fragment

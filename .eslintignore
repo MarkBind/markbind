@@ -5,9 +5,11 @@ node_modules
 *.d.ts
 
 packages/cli/src/lib/live-server/*
+packages/cli/test/**/pagefind/**/*.js
+
 
 # Docs
-docs/_site/pagefind/**/*.js
+docs/_site/
 
 # --- packages/core ---
 
