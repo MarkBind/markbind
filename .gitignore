@@ -106,3 +106,7 @@ packages/core/index.js
 
 packages/core/src/lib/progress/*.js
 # --- packages/core end ---
+
+# Nx for Lerna
+.nx/cache
+.nx/workspace-data

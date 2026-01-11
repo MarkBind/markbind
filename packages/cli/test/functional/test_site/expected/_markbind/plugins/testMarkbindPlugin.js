@@ -1,4 +1,4 @@
-const cheerio = module.parent.require('cheerio');
+const cheerio = require('cheerio');
 
 const TEST_STYLESHEET_FILE = '<link rel="stylesheet" href="testMarkbindPluginStylesheet.css">';
 const TEST_SCRIPT_FILE = '<script src="testMarkbindPluginScript.js"></script>';
