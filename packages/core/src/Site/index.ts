@@ -11,6 +11,7 @@ import { Template as NunjucksTemplate } from 'nunjucks';
 import { SiteConfig, SiteConfigPage, SiteConfigStyle } from './SiteConfig';
 import { Page } from '../Page';
 import { PageConfig } from '../Page/PageConfig';
+import { getPagefindScript } from '../Page/pagefindScript';
 import { VariableProcessor } from '../variables/VariableProcessor';
 import { VariableRenderer } from '../variables/VariableRenderer';
 import { ExternalManager } from '../External/ExternalManager';
@@ -313,6 +314,15 @@ export class Site {
           ? 'https://cdn.jsdelivr.net/npm/vue@3.3.11/dist/vue.global.min.js'
           : path.posix.join(baseAssetsPath, 'js', 'vue.global.prod.min.js'),
         layoutUserScriptsAndStyles: [],
+        pagefindCss: this.siteConfig.enableSearch
+          ? path.posix.join(this.siteConfig.baseUrl || '/', 'pagefind', 'pagefind-ui.css')
+          : undefined,
+        pagefindJs: this.siteConfig.enableSearch
+          ? path.posix.join(this.siteConfig.baseUrl || '/', 'pagefind', 'pagefind-ui.js')
+          : undefined,
+        pagefindScript: this.siteConfig.enableSearch
+          ? getPagefindScript(this.siteConfig.baseUrl || '/')
+          : undefined,
       },
       baseUrlMap: this.baseUrlMap,
       dev: this.dev,
@@ -535,6 +545,10 @@ export class Site {
       await this.copyOcticonsAsset();
       await this.copyMaterialIconsAsset();
       await this.writeSiteData();
+
+      if (this.siteConfig.enableSearch) {
+        await this.indexSiteWithPagefind();
+      }
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
         this.backgroundBuildNotViewedFiles();
@@ -1572,4 +1586,32 @@ export class Site {
    */
   backgroundBuildNotViewedFiles
   = delay(this._backgroundBuildNotViewedFiles as () => Bluebird<unknown>, 1000) as () => Bluebird<unknown>;
+  
+  /**
+   * Indexes all the pages of the site using pagefind.
+   */
+  async indexSiteWithPagefind() {
+    const startTime = new Date();
+    logger.info('Creating Pagefind Search Index...');
+    // TODO: Update this dynamic import to a static import when migrating to ESM
+    const { createIndex, close } = await (eval('import("pagefind")') as Promise<typeof import('pagefind')>);
+    const { index } = await createIndex({
+      keepIndexUrl: true,
+      verbose: true,
+      logfile: 'debug.log',
+    });
+    if (index) {
+      const { errors, page_count } = await index.addDirectory({ path: this.outputPath });
+      errors.forEach(error => logger.error(error));
+
+      const endTime = new Date();
+      const totalTime = (endTime.getTime() - startTime.getTime()) / 1000;
+      logger.info(`Pagefind indexed ${page_count} pages in ${totalTime}s`);
+
+      await index.writeFiles({ outputPath: path.join(this.outputPath, 'pagefind') });
+    } else {
+      logger.error('Pagefind failed to create index');
+    }
+    await close();
+  }
 }
