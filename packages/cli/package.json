@@ -29,7 +29,7 @@
     "@markbind/core-web": "6.1.0",
     "bluebird": "^3.7.2",
     "chalk": "^3.0.0",
-    "cheerio": "^0.22.0",
+    "cheerio": "^1.1.2",
     "chokidar": "^3.3.0",
     "colors": "1.4.0",
     "commander": "^8.1.0",

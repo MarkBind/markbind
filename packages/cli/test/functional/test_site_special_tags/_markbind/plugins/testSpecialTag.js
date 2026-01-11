@@ -1,4 +1,4 @@
-const cheerio = module.parent.require('cheerio');
+const cheerio = require('cheerio');
 
 /*
  Simple test plugin that whitelists <testtag> as a special tag.

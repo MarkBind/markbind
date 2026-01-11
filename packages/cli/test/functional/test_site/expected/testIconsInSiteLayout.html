@@ -30,40 +30,54 @@
 
 <body>
   <div id="app">
+    <html>
 
-    <div>
-      <header>
-        <navbar type="dark" default-highlight-on="sibling-or-child">
-          <template #brand><a href="/" title="Home" class="navbar-brand">MarkBind Test Site</a></template>
-          <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
-        </navbar>
-        <div class="bg-info display-4 text-center text-white">
-          <br>
-          Test Jumbotron<br>
-          <br>
-        </div>
-      </header>
-      <p><strong>Relative Link Test</strong> This is a relative Intra-Site link in a layout (see <a href="/test_site/index.html#heading-with-hidden-keyword">link</a>)</p>
-    </div>
-    <div id="flex-body">
-      <overlay-source id="site-nav" tag-name="nav" to="site-nav">
-        <div class="nav-component slim-scroll">\
-          <span>An glyphicon icon is supposed to appear here ---&gt; <span aria-hidden="true" class="glyphicon glyphicon-hand-right"></span></span>
-        </div>
-      </overlay-source>
-      <div id="content-wrapper">
-        <breadcrumb></breadcrumb>
+    <head></head>
 
-        <p><strong>There are one glyphicon icon and one font-awesome icon in the site layout of this page.</strong></p>
-        <p><strong>Open up console. Only glyphicon and font-awesome stylesheets should be loaded!</strong></p>
+    <body>
+      <div>
+        <header>
+          <navbar type="dark" default-highlight-on="sibling-or-child">
+            <template #brand><a href="/" title="Home" class="navbar-brand">MarkBind Test Site</a></template>
+            <li><a class="nav-link" href="/test_site/bugs/index.html">Open Bugs</a></li>
+          </navbar>
+          <div class="bg-info display-4 text-center text-white">
+            <br>
+            Test Jumbotron<br>
+            <br>
+          </div>
+        </header>
+        <p><strong>Relative Link Test</strong> This is a relative Intra-Site link in a layout (see <a href="/test_site/index.html#heading-with-hidden-keyword">link</a>)</p>
       </div>
-      <overlay-source id="page-nav" tag-name="nav" to="page-nav">
-        <div class="nav-component slim-scroll">
+      <div id="flex-body">
+        <overlay-source id="site-nav" tag-name="nav" to="site-nav">
+          <div class="nav-component slim-scroll">\
+            <span>An glyphicon icon is supposed to appear here ---&gt; <span aria-hidden="true" class="glyphicon glyphicon-hand-right"></span></span>
+          </div>
+        </overlay-source>
+        <div id="content-wrapper">
+          <breadcrumb></breadcrumb>
+          <html>
 
-          <span>A font-awesome icon is supposed to appear here ---&gt; <span aria-hidden="true" class="fas fa-code-branch"></span></span>
+          <head></head>
+
+          <body>
+            <p><strong>There are one glyphicon icon and one font-awesome icon in the site layout of this page.</strong></p>
+            <p><strong>Open up console. Only glyphicon and font-awesome stylesheets should be loaded!</strong></p>
+          </body>
+
+          </html>
         </div>
-      </overlay-source>
-    </div>
+        <overlay-source id="page-nav" tag-name="nav" to="page-nav">
+          <div class="nav-component slim-scroll">
+
+            <span>A font-awesome icon is supposed to appear here ---&gt; <span aria-hidden="true" class="fas fa-code-branch"></span></span>
+          </div>
+        </overlay-source>
+      </div>
+    </body>
+
+    </html>
   </div>
 </body>
 <script src="/test_site/markbind/js/bootstrap-utility.min.js"></script>
