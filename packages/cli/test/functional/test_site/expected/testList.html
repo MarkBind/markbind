@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="/test_site/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" href="/test_site/markbind/css/codeblock-dark.min.css">
   <link rel="stylesheet" href="/test_site/markbind/css/markbind.min.css">
+  <link rel="stylesheet" href="/test_site/pagefind/pagefind-ui.css">
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/web3Form/web-3-form.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
@@ -1294,5 +1295,21 @@
     });
 
   </script>
+<script src="/test_site/pagefind/pagefind-ui.js"></script>
+
+<script>
+      window.addEventListener('DOMContentLoaded', (event) => {
+        const searchContainers = document.querySelectorAll('#pagefind-search-input');
+        if (searchContainers.length) {
+          searchContainers.forEach((container) => {
+            new window.PagefindUI({
+              element: container,
+              showSubResults: true,
+              showImages: false,
+            });
+          });
+        }
+      });
+    </script>
 
 </html>
