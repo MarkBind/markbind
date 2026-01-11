@@ -321,7 +321,7 @@ export class Site {
           ? path.posix.join(this.siteConfig.baseUrl || '/', 'pagefind', 'pagefind-ui.js')
           : undefined,
         pagefindScript: this.siteConfig.enableSearch
-          ? getPagefindScript(this.siteConfig.baseUrl || '/')
+          ? getPagefindScript()
           : undefined,
       },
       baseUrlMap: this.baseUrlMap,
@@ -1586,7 +1586,7 @@ export class Site {
    */
   backgroundBuildNotViewedFiles
   = delay(this._backgroundBuildNotViewedFiles as () => Bluebird<unknown>, 1000) as () => Bluebird<unknown>;
-  
+
   /**
    * Indexes all the pages of the site using pagefind.
    */
@@ -1594,6 +1594,7 @@ export class Site {
     const startTime = new Date();
     logger.info('Creating Pagefind Search Index...');
     // TODO: Update this dynamic import to a static import when migrating to ESM
+    // eslint-disable-next-line no-eval
     const { createIndex, close } = await (eval('import("pagefind")') as Promise<typeof import('pagefind')>);
     const { index } = await createIndex({
       keepIndexUrl: true,

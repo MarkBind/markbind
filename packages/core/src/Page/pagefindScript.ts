@@ -1,9 +1,7 @@
 const PAGEFIND_INPUT_SELECTOR = '#pagefind-search-input';
 
 // See https://pagefind.app/docs/ui-usage/
-export const getPagefindScript = (baseUrl: string): string => {
-  const pagefindJsUrl = `${baseUrl}/pagefind/pagefind.js`;
-  return `
+export const getPagefindScript = (): string => `
     <script>
       window.addEventListener('DOMContentLoaded', (event) => {
         const searchContainers = document.querySelectorAll('${PAGEFIND_INPUT_SELECTOR}');
@@ -19,4 +17,3 @@ export const getPagefindScript = (baseUrl: string): string => {
       });
     </script>
   `;
-};
