@@ -5,7 +5,7 @@ import path from 'path';
 import walkSync from 'walk-sync';
 import simpleGit, { SimpleGit } from 'simple-git';
 import Bluebird from 'bluebird';
-import * as ghpages from 'gh-pages';
+import ghpages from 'gh-pages';
 
 import { Template as NunjucksTemplate } from 'nunjucks';
 import { SiteConfig, SiteConfigPage, SiteConfigStyle } from './SiteConfig';
