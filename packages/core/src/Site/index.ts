@@ -1381,7 +1381,11 @@ export class Site {
     const publish = Bluebird.promisify(ghpages.publish);
     await this.readSiteConfig();
     const depOptions = await this.getDepOptions(ciTokenVar, defaultDeployConfig, publish);
-    return Site.getDepUrl(depOptions);
+    try {
+      return await Site.getDepUrl(depOptions);
+    } finally {
+      ghpages.clean();
+    }
   }
 
   /**

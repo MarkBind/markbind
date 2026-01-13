@@ -9,4 +9,6 @@ ghpages.publish = (dir, options, callback) => {
   callback();
 };
 
+ghpages.clean = () => {};
+
 module.exports = ghpages;
