@@ -1,13 +1,13 @@
 import path from 'path';
 import fs from 'fs-extra';
 import ghpages from 'gh-pages';
-import { Site } from '../../src/Site';
-import { Template } from '../../src/Site/template';
+import { Site } from '../../../src/Site';
+import { Template } from '../../../src/Site/template';
 
 import {
   INDEX_MD_DEFAULT, PAGE_NJK, SITE_JSON_DEFAULT, getDefaultTemplateFileFullPath,
-} from './utils/data';
-import { SiteConfig } from '../../src/Site/SiteConfig';
+} from '../utils/data';
+import { SiteConfig } from '../../../src/Site/SiteConfig';
 
 const DEFAULT_TEMPLATE = 'default';
 const mockFs = fs as any;
@@ -18,8 +18,8 @@ const siteArguments: SiteArguments = ['./', '_site', '', undefined, undefined, u
 jest.mock('fs');
 jest.mock('walk-sync');
 jest.mock('gh-pages');
-jest.mock('../../src/Page');
-jest.mock('../../src/plugins/PluginManager');
+jest.mock('../../../src/Page');
+jest.mock('../../../src/plugins/PluginManager');
 jest.mock('simple-git', () => () => ({
   ...jest.requireActual('simple-git')(),
   // A test file should reduce dependencies on external libraries; use pure js functions instead.
@@ -737,7 +737,7 @@ test('createPage generates correct page config with fileExtension', async () => 
   site.createPage(config);
 
   // Page is mocked
-  const PageMock = jest.requireMock('../../src/Page').Page;
+  const PageMock = jest.requireMock('../../../src/Page').Page;
   const pageConfig = PageMock.mock.calls[0][0];
 
   expect(pageConfig.resultPath).toMatch(/test\.json$/);
@@ -767,7 +767,7 @@ test('createNewPage generates correct page config', async () => {
   site.createNewPage(page as any, undefined);
 
   // Page is mocked, retrieve the last call to the Page constructor
-  const PageMock = jest.requireMock('../../src/Page').Page;
+  const PageMock = jest.requireMock('../../../src/Page').Page;
   const lastCallIndex = PageMock.mock.calls.length - 1;
   const lastPageConfig = PageMock.mock.calls[lastCallIndex][0];
 
