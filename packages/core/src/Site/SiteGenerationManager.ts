@@ -128,7 +128,7 @@ export class SiteGenerationManager {
    * @param normalizedUrl BaseUrl-less and extension-less url of the page
    * @return Boolean of whether the page needed to be rebuilt
    */
-  async changeCurrentPage(normalizedUrl: string) {
+  changeCurrentPage(normalizedUrl: string) {
     this.currentPageViewed = path.join(this.rootPath, normalizedUrl);
 
     if (this.toRebuild.has(this.currentPageViewed)) {
@@ -847,6 +847,8 @@ export class SiteGenerationManager {
     1000,
   );
 
+  // TODO: Remove cast and update typings after migrating out of bluebird
+  // https://github.com/MarkBind/markbind/issues/2776
   /**
    * Rebuild all pages
    */

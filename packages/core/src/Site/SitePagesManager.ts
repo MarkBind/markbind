@@ -257,7 +257,7 @@ export class SitePagesManager {
   /**
    * Checks if a specified file path satisfies a src or glob in any of the page configurations.
    * @param filePath file path to check
-   * @returns whether the file path is satisfies any glob
+   * @returns whether the file path satisfies any glob
    */
   isFilepathAPage(filePath: string): boolean {
     const { pages, pagesExclude } = this.siteConfig;
