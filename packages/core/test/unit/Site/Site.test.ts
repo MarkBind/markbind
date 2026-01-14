@@ -20,18 +20,11 @@ jest.mock('../../../src/Site/SiteAssetsManager', () => ({
   SiteAssetsManager: jest.fn().mockImplementation(() => ({
     removeAsset: jest.fn(),
     buildAsset: jest.fn(),
-    copyFontAwesomeAsset: jest.fn(),
-    copyOcticonsAsset: jest.fn(),
-    copyMaterialIconsAsset: jest.fn(),
-    copyCoreWebAsset: jest.fn(),
-    copyBootstrapTheme: jest.fn(),
-    copyBootstrapIconsAsset: jest.fn(),
   })),
 }));
 
 jest.mock('../../../src/Site/SitePagesManager', () => ({
   SitePagesManager: jest.fn().mockImplementation(() => ({
-    collectAddressablePages: jest.fn(),
     createPage: jest.fn(),
   })),
 }));
@@ -40,23 +33,10 @@ jest.mock('../../../src/Site/SiteGenerationManager', () => ({
   SiteGenerationManager: jest.fn().mockImplementation(() => ({
     configure: jest.fn(),
     readSiteConfig: jest.fn(),
-    collectBaseUrl: jest.fn(),
-    collectUserDefinedVariablesMap: jest.fn(),
     generate: jest.fn(),
     buildSourceFiles: jest.fn(),
     rebuildSourceFiles: jest.fn(),
-    rebuildAffectedSourceFiles: jest.fn(),
-    rebuildPagesBeingViewed: jest.fn(),
-    lazyBuildAllPagesNotViewed: jest.fn(),
-    lazyBuildSourceFiles: jest.fn(),
-    copyLazySourceFiles: jest.fn(),
-    backgroundBuildNotViewedFiles: jest.fn(),
-    rebuildRequiredPages: jest.fn(),
     reloadSiteConfig: jest.fn(),
-    beforeSiteGenerate: jest.fn(),
-    changeCurrentPage: jest.fn(),
-    changeCurrentOpenedPages: jest.fn(),
-    collectUserDefinedVariablesMapIfNeeded: jest.fn(),
   })),
 }));
 
@@ -104,12 +84,6 @@ test('Site Init does not overwrite existing files', async () => {
   expect(fs.readFileSync(path.resolve('index.md'), 'utf8')).toEqual(EXISTING_INDEX_MD);
 });
 
-test('Site collectAddressablePages delegates to SitePagesManager', async () => {
-  const site = new Site(...siteArguments);
-  await site.collectAddressablePages();
-  expect(site.pagesManager.collectAddressablePages).toHaveBeenCalled();
-});
-
 test('Site removeAsset delegates to SiteAssetsManager', async () => {
   const site = new Site(...siteArguments);
   await site.removeAsset('someAsset.jpg');
@@ -126,18 +100,6 @@ test('Site readSiteConfig delegates to SiteGenerationManager', async () => {
   const site = new Site(...siteArguments);
   await site.readSiteConfig('baseUrl');
   expect(site.generationManager.readSiteConfig).toHaveBeenCalledWith('baseUrl');
-});
-
-test('Site collectBaseUrl delegates to SiteGenerationManager', () => {
-  const site = new Site(...siteArguments);
-  site.collectBaseUrl();
-  expect(site.generationManager.collectBaseUrl).toHaveBeenCalled();
-});
-
-test('Site collectUserDefinedVariablesMap delegates to SiteGenerationManager', () => {
-  const site = new Site(...siteArguments);
-  site.collectUserDefinedVariablesMap();
-  expect(site.generationManager.collectUserDefinedVariablesMap).toHaveBeenCalled();
 });
 
 test('Site generate delegates to SiteGenerationManager', async () => {
