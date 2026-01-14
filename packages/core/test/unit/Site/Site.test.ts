@@ -7,7 +7,6 @@ import { Template } from '../../../src/Site/template';
 import {
   INDEX_MD_DEFAULT, PAGE_NJK, SITE_JSON_DEFAULT, getDefaultTemplateFileFullPath,
 } from '../utils/data';
-import { SiteConfig } from '../../../src/Site/SiteConfig';
 
 const DEFAULT_TEMPLATE = 'default';
 const mockFs = fs as any;
@@ -31,6 +30,13 @@ jest.mock('../../../src/Site/SiteAssetsManager', () => ({
     copyCoreWebAsset: jest.fn(),
     copyBootstrapTheme: jest.fn(),
     copyBootstrapIconsAsset: jest.fn(),
+  })),
+}));
+
+jest.mock('../../../src/Site/SitePagesManager', () => ({
+  SitePagesManager: jest.fn().mockImplementation(() => ({
+    collectAddressablePages: jest.fn(),
+    createPage: jest.fn(),
   })),
 }));
 
@@ -62,6 +68,13 @@ test('Site Init with invalid template fails', async () => {
       expect(err).toEqual(
         new Error('Template validation failed. Required files does not exist.'));
     });
+});
+
+test('Site collectAddressablePages delegates to SitePagesManager', async () => {
+  const site = new Site(...siteArguments);
+  const mockCollectAddressablePages = site.pagesManager.collectAddressablePages;
+  await site.collectAddressablePages();
+  expect(mockCollectAddressablePages).toHaveBeenCalled();
 });
 
 test('Site Init does not overwrite existing files', async () => {
@@ -466,320 +479,4 @@ describe('Site deploy with various CI environments', () => {
       .toThrow(new Error('-c/--ci expects a GitHub repository.\n'
         + `The specified repository ${invalidRepoConfig.deploy.repo} is not valid.`));
   });
-});
-
-const siteJsonResolvePropertiesTestCases = [
-  {
-    name: 'Site.json merge page and glob properties',
-    pages: [
-      {
-        src: 'index.md',
-        title: 'Title',
-      },
-      {
-        glob: '*.md',
-        layout: 'Layout',
-      },
-    ],
-    expected: [
-      {
-        src: 'index.md',
-        searchable: undefined,
-        layout: 'Layout',
-        title: 'Title',
-      },
-    ],
-  },
-  {
-    name: 'Site.json merge glob properties',
-    pages: [
-      {
-        glob: '*.md',
-        layout: 'Layout',
-      },
-      {
-        glob: '*.md',
-        searchable: false,
-      },
-    ],
-    expected: [
-      {
-        src: 'index.md',
-        searchable: false,
-        layout: 'Layout',
-      },
-    ],
-  },
-  {
-    name: 'Site.json page has priority over glob',
-    pages: [
-      {
-        glob: '*.md',
-        layout: 'Wrong',
-      },
-      {
-        src: 'index.md',
-        layout: 'Layout',
-      },
-      {
-        glob: '*.md',
-        layout: 'Wrong',
-      },
-    ],
-    expected: [
-      {
-        src: 'index.md',
-        searchable: undefined,
-        layout: 'Layout',
-      },
-    ],
-  },
-  {
-    name: 'Site.json glob latest match has priority',
-    pages: [
-      {
-        glob: '*.md',
-        layout: 'Wrong',
-        searchable: false,
-      },
-      {
-        glob: '*.md',
-        layout: 'Layout',
-        searchable: true,
-      },
-    ],
-    expected: [
-      {
-        src: 'index.md',
-        searchable: true,
-        layout: 'Layout',
-      },
-    ],
-  },
-  {
-    name: 'Site.json passes fileExtension property',
-    pages: [
-      {
-        glob: '*.md',
-        fileExtension: '.json',
-      },
-    ],
-    expected: [
-      {
-        src: 'index.md',
-        fileExtension: '.json',
-        searchable: undefined,
-      },
-    ],
-  },
-  {
-    name: 'Site.json merges valid fileExtension property with src',
-    pages: [
-      {
-        src: 'index.md',
-        fileExtension: '.json',
-      },
-    ],
-    expected: [
-      {
-        src: 'index.md',
-        fileExtension: '.json',
-        searchable: undefined,
-      },
-    ],
-  },
-];
-
-siteJsonResolvePropertiesTestCases.forEach((testCase) => {
-  test(testCase.name, async () => {
-    const customSiteConfig = {
-      baseUrl: '',
-      pages: testCase.pages,
-      pagesExclude: [],
-      ignore: [
-        '_site/*',
-        '*.json',
-        '*.md',
-      ],
-      deploy: {
-        message: 'Site Update.',
-      },
-    };
-    const json = {
-      ...PAGE_NJK,
-      'index.md': '',
-    };
-    mockFs.vol.fromJSON(json, '');
-
-    const site = new Site(...siteArguments);
-    site.siteConfig = customSiteConfig as unknown as SiteConfig;
-    site.collectAddressablePages();
-    expect(site.addressablePages)
-      .toEqual(testCase.expected);
-  });
-});
-
-test('Site config throws error on duplicate page src', async () => {
-  const customSiteConfig = {
-    baseUrl: '',
-    pages: [
-      {
-        src: 'index.md',
-        layout: 'Layout',
-      },
-      {
-        src: 'index.md',
-        title: 'Title',
-      },
-    ],
-    ignore: [
-      '_site/*',
-      '*.json',
-      '*.md',
-    ],
-    deploy: {
-      message: 'Site Update.',
-    },
-  };
-  const json = {
-    ...PAGE_NJK,
-    'index.md': '',
-  };
-  mockFs.vol.fromJSON(json, '');
-
-  const site = new Site(...siteArguments);
-  site.siteConfig = customSiteConfig as unknown as SiteConfig;
-  expect(() => site.collectAddressablePages())
-    .toThrow(new Error('Duplicate page entries found in site config: index.md'));
-});
-
-const siteJsonPageExclusionTestCases = [
-  {
-    name: 'Site.json excludes pages by glob exclude',
-    pages: [
-      {
-        glob: '*.md',
-        globExclude: ['exclude.md'],
-      },
-    ],
-    expected: [
-      {
-        src: 'index.md',
-      },
-    ],
-  },
-  {
-    name: 'Site.json excludes pages by pages exclude',
-    pages: [
-      {
-        glob: '*.md',
-      },
-    ],
-    pagesExclude: ['exclude.md'],
-    expected: [
-      {
-        src: 'index.md',
-      },
-    ],
-  },
-  {
-    name: 'Site.json excludes pages by combination of pages exclude and glob exclude',
-    pages: [
-      {
-        glob: '*.md',
-        globExclude: ['exclude.md'],
-      },
-    ],
-    pagesExclude: ['index.md'],
-    expected: [],
-  },
-];
-
-siteJsonPageExclusionTestCases.forEach((testCase) => {
-  test(testCase.name, async () => {
-    const customSiteConfig = {
-      baseUrl: '',
-      pages: testCase.pages,
-      pagesExclude: testCase.pagesExclude || [],
-      ignore: [
-        '_site/*',
-        '*.json',
-        '*.md',
-      ],
-      deploy: {
-        message: 'Site Update.',
-      },
-    };
-    const json = {
-      ...PAGE_NJK,
-      'index.md': '',
-      'exclude.md': '',
-    };
-    mockFs.vol.fromJSON(json, '');
-
-    const site = new Site(...siteArguments);
-    site.siteConfig = customSiteConfig as unknown as SiteConfig;
-    site.collectAddressablePages();
-    expect(site.addressablePages)
-      .toEqual(testCase.expected);
-  });
-});
-
-test('createPage generates correct page config with fileExtension', async () => {
-  const json = {
-    ...PAGE_NJK,
-    'site.json': SITE_JSON_DEFAULT,
-    'test.md': '',
-  };
-  mockFs.vol.fromJSON(json, '');
-
-  const site = new Site(...siteArguments);
-  await site.readSiteConfig();
-  const config = {
-    pageSrc: 'test.md',
-    title: 'Test Page',
-    fileExtension: '.json',
-    searchable: true,
-    frontmatter: {},
-    externalScripts: [],
-  };
-  site.createPage(config);
-
-  // Page is mocked
-  const PageMock = jest.requireMock('../../../src/Page').Page;
-  const pageConfig = PageMock.mock.calls[0][0];
-
-  expect(pageConfig.resultPath).toMatch(/test\.json$/);
-  expect(pageConfig.sourcePath).toMatch(/test\.md$/);
-});
-
-test('createNewPage generates correct page config', async () => {
-  const json = {
-    ...PAGE_NJK,
-    'site.json': SITE_JSON_DEFAULT,
-    'test.md': '',
-  };
-  mockFs.vol.fromJSON(json, '');
-
-  const site = new Site(...siteArguments);
-  await site.readSiteConfig();
-
-  const page = {
-    src: 'test.md',
-    title: 'Test Page',
-    layout: 'default',
-    frontmatter: {},
-    searchable: true,
-    fileExtension: '.json',
-  };
-
-  site.createNewPage(page as any, undefined);
-
-  // Page is mocked, retrieve the last call to the Page constructor
-  const PageMock = jest.requireMock('../../../src/Page').Page;
-  const lastCallIndex = PageMock.mock.calls.length - 1;
-  const lastPageConfig = PageMock.mock.calls[lastCallIndex][0];
-
-  expect(lastPageConfig.resultPath).toMatch(/test\.json$/);
-  expect(lastPageConfig.sourcePath).toMatch(/test\.md$/);
 });
