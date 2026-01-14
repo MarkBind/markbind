@@ -20,6 +20,20 @@ jest.mock('walk-sync');
 jest.mock('gh-pages');
 jest.mock('../../../src/Page');
 jest.mock('../../../src/plugins/PluginManager');
+
+jest.mock('../../../src/Site/SiteAssetsManager', () => ({
+  SiteAssetsManager: jest.fn().mockImplementation(() => ({
+    removeAsset: jest.fn(),
+    buildAsset: jest.fn(),
+    copyFontAwesomeAsset: jest.fn(),
+    copyOcticonsAsset: jest.fn(),
+    copyMaterialIconsAsset: jest.fn(),
+    copyCoreWebAsset: jest.fn(),
+    copyBootstrapTheme: jest.fn(),
+    copyBootstrapIconsAsset: jest.fn(),
+  })),
+}));
+
 jest.mock('simple-git', () => () => ({
   ...jest.requireActual('simple-git')(),
   // A test file should reduce dependencies on external libraries; use pure js functions instead.
@@ -29,7 +43,9 @@ jest.mock('simple-git', () => () => ({
   remote: jest.fn(() => 'https://github.com/mockName/mockRepo.git'),
 }));
 
-afterEach(() => mockFs.vol.reset());
+afterEach(() => {
+  mockFs.vol.reset();
+});
 
 test('Site Init with invalid template fails', async () => {
   // Mock default template in MemFS without site config
@@ -83,19 +99,12 @@ test('Site baseurls are correct for sub nested subsites', async () => {
   expect(site.baseUrlMap).toEqual(baseUrlMapExpected);
 });
 
-test('Site removeAsync removes the correct asset', async () => {
-  const json = {
-    ...PAGE_NJK,
-    '_site/toRemove.jpg': '',
-    '_site/dontRemove.png': '',
-    'toRemove.html': '',
-  };
-  mockFs.vol.fromJSON(json, '');
-
+test('Site removeAsset delegates to SiteAssetsManager', async () => {
+  mockFs.vol.fromJSON({ ...PAGE_NJK, 'site.json': SITE_JSON_DEFAULT }, '');
   const site = new Site(...siteArguments);
-  await site.removeAsset('toRemove.jpg');
-  expect(fs.existsSync(path.resolve('_site/toRemove.jpg'))).toEqual(false);
-  expect(fs.existsSync(path.resolve('_site/dontRemove.png'))).toEqual(true);
+  await site.removeAsset('someAsset.jpg');
+
+  expect(site.assetsManager.removeAsset).toHaveBeenCalledWith('someAsset.jpg');
 });
 
 test('Site read site config for default', async () => {
