@@ -339,12 +339,12 @@ class SitePagesManager {
   layoutManager!: LayoutManager;
   baseUrlMap: Set<string>;
 
-  dev: boolean;
+  isDevMode: boolean;
 
-  constructor(rootPath: string, outputPath: string, dev: boolean) {
+  constructor(rootPath: string, outputPath: string, isDevMode: boolean) {
     this.rootPath = rootPath;
     this.outputPath = outputPath;
-    this.dev = dev;
+    this.isDevMode = isDevMode;
 
     // Page template path
     this.pageTemplatePath = path.join(__dirname, '../Page', PAGE_TEMPLATE_NAME);
@@ -387,13 +387,13 @@ class SitePagesManager {
         bootstrapUtilityJs: path.posix.join(baseAssetsPath, 'js', 'bootstrap-utility.min.js'),
         polyfillJs: path.posix.join(baseAssetsPath, 'js', 'polyfill.min.js'),
         // We use development Vue when MarkBind is served in 'dev' mode so that hydration issues are reported
-        vue: this.dev
+        vue: this.isDevMode
           ? 'https://cdn.jsdelivr.net/npm/vue@3.3.11/dist/vue.global.min.js'
           : path.posix.join(baseAssetsPath, 'js', 'vue.global.prod.min.js'),
         layoutUserScriptsAndStyles: [],
       },
       baseUrlMap: this.baseUrlMap,
-      dev: this.dev,
+      dev: this.isDevMode,
       faviconUrl: config.faviconUrl,
       frontmatterOverride: config.frontmatter,
       layout: config.layout,
@@ -800,7 +800,7 @@ class SiteGenerationManager {
   toRebuild: Set<string>;
 
   constructor(rootPath: string, outputPath: string, onePagePath: string, forceReload = false,
-              siteConfigPath = SITE_CONFIG_NAME, dev: any, backgroundBuildMode: boolean,
+              siteConfigPath = SITE_CONFIG_NAME, isDevMode: any, backgroundBuildMode: boolean,
               postBackgroundBuildFunc: () => void) {
     this.rootPath = rootPath;
     this.outputPath = outputPath;
@@ -1650,7 +1650,7 @@ class SiteGenerationManager {
 }
 
 export class Site {
-  dev: boolean;
+  isDevMode: boolean;
   rootPath: string;
   outputPath: string;
 
@@ -1693,17 +1693,17 @@ export class Site {
   get toRebuild() { return this.generationManager.toRebuild; }
 
   constructor(rootPath: string, outputPath: string, onePagePath: string, forceReload = false,
-              siteConfigPath = SITE_CONFIG_NAME, dev: any, backgroundBuildMode: boolean,
+              siteConfigPath = SITE_CONFIG_NAME, isDevMode: any, backgroundBuildMode: boolean,
               postBackgroundBuildFunc: () => void) {
-    this.dev = !!dev;
+    this.isDevMode = !!isDevMode;
     this.rootPath = rootPath;
     this.outputPath = outputPath;
 
     this.assetsManager = new SiteAssetsManager(rootPath, outputPath);
-    this.pagesManager = new SitePagesManager(rootPath, outputPath, this.dev);
+    this.pagesManager = new SitePagesManager(rootPath, outputPath, this.isDevMode);
     this.deployManager = new SiteDeployManager(rootPath, outputPath);
     this.generationManager = new SiteGenerationManager(rootPath, outputPath, onePagePath, forceReload,
-                                                       siteConfigPath, this.dev, backgroundBuildMode,
+                                                       siteConfigPath, this.isDevMode, backgroundBuildMode,
                                                        postBackgroundBuildFunc);
 
     // Configure Generator with references
