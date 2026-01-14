@@ -1,6 +1,5 @@
 import path from 'path';
 import fs from 'fs-extra';
-import ghpages from 'gh-pages';
 import { Site } from '../../../src/Site';
 import { Template } from '../../../src/Site/template';
 
@@ -10,7 +9,6 @@ import {
 
 const DEFAULT_TEMPLATE = 'default';
 const mockFs = fs as any;
-const mockGhPages = ghpages as any;
 type SiteArguments = [string, string, string, undefined, undefined, any, boolean, () => void];
 const siteArguments: SiteArguments = ['./', '_site', '', undefined, undefined, undefined, false, () => {}];
 
@@ -245,238 +243,15 @@ test('Site read correct user defined variables', async () => {
   expect(subsub.number).toEqual('9999');
 });
 
-test('Site deploys with default settings', async () => {
+test('Site deploy delegates to SiteDeployManager', async () => {
   const json = {
-    ...PAGE_NJK,
-    'site.json': SITE_JSON_DEFAULT,
-    _site: {},
-  };
-  mockFs.vol.fromJSON(json, '');
-  const site = new Site(...siteArguments);
-  await site.deploy(false);
-  expect(mockGhPages.dir).toEqual('_site');
-  expect(mockGhPages.options)
-    .toEqual({
-      branch: 'gh-pages',
-      message: 'Site Update. [skip ci]',
-      repo: '',
-      remote: 'origin',
-    });
-});
-
-test('Site deploys with custom settings', async () => {
-  const customConfig = JSON.parse(SITE_JSON_DEFAULT);
-  customConfig.deploy = {
-    message: 'Custom Site Update.',
-    repo: 'https://github.com/USER/REPO.git',
-    branch: 'master',
-  };
-  const json = {
-    ...PAGE_NJK,
-    'site.json': JSON.stringify(customConfig),
-    _site: {},
-  };
-  mockFs.vol.fromJSON(json, '');
-  const site = new Site(...siteArguments);
-  await site.deploy(false);
-  expect(mockGhPages.dir).toEqual('_site');
-  expect(mockGhPages.options)
-    .toEqual({
-      branch: 'master',
-      message: 'Custom Site Update. [skip ci]',
-      repo: 'https://github.com/USER/REPO.git',
-      remote: 'origin',
-    });
-});
-
-test('Site should not deploy without a built site', async () => {
-  const json = {
-    ...PAGE_NJK,
     'site.json': SITE_JSON_DEFAULT,
   };
   mockFs.vol.fromJSON(json, '');
   const site = new Site(...siteArguments);
-  await expect(site.deploy(false))
-    .rejects
-    .toThrow(
-      new Error('The site directory does not exist. '
-        + 'Please build the site first before deploy.'));
-});
+  const deploySpy = jest.spyOn(site.deployManager, 'deploy');
+  deploySpy.mockImplementation(() => Promise.resolve(null));
 
-describe('Site deploy with various CI environments', () => {
-  // Keep a copy of the original environment as we need to modify it for deploy Travis tests
-  const OLD_ENV = { ...process.env };
-
-  beforeEach(() => {
-    // Delete all environment variables that affect tests
-    delete process.env.GITHUB_TOKEN;
-    delete process.env.TRAVIS;
-    delete process.env.TRAVIS_REPO_SLUG;
-    delete process.env.APPVEYOR;
-    delete process.env.APPVEYOR_REPO_NAME;
-    delete process.env.GITHUB_ACTIONS;
-    delete process.env.GITHUB_REPOSITORY;
-    delete process.env.CIRCLECI;
-    delete process.env.CIRCLE_PROJECT_USERNAME;
-    delete process.env.CIRCLE_PROJECT_REPONAME;
-  });
-
-  afterAll(() => {
-    // Restore the original environment at the end of deploy Travis tests
-    process.env = { ...OLD_ENV };
-  });
-
-  /* eslint-disable max-len */
-  test.each([
-    ['TRAVIS', { reposlug: 'TRAVIS_REPO_SLUG' }, { name: 'Deployment Bot', email: 'deploy@travis-ci.org' }],
-    ['APPVEYOR', { reposlug: 'APPVEYOR_REPO_NAME' }, { name: 'AppVeyorBot', email: 'deploy@appveyor.com' }],
-    ['GITHUB_ACTIONS', { reposlug: 'GITHUB_REPOSITORY' }, { name: 'github-actions', email: 'github-actions@github.com' }],
-    ['CIRCLECI', { username: 'CIRCLE_PROJECT_USERNAME', reponame: 'CIRCLE_PROJECT_REPONAME' }, { name: 'circleci-bot', email: 'deploy@circleci.com' }],
-  ])('Site deploy -c/--ci deploys with default settings',
-  /* eslint-enable max-len */
-     async (ciIdentifier, repoSlugIdentifier, deployBotUser) => {
-       process.env[ciIdentifier] = 'true';
-       process.env.GITHUB_TOKEN = 'githubToken';
-       const genericRepoSlug = 'GENERIC_USER/GENERIC_REPO';
-       if ((repoSlugIdentifier as { reposlug: string }).reposlug) {
-         process.env[(repoSlugIdentifier as { reposlug: string }).reposlug] = genericRepoSlug;
-       } else {
-         const repoSlugIdentifierCasted = repoSlugIdentifier as { username: string, reponame: string };
-         process.env[repoSlugIdentifierCasted.username] = 'GENERIC_USER';
-         process.env[repoSlugIdentifierCasted.reponame] = 'GENERIC_REPO';
-       }
-
-       const json = {
-         ...PAGE_NJK,
-         'site.json': SITE_JSON_DEFAULT,
-         _site: {},
-       };
-       mockFs.vol.fromJSON(json, '');
-       const site = new Site(...siteArguments);
-       await site.deploy(true);
-       expect(mockGhPages.options.repo)
-         .toEqual(`https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/${genericRepoSlug}.git`);
-       expect(mockGhPages.options.user).toEqual(deployBotUser);
-     });
-
-  test.each([
-    ['TRAVIS', { reposlug: 'TRAVIS_REPO_SLUG' }],
-    ['APPVEYOR', { reposlug: 'APPVEYOR_REPO_NAME' }],
-    ['GITHUB_ACTIONS', { reposlug: 'GITHUB_REPOSITORY' }],
-    ['CIRCLECI', { username: 'CIRCLE_PROJECT_USERNAME', reponame: 'CIRCLE_PROJECT_REPONAME' }],
-  ])('Site deploy -c/--ci deploys with custom GitHub repo',
-     async (ciIdentifier, repoSlugIdentifier) => {
-       process.env[ciIdentifier] = 'true';
-       process.env.GITHUB_TOKEN = 'githubToken';
-       if ((repoSlugIdentifier as { reposlug: string }).reposlug) {
-         process.env[(repoSlugIdentifier as { reposlug: string }).reposlug] = 'GENERIC_USER/GENERIC_REPO';
-       } else {
-         const repoSlugIdentifierCasted = repoSlugIdentifier as { username: string, reponame: string };
-         process.env[repoSlugIdentifierCasted.username] = 'GENERIC_USER';
-         process.env[repoSlugIdentifierCasted.reponame] = 'GENERIC_REPO';
-       }
-
-       const customRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
-       customRepoConfig.deploy.repo = 'https://github.com/USER/REPO.git';
-       const json = {
-         ...PAGE_NJK,
-         'site.json': JSON.stringify(customRepoConfig),
-         _site: {},
-       };
-       mockFs.vol.fromJSON(json, '');
-       const site = new Site(...siteArguments);
-       await site.deploy(true);
-       expect(mockGhPages.options.repo)
-         .toEqual(`https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/USER/REPO.git`);
-     });
-
-  test.each([
-    ['TRAVIS', { reposlug: 'TRAVIS_REPO_SLUG' }],
-    ['APPVEYOR', { reposlug: 'APPVEYOR_REPO_NAME' }],
-    ['GITHUB_ACTIONS', { reposlug: 'GITHUB_REPOSITORY' }],
-    ['CIRCLECI', { username: 'CIRCLE_PROJECT_USERNAME', reponame: 'CIRCLE_PROJECT_REPONAME' }],
-  ])('Site deploy -c/--ci deploys to correct repo when .git is in repo name',
-     async (ciIdentifier, repoSlugIdentifier) => {
-       process.env[ciIdentifier] = 'true';
-       process.env.GITHUB_TOKEN = 'githubToken';
-       const genericRepoSlug = 'GENERIC_USER/GENERIC_REPO.github.io';
-       if ((repoSlugIdentifier as { reposlug: string }).reposlug) {
-         process.env[(repoSlugIdentifier as { reposlug: string }).reposlug] = genericRepoSlug;
-       } else {
-         const repoSlugIdentifierCasted = repoSlugIdentifier as { username: string, reponame: string };
-         process.env[repoSlugIdentifierCasted.username] = 'GENERIC_USER';
-         process.env[repoSlugIdentifierCasted.reponame] = 'GENERIC_REPO.github.io';
-       }
-
-       const json = {
-         ...PAGE_NJK,
-         'site.json': SITE_JSON_DEFAULT,
-         _site: {},
-       };
-       mockFs.vol.fromJSON(json, '');
-       const site = new Site(...siteArguments);
-       await site.deploy(true);
-       expect(mockGhPages.options.repo)
-         // eslint-disable-next-line max-len
-         .toEqual(`https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/${genericRepoSlug}.git`);
-     });
-
-  test('Site deploy -c/--ci should not deploy if not in CI environment', async () => {
-    process.env.GITHUB_TOKEN = 'githubToken';
-
-    const json = {
-      ...PAGE_NJK,
-      'site.json': SITE_JSON_DEFAULT,
-      _site: {},
-    };
-    mockFs.vol.fromJSON(json, '');
-    const site = new Site(...siteArguments);
-    await expect(site.deploy(true))
-      .rejects
-      .toThrow(new Error('-c/--ci should only be run in CI environments.'));
-  });
-
-  test.each([
-    ['TRAVIS'],
-    ['APPVEYOR'],
-    ['GITHUB_ACTIONS'],
-    ['CIRCLECI'],
-  ])('Site deploy -c/--ci should not deploy without authentication token', async (ciIdentifier) => {
-    process.env[ciIdentifier] = 'true';
-
-    const json = {
-      ...PAGE_NJK,
-      'site.json': SITE_JSON_DEFAULT,
-      _site: {},
-    };
-    mockFs.vol.fromJSON(json, '');
-    const site = new Site(...siteArguments);
-    await expect(site.deploy(true))
-      .rejects
-      .toThrow(new Error('The environment variable GITHUB_TOKEN does not exist.'));
-  });
-
-  test.each([
-    ['TRAVIS'],
-    ['APPVEYOR'],
-    ['GITHUB_ACTIONS'],
-    ['CIRCLECI'],
-  ])('Site deploy -c/--ci should not deploy if custom repository is not on GitHub', async (ciIdentifier) => {
-    process.env[ciIdentifier] = 'true';
-    process.env.GITHUB_TOKEN = 'githubToken';
-
-    const invalidRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
-    invalidRepoConfig.deploy.repo = 'INVALID_GITHUB_REPO';
-    const json = {
-      ...PAGE_NJK,
-      'site.json': JSON.stringify(invalidRepoConfig),
-      _site: {},
-    };
-    mockFs.vol.fromJSON(json, '');
-    const site = new Site(...siteArguments);
-    await expect(site.deploy(true))
-      .rejects
-      .toThrow(new Error('-c/--ci expects a GitHub repository.\n'
-        + `The specified repository ${invalidRepoConfig.deploy.repo} is not valid.`));
-  });
+  await site.deploy(false);
+  expect(deploySpy).toHaveBeenCalledWith(false);
 });
