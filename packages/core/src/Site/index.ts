@@ -15,6 +15,7 @@ export class Site {
   isDevMode: boolean;
   rootPath: string;
   outputPath: string;
+  siteConfigPath: string;
 
   // Facade Internal Components
   assetsManager: SiteAssetsManager;
@@ -37,6 +38,7 @@ export class Site {
     this.isDevMode = !!isDevMode;
     this.rootPath = rootPath;
     this.outputPath = outputPath;
+    this.siteConfigPath = siteConfigPath;
 
     this.assetsManager = new SiteAssetsManager(rootPath, outputPath);
     this.pagesManager = new SitePagesManager(rootPath, outputPath, this.isDevMode);
@@ -91,6 +93,14 @@ export class Site {
 
   removeAsset(filePaths: string | string[]) {
     return this.assetsManager.removeAsset(filePaths);
+  }
+
+  isFilepathAPage(filePath: string) {
+    return this.pagesManager.isFilepathAPage(filePath);
+  }
+
+  isDependencyOfPage(filePath: string) {
+    return this.pagesManager.isDependencyOfPage(filePath);
   }
 
   async reloadSiteConfig() {
