@@ -65,10 +65,9 @@ describe('SiteAssetsManager', () => {
     manager.siteConfig = { style: { bootstrapTheme: 'bootswatch-flatly' } } as any;
     await expect(manager.copyBootstrapTheme(false)).rejects.toThrow();
 
-    // Initial build with default theme -> Should be noop (handled by copyCoreWebAsset normally)
+    // Initial build with default theme
     manager.siteConfig = { style: { bootstrapTheme: undefined } } as any;
-    const result = manager.copyBootstrapTheme(false);
-    expect(result).toBeInstanceOf(Function); // Expect lodash.noop which is function
+    await expect(manager.copyBootstrapTheme(false)).resolves.toBeUndefined();
   });
 
   // Checks reactivity, if buildAssets triggered when previously ignored files no longer ignored

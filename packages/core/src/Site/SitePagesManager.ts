@@ -100,6 +100,10 @@ export class SitePagesManager {
     this.baseUrlMap = new Set();
   }
 
+  setBaseUrlMap(baseUrlMap: Set<string>) {
+    this.baseUrlMap = baseUrlMap;
+  }
+
   /**
    * Create a Page object from the site and page creation config.
    */

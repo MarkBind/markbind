@@ -190,7 +190,7 @@ export class SiteGenerationManager {
 
     const baseUrlMap = new Set(candidates.map(candidate => path.dirname(candidate)));
     this.variableProcessor = new VariableProcessor(this.rootPath, baseUrlMap);
-    this.sitePages.baseUrlMap = baseUrlMap; // Update SitePages
+    this.sitePages.setBaseUrlMap(baseUrlMap);
 
     this.buildManagers(baseUrlMap);
   }

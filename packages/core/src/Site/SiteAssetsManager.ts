@@ -193,7 +193,7 @@ export class SiteAssetsManager {
 
     if ((!isRebuild && !bootstrapTheme)
       || (bootstrapTheme && !_.has(SUPPORTED_THEMES_PATHS, bootstrapTheme))) {
-      return _.noop;
+      return Promise.resolve();
     }
 
     const themeSrcPath = !bootstrapTheme
