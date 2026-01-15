@@ -5,8 +5,10 @@ import {
   PAGE_NJK, SITE_JSON_DEFAULT,
 } from '../utils/data';
 
+// We use 'memfs' (via the mocked 'fs' module) to simulate a file system in memory.
+// This ensures that no actual files are written to the disk during testing,
+// keeping tests fast and isolated.
 const mockFs = fs as any;
-
 jest.mock('fs');
 jest.mock('walk-sync');
 jest.mock('../../../src/Page');
@@ -147,15 +149,12 @@ describe('SiteGenerationManager', () => {
     };
     mockFs.vol.fromJSON(json, rootPath);
 
-    // Mock walkSync for collectBaseUrl - relying on manual mock + mockFs
-
     await generationManager.readSiteConfig();
     generationManager.collectBaseUrl();
     generationManager.collectUserDefinedVariablesMap();
 
     const root = generationManager.variableProcessor.userDefinedVariablesMap[path.resolve(rootPath)];
 
-    // check all variables
     expect(root.level1).toEqual('variable');
     expect(root.level2).toEqual('variable');
     const expectedTextSpan = '<span style="color: blue">Blue text</span>';
@@ -178,8 +177,6 @@ describe('SiteGenerationManager', () => {
       'otherSub/sub/_markbind/variables.md': '<variable name="variable">other_variable</variable>',
     };
     mockFs.vol.fromJSON(json, rootPath);
-
-    // Mock walkSync for collectBaseUrl - relying on manual mock + mockFs
 
     await generationManager.readSiteConfig();
     generationManager.collectBaseUrl();

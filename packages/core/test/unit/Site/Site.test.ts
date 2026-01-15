@@ -117,8 +117,6 @@ test('Site buildSourceFiles delegates to SiteGenerationManager', async () => {
 test('Site rebuildSourceFiles delegates to SiteGenerationManager', () => {
   const site = new Site(...siteArguments);
   site.rebuildSourceFiles();
-  // rebuildSourceFiles is a property (delayed function), so we check if called.
-  // Wait, mocked is jest.fn(), so calling it works.
   expect(site.generationManager.rebuildSourceFiles).toHaveBeenCalled();
 });
 
