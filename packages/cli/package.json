@@ -21,7 +21,7 @@
     "url": "https://github.com/MarkBind/markbind.git"
   },
   "scripts": {
-    "test": "jest --colors && cd test/functional && node test.js",
+    "test": "jest --colors --ci && cd test/functional && node test.js",
     "updatetest": "cd test/functional && node updatetest.js"
   },
   "dependencies": {
