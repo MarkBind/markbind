@@ -24,12 +24,16 @@ jest.mock('../../../src/Site/SiteAssetsManager', () => ({
 }));
 
 jest.mock('../../../src/Site/SitePagesManager', () => ({
-  SitePagesManager: jest.fn().mockImplementation(() => ({
-    collectAddressablePages: jest.fn(),
-    createPage: jest.fn(),
-    getFavIconUrl: jest.fn(),
-    mapAddressablePagesToPages: jest.fn(),
-  })),
+  SitePagesManager: jest.fn().mockImplementation(function (this: any) {
+    this.baseUrlMap = new Set();
+    this.collectAddressablePages = jest.fn();
+    this.setBaseUrlMap = jest.fn().mockImplementation((map) => {
+      this.baseUrlMap = map;
+    });
+    this.createPage = jest.fn();
+    this.getFavIconUrl = jest.fn();
+    this.mapAddressablePagesToPages = jest.fn();
+  }),
 }));
 
 // Access mocked constructors to create instances for injection

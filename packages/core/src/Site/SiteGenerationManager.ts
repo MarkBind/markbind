@@ -331,8 +331,8 @@ export class SiteGenerationManager {
       totalBuildTime}s`);
 
     if (!this.onePagePath && totalBuildTime > LAZY_LOADING_BUILD_TIME_RECOMMENDATION_LIMIT) {
-      logger.info('Your site took quite a while to build... '
-          + 'Have you considered using markbind serve -o when writing content to speed things up?');
+      logger.info('Your site took quite a while to build...'
+          + ' Have you considered using markbind serve -o when writing content to speed things up?');
     }
   }
 
@@ -815,8 +815,8 @@ export class SiteGenerationManager {
     const totalBuildTime = (endTime.getTime() - startTime.getTime()) / 1000;
     logger.info(`Website regeneration complete! Total build time: ${totalBuildTime}s`);
     if (!this.onePagePath && totalBuildTime > LAZY_LOADING_REBUILD_TIME_RECOMMENDATION_LIMIT) {
-      logger.info('Your pages took quite a while to rebuild... '
-          + 'Have you considered using markbind serve -o when writing content to speed things up?');
+      logger.info('Your pages took quite a while to rebuild...'
+          + ' Have you considered using markbind serve -o when writing content to speed things up?');
     }
   }
 
