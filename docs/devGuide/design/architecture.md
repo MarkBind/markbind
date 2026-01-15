@@ -63,8 +63,8 @@ Its syntax is also the most compatible and independent of the other stages.
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('projectStructure', 'serverSideRendering') }}
 
-## A small example
-To demonstrate the content processing flow, let's take a look at a small toy MarkBind page:
+## Demonstration
+To demonstrate the content processing flow, let's take a look at a small toy MarkBind file:
 ```markdown
 {% raw %}{% set myVariable = "Item" %}
 
@@ -76,10 +76,12 @@ There will be 5 items here:
 {% endfor %}
 </ul>
 
-A link that gets [converted](contents/topic1.md){% endraw %}
+A link that gets [converted](contents/topic1.md)
+
+<include src="contents/topic1.md" />{% endraw %}
 ```
 
-At the first step of the processing flow, the VariableProcessor converts Nunjucks template code into HTML:
+At the first step of the processing flow, the `VariableProcessor` converts Nunjucks template code into HTML:
 ```markdown
 {% raw %}# A basic level 1 header
 There will be 5 items here:
@@ -90,11 +92,13 @@ There will be 5 items here:
    <li>Item #4</li>
 </ul>
 
-A link that gets [converted](contents/topic1.md){% endraw %}
-```
-Notice that the Nunjucks variable is consumed and that the unordered list is expanded.
+A link that gets [converted](contents/topic1.md)
 
-Next, the NodeProcessor converts markdown to HTML:
+<include src="contents/topic1.md" />{% endraw %}
+```
+Notice that `myVariable` is consumed and that the unordered list is expanded.
+
+Next, the NodeProcessor converts Markdown to HTML:
 ```markdown
 {% raw %}<h1 id="a-basic-level-1-header">A basic level 1 header<a class="fa fa-anchor" href="#a-basic-level-1-header" onclick="event.stopPropagation()"></a></h1>
 <p>There will be 5 items here:</p>
@@ -103,6 +107,13 @@ Next, the NodeProcessor converts markdown to HTML:
    <li>Item #2</li>
    <li>Item #3</li>
    <li>Item #4</li></ul>
-<p>A link that gets <a href="/contents/topic1.html">converted</a></p>{% endraw %}
+<p>A link that gets <a href="/contents/topic1.html">converted</a></p>
+<div>
+<br>
+<h1 id="topic-1">Topic 1<a class="fa fa-anchor" href="#topic-1" onclick="event.stopPropagation()"></a></h1>
+<blockquote>
+<p>This is a placeholder page - more content to be added.</p></blockquote></div>{% endraw %}
 ```
-Finally, the content is wrapped in a layout and written to a file.
+It does this by traversing the node graph and matching node titles to their HTML equivalents. `include` nodes are recursively traversed and converted.
+
+After this, the content is embedded into the layout and the .html file is written to.
