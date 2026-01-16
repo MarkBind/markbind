@@ -60,10 +60,7 @@ Its syntax is also the most compatible and independent of the other stages.
 
 3. Having processed possibly conflicting Nunjucks and Markdown syntax, HTML is then processed last.
 
-{% from "njk/common.njk" import previous_next %}
-{{ previous_next('projectStructure', 'serverSideRendering') }}
-
-## Demonstration
+### Demonstrating the content processing flow
 To demonstrate the content processing flow, let's take a look at a small toy MarkBind file:
 ```markdown
 {% raw %}{% set myVariable = "Item" %}
@@ -117,3 +114,6 @@ Next, the NodeProcessor converts Markdown to HTML:
 It does this by traversing the node graph and matching node titles to their HTML equivalents. `include` nodes are recursively traversed and converted.
 
 After this, the content is embedded into the layout and the .html file is written to.
+
+{% from "njk/common.njk" import previous_next %}
+{{ previous_next('projectStructure', 'serverSideRendering') }}
