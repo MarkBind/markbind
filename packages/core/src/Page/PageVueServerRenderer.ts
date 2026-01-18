@@ -14,6 +14,8 @@ import fs from 'fs-extra';
 import * as logger from '../utils/logger';
 import type { PageConfig, PageAssets } from './PageConfig';
 import type { Page } from '.';
+import { PluginManager } from '../plugins/PluginManager';
+
 /* eslint-enable import/no-import-module-exports */
 
 let bundle = require('@markbind/core-web/dist/js/vueCommonAppFactory.min');
@@ -32,11 +34,16 @@ let bundle = require('@markbind/core-web/dist/js/vueCommonAppFactory.min');
  */
 async function compileVuePageCreateAndReturnScript(
   content: string, pageConfig: PageConfig, pageAsset: PageAssets) {
+  const customElementTags = Object.entries(PluginManager.tagConfig)
+    .filter(([, config]) => config.customComponent)
+    .map(([tagName]) => tagName);
+
   const compilerOptions: CompilerOptions = {
     runtimeModuleName: 'vue',
     runtimeGlobalName: 'Vue',
     mode: 'function',
     whitespace: 'preserve',
+    isCustomElement: tag => customElementTags.includes(tag),
   };
 
   const templateOptions: SFCTemplateCompileOptions = {

@@ -170,7 +170,8 @@ Tag properties are top-level properties of the tag configuration object. The fol
 
 Property | Values | Default | Remarks
 :----- | ------- | ---- | ----
-`isSpecial` | `true` or `false` | `false` | Allows configuring whether any tag is to be parsed "specially" like a `<script>` or `<style>` tag. This allows configuring custom tags that may contain conflicting syntax, such as the `<puml>` tag used for UML diagram generation.
+`isSpecial` | `true` or `false` | `false` | When `true`, the content inside the tag is treated as raw text and will **not** be parsed as HTML or Markdown (similar to `<script>` or `<style>` tags). Use this for tags containing non-HTML syntax that should not be processed (e.g. `<puml>` for diagrams). Use `false` for standard components that wrap renderable content.
+`customComponent` | `true` or `false` | `false` | Tells the Vue compiler to ignore this tag during compilation. Useful for plugins that introduce custom HTML elements (e.g. Web Components) that should not be resolved as Vue components.
 `attributes` | Array of attribute configurations | `[]` | Contains the attribute configurations of the tags.
 
 **Attribute Properties**
