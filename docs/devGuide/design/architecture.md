@@ -60,5 +60,61 @@ Its syntax is also the most compatible and independent of the other stages.
 
 3. Having processed possibly conflicting Nunjucks and Markdown syntax, HTML is then processed last.
 
+### Demonstrating the content processing flow
+To demonstrate the content processing flow, let's take a look at a small toy MarkBind file:
+```markdown
+{% raw %}{% set myVariable = "Item" %}
+
+# A basic level 1 header
+There will be 5 items here:
+<ul>
+{% for item in [1, 2, 3, 4] %}
+   <li>{{ myVariable }} #{{ item }}</li>
+{% endfor %}
+</ul>
+
+A link that gets [converted](contents/topic1.md)
+
+<include src="contents/topic1.md" />{% endraw %}
+```
+
+At the first step of the processing flow, the `VariableProcessor` converts Nunjucks template code into HTML:
+```markdown
+{% raw %}# A basic level 1 header
+There will be 5 items here:
+<ul>
+   <li>Item #1</li>
+   <li>Item #2</li>
+   <li>Item #3</li>
+   <li>Item #4</li>
+</ul>
+
+A link that gets [converted](contents/topic1.md)
+
+<include src="contents/topic1.md" />{% endraw %}
+```
+Notice that `myVariable` is consumed and that the unordered list is expanded.
+
+Next, the NodeProcessor converts Markdown to HTML:
+```markdown
+{% raw %}<h1 id="a-basic-level-1-header">A basic level 1 header<a class="fa fa-anchor" href="#a-basic-level-1-header" onclick="event.stopPropagation()"></a></h1>
+<p>There will be 5 items here:</p>
+<ul>
+   <li>Item #1</li>
+   <li>Item #2</li>
+   <li>Item #3</li>
+   <li>Item #4</li></ul>
+<p>A link that gets <a href="/contents/topic1.html">converted</a></p>
+<div>
+<br>
+<h1 id="topic-1">Topic 1<a class="fa fa-anchor" href="#topic-1" onclick="event.stopPropagation()"></a></h1>
+<blockquote>
+<p>This is a placeholder page - more content to be added.</p></blockquote></div>{% endraw %}
+```
+It does this by traversing the node graph and matching node titles to their HTML equivalents. This includes custom components as well (e.g. `<panel .. />`).
+`include` nodes are recursively traversed and converted.
+
+In the final step, the processed content is injected into the page layout and the final output `.html` file is generated.
+
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('projectStructure', 'serverSideRendering') }}
