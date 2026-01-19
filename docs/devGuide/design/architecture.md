@@ -14,7 +14,96 @@
 This page provides an overview of the MarkBind's architecture.
 </div>
 
-![MarkBind Architecture Diagram](<{{baseUrl}}/images/dev diagrams/architecture.png>)
+<mermaid>
+  graph TD
+    %% --- Node Styling ---
+    classDef default fill:#e1ecf4,stroke:#8fbbe4,stroke-width:2px;
+    classDef header fill:#dae8fc,stroke:#6c8ebf,font-size:16px;
+    classDef process fill:#e1ecf4,stroke:#b0c4de,text-align:left;
+    classDef title fill:#6fa8dc,stroke:none,color:white,font-weight:bold;
+
+    %% --- 1. Top Level Structure ---
+    CLI[index.js #40;cli#41;]
+    Site[Site]
+
+    %% --- 2. Left Column Components ---
+    Page[Page]
+    
+    LM[LayoutManager<br/><sub>Manages, generates,<br/>and provides layouts</sub>]
+    Layout[Layout]
+    
+    EM[ExternalManager<br/><sub>Manages, generates<br/>Externals</sub>]
+    External[External]
+
+    %% --- 3. Right Column: Content Processing Subgraph ---
+    subgraph CPF [Content Processing Flow]
+        direction TB
+        %% This invisible node helps force layout width
+        style CPF fill:#fff,stroke:#3366CC,stroke-width:2px
+
+        VP[<b>1. VariableProcessor</b><br/>• Manages site variables<br/>• Manages #40;sub#41;site Nunjucks environments, facilitates Nunjucks calls]:::process
+        
+        NP[<b>2. NodeProcessor</b><br/>• Manages Markdown, HTML<br/>processing state for a Page, Layout or External]:::process
+        
+        MP[<b>2.1 Markdown Processing</b><br/>#40;core/lib/markdown-it#41;]:::process
+        
+        HEP[<b>2.2 Html element processing</b><br/>• Render markdown-in-attributes to vue slots<br/>• Flag Externals for generation in<br/>ExternalManager #40;e.g. &lt;panel src='...''&gt;#41;<br/>• Link processing<br/>• Other misc. operations]:::process
+    end
+
+    %% --- 4. The Legend (Optional Hack to display legend) ---
+    subgraph LegendBox [Legend]
+        L1[contains] --- L2[> ] 
+        L3[uses] --- L4[> ]
+        style LegendBox fill:#fff,stroke:#000
+        style L1 fill:#fff,stroke:none
+        style L2 fill:#fff,stroke:none,color:#3366CC
+        style L3 fill:#fff,stroke:none
+        style L4 fill:#fff,stroke:none,color:#F28522
+        
+        linkStyle 0 stroke:#3366CC,stroke-width:2px;
+        linkStyle 1 stroke:#F28522,stroke-width:2px;
+    end
+
+    %% --- DEFINING RELATIONSHIPS (Order matters for linkStyle) ---
+    
+    %% GROUP 1: BLUE ARROWS (CONTAINS)
+    %% Indices 2 - 8
+    CLI -- 1 --> Site
+    Site -- * --> Page
+    Site -- 1 --> LM
+    Site -- 1 --> EM
+    LM -- * --> Layout
+    EM -- * --> External
+    Site -- 1 --> VP
+
+    %% GROUP 2: ORANGE ARROWS (USES)
+    %% Indices 9 - 14
+    Page --> LM
+    Page --> EM
+    LM --> EM
+    Page --> VP
+    Layout --> VP
+    External --> VP
+
+    %% GROUP 3: GREEN ARROWS (FLOW)
+    %% Indices 15 - 18
+    VP --> NP
+    NP --> MP
+    MP --> HEP
+    HEP -- Process &lt;include&gt; recursively --> VP
+
+    %% --- Apply Styles to Links ---
+    
+    %% Blue Arrows (Contains)
+    linkStyle 2,3,4,5,6,7,8 stroke:#3366CC,stroke-width:2px;
+    
+    %% Orange Arrows (Uses)
+    linkStyle 9,10,11,12,13,14 stroke:#F28522,stroke-width:2px;
+
+    %% Green Arrows (Process Flow)
+    linkStyle 15,16,17,18 stroke:#93C47D,stroke-width:2pxd;
+
+</mermaid>
 
 The above diagram shows the key classes and <popover content="The content processing flow acts on a **single** source file (`.md` / `.html`), generating output files or intermediate processing results depending on the content type.">content processing flow</popover> in MarkBind. You may note the following from these:
 
@@ -62,3 +151,4 @@ Its syntax is also the most compatible and independent of the other stages.
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('projectStructure', 'serverSideRendering') }}
+
