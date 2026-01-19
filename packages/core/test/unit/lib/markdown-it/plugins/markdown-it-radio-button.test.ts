@@ -13,8 +13,7 @@ describe('markdown-it-radio-button plugin', () => {
   });
 
   describe('basic radio button syntax', () => {
-    // TODO: Fix plugin bug (issue #2749)
-    test('should convert basic unchecked radio button syntax - disable till fix (#2749)', () => {
+    test('should convert basic unchecked radio button syntax', () => {
       const source = [
         '- ( ) Option 1',
         '- ( ) Option 2',
@@ -28,7 +27,7 @@ describe('markdown-it-radio-button plugin', () => {
       expect(result).not.toContain('checked=""');
     });
 
-    test('should convert checked radio button with lowercase x - disable till fix (#2749)', () => {
+    test('should convert checked radio button with lowercase x', () => {
       const source = [
         '- (x) Selected option',
         '- ( ) Unselected option',
@@ -42,7 +41,7 @@ describe('markdown-it-radio-button plugin', () => {
       expect(result.match(/checked=""/g)).toHaveLength(1);
     });
 
-    test('should convert checked radio button with uppercase X - disable till fix (#2749)', () => {
+    test('should convert checked radio button with uppercase X', () => {
       const source = [
         '- (X) Selected option',
         '- ( ) Unselected option',
@@ -54,7 +53,7 @@ describe('markdown-it-radio-button plugin', () => {
       expect(result.match(/checked=""/g)).toHaveLength(1);
     });
 
-    test('should handle single radio button - disable till fix (#2749)', () => {
+    test('should handle single radio button', () => {
       const source = '- ( ) Single option';
       const result = md.render(source);
 
@@ -63,7 +62,7 @@ describe('markdown-it-radio-button plugin', () => {
       expect(result).toContain('class="radio-list-input"');
     });
 
-    test('should handle empty radio button text - disable till fix (#2749)', () => {
+    test('should handle empty radio button text', () => {
       const source = '- ( )';
       const result = md.render(source);
 
@@ -98,7 +97,7 @@ describe('markdown-it-radio-button plugin', () => {
   });
 
   describe('radio button grouping and IDs', () => {
-    test('should use same group ID for radio buttons in same list - disable till fix (#2749)', () => {
+    test('should use same group ID for radio buttons in same list', () => {
       const source = [
         '- ( ) Option 1',
         '- ( ) Option 2',
@@ -114,7 +113,7 @@ describe('markdown-it-radio-button plugin', () => {
       expect(matches[1][1]).toBe(matches[2][1]);
     });
 
-    test('should generate deterministic group IDs - disable till fix (#2749)', () => {
+    test('should generate deterministic group IDs', () => {
       const source = [
         '- ( ) Option 1',
         '- ( ) Option 2',
@@ -161,7 +160,7 @@ describe('markdown-it-radio-button plugin', () => {
   });
 
   describe('plugin configuration options', () => {
-    test('should wrap radio buttons in labels when label option is true - disable (#2749)', () => {
+    test('should wrap radio buttons in labels when label option is true', () => {
       const source = '- ( ) Option with label';
       const result = md.render(source);
 
@@ -170,7 +169,7 @@ describe('markdown-it-radio-button plugin', () => {
       expect(result).toContain('type="radio"');
     });
 
-    test('should not wrap in labels when label option is false - disable till fix (#2749)', () => {
+    test('should not wrap in labels when label option is false', () => {
       const mdNoLabel = markdownIt();
       mdNoLabel.use(markdownItTaskLists, { enabled: true });
       mdNoLabel.use(radioButtonPlugin, { enabled: true, label: false });
@@ -182,7 +181,7 @@ describe('markdown-it-radio-button plugin', () => {
       expect(result).toContain('type="radio"');
     });
 
-    test('should disable radio buttons when enabled is false - disable till fix (#2749)', () => {
+    test('should disable radio buttons when enabled is false', () => {
       const mdDisabled = markdownIt();
       mdDisabled.use(markdownItTaskLists, { enabled: true });
       mdDisabled.use(radioButtonPlugin, { enabled: false, label: true });
@@ -225,7 +224,7 @@ describe('markdown-it-radio-button plugin', () => {
     });
   });
 
-  describe.skip('content formatting and nested structures - disable till fix (#2749)', () => {
+  describe.skip('content formatting and nested structures', () => {
     test('should handle rich content in radio button text', () => {
       const source = [
         '- ( ) Option with **bold** text',
@@ -318,7 +317,7 @@ describe('markdown-it-radio-button plugin', () => {
       });
     });
 
-    test('should handle very long radio button text - disable till fix (#2749)', () => {
+    test('should handle very long radio button text', () => {
       const longText = 'This is a very long radio button option that spans multiple words'
        + 'and contains lots of text to test how the plugin handles lengthy content';
       const source = `- ( ) ${longText}`;
@@ -328,7 +327,7 @@ describe('markdown-it-radio-button plugin', () => {
       expect(result).toContain(longText);
     });
 
-    test('should handle radio buttons with line breaks - disable till fix (#2749)', () => {
+    test('should handle radio buttons with line breaks', () => {
       const source = [
         '- ( ) Option with',
         '  continuation on next line',
