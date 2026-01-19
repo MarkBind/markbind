@@ -178,11 +178,14 @@ export function validateIntraLink(resourcePath: string,
   ${resourcePath}' found in file '${cwf}'`;
   resourcePath = urlUtil.stripBaseUrl(resourcePath, config.baseUrl); // eslint-disable-line no-param-reassign
 
-  const resourcePathUrl = parse(resourcePath);
+  const resourcePathUrl = parse(resourcePath); // Parse query strings
   let hash;
   if (resourcePathUrl.hash) {
     hash = resourcePathUrl.hash.substring(1);
     // remove hash portion (if any) in the resourcePath
+    resourcePath = resourcePathUrl.pathname; // eslint-disable-line no-param-reassign
+  } else if (resourcePathUrl.query) {
+    // remove query parameters if present
     resourcePath = resourcePathUrl.pathname; // eslint-disable-line no-param-reassign
   }
 
