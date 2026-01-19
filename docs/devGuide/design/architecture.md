@@ -111,9 +111,10 @@ Next, the NodeProcessor converts Markdown to HTML:
 <blockquote>
 <p>This is a placeholder page - more content to be added.</p></blockquote></div>{% endraw %}
 ```
-It does this by traversing the node graph and matching node titles to their HTML equivalents. `include` nodes are recursively traversed and converted.
+It does this by traversing the node graph and matching node titles to their HTML equivalents. This includes custom components as well (e.g. `<panel .. />`).
+`include` nodes are recursively traversed and converted.
 
-After this, the content is embedded into the layout and the .html file is written to.
+In the final step, the processed content is injected into the page layout and the final output `.html` file is generated.
 
 {% from "njk/common.njk" import previous_next %}
 {{ previous_next('projectStructure', 'serverSideRendering') }}
