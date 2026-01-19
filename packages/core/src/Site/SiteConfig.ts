@@ -77,7 +77,9 @@ export class SiteConfig {
     this.headingIndexingLevel = siteConfigJson.headingIndexingLevel || HEADING_INDEXING_LEVEL_DEFAULT;
 
     this.style = siteConfigJson.style || {};
-    this.style.codeTheme = this.style.codeTheme || 'dark';
+    this.style.codeTheme = (this.style.codeTheme === 'dark' || this.style.codeTheme === 'light')
+      ? this.style.codeTheme
+      : 'dark';
     this.style.codeLineNumbers = this.style.codeLineNumbers !== undefined
       ? this.style.codeLineNumbers : false;
 
