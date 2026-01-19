@@ -34,16 +34,16 @@ let bundle = require('@markbind/core-web/dist/js/vueCommonAppFactory.min');
  */
 async function compileVuePageCreateAndReturnScript(
   content: string, pageConfig: PageConfig, pageAsset: PageAssets) {
-  const customElementTags = Object.entries(PluginManager.tagConfig)
+  const customElementTags = new Set(Object.entries(PluginManager.tagConfig)
     .filter(([, config]) => config.customComponent)
-    .map(([tagName]) => tagName);
+    .map(([tagName]) => tagName));
 
   const compilerOptions: CompilerOptions = {
     runtimeModuleName: 'vue',
     runtimeGlobalName: 'Vue',
     mode: 'function',
     whitespace: 'preserve',
-    isCustomElement: tag => customElementTags.includes(tag),
+    isCustomElement: tag => customElementTags.has(tag),
   };
 
   const templateOptions: SFCTemplateCompileOptions = {
