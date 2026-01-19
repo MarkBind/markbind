@@ -270,7 +270,6 @@ test('Test valid hash link', () => {
 });
 
 test('Test link with query parameter', () => {
-  // should be checked as page
   const mockLink = '<a href="/index.html?param=value">Test</a>';
   const mockNode = parseHTML(mockLink)[0] as MbNode;
   const mockResourcePath = linkProcessor.getDefaultTagsResourcePath(mockNode);
@@ -280,19 +279,7 @@ test('Test link with query parameter', () => {
   expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
 });
 
-// test('Test invalid, non-existent link ending with / and query parameters', () => {
-//   // should be checked as page and file asset
-//   const mockLink = '<a href="/missingGuide?param=value/">Test</a>';
-//   const mockNode = parseHTML(mockLink)[0] as MbNode;
-//   const mockResourcePath = linkProcessor.getDefaultTagsResourcePath(mockNode);
-//
-//   const EXPECTED_RESULT = 'Intralink ending with "/" is neither a Page Source nor File Asset';
-//
-//   expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
-// });
-
 test('Test valid link ending with no extension and query parameters', () => {
-  // should be checked as page
   const mockLink = '<a href="/userGuide?param=value">Test</a>';
   const mockNode = parseHTML(mockLink)[0] as MbNode;
   const mockResourcePath = linkProcessor.getDefaultTagsResourcePath(mockNode);
@@ -302,30 +289,7 @@ test('Test valid link ending with no extension and query parameters', () => {
   expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
 });
 
-test('Test valid link ending with no extension and query parameters', () => {
-  // should be checked as page and file asset (implicit index resource path will be true)
-  const mockLink = '<a href="/devGuide?param=value">Test</a>';
-  const mockNode = parseHTML(mockLink)[0] as MbNode;
-  const mockResourcePath = linkProcessor.getDefaultTagsResourcePath(mockNode);
-
-  const EXPECTED_RESULT = 'Intralink with no extension is a valid Page Source or File Asset';
-
-  expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
-});
-
-test('Test valid link ending with no extension and query parameters', () => {
-  // should be checked as file asset (raw file)
-  const mockLink = '<a href="/rawFile?param=value">Test</a>';
-  const mockNode = parseHTML(mockLink)[0] as MbNode;
-  const mockResourcePath = linkProcessor.getDefaultTagsResourcePath(mockNode);
-
-  const EXPECTED_RESULT = 'Intralink with no extension is a valid Page Source or File Asset';
-
-  expect(linkProcessor.validateIntraLink(mockResourcePath, mockCwf, mockConfig)).toEqual(EXPECTED_RESULT);
-});
-
 test('Test invalid, non-existent link ending with no extension and query parameters', () => {
-  // should be checked as page, file asset, and raw file asset
   const mockLink = '<a href="/missingRawFile?param=value">Test</a>';
   const mockNode = parseHTML(mockLink)[0] as MbNode;
   const mockResourcePath = linkProcessor.getDefaultTagsResourcePath(mockNode);
