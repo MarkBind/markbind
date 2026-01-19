@@ -55,13 +55,17 @@
 <script>
 /* eslint-disable import/no-extraneous-dependencies */
 import { PortalTarget } from 'portal-vue';
-import { $vfm } from 'vue-final-modal';
+import { useVfm } from 'vue-final-modal';
 /* eslint-enable import/no-extraneous-dependencies */
 
 export default {
   name: 'Trigger',
   components: {
     PortalTarget,
+  },
+  setup() {
+    const vfm = useVfm();
+    return { vfm };
   },
   props: {
     for: {
@@ -89,7 +93,7 @@ export default {
       }
 
       // show modal, if any
-      $vfm.show(this.for);
+      this.vfm.open(this.for);
     },
   },
   computed: {

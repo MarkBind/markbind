@@ -122,7 +122,7 @@ Some custom components and directives are also added for MarkBind's use.
 
   * Tooltip.vue (built on floating-vue's [Tooltip](https://floating-vue.starpad.dev/guide/component.html#tooltip) component)
 
-  * Trigger.vue (built on vue-final-modal's [$vfm API](https://vue-final-modal.org/api#api) and Floating Vue's Menus and Tooltips)
+  * Trigger.vue (built on vue-final-modal's [useVfm API](https://vue-final-modal.org/api/composables/use-vfm) and Floating Vue's Menus and Tooltips)
 
 * **MarkBind components ported from [MarkBind/vue-strap](https://github.com/MarkBind/vue-strap)**
 
