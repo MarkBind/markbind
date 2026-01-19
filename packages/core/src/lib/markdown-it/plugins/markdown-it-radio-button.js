@@ -71,19 +71,15 @@ function parentToken(tokens, index) {
 
 function isTodoItem(tokens, index) {
   return isInline(tokens[index]) &&
-    (isParagraph(tokens[index - 1]) || (index >= 1 && tokens[index - 1].type === 'list_item_open')) &&
+    isParagraph(tokens[index - 1]) &&
     isListItem(tokens[index - 2]) &&
     startsWithTodoMarkdown(tokens[index]);
 }
 
 function radioify(token, TokenConstructor, radioId) {
   token.children.unshift(makeRadioButton(token, TokenConstructor, radioId));
-  // Determine slice length: 4 for '( ) ' or '(x) ', 3 for '( )' or '(x)' alone
-  var sliceLength = token.content.length > 3 ? 4 : 3;
-  if (token.children[1] && token.children[1].content) {
-    token.children[1].content = token.children[1].content.slice(sliceLength);
-  }
-  token.content = token.content.slice(sliceLength);
+  token.children[1].content = token.children[1].content.slice(3);
+  token.content = token.content.slice(3);
 
   if (useLabelWrapper) {
     token.children.unshift(beginLabel(TokenConstructor));
@@ -101,7 +97,6 @@ function makeRadioButton(token, TokenConstructor, radioId) {
                   token.content === '(X)' ||
                   token.content.indexOf('(x) ') === 0 ||
                   token.content.indexOf('(X) ') === 0;
-
   if (isUnchecked) {
     radio.content = '<input class="radio-list-input" name="' + radioId + '"' + disabledAttr + 'type="radio">';
   } else if (isChecked) {

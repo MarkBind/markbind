@@ -62,12 +62,32 @@ describe('markdown-it-radio-button plugin', () => {
       expect(result).toContain('class="radio-list-input"');
     });
 
-    test('should handle empty radio button text', () => {
+    test('should handle empty radio button text (unchecked)', () => {
       const source = '- ( )';
       const result = md.render(source);
 
       expect(result).toContain('type="radio"');
       expect(result).toContain('class="radio-list-input"');
+    });
+
+    test('should handle empty radio button text (checked with lowercase x)', () => {
+      const source = '- (x)';
+      const result = md.render(source);
+
+      expect(result).toContain('checked=""');
+      expect(result).toContain('type="radio"');
+      expect(result).toContain('class="radio-list-input"');
+      expect(result.match(/checked=""/g)).toHaveLength(1);
+    });
+
+    test('should handle empty radio button text (checked with uppercase X)', () => {
+      const source = '- (X)';
+      const result = md.render(source);
+
+      expect(result).toContain('checked=""');
+      expect(result).toContain('type="radio"');
+      expect(result).toContain('class="radio-list-input"');
+      expect(result.match(/checked=""/g)).toHaveLength(1);
     });
 
     // This test works because it provides enough token context
