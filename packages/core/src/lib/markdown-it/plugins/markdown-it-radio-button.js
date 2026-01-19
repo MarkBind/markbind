@@ -20,10 +20,14 @@ module.exports = function(md, options) {
         if (group) {
           group = group[1];
         } else {
-          group = crypto.createHash('md5')
-                        .update(tokens[i-5].content)
-                        .update(tokens[i-4].content)
-                        .update(tokens[i].content).digest('hex').substr(2, 5); // generate a deterministic group id
+          var hash = crypto.createHash('md5');
+          if (i >= 5 && tokens[i-5]) {
+            hash.update(tokens[i-5].content);
+          }
+          if (i >= 4 && tokens[i-4]) {
+            hash.update(tokens[i-4].content);
+          }
+          group = hash.update(tokens[i].content).digest('hex').substr(2, 5); // generate a deterministic group id
         }
         radioify(tokens[i], state.Token, group);
         attrSet(tokens[i-2], 'class', 'radio-list-item');
@@ -67,15 +71,19 @@ function parentToken(tokens, index) {
 
 function isTodoItem(tokens, index) {
   return isInline(tokens[index]) &&
-    isParagraph(tokens[index - 1]) &&
+    (isParagraph(tokens[index - 1]) || (index >= 1 && tokens[index - 1].type === 'list_item_open')) &&
     isListItem(tokens[index - 2]) &&
     startsWithTodoMarkdown(tokens[index]);
 }
 
 function radioify(token, TokenConstructor, radioId) {
   token.children.unshift(makeRadioButton(token, TokenConstructor, radioId));
-  token.children[1].content = token.children[1].content.slice(3);
-  token.content = token.content.slice(3);
+  // Determine slice length: 4 for '( ) ' or '(x) ', 3 for '( )' or '(x)' alone
+  var sliceLength = token.content.length > 3 ? 4 : 3;
+  if (token.children[1] && token.children[1].content) {
+    token.children[1].content = token.children[1].content.slice(sliceLength);
+  }
+  token.content = token.content.slice(sliceLength);
 
   if (useLabelWrapper) {
     token.children.unshift(beginLabel(TokenConstructor));
@@ -86,9 +94,17 @@ function radioify(token, TokenConstructor, radioId) {
 function makeRadioButton(token, TokenConstructor, radioId) {
   var radio = new TokenConstructor('html_inline', '', 0);
   var disabledAttr = disableRadio ? ' disabled="" ' : '';
-  if (token.content.indexOf('( ) ') === 0) {
+  
+  var isUnchecked = token.content === '( )' || 
+                    token.content.indexOf('( ) ') === 0;
+  var isChecked = token.content === '(x)' || 
+                  token.content === '(X)' ||
+                  token.content.indexOf('(x) ') === 0 ||
+                  token.content.indexOf('(X) ') === 0;
+
+  if (isUnchecked) {
     radio.content = '<input class="radio-list-input" name="' + radioId + '"' + disabledAttr + 'type="radio">';
-  } else if (token.content.indexOf('(x) ') === 0 || token.content.indexOf('(X) ') === 0) {
+  } else if (isChecked) {
     radio.content = '<input class="radio-list-input" checked="" name="' + radioId + '"' + disabledAttr + 'type="radio">';
   }
   return radio;
@@ -114,5 +130,8 @@ function isListItem(token) { return token.type === 'list_item_open'; }
 
 function startsWithTodoMarkdown(token) {
   // leading whitespace in a list item is already trimmed off by markdown-it
-  return token.content.indexOf('( ) ') === 0 || token.content.indexOf('(x) ') === 0 || token.content.indexOf('(X) ') === 0;
+  // Handle both cases: with trailing text '( ) text' and without '( )'
+  return token.content === '( )' || token.content.indexOf('( ) ') === 0 ||
+         token.content === '(x)' || token.content.indexOf('(x) ') === 0 ||
+         token.content === '(X)' || token.content.indexOf('(X) ') === 0;
 }
