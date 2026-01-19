@@ -4,15 +4,16 @@
   <vue-final-modal
     v-if="isMounted"
     v-model="show"
-    ssr
-    :name="id"
-    :classes="['modal']"
+    display-directive="if"
+    :modal-id="id"
+    :class="['modal']"
     :content-class="['modal-dialog', 'modal-dialog-scrollable', optionalModalSize, optionalCentering]"
-    overlay-transition="none"
-    :transition="effectClass"
+    overlay-transition="vfm-fade"
+    :content-transition="effectClass"
     :click-to-close="backdrop !== 'false'"
     esc-to-close
-    z-index-base="2000"
+    :z-index-fn="() => 2000"
+    :teleport-to="'body'"
   >
     <div class="modal-content">
       <div v-if="hasHeader" class="modal-header">

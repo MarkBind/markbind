@@ -2,23 +2,25 @@
 
 exports[`Modal can be centered 1`] = `
 <div
-  class="vfm vfm--inset vfm--fixed"
-  data-v-2836fdb5=""
-  style="z-index: 2000; display: none;"
+  aria-modal="true"
+  class="modal vfm vfm--fixed vfm--inset"
+  role="dialog"
+  style="z-index: 2000;"
 >
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
-    name="none"
+    name="vfm-fade"
     persisted="false"
   >
-    <!--v-if-->
+    <div
+      aria-hidden="true"
+      class="vfm__overlay vfm--overlay vfm--absolute vfm--inset vfm--prevent-none"
+    />
   </transition-stub>
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
     enteractiveclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveactiveclass="modal-zoom"
@@ -26,55 +28,40 @@ exports[`Modal can be centered 1`] = `
     persisted="false"
   >
     <div
-      aria-expanded="false"
-      aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
-      data-v-2836fdb5=""
-      role="dialog"
-      style="display: none;"
-      tabindex="-1"
+      class="vfm__content vfm--outline-none modal-dialog modal-dialog-scrollable modal-dialog-centered"
+      tabindex="0"
     >
+      
       <div
-        class="vfm__content modal-dialog modal-dialog-scrollable modal-dialog-centered"
-        data-v-2836fdb5=""
+        class="modal-content"
       >
-        
         <div
-          class="modal-content"
-          data-v-2836fdb5-s=""
+          class="modal-header"
         >
-          <div
-            class="modal-header"
-            data-v-2836fdb5-s=""
-          >
-            <h5
-              class="modal-title"
-              data-v-2836fdb5-s=""
-            >
-              
-              test modal header
-              
-            </h5>
-            <button
-              aria-label="Close"
-              class="btn-close"
-              data-v-2836fdb5-s=""
-              type="button"
-            />
-          </div>
-          <div
-            class="modal-body"
-            data-v-2836fdb5-s=""
+          <h5
+            class="modal-title"
           >
             
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            test modal header
             
-          </div>
-          <!--v-if-->
+          </h5>
+          <button
+            aria-label="Close"
+            class="btn-close"
+            type="button"
+          />
         </div>
-        
+        <div
+          class="modal-body"
+        >
+          
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          
+        </div>
         <!--v-if-->
       </div>
+      
+      <!---->
     </div>
   </transition-stub>
 </div>
@@ -82,23 +69,25 @@ exports[`Modal can be centered 1`] = `
 
 exports[`Modal can be large 1`] = `
 <div
-  class="vfm vfm--inset vfm--fixed"
-  data-v-2836fdb5=""
-  style="z-index: 2000; display: none;"
+  aria-modal="true"
+  class="modal vfm vfm--fixed vfm--inset"
+  role="dialog"
+  style="z-index: 2000;"
 >
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
-    name="none"
+    name="vfm-fade"
     persisted="false"
   >
-    <!--v-if-->
+    <div
+      aria-hidden="true"
+      class="vfm__overlay vfm--overlay vfm--absolute vfm--inset vfm--prevent-none"
+    />
   </transition-stub>
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
     enteractiveclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveactiveclass="modal-zoom"
@@ -106,55 +95,40 @@ exports[`Modal can be large 1`] = `
     persisted="false"
   >
     <div
-      aria-expanded="false"
-      aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
-      data-v-2836fdb5=""
-      role="dialog"
-      style="display: none;"
-      tabindex="-1"
+      class="vfm__content vfm--outline-none modal-dialog modal-dialog-scrollable modal-lg"
+      tabindex="0"
     >
+      
       <div
-        class="vfm__content modal-dialog modal-dialog-scrollable modal-lg"
-        data-v-2836fdb5=""
+        class="modal-content"
       >
-        
         <div
-          class="modal-content"
-          data-v-2836fdb5-s=""
+          class="modal-header"
         >
-          <div
-            class="modal-header"
-            data-v-2836fdb5-s=""
-          >
-            <h5
-              class="modal-title"
-              data-v-2836fdb5-s=""
-            >
-              
-              test modal header
-              
-            </h5>
-            <button
-              aria-label="Close"
-              class="btn-close"
-              data-v-2836fdb5-s=""
-              type="button"
-            />
-          </div>
-          <div
-            class="modal-body"
-            data-v-2836fdb5-s=""
+          <h5
+            class="modal-title"
           >
             
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            test modal header
             
-          </div>
-          <!--v-if-->
+          </h5>
+          <button
+            aria-label="Close"
+            class="btn-close"
+            type="button"
+          />
         </div>
-        
+        <div
+          class="modal-body"
+        >
+          
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          
+        </div>
         <!--v-if-->
       </div>
+      
+      <!---->
     </div>
   </transition-stub>
 </div>
@@ -162,23 +136,25 @@ exports[`Modal can be large 1`] = `
 
 exports[`Modal can be small 1`] = `
 <div
-  class="vfm vfm--inset vfm--fixed"
-  data-v-2836fdb5=""
-  style="z-index: 2000; display: none;"
+  aria-modal="true"
+  class="modal vfm vfm--fixed vfm--inset"
+  role="dialog"
+  style="z-index: 2000;"
 >
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
-    name="none"
+    name="vfm-fade"
     persisted="false"
   >
-    <!--v-if-->
+    <div
+      aria-hidden="true"
+      class="vfm__overlay vfm--overlay vfm--absolute vfm--inset vfm--prevent-none"
+    />
   </transition-stub>
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
     enteractiveclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveactiveclass="modal-zoom"
@@ -186,55 +162,40 @@ exports[`Modal can be small 1`] = `
     persisted="false"
   >
     <div
-      aria-expanded="false"
-      aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
-      data-v-2836fdb5=""
-      role="dialog"
-      style="display: none;"
-      tabindex="-1"
+      class="vfm__content vfm--outline-none modal-dialog modal-dialog-scrollable modal-sm"
+      tabindex="0"
     >
+      
       <div
-        class="vfm__content modal-dialog modal-dialog-scrollable modal-sm"
-        data-v-2836fdb5=""
+        class="modal-content"
       >
-        
         <div
-          class="modal-content"
-          data-v-2836fdb5-s=""
+          class="modal-header"
         >
-          <div
-            class="modal-header"
-            data-v-2836fdb5-s=""
-          >
-            <h5
-              class="modal-title"
-              data-v-2836fdb5-s=""
-            >
-              
-              test modal header
-              
-            </h5>
-            <button
-              aria-label="Close"
-              class="btn-close"
-              data-v-2836fdb5-s=""
-              type="button"
-            />
-          </div>
-          <div
-            class="modal-body"
-            data-v-2836fdb5-s=""
+          <h5
+            class="modal-title"
           >
             
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            test modal header
             
-          </div>
-          <!--v-if-->
+          </h5>
+          <button
+            aria-label="Close"
+            class="btn-close"
+            type="button"
+          />
         </div>
-        
+        <div
+          class="modal-body"
+        >
+          
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          
+        </div>
         <!--v-if-->
       </div>
+      
+      <!---->
     </div>
   </transition-stub>
 </div>
@@ -242,23 +203,25 @@ exports[`Modal can be small 1`] = `
 
 exports[`Modal should be closable by clicking the backdrop by default 1`] = `
 <div
-  class="vfm vfm--inset vfm--fixed"
-  data-v-2836fdb5=""
-  style="z-index: 2000; display: none;"
+  aria-modal="true"
+  class="modal vfm vfm--fixed vfm--inset"
+  role="dialog"
+  style="z-index: 2000;"
 >
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
-    name="none"
+    name="vfm-fade"
     persisted="false"
   >
-    <!--v-if-->
+    <div
+      aria-hidden="true"
+      class="vfm__overlay vfm--overlay vfm--absolute vfm--inset vfm--prevent-none"
+    />
   </transition-stub>
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
     enteractiveclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveactiveclass="modal-zoom"
@@ -266,55 +229,40 @@ exports[`Modal should be closable by clicking the backdrop by default 1`] = `
     persisted="false"
   >
     <div
-      aria-expanded="false"
-      aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
-      data-v-2836fdb5=""
-      role="dialog"
-      style="display: none;"
-      tabindex="-1"
+      class="vfm__content vfm--outline-none modal-dialog modal-dialog-scrollable"
+      tabindex="0"
     >
+      
       <div
-        class="vfm__content modal-dialog modal-dialog-scrollable"
-        data-v-2836fdb5=""
+        class="modal-content"
       >
-        
         <div
-          class="modal-content"
-          data-v-2836fdb5-s=""
+          class="modal-header"
         >
-          <div
-            class="modal-header"
-            data-v-2836fdb5-s=""
-          >
-            <h5
-              class="modal-title"
-              data-v-2836fdb5-s=""
-            >
-              
-              test modal header
-              
-            </h5>
-            <button
-              aria-label="Close"
-              class="btn-close"
-              data-v-2836fdb5-s=""
-              type="button"
-            />
-          </div>
-          <div
-            class="modal-body"
-            data-v-2836fdb5-s=""
+          <h5
+            class="modal-title"
           >
             
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            test modal header
             
-          </div>
-          <!--v-if-->
+          </h5>
+          <button
+            aria-label="Close"
+            class="btn-close"
+            type="button"
+          />
         </div>
-        
+        <div
+          class="modal-body"
+        >
+          
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          
+        </div>
         <!--v-if-->
       </div>
+      
+      <!---->
     </div>
   </transition-stub>
 </div>
@@ -322,95 +270,57 @@ exports[`Modal should be closable by clicking the backdrop by default 1`] = `
 
 exports[`Modal should be closable using the ok-text button 1`] = `
 <div
-  class="vfm vfm--inset vfm--fixed"
-  data-v-2836fdb5=""
-  style="z-index: 2000; display: none;"
+  class="vfm__content vfm--outline-none modal-dialog modal-dialog-scrollable"
+  tabindex="0"
 >
-  <transition-stub
-    appear="false"
-    css="true"
-    data-v-2836fdb5=""
-    name="none"
-    persisted="false"
+  
+  <div
+    class="modal-content"
   >
     <!--v-if-->
-  </transition-stub>
-  <transition-stub
-    appear="false"
-    css="true"
-    data-v-2836fdb5=""
-    enteractiveclass="modal-zoom"
-    entertoclass="modal-zoom-show"
-    leaveactiveclass="modal-zoom"
-    leavetoclass="modal-zoom"
-    persisted="false"
-  >
     <div
-      aria-expanded="false"
-      aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
-      data-v-2836fdb5=""
-      role="dialog"
-      style="display: none;"
-      tabindex="-1"
+      class="modal-body"
     >
-      <div
-        class="vfm__content modal-dialog modal-dialog-scrollable"
-        data-v-2836fdb5=""
-      >
-        
-        <div
-          class="modal-content"
-          data-v-2836fdb5-s=""
-        >
-          <!--v-if-->
-          <div
-            class="modal-body"
-            data-v-2836fdb5-s=""
-          >
-            
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            
-          </div>
-          <div
-            class="modal-footer"
-            data-v-2836fdb5-s=""
-          >
-            <button
-              class="btn btn-primary"
-              data-v-2836fdb5-s=""
-            >
-              test OK button
-            </button>
-          </div>
-        </div>
-        
-        <!--v-if-->
-      </div>
+      
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      
     </div>
-  </transition-stub>
+    <div
+      class="modal-footer"
+    >
+      <button
+        class="btn btn-primary"
+      >
+        test OK button
+      </button>
+    </div>
+  </div>
+  
+  <!---->
 </div>
 `;
 
 exports[`Modal should not be closable by clicking the backdrop if backdrop is set as false 1`] = `
 <div
-  class="vfm vfm--inset vfm--fixed"
-  data-v-2836fdb5=""
-  style="z-index: 2000; display: none;"
+  aria-modal="true"
+  class="modal vfm vfm--fixed vfm--inset"
+  role="dialog"
+  style="z-index: 2000;"
 >
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
-    name="none"
+    name="vfm-fade"
     persisted="false"
   >
-    <!--v-if-->
+    <div
+      aria-hidden="true"
+      class="vfm__overlay vfm--overlay vfm--absolute vfm--inset vfm--prevent-none"
+    />
   </transition-stub>
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
     enteractiveclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveactiveclass="modal-zoom"
@@ -418,55 +328,40 @@ exports[`Modal should not be closable by clicking the backdrop if backdrop is se
     persisted="false"
   >
     <div
-      aria-expanded="false"
-      aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
-      data-v-2836fdb5=""
-      role="dialog"
-      style="display: none;"
-      tabindex="-1"
+      class="vfm__content vfm--outline-none modal-dialog modal-dialog-scrollable"
+      tabindex="0"
     >
+      
       <div
-        class="vfm__content modal-dialog modal-dialog-scrollable"
-        data-v-2836fdb5=""
+        class="modal-content"
       >
-        
         <div
-          class="modal-content"
-          data-v-2836fdb5-s=""
+          class="modal-header"
         >
-          <div
-            class="modal-header"
-            data-v-2836fdb5-s=""
-          >
-            <h5
-              class="modal-title"
-              data-v-2836fdb5-s=""
-            >
-              
-              test modal header
-              
-            </h5>
-            <button
-              aria-label="Close"
-              class="btn-close"
-              data-v-2836fdb5-s=""
-              type="button"
-            />
-          </div>
-          <div
-            class="modal-body"
-            data-v-2836fdb5-s=""
+          <h5
+            class="modal-title"
           >
             
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            test modal header
             
-          </div>
-          <!--v-if-->
+          </h5>
+          <button
+            aria-label="Close"
+            class="btn-close"
+            type="button"
+          />
         </div>
-        
+        <div
+          class="modal-body"
+        >
+          
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          
+        </div>
         <!--v-if-->
       </div>
+      
+      <!---->
     </div>
   </transition-stub>
 </div>
@@ -474,23 +369,25 @@ exports[`Modal should not be closable by clicking the backdrop if backdrop is se
 
 exports[`Modal should not show footer when no footer is given 1`] = `
 <div
-  class="vfm vfm--inset vfm--fixed"
-  data-v-2836fdb5=""
-  style="z-index: 2000; display: none;"
+  aria-modal="true"
+  class="modal vfm vfm--fixed vfm--inset"
+  role="dialog"
+  style="z-index: 2000;"
 >
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
-    name="none"
+    name="vfm-fade"
     persisted="false"
   >
-    <!--v-if-->
+    <div
+      aria-hidden="true"
+      class="vfm__overlay vfm--overlay vfm--absolute vfm--inset vfm--prevent-none"
+    />
   </transition-stub>
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
     enteractiveclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveactiveclass="modal-zoom"
@@ -498,55 +395,40 @@ exports[`Modal should not show footer when no footer is given 1`] = `
     persisted="false"
   >
     <div
-      aria-expanded="false"
-      aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
-      data-v-2836fdb5=""
-      role="dialog"
-      style="display: none;"
-      tabindex="-1"
+      class="vfm__content vfm--outline-none modal-dialog modal-dialog-scrollable"
+      tabindex="0"
     >
+      
       <div
-        class="vfm__content modal-dialog modal-dialog-scrollable"
-        data-v-2836fdb5=""
+        class="modal-content"
       >
-        
         <div
-          class="modal-content"
-          data-v-2836fdb5-s=""
+          class="modal-header"
         >
-          <div
-            class="modal-header"
-            data-v-2836fdb5-s=""
-          >
-            <h5
-              class="modal-title"
-              data-v-2836fdb5-s=""
-            >
-              
-              test modal header
-              
-            </h5>
-            <button
-              aria-label="Close"
-              class="btn-close"
-              data-v-2836fdb5-s=""
-              type="button"
-            />
-          </div>
-          <div
-            class="modal-body"
-            data-v-2836fdb5-s=""
+          <h5
+            class="modal-title"
           >
             
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            test modal header
             
-          </div>
-          <!--v-if-->
+          </h5>
+          <button
+            aria-label="Close"
+            class="btn-close"
+            type="button"
+          />
         </div>
-        
+        <div
+          class="modal-body"
+        >
+          
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          
+        </div>
         <!--v-if-->
       </div>
+      
+      <!---->
     </div>
   </transition-stub>
 </div>
@@ -554,23 +436,25 @@ exports[`Modal should not show footer when no footer is given 1`] = `
 
 exports[`Modal should not show header when no header is given 1`] = `
 <div
-  class="vfm vfm--inset vfm--fixed"
-  data-v-2836fdb5=""
-  style="z-index: 2000; display: none;"
+  aria-modal="true"
+  class="modal vfm vfm--fixed vfm--inset"
+  role="dialog"
+  style="z-index: 2000;"
 >
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
-    name="none"
+    name="vfm-fade"
     persisted="false"
   >
-    <!--v-if-->
+    <div
+      aria-hidden="true"
+      class="vfm__overlay vfm--overlay vfm--absolute vfm--inset vfm--prevent-none"
+    />
   </transition-stub>
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
     enteractiveclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveactiveclass="modal-zoom"
@@ -578,44 +462,31 @@ exports[`Modal should not show header when no header is given 1`] = `
     persisted="false"
   >
     <div
-      aria-expanded="false"
-      aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
-      data-v-2836fdb5=""
-      role="dialog"
-      style="display: none;"
-      tabindex="-1"
+      class="vfm__content vfm--outline-none modal-dialog modal-dialog-scrollable"
+      tabindex="0"
     >
+      
       <div
-        class="vfm__content modal-dialog modal-dialog-scrollable"
-        data-v-2836fdb5=""
+        class="modal-content"
       >
-        
-        <div
-          class="modal-content"
-          data-v-2836fdb5-s=""
-        >
-          <!--v-if-->
-          <div
-            class="modal-body"
-            data-v-2836fdb5-s=""
-          >
-            
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            
-          </div>
-          <div
-            class="modal-footer"
-            data-v-2836fdb5-s=""
-          >
-            
-            test modal footer
-            
-          </div>
-        </div>
-        
         <!--v-if-->
+        <div
+          class="modal-body"
+        >
+          
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          
+        </div>
+        <div
+          class="modal-footer"
+        >
+          
+          test modal footer
+          
+        </div>
       </div>
+      
+      <!---->
     </div>
   </transition-stub>
 </div>
@@ -623,23 +494,25 @@ exports[`Modal should not show header when no header is given 1`] = `
 
 exports[`Modal should show footer when both footer and ok-text are given 1`] = `
 <div
-  class="vfm vfm--inset vfm--fixed"
-  data-v-2836fdb5=""
-  style="z-index: 2000; display: none;"
+  aria-modal="true"
+  class="modal vfm vfm--fixed vfm--inset"
+  role="dialog"
+  style="z-index: 2000;"
 >
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
-    name="none"
+    name="vfm-fade"
     persisted="false"
   >
-    <!--v-if-->
+    <div
+      aria-hidden="true"
+      class="vfm__overlay vfm--overlay vfm--absolute vfm--inset vfm--prevent-none"
+    />
   </transition-stub>
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
     enteractiveclass="modal-zoom"
     entertoclass="modal-zoom-show"
     leaveactiveclass="modal-zoom"
@@ -647,44 +520,31 @@ exports[`Modal should show footer when both footer and ok-text are given 1`] = `
     persisted="false"
   >
     <div
-      aria-expanded="false"
-      aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
-      data-v-2836fdb5=""
-      role="dialog"
-      style="display: none;"
-      tabindex="-1"
+      class="vfm__content vfm--outline-none modal-dialog modal-dialog-scrollable"
+      tabindex="0"
     >
+      
       <div
-        class="vfm__content modal-dialog modal-dialog-scrollable"
-        data-v-2836fdb5=""
+        class="modal-content"
       >
-        
-        <div
-          class="modal-content"
-          data-v-2836fdb5-s=""
-        >
-          <!--v-if-->
-          <div
-            class="modal-body"
-            data-v-2836fdb5-s=""
-          >
-            
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            
-          </div>
-          <div
-            class="modal-footer"
-            data-v-2836fdb5-s=""
-          >
-            
-            test modal footer
-            
-          </div>
-        </div>
-        
         <!--v-if-->
+        <div
+          class="modal-body"
+        >
+          
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          
+        </div>
+        <div
+          class="modal-footer"
+        >
+          
+          test modal footer
+          
+        </div>
       </div>
+      
+      <!---->
     </div>
   </transition-stub>
 </div>
@@ -692,59 +552,63 @@ exports[`Modal should show footer when both footer and ok-text are given 1`] = `
 
 exports[`Modal supports fade effect 1`] = `
 <div
-  class="vfm vfm--inset vfm--fixed"
-  data-v-2836fdb5=""
-  header="test modal header"
-  style="z-index: 2000; display: none;"
+  aria-modal="true"
+  class="modal vfm vfm--fixed vfm--inset"
+  role="dialog"
+  style="z-index: 2000;"
 >
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
-    name="none"
+    name="vfm-fade"
     persisted="false"
   >
-    <!--v-if-->
+    <div
+      aria-hidden="true"
+      class="vfm__overlay vfm--overlay vfm--absolute vfm--inset vfm--prevent-none"
+    />
   </transition-stub>
   <transition-stub
-    appear="false"
+    appear="true"
     css="true"
-    data-v-2836fdb5=""
     name="vfm"
     persisted="false"
   >
     <div
-      aria-expanded="false"
-      aria-modal="true"
-      class="vfm__container vfm--absolute vfm--inset vfm--outline-none modal"
-      data-v-2836fdb5=""
-      role="dialog"
-      style="display: none;"
-      tabindex="-1"
+      class="vfm__content vfm--outline-none modal-dialog modal-dialog-scrollable"
+      tabindex="0"
     >
+      
       <div
-        class="vfm__content modal-dialog modal-dialog-scrollable"
-        data-v-2836fdb5=""
+        class="modal-content"
       >
-        
         <div
-          class="modal-content"
-          data-v-2836fdb5-s=""
+          class="modal-header"
         >
-          <!--v-if-->
-          <div
-            class="modal-body"
-            data-v-2836fdb5-s=""
+          <h5
+            class="modal-title"
           >
             
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            test modal header
             
-          </div>
-          <!--v-if-->
+          </h5>
+          <button
+            aria-label="Close"
+            class="btn-close"
+            type="button"
+          />
         </div>
-        
+        <div
+          class="modal-body"
+        >
+          
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          
+        </div>
         <!--v-if-->
       </div>
+      
+      <!---->
     </div>
   </transition-stub>
 </div>

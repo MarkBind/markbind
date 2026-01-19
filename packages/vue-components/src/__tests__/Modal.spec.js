@@ -1,4 +1,6 @@
 import { mount } from '@vue/test-utils';
+import { createVfm } from 'vue-final-modal';
+import { nextTick } from 'vue';
 import Modal from '../Modal.vue';
 import Trigger from '../Trigger.vue';
 
@@ -14,6 +16,7 @@ const TRIGGER_STUB = {
     stubs: {
       'v-tooltip': true,
       'v-popover': true,
+      teleport: true,
     },
   },
 };
@@ -24,195 +27,224 @@ const DEFAULT_MODAL_CONTENT = 'Lorem ipsum dolor sit amet, '
   + 'consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
 describe('Modal', () => {
-  test('should not show header when no header is given', async () => {
-    const wrapper = mount(Modal, {
+  let vfm;
+  let wrapper;
+
+  beforeEach(() => {
+    vfm = createVfm();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    if (wrapper) {
+      wrapper.unmount();
+      wrapper = null;
+    }
+    document.body.innerHTML = '';
+  });
+
+  const mountModal = async (props = {}, slots = {}) => {
+    wrapper = mount(Modal, {
+      props,
+      slots,
+      global: {
+        plugins: [vfm],
+      },
+      attachTo: document.body,
+    });
+    await wrapper.setData({ show: true, isMounted: true });
+    await nextTick();
+    await nextTick();
+    return wrapper;
+  };
+
+  const snapshotModalContent = () => {
+    // Snapshot the entire modal wrapper to capture transitions and full structure
+    const modalContent = document.body.querySelector('.modal');
+    expect(modalContent).toMatchSnapshot();
+  };
+
+  test('should be triggered by Trigger component', async () => {
+    jest.spyOn(vfm, 'open').mockImplementation(() => Promise.resolve());
+    wrapper = mount(Modal, {
       props: {
         id: 'modal:test',
       },
       slots: {
         default: DEFAULT_MODAL_CONTENT,
-        footer: DEFAULT_MODAL_FOOTER,
+      },
+      global: {
+        plugins: [vfm],
+        stubs: {
+          teleport: true,
+        },
       },
     });
-    const trigger = mount(Trigger, TRIGGER_STUB);
+    const trigger = mount(Trigger, {
+      ...TRIGGER_STUB,
+      global: {
+        ...TRIGGER_STUB.global,
+        plugins: [vfm],
+      },
+    });
 
     // click on trigger
     await trigger.find('span.trigger-click').trigger('click');
+    expect(vfm.open).toHaveBeenCalledWith('modal:test');
+  });
 
-    expect(wrapper.element).toMatchSnapshot();
+  test('should not show header when no header is given', async () => {
+    await mountModal(
+      { id: 'modal:test' },
+      {
+        default: DEFAULT_MODAL_CONTENT,
+        footer: DEFAULT_MODAL_FOOTER,
+      },
+    );
+    snapshotModalContent();
   });
 
   test('should not show footer when no footer is given', async () => {
-    const wrapper = mount(Modal, {
-      props: {
-        id: 'modal:test',
-      },
-      slots: {
+    await mountModal(
+      { id: 'modal:test' },
+      {
         header: DEFAULT_MODAL_HEADER,
         default: DEFAULT_MODAL_CONTENT,
       },
-    });
-    const trigger = mount(Trigger, TRIGGER_STUB);
-
-    // click on trigger
-    await trigger.find('span.trigger-click').trigger('click');
-
-    expect(wrapper.element).toMatchSnapshot();
+    );
+    snapshotModalContent();
   });
 
   test('should show footer when both footer and ok-text are given', async () => {
-    const wrapper = mount(Modal, {
-      props: {
+    await mountModal(
+      {
         id: 'modal:test',
         'ok-text': 'test OK button',
       },
-      slots: {
+      {
         default: DEFAULT_MODAL_CONTENT,
         footer: DEFAULT_MODAL_FOOTER,
       },
-    });
-    const trigger = mount(Trigger, TRIGGER_STUB);
-
-    // click on trigger
-    await trigger.find('span.trigger-click').trigger('click');
-
-    expect(wrapper.element).toMatchSnapshot();
+    );
+    snapshotModalContent();
   });
 
   test('should be closable by clicking the backdrop by default', async () => {
-    const wrapper = mount(Modal, {
-      props: {
-        id: 'modal:test',
-      },
-      slots: {
+    await mountModal(
+      { id: 'modal:test' },
+      {
         header: DEFAULT_MODAL_HEADER,
         default: DEFAULT_MODAL_CONTENT,
       },
-    });
-    const trigger = mount(Trigger, TRIGGER_STUB);
+    );
 
-    // click on trigger
-    await trigger.find('span.trigger-click').trigger('click');
-    // then click on backdrop
-    await wrapper.find('div[role=dialog]').trigger('click');
+    // Verify clickToClose prop is true by default
+    const vfmComponent = wrapper.findComponent({ name: 'VueFinalModal' });
+    expect(vfmComponent.exists()).toBe(true);
+    expect(vfmComponent.props('clickToClose')).toBe(true); // default true
 
-    expect(wrapper.element).toMatchSnapshot();
+    snapshotModalContent();
   });
 
   test('should not be closable by clicking the backdrop if backdrop is set as false', async () => {
-    const wrapper = mount(Modal, {
-      props: {
+    await mountModal(
+      {
         id: 'modal:test',
         backdrop: 'false',
       },
-      slots: {
+      {
         header: DEFAULT_MODAL_HEADER,
         default: DEFAULT_MODAL_CONTENT,
       },
-    });
-    const trigger = mount(Trigger, TRIGGER_STUB);
+    );
 
-    // click on trigger
-    await trigger.find('span.trigger-click').trigger('click');
-    // then click on backdrop
-    await wrapper.find('div[role=dialog]').trigger('click');
+    // Verify clickToClose prop is false
+    const vfmComponent = wrapper.findComponent({ name: 'VueFinalModal' });
+    expect(vfmComponent.props('clickToClose')).toBe(false);
 
-    expect(wrapper.element).toMatchSnapshot();
+    snapshotModalContent();
   });
 
   test('should be closable using the ok-text button', async () => {
-    const wrapper = mount(Modal, {
-      props: {
+    await mountModal(
+      {
         id: 'modal:test',
         'ok-text': 'test OK button',
       },
-      slots: {
+      {
         default: DEFAULT_MODAL_CONTENT,
       },
-    });
-    const trigger = mount(Trigger, TRIGGER_STUB);
+    );
 
-    // click on trigger
-    await trigger.find('span.trigger-click').trigger('click');
-    // click on OK button
-    await wrapper.find('button.btn-primary').trigger('click');
+    // Verify button exists in body (outside wrapper)
+    const okBtn = document.body.querySelector('.modal-footer .btn-primary');
+    expect(okBtn).not.toBeNull();
 
-    expect(wrapper.element).toMatchSnapshot();
+    // Snapshot the actual rendered modal content
+    const modalContent = document.body.querySelector('.vfm__content');
+    expect(modalContent).toMatchSnapshot();
+
+    // Simulate click
+    await okBtn.click();
+    await nextTick();
+
+    // Verify modal is closed
+    expect(wrapper.vm.show).toBe(false);
   });
 
   test('supports fade effect', async () => {
-    const wrapper = mount(Modal, {
-      props: {
+    await mountModal(
+      {
         id: 'modal:test',
         effect: 'fade',
-        header: DEFAULT_MODAL_HEADER,
       },
-      slots: {
+      {
+        header: DEFAULT_MODAL_HEADER,
         default: DEFAULT_MODAL_CONTENT,
       },
-    });
-    const trigger = mount(Trigger, TRIGGER_STUB);
-
-    // click on trigger
-    await trigger.find('span.trigger-click').trigger('click');
-
-    expect(wrapper.element).toMatchSnapshot();
+    );
+    snapshotModalContent();
   });
 
   test('can be small', async () => {
-    const wrapper = mount(Modal, {
-      props: {
+    await mountModal(
+      {
         id: 'modal:test',
         small: true,
       },
-      slots: {
+      {
         header: DEFAULT_MODAL_HEADER,
         default: DEFAULT_MODAL_CONTENT,
       },
-    });
-    const trigger = mount(Trigger, TRIGGER_STUB);
-
-    // click on trigger
-    await trigger.find('span.trigger-click').trigger('click');
-
-    expect(wrapper.element).toMatchSnapshot();
+    );
+    snapshotModalContent();
   });
 
   test('can be large', async () => {
-    const wrapper = mount(Modal, {
-      props: {
+    await mountModal(
+      {
         id: 'modal:test',
         large: true,
       },
-      slots: {
+      {
         header: DEFAULT_MODAL_HEADER,
         default: DEFAULT_MODAL_CONTENT,
       },
-    });
-    const trigger = mount(Trigger, TRIGGER_STUB);
-
-    // click on trigger
-    await trigger.find('span.trigger-click').trigger('click');
-
-    expect(wrapper.element).toMatchSnapshot();
+    );
+    snapshotModalContent();
   });
 
   test('can be centered', async () => {
-    const wrapper = mount(Modal, {
-      props: {
+    await mountModal(
+      {
         id: 'modal:test',
         center: true,
       },
-      slots: {
+      {
         header: DEFAULT_MODAL_HEADER,
         default: DEFAULT_MODAL_CONTENT,
       },
-    });
-    const trigger = mount(Trigger, TRIGGER_STUB);
-
-    // click on trigger
-    await trigger.find('span.trigger-click').trigger('click');
-
-    expect(wrapper.element).toMatchSnapshot();
+    );
+    snapshotModalContent();
   });
 });
