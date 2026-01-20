@@ -13,6 +13,17 @@
         </template>
       </span>
       <span
+        v-if="cardStackRef.tagMapping.length > 0"
+        class="badge bg-dark tag-badge"
+        @click="toggleAllTags"
+      >
+        Select All&nbsp;
+        <span class="badge bg-light text-dark tag-indicator">
+          <span v-if="allSelected">✓</span>
+          <span v-else>&nbsp;&nbsp;&nbsp;</span>
+        </span>
+      </span>
+      <span
         v-for="(key, index) in cardStackRef.tagMapping"
         :key="index"
         :class="['badge', key[1].badgeColor, 'tag-badge']"
@@ -61,6 +72,9 @@ export default {
     },
   },
   computed: {
+    allSelected() {
+      return this.selectedTags.length === this.cardStackRef.tagMapping.length;
+    },
   },
   watch: {
     'cardStackRef.tagMapping': {
@@ -113,11 +127,12 @@ export default {
       if (this.selectedTags.length === 0) {
         // this.showAllTags(); //reminder to remove later
         // This ensures that all cards are disabled when no tags are selected
-        this.cardStackRef.children.forEach((child) => {
-          if (!child.$props.disabled) {
-            child.$data.disableTag = true;
-          }
-        });
+        // this.cardStackRef.children.forEach((child) => {
+        //   if (!child.$props.disabled) {
+        //     child.$data.disableTag = true;
+        //   }
+        // });
+        this.showAllTags(false);
       } else {
         this.cardStackRef.children.forEach((child) => {
           if (child.$props.disabled) return;
@@ -128,15 +143,25 @@ export default {
         });
       }
     },
-    showAllTags() {
+    showAllTags(showTag) {
       this.cardStackRef.children.forEach((child) => {
         if (child.$props.disabled) return;
 
-        child.$data.disableTag = false;
+        child.$data.disableTag = !showTag;
       });
     },
     computeShowTag(tagName) {
       return this.selectedTags.includes(tagName);
+    },
+    toggleAllTags() {
+      const allTags = this.cardStackRef.tagMapping.map(key => key[0]);
+      if (this.selectedTags.length === allTags.length) {
+        this.selectedTags = [];
+        this.showAllTags(false);
+      } else {
+        this.selectedTags = allTags;
+        this.showAllTags(true);
+      }
     },
   },
   data() {
