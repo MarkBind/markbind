@@ -215,6 +215,9 @@ export class NodeProcessor {
       case 'card':
         this.mdAttributeRenderer.processCardAttributes(node);
         break;
+      case 'cardstack':
+        this.mdAttributeRenderer.processCardStackAttributes(node);
+        break;
       case 'modal':
         this.processModal(node);
         break;

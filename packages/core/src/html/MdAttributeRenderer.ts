@@ -167,6 +167,56 @@ export class MdAttributeRenderer {
     this.processSlotAttribute(node, 'header', true);
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  processCardStackAttributes(node: MbNode) {
+    // Look for a <tags> child element
+    if (!node.children) {
+      return;
+    }
+
+    const tagsNodeIndex = node.children.findIndex(
+      child => child.type === 'tag' && (child as MbNode).name === 'tags',
+    );
+
+    if (tagsNodeIndex === -1) {
+      return;
+    }
+
+    const tagsNode = node.children[tagsNodeIndex] as MbNode;
+    const tagConfigs: Array<{ name: string; color?: string }> = [];
+
+    // Parse each <tag> element
+    if (tagsNode.children) {
+      tagsNode.children.forEach((child) => {
+        if (child.type === 'tag' && (child as MbNode).name === 'tag') {
+          const tagNode = child as MbNode;
+          if (tagNode.attribs && tagNode.attribs.name) {
+            const config: { name: string; color?: string } = {
+              name: tagNode.attribs.name,
+            };
+            if (tagNode.attribs.color) {
+              config.color = tagNode.attribs.color;
+            }
+            tagConfigs.push(config);
+          }
+        }
+      });
+    }
+
+    // Add tag-configs as a prop if we found any tags
+    // Store as a data attribute that will be parsed by the Vue component
+    // We need to escape the quotes for HTML attributes to prevent SSR warnings
+    if (tagConfigs.length > 0) {
+      const jsonString = JSON.stringify(tagConfigs);
+      // Replace double quotes with HTML entities to avoid SSR warnings
+      const escapedJson = jsonString.replace(/"/g, '&quot;');
+      node.attribs['data-tag-configs'] = escapedJson;
+    }
+
+    // Remove the <tags> node from the DOM tree
+    node.children.splice(tagsNodeIndex, 1);
+  }
+
   /*
    * Dropdowns
    */

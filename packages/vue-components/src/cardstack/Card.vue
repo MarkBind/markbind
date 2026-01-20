@@ -22,7 +22,11 @@
           <span
             v-for="(key, index) in exposedTags"
             :key="index"
-            :class="['badge', key[1].badgeColor, 'tag-container']"
+            :class="['badge', isBootstrapColor(key[1].badgeColor) ? key[1].badgeColor : '', 'tag-container']"
+            :style="isBootstrapColor(key[1].badgeColor) ? {} : {
+              backgroundColor: key[1].badgeColor,
+              color: getTextColor(key[1].badgeColor)
+            }"
           >
             {{ key[0] }}
           </span>
@@ -113,6 +117,34 @@ export default {
     },
   },
   methods: {
+    isBootstrapColor(color) {
+      // Check if the color is a Bootstrap class
+      const bootstrapColors = [
+        'bg-primary',
+        'bg-secondary',
+        'bg-success',
+        'bg-danger',
+        'bg-warning text-dark',
+        'bg-info text-dark',
+        'bg-light text-dark',
+        'bg-dark',
+      ];
+      return bootstrapColors.some(c => c === color);
+    },
+    getTextColor(backgroundColor) {
+      // Simple function to determine if text should be light or dark
+      if (!backgroundColor || backgroundColor.startsWith('bg-')) {
+        return '#000';
+      }
+      // Parse hex color
+      const hex = backgroundColor.replace('#', '');
+      const r = parseInt(hex.substr(0, 2), 16);
+      const g = parseInt(hex.substr(2, 2), 16);
+      const b = parseInt(hex.substr(4, 2), 16);
+      // Calculate relative luminance
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      return luminance > 0.5 ? '#000' : '#fff';
+    },
   },
   mounted() {
     this.cardStack = this.cardStackRef;
