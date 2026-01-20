@@ -35,7 +35,7 @@ const expectedErrors = [
   "URLs are not allowed in the 'src' attribute",
   'No config file found in parent directories of',
   'This directory does not appear to contain a valid MarkBind site.'
-  + 'Check that you are running the command in the correct directory!',
+  + ' Check that you are running the command in the correct directory!',
 ];
 
 logger.info(
@@ -98,43 +98,46 @@ testTemplateSites.forEach((templateAndSitePath) => {
 });
 
 function testEmptyDirectoryBuild() {
-  const emptyDirName = 'test_site_empty';
-  const emptyDirPath = path.join(__dirname, emptyDirName);
+  const siteRootName = 'test_site_empty';
+  const siteRootPath = path.join(__dirname, siteRootName);
+
   const emptySiteName = 'empty_dir';
-  const testEmptySitePath = path.join(emptyDirPath, emptySiteName);
+  const emptySitePath = path.join(siteRootPath, emptySiteName);
+
   const expectedSiteName = 'expected';
-  const testExpectedSitePath = path.join(emptyDirPath, expectedSiteName);
+  const expectedSitePath = path.join(siteRootPath, expectedSiteName);
+
   const execOptionsWithCwd = {
     stdio: ['inherit', 'inherit', 'inherit'],
-    cwd: testEmptySitePath, // Set the working directory to testEmptyPath
+    cwd: emptySitePath, // Set the working directory to testEmptyPath
   };
 
-  console.log(`Running ${emptyDirName} test`);
+  console.log(`Running ${siteRootName} test`);
 
   try {
-    // Ensure test_empty directory exists
-    fs.ensureDirSync(testEmptySitePath);
-    fs.ensureDirSync(testExpectedSitePath);
+    // Ensure test_site_empty/empty_dir and test_site_empty/expected directories exist
+    fs.ensureDirSync(emptySitePath);
+    fs.ensureDirSync(expectedSitePath);
 
     // Try to build in empty directory (should fail with specific error)
     try {
-      execSync(`node ../../../../index.js build ${testEmptySitePath}`, execOptionsWithCwd);
-      printFailedMessage(new Error('Expected build to fail but it succeeded'), emptyDirName);
+      execSync(`node ../../../../index.js build ${emptySitePath}`, execOptionsWithCwd);
+      printFailedMessage(new Error('Expected build to fail but it succeeded'), siteRootName);
       process.exit(1);
     } catch (err) {
       // Verify that test_empty directory remains empty using compare()
       try {
-        compare(emptyDirName, 'expected', 'empty_dir', [], true);
+        compare(siteRootName, 'expected', 'empty_dir', [], true);
       } catch (compareErr) {
-        printFailedMessage(compareErr, emptyDirName);
+        printFailedMessage(compareErr, siteRootName);
         // Reset test_site_empty/empty_dir
-        fs.emptyDirSync(testEmptySitePath);
+        fs.emptyDirSync(emptySitePath);
         process.exit(1);
       }
     }
   } finally {
     // Reset test_site_empty/empty_dir
-    fs.emptyDirSync(testEmptySitePath);
+    fs.emptyDirSync(emptySitePath);
   }
 }
 

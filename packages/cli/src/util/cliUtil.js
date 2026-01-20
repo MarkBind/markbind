@@ -24,10 +24,8 @@ module.exports = {
     }
     return path.dirname(foundConfigPath);
   },
-  cleanupFailedMarkbindBuild: (userSpecifiedRoot) => {
-    const markbindDir = userSpecifiedRoot
-      ? path.join(userSpecifiedRoot, '_markbind')
-      : path.join(process.cwd(), '_markbind');
+  cleanupFailedMarkbindBuild: () => {
+    const markbindDir = path.join(process.cwd(), '_markbind');
     if (fs.pathExistsSync(markbindDir)) {
       // delete _markbind/ folder and contents
       fs.rmSync(markbindDir, { recursive: true, force: true });

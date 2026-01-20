@@ -35,17 +35,16 @@ function filterPageVueRenderFiles(filePaths) {
 
 /**
  * Gets directory structure as a sorted array of relative directory paths
- * @param {string} dirPath - Directory path to analyze
+ * @param {string} dirPath - Existing directory path to analyze
  * @returns {string[]} Sorted array of relative directory paths
  */
 function getDirectoryStructure(dirPath) {
   const allPaths = walkSync(dirPath, { directories: true, globs: ['**/*'] });
-  const dirs = allPaths
-    .filter(p => fs.statSync(path.join(dirPath, p)).isDirectory())
+  return allPaths
+    .filter(p => fs.statSync(path.join(dirPath, p))
+      .isDirectory())
     .map(p => p.replace(/\\/g, '/')) // Normalize path separators
     .sort();
-
-  return dirs;
 }
 
 /**
