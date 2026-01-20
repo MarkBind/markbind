@@ -100,21 +100,25 @@ testTemplateSites.forEach((templateAndSitePath) => {
 function testEmptyDirectoryBuild() {
   const emptyDirName = 'test_site_empty';
   const emptyDirPath = path.join(__dirname, emptyDirName);
-  const testEmptyPath = path.join(emptyDirPath, 'empty_dir');
+  const emptySiteName = 'empty_dir';
+  const testEmptySitePath = path.join(emptyDirPath, emptySiteName);
+  const expectedSiteName = 'expected';
+  const testExpectedSitePath = path.join(emptyDirPath, expectedSiteName);
   const execOptionsWithCwd = {
     stdio: ['inherit', 'inherit', 'inherit'],
-    cwd: testEmptyPath, // Set the working directory to testEmptyPath
+    cwd: testEmptySitePath, // Set the working directory to testEmptyPath
   };
 
   console.log(`Running ${emptyDirName} test`);
 
   try {
     // Ensure test_empty directory exists
-    fs.ensureDirSync(testEmptyPath);
+    fs.ensureDirSync(testEmptySitePath);
+    fs.ensureDirSync(testExpectedSitePath);
 
     // Try to build in empty directory (should fail with specific error)
     try {
-      execSync(`node ../../../../index.js build ${testEmptyPath}`, execOptionsWithCwd);
+      execSync(`node ../../../../index.js build ${testEmptySitePath}`, execOptionsWithCwd);
       printFailedMessage(new Error('Expected build to fail but it succeeded'), emptyDirName);
       process.exit(1);
     } catch (err) {
@@ -124,13 +128,13 @@ function testEmptyDirectoryBuild() {
       } catch (compareErr) {
         printFailedMessage(compareErr, emptyDirName);
         // Reset test_site_empty/empty_dir
-        fs.emptyDirSync(testEmptyPath);
+        fs.emptyDirSync(testEmptySitePath);
         process.exit(1);
       }
     }
   } finally {
     // Reset test_site_empty/empty_dir
-    fs.emptyDirSync(testEmptyPath);
+    fs.emptyDirSync(testEmptySitePath);
   }
 }
 
