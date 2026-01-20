@@ -31,7 +31,12 @@ const execOptions = {
   stdio: ['inherit', 'inherit', 'inherit'],
 };
 
-const expectedErrors = ["URLs are not allowed in the 'src' attribute"];
+const expectedErrors = [
+  "URLs are not allowed in the 'src' attribute",
+  'No config file found in parent directories of',
+  'This directory does not appear to contain a valid MarkBind site.'
+  + 'Check that you are running the command in the correct directory!',
+];
 
 logger.info(
   `The following ${
@@ -91,5 +96,45 @@ testTemplateSites.forEach((templateAndSitePath) => {
   }
   fs.removeSync(path.resolve(__dirname, siteCreationTempPath));
 });
+
+function testEmptyDirectoryBuild() {
+  const emptyDirName = 'test_site_empty';
+  const emptyDirPath = path.join(__dirname, emptyDirName);
+  const testEmptyPath = path.join(emptyDirPath, 'empty_dir');
+  const execOptionsWithCwd = {
+    stdio: ['inherit', 'inherit', 'inherit'],
+    cwd: testEmptyPath, // Set the working directory to testEmptyPath
+  };
+
+  console.log(`Running ${emptyDirName} test`);
+
+  try {
+    // Ensure test_empty directory exists
+    fs.ensureDirSync(testEmptyPath);
+
+    // Try to build in empty directory (should fail with specific error)
+    try {
+      execSync(`node ../../../../index.js build ${testEmptyPath}`, execOptionsWithCwd);
+      printFailedMessage(new Error('Expected build to fail but it succeeded'), emptyDirName);
+      process.exit(1);
+    } catch (err) {
+      // Verify that test_empty directory remains empty using compare()
+      try {
+        compare(emptyDirName, 'expected', 'empty_dir', [], true);
+      } catch (compareErr) {
+        printFailedMessage(compareErr, emptyDirName);
+        // Reset test_site_empty/empty_dir
+        fs.emptyDirSync(testEmptyPath);
+        process.exit(1);
+      }
+    }
+  } finally {
+    // Reset test_site_empty/empty_dir
+    fs.emptyDirSync(testEmptyPath);
+  }
+}
+
+// Run the empty directory test
+testEmptyDirectoryBuild();
 
 console.log('Test result: PASSED');
