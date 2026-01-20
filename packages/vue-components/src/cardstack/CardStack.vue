@@ -163,6 +163,7 @@ export default {
         tagMapping: [],
         children: [],
         searchData: new Map(),
+        component: null, // Will be set to the component instance
         updateTagMapping() {
           const tags = this.rawTags;
           const tagMap = new Map();
@@ -171,7 +172,7 @@ export default {
           // First, parse custom tag configs if provided
           let customConfigs = [];
           try {
-            const configSource = this.$parent.dataTagConfigs || this.$parent.tagConfigs;
+            const configSource = this.component?.dataTagConfigs || this.component?.tagConfigs;
             if (configSource && configSource !== '') {
               // Decode HTML entities (quotes were escaped to prevent SSR warnings)
               const decodedConfig = configSource.replace(/&quot;/g, '"');
@@ -240,6 +241,10 @@ export default {
         },
       },
     };
+  },
+  created() {
+    // Set the component reference so updateTagMapping can access props
+    this.cardStackRef.component = this;
   },
   mounted() {
     this.isMounted = true;
