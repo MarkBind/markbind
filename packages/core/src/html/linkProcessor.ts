@@ -236,7 +236,7 @@ export function validateIntraLink(resourcePath: string,
   const strippedResourcePath = urlUtil.stripBaseUrl(resourcePath, config.baseUrl);
   const resourcePathUrl = parse(strippedResourcePath);
   const hash = resourcePathUrl.hash ? resourcePathUrl.hash.substring(1) : undefined;
-  const { pathname } = resourcePathUrl;
+  const pathname = resourcePathUrl.pathname ?? '';
 
   // Route to appropriate validator based on path characteristics
   if (pathname.endsWith('/')) {
