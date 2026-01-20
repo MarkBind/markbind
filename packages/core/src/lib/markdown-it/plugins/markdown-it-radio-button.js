@@ -91,12 +91,9 @@ function makeRadioButton(token, TokenConstructor, radioId) {
   var radio = new TokenConstructor('html_inline', '', 0);
   var disabledAttr = disableRadio ? ' disabled="" ' : '';
   
-  var isUnchecked = token.content === '( )' || 
-                    token.content.indexOf('( ) ') === 0;
-  var isChecked = token.content === '(x)' || 
-                  token.content === '(X)' ||
-                  token.content.indexOf('(x) ') === 0 ||
-                  token.content.indexOf('(X) ') === 0;
+  const isUnchecked = token.content.indexOf('( ) ') === 0;
+  const isChecked = token.content.indexOf('(x) ') === 0 ||
+                    token.content.indexOf('(X) ') === 0;
   if (isUnchecked) {
     radio.content = '<input class="radio-list-input" name="' + radioId + '"' + disabledAttr + 'type="radio">';
   } else if (isChecked) {
@@ -125,8 +122,5 @@ function isListItem(token) { return token.type === 'list_item_open'; }
 
 function startsWithTodoMarkdown(token) {
   // leading whitespace in a list item is already trimmed off by markdown-it
-  // Handle both cases: with trailing text '( ) text' and without '( )'
-  return token.content === '( )' || token.content.indexOf('( ) ') === 0 ||
-         token.content === '(x)' || token.content.indexOf('(x) ') === 0 ||
-         token.content === '(X)' || token.content.indexOf('(X) ') === 0;
+  return token.content.indexOf('( ) ') === 0 || token.content.indexOf('(x) ') === 0 || token.content.indexOf('(X) ') === 0;
 }
