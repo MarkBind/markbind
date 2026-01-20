@@ -62,6 +62,17 @@ export default {
   },
   computed: {
   },
+  watch: {
+    'cardStackRef.tagMapping': {
+      handler(newMapping) {
+        // Initialise the selectedTags with all tag names when loading for the first time
+        if (this.selectedTags.length === 0 && newMapping.length > 0) {
+          this.selectedTags = newMapping.map(key => key[0]);
+        }
+      },
+      immediate: true,
+    },
+  },
   provide() {
     return {
       cardStackRef: this.cardStackRef,
@@ -100,7 +111,13 @@ export default {
       }
 
       if (this.selectedTags.length === 0) {
-        this.showAllTags();
+        // this.showAllTags(); //reminder to remove later
+        // This ensures that all cards are disabled when no tags are selected
+        this.cardStackRef.children.forEach((child) => {
+          if (!child.$props.disabled) {
+            child.$data.disableTag = true;
+          }
+        });
       } else {
         this.cardStackRef.children.forEach((child) => {
           if (child.$props.disabled) return;
