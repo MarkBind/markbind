@@ -141,6 +141,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/IanCheah"><img src="https://avatars.githubusercontent.com/u/103352463?v=4?s=100" width="100px;" alt="IanCheah"/><br /><sub><b>IanCheah</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=IanCheah" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/yyccbb"><img src="https://avatars.githubusercontent.com/u/35594369?v=4?s=100" width="100px;" alt="yyccbb"/><br /><sub><b>yyccbb</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=yyccbb" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Harjun751"><img src="https://avatars.githubusercontent.com/u/57029562?v=4?s=100" width="100px;" alt="Arjun"/><br /><sub><b>Arjun</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=harjun751" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
