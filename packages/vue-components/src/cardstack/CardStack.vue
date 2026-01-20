@@ -125,13 +125,6 @@ export default {
       }
 
       if (this.selectedTags.length === 0) {
-        // this.showAllTags(); //reminder to remove later
-        // This ensures that all cards are disabled when no tags are selected
-        // this.cardStackRef.children.forEach((child) => {
-        //   if (!child.$props.disabled) {
-        //     child.$data.disableTag = true;
-        //   }
-        // });
         this.showAllTags(false);
       } else {
         this.cardStackRef.children.forEach((child) => {
