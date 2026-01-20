@@ -91,4 +91,66 @@ describe('CardStack', () => {
     await wrapper.vm.$nextTick();
     expect(wrapper.element).toMatchSnapshot();
   });
+
+  test('should have all tags checked by default on load', async () => {
+    const wrapper = mount(CardStack, {
+      slots: { default: CARDS_CUSTOMISATION },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+    const allTags = wrapper.vm.cardStackRef.tagMapping.map(key => key[0]);
+    expect(wrapper.vm.selectedTags).toEqual(expect.arrayContaining(allTags));
+    expect(wrapper.vm.allSelected).toBe(true);
+  });
+
+  test('toggleAllTags should unselect everything and then select everything', async () => {
+    const wrapper = mount(CardStack, {
+      slots: { default: CARDS_CUSTOMISATION },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    // selected all initially
+    expect(wrapper.vm.allSelected).toBe(true);
+
+    // deselect everything
+    const selectAllBadge = wrapper.find('.bg-dark.tag-badge');
+    await selectAllBadge.trigger('click');
+    expect(wrapper.vm.selectedTags.length).toBe(0);
+    expect(wrapper.vm.allSelected).toBe(false);
+
+    // all cards should be hidden
+    const cards = wrapper.findAllComponents(Card);
+    cards.forEach((card) => {
+      if (card.props('tag') === 'Short') {
+        expect(card.vm.disableTag).toBe(true);
+      }
+    });
+
+    // select all again -> everything should be selected back
+    await selectAllBadge.trigger('click');
+    expect(wrapper.vm.allSelected).toBe(true);
+    expect(wrapper.vm.selectedTags.length).toBeGreaterThan(0);
+  });
+
+  test('Select All checkbox should sync with individual tag clicks', async () => {
+    const wrapper = mount(CardStack, {
+      slots: { default: CARDS_CUSTOMISATION },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    // uncheck first tag
+    const firstTagBadge = wrapper.findAll('.tag-badge').at(1);
+    await firstTagBadge.trigger('click');
+
+    // select all should no longer be checked
+    expect(wrapper.vm.allSelected).toBe(false);
+    const selectAllIndicator = wrapper.find('.bg-dark.tag-badge .tag-indicator');
+    expect(selectAllIndicator.text()).not.toContain('✓');
+
+    // Check first tag -> select all should be checked again
+    await firstTagBadge.trigger('click');
+    expect(wrapper.vm.allSelected).toBe(true);
+  });
 });

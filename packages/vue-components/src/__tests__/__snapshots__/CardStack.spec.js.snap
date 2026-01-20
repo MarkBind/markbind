@@ -16,6 +16,7 @@ exports[`CardStack markdown in header, content 1`] = `
         type="text"
       />
     </span>
+    <!--v-if-->
     
     
   </div>
@@ -96,6 +97,18 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
         type="text"
       />
     </span>
+    <span
+      class="badge bg-dark tag-badge"
+    >
+       Select All  
+      <span
+        class="badge bg-light text-dark tag-indicator"
+      >
+        <span>
+          ✓
+        </span>
+      </span>
+    </span>
     
     <span
       class="badge bg-primary tag-badge"
@@ -105,7 +118,7 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
         class="badge bg-light text-dark tag-indicator"
       >
         <span>
-             
+          ✓
         </span>
       </span>
     </span>
@@ -218,6 +231,7 @@ exports[`CardStack should not hide cards when no filter is provided 2`] = `
         type="text"
       />
     </span>
+    <!--v-if-->
     
     
   </div>
