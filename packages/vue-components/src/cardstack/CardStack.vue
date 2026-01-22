@@ -200,10 +200,43 @@ export default {
             customConfigMap.set(config.name, config);
           });
 
+          // Helper function to normalize color value
+          const normalizeColor = (color) => {
+            if (!color) return null;
+
+            // If it's a hex color, return as-is
+            if (color.startsWith('#')) {
+              return color;
+            }
+
+            // Check if it's a Bootstrap color name (without bg- prefix)
+            const bootstrapColorNames = [
+              'primary', 'secondary', 'success', 'danger',
+              'warning', 'info', 'light', 'dark',
+            ];
+            const lowerColor = color.toLowerCase();
+
+            if (bootstrapColorNames.includes(lowerColor)) {
+              // Add bg- prefix and handle special cases for text color
+              if (lowerColor === 'warning' || lowerColor === 'info' || lowerColor === 'light') {
+                return `bg-${lowerColor} text-dark`;
+              }
+              return `bg-${lowerColor}`;
+            }
+
+            // If it already has bg- prefix, assume it's a valid Bootstrap class
+            if (color.startsWith('bg-')) {
+              return color;
+            }
+
+            // Otherwise, treat it as a hex color (for future flexibility)
+            return color;
+          };
+
           // Process tags in the order specified in customConfigs first
           customConfigs.forEach((config) => {
             if (tags.includes(config.name)) {
-              const color = config.color || BADGE_COLOURS[index % BADGE_COLOURS.length];
+              const color = normalizeColor(config.color) || BADGE_COLOURS[index % BADGE_COLOURS.length];
               const tagMapping = { badgeColor: color, children: [], disableTag: false };
               tagMap.set(config.name, tagMapping);
               index += 1;
