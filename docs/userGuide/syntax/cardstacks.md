@@ -191,9 +191,55 @@ You can customize the order and colors of tags by using a `<tags>` element insid
 </variable>
 </include>
 
+You can also use Bootstrap color names instead of hex colors:
+
+<include src="codeAndOutputSeparate.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<cardstack searchable>
+  <tags>
+    <tag name="Success" color="success" />
+    <tag name="Perseverance" color="info" />
+    <tag name="Motivation" color="warning" />
+    <tag name="Hard Work" color="danger" />
+  </tags>
+  <card header="**Winston Churchill**" tag="Success, Perseverance">
+    Success is not final, failure is not fatal: it is the courage to continue that counts
+  </card>
+  <card header="**Albert Einstein**" tag="Success, Perseverance">
+    In the middle of every difficulty lies opportunity
+  </card>
+  <card header="**Theodore Roosevelt**" tag="Motivation, Hard Work">
+    Do what you can, with what you have, where you are
+  </card>
+</cardstack>
+</variable>
+<variable name="output">
+<cardstack searchable>
+  <tags>
+    <tag name="Success" color="success" />
+    <tag name="Perseverance" color="info" />
+    <tag name="Motivation" color="warning" />
+    <tag name="Hard Work" color="danger" />
+  </tags>
+  <card header="**Winston Churchill**" tag="Success, Perseverance">
+    Success is not final, failure is not fatal: it is the courage to continue that counts
+  </card>
+  <card header="**Albert Einstein**" tag="Success, Perseverance">
+    In the middle of every difficulty lies opportunity
+  </card>
+  <card header="**Theodore Roosevelt**" tag="Motivation, Hard Work">
+    Do what you can, with what you have, where you are
+  </card>
+</cardstack>
+</variable>
+</include>
+
 The `<tags>` element allows you to:
 - Specify the order in which tags appear in the filter badges
-- Assign custom colors (hex format) to each tag
+- Assign custom colors to each tag using either:
+  - Hex format (e.g., `#28a745`)
+  - Bootstrap color names (e.g., `success`, `danger`, `primary`, `warning`, `info`, `secondary`, `light`, `dark`)
 - Any tags used in cards but not defined in `<tags>` will appear after the defined tags with default colors
 
 ****Options****
@@ -211,7 +257,7 @@ A container element inside `cardstack` to define tag ordering and colors.
 Name | Type | Default | Description
 --- | --- | --- | ---
 name | `String` | (required) | The name of the tag (must match tags used in cards).
-color | `String` | (auto) | Custom color for the tag in hex format (e.g., `#28a745`).<br>If not specified, uses default Bootstrap color scheme.
+color | `String` | (auto) | Custom color for the tag.<br>Supports hex format (e.g., `#28a745`) or Bootstrap color names (e.g., `success`, `danger`, `primary`).<br>If not specified, uses default Bootstrap color scheme.
 
 `card`:
 Name | Type | Default | Description
