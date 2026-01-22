@@ -157,6 +157,62 @@ function isValidFileAsset(resourcePath: string, config: NodeProcessorConfig) {
 }
 
 /**
+ * Validates paths ending with '/' by checking if they represent valid page sources or file assets
+ * with implicit index.html
+ */
+function validatePathEndingWithSlash(pathname: string, config: NodeProcessorConfig, err: string): string {
+  // append index.html to e.g. /userGuide/
+  const implicitResourcePath = `${pathname}index.html`;
+  if (!isValidPageSource(implicitResourcePath, config) && !isValidFileAsset(implicitResourcePath, config)) {
+    logger.warn(err);
+    return 'Intralink ending with "/" is neither a Page Source nor File Asset';
+  }
+  return 'Intralink ending with "/" is a valid Page Source or File Asset';
+}
+
+/**
+ * Validates paths without file extensions by checking various possible interpretations
+ */
+function validatePathWithNoExtension(
+  pathname: string, config: NodeProcessorConfig, err: string,
+  hashErr: string, hash: string | undefined, filePathToHashesMap: Map<string, Set<string>>): string {
+  // does not end with '/' and no file ext (e.g. /userGuide)
+  const implicitResourcePath = `${pathname}/index.html`;
+  const asFileAsset = pathname;
+  if (!isValidPageSource(implicitResourcePath, config) && !isValidFileAsset(implicitResourcePath, config)
+    && !isValidFileAsset(asFileAsset, config)) {
+    logger.warn(err);
+    return 'Intralink with no extension is neither a Page Source nor File Asset';
+  }
+  if (hash !== undefined
+    && (!filePathToHashesMap.get(asFileAsset) || !filePathToHashesMap.get(asFileAsset)!.has(hash))) {
+    logger.warn(hashErr);
+    return 'Intralink with no extension is a valid Page Source or File Asset but hash is not found';
+  }
+  return 'Intralink with no extension is a valid Page Source or File Asset';
+}
+
+/**
+ * Validates paths with .html extensions by checking page sources and file assets
+ */
+function validatePathWithHtmlExtension(
+  pathname: string, config: NodeProcessorConfig, err: string,
+  hashErr: string, hash: string | undefined, filePathToHashesMap: Map<string, Set<string>>): string {
+  if (!isValidPageSource(pathname, config) && !isValidFileAsset(pathname, config)) {
+    logger.warn(err);
+    return 'Intralink with ".html" extension is neither a Page Source nor File Asset';
+  }
+  if (hash !== undefined) {
+    const filePath = `${pathname.slice(0, -5)}.md`;
+    if (!filePathToHashesMap.get(filePath) || !filePathToHashesMap.get(filePath)!.has(hash)) {
+      logger.warn(hashErr);
+      return 'Intralink with ".html" extension is a valid Page Source or File Asset but hash is not found';
+    }
+  }
+  return 'Intralink with ".html" extension is a valid Page Source or File Asset';
+}
+
+/**
  * Serves as an internal intra-link validator. Checks if the intra-links are valid.
  * If the intra-links are suspected to be invalid, a warning message will be logged.
  *
@@ -176,62 +232,29 @@ export function validateIntraLink(resourcePath: string,
 '${resourcePath}' found in file '${cwf}'`;
   const hashErr = `You might have an invalid hash for intra-link! Ignore this warning if it was intended.'
   ${resourcePath}' found in file '${cwf}'`;
-  resourcePath = urlUtil.stripBaseUrl(resourcePath, config.baseUrl); // eslint-disable-line no-param-reassign
 
-  const resourcePathUrl = parse(resourcePath);
-  let hash;
-  if (resourcePathUrl.hash) {
-    hash = resourcePathUrl.hash.substring(1);
-    // remove hash portion (if any) in the resourcePath
-    resourcePath = resourcePathUrl.pathname; // eslint-disable-line no-param-reassign
+  const strippedResourcePath = urlUtil.stripBaseUrl(resourcePath, config.baseUrl);
+  const resourcePathUrl = parse(strippedResourcePath);
+  const hash = resourcePathUrl.hash ? resourcePathUrl.hash.substring(1) : undefined;
+  const pathname = resourcePathUrl.pathname ?? '';
+
+  // Route to appropriate validator based on path characteristics
+  if (pathname.endsWith('/')) {
+    return validatePathEndingWithSlash(pathname, config, err);
   }
 
-  if (resourcePath.endsWith('/')) {
-    // append index.html to e.g. /userGuide/
-    const implicitResourcePath = `${resourcePath}index.html`;
-    if (!isValidPageSource(implicitResourcePath, config) && !isValidFileAsset(implicitResourcePath, config)) {
-      logger.warn(err);
-      return 'Intralink ending with "/" is neither a Page Source nor File Asset';
-    }
-    return 'Intralink ending with "/" is a valid Page Source or File Asset';
-  }
-
-  const hasNoFileExtension = path.posix.extname(resourcePath) === '';
+  const hasNoFileExtension = path.posix.extname(pathname) === '';
   if (hasNoFileExtension) {
-    // does not end with '/' and no file ext (e.g. /userGuide)
-    const implicitResourcePath = `${resourcePath}/index.html`;
-    const asFileAsset = resourcePath;
-    if (!isValidPageSource(implicitResourcePath, config) && !isValidFileAsset(implicitResourcePath, config)
-      && !isValidFileAsset(asFileAsset, config)) {
-      logger.warn(err);
-      return 'Intralink with no extension is neither a Page Source nor File Asset';
-    }
-    if (hash !== undefined
-      && (!filePathToHashesMap.get(asFileAsset) || !filePathToHashesMap.get(asFileAsset)!.has(hash))) {
-      logger.warn(hashErr);
-      return 'Intralink with no extension is a valid Page Source or File Asset but hash is not found';
-    }
-    return 'Intralink with no extension is a valid Page Source or File Asset';
+    return validatePathWithNoExtension(pathname, config, err, hashErr, hash, filePathToHashesMap);
   }
 
-  const hasHtmlExt = resourcePath.slice(-5) === '.html';
+  const hasHtmlExt = pathname.slice(-5) === '.html';
   if (hasHtmlExt) {
-    if (!isValidPageSource(resourcePath, config) && !isValidFileAsset(resourcePath, config)) {
-      logger.warn(err);
-      return 'Intralink with ".html" extension is neither a Page Source nor File Asset';
-    }
-    if (hash !== undefined) {
-      const filePath = `${resourcePath.slice(0, -5)}.md`;
-      if (!filePathToHashesMap.get(filePath) || !filePathToHashesMap.get(filePath)!.has(hash)) {
-        logger.warn(hashErr);
-        return 'Intralink with ".html" extension is a valid Page Source or File Asset but hash is not found';
-      }
-    }
-    return 'Intralink with ".html" extension is a valid Page Source or File Asset';
+    return validatePathWithHtmlExtension(pathname, config, err, hashErr, hash, filePathToHashesMap);
   }
 
   // basic asset check
-  if (!isValidFileAsset(resourcePath, config)) {
+  if (!isValidFileAsset(pathname, config)) {
     logger.warn(err);
     return 'Intralink is not a File Asset';
   }
