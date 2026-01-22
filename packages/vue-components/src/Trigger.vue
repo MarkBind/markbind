@@ -54,8 +54,8 @@
 
 <script>
 /* eslint-disable import/no-extraneous-dependencies */
+import { inject } from 'vue';
 import { PortalTarget } from 'portal-vue';
-import { useVfm } from 'vue-final-modal';
 /* eslint-enable import/no-extraneous-dependencies */
 
 export default {
@@ -64,7 +64,7 @@ export default {
     PortalTarget,
   },
   setup() {
-    const vfm = useVfm();
+    const vfm = inject('$vfm');
     return { vfm };
   },
   props: {
@@ -93,7 +93,7 @@ export default {
       }
 
       // show modal, if any
-      this.vfm.open(this.for);
+      this.vfm.show(this.for);
     },
   },
   computed: {

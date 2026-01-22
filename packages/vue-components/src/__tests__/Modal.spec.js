@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { createVfm } from 'vue-final-modal';
+import { defineVfm } from 'vue-final-modal';
 import { nextTick } from 'vue';
 import Modal from '../Modal.vue';
 import Trigger from '../Trigger.vue';
@@ -31,7 +31,8 @@ describe('Modal', () => {
   let wrapper;
 
   beforeEach(() => {
-    vfm = createVfm();
+    const vfmInstance = defineVfm();
+    vfm = vfmInstance.$vfm;
   });
 
   afterEach(() => {
@@ -48,7 +49,9 @@ describe('Modal', () => {
       props,
       slots,
       global: {
-        plugins: [vfm],
+        provide: {
+          $vfm: vfm,
+        },
       },
       attachTo: document.body,
     });
@@ -65,7 +68,7 @@ describe('Modal', () => {
   };
 
   test('should be triggered by Trigger component', async () => {
-    jest.spyOn(vfm, 'open').mockImplementation(() => Promise.resolve());
+    jest.spyOn(vfm, 'show').mockImplementation(() => Promise.resolve());
     wrapper = mount(Modal, {
       props: {
         id: 'modal:test',
@@ -74,7 +77,9 @@ describe('Modal', () => {
         default: DEFAULT_MODAL_CONTENT,
       },
       global: {
-        plugins: [vfm],
+        provide: {
+          $vfm: vfm,
+        },
         stubs: {
           teleport: true,
         },
@@ -84,13 +89,15 @@ describe('Modal', () => {
       ...TRIGGER_STUB,
       global: {
         ...TRIGGER_STUB.global,
-        plugins: [vfm],
+        provide: {
+          $vfm: vfm,
+        },
       },
     });
 
     // click on trigger
     await trigger.find('span.trigger-click').trigger('click');
-    expect(vfm.open).toHaveBeenCalledWith('modal:test');
+    expect(vfm.show).toHaveBeenCalledWith('modal:test');
   });
 
   test('should not show header when no header is given', async () => {
