@@ -149,7 +149,7 @@ Name | Type | Default | Description
 tag | `String` | `null` | Tags of each card component.<br>Each unique tag should be seperated by a `,`.<br> Tags are added to the search field.
 header | `String` | `null` | Header of each card component.<br> Supports the use of inline markdown elements.
 keywords | `String` | `null` | Keywords of each card component.<br>Each unique keyword should be seperated by a `,`.<br> Keywords are added to the search field.
-disable | `Boolean` | `false` | Disable card. <br> This removes visibility of the card and makes it unsearchable. 
+disabled | `Boolean` | `false` | Disable card. <br> This removes visibility of the card and makes it unsearchable. 
 
 
 
