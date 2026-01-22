@@ -802,6 +802,24 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "harjun751",
+      "name": "Arjun",
+      "avatar_url": "https://avatars.githubusercontent.com/u/57029562?v=4",
+      "profile": "https://github.com/Harjun751",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "MoshiMoshiMochi",
+      "name": "MoshiMoshiMochi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/73746196?v=4",
+      "profile": "https://github.com/MoshiMoshiMochi",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
