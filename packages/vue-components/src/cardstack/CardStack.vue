@@ -13,7 +13,7 @@
         </template>
       </span>
       <span
-        v-if="cardStackRef.tagMapping.length > 0"
+        v-if="cardStackRef.tagMapping.length > 0 && shouldShowSelectAll"
         class="badge bg-dark tag-badge"
         @click="toggleAllTags"
       >
@@ -70,10 +70,17 @@ export default {
       type: Boolean,
       default: false,
     },
+    showSelectAll: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     allSelected() {
       return this.selectedTags.length === this.cardStackRef.tagMapping.length;
+    },
+    shouldShowSelectAll() {
+      return this.showSelectAll === 'true';
     },
   },
   watch: {

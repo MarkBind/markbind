@@ -160,6 +160,25 @@ export class MdAttributeRenderer {
     this.processSlotAttribute(node, 'header', false);
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  processCardStackAttributes(node: MbNode) {
+    if (!node.children) {
+      return;
+    }
+
+    // Handles the 'show-select-all' attribute on the cardstack itself
+    if (node.attribs) {
+      // Check if they have specified 'false' explicitly
+      const showSelectAll = node.attribs['show-select-all'].toLowerCase();
+      if (showSelectAll === 'false') {
+        node.attribs['show-select-all'] = 'false';
+      } else {
+        // Default option or if user specifies any other value it is treated as true.
+        node.attribs['show-select-all'] = 'true';
+      }
+    }
+  }
+
   /*
    * Card Stack
    */

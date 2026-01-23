@@ -212,6 +212,9 @@ export class NodeProcessor {
       case 'tooltip':
         this.mdAttributeRenderer.processTooltip(node);
         break;
+      case 'cardstack':
+        this.mdAttributeRenderer.processCardStackAttributes(node);
+        break;
       case 'card':
         this.mdAttributeRenderer.processCardAttributes(node);
         break;
