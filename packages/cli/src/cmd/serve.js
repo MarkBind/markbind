@@ -55,6 +55,7 @@ function serve(userSpecifiedRoot, options) {
               + '\n'
               + 'To create a new MarkBind site, run:\n'
               + '   markbind init');
+    cliUtil.cleanupFailedMarkbindBuild(userSpecifiedRoot);
     process.exitCode = 1;
     process.exit();
   }
