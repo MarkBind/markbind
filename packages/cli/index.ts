@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 
 // Entry file for MarkBind project
-const program = require('commander');
-
-const logger = require('./src/util/logger');
-const { build } = require('./src/cmd/build');
-const { deploy } = require('./src/cmd/deploy');
-const { init } = require('./src/cmd/init');
-const { serve } = require('./src/cmd/serve');
-
-const CLI_VERSION = require('./package.json').version;
+import { program } from 'commander';
+import * as logger from './src/util/logger';
+import { build } from './src/cmd/build';
+import { deploy } from './src/cmd/deploy';
+import { init } from './src/cmd/init';
+import { serve } from './src/cmd/serve';
+import { version as CLI_VERSION } from './package.json';
 
 process.title = 'MarkBind';
 process.stdout.write(
@@ -19,6 +17,7 @@ process.stdout.write(
 function printHeader() {
   logger.logo();
   logger.log(` v${CLI_VERSION}`);
+  return '';
 }
 
 program

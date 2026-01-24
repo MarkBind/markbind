@@ -3,6 +3,7 @@
   "exclude": ["node_modules", "**/*.test.ts", "dist"],
   "compilerOptions": {
     "outDir": "./dist",
-    "allowJs": true
+    "allowJs": true,
+    "resolveJsonModule": true
   }
 }
