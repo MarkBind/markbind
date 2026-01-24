@@ -4,7 +4,7 @@ import isError from 'lodash/isError';
 
 import { Template } from '@markbind/core';
 
-import logger from '../util/logger';
+import * as logger from '../util/logger';
 
 const _ = {
   isError,
