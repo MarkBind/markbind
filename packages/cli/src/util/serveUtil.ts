@@ -1,24 +1,34 @@
-const fs = require('fs-extra');
-const path = require('path');
+import fs from 'fs-extra';
+import path from 'path';
 
-const fsUtil = require('@markbind/core/src/utils/fsUtil');
-const {
+import * as fsUtil from '@markbind/core/src/utils/fsUtil';
+import {
   LAZY_LOADING_SITE_FILE_NAME,
-} = require('@markbind/core/src/Site/constants');
+} from '@markbind/core/src/Site/constants';
 
-const liveServer = require('../lib/live-server');
-const logger = require('./logger');
+import * as liveServer from '../lib/live-server';
+import * as logger from './logger';
 
-const syncOpenedPages = (site) => {
+/**
+ * Synchronizes opened pages list before reload
+ * @param site The site instance
+ */
+const syncOpenedPages = (site: any): void => {
   logger.info('Synchronizing opened pages list before reload');
-  const normalizedActiveUrls = liveServer.getActiveUrls().map((url) => {
+  const normalizedActiveUrls = liveServer.getActiveUrls().map((url: string) => {
     const completeUrl = path.extname(url) === '' ? path.join(url, 'index') : url;
     return fsUtil.removeExtension(completeUrl);
   });
   site.changeCurrentOpenedPages(normalizedActiveUrls);
 };
 
-const addHandler = (site, onePagePath) => (filePath) => {
+/**
+ * Handler for file addition events
+ * @param site The site instance
+ * @param onePagePath Flag indicating if one page mode is enabled
+ * @returns Function that handles the file addition
+ */
+const addHandler = (site: any, onePagePath?: boolean) => (filePath: string): void => {
   logger.info(`[${new Date().toLocaleTimeString()}] Reload for file add: ${filePath}`);
   if (onePagePath) {
     syncOpenedPages(site);
@@ -28,12 +38,18 @@ const addHandler = (site, onePagePath) => (filePath) => {
       return site.rebuildSourceFiles();
     }
     return site.buildAsset(filePath);
-  }).catch((err) => {
+  }).catch((err: Error) => {
     logger.error(err.message);
   });
 };
 
-const changeHandler = (site, onePagePath) => (filePath) => {
+/**
+ * Handler for file change events
+ * @param site The site instance
+ * @param onePagePath Flag indicating if one page mode is enabled
+ * @returns Function that handles the file change
+ */
+const changeHandler = (site: any, onePagePath?: boolean) => (filePath: string): void => {
   logger.info(`[${new Date().toLocaleTimeString()}] Reload for file change: ${filePath}`);
   if (onePagePath) {
     syncOpenedPages(site);
@@ -46,12 +62,18 @@ const changeHandler = (site, onePagePath) => (filePath) => {
       return site.rebuildAffectedSourceFiles(filePath);
     }
     return site.buildAsset(filePath);
-  }).catch((err) => {
+  }).catch((err: Error) => {
     logger.error(err.message);
   });
 };
 
-const removeHandler = (site, onePagePath) => (filePath) => {
+/**
+ * Handler for file removal events
+ * @param site The site instance
+ * @param onePagePath Flag indicating if one page mode is enabled
+ * @returns Function that handles the file removal
+ */
+const removeHandler = (site: any, onePagePath?: boolean) => (filePath: string): void => {
   logger.info(`[${new Date().toLocaleTimeString()}] Reload for file deletion: ${filePath}`);
   if (onePagePath) {
     syncOpenedPages(site);
@@ -61,48 +83,56 @@ const removeHandler = (site, onePagePath) => (filePath) => {
       return site.rebuildSourceFiles();
     }
     return site.removeAsset(filePath);
-  }).catch((err) => {
+  }).catch((err: Error) => {
     logger.error(err.message);
   });
 };
 
-const lazyReloadMiddleware = (site, rootFolder, config) => (req, res, next) => {
-  const urlExtension = path.posix.extname(req.url);
+/**
+ * Middleware for lazy reloading
+ * @param site The site instance
+ * @param rootFolder The root folder of the site
+ * @param config The site configuration
+ * @returns Middleware function
+ */
+const lazyReloadMiddleware
+    = (site: any, rootFolder: string, config: any) => (req: any, res: any, next: any) => {
+      const urlExtension = path.posix.extname(req.url);
 
-  const hasEndingSlash = req.url.endsWith('/');
-  const hasNoExtension = urlExtension === '';
-  const isHtmlFileRequest = urlExtension === '.html' || hasEndingSlash || hasNoExtension;
+      const hasEndingSlash = req.url.endsWith('/');
+      const hasNoExtension = urlExtension === '';
+      const isHtmlFileRequest = urlExtension === '.html' || hasEndingSlash || hasNoExtension;
 
-  if (!isHtmlFileRequest || req.url.endsWith('._include_.html')) {
-    next();
-    return;
-  }
+      if (!isHtmlFileRequest || req.url.endsWith('._include_.html')) {
+        next();
+        return;
+      }
 
-  if (hasNoExtension && !hasEndingSlash) {
-    // Urls of type 'host/userGuide' - check if 'userGuide' is a raw file or does not exist
-    const diskFilePath = path.resolve(rootFolder, req.url);
-    if (!fs.existsSync(diskFilePath) || !(fs.statSync(diskFilePath).isDirectory())) {
-      // Request for a raw file
+      if (hasNoExtension && !hasEndingSlash) {
+        // Urls of type 'host/userGuide' - check if 'userGuide' is a raw file or does not exist
+        const diskFilePath = path.resolve(rootFolder, req.url);
+        if (!fs.existsSync(diskFilePath) || !(fs.statSync(diskFilePath).isDirectory())) {
+          // Request for a raw file
+          next();
+          return;
+        }
+      }
+
+      const urlWithoutBaseUrl = req.url.replace(config.baseUrl, '');
+      // Map 'hostname/userGuide/' and 'hostname/userGuide' to hostname/userGuide/index.
+      const urlWithIndex = (hasNoExtension || hasEndingSlash)
+        ? path.posix.join(urlWithoutBaseUrl, 'index')
+        : urlWithoutBaseUrl;
+      const urlWithoutExtension = fsUtil.removeExtension(urlWithIndex);
+
+      const didInitiateRebuild = site.changeCurrentPage(urlWithoutExtension);
+      if (didInitiateRebuild) {
+        req.url = fsUtil.ensurePosix(path.join(config.baseUrl || '/', LAZY_LOADING_SITE_FILE_NAME));
+      }
       next();
-      return;
-    }
-  }
+    };
 
-  const urlWithoutBaseUrl = req.url.replace(config.baseUrl, '');
-  // Map 'hostname/userGuide/' and 'hostname/userGuide' to hostname/userGuide/index.
-  const urlWithIndex = (hasNoExtension || hasEndingSlash)
-    ? path.posix.join(urlWithoutBaseUrl, 'index')
-    : urlWithoutBaseUrl;
-  const urlWithoutExtension = fsUtil.removeExtension(urlWithIndex);
-
-  const didInitiateRebuild = site.changeCurrentPage(urlWithoutExtension);
-  if (didInitiateRebuild) {
-    req.url = fsUtil.ensurePosix(path.join(config.baseUrl || '/', LAZY_LOADING_SITE_FILE_NAME));
-  }
-  next();
-};
-
-module.exports = {
+export {
   addHandler,
   changeHandler,
   lazyReloadMiddleware,
