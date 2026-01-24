@@ -23,7 +23,8 @@
   "scripts": {
     "test": "npm run build && jest --colors && cd test/functional && node test.js",
     "updatetest": "cd test/functional && node updatetest.js",
-    "build": "tsc"
+    "build": "tsc",
+    "dev": "tsc --watch"
   },
   "dependencies": {
     "@markbind/core": "6.1.0",
