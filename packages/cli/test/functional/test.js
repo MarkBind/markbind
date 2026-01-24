@@ -8,6 +8,9 @@ const { cleanupConvert } = require('./testUtil/cleanup');
 
 const logger = require('../../../core/src/utils/logger');
 
+// Path to the compiled CLI executable
+const CLI_PATH = '../../dist/cli/index.js';
+
 const {
   testSites,
   testConvertSites,
@@ -51,7 +54,7 @@ expectedErrors.forEach((error, index) => {
 testSites.forEach((siteName) => {
   console.log(`Running ${siteName} tests`);
   try {
-    execSync(`node ../../index.js build ${siteName}`, execOptions);
+    execSync(`node ${CLI_PATH} build ${siteName}`, execOptions);
     const siteIgnoredFiles = plantumlGeneratedFilesForTestSites[siteName];
     compare(siteName, 'expected', '_site', siteIgnoredFiles);
   } catch (err) {
@@ -65,8 +68,8 @@ testConvertSites.forEach((sitePath) => {
   const nonMarkBindSitePath = path.join(sitePath, 'non_markbind_site');
   const siteName = sitePath.split('/')[1];
   try {
-    execSync(`node ../../index.js init ${nonMarkBindSitePath} -c`, execOptions);
-    execSync(`node ../../index.js build ${nonMarkBindSitePath}`, execOptions);
+    execSync(`node ${CLI_PATH} init ${nonMarkBindSitePath} -c`, execOptions);
+    execSync(`node ${CLI_PATH} build ${nonMarkBindSitePath}`, execOptions);
     const siteIgnoredFiles = plantumlGeneratedFilesForConvertSites[siteName];
     compare(sitePath, 'expected', 'non_markbind_site/_site', siteIgnoredFiles);
   } catch (err) {
@@ -85,8 +88,8 @@ testTemplateSites.forEach((templateAndSitePath) => {
 
   console.log(`Running ${sitePath} tests`);
   try {
-    execSync(`node ../../index.js init ${siteCreationTempPath} --template ${flag}`, execOptions);
-    execSync(`node ../../index.js build ${siteCreationTempPath}`, execOptions);
+    execSync(`node ${CLI_PATH} init ${siteCreationTempPath} --template ${flag}`, execOptions);
+    execSync(`node ${CLI_PATH} build ${siteCreationTempPath}`, execOptions);
     const siteIgnoredFiles = plantumlGeneratedFilesForTemplateSites[siteName];
     compare(sitePath, 'expected', 'tmp/_site', siteIgnoredFiles);
   } catch (err) {
