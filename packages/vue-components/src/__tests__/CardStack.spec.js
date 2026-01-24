@@ -153,4 +153,62 @@ describe('CardStack', () => {
     await firstTagBadge.trigger('click');
     expect(wrapper.vm.allSelected).toBe(true);
   });
+
+  test('should show Select All badge by default', async () => {
+    const wrapper = mount(CardStack, {
+      slots: { default: CARDS_CUSTOMISATION },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    // The first badge with .bg-dark is the "Select All" badge
+    const selectAllBadge = wrapper.find('.bg-dark.tag-badge');
+    expect(selectAllBadge.exists()).toBe(true);
+    expect(selectAllBadge.text()).toContain('Select All');
+  });
+
+  test('should hide Select All badge when showSelectAll is false', async () => {
+    const wrapper = mount(CardStack, {
+      propsData: {
+        showSelectAll: false, // Testing boolean false
+      },
+      slots: { default: CARDS_CUSTOMISATION },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    const selectAllBadge = wrapper.find('.bg-dark.tag-badge');
+    expect(selectAllBadge.exists()).toBe(false);
+  });
+
+  test('should hide Select All badge when showSelectAll is "false" string (case-insensitive)', async () => {
+    // This simulates the parser passing show-select-all="fAlse"
+    const wrapper = mount(CardStack, {
+      propsData: {
+        searchable: true,
+        showSelectAll: 'fAlse',
+      },
+      slots: { default: CARDS_CUSTOMISATION },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    const selectAllBadge = wrapper.find('.bg-dark.tag-badge');
+    expect(selectAllBadge.exists()).toBe(false);
+  });
+
+  test('should show Select All badge when showSelectAll is "true" string', async () => {
+    const wrapper = mount(CardStack, {
+      propsData: {
+        searchable: true,
+        showSelectAll: 'true',
+      },
+      slots: { default: CARDS_CUSTOMISATION },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    const selectAllBadge = wrapper.find('.bg-dark.tag-badge');
+    expect(selectAllBadge.exists()).toBe(true);
+  });
 });

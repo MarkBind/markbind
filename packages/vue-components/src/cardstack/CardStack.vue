@@ -80,7 +80,7 @@ export default {
       return this.selectedTags.length === this.cardStackRef.tagMapping.length;
     },
     shouldShowSelectAll() {
-      return this.showSelectAll === 'true';
+      return this.showSelectAll === 'true' || this.showSelectAll === true;
     },
   },
   watch: {

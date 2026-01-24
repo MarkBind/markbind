@@ -171,10 +171,10 @@ export class MdAttributeRenderer {
       // Check if they have specified 'false' explicitly
       const showSelectAll = node.attribs['show-select-all'].toLowerCase();
       if (showSelectAll === 'false') {
-        node.attribs['show-select-all'] = 'false';
+        node.attribs['show-select-all'] = false;
       } else {
         // Default option or if user specifies any other value it is treated as true.
-        node.attribs['show-select-all'] = 'true';
+        node.attribs['show-select-all'] = true;
       }
     }
   }
