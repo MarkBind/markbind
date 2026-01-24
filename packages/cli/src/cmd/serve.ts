@@ -83,7 +83,6 @@ function serve(userSpecifiedRoot: string, options: any) {
 
   const reloadAfterBackgroundBuild = () => {
     logger.info('All opened pages will be reloaded.');
-    // @ts-ignore
     liveServer.reloadActiveTabs();
   };
 
@@ -163,7 +162,6 @@ function serve(userSpecifiedRoot: string, options: any) {
         .on('unlink', removeHandler(site, onePagePath));
     })
     .then(() => {
-      // @ts-ignore
       const server = liveServer.start(serverConfig);
       server.addListener('listening', () => {
         const address = server.address();

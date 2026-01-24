@@ -112,6 +112,9 @@ packages/cli/index.js
 packages/cli/src/cmd/build.js
 # --- packages/cli end ---
 
+# Manual type definitions need to be included
+!packages/cli/src/lib/live-server/index.d.ts
+
 # Nx for Lerna
 .nx/cache
 .nx/workspace-data
