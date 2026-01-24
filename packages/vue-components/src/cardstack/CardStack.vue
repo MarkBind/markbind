@@ -71,7 +71,7 @@ export default {
       default: false,
     },
     showSelectAll: {
-      type: Boolean,
+      type: [Boolean, String],
       default: true,
     },
   },
