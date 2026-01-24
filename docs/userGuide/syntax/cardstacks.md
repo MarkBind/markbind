@@ -142,6 +142,7 @@ Name | Type | Default | Description
 --- | --- | --- | ---
 blocks | `String` | `2` | Number of `card` columns per row.<br> Supports: `1`, `2`, `3`, `4`, `6`
 searchable | `Boolean` | `false` | Whether the card stack is searchable.
+show-select-all | `Boolean` | `true` | Whether the select all tag button appears.
 
 `card`:
 Name | Type | Default | Description
