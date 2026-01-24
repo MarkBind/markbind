@@ -14,7 +14,7 @@
   "license": "MIT",
   "main": "index.js",
   "bin": {
-    "markbind": "./index.js"
+    "markbind": "./dist/cli/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,8 @@
   },
   "scripts": {
     "test": "jest --colors && cd test/functional && node test.js",
-    "updatetest": "cd test/functional && node updatetest.js"
+    "updatetest": "cd test/functional && node updatetest.js",
+    "build": "tsc"
   },
   "dependencies": {
     "@markbind/core": "6.1.0",
