@@ -5,7 +5,7 @@ import path from 'path';
 import { SITE_CONFIG_NAME } from '@markbind/core/src/Site/constants';
 
 export function findRootFolder(
-  userSpecifiedRoot: string | undefined, siteConfigPath: string = SITE_CONFIG_NAME): string {
+  userSpecifiedRoot: string, siteConfigPath: string = SITE_CONFIG_NAME): string {
   if (userSpecifiedRoot) {
     const resolvedUserSpecifiedRoot = path.resolve(userSpecifiedRoot);
     const expectedConfigPath = path.join(resolvedUserSpecifiedRoot, siteConfigPath);
