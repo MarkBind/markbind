@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "prebuild:backend": "npm run clean",
-    "build:backend": "tsc --noEmitOnError",
+    "build:backend": "lerna run build --stream --scope=markbind-cli --scope=@markbind/core",
     "build:web": "cd packages/core-web && npm run build",
     "build:dg": "cd docs && ../packages/cli/index.js build -s dg-site.json",
     "build:ug": "cd docs && ../packages/cli/index.js build -s ug-site.json",
