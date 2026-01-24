@@ -39,6 +39,7 @@ packages/core/src/lib/markdown-it/plugins/*
 
 # --- packages/cli ---
 packages/cli/index.js
+packages/cli/src/cmd/build.js
 # --- packages/cli end ---
 
 !.eslintrc.js
