@@ -850,7 +850,7 @@ export class SiteGenerationManager {
    * Rebuild all pages
    */
   rebuildSourceFiles = delay(
-    this._rebuildSourceFiles.bind(this) as () => Promise<void>,
+    this._rebuildSourceFiles.bind(this) as (args: string[]) => Promise<void>,
     1000,
   );
 
@@ -858,7 +858,7 @@ export class SiteGenerationManager {
    * Builds pages that are yet to build/rebuild in the background
    */
   backgroundBuildNotViewedFiles = delay(
-    this._backgroundBuildNotViewedFiles.bind(this) as () => Promise<void>,
+    this._backgroundBuildNotViewedFiles.bind(this) as (args: string[]) => Promise<void>,
     1000,
   );
 
