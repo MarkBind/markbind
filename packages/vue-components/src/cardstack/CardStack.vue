@@ -13,15 +13,16 @@
         </template>
       </span>
       <span
-        v-if="cardStackRef.tagMapping.length > 0 && shouldShowSelectAll"
-        class="badge bg-dark tag-badge"
+        v-if="shouldShowSelectAll"
+        class="badge tag-badge select-all-toggle"
         @click="toggleAllTags"
       >
-        Select All&nbsp;
         <span class="badge bg-light text-dark tag-indicator">
           <span v-if="allSelected">✓</span>
           <span v-else>&nbsp;&nbsp;&nbsp;</span>
         </span>
+        <!-- Select All -->
+        Select All
       </span>
       <span
         v-for="(key, index) in cardStackRef.tagMapping"
@@ -45,6 +46,8 @@
 </template>
 
 <script>
+const MIN_TAGS_FOR_SELECT_ALL = 3;
+
 const BADGE_COLOURS = [
   'bg-primary',
   'bg-secondary',
@@ -80,7 +83,9 @@ export default {
       return this.selectedTags.length === this.cardStackRef.tagMapping.length;
     },
     shouldShowSelectAll() {
-      return this.showSelectAll === 'true' || this.showSelectAll === true;
+      const isEnabled = this.showSelectAll === 'true' || this.showSelectAll === true;
+      const hasEnoughTags = this.cardStackRef.tagMapping.length > MIN_TAGS_FOR_SELECT_ALL;
+      return isEnabled && hasEnoughTags;
     },
   },
   watch: {
@@ -286,5 +291,15 @@ export default {
     .tag-indicator {
         width: 18px;
         height: 100%;
+    }
+
+    .badge.tag-badge.select-all-toggle {
+      background: transparent !important;
+      color: #1e1e1e !important;
+      font-weight: 400;
+    }
+
+    .select-all-toggle .tag-indicator {
+      margin-right: 1.5px;
     }
 </style>
