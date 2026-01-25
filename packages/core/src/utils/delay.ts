@@ -40,12 +40,14 @@ export function delay<T>(targetFunction: (arg: T[]) => Promise<unknown>, delayMs
         .then(async () => {
           const itemsToProcess = [...itemsInQueue];
           itemsInQueue = [];
-          currentScheduledBatch = null;
-
           const workPromise = targetFunction.apply(context, [itemsToProcess]);
           ongoingWorkPromise = workPromise instanceof Promise ? workPromise : Promise.resolve();
 
-          return await ongoingWorkPromise;
+          try {
+            return await ongoingWorkPromise;
+          } finally {
+            currentScheduledBatch = null;
+          }
         });
     }
 
