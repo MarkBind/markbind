@@ -26,12 +26,10 @@ export function delay<T>(targetFunction: (arg: T[]) => Promise<unknown>, delayMs
     context = this;
 
     // Add new item to queue when called
-    if (newItem !== undefined) {
-      if (Array.isArray(newItem)) {
-        itemsInQueue = itemsInQueue.concat(newItem);
-      } else {
-        itemsInQueue.push(newItem);
-      }
+    if (Array.isArray(newItem)) {
+      itemsInQueue = itemsInQueue.concat(newItem);
+    } else if (newItem) {
+      itemsInQueue.push(newItem);
     }
 
     // Schedule a new batch if there is none scheduled
