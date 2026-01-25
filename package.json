@@ -11,21 +11,18 @@
     "build:web": "cd packages/core-web && npm run build",
     "prebuild:backend": "npm run clean",
     "build:backend": "tsc --build",
-
     "prebuild:dg": "npm run build:backend",
     "prebuild:ug": "npm run build:backend",
     "prebuild:docs": "npm run build:backend",
     "predeploy:dg": "npm run build:backend",
     "predeploy:ug": "npm run build:backend",
     "predeploy:netlify": "npm run build:backend",
-
     "build:dg": "cd docs && node $npm_package_config_built_cli_index_path build -s dg-site.json",
     "build:ug": "cd docs && node $npm_package_config_built_cli_index_path build -s ug-site.json",
     "build:docs": "cd docs && node $npm_package_config_built_cli_index_path build --baseUrl",
     "deploy:dg": "cd docs && node $npm_package_config_built_cli_index_path deploy -s dg-site.json --ci",
     "deploy:ug": "cd docs && node $npm_package_config_built_cli_index_path deploy -s ug-site.json --ci",
     "deploy:netlify": "npm run setup && npm run build:web && cd docs && node $npm_package_config_built_cli_index_path build --baseUrl",
-
     "clean": "node ./scripts/clean.js",
     "csslint": "stylelint **/*.css **/*.vue",
     "csslintfix": "stylelint **/*.css **/*.vue --fix",
@@ -52,6 +49,7 @@
     "stylelint": "^16.2.1",
     "stylelint-config-recommended-vue": "^1.5.0",
     "stylelint-config-standard": "^36.0.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.3.3",
     "walk-sync": "^2.0.2"
   }
