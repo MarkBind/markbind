@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 import simpleGit, { SimpleGit } from 'simple-git';
-import Bluebird from 'bluebird';
+import { promisify } from 'util';
 import ghpages from 'gh-pages';
 import * as gitUtil from '../utils/git';
 import * as logger from '../utils/logger';
@@ -44,7 +44,7 @@ export class SiteDeployManager {
    * Helper function for deploy(). Returns the ghpages link where the repo will be hosted.
    */
   async generateDepUrl(ciTokenVar: boolean | string, defaultDeployConfig: DeployOptions) {
-    const publish = Bluebird.promisify(ghpages.publish);
+    const publish = promisify(ghpages.publish);
     if (!this.siteConfig) {
       throw new Error('Site config not initialized');
     }
@@ -61,7 +61,7 @@ export class SiteDeployManager {
    * Helper function for deploy(). Set the options needed to be used by ghpages.publish.
    */
   async getDepOptions(ciTokenVar: boolean | string, defaultDeployConfig: DeployOptions,
-                      publish: (basePath: string, options: DeployOptions) => Bluebird<unknown>) {
+                      publish: (basePath: string, options: DeployOptions) => Promise<unknown>) {
     const basePath = this.siteConfig.deploy.baseDir || this.outputPath;
     if (!fs.existsSync(basePath)) {
       throw new Error(

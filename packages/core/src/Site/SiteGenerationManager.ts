@@ -2,7 +2,6 @@ import cheerio from 'cheerio';
 import fs from 'fs-extra';
 import path from 'path';
 import walkSync from 'walk-sync';
-import Bluebird from 'bluebird';
 
 import { SiteAssetsManager } from './SiteAssetsManager';
 import { SitePagesManager, AddressablePage } from './SitePagesManager';
@@ -834,7 +833,7 @@ export class SiteGenerationManager {
   }
 
   rebuildPagesBeingViewed = delay(
-    this._rebuildPagesBeingViewed.bind(this) as () => Bluebird<unknown>,
+    this._rebuildPagesBeingViewed.bind(this) as (args: string[]) => Promise<void>,
     1000,
   );
 
@@ -843,27 +842,25 @@ export class SiteGenerationManager {
    * @param filePaths a single path or an array of paths corresponding to the files that have changed
    */
   rebuildAffectedSourceFiles = delay(
-    this._rebuildAffectedSourceFiles.bind(this) as () => Bluebird<unknown>,
+    this._rebuildAffectedSourceFiles.bind(this) as (args: string[]) => Promise<void>,
     1000,
   );
 
-  // TODO: Remove cast and update typings after migrating out of bluebird
-  // https://github.com/MarkBind/markbind/issues/2776
   /**
    * Rebuild all pages
    */
   rebuildSourceFiles = delay(
-    this._rebuildSourceFiles.bind(this) as unknown as (arg: any[]) => Bluebird<any>,
+    this._rebuildSourceFiles.bind(this) as () => Promise<void>,
     1000,
-  ) as unknown as () => void;
+  );
 
   /**
    * Builds pages that are yet to build/rebuild in the background
    */
   backgroundBuildNotViewedFiles = delay(
-    this._backgroundBuildNotViewedFiles.bind(this) as unknown as (arg: any[]) => Bluebird<any>,
+    this._backgroundBuildNotViewedFiles.bind(this) as () => Promise<void>,
     1000,
-  ) as unknown as () => void;
+  );
 
   async reloadSiteConfig() {
     if (this.backgroundBuildMode) {
