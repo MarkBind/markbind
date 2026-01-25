@@ -1,7 +1,6 @@
 import path from 'path';
 import cheerio from 'cheerio';
 import htmlparser, { DomElement } from 'htmlparser2';
-import Promise from 'bluebird';
 import isArray from 'lodash/isArray';
 import has from 'lodash/has';
 
