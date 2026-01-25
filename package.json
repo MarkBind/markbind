@@ -6,7 +6,7 @@
   ],
   "scripts": {
     "prebuild:backend": "npm run clean",
-    "build:backend": "lerna run build --stream --scope=markbind-cli --scope=@markbind/core",
+    "build:backend": "tsc --build",
     "build:web": "cd packages/core-web && npm run build",
     "build:dg": "cd docs && ../packages/cli/index.js build -s dg-site.json",
     "build:ug": "cd docs && ../packages/cli/index.js build -s ug-site.json",
@@ -17,7 +17,7 @@
     "clean": "node ./scripts/clean.js",
     "csslint": "stylelint **/*.css **/*.vue",
     "csslintfix": "stylelint **/*.css **/*.vue --fix",
-    "dev": "tsc --watch",
+    "dev": "tsc --build --watch",
     "lint": "eslint . --ext .js,.ts,.vue && npm run csslint",
     "lintfix": "eslint . --ext .js,.ts,.vue --fix && npm run csslintfix",
     "setup": "npm ci && npm run clean && lerna run prepare",
