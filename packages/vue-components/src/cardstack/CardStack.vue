@@ -21,7 +21,6 @@
           <span v-if="allSelected">✓</span>
           <span v-else>&nbsp;&nbsp;&nbsp;</span>
         </span>
-        <!-- Select All -->
         Select All
       </span>
       <span
@@ -294,12 +293,12 @@ export default {
     }
 
     .badge.tag-badge.select-all-toggle {
-      background: transparent !important;
-      color: #1e1e1e !important;
-      font-weight: 400;
+        background: transparent !important;
+        color: #1e1e1e !important;
+        font-weight: 400;
     }
 
     .select-all-toggle .tag-indicator {
-      margin-right: 1.5px;
+        margin-right: 1.5px;
     }
 </style>
