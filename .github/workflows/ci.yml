@@ -25,8 +25,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - name: Install Graphviz
-        uses: tlylt/install-graphviz@v1
+      - name: Setup Graphviz
+        uses: ts-graphviz/setup-graphviz@v2
       - name: Install Java
         uses: actions/setup-java@v3
         with:
@@ -50,8 +50,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - name: Install Graphviz
-        uses: tlylt/install-graphviz@v1
+      - name: Setup Graphviz
+        uses: ts-graphviz/setup-graphviz@v2
       - name: Install Java
         uses: actions/setup-java@v3
         with:
@@ -85,8 +85,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - name: Install Graphviz
-        uses: tlylt/install-graphviz@v1
+      - name: Setup Graphviz
+        uses: ts-graphviz/setup-graphviz@v2
       - name: Install Java
         uses: actions/setup-java@v3
         with:
