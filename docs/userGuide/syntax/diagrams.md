@@ -21,8 +21,8 @@ The following steps can be <tooltip content="Before the build step">added</toolt
 
 ```yaml {heading="action.yml"}
 steps:
-  - name: Install Graphviz
-    run: sudo apt-get install graphviz
+  - name: Setup Graphviz
+    uses: ts-graphviz/setup-graphviz@v2
   - name: Install Java
     uses: actions/setup-java@v3
     with:
