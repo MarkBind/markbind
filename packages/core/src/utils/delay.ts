@@ -36,19 +36,17 @@ export function delay<T>(targetFunction: (arg: T[]) => Promise<unknown>, delayMs
 
     // Schedule a new batch if there is none scheduled
     if (currentScheduledBatch === null) {
-      currentScheduledBatch = Promise.all([sleep(delayMs), ongoingWorkPromise])
+      const batchPromise = Promise.all([sleep(delayMs), ongoingWorkPromise])
         .then(async () => {
+          currentScheduledBatch = null;
           const itemsToProcess = [...itemsInQueue];
           itemsInQueue = [];
-          const workPromise = targetFunction.apply(context, [itemsToProcess]);
-          ongoingWorkPromise = workPromise instanceof Promise ? workPromise : Promise.resolve();
 
-          try {
-            return await ongoingWorkPromise;
-          } finally {
-            currentScheduledBatch = null;
-          }
+          return targetFunction.apply(context, [itemsToProcess]);
         });
+
+      currentScheduledBatch = batchPromise;
+      ongoingWorkPromise = batchPromise.catch(() => {});
     }
 
     return currentScheduledBatch;
