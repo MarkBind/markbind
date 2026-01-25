@@ -97,18 +97,7 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
         type="text"
       />
     </span>
-    <span
-      class="badge bg-dark tag-badge"
-    >
-       Select All  
-      <span
-        class="badge bg-light text-dark tag-indicator"
-      >
-        <span>
-          ✓
-        </span>
-      </span>
-    </span>
+    <!--v-if-->
     
     <span
       class="badge bg-primary tag-badge"
