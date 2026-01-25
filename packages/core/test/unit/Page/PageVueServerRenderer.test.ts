@@ -12,7 +12,7 @@ describe('PageVueServerRenderer', () => {
   });
 
   describe('compileVuePageCreateAndReturnScript', () => {
-    test('passes isCustomElement tags to isCustomElement compiler option', async () => {
+    test('correctly filters tags with isCustomElement flag and passes to Vue compiler isCustomElement option', async () => {
       // Setup
       (PluginManager as any).tagConfig = {
         'my-custom-element': {
