@@ -9,7 +9,7 @@ const { cleanupConvert } = require('./testUtil/cleanup');
 const logger = require('../../../core/src/utils/logger');
 
 // Path to the compiled CLI executable
-const CLI_PATH = '../../dist/cli/index.js';
+const CLI_PATH = '../../dist/index.js';
 
 const {
   testSites,

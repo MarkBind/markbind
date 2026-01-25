@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "config": {
-    "built_cli_index_path": "../packages/cli/dist/cli/index.js"
+    "built_cli_index_path": "../packages/cli/dist/index.js"
   },
   "scripts": {
     "build:web": "cd packages/core-web && npm run build",
