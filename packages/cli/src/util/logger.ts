@@ -1,10 +1,6 @@
 import chalk from 'chalk';
 import figlet from 'figlet';
 
-// import DailyRotateFile from 'winston-daily-rotate-file';
-// import winston from 'winston';
-// import { Logger as WinstonLogger } from 'winston';
-
 import * as winston from 'winston';
 import 'winston-daily-rotate-file';
 
