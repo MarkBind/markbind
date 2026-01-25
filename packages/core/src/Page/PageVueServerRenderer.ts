@@ -20,6 +20,22 @@ import { PluginManager } from '../plugins/PluginManager';
 
 let bundle = require('@markbind/core-web/dist/js/vueCommonAppFactory.min');
 
+let customElementTagsCache: Set<string> | undefined;
+
+/**
+ * Retrieves the set of tags that should be treated as custom elements by the Vue compiler.
+ * These are tags defined in plugins with isCustomElement: true.
+ */
+function getCustomElementTags(): Set<string> {
+  if (customElementTagsCache) {
+    return customElementTagsCache;
+  }
+  customElementTagsCache = new Set(Object.entries(PluginManager.tagConfig)
+    .filter(([, config]) => config.isCustomElement)
+    .map(([tagName]) => tagName));
+  return customElementTagsCache;
+}
+
 /**
  * Compiles a Vue page template into a JavaScript function returning render function
  * and saves it as a script file so that the browser can access to
@@ -86,16 +102,6 @@ function requireFromString(src: string, filename: string) {
   m.paths = module.paths; // without this, we won't be able to require Vue in the string module
   m._compile(src, filename);
   return m.exports;
-}
-
-/**
- * Retrieves the set of tags that should be treated as custom elements by the Vue compiler.
- * These are tags defined in plugins with isCustomElement: true.
- */
-function getCustomElementTags(): Set<string> {
-  return new Set(Object.entries(PluginManager.tagConfig)
-    .filter(([, config]) => config.isCustomElement)
-    .map(([tagName]) => tagName));
 }
 
 /**
