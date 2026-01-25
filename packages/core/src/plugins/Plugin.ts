@@ -27,7 +27,7 @@ type TagConfigAttributes = {
 export type TagConfigs = {
   isSpecial: boolean,
   attributes: TagConfigAttributes[],
-  customComponent?: boolean,
+  isCustomElement?: boolean,
 };
 
 /**

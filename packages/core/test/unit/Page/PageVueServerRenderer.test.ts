@@ -12,14 +12,18 @@ describe('PageVueServerRenderer', () => {
   });
 
   describe('compileVuePageCreateAndReturnScript', () => {
-    test('passes customComponent tags to isCustomElement compiler option', async () => {
+    test('passes isCustomElement tags to isCustomElement compiler option', async () => {
       // Setup
       (PluginManager as any).tagConfig = {
         'my-custom-element': {
-          customComponent: true,
+          isCustomElement: true,
+          isSpecial: false,
+          attributes: [],
         },
         'regular-element': {
-          customComponent: false,
+          isCustomElement: false,
+          isSpecial: false,
+          attributes: [],
         },
       };
 

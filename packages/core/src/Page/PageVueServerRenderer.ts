@@ -35,7 +35,7 @@ let bundle = require('@markbind/core-web/dist/js/vueCommonAppFactory.min');
 async function compileVuePageCreateAndReturnScript(
   content: string, pageConfig: PageConfig, pageAsset: PageAssets) {
   const customElementTags = new Set(Object.entries(PluginManager.tagConfig)
-    .filter(([, config]) => config.customComponent)
+    .filter(([, config]) => config.isCustomElement)
     .map(([tagName]) => tagName));
 
   const compilerOptions: CompilerOptions = {
