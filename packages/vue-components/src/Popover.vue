@@ -42,7 +42,7 @@
   </span>
 </template>
 
-<script>
+<script lang="ts">
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Portal } from 'portal-vue';
 

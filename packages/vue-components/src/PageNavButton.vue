@@ -14,7 +14,7 @@
   </overlay>
 </template>
 
-<script>
+<script lang="ts">
 import $ from './utils/NodeList';
 
 export default {

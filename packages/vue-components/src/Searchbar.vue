@@ -38,7 +38,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import searchbarPageItem from './SearchbarPageItem.vue';
 import { delayer, getJSON } from './utils/utils';
 

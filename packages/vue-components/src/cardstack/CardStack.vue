@@ -33,7 +33,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 const BADGE_COLOURS = [
   'bg-primary',
   'bg-secondary',

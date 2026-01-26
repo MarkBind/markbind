@@ -45,7 +45,7 @@
   </vue-final-modal>
 </template>
 
-<script>
+<script lang="ts">
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { VueFinalModal } from 'vue-final-modal';
 

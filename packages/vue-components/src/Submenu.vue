@@ -22,7 +22,7 @@
   </li>
 </template>
 
-<script>
+<script lang="ts">
 import { toBoolean } from './utils/utils';
 import $ from './utils/NodeList';
 import positionSubmenu from './utils/submenu';

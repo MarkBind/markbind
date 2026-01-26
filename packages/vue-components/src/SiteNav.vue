@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import normalizeUrl from './utils/urls';
 
 export default {

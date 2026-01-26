@@ -104,7 +104,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import retriever from '../Retriever.vue';
 import panelBase from './PanelBase';
 

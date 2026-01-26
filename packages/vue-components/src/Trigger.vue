@@ -52,7 +52,7 @@
   </span>
 </template>
 
-<script>
+<script lang="ts">
 /* eslint-disable import/no-extraneous-dependencies */
 import { PortalTarget } from 'portal-vue';
 import { useVfm } from 'vue-final-modal';

@@ -3,10 +3,12 @@ module.exports = {
   'collectCoverage': true,
   'collectCoverageFrom': [
     '**/*.vue',
+    '**/*.ts',
     '!**/node_modules/**',
   ],
   'moduleFileExtensions': [
     'js',
+    'ts',
     'json',
     'vue',
   ],
@@ -17,6 +19,7 @@ module.exports = {
   'transform': {
     '.*\\.vue$': '@vue/vue3-jest',
     '^.+\\.js$': ['babel-jest', { rootMode: 'upward' }],
+    '^.+\\.ts$': ['babel-jest', { rootMode: 'upward' }],
   },
   'globals': {
     'vue-jest': {

@@ -17,7 +17,7 @@
   </span>
 </template>
 
-<script>
+<script lang="ts">
 const DEFAULT_SIZE = 100;
 
 export default {

@@ -107,7 +107,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { classifyBootstrapStyle } from './utils/utils';
 
 export default {

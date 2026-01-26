@@ -96,7 +96,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   STATE_CORRECT,
 } from './QuestionConstants';
