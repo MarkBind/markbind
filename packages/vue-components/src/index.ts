@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import type { App, Plugin } from 'vue';
 import { Dropdown, Tooltip } from 'floating-vue';
 import { createVfm } from 'vue-final-modal';
 import PortalVue from 'portal-vue';
@@ -77,20 +78,21 @@ const directives = {
   closeable,
 };
 
-// eslint-disable-next-line no-unused-vars
-function install(app, options) {
+function install(app: App): void {
   Object.keys(components).forEach((key) => {
-    app.component(key, components[key]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    app.component(key, (components as any)[key]);
   });
   Object.keys(directives).forEach((key) => {
-    app.directive(key, directives[key]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    app.directive(key, (directives as any)[key]);
   });
   const vfm = createVfm();
   app.use(vfm);
   app.use(PortalVue);
 }
 
-const plugin = { install };
+const plugin: Plugin = { install };
 
 export default {
   plugin,

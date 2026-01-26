@@ -25,6 +25,7 @@
     "updatetest": "lerna run updatetest --stream"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.28.5",
     "@stylistic/stylelint-plugin": "^2.1.0",
     "@types/node": "^18.15.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",

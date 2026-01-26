@@ -1,6 +1,7 @@
+import { defineComponent } from 'vue';
 import { getFragmentByHash, toBoolean } from '../utils/utils';
 
-export default {
+export default defineComponent({
   props: {
     type: {
       type: String,
@@ -44,6 +45,7 @@ export default {
     },
     src: {
       type: String,
+      default: '',
     },
     bottomSwitch: {
       type: [Boolean, String],
@@ -72,33 +74,33 @@ export default {
   },
   computed: {
     // Vue 2.0 coerce migration
-    expandableBool() {
-      return toBoolean(this.expandable);
+    expandableBool(): boolean {
+      return toBoolean(this.expandable) as boolean;
     },
-    isOpenBool() {
-      return toBoolean(this.isOpen);
+    isOpenBool(): boolean {
+      return toBoolean(this.isOpen) as boolean;
     },
-    expandedBool() {
-      return toBoolean(this.expanded);
+    expandedBool(): boolean {
+      return toBoolean(this.expanded) as boolean;
     },
-    minimizedBool() {
-      return toBoolean(this.minimized);
+    minimizedBool(): boolean {
+      return toBoolean(this.minimized) as boolean;
     },
-    noSwitchBool() {
-      return toBoolean(this.noSwitch);
+    noSwitchBool(): boolean {
+      return toBoolean(this.noSwitch) as boolean;
     },
-    noCloseBool() {
-      return toBoolean(this.noClose);
+    noCloseBool(): boolean {
+      return toBoolean(this.noClose) as boolean;
     },
-    bottomSwitchBool() {
-      return toBoolean(this.bottomSwitch);
+    bottomSwitchBool(): boolean {
+      return toBoolean(this.bottomSwitch) as boolean;
     },
-    preloadBool() {
-      return toBoolean(this.preload);
+    preloadBool(): boolean {
+      return toBoolean(this.preload) as boolean;
     },
     // Vue 2.0 coerce migration end
-    hasHeaderBool() {
-      return this.$slots.header;
+    hasHeaderBool(): boolean {
+      return !!this.$slots.header;
     },
     isExpandableCard() {
       return this.expandableBool;
@@ -110,7 +112,7 @@ export default {
       return this.src && this.src.length > 0;
     },
     srcWithoutFragment() {
-      return this.src.split('#')[0];
+      return this.src?.split('#')[0];
     },
     shouldShowHeader() {
       return (!this.localExpanded) || (!this.expandHeaderless);
@@ -118,7 +120,7 @@ export default {
     shouldShowPeek() {
       return this.peek && !this.localExpanded;
     },
-    collapsedPanelHeight() {
+    collapsedPanelHeight(): number {
       return this.peek ? 125 : 0;
     },
   },
@@ -132,7 +134,7 @@ export default {
     };
   },
   methods: {
-    toggle(hasAnimation) {
+    toggle(hasAnimation: boolean) {
       if (!this.wasRetrieverLoaded) {
         this.open();
         return;
@@ -145,7 +147,8 @@ export default {
             Panel's maxHeight is 'none' at the moment, as event listener set it to 'none' after expansion.
             Thus, we need to reset the maxHeight to its current height for collapse transition to work.
           */
-          this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+          const panelEl = this.$refs.panel as HTMLElement;
+          panelEl.style.maxHeight = `${panelEl.scrollHeight}px`;
         }
         requestAnimationFrame(() => {
           // To enable behaviour of auto window scrolling during panel collapse
@@ -165,12 +168,13 @@ export default {
               behavior: hasAnimation ? 'smooth' : 'instant',
             });
           }
-          this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
+          (this.$refs.panel as HTMLElement).style.maxHeight = `${this.collapsedPanelHeight}px`;
         });
       } else {
         // Expand panel
-        this.$refs.panel.style.transition = 'max-height 0.5s ease-in-out';
-        this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+        const panelEl = this.$refs.panel as HTMLElement;
+        panelEl.style.transition = 'max-height 0.5s ease-in-out';
+        panelEl.style.maxHeight = `${panelEl.scrollHeight}px`;
       }
 
       this.localExpanded = !this.localExpanded;
@@ -194,7 +198,8 @@ export default {
           DOM update (nextTick) before setting maxHeight for transition.
         */
         this.$nextTick(() => {
-          this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+          const panelEl = this.$refs.panel as HTMLElement;
+          panelEl.style.maxHeight = `${panelEl.scrollHeight}px`;
         });
       });
     },
@@ -211,15 +216,17 @@ export default {
 
       // Don't play the transition for this case as the loading should feel 'instant'.
       if (this.expandedBool) {
-        this.$refs.panel.style.maxHeight = 'none';
+        (this.$refs.panel as HTMLElement).style.maxHeight = 'none';
         return;
       }
 
       // For expansion transition to 'continue' after src is loaded.
-      this.$refs.panel.style.maxHeight = `${this.$refs.panel.scrollHeight}px`;
+      const panelEl = this.$refs.panel as HTMLElement;
+      panelEl.style.maxHeight = `${panelEl.scrollHeight}px`;
     },
     initPanel() {
-      this.$refs.panel.addEventListener('transitionend', (event) => {
+      const panelEl = this.$refs.panel as HTMLElement;
+      panelEl.addEventListener('transitionend', (event: Event) => {
         /*
           If the panel's content grows, its maxHeight should accomodate it accordingly (e.g. nested panels).
 
@@ -227,8 +234,8 @@ export default {
           then this is delegated later to the retriever src-loaded event handler,
           allowing a second maxHeight transition once it is loaded.
         */
-        if (this.localExpanded && this.isRetrieverLoadDone && event.target === this.$refs.panel) {
-          this.$refs.panel.style.maxHeight = 'none';
+        if (this.localExpanded && this.isRetrieverLoadDone && event.target === panelEl) {
+          panelEl.style.maxHeight = 'none';
         }
       });
 
@@ -239,9 +246,9 @@ export default {
           We have to set the maxHeight to none immediately since there won't be any transitions
           to trigger the event listener to set maxHeight to none.
         */
-        this.$refs.panel.style.maxHeight = 'none';
+        panelEl.style.maxHeight = 'none';
       } else {
-        this.$refs.panel.style.maxHeight = `${this.collapsedPanelHeight}px`;
+        panelEl.style.maxHeight = `${this.collapsedPanelHeight}px`;
       }
     },
   },
@@ -281,4 +288,4 @@ export default {
 
     return containerStyle;
   },
-};
+});
