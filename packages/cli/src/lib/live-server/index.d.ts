@@ -42,3 +42,6 @@ export function shutdown(): void;
 
 // CHANGED: add reloadActiveTabs export
 export function reloadActiveTabs(): void;
+
+// CHANGED: add getActiveUrls export
+export function getActiveUrls(): string[]

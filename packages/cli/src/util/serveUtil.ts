@@ -15,8 +15,7 @@ import * as logger from './logger';
  */
 const syncOpenedPages = (site: any): void => {
   logger.info('Synchronizing opened pages list before reload');
-  // @ts-ignore
-  const normalizedActiveUrls = liveServer.getActiveUrls().map((url: any) => {
+  const normalizedActiveUrls = liveServer.getActiveUrls().map((url: string) => {
     const completeUrl = path.extname(url) === '' ? path.join(url, 'index') : url;
     return fsUtil.removeExtension(completeUrl);
   });
