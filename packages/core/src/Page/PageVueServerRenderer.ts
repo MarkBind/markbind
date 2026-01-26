@@ -14,9 +14,27 @@ import fs from 'fs-extra';
 import * as logger from '../utils/logger';
 import type { PageConfig, PageAssets } from './PageConfig';
 import type { Page } from '.';
+import { PluginManager } from '../plugins/PluginManager';
+
 /* eslint-enable import/no-import-module-exports */
 
 let bundle = require('@markbind/core-web/dist/js/vueCommonAppFactory.min');
+
+let customElementTagsCache: Set<string> | undefined;
+
+/**
+ * Retrieves the set of tags that should be treated as custom elements by the Vue compiler.
+ * These are tags defined in plugins with isCustomElement: true.
+ */
+function getCustomElementTags(): Set<string> {
+  if (customElementTagsCache) {
+    return customElementTagsCache;
+  }
+  customElementTagsCache = new Set(Object.entries(PluginManager.tagConfig)
+    .filter(([, config]) => config.isCustomElement)
+    .map(([tagName]) => tagName));
+  return customElementTagsCache;
+}
 
 /**
  * Compiles a Vue page template into a JavaScript function returning render function
@@ -32,11 +50,14 @@ let bundle = require('@markbind/core-web/dist/js/vueCommonAppFactory.min');
  */
 async function compileVuePageCreateAndReturnScript(
   content: string, pageConfig: PageConfig, pageAsset: PageAssets) {
+  const customElementTags = getCustomElementTags();
+
   const compilerOptions: CompilerOptions = {
     runtimeModuleName: 'vue',
     runtimeGlobalName: 'Vue',
     mode: 'function',
     whitespace: 'preserve',
+    isCustomElement: tag => customElementTags.has(tag),
   };
 
   const templateOptions: SFCTemplateCompileOptions = {

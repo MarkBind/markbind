@@ -33,7 +33,7 @@ const addHandler = (site: any, onePagePath?: boolean) => (filePath: string): voi
   if (onePagePath) {
     syncOpenedPages(site);
   }
-  Promise.resolve('').then(async () => {
+  Promise.resolve().then(async () => {
     if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
       return site.rebuildSourceFiles();
     }
@@ -54,7 +54,7 @@ const changeHandler = (site: any, onePagePath?: boolean) => (filePath: string): 
   if (onePagePath) {
     syncOpenedPages(site);
   }
-  Promise.resolve('').then(async () => {
+  Promise.resolve().then(async () => {
     if (path.basename(filePath) === path.basename(site.siteConfigPath)) {
       return site.reloadSiteConfig();
     }
@@ -78,7 +78,7 @@ const removeHandler = (site: any, onePagePath?: boolean) => (filePath: string): 
   if (onePagePath) {
     syncOpenedPages(site);
   }
-  Promise.resolve('').then(async () => {
+  Promise.resolve().then(async () => {
     if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
       return site.rebuildSourceFiles();
     }

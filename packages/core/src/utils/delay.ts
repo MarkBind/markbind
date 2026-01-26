@@ -1,38 +1,52 @@
-import Promise from 'bluebird';
-
 /**
-* Creates a function that delays invoking `func` until after `wait` milliseconds have elapsed
-* and the running `func` has resolved/rejected.
-* @param func the promise-returning function to delay,
-*        func should take in a single array
-* @param wait the number of milliseconds to delay
-* @returns delayedFunc that takes in a single argument (either an array or a single value)
+* Creates a function that batches calls and delays execution.
+* It ensures the 'targetFunction' is only called after a 'delayMs' wait period
+* AND after the previous execution has finished.
+*
+* Batch and Delay, collects multiple requests into a single group
+* and delays the execution of the target function.
+*
+* @param targetFunction the promise-returning function to delay,
+*        targetFunction should take in a single array
+* @param delayMs the number of milliseconds to delay
+* @returns delayedFunc that takes an optional argument (array, single value, or nothing)
 */
-export function delay<T>(func: (arg: T[]) => Promise<unknown>, wait: number) {
+export function delay<T>(targetFunction: (arg: T[]) => Promise<unknown>, delayMs: number) {
   let context: any;
-  let pendingArgs: T[] = [];
-  let runningPromise: Promise<unknown> = Promise.resolve();
-  let waitingPromise: Promise<unknown> | null = null;
+  let itemsInQueue: T[] = [];
 
-  return function (this: any, arg: T | T[]) {
+  let ongoingWorkPromise: Promise<unknown> = Promise.resolve();
+  let currentScheduledBatch: Promise<unknown> | null = null;
+
+  const sleep = (ms: number) => new Promise<void>((resolve) => {
+    setTimeout(resolve, ms);
+  });
+
+  return function (this: any, newItem?: T | T[]): Promise<unknown> {
     context = this;
-    if (Array.isArray(arg)) {
-      pendingArgs = pendingArgs.concat(arg);
-    } else {
-      pendingArgs.push(arg);
+
+    // Add new item to queue when called
+    if (Array.isArray(newItem)) {
+      itemsInQueue = itemsInQueue.concat(newItem);
+    } else if (newItem) {
+      itemsInQueue.push(newItem);
     }
 
-    if (waitingPromise === null) {
-      waitingPromise = Promise.all([Promise.delay(wait), runningPromise])
-        .then(() => {
-          runningPromise = waitingPromise || Promise.resolve();
-          waitingPromise = null;
-          const funcPromise = func.apply(context, [pendingArgs]);
-          pendingArgs = [];
-          return funcPromise;
+    // Schedule a new batch if there is none scheduled
+    if (currentScheduledBatch === null) {
+      const batchPromise = Promise.all([sleep(delayMs), ongoingWorkPromise])
+        .then(async () => {
+          currentScheduledBatch = null;
+          const itemsToProcess = [...itemsInQueue];
+          itemsInQueue = [];
+
+          return targetFunction.apply(context, [itemsToProcess]);
         });
+
+      currentScheduledBatch = batchPromise;
+      ongoingWorkPromise = batchPromise.catch(() => {});
     }
 
-    return waitingPromise;
+    return currentScheduledBatch;
   };
 }

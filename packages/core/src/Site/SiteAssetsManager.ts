@@ -2,7 +2,6 @@ import fs from 'fs-extra';
 import ignore, { Ignore } from 'ignore';
 import path from 'path';
 import walkSync from 'walk-sync';
-import Bluebird from 'bluebird';
 
 import { SiteConfig, SiteConfigStyle } from './SiteConfig';
 import { delay } from '../utils/delay';
@@ -207,12 +206,12 @@ export class SiteAssetsManager {
   /**
    * Build/copy assets that are specified in filePaths
    * @param filePaths a single path or an array of paths corresponding to the assets to build
-   */
-  buildAsset = delay(this._buildMultipleAssets.bind(this) as () => Bluebird<unknown>, 1000);
+  */
+  buildAsset = delay(this._buildMultipleAssets.bind(this) as (args: string[]) => Promise<void>, 1000);
 
   /**
    * Remove assets that are specified in filePaths
    * @param filePaths a single path or an array of paths corresponding to the assets to remove
    */
-  removeAsset = delay(this._removeMultipleAssets.bind(this) as () => Bluebird<unknown>, 1000);
+  removeAsset = delay(this._removeMultipleAssets.bind(this) as (args: string[]) => Promise<void>, 1000);
 }

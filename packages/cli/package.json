@@ -31,7 +31,6 @@
   "dependencies": {
     "@markbind/core": "6.1.0",
     "@markbind/core-web": "6.1.0",
-    "bluebird": "^3.7.2",
     "chalk": "^3.0.0",
     "cheerio": "^0.22.0",
     "chokidar": "^3.3.0",
