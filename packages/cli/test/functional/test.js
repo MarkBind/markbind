@@ -9,7 +9,7 @@ const { cleanupConvert } = require('./testUtil/cleanup');
 const logger = require('../../../core/src/utils/logger');
 
 // Path to the compiled CLI executable
-const CLI_PATH = '../../dist/index.js';
+const CLI_PATH = path.resolve(__dirname, '../../dist/index.js');
 
 const {
   testSites,
@@ -124,7 +124,7 @@ function testEmptyDirectoryBuild() {
 
     // Try to build in empty directory (should fail with specific error)
     try {
-      execSync(`node ../../../../index.js build ${emptySitePath}`, execOptionsWithCwd);
+      execSync(`node ${CLI_PATH} build ${emptySitePath}`, execOptionsWithCwd);
       printFailedMessage(new Error('Expected build to fail but it succeeded'), siteRootName);
       process.exit(1);
     } catch (err) {
