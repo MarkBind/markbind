@@ -13,7 +13,7 @@
         </template>
       </span>
       <span
-        v-if="shouldShowSelectAll"
+        v-if="displaySelectAll"
         class="badge tag-badge select-all-toggle"
         @click="toggleAllTags"
       >
@@ -81,8 +81,8 @@ export default {
     allSelected() {
       return this.selectedTags.length === this.cardStackRef.tagMapping.length;
     },
-    shouldShowSelectAll() {
-      const isEnabled = this.showSelectAll === 'true' || this.showSelectAll === true;
+    displaySelectAll() {
+      const isEnabled = String(this.$props.showSelectAll).toLowerCase() !== 'false';
       const hasEnoughTags = this.cardStackRef.tagMapping.length > MIN_TAGS_FOR_SELECT_ALL;
       return isEnabled && hasEnoughTags;
     },
@@ -136,7 +136,7 @@ export default {
       }
 
       if (this.selectedTags.length === 0) {
-        this.showAllTags(false);
+        this.hideAllTags();
       } else {
         this.cardStackRef.children.forEach((child) => {
           if (child.$props.disabled) return;
@@ -147,11 +147,18 @@ export default {
         });
       }
     },
-    showAllTags(showTag) {
+    showAllTags() {
       this.cardStackRef.children.forEach((child) => {
-        if (child.$props.disabled) return;
-
-        child.$data.disableTag = !showTag;
+        if (!child.$props.disabled) {
+          child.$data.disableTag = false;
+        }
+      });
+    },
+    hideAllTags() {
+      this.cardStackRef.children.forEach((child) => {
+        if (!child.$props.disabled) {
+          child.$data.disableTag = true;
+        }
       });
     },
     computeShowTag(tagName) {
@@ -161,10 +168,10 @@ export default {
       const allTags = this.cardStackRef.tagMapping.map(key => key[0]);
       if (this.selectedTags.length === allTags.length) {
         this.selectedTags = [];
-        this.showAllTags(false);
+        this.hideAllTags();
       } else {
         this.selectedTags = allTags;
-        this.showAllTags(true);
+        this.showAllTags();
       }
     },
   },

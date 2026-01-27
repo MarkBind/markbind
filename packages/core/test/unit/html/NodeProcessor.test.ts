@@ -452,22 +452,3 @@ test('slot nodes which have tag names other than "template" are shifted one leve
 
   expect(cheerio.html(testNode)).toEqual(expected);
 });
-
-test('processNode standardizes cardstack show-select-all attribute', () => {
-  const nodeProcessor = getNewDefaultNodeProcessor();
-
-  const templateFalse = '<cardstack show-select-all="fAlSe"></cardstack>';
-  const nodeFalse = parseHTML(templateFalse)[0] as MbNode;
-  nodeProcessor.processNode(nodeFalse, new Context(path.resolve(''), [], {}, {}));
-  expect(nodeFalse.attribs['show-select-all']).toBe('false');
-
-  const templateTrue = '<cardstack show-select-all="yes"></cardstack>';
-  const nodeTrue = parseHTML(templateTrue)[0] as MbNode;
-  nodeProcessor.processNode(nodeTrue, new Context(path.resolve(''), [], {}, {}));
-  expect(nodeTrue.attribs['show-select-all']).toBe('true');
-
-  const templateNone = '<cardstack></cardstack>';
-  const nodeNone = parseHTML(templateNone)[0] as MbNode;
-  nodeProcessor.processNode(nodeNone, new Context(path.resolve(''), [], {}, {}));
-  expect(nodeNone.attribs['show-select-all']).toBeUndefined();
-});

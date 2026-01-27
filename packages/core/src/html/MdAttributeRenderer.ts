@@ -163,24 +163,24 @@ export class MdAttributeRenderer {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  processCardStackAttributes(node: MbNode) {
-    if (!node.children || !node.attribs) {
-      return;
-    }
+  // processCardStackAttributes(node: MbNode) {
+  //   if (!node.children || !node.attribs) {
+  //     return;
+  //   }
 
-    const showSelectAllRaw = node.attribs['show-select-all'];
-    // Handles the 'show-select-all' attribute on the cardstack itself
-    if (!_.isNil(showSelectAllRaw)) {
-      // Check if they have specified 'false' explicitly
-      const showSelectAll = showSelectAllRaw.toLowerCase();
-      if (showSelectAll === 'false') {
-        node.attribs['show-select-all'] = 'false';
-      } else {
-        // Default option or if user specifies any other value it is treated as true.
-        node.attribs['show-select-all'] = 'true';
-      }
-    }
-  }
+  //   const showSelectAllRaw = node.attribs['show-select-all'];
+  //   // Handles the 'show-select-all' attribute on the cardstack itself
+  //   if (!_.isNil(showSelectAllRaw)) {
+  //     // Check if they have specified 'false' explicitly
+  //     const showSelectAll = showSelectAllRaw.toLowerCase();
+  //     if (showSelectAll === 'false') {
+  //       node.attribs['show-select-all'] = 'false';
+  //     } else {
+  //       // Default option or if user specifies any other value it is treated as true.
+  //       node.attribs['show-select-all'] = 'true';
+  //     }
+  //   }
+  // }
 
   /*
    * Card Stack
