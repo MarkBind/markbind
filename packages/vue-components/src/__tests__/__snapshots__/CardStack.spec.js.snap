@@ -160,6 +160,7 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
       <div
         class="col-md-6"
         header="Short Body"
+        style=""
       >
         <div
           class="card"

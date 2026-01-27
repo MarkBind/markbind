@@ -129,7 +129,8 @@ describe('CardStack', () => {
     // all cards should be hidden
     const cards = wrapper.findAllComponents(Card);
     cards.forEach((card) => {
-      expect(card.vm.disableTag).toBe(true);
+      expect(card.vm.computeDisabled).toBe(true);
+      expect(card.isVisible()).toBe(false);
     });
 
     // select all again -> everything should be selected back
