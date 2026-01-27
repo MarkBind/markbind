@@ -142,6 +142,7 @@ Name | Type | Default | Description
 --- | --- | --- | ---
 blocks | `String` | `2` | Number of `card` columns per row.<br> Supports: `1`, `2`, `3`, `4`, `6`
 searchable | `Boolean` | `false` | Whether the card stack is searchable.
+show-select-all | `Boolean` | `true` | Whether the select all tag button appears. (`false` by default if total tags ≤ 3)
 
 `card`:
 Name | Type | Default | Description
@@ -149,7 +150,7 @@ Name | Type | Default | Description
 tag | `String` | `null` | Tags of each card component.<br>Each unique tag should be seperated by a `,`.<br> Tags are added to the search field.
 header | `String` | `null` | Header of each card component.<br> Supports the use of inline markdown elements.
 keywords | `String` | `null` | Keywords of each card component.<br>Each unique keyword should be seperated by a `,`.<br> Keywords are added to the search field.
-disable | `Boolean` | `false` | Disable card. <br> This removes visibility of the card and makes it unsearchable. 
+disabled | `Boolean` | `false` | Disable card. <br> This removes visibility of the card and makes it unsearchable. 
 
 
 
