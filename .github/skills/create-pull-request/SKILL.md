@@ -130,12 +130,6 @@ Before creating the PR, consider these best practices:
    git rebase upstream/main
    ```
 
-2. **Squash if appropriate**: If there are many small "WIP" commits, consider interactive rebase:
-   ```bash
-   git rebase -i origin/main
-   ```
-   Only suggest this if commits appear messy and the user is comfortable with rebasing.
-
 ### Push Changes
 
 Ensure all commits are pushed:
@@ -150,13 +144,34 @@ git push origin HEAD --force-with-lease
 
 ## Create the Pull Request
 
-**IMPORTANT**: Read and use the PR template at `.github/PULL_REQUEST_TEMPLATE`. The PR body format must **strictly match** the template structure. Do not deviate from the template format.
+**IMPORTANT**: Read and use the PR template at `.github/PULL_REQUEST_TEMPLATE`. The PR body format must **strictly match** the template structure. Do not deviate from the template format. 
+
+- Notify the user if the PR template missing before asking if they would like to proceed.
 
 When filling out the template:
-- Replace `#XXXX` with the actual issue number, or keep as `#XXXX` if no issue exists (for small fixes)
-- Fill in all sections with relevant information gathered from commits and context
-- Mark the appropriate "Type of Change" checkbox(es)
-- Complete the "Pre-flight Checklist" items that apply
+1. **Purpose Checklist**: Based on the file changes detected (e.g., `.md` for Documentation, `test/` for Features), check the relevant boxes under **"What is the purpose of this pull request?"**. If it doesn't fit the main categories, use the "Others" box and provide a 1-sentence explanation.
+   - **Linking Issues**: Search for issue numbers in your commits. If found, use keywords like "Fixes #123" or "Resolves #123" in the comment block provided.
+
+2. **Overview of changes**: Provide a high-level, 1-2 sentence summary of what this PR achieves.
+
+3. **Highlight/Discuss**: Elaborate on the technical implementation. Explain *how* you changed the code or documentation and point out any specific logic or layout choices you want the reviewer to notice.
+
+4. **Testing instructions**: Identify any manual testing steps. 
+   - *Example: "Run `markbind serve`, navigate to /docs/plugin, and verify the new warning component renders correctly."*
+   - If no special steps are needed beyond automated tests, leave this blank or state "No special instructions."
+
+5. **Proposed commit message**: Generate a high-quality commit message:
+   - **Title**: Maximum 50 characters.
+   - **Body**: Wrap lines at 72 characters.
+   - Follow the [SE-Education standards](https://se-education.org/guides/conventions/git.html) referenced in the template.
+
+6. **Checklist**: Analyze the changes to check the appropriate boxes:
+   - Check "Updated documentation" if `.md` files in the docs folder were modified.
+   - Check "Added tests" if files in `test` or `spec` files were add or modified.
+   - Check "Linked all related issues" if you identified an issue number.
+   - Check "No unrelated changes" after verifying the diff doesn't contain stray edits.
+
+7. **Reviewer Section**: Leave the **Reviewer checklist** and **SEMVER** sections **unchecked** and unmodified. These are for the maintainers to fill out during review.
 
 ### Create PR with gh CLI
 
