@@ -4,9 +4,6 @@
   "workspaces": [
     "packages/*"
   ],
-  "config": {
-    "built_cli_index_path": "../packages/cli/dist/index.js"
-  },
   "scripts": {
     "build:web": "cd packages/core-web && npm run build",
     "prebuild:backend": "npm run clean",
@@ -16,12 +13,12 @@
     "prebuild:docs": "npm run build:backend",
     "predeploy:dg": "npm run build:backend",
     "predeploy:ug": "npm run build:backend",
-    "build:dg": "cd docs && node $npm_package_config_built_cli_index_path build -s dg-site.json",
-    "build:ug": "cd docs && node $npm_package_config_built_cli_index_path build -s ug-site.json",
-    "build:docs": "cd docs && node $npm_package_config_built_cli_index_path build --baseUrl",
-    "deploy:dg": "cd docs && node $npm_package_config_built_cli_index_path deploy -s dg-site.json --ci",
-    "deploy:ug": "cd docs && node $npm_package_config_built_cli_index_path deploy -s ug-site.json --ci",
-    "deploy:netlify": "npm run setup && npm run build:backend && npm run build:web && cd docs && node $npm_package_config_built_cli_index_path build --baseUrl",
+    "build:dg": "cd docs && node ../packages/cli/dist/index.js build -s dg-site.json",
+    "build:ug": "cd docs && node ../packages/cli/dist/index.js build -s ug-site.json",
+    "build:docs": "cd docs && node ../packages/cli/dist/index.js build --baseUrl",
+    "deploy:dg": "cd docs && node ../packages/cli/dist/index.js deploy -s dg-site.json --ci",
+    "deploy:ug": "cd docs && node ../packages/cli/dist/index.js deploy -s ug-site.json --ci",
+    "deploy:netlify": "npm run setup && npm run build:backend && npm run build:web && cd docs && node ../packages/cli/dist/index.js build --baseUrl",
     "clean": "node ./scripts/clean.js",
     "csslint": "stylelint **/*.css **/*.vue",
     "csslintfix": "stylelint **/*.css **/*.vue --fix",
