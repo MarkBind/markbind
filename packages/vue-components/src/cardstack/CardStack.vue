@@ -106,48 +106,9 @@ export default {
   },
   methods: {
     update() {
-      // const regexes = this.value.split(' ')
-      //   .filter(searchKeyword => searchKeyword !== '')
-      //   .map(searchKeyword => searchKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-      //   .map(searchKeyword => new RegExp(searchKeyword, 'ig'));
-
-      // this.cardStackRef.searchData.forEach((child, searchTarget) => {
-      //   if (child.$props.disabled || child.$data.disableTag) {
-      //     return;
-      //   }
-
-      //   if (this.value === '' && !child.$props.disabled) {
-      //     child.$data.disableCard = false;
-      //     return;
-      //   }
-      //   let matched = false;
-      //   regexes.forEach((regex) => {
-      //     if (searchTarget.match(regex)) {
-      //       matched = true;
-      //     }
-      //   });
-      //   child.$data.disableCard = !matched;
-      // });
       this.cardStackRef.searchTerms = this.value.split(' ').filter(term => term !== '');
     },
     updateTag(tagName) {
-      // if (this.selectedTags.includes(tagName)) {
-      //   this.selectedTags = this.selectedTags.filter(tag => tag !== tagName);
-      // } else {
-      //   this.selectedTags.push(tagName);
-      // }
-
-      // if (this.selectedTags.length === 0) {
-      //   this.hideAllTags();
-      // } else {
-      //   this.cardStackRef.children.forEach((child) => {
-      //     if (child.$props.disabled) return;
-
-      //     const tags = child.computeTags;
-      //     const containsActiveTag = tags.some(tag => this.selectedTags.includes(tag));
-      //     child.$data.disableTag = !containsActiveTag;
-      //   });
-      // }
       if (this.selectedTags.includes(tagName)) {
         this.selectedTags = this.selectedTags.filter(tag => tag !== tagName);
       } else {
@@ -157,21 +118,11 @@ export default {
       this.cardStackRef.selectedTags = [...this.selectedTags];
     },
     showAllTags() {
-      // this.cardStackRef.children.forEach((child) => {
-      //   if (!child.$props.disabled) {
-      //     child.$data.disableTag = false;
-      //   }
-      // });
       const allTags = this.cardStackRef.tagMapping.map(key => key[0]);
       this.selectedTags = allTags;
       this.cardStackRef.selectedTags = [...allTags];
     },
     hideAllTags() {
-      // this.cardStackRef.children.forEach((child) => {
-      //   if (!child.$props.disabled) {
-      //     child.$data.disableTag = true;
-      //   }
-      // });
       this.selectedTags = [];
       this.cardStackRef.selectedTags = [];
     },
