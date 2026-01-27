@@ -149,7 +149,11 @@ git push origin HEAD --force-with-lease
 - Notify the user if the PR template missing before asking if they would like to proceed.
 
 When filling out the template:
-1. **Purpose Checklist**: Based on the file changes detected (e.g., `.md` for Documentation, `test/` for Features), check the relevant boxes under **"What is the purpose of this pull request?"**. If it doesn't fit the main categories, use the "Others" box and provide a 1-sentence explanation.
+1. **Purpose Checklist**: Based on the file changes detected check the relevant boxes under **"What is the purpose of this pull request?"**. 
+   - Check **Documentation update** ONLY if files within the `docs/` directory were modified.
+   - Check **Feature addition or enhancement** if new logic is added to `src/` or core components.
+   - Check **Bug fix** if the commit messages or code diff indicate a correction.
+   - If it doesn't fit the main categories, use the "Others" box and provide a 1-sentence explanation.
    - **Linking Issues**: Search for issue numbers in your commits. If found, use keywords like "Fixes #123" or "Resolves #123" in the comment block provided.
 
 2. **Overview of changes**: Provide a high-level, 1-2 sentence summary of what this PR achieves.
@@ -167,7 +171,7 @@ When filling out the template:
    - Follow the [SE-Education standards](https://se-education.org/guides/conventions/git.html) referenced in the template.
 
 6. **Checklist**: Analyze the changes to check the appropriate boxes:
-   - Check "Updated documentation" if `.md` files in the docs folder were modified.
+   - Check "Updated documentation" ONLY if changes are detected in the `docs/` folder.
    - Check "Added tests" if files in `test` or `spec` files were add or modified.
    - Check "Linked all related issues" if you identified an issue number.
    - Check "No unrelated changes" after verifying the diff doesn't contain stray edits.
