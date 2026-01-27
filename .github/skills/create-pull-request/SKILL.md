@@ -153,6 +153,7 @@ When filling out the template:
    - **Linking Issues**: Search for issue numbers in your commits. If found, use keywords like "Fixes #123" or "Resolves #123" in the comment block provided.
 
 2. **Overview of changes**: Provide a high-level, 1-2 sentence summary of what this PR achieves.
+   - **Mandatory Note**: Append this exact line to the end of this section: This PR was generated using the `create-pull-request` skill. 
 
 3. **Highlight/Discuss**: Elaborate on the technical implementation. Explain *how* you changed the code or documentation and point out any specific logic or layout choices you want the reviewer to notice.
 
