@@ -3,7 +3,7 @@ name: create-pull-request
 description: Create a GitHub pull request following project conventions. Use when the user asks to create a PR, submit changes for review, or open a pull request. Handles commit analysis, branch management, and PR creation using the gh CLI tool.
 ---
 
-# Create Pull Request
+# Create Pull Request (Fork-to-Upstream Version)
 
 This skill guides you through creating a well-structured GitHub pull request that follows project conventions and best practices.
 
@@ -51,18 +51,28 @@ git branch --show-current
 
 Ensure you're not on `main` or `master`. If so, ask the user to create or switch to a feature branch.
 
-### 2. Find the base branch
+### 2. Identify the Upstream Remote
 
 ```bash
-git remote show origin | grep "HEAD branch"
+git remote -v
 ```
 
-This is typically `main` or `master`.
+If 'upstream' is missing, instruct the user to add it: git remote add upstream `https://github.com/ORIGINAL_OWNER/REPO_NAME.git`
 
-### 3. Analyze recent commits relevant to this PR
+### 3. Find the base branch on Upstream
 
 ```bash
-git log origin/main..HEAD --oneline --no-decorate
+# First, get the actual owner/repo string for the upstream remote
+UPSTREAM_REPO=$(git remote get-url upstream | sed 's/.*github.com[\/:]//;s/\.git$//')
+
+# Then use that string to get the default branch
+gh repo view "$UPSTREAM_REPO" --json defaultBranchRef -q .defaultBranchRef.name
+```
+
+### 4. Analyze recent commits relevant to this PR from the Upstream
+
+```bash
+git log upstream/main..HEAD --oneline --no-decorate
 ```
 
 Review these commits to understand:
@@ -70,10 +80,10 @@ Review these commits to understand:
 - The scope of the PR (single feature/fix or multiple changes)
 - Whether commits should be squashed or reorganized
 
-### 4. Review the diff
+### 5. Review the diff
 
 ```bash
-git diff origin/main..HEAD --stat
+git diff upstream/main..HEAD --stat
 ```
 
 This shows which files changed and helps identify the type of change.
@@ -113,8 +123,8 @@ Before creating the PR, consider these best practices:
 
 1. **Rebase on latest main** (if needed):
    ```bash
-   git fetch origin
-   git rebase origin/main
+   git fetch upstream
+   git rebase upstream/main
    ```
 
 2. **Squash if appropriate**: If there are many small "WIP" commits, consider interactive rebase:
@@ -137,7 +147,7 @@ git push origin HEAD --force-with-lease
 
 ## Create the Pull Request
 
-**IMPORTANT**: Read and use the PR template at `.github/pull_request_template.md`. The PR body format must **strictly match** the template structure. Do not deviate from the template format.
+**IMPORTANT**: Read and use the PR template at `.github/PULL_REQUEST_TEMPLATE`. The PR body format must **strictly match** the template structure. Do not deviate from the template format.
 
 When filling out the template:
 - Replace `#XXXX` with the actual issue number, or keep as `#XXXX` if no issue exists (for small fixes)
@@ -148,7 +158,7 @@ When filling out the template:
 ### Create PR with gh CLI
 
 ```bash
-gh pr create --title "PR_TITLE" --body "PR_BODY" --base main
+gh pr create --repo upstream_owner/repo_name --base main --head your_username:your_branch --title "PR_TITLE" --body "PR_BODY"
 ```
 
 Alternatively, create as draft if the user wants review before marking ready:
