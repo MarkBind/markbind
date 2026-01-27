@@ -156,7 +156,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { STATE_WRONG } from './QuestionConstants';
 
 export default {

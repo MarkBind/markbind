@@ -57,7 +57,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Submenu from './Submenu.vue';
 import { toBoolean } from './utils/utils';
 import $ from './utils/NodeList';

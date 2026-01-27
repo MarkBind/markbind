@@ -129,7 +129,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import panelBase from './PanelBase';
 import panelSwitch from './PanelSwitch.vue';
 import retriever from '../Retriever.vue';

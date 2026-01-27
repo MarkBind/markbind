@@ -16,7 +16,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { toNumber } from '../utils/utils';
 
 export default {

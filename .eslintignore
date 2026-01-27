@@ -41,10 +41,12 @@ packages/core/src/lib/markdown-it/plugins/*
 
 # --- packages/vue-components ---
 
-packages/vue-components/src/directives/Closeable.js
-packages/vue-components/src/directives/Float.js
-packages/vue-components/src/utils/NodeList.js
-packages/vue-components/src/utils/utils.js
+# Ignore JS files that are compiled from TS
+packages/vue-components/src/index.js
+packages/vue-components/src/directives/*.js
+packages/vue-components/src/utils/*.js
+packages/vue-components/src/questions/*.js
+packages/vue-components/src/panels/*.js
 
 # --- packages/vue-components end ---
 

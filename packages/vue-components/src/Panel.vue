@@ -20,7 +20,7 @@
   </nested-panel>
 </template>
 
-<script>
+<script lang="ts">
 import nestedPanel from './panels/NestedPanel.vue';
 import minimalPanel from './panels/MinimalPanel.vue';
 

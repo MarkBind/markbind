@@ -55,6 +55,7 @@ module.exports = {
         "project": [
           "./tsconfig.lint.json",
           "./packages/core/tsconfig.lint.json",
+          "./packages/vue-components/tsconfig.lint.json",
         ],
       },
       "plugins": ["@typescript-eslint", "lodash"],

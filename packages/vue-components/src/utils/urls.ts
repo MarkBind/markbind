@@ -1,4 +1,4 @@
-export default function normalizeUrl(url) {
+export default function normalizeUrl(url: string): string {
   if (url.endsWith('.html')) {
     return url.toLowerCase();
   } else if (url.endsWith('/')) {

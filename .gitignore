@@ -107,6 +107,16 @@ packages/core/index.js
 packages/core/src/lib/progress/*.js
 # --- packages/core end ---
 
+# --- packages/vue-components ---
+
+# Ignore JS files that are compiled from TS
+packages/vue-components/src/index.js
+packages/vue-components/src/directives/*.js
+packages/vue-components/src/utils/*.js
+packages/vue-components/src/questions/*.js
+packages/vue-components/src/panels/*.js
+# --- packages/vue-components end ---
+
 # Nx for Lerna
 .nx/cache
 .nx/workspace-data

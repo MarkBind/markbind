@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { toBoolean } from './utils/utils';
 
 export default {

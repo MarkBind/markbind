@@ -6,7 +6,7 @@
  * Licensed under MIT (https://github.com/kybarg/bootstrap-dropdown-hover/blob/master/LICENSE)
  * ======================================================================== */
 
-function isRightAlign(el) {
+function isRightAlign(el: HTMLElement): boolean {
   const viewport = {
     top: 0,
     left: 0,
@@ -40,7 +40,7 @@ function isRightAlign(el) {
   return true;
 }
 
-function preventOverflow(el) {
+function preventOverflow(el: HTMLElement): void {
   el.removeAttribute('style');
 
   const viewport = {

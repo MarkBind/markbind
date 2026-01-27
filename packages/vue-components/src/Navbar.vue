@@ -32,7 +32,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import $ from './utils/NodeList';
 import { toBoolean } from './utils/utils';
 import normalizeUrl from './utils/urls';

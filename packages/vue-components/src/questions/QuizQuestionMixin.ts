@@ -1,6 +1,7 @@
+import { defineComponent } from 'vue';
 import { STATE_FRESH } from './QuestionConstants';
 
-export default {
+export default defineComponent({
   data() {
     return {
       active: true,
@@ -18,13 +19,13 @@ export default {
     },
   },
   methods: {
-    show() {
+    show(this: any) {
       this.active = true;
     },
-    hide() {
+    hide(this: any) {
       this.active = false;
     },
-    reset() {
+    reset(this: any) {
       this.active = false;
       this.qState.answered = false;
       this.qState.state = STATE_FRESH;
@@ -41,10 +42,10 @@ export default {
       }
     },
   },
-  created() {
+  created(this: any) {
     if (this.questions) {
       this.active = false;
       this.questions.push(this);
     }
   },
-};
+});

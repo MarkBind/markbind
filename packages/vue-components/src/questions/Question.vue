@@ -121,7 +121,7 @@
   </transition>
 </template>
 
-<script>
+<script lang="ts">
 import { STATE_CORRECT, STATE_FRESH, STATE_WRONG } from './QuestionConstants';
 import box from '../Box.vue';
 import QuizQuestionMixin from './QuizQuestionMixin';
