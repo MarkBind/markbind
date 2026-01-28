@@ -43,6 +43,7 @@ If there are uncommitted changes, ask the user whether to:
 - Commit them as part of this PR
 - Stash them temporarily
 - Discard them (with caution)
+- **Important** Do not stage any uncomitted changes without explict request/reply by the user
 
 ## Gather Context
 
@@ -89,7 +90,13 @@ Review these commits to understand:
 git diff upstream/main..HEAD --stat
 ```
 
-This shows which files changed and helps identify the type of change.
+This shows which files changed and helps identify the type of change. Use this to perform a **Deep Diff Analysis** which will be crucial in understanding how to classify these changes when creating the PR.:
+- Impact Surface Area: 
+   - Identify which directory the changes were made (e.g. `packages/`, `docs/`).
+   - Note any changes to `package.json` or lockfiles (e.g., `package-lock.json`).
+- Logic:
+   - Distinguish between actual logic changes in `.js`, `.ts` files versus configuration changes (`.yml`, `.json`, etc).
+   - Understand the context of these changes and if or how they link to one another.
 
 ## Information Gathering
 
@@ -98,7 +105,7 @@ Before creating the PR, you need the following information. Check if it can be i
 - Branch name (e.g., `fix/issue-123`, `feature/new-login`)
 - Changed files and their content
 
-If any critical information is missing, use `ask_followup_question` to ask the user:
+If any critical information is missing, ask the user clarifying questions:
 
 ### Required Information
 
@@ -151,8 +158,15 @@ git push origin HEAD --force-with-lease
 When filling out the template:
 1. **Purpose Checklist**: Based on the file changes detected check the relevant boxes under **"What is the purpose of this pull request?"**. 
    - Check **Documentation update** ONLY if files within the `docs/` directory were modified.
-   - Check **Feature addition or enhancement** if new logic is added to `src/` or core components.
-   - Check **Bug fix** if the commit messages or code diff indicate a correction.
+   - Check **Feature addition or enhancement** ONLY if 
+      - **Code Diff Profile**:
+         - Creation of new logic is added to files within the `packages/` directory (specifically NOT refactored or fixed logic refer to bug fixes section below).
+         - Addition of new exported functions or classes.
+   - Check **Bug fix** ONLY if the commit messages or code diff in the `packages/` directory indicate a correction.
+      - **Logic Indicators**: Look for "Fix", "Patch", "Hotfix", "Close", or "Resolve" in commit messages.
+   - Check **Developer Experience** ONLY if 
+      - Changes in the `packages/` directory focus on code quality (e.g., commit messages include "refactor", "improve", "cleanup", or "optimize").
+      - The changes are indirect tools or scripts specifically designed to improve the development workflow (e.g., CI/CD improvements, linting rules, or internal dev-tooling).
    - If it doesn't fit the main categories, use the "Others" box and provide a 1-sentence explanation.
    - **Linking Issues**: Search for issue numbers in your commits. If found, use keywords like "Fixes #123" or "Resolves #123" in the comment block provided.
 
@@ -186,7 +200,7 @@ gh pr create --repo upstream_owner/repo_name --base main --head your_username:yo
 
 Alternatively, create as draft if the user wants review before marking ready:
 ```bash
-gh pr create --title "PR_TITLE" --body "PR_BODY" --base main --draft
+gh pr create --repo upstream_owner/repo_name --base main --head your_username:your_branch --title "PR_TITLE" --body "PR_BODY" --draft
 ```
 
 ## Post-Creation
@@ -221,7 +235,6 @@ After creating the PR:
 Before finalizing, ensure:
 - [ ] `gh` CLI is installed and authenticated
 - [ ] Working directory is clean
-- [ ] All commits are pushed
 - [ ] Branch is up-to-date with base branch
 - [ ] Related issue number is identified, or placeholder is used
 - [ ] PR description follows the template exactly
