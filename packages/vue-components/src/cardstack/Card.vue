@@ -53,11 +53,9 @@ export default {
   data() {
     return {
       isMounted: false,
-      disableCard: false,
       exposedTags: [],
       headerText: '',
       hasHeader: true,
-      disableTag: false,
       cardStack: null,
     };
   },
@@ -77,7 +75,7 @@ export default {
     },
     computeDisabled() {
       const isEmptyContent = this.$slots.header === undefined && this.$slots.default === undefined;
-      return this.disabled || this.disableCard || isEmptyContent || this.disableTag;
+      return this.disabled || isEmptyContent || !this.matchesFilter;
     },
     computeTags() {
       const tagSet = new Set();
@@ -110,6 +108,23 @@ export default {
     },
     hasTag() {
       return !!this.tag;
+    },
+    matchesFilter() {
+      // If the user manually disabled this card in Markdown, then auto disable it.
+      if (this.disabled) return false;
+
+      const selectedTags = this.cardStackRef.selectedTags || [];
+      const searchTerms = this.cardStackRef.searchTerms || [];
+
+      // Check if the card matches the selected tags
+      const matchesTags = this.computeTags.some(tag => selectedTags.includes(tag));
+
+      // Check if the card mateches the search terms
+      const searchTarget = (this.computeTags.join(' ') + this.keywords + this.headerText).toLowerCase();
+      const matchesSearch = searchTerms.length === 0
+      || searchTerms.every(term => searchTarget.toLowerCase().includes(term.toLowerCase()));
+
+      return matchesTags && matchesSearch;
     },
   },
   methods: {

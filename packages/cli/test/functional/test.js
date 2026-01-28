@@ -31,7 +31,12 @@ const execOptions = {
   stdio: ['inherit', 'inherit', 'inherit'],
 };
 
-const expectedErrors = ["URLs are not allowed in the 'src' attribute"];
+const expectedErrors = [
+  "URLs are not allowed in the 'src' attribute",
+  'No config file found in parent directories of',
+  'This directory does not appear to contain a valid MarkBind site.'
+  + ' Check that you are running the command in the correct directory!',
+];
 
 logger.info(
   `The following ${
@@ -91,5 +96,52 @@ testTemplateSites.forEach((templateAndSitePath) => {
   }
   fs.removeSync(path.resolve(__dirname, siteCreationTempPath));
 });
+
+function testEmptyDirectoryBuild() {
+  const siteRootName = 'test_site_empty';
+  const siteRootPath = path.join(__dirname, siteRootName);
+
+  const emptySiteName = 'empty_dir';
+  const emptySitePath = path.join(siteRootPath, emptySiteName);
+
+  const expectedSiteName = 'expected';
+  const expectedSitePath = path.join(siteRootPath, expectedSiteName);
+
+  const execOptionsWithCwd = {
+    stdio: ['inherit', 'inherit', 'inherit'],
+    cwd: emptySitePath, // Set the working directory to testEmptyPath
+  };
+
+  console.log(`Running ${siteRootName} test`);
+
+  try {
+    // Ensure test_site_empty/empty_dir and test_site_empty/expected directories exist
+    fs.ensureDirSync(emptySitePath);
+    fs.ensureDirSync(expectedSitePath);
+
+    // Try to build in empty directory (should fail with specific error)
+    try {
+      execSync(`node ../../../../index.js build ${emptySitePath}`, execOptionsWithCwd);
+      printFailedMessage(new Error('Expected build to fail but it succeeded'), siteRootName);
+      process.exit(1);
+    } catch (err) {
+      // Verify that test_empty directory remains empty using compare()
+      try {
+        compare(siteRootName, 'expected', 'empty_dir', [], true);
+      } catch (compareErr) {
+        printFailedMessage(compareErr, siteRootName);
+        // Reset test_site_empty/empty_dir
+        fs.emptyDirSync(emptySitePath);
+        process.exit(1);
+      }
+    }
+  } finally {
+    // Reset test_site_empty/empty_dir
+    fs.emptyDirSync(emptySitePath);
+  }
+}
+
+// Run the empty directory test
+testEmptyDirectoryBuild();
 
 console.log('Test result: PASSED');

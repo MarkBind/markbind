@@ -20,10 +20,14 @@ module.exports = function(md, options) {
         if (group) {
           group = group[1];
         } else {
-          group = crypto.createHash('md5')
-                        .update(tokens[i-5].content)
-                        .update(tokens[i-4].content)
-                        .update(tokens[i].content).digest('hex').substr(2, 5); // generate a deterministic group id
+          var hash = crypto.createHash('md5');
+          if (i >= 5 && tokens[i-5]) {
+            hash.update(tokens[i-5].content);
+          }
+          if (i >= 4 && tokens[i-4]) {
+            hash.update(tokens[i-4].content);
+          }
+          group = hash.update(tokens[i].content).digest('hex').substr(2, 5); // generate a deterministic group id
         }
         radioify(tokens[i], state.Token, group);
         attrSet(tokens[i-2], 'class', 'radio-list-item');
@@ -86,9 +90,13 @@ function radioify(token, TokenConstructor, radioId) {
 function makeRadioButton(token, TokenConstructor, radioId) {
   var radio = new TokenConstructor('html_inline', '', 0);
   var disabledAttr = disableRadio ? ' disabled="" ' : '';
-  if (token.content.indexOf('( ) ') === 0) {
+  
+  const isUnchecked = token.content.indexOf('( ) ') === 0;
+  const isChecked = token.content.indexOf('(x) ') === 0 ||
+                    token.content.indexOf('(X) ') === 0;
+  if (isUnchecked) {
     radio.content = '<input class="radio-list-input" name="' + radioId + '"' + disabledAttr + 'type="radio">';
-  } else if (token.content.indexOf('(x) ') === 0 || token.content.indexOf('(X) ') === 0) {
+  } else if (isChecked) {
     radio.content = '<input class="radio-list-input" checked="" name="' + radioId + '"' + disabledAttr + 'type="radio">';
   }
   return radio;

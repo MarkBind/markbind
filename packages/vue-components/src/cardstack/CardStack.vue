@@ -13,6 +13,17 @@
         </template>
       </span>
       <span
+        v-if="displaySelectAll"
+        class="badge tag-badge select-all-toggle"
+        @click="toggleAllTags"
+      >
+        <span class="badge bg-light text-dark tag-indicator">
+          <span v-if="allSelected">✓</span>
+          <span v-else>&nbsp;&nbsp;&nbsp;</span>
+        </span>
+        Select All
+      </span>
+      <span
         v-for="(key, index) in cardStackRef.tagMapping"
         :key="index"
         :class="['badge', key[1].badgeColor, 'tag-badge']"
@@ -34,6 +45,8 @@
 </template>
 
 <script>
+const MIN_TAGS_FOR_SELECT_ALL = 3;
+
 const BADGE_COLOURS = [
   'bg-primary',
   'bg-secondary',
@@ -59,8 +72,32 @@ export default {
       type: Boolean,
       default: false,
     },
+    showSelectAll: {
+      type: [Boolean, String],
+      default: true,
+    },
   },
   computed: {
+    allSelected() {
+      return this.selectedTags.length === this.cardStackRef.tagMapping.length;
+    },
+    displaySelectAll() {
+      const isEnabled = String(this.$props.showSelectAll).toLowerCase() !== 'false';
+      const hasEnoughTags = this.cardStackRef.tagMapping.length > MIN_TAGS_FOR_SELECT_ALL;
+      return isEnabled && hasEnoughTags;
+    },
+  },
+  watch: {
+    'cardStackRef.tagMapping': {
+      handler(newMapping) {
+        // Initialise the selectedTags with all tag names when loading for the first time
+        if (this.selectedTags.length === 0 && newMapping.length > 0) {
+          this.selectedTags = newMapping.map(key => key[0]);
+          this.cardStackRef.selectedTags = this.selectedTags;
+        }
+      },
+      immediate: true,
+    },
   },
   provide() {
     return {
@@ -69,28 +106,7 @@ export default {
   },
   methods: {
     update() {
-      const regexes = this.value.split(' ')
-        .filter(searchKeyword => searchKeyword !== '')
-        .map(searchKeyword => searchKeyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-        .map(searchKeyword => new RegExp(searchKeyword, 'ig'));
-
-      this.cardStackRef.searchData.forEach((child, searchTarget) => {
-        if (child.$props.disabled || child.$data.disableTag) {
-          return;
-        }
-
-        if (this.value === '' && !child.$props.disabled) {
-          child.$data.disableCard = false;
-          return;
-        }
-        let matched = false;
-        regexes.forEach((regex) => {
-          if (searchTarget.match(regex)) {
-            matched = true;
-          }
-        });
-        child.$data.disableCard = !matched;
-      });
+      this.cardStackRef.searchTerms = this.value.split(' ').filter(term => term !== '');
     },
     updateTag(tagName) {
       if (this.selectedTags.includes(tagName)) {
@@ -98,28 +114,30 @@ export default {
       } else {
         this.selectedTags.push(tagName);
       }
-
-      if (this.selectedTags.length === 0) {
-        this.showAllTags();
-      } else {
-        this.cardStackRef.children.forEach((child) => {
-          if (child.$props.disabled) return;
-
-          const tags = child.computeTags;
-          const containsActiveTag = tags.some(tag => this.selectedTags.includes(tag));
-          child.$data.disableTag = !containsActiveTag;
-        });
-      }
+      // Update the shared state so children react
+      this.cardStackRef.selectedTags = [...this.selectedTags];
     },
     showAllTags() {
-      this.cardStackRef.children.forEach((child) => {
-        if (child.$props.disabled) return;
-
-        child.$data.disableTag = false;
-      });
+      const allTags = this.cardStackRef.tagMapping.map(key => key[0]);
+      this.selectedTags = allTags;
+      this.cardStackRef.selectedTags = [...allTags];
+    },
+    hideAllTags() {
+      this.selectedTags = [];
+      this.cardStackRef.selectedTags = [];
     },
     computeShowTag(tagName) {
       return this.selectedTags.includes(tagName);
+    },
+    toggleAllTags() {
+      const allTags = this.cardStackRef.tagMapping.map(key => key[0]);
+      if (this.selectedTags.length === allTags.length) {
+        this.selectedTags = [];
+        this.hideAllTags();
+      } else {
+        this.selectedTags = allTags;
+        this.showAllTags();
+      }
     },
   },
   data() {
@@ -131,6 +149,8 @@ export default {
         rawTags: [],
         tagMapping: [],
         children: [],
+        searchTerms: [],
+        selectedTags: [],
         searchData: new Map(),
         updateTagMapping() {
           const tags = this.rawTags;
@@ -244,5 +264,15 @@ export default {
     .tag-indicator {
         width: 18px;
         height: 100%;
+    }
+
+    .badge.tag-badge.select-all-toggle {
+        background: transparent !important;
+        color: #1e1e1e !important;
+        font-weight: 400;
+    }
+
+    .select-all-toggle .tag-indicator {
+        margin-right: 1.5px;
     }
 </style>
