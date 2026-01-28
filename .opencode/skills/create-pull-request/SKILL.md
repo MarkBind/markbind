@@ -1,9 +1,10 @@
 ---
 name: create-pull-request
 description: Create a GitHub pull request following project conventions. Use when the user asks to create a PR, submit changes for review, or open a pull request. Handles commit analysis, branch management, and PR creation using the gh CLI tool.
-Credit: This skill was adapted from the original `create-pull-request` skill developed by the **[Cline](https://github.com/cline/cline)** team. 
+compatibility: opencode
+credit: This skill was adapted from the original `create-pull-request` skill developed by the **[Cline](https://github.com/cline/cline)** team. 
 - **Original Source**: [cline/cline/.cline/skills/create-pull-request](https://github.com/cline/cline/blob/main/.cline/skills/create-pull-request/SKILL.md)
-Modification: Modified to support **Fork-to-Upstream** workflows and automated upstream remote detection.
+modification: Modified to support **Fork-to-Upstream** workflows and automated upstream remote detection.
 ---
 
 # Create Pull Request (Fork-to-Upstream Version)
@@ -194,6 +195,8 @@ When filling out the template:
 7. **Reviewer Section**: Leave the **Reviewer checklist** and **SEMVER** sections **unchecked** and unmodified. These are for the maintainers to fill out during review.
 
 ### Create PR with gh CLI
+
+**Important**: If the user did not specify one of the following options in their request, ask the user which they would like before proceeding. Do not assume which option without explicit confirmation from the user.
 
 **Standard PR**:
    ```bash
