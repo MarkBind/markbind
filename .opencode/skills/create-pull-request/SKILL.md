@@ -43,7 +43,7 @@ If there are uncommitted changes, ask the user whether to:
 - Commit them as part of this PR
 - Stash them temporarily
 - Discard them (with caution)
-- **Important** Do not stage any uncomitted changes without explict request/reply by the user
+- **Important** Do not stage any uncommitted changes without explict request/reply by the user
 
 ## Gather Context
 
@@ -168,7 +168,7 @@ When filling out the template:
       - Changes in the `packages/` directory focus on code quality (e.g., commit messages include "refactor", "improve", "cleanup", or "optimize").
       - The changes are indirect tools or scripts specifically designed to improve the development workflow (e.g., CI/CD improvements, linting rules, or internal dev-tooling).
    - If it doesn't fit the main categories, use the "Others" box and provide a 1-sentence explanation.
-   - **Linking Issues**: Search for issue numbers in your commits. If found, use keywords like "Fixes #123" or "Resolves #123" in the comment block provided.
+   - **Linking Issues**: Search for issue numbers in your commits. If found, use keywords like "Fixes #123" or "Resolves #123" in the comment block provided. Skip if missing or if user replies "N/A".
 
 2. **Overview of changes**: Provide a high-level, 1-2 sentence summary of what this PR achieves.
    - **Mandatory Note**: Append this exact line to the end of this section: This PR was generated using the `create-pull-request` skill. 
