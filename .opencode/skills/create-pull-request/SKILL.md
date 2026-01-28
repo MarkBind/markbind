@@ -9,6 +9,7 @@ Modification: Modified to support **Fork-to-Upstream** workflows and automated u
 # Create Pull Request (Fork-to-Upstream Version)
 
 This skill guides you through creating a well-structured GitHub pull request that follows project conventions and best practices.
+**Important**: Follow each step closely. Do not default to a more direct approach.
 
 ## Prerequisites Check
 
@@ -194,15 +195,20 @@ When filling out the template:
 
 ### Create PR with gh CLI
 
-```bash
-gh pr create --repo upstream_owner/repo_name --base main --head your_username:your_branch --title "PR_TITLE" --body "PR_BODY"
-```
+**Standard PR**:
+   ```bash
+   gh pr create --repo upstream_owner/repo_name --base main --head your_username:your_branch --title "PR_TITLE" --body "PR_BODY"
+   ```
 
-Alternatively, create as draft if the user wants review before marking ready:
-```bash
-gh pr create --repo upstream_owner/repo_name --base main --head your_username:your_branch --title "PR_TITLE" --body "PR_BODY" --draft
-```
+**Draft PR (For early feedback)**:
+   ```bash
+   gh pr create --repo upstream_owner/repo_name --base main --head your_username:your_branch --title "PR_TITLE" --body "PR_BODY" --draft
+   ```
 
+**Dry Run (To preview the PR locally without creating it)**:
+   ```bash
+   gh pr create --repo upstream_owner/repo_name --base main --head your_username:your_branch --title "PR_TITLE" --body "PR_BODY" --dry-run
+   ```
 ## Post-Creation
 
 After creating the PR:
