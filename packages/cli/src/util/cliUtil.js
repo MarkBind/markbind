@@ -26,9 +26,24 @@ module.exports = {
   },
   cleanupFailedMarkbindBuild: () => {
     const markbindDir = path.join(process.cwd(), '_markbind');
-    if (fs.pathExistsSync(markbindDir)) {
-      // delete _markbind/ folder and contents
-      fs.rmSync(markbindDir, { recursive: true, force: true });
+    const logsDir = path.join(markbindDir, 'logs');
+
+    try {
+      // First attempt to delete _markbind/logs
+      if (fs.pathExistsSync(logsDir)) {
+        fs.rmdirSync(logsDir);
+      }
+    } catch (error) {
+      // Ignore errors when deleting logs directory
+    }
+
+    try {
+      // Then attempt to delete _markbind
+      if (fs.pathExistsSync(markbindDir)) {
+        fs.rmdirSync(markbindDir);
+      }
+    } catch (error) {
+      // Ignore errors when deleting markbind directory
     }
   },
 };
