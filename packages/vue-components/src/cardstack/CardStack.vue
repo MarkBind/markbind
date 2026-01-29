@@ -49,18 +49,10 @@
 </template>
 
 <script>
-const MIN_TAGS_FOR_SELECT_ALL = 3;
-
-const BADGE_COLOURS = [
-  'bg-primary',
-  'bg-secondary',
-  'bg-success',
-  'bg-danger',
-  'bg-warning text-dark',
-  'bg-info text-dark',
-  'bg-light text-dark',
-  'bg-dark',
-];
+import {
+  MIN_TAGS_FOR_SELECT_ALL, BADGE_COLOURS, isBootstrapColor, getTextColor, normalizeColor,
+} from '../utils/colors';
+import { unescapeHTML } from '../utils/utils';
 
 export default {
   props: {
@@ -151,24 +143,8 @@ export default {
         this.showAllTags();
       }
     },
-    isBootstrapColor(color) {
-      // Check if the color is a Bootstrap class
-      return BADGE_COLOURS.some(c => c === color);
-    },
-    getTextColor(backgroundColor) {
-      // Simple function to determine if text should be light or dark
-      if (!backgroundColor || backgroundColor.startsWith('bg-')) {
-        return '#000';
-      }
-      // Parse hex color
-      const hex = backgroundColor.replace('#', '');
-      const r = parseInt(hex.substr(0, 2), 16);
-      const g = parseInt(hex.substr(2, 2), 16);
-      const b = parseInt(hex.substr(4, 2), 16);
-      // Calculate relative luminance
-      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-      return luminance > 0.5 ? '#000' : '#fff';
-    },
+    isBootstrapColor,
+    getTextColor,
   },
   data() {
     return {
@@ -193,16 +169,11 @@ export default {
           try {
             const configSource = this.component?.dataTagConfigs || this.component?.tagConfigs;
             if (configSource && configSource !== '') {
-              // Decode HTML entities (quotes were escaped to prevent SSR warnings)
-              const decodedConfig = configSource.replace(/&quot;/g, '"');
+              const decodedConfig = unescapeHTML(configSource);
               // The prop might be double-stringified, so parse once or twice
               let parsed = decodedConfig;
               // eslint-disable-next-line lodash/prefer-lodash-typecheck
-              if (typeof parsed === 'string') {
-                parsed = JSON.parse(parsed);
-              }
-              // eslint-disable-next-line lodash/prefer-lodash-typecheck
-              if (typeof parsed === 'string') {
+              for (let i = 0; i < 2 && typeof parsed === 'string'; i += 1) {
                 parsed = JSON.parse(parsed);
               }
               customConfigs = parsed;
@@ -213,44 +184,10 @@ export default {
             console.warn('Failed to parse tag-configs:', e);
           }
 
-          // Create a map of custom tag names to their configs
           const customConfigMap = new Map();
           customConfigs.forEach((config) => {
             customConfigMap.set(config.name, config);
           });
-
-          // Helper function to normalize color value
-          const normalizeColor = (color) => {
-            if (!color) return null;
-
-            // If it's a hex color, return as-is
-            if (color.startsWith('#')) {
-              return color;
-            }
-
-            // Check if it's a Bootstrap color name (without bg- prefix)
-            const bootstrapColorNames = [
-              'primary', 'secondary', 'success', 'danger',
-              'warning', 'info', 'light', 'dark',
-            ];
-            const lowerColor = color.toLowerCase();
-
-            if (bootstrapColorNames.includes(lowerColor)) {
-              // Add bg- prefix and handle special cases for text color
-              if (lowerColor === 'warning' || lowerColor === 'info' || lowerColor === 'light') {
-                return `bg-${lowerColor} text-dark`;
-              }
-              return `bg-${lowerColor}`;
-            }
-
-            // If it already has bg- prefix, assume it's a valid Bootstrap class
-            if (color.startsWith('bg-')) {
-              return color;
-            }
-
-            // Otherwise, treat it as a hex color (for future flexibility)
-            return color;
-          };
 
           // Process tags in the order specified in customConfigs first
           customConfigs.forEach((config) => {
@@ -295,7 +232,6 @@ export default {
     };
   },
   created() {
-    // Set the component reference so updateTagMapping can access props
     this.cardStackRef.component = this;
   },
   mounted() {

@@ -38,6 +38,7 @@
 
 <script>
 import $ from '../utils/NodeList';
+import { isBootstrapColor, getTextColor } from '../utils/colors';
 
 export default {
   props: {
@@ -126,40 +127,14 @@ export default {
       // Check if the card mateches the search terms
       const searchTarget = (this.computeTags.join(' ') + this.keywords + this.headerText).toLowerCase();
       const matchesSearch = searchTerms.length === 0
-      || searchTerms.every(term => searchTarget.toLowerCase().includes(term.toLowerCase()));
+        || searchTerms.every(term => searchTarget.toLowerCase().includes(term.toLowerCase()));
 
       return matchesTags && matchesSearch;
     },
   },
   methods: {
-    isBootstrapColor(color) {
-      // Check if the color is a Bootstrap class
-      const bootstrapColors = [
-        'bg-primary',
-        'bg-secondary',
-        'bg-success',
-        'bg-danger',
-        'bg-warning text-dark',
-        'bg-info text-dark',
-        'bg-light text-dark',
-        'bg-dark',
-      ];
-      return bootstrapColors.some(c => c === color);
-    },
-    getTextColor(backgroundColor) {
-      // Simple function to determine if text should be light or dark
-      if (!backgroundColor || backgroundColor.startsWith('bg-')) {
-        return '#000';
-      }
-      // Parse hex color
-      const hex = backgroundColor.replace('#', '');
-      const r = parseInt(hex.substr(0, 2), 16);
-      const g = parseInt(hex.substr(2, 2), 16);
-      const b = parseInt(hex.substr(4, 2), 16);
-      // Calculate relative luminance
-      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-      return luminance > 0.5 ? '#000' : '#fff';
-    },
+    isBootstrapColor,
+    getTextColor,
   },
   mounted() {
     this.cardStack = this.cardStackRef;
@@ -200,7 +175,7 @@ export default {
         font-size: 12px;
     }
 
-    .key-container > span {
+    .key-container>span {
         margin-right: 5px;
     }
 </style>

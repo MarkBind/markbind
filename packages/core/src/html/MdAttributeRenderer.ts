@@ -4,10 +4,13 @@ import type { MarkdownProcessor } from './MarkdownProcessor';
 import * as logger from '../utils/logger';
 import { createSlotTemplateNode } from './elements';
 import { MbNode, NodeOrText, parseHTML } from '../utils/node';
+import { escapeHTML } from '../utils/escape';
 
 const _ = {
   has,
 };
+
+export type tagAttribs = { name: string; color?: string };
 
 /**
  * Class that is responsible for rendering markdown-in-attributes
@@ -30,7 +33,7 @@ export class MdAttributeRenderer {
   processAttributeWithoutOverride(node: MbNode, attribute: string,
                                   isInline: boolean, slotName = attribute): void {
     const hasAttributeSlot = node.children
-        && node.children.some(child => getVslotShorthandName(child) === slotName);
+      && node.children.some(child => getVslotShorthandName(child) === slotName);
 
     if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
       let rendered;
@@ -183,20 +186,18 @@ export class MdAttributeRenderer {
     }
 
     const tagsNode = node.children[tagsNodeIndex] as MbNode;
-    const tagConfigs: Array<{ name: string; color?: string }> = [];
+    const tagConfigs: Array<tagAttribs> = [];
 
     // Parse each <tag> element
     if (tagsNode.children) {
       tagsNode.children.forEach((child) => {
         if (child.type === 'tag' && (child as MbNode).name === 'tag') {
           const tagNode = child as MbNode;
-          if (tagNode.attribs && tagNode.attribs.name) {
-            const config: { name: string; color?: string } = {
+          if (tagNode.attribs?.name) {
+            const config: tagAttribs = {
               name: tagNode.attribs.name,
+              ...(tagNode.attribs.color && { color: tagNode.attribs.color }),
             };
-            if (tagNode.attribs.color) {
-              config.color = tagNode.attribs.color;
-            }
             tagConfigs.push(config);
           }
         }
@@ -209,7 +210,7 @@ export class MdAttributeRenderer {
     if (tagConfigs.length > 0) {
       const jsonString = JSON.stringify(tagConfigs);
       // Replace double quotes with HTML entities to avoid SSR warnings
-      const escapedJson = jsonString.replace(/"/g, '&quot;');
+      const escapedJson = escapeHTML(jsonString);
       node.attribs['data-tag-configs'] = escapedJson;
     }
 

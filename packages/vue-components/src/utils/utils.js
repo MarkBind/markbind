@@ -10,7 +10,7 @@ export const coerce = {
   pattern: val => (val instanceof Function || val instanceof RegExp ? val : typeof val === 'string' ? new RegExp(val) : null)
 }
 
-export function toBoolean (val) {
+export function toBoolean(val) {
   return (typeof val === 'string')
     ? ((val === '' || val === 'true')
       ? true
@@ -20,7 +20,7 @@ export function toBoolean (val) {
     : val;
 }
 
-export function toNumber (val) {
+export function toNumber(val) {
   return (typeof val === 'number')
     ? val
     : ((val === undefined || val === null || isNaN(Number(val)))
@@ -28,14 +28,14 @@ export function toNumber (val) {
       : Number(val));
 }
 
-export function getJSON (url) {
+export function getJSON(url) {
   var request = new window.XMLHttpRequest()
   var data = {}
   // p (-simulated- promise)
   var p = {
-    then (fn1, fn2) { return p.done(fn1).fail(fn2) },
-    catch (fn) { return p.fail(fn) },
-    always (fn) { return p.done(fn).fail(fn) }
+    then(fn1, fn2) { return p.done(fn1).fail(fn2) },
+    catch(fn) { return p.fail(fn) },
+    always(fn) { return p.done(fn).fail(fn) }
   };
   ['done', 'fail'].forEach(name => {
     data[name] = []
@@ -47,7 +47,7 @@ export function getJSON (url) {
   p.done(JSON.parse)
   request.onreadystatechange = () => {
     if (request.readyState === 4) {
-      let e = {status: request.status}
+      let e = { status: request.status }
       if (request.status === 200) {
         try {
           var response = request.responseText
@@ -69,7 +69,7 @@ export function getJSON (url) {
   return p
 }
 
-export function getScrollBarWidth () {
+export function getScrollBarWidth() {
   if (document.documentElement.scrollHeight <= document.documentElement.clientHeight) {
     return 0
   }
@@ -100,8 +100,8 @@ export function getScrollBarWidth () {
 
 // delayer: set a function that execute after a delay
 // @params (function, delay_prop or value, default_value)
-export function delayer (fn, varTimer, ifNaN = 100) {
-  function toInt (el) { return /^[0-9]+$/.test(el) ? Number(el) || 1 : null }
+export function delayer(fn, varTimer, ifNaN = 100) {
+  function toInt(el) { return /^[0-9]+$/.test(el) ? Number(el) || 1 : null }
   var timerId
   return function (...args) {
     if (timerId) clearTimeout(timerId)
@@ -114,18 +114,18 @@ export function delayer (fn, varTimer, ifNaN = 100) {
 export function getFragmentByHash(url) {
   var type = url.split('#');
   var hash = '';
-  if(type.length > 1) {
+  if (type.length > 1) {
     hash = type[1];
   }
   return hash;
 }
 
 // Fix a vue instance Lifecycle to vue 1/2 (just the basic elements, is not a real parser, so this work only if your code is compatible with both)
-export function VueFixer (vue) {
+export function VueFixer(vue) {
   var vue2 = !window.Vue || !window.Vue.partial
   var mixin = {
     computed: {
-      vue2 () { return !this.$dispatch }
+      vue2() { return !this.$dispatch }
     }
   }
   if (!vue2) {
@@ -167,7 +167,7 @@ export function classifyBootstrapStyle(type, theme) {
     = ['warning', 'info', 'definition', 'success', 'danger', 'tip', 'important', 'wrong'];
   const colorStyles
     = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
-  
+
   const typeStyle = defaultStyles.includes(type) ? type : '';
   const themeStyle = colorStyles.includes(theme) ? theme : '';
 
@@ -178,26 +178,26 @@ export function classifyBootstrapStyle(type, theme) {
     mainStyle = themeStyle;
   } else {
     switch (typeStyle) {
-    case 'warning':
-      mainStyle = 'warning';
-      break;
-    case 'info':
-      mainStyle = 'info';
-      break;
-    case 'definition':
-      mainStyle = 'primary';
-      break;
-    case 'success':
-    case 'tip':
-      mainStyle = 'success';
-      break;
-    case 'important':
-    case 'wrong':
-      mainStyle = 'danger';
-      break;
-    default:
-      mainStyle = 'default';
-      break;
+      case 'warning':
+        mainStyle = 'warning';
+        break;
+      case 'info':
+        mainStyle = 'info';
+        break;
+      case 'definition':
+        mainStyle = 'primary';
+        break;
+      case 'success':
+      case 'tip':
+        mainStyle = 'success';
+        break;
+      case 'important':
+      case 'wrong':
+        mainStyle = 'danger';
+        break;
+      default:
+        mainStyle = 'default';
+        break;
     }
   }
 
@@ -226,7 +226,24 @@ export function classifyBootstrapStyle(type, theme) {
     default:
       iconStyle = '';
       break;
-    }
+  }
 
-  return {style: mainStyle, icon: iconStyle};
+  return { style: mainStyle, icon: iconStyle };
+}
+
+
+export function escapeHTML(htmlStr) {
+  return String(htmlStr)
+    .replace(/&(?!\w+;)/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+export function unescapeHTML(htmlStr) {
+  return String(htmlStr)
+    .replace(/&quot;/g, '"')
+    .replace(/&gt;/g, '>')
+    .replace(/&lt;/g, '<')
+    .replace(/&amp;/g, '&');
 }
