@@ -12,96 +12,69 @@
 <div class="lead mb-5">
 
 This page provides an overview of the MarkBind's architecture.
+
 </div>
 
 <mermaid>
-  graph TD
-    %% --- Node Styling ---
-    classDef default fill:#e1ecf4,stroke:#8fbbe4,stroke-width:2px;
-    classDef header fill:#dae8fc,stroke:#6c8ebf,font-size:16px;
-    classDef process fill:#e1ecf4,stroke:#b0c4de,text-align:left;
-    classDef title fill:#6fa8dc,stroke:none,color:white,font-weight:bold;
+graph LR
+%% --- Node Styling ---
+classDef default fill:#f9f9f9,stroke:#8fbbe4,stroke-width:1px;
+classDef process fill:#e1ecf4,stroke:#4a90e2,stroke-width:2px,text-align:left;
+classDef manager fill:#dae8fc,stroke:#6c8ebf,font-weight:bold;
 
-    %% --- 1. Top Level Structure ---
-    CLI[index.js #40;cli#41;]
-    Site[Site]
+    %% --- 1. Entry & Core Entities ---
+    CLI[index.js <sub>CLI</sub>]
 
-    %% --- 2. Left Column Components ---
-    Page[Page]
-    
-    LM[LayoutManager<br/><sub>Manages, generates,<br/>and provides layouts</sub>]
-    Layout[Layout]
-    
-    EM[ExternalManager<br/><sub>Manages, generates<br/>Externals</sub>]
-    External[External]
+    subgraph Core [Core Site Structure]
+        direction LR
+        Site[Site Object]
+        Page[Page]
+    end
 
-    %% --- 3. Right Column: Content Processing Subgraph ---
-    subgraph CPF [Content Processing Flow]
+    %% --- 2. Resource Management ---
+    subgraph Managers [Resource Management]
         direction TB
-        %% This invisible node helps force layout width
-        style CPF fill:#fff,stroke:#3366CC,stroke-width:2px
-
-        VP[<b>1. VariableProcessor</b><br/>• Manages site variables<br/>• Manages #40;sub#41;site Nunjucks environments, facilitates Nunjucks calls]:::process
-        
-        NP[<b>2. NodeProcessor</b><br/>• Manages Markdown, HTML<br/>processing state for a Page, Layout or External]:::process
-        
-        MP[<b>2.1 Markdown Processing</b><br/>#40;core/lib/markdown-it#41;]:::process
-        
-        HEP[<b>2.2 Html element processing</b><br/>• Render markdown-in-attributes to vue slots<br/>• Flag Externals for generation in<br/>ExternalManager #40;e.g. &lt;panel src='...''&gt;#41;<br/>• Link processing<br/>• Other misc. operations]:::process
+        LM[<b>LayoutManager</b><br/>Generates Layouts]:::manager
+        EM[<b>ExternalManager</b><br/>Generates Externals]:::manager
     end
 
-    %% --- 4. The Legend (Optional Hack to display legend) ---
-    subgraph LegendBox [Legend]
-        L1[contains] --- L2[> ] 
-        L3[uses] --- L4[> ]
-        style LegendBox fill:#fff,stroke:#000
-        style L1 fill:#fff,stroke:none
-        style L2 fill:#fff,stroke:none,color:#3366CC
-        style L3 fill:#fff,stroke:none
-        style L4 fill:#fff,stroke:none,color:#F28522
-        
-        linkStyle 0 stroke:#3366CC,stroke-width:2px;
-        linkStyle 1 stroke:#F28522,stroke-width:2px;
+    %% --- 3. Processing Pipeline ---
+    subgraph CPF [Content Processing Flow]
+        direction LR
+        VP[<b>1. VariableProcessor</b><br/>Nunjucks & Vars]:::process
+        NP[<b>2. NodeProcessor</b><br/>State Manager]:::process
+
+        subgraph Pipeline [Rendering]
+            direction LR
+            MP[Markdown-it]:::process
+            HEP[HTML/Vue Elements]:::process
+        end
     end
 
-    %% --- DEFINING RELATIONSHIPS (Order matters for linkStyle) ---
-    
-    %% GROUP 1: BLUE ARROWS (CONTAINS)
-    %% Indices 2 - 8
-    CLI -- 1 --> Site
-    Site -- * --> Page
-    Site -- 1 --> LM
-    Site -- 1 --> EM
-    LM -- * --> Layout
-    EM -- * --> External
-    Site -- 1 --> VP
+    %% --- RELATIONSHIPS ---
 
-    %% GROUP 2: ORANGE ARROWS (USES)
-    %% Indices 9 - 14
-    Page --> LM
-    Page --> EM
-    LM --> EM
-    Page --> VP
-    Layout --> VP
-    External --> VP
+    %% Structural (Blue)
+    CLI  -- contains --> Site
+    Site -- contains --> Page
+    Site -- contains --> Managers
+    Site -- contains --> VP
 
-    %% GROUP 3: GREEN ARROWS (FLOW)
-    %% Indices 15 - 18
+    %% Dependencies (Orange)
+    Page -. uses .-> LM
+    Page -. uses .-> EM
+    LM -. uses .-> EM
+    Page -. uses .-> VP
+
+    %% Processing Flow (Green)
     VP --> NP
     NP --> MP
     MP --> HEP
-    HEP -- Process &lt;include&gt; recursively --> VP
+    HEP -- recursive include --> VP
 
-    %% --- Apply Styles to Links ---
-    
-    %% Blue Arrows (Contains)
-    linkStyle 2,3,4,5,6,7,8 stroke:#3366CC,stroke-width:2px;
-    
-    %% Orange Arrows (Uses)
-    linkStyle 9,10,11,12,13,14 stroke:#F28522,stroke-width:2px;
-
-    %% Green Arrows (Process Flow)
-    linkStyle 15,16,17,18 stroke:#93C47D,stroke-width:2pxd;
+    %% --- Styling Links ---
+    linkStyle 0,1,2,3 stroke:#3366CC,stroke-width:2px;
+    linkStyle 4,5,6,7 stroke:#F28522,stroke-width:2px,stroke-dasharray: 5 5;
+    linkStyle 8,9,10,11 stroke:#2D882D,stroke-width:2px;
 
 </mermaid>
 
@@ -138,24 +111,28 @@ Note that generation of `External`s (e.g. `<panel src="...">`) **do not fall wit
 These are only flagged for generation, and then processed by `ExternalManager` **after**, in **another** similar content processing flow within an `External` instance.
 </box>
 
-****Rationale****
+\***\*Rationale\*\***
 
 This simple three stage flow provides a simple, predictable content processing flow for the user, and removes several other development concerns:
 
 1. As the templating language of choice, Nunjucks is always processed first, allowing its templating capabilities to be used to the full extent.
-Its syntax is also the most compatible and independent of the other stages.
+   Its syntax is also the most compatible and independent of the other stages.
 
 2. Secondly, Markdown is **rendered before HTML**, which produces more HTML. This also allows core Markdown features (e.g. code blocks) and Markdown plugins with eccentric syntaxes to be used without having to patch the HTML parser.
 
 3. Having processed possibly conflicting Nunjucks and Markdown syntax, HTML is then processed last.
 
 ### Demonstrating the content processing flow
+
 To demonstrate the content processing flow, let's take a look at a small toy MarkBind file:
+
 ```markdown
 {% raw %}{% set myVariable = "Item" %}
 
 # A basic level 1 header
+
 There will be 5 items here:
+
 <ul>
 {% for item in [1, 2, 3, 4] %}
    <li>{{ myVariable }} #{{ item }}</li>
@@ -168,9 +145,11 @@ A link that gets [converted](contents/topic1.md)
 ```
 
 At the first step of the processing flow, the `VariableProcessor` converts Nunjucks template code into HTML:
+
 ```markdown
 {% raw %}# A basic level 1 header
 There will be 5 items here:
+
 <ul>
    <li>Item #1</li>
    <li>Item #2</li>
@@ -182,11 +161,14 @@ A link that gets [converted](contents/topic1.md)
 
 <include src="contents/topic1.md" />{% endraw %}
 ```
+
 Notice that `myVariable` is consumed and that the unordered list is expanded.
 
 Next, the NodeProcessor converts Markdown to HTML:
+
 ```markdown
 {% raw %}<h1 id="a-basic-level-1-header">A basic level 1 header<a class="fa fa-anchor" href="#a-basic-level-1-header" onclick="event.stopPropagation()"></a></h1>
+
 <p>There will be 5 items here:</p>
 <ul>
    <li>Item #1</li>
@@ -200,6 +182,7 @@ Next, the NodeProcessor converts Markdown to HTML:
 <blockquote>
 <p>This is a placeholder page - more content to be added.</p></blockquote></div>{% endraw %}
 ```
+
 It does this by traversing the node graph and matching node titles to their HTML equivalents. This includes custom components as well (e.g. `<panel .. />`).
 `include` nodes are recursively traversed and converted.
 
