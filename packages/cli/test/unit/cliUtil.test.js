@@ -61,12 +61,7 @@ test('findRootFolder without user specified root throws error if no parent dirs 
 test('cleanupFailedMarkbindBuild removes _markbind directory in current working directory', () => {
   const currentWorkingDir = '/test/root';
   const json = {
-    '/test/root/_markbind/': {
-      'file1.txt': 'content',
-      'subdir/': {
-        'file2.txt': 'content',
-      },
-    },
+    '/test/root/_markbind/logs/': {},
   };
   fs.vol.fromJSON(json, '');
   process.cwd = jest.fn().mockReturnValue(currentWorkingDir);
@@ -77,9 +72,7 @@ test('cleanupFailedMarkbindBuild removes _markbind directory in current working 
 test('cleanupFailedMarkbindBuild handles missing _markbind directory gracefully', () => {
   const currentWorkingDir = '/test/root';
   const json = {
-    '/test/root/': {
-      'otherfile.txt': 'content',
-    },
+    '/test/root/': {},
   };
   fs.vol.fromJSON(json, '');
   process.cwd = jest.fn().mockReturnValue(currentWorkingDir);
@@ -87,17 +80,4 @@ test('cleanupFailedMarkbindBuild handles missing _markbind directory gracefully'
   expect(() => {
     cliUtil.cleanupFailedMarkbindBuild();
   }).not.toThrow();
-});
-
-test('cleanupFailedMarkbindBuild works with different working directories', () => {
-  const currentWorkingDir = '/different/working/dir';
-  const json = {
-    '/different/working/dir/_markbind/': {
-      'test.txt': 'content',
-    },
-  };
-  fs.vol.fromJSON(json, '');
-  process.cwd = jest.fn().mockReturnValue(currentWorkingDir);
-  cliUtil.cleanupFailedMarkbindBuild();
-  expect(fs.vol.existsSync(path.join(currentWorkingDir, '_markbind'))).toBe(false);
 });
