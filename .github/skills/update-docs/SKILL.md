@@ -27,13 +27,26 @@ For each change, evaluate its relevance based on the documentation type:
 | Internal refactor         | ❌ Skip                                | ✅ Only if affects workflow |
 
 ## 3. Review Changes
-- Use `git diff $(git merge-base --fork-point master)` to view changes.
-- If a specific base commit SHA is provided, use `git diff ${SHA}`.
-- Check commit messages for extra context
+Use ONLY the following to obtain the changelog:
+```bash
+bash /mnt/skills/user/update-docs/scripts/get-diff.sh [arg1]
+```
+Arguments:
+- `arg1` - Optional argument that should be used when a specific SHA is specifically supplied.
+
+Output:
+The git diff and relevant changes to review.
+
+## 4. Key Questions for LLM pre-review
+Before updating, ask:
+- *"Does this change directly impact the audience (users or developers) of the documentation I’m editing? If not, skip it."*
+- *"Am I unsure of any part of the update I'm making? If so, I must clarify before proceeding."*
 
 ## 4. Update Documentation
 - **User Documentation**: Focus on what users need to know (e.g., new features, deprecated functionality).
 - **Developer Documentation**: Focus on what developers need to know (e.g., new build steps, architecture changes).
+
+When updating documentation, keep in mind the rules specified in [RULES.md](docs/RULES.md)
 
 ## 5. Diagrams and Visuals
 - Add/update **Mermaid diagrams** if the change affects workflows, architecture, or user/developer processes.
@@ -46,7 +59,3 @@ For each change, evaluate its relevance based on the documentation type:
 ## 7. Automation Tips
 - Pre-filter changes using scripts (e.g., ignore `package.json` updates unless they include `BREAKING CHANGE` or `feat`).
 - Flag ambiguous cases for manual review (e.g., "This change might affect the 'Configuration' section—please verify").
-
-## 8. Key Question for LLM
-Before updating, ask:
-*"Does this change directly impact the audience (users or developers) of the documentation I’m editing? If not, skip it."*
