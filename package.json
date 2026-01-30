@@ -8,25 +8,19 @@
     "build:web": "cd packages/core-web && npm run build",
     "prebuild:backend": "npm run clean",
     "build:backend": "tsc --build",
-    "prebuild:dg": "npm run build:backend",
-    "prebuild:ug": "npm run build:backend",
-    "prebuild:docs": "npm run build:backend",
-    "predeploy:dg": "npm run build:backend",
-    "predeploy:ug": "npm run build:backend",
     "build:dg": "cd docs && node ../packages/cli/dist/index.js build -s dg-site.json",
     "build:ug": "cd docs && node ../packages/cli/dist/index.js build -s ug-site.json",
     "build:docs": "cd docs && node ../packages/cli/dist/index.js build --baseUrl",
     "deploy:dg": "cd docs && node ../packages/cli/dist/index.js deploy -s dg-site.json --ci",
     "deploy:ug": "cd docs && node ../packages/cli/dist/index.js deploy -s ug-site.json --ci",
-    "deploy:netlify": "npm run setup && npm run build:backend && npm run build:web && cd docs && node ../packages/cli/dist/index.js build --baseUrl",
+    "deploy:netlify": "npm run setup && npm run build:web && cd docs && node ../packages/cli/dist/index.js build --baseUrl",
     "clean": "tsc --build --clean && node ./scripts/clean.js",
     "csslint": "stylelint **/*.css **/*.vue",
     "csslintfix": "stylelint **/*.css **/*.vue --fix",
     "dev": "tsc --build --watch",
     "lint": "eslint . --ext .js,.ts,.vue && npm run csslint",
     "lintfix": "eslint . --ext .js,.ts,.vue --fix && npm run csslintfix",
-    "setup": "npm ci && npm run clean && lerna run prepare",
-    "pretest": "npm run build:backend",
+    "setup": "npm ci && npm run build:backend",
     "test": "npm run lint && lerna run test --stream",
     "updatetest": "lerna run updatetest --stream"
   },
@@ -46,8 +40,8 @@
     "stylelint": "^16.2.1",
     "stylelint-config-recommended-vue": "^1.5.0",
     "stylelint-config-standard": "^36.0.0",
-    "tsx": "^4.21.0",
     "typescript": "^5.3.3",
-    "walk-sync": "^2.0.2"
+    "walk-sync": "^2.0.2",
+    "tsx": "^4.21.0"
   }
 }
