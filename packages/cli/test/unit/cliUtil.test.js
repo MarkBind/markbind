@@ -81,3 +81,35 @@ test('cleanupFailedMarkbindBuild handles missing _markbind directory gracefully'
     cliUtil.cleanupFailedMarkbindBuild();
   }).not.toThrow();
 });
+
+test('cleanupFailedMarkbindBuild preserves structure when _markbind/logs contains files', () => {
+  const currentWorkingDir = '/test/root';
+  const json = {
+    '/test/root/_markbind/logs/should-remain.file': 'content',
+  };
+  fs.vol.fromJSON(json, '');
+  process.cwd = jest.fn().mockReturnValue(currentWorkingDir);
+  cliUtil.cleanupFailedMarkbindBuild();
+  // Structure should remain preserved since logs directory is not empty
+  expect(fs.vol.existsSync(path.join(currentWorkingDir, '_markbind'))).toBe(true);
+  expect(fs.vol.existsSync(path.join(currentWorkingDir, '_markbind/logs'))).toBe(true);
+  expect(fs.vol.existsSync(path.join(currentWorkingDir, '_markbind/logs/should-remain.file'))).toBe(true);
+});
+
+test('cleanupFailedMarkbindBuild deletes empty logs directory but not non-empty _markbind', () => {
+  const currentWorkingDir = '/test/root';
+  const json = {
+    '/test/root/_markbind': {
+      'should-remain.file': 'content',
+      'logs/': {},
+    },
+  };
+  fs.vol.fromNestedJSON(json, '');
+  process.cwd = jest.fn().mockReturnValue(currentWorkingDir);
+  cliUtil.cleanupFailedMarkbindBuild();
+  // Logs directory should be deleted (it was empty)
+  expect(fs.vol.existsSync(path.join(currentWorkingDir, '_markbind/logs'))).toBe(false);
+  // But _markbind should remain since it contains should-remain.file
+  expect(fs.vol.existsSync(path.join(currentWorkingDir, '_markbind'))).toBe(true);
+  expect(fs.vol.existsSync(path.join(currentWorkingDir, '_markbind/should-remain.file'))).toBe(true);
+});
