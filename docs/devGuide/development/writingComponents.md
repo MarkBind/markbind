@@ -153,4 +153,4 @@ MarkBind should also **log a warning** to inform the author of this conflict!
 </box>
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('workflow', 'writingPlugins') }}
+{{ previous_next('skills', 'writingPlugins') }}
