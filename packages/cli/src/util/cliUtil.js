@@ -1,8 +1,27 @@
 const findUp = require('find-up');
 const fs = require('fs-extra');
 const path = require('path');
-
 const { SITE_CONFIG_NAME } = require('@markbind/core/src/Site/constants');
+
+const DIR_NOT_EMPTY_ERROR_CODE = 'ENOTEMPTY';
+
+function tryDeleteFolder(pathName) {
+  if (!fs.pathExistsSync(pathName)) {
+    return;
+  }
+  try {
+    fs.rmdirSync(pathName);
+  } catch (error) {
+    // If directory is not empty, fail silently
+    if (error.code !== DIR_NOT_EMPTY_ERROR_CODE) {
+      // Warn for other unexpected errors
+      // Use `console` instead of logger as we don't want to create a new logger instance
+      // that might pollute the working directory again.
+      // eslint-disable-next-line no-console
+      console.warn(`WARNING: Failed to delete directory ${pathName}: ${error.message}`);
+    }
+  }
+}
 
 module.exports = {
   findRootFolder: (userSpecifiedRoot, siteConfigPath = SITE_CONFIG_NAME) => {
@@ -28,22 +47,7 @@ module.exports = {
     const markbindDir = path.join(process.cwd(), '_markbind');
     const logsDir = path.join(markbindDir, 'logs');
 
-    try {
-      // First attempt to delete _markbind/logs
-      if (fs.pathExistsSync(logsDir)) {
-        fs.rmdirSync(logsDir);
-      }
-    } catch (error) {
-      // Ignore errors when deleting logs directory
-    }
-
-    try {
-      // Then attempt to delete _markbind
-      if (fs.pathExistsSync(markbindDir)) {
-        fs.rmdirSync(markbindDir);
-      }
-    } catch (error) {
-      // Ignore errors when deleting markbind directory
-    }
+    tryDeleteFolder(logsDir);
+    tryDeleteFolder(markbindDir);
   },
 };
