@@ -17,7 +17,7 @@ The `@markbind/core-web` package manages client-side assets (JS/CSS) and the web
     *   **Release Only**: `npm run build:client` / `npm run build:server`.
     *   **Do NOT** build full bundles manually during development.
 
-## 5. Coding & Contribution Rules
+## Coding & Contribution Rules
 ### Do
 - Use Webpack for bundling assets.
 - Ensure `babel` transforms are correctly configured for target browsers.
