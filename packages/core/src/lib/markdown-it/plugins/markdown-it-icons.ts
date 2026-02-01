@@ -5,7 +5,7 @@ const markdownItRegExp = require('markdown-it-regexp');
 
 // regular expression to match the icon patterns
 const ICON_REGEXP
-  = /:(fa[brs]|fa-brands|fa-solid|glyphicon|octicon|octiconlight|mi[forst]|bi)-([a-z-]+)~?([a-z-]+)?:/;
+  = /:(fa[brs]|fa-brands|fa-solid|glyphicon|octicon|octiconlight|mi[forst]|bi)-([a-z0-9-]+)~?([a-z0-9-]+)?:/;
 
 // function to get the octicon icons
 function getOcticonIcon(iconName: string) {
