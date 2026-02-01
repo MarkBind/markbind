@@ -12,6 +12,7 @@ import { Highlighter } from './highlight/Highlighter';
 
 import { altFrontmatterPlugin } from './plugins/markdown-it-alt-frontmatter';
 import { markdownItIconsPlugin } from './plugins/markdown-it-icons';
+import { centertext_plugin } from './plugins/markdown-it-center-text';
 
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
@@ -42,7 +43,7 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('./plugins/markdown-it-block-embed'))
   .use(markdownItIconsPlugin)
   .use(require('./plugins/markdown-it-footnotes'))
-  .use(require('./plugins/markdown-it-center-text'))
+  .use(centertext_plugin)
   .use(require('./plugins/markdown-it-colour-text'))
   .use(altFrontmatterPlugin);
 
