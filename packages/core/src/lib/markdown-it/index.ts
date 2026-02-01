@@ -13,6 +13,7 @@ import { Highlighter } from './highlight/Highlighter';
 import { altFrontmatterPlugin } from './plugins/markdown-it-alt-frontmatter';
 import { markdownItIconsPlugin } from './plugins/markdown-it-icons';
 import { centertext_plugin } from './plugins/markdown-it-center-text';
+import { colourTextPlugin } from './plugins/markdown-it-colour-text';
 
 const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
@@ -44,7 +45,7 @@ markdownIt.use(require('markdown-it-mark'))
   .use(markdownItIconsPlugin)
   .use(require('./plugins/markdown-it-footnotes'))
   .use(centertext_plugin)
-  .use(require('./plugins/markdown-it-colour-text'))
+  .use(colourTextPlugin)
   .use(altFrontmatterPlugin);
 
 // fix table style
