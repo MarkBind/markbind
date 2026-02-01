@@ -1,6 +1,5 @@
 const fs = require('fs-extra');
 const path = require('path');
-const Promise = require('bluebird');
 
 const fsUtil = require('@markbind/core/src/utils/fsUtil');
 const {
@@ -24,7 +23,7 @@ const addHandler = (site, onePagePath) => (filePath) => {
   if (onePagePath) {
     syncOpenedPages(site);
   }
-  Promise.resolve('').then(async () => {
+  Promise.resolve().then(async () => {
     if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
       return site.rebuildSourceFiles();
     }
@@ -39,7 +38,7 @@ const changeHandler = (site, onePagePath) => (filePath) => {
   if (onePagePath) {
     syncOpenedPages(site);
   }
-  Promise.resolve('').then(async () => {
+  Promise.resolve().then(async () => {
     if (path.basename(filePath) === path.basename(site.siteConfigPath)) {
       return site.reloadSiteConfig();
     }
@@ -57,7 +56,7 @@ const removeHandler = (site, onePagePath) => (filePath) => {
   if (onePagePath) {
     syncOpenedPages(site);
   }
-  Promise.resolve('').then(async () => {
+  Promise.resolve().then(async () => {
     if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
       return site.rebuildSourceFiles();
     }

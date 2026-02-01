@@ -91,13 +91,16 @@ export function convertRelativeLinks(node: MbNode, cwf: string, rootPath: string
     _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, linkAttribName);
   }
 
-  if (node.name in pluginTagConfig && pluginTagConfig[node.name].attributes) {
-    pluginTagConfig[node.name].attributes.forEach((attrConfig) => {
-      if (attrConfig.isRelative && node.attribs) {
-        const resourcePath = node.attribs[attrConfig.name];
-        _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, attrConfig.name);
-      }
-    });
+  if (node.name in pluginTagConfig) {
+    const tagConfig = pluginTagConfig[node.name];
+    if (tagConfig.attributes) {
+      tagConfig.attributes.forEach((attrConfig) => {
+        if (attrConfig.isRelative && node.attribs) {
+          const resourcePath = node.attribs[attrConfig.name];
+          _convertRelativeLink(node, cwf, rootPath, baseUrl, resourcePath, attrConfig.name);
+        }
+      });
+    }
   }
 }
 
