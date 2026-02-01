@@ -337,6 +337,7 @@ comment block
 4. **Practical Examples**: Include relevant examples for each concept
 5. **Cross-references**: Link to related documentation sections
 6. **Version Awareness**: Note version-specific behaviors and requirements
+7. **Timelessness and clarity**: Avoid using phrasies like "now supports". Communicate about the product in the current state and be clear.
 
 ## Navigation Rules
 
