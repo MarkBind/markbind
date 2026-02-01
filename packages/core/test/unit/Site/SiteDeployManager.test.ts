@@ -27,10 +27,13 @@ const mockGhPages = {
 // Mock gh-pages publish
 const ghpages = require('gh-pages');
 
-ghpages.publish = jest.fn((dir: string, options: DeployOptions, callback: (err?: any) => void) => {
+ghpages.publish = jest.fn((dir: string, options: DeployOptions, callback?: (err?: any) => void) => {
   mockGhPages.dir = dir;
   mockGhPages.options = options;
-  callback();
+  if (callback) {
+    callback();
+  }
+  return Promise.resolve();
 });
 ghpages.clean = jest.fn();
 
