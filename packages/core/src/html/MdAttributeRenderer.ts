@@ -10,7 +10,14 @@ const _ = {
   has,
 };
 
-export type tagAttribs = { name: string; color?: string };
+export type CardStackTagConfig = { name: string; color?: string };
+
+/**
+ * Type predicate to check if a node is an MbNode with a specific name
+ */
+function isMbNodeWithName(child: NodeOrText, name: string): child is MbNode {
+  return child.type === 'tag' && (child as MbNode).name === name;
+}
 
 /**
  * Class that is responsible for rendering markdown-in-attributes
@@ -178,7 +185,7 @@ export class MdAttributeRenderer {
     }
 
     const tagsNodeIndex = node.children.findIndex(
-      child => child.type === 'tag' && (child as MbNode).name === 'tags',
+      child => isMbNodeWithName(child, 'tags'),
     );
 
     if (tagsNodeIndex === -1) {
@@ -186,17 +193,16 @@ export class MdAttributeRenderer {
     }
 
     const tagsNode = node.children[tagsNodeIndex] as MbNode;
-    const tagConfigs: Array<tagAttribs> = [];
+    const tagConfigs: Array<CardStackTagConfig> = [];
 
     // Parse each <tag> element
     if (tagsNode.children) {
       tagsNode.children.forEach((child) => {
-        if (child.type === 'tag' && (child as MbNode).name === 'tag') {
-          const tagNode = child as MbNode;
-          if (tagNode.attribs?.name) {
-            const config: tagAttribs = {
-              name: tagNode.attribs.name,
-              ...(tagNode.attribs.color && { color: tagNode.attribs.color }),
+        if (isMbNodeWithName(child, 'tag')) {
+          if (child.attribs?.name) {
+            const config: CardStackTagConfig = {
+              name: child.attribs.name,
+              ...(child.attribs.color && { color: child.attribs.color }),
             };
             tagConfigs.push(config);
           }
@@ -205,8 +211,6 @@ export class MdAttributeRenderer {
     }
 
     // Add tag-configs as a prop if we found any tags
-    // Store as a data attribute that will be parsed by the Vue component
-    // We need to escape the quotes for HTML attributes to prevent SSR warnings
     if (tagConfigs.length > 0) {
       const jsonString = JSON.stringify(tagConfigs);
       // Replace double quotes with HTML entities to avoid SSR warnings
