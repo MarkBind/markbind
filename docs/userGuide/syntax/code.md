@@ -235,18 +235,18 @@ Note:
     - `#e6e6fa` for light theme
     - `#000000` for dark theme
 
-Markbind provides support for the following shorthands
+Markbind provides support for the following shorthand colors that work well in both in-built code themes:
 
-Letter | Colour
---- | ---
-r | red
-g | green
-b | blue
-c | cyan
-m | magenta
-y | yellow
-k | black
-w | white
+Letter | Light Theme | Dark Theme
+--- | --- | ---
+r | <span style="display:inline-block; width:20px; height:20px; background:rgb(255 121 115 / 40%); border-radius:3px; margin-right:5px;"></span> Pale red | <span style="display:inline-block; width:20px; height:20px; background:rgb(176 13 19 / 70%); border-radius:3px; margin-right:5px;"></span> Deep red
+g | <span style="display:inline-block; width:20px; height:20px; background:rgb(0 255 0 / 70%); border-radius:3px; margin-right:5px;"></span> Soft green | <span style="display:inline-block; width:20px; height:20px; background:rgb(5 102 0 / 70%); border-radius:3px; margin-right:5px;"></span> Forest green
+b | <span style="display:inline-block; width:20px; height:20px; background:rgb(124 153 255 / 50%); border-radius:3px; margin-right:5px;"></span> Light blue | <span style="display:inline-block; width:20px; height:20px; background:rgb(2 38 255 / 70%); border-radius:3px; margin-right:5px;"></span> Royal blue
+c | <span style="display:inline-block; width:20px; height:20px; background:rgb(0 255 255 / 60%); border-radius:3px; margin-right:5px;"></span> Aqua cyan | <span style="display:inline-block; width:20px; height:20px; background:rgb(0 150 150 / 70%); border-radius:3px; margin-right:5px;"></span> Teal cyan
+m | <span style="display:inline-block; width:20px; height:20px; background:rgb(255 100 255 / 70%); border-radius:3px; margin-right:5px;"></span> Bright magenta | <span style="display:inline-block; width:20px; height:20px; background:rgb(139 0 139 / 100%); border-radius:3px; margin-right:5px;"></span> Deep magenta
+y | <span style="display:inline-block; width:20px; height:20px; background:rgb(255 255 0 / 70%); border-radius:3px; margin-right:5px;"></span> Warm yellow | <span style="display:inline-block; width:20px; height:20px; background:rgb(150 140 0 / 70%); border-radius:3px; margin-right:5px;"></span> Golden yellow
+k | <span style="display:inline-block; width:20px; height:20px; background:rgb(217 217 217 / 100%); border-radius:3px; margin-right:5px;"></span> Dark black | <span style="display:inline-block; width:20px; height:20px; background:rgb(0 0 0 / 100%); border-radius:3px; margin-right:5px;"></span> Pure black
+w | <span style="display:inline-block; width:20px; height:20px; background:rgb(255 255 255 / 100%); border-radius:3px; margin-right:5px;"></span> Light grey | <span style="display:inline-block; width:20px; height:20px; background:rgb(150 150 150 / 50%); border-radius:3px; margin-right:5px;"></span> Silver grey
 
 Here are some example usage with the same examples as above:
 
