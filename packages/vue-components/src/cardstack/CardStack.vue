@@ -147,6 +147,7 @@ export default {
     getTextColor,
   },
   data() {
+    const vm = this;
     return {
       value: '',
       tags: [],
@@ -158,36 +159,25 @@ export default {
         searchTerms: [],
         selectedTags: [],
         searchData: new Map(),
-        component: null, // Will be set to the component instance
+        tagConfigs: vm.tagConfigs,
+        dataTagConfigs: vm.dataTagConfigs,
         updateTagMapping() {
           const tags = this.rawTags;
           const tagMap = new Map();
           let index = 0;
 
-          // First, parse custom tag configs if provided
+          // Parse custom tag configs if provided
           let customConfigs = [];
           try {
-            const configSource = this.component?.dataTagConfigs || this.component?.tagConfigs;
+            const configSource = this.dataTagConfigs || this.tagConfigs;
             if (configSource && configSource !== '') {
               const decodedConfig = unescapeHTML(configSource);
-              // The prop might be double-stringified, so parse once or twice
-              let parsed = decodedConfig;
-              // eslint-disable-next-line lodash/prefer-lodash-typecheck
-              for (let i = 0; i < 2 && typeof parsed === 'string'; i += 1) {
-                parsed = JSON.parse(parsed);
-              }
-              customConfigs = parsed;
+              customConfigs = JSON.parse(decodedConfig);
             }
           } catch (e) {
-            // If parsing fails, continue with default behavior
             // eslint-disable-next-line no-console
             console.warn('Failed to parse tag-configs:', e);
           }
-
-          const customConfigMap = new Map();
-          customConfigs.forEach((config) => {
-            customConfigMap.set(config.name, config);
-          });
 
           // Process tags in the order specified in customConfigs first
           customConfigs.forEach((config) => {
@@ -232,7 +222,7 @@ export default {
     };
   },
   created() {
-    this.cardStackRef.component = this;
+    this.cardStackRef.updateTagMapping();
   },
   mounted() {
     this.isMounted = true;
