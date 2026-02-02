@@ -14,8 +14,9 @@ import { altFrontmatterPlugin } from './plugins/markdown-it-alt-frontmatter';
 import { markdownItIconsPlugin } from './plugins/markdown-it-icons';
 import { centertext_plugin } from './plugins/markdown-it-center-text';
 import { colourTextPlugin } from './plugins/markdown-it-colour-text';
+import { createDoubleDelimiterInlineRule } from './plugins/markdown-it-double-delimiter';
 
-const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
+// const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
 const markdownIt = markdownItImport({ html: true, linkify: true });
 
