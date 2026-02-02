@@ -1,15 +1,7 @@
-import { MdAttributeRenderer } from '../../../src/html/MdAttributeRenderer';
-import { MarkdownProcessor } from '../../../src/html/MarkdownProcessor';
+import { processCardStackAttributes } from '../../../src/html/cardStackProcessor.ts';
 import { MbNode, parseHTML } from '../../../src/utils/node';
 
-describe('MdAttributeRenderer.processCardStackAttributes', () => {
-  let mdAttributeRenderer: MdAttributeRenderer;
-
-  beforeEach(() => {
-    const markdownProcessor = new MarkdownProcessor('test-doc-id');
-    mdAttributeRenderer = new MdAttributeRenderer(markdownProcessor);
-  });
-
+describe('processCardStackAttributes', () => {
   it('should do nothing when node has no children', () => {
     const node: MbNode = {
       type: 'tag',
@@ -18,7 +10,7 @@ describe('MdAttributeRenderer.processCardStackAttributes', () => {
       children: undefined,
     } as MbNode;
 
-    mdAttributeRenderer.processCardStackAttributes(node);
+    processCardStackAttributes(node);
 
     expect(node.attribs['data-tag-configs']).toBeUndefined();
   });
@@ -28,7 +20,7 @@ describe('MdAttributeRenderer.processCardStackAttributes', () => {
     const nodes = parseHTML(html);
     const cardstackNode = nodes[0] as MbNode;
 
-    mdAttributeRenderer.processCardStackAttributes(cardstackNode);
+    processCardStackAttributes(cardstackNode);
 
     expect(cardstackNode.attribs['data-tag-configs']).toBeUndefined();
   });
@@ -43,7 +35,7 @@ describe('MdAttributeRenderer.processCardStackAttributes', () => {
     const nodes = parseHTML(html);
     const cardstackNode = nodes[0] as MbNode;
 
-    mdAttributeRenderer.processCardStackAttributes(cardstackNode);
+    processCardStackAttributes(cardstackNode);
 
     expect(cardstackNode.attribs['data-tag-configs']).toBeDefined();
     const decodedConfig = cardstackNode.attribs['data-tag-configs']
@@ -64,7 +56,7 @@ describe('MdAttributeRenderer.processCardStackAttributes', () => {
     const nodes = parseHTML(html);
     const cardstackNode = nodes[0] as MbNode;
 
-    mdAttributeRenderer.processCardStackAttributes(cardstackNode);
+    processCardStackAttributes(cardstackNode);
 
     expect(cardstackNode.attribs['data-tag-configs']).toBeDefined();
     const decodedConfig = cardstackNode.attribs['data-tag-configs']
@@ -88,7 +80,7 @@ describe('MdAttributeRenderer.processCardStackAttributes', () => {
     const nodes = parseHTML(html);
     const cardstackNode = nodes[0] as MbNode;
 
-    mdAttributeRenderer.processCardStackAttributes(cardstackNode);
+    processCardStackAttributes(cardstackNode);
 
     const decodedConfig = cardstackNode.attribs['data-tag-configs']
       .replace(/&quot;/g, '"');
@@ -110,7 +102,7 @@ describe('MdAttributeRenderer.processCardStackAttributes', () => {
     const nodes = parseHTML(html);
     const cardstackNode = nodes[0] as MbNode;
 
-    mdAttributeRenderer.processCardStackAttributes(cardstackNode);
+    processCardStackAttributes(cardstackNode);
 
     const decodedConfig = cardstackNode.attribs['data-tag-configs']
       .replace(/&quot;/g, '"');
@@ -132,7 +124,7 @@ describe('MdAttributeRenderer.processCardStackAttributes', () => {
     const nodes = parseHTML(html);
     const cardstackNode = nodes[0] as MbNode;
 
-    mdAttributeRenderer.processCardStackAttributes(cardstackNode);
+    processCardStackAttributes(cardstackNode);
 
     expect(cardstackNode.attribs['data-tag-configs']).toBeDefined();
     const decodedConfig = cardstackNode.attribs['data-tag-configs']
@@ -152,7 +144,7 @@ describe('MdAttributeRenderer.processCardStackAttributes', () => {
     const cardstackNode = nodes[0] as MbNode;
     const initialChildCount = cardstackNode.children?.length || 0;
 
-    mdAttributeRenderer.processCardStackAttributes(cardstackNode);
+    processCardStackAttributes(cardstackNode);
 
     // Should have removed the <tags> element
     const hasTagsNode = cardstackNode.children?.some(
@@ -172,7 +164,7 @@ describe('MdAttributeRenderer.processCardStackAttributes', () => {
     const nodes = parseHTML(html);
     const cardstackNode = nodes[0] as MbNode;
 
-    mdAttributeRenderer.processCardStackAttributes(cardstackNode);
+    processCardStackAttributes(cardstackNode);
 
     const dataAttr = cardstackNode.attribs['data-tag-configs'];
     // Should contain escaped quotes
@@ -190,7 +182,7 @@ describe('MdAttributeRenderer.processCardStackAttributes', () => {
     const nodes = parseHTML(html);
     const cardstackNode = nodes[0] as MbNode;
 
-    mdAttributeRenderer.processCardStackAttributes(cardstackNode);
+    processCardStackAttributes(cardstackNode);
 
     // Should remove tags node but not add data-tag-configs since no tags were found
     expect(cardstackNode.attribs['data-tag-configs']).toBeUndefined();
@@ -212,7 +204,7 @@ describe('MdAttributeRenderer.processCardStackAttributes', () => {
     const nodes = parseHTML(html);
     const cardstackNode = nodes[0] as MbNode;
 
-    mdAttributeRenderer.processCardStackAttributes(cardstackNode);
+    processCardStackAttributes(cardstackNode);
 
     const decodedConfig = cardstackNode.attribs['data-tag-configs']
       .replace(/&quot;/g, '"');
