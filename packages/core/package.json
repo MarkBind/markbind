@@ -42,6 +42,7 @@
     "fs-extra": "^9.0.1",
     "gh-pages": "^6.3.0",
     "highlight.js": "^10.4.1",
+    "html-entities": "^2.6.0",
     "htmlparser2": "^3.10.1",
     "ignore": "^5.1.4",
     "js-beautify": "1.14.3",

@@ -1,4 +1,4 @@
-import { escapeHTML } from '../utils/escape';
+import { encode } from 'html-entities';
 import { MbNode, NodeOrText } from '../utils/node';
 import { CardStackTagConfig } from './MdAttributeRenderer';
 
@@ -46,7 +46,7 @@ export function processCardStackAttributes(node: MbNode) {
   if (tagConfigs.length > 0) {
     const jsonString = JSON.stringify(tagConfigs);
     // Replace double quotes with HTML entities to avoid SSR warnings
-    const escapedJson = escapeHTML(jsonString);
+    const escapedJson = encode(jsonString);
     node.attribs['data-tag-configs'] = escapedJson;
   }
 

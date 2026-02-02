@@ -230,20 +230,3 @@ export function classifyBootstrapStyle(type, theme) {
 
   return { style: mainStyle, icon: iconStyle };
 }
-
-
-export function escapeHTML(htmlStr) {
-  return String(htmlStr)
-    .replace(/&(?!\w+;)/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-export function unescapeHTML(htmlStr) {
-  return String(htmlStr)
-    .replace(/&quot;/g, '"')
-    .replace(/&gt;/g, '>')
-    .replace(/&lt;/g, '<')
-    .replace(/&amp;/g, '&');
-}

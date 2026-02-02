@@ -49,10 +49,10 @@
 </template>
 
 <script>
+import { decode } from 'html-entities';
 import {
   MIN_TAGS_FOR_SELECT_ALL, BADGE_COLOURS, isBootstrapColor, getTextColor, normalizeColor,
 } from '../utils/colors';
-import { unescapeHTML } from '../utils/utils';
 
 export default {
   props: {
@@ -171,7 +171,7 @@ export default {
           try {
             const configSource = this.dataTagConfigs || this.tagConfigs;
             if (configSource && configSource !== '') {
-              const decodedConfig = unescapeHTML(configSource);
+              const decodedConfig = decode(configSource);
               customConfigs = JSON.parse(decodedConfig);
             }
           } catch (e) {

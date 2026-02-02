@@ -1,9 +1,9 @@
+import { decode } from 'html-entities';
 import cheerio from 'cheerio';
 import has from 'lodash/has';
 import { NodeOrText, MbNode } from '../utils/node';
 
 import md from '../lib/markdown-it';
-import * as util from '../lib/markdown-it/utils';
 
 const _ = {
   has,
@@ -46,7 +46,7 @@ function traverseLinePart(
      * so to actually highlight this text, we have to ask to apply at its parent.
      */
 
-    const cleanedText = util.unescapeHtml(node.data);
+    const cleanedText = decode(node.data);
     const textLength = cleanedText.length;
     resData.numCharsTraversed = textLength;
 
@@ -129,7 +129,7 @@ function traverseLinePart(
       }
     } else {
       const [start, end] = data.highlightRange;
-      const cleaned = util.unescapeHtml(child.data);
+      const cleaned = decode(child.data);
       const split = [cleaned.substring(0, start), cleaned.substring(start, end), cleaned.substring(end)];
       const [pre, highlighted, post] = split.map(md.utils.escapeHtml);
 
