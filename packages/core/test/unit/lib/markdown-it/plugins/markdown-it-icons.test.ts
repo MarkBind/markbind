@@ -142,6 +142,8 @@ test('should render all Bootstrap icons correctly', () => {
   // Basic bootstrap icons, with dashes
   expect(md.renderInline(':bi-house:')).toBe('<i class="bi-house"></i>');
   expect(md.renderInline(':bi-arrow-left:')).toBe('<i class="bi-arrow-left"></i>');
+  expect(md.renderInline(':bi-backpack2:')).toBe('<i class="bi-backpack2"></i>');
+  expect(md.renderInline(':bi-backpack2-fill:')).toBe('<i class="bi-backpack2-fill"></i>');
 });
 
 test('should handle multiple icons and complex scenarios', () => {
