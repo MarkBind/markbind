@@ -18,13 +18,13 @@ Identify the **goal** of the documentation you are updating:
 ## 2. Assess Change Relevance
 For each change, evaluate its relevance based on the documentation type:
 
-| Change Type               | User Documentation                     | Developer Documentation    |
-|---------------------------|----------------------------------------|----------------------------|
-| New feature               | ✅ Update (usage, examples)            | ✅ Update (implementation)  |
-| Breaking change           | ✅ Update (migration notes)            | ✅ Update (code changes)    |
-| Bug fix                   | ✅ Update if user-facing               | ✅ Update if relevant       |
-| Dependency bump           | ❌ Skip                                | ❌ Skip                     |
-| Internal refactor         | ❌ Skip                                | ✅ Only if affects workflow |
+| Change Type               | User Documentation                    | Developer Documentation    |
+|---------------------------|---------------------------------------|----------------------------|
+| New feature               |  Update (usage, examples)            |  Update (implementation)  |
+| Breaking change           |  Update (migration notes)           |  Update (code changes)    |
+| Bug fix                   |  Update if user-facing              |  Update if relevant       |
+| Dependency bump           |  Skip                               |  Skip                     |
+| Internal refactor         |  Skip                               |  Only if affects workflow |
 
 ## 3. Review Changes
 Use ONLY the following to obtain the changelog:
