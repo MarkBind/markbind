@@ -4,20 +4,12 @@ import type { MarkdownProcessor } from './MarkdownProcessor';
 import * as logger from '../utils/logger';
 import { createSlotTemplateNode } from './elements';
 import { MbNode, NodeOrText, parseHTML } from '../utils/node';
-import { escapeHTML } from '../utils/escape';
 
 const _ = {
   has,
 };
 
 export type CardStackTagConfig = { name: string; color?: string };
-
-/**
- * Type predicate to check if a node is an MbNode with a specific name
- */
-function isMbNodeWithName(child: NodeOrText, name: string): child is MbNode {
-  return child.type === 'tag' && (child as MbNode).name === name;
-}
 
 /**
  * Class that is responsible for rendering markdown-in-attributes
@@ -178,49 +170,6 @@ export class MdAttributeRenderer {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  processCardStackAttributes(node: MbNode) {
-    // Look for a <tags> child element
-    if (!node.children) {
-      return;
-    }
-
-    const tagsNodeIndex = node.children.findIndex(
-      child => isMbNodeWithName(child, 'tags'),
-    );
-
-    if (tagsNodeIndex === -1) {
-      return;
-    }
-
-    const tagsNode = node.children[tagsNodeIndex] as MbNode;
-    const tagConfigs: Array<CardStackTagConfig> = [];
-
-    // Parse each <tag> element
-    if (tagsNode.children) {
-      tagsNode.children.forEach((child) => {
-        if (isMbNodeWithName(child, 'tag')) {
-          if (child.attribs?.name) {
-            const config: CardStackTagConfig = {
-              name: child.attribs.name,
-              ...(child.attribs.color && { color: child.attribs.color }),
-            };
-            tagConfigs.push(config);
-          }
-        }
-      });
-    }
-
-    // Add tag-configs as a prop if we found any tags
-    if (tagConfigs.length > 0) {
-      const jsonString = JSON.stringify(tagConfigs);
-      // Replace double quotes with HTML entities to avoid SSR warnings
-      const escapedJson = escapeHTML(jsonString);
-      node.attribs['data-tag-configs'] = escapedJson;
-    }
-
-    // Remove the <tags> node from the DOM tree
-    node.children.splice(tagsNodeIndex, 1);
-  }
 
   /*
    * Dropdowns
