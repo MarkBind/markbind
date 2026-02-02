@@ -57,12 +57,14 @@
 ## Development & Testing Workflow
 
 * Local Development Environment:
+    *   Initial Setup: Run `npm run setup` to install dependencies, clean artifacts, and bootstrap the monorepo.
     *   Backend (Core): Run `npm run dev` in the root to watch/recompile TypeScript. Otherwise, run `npm run build:backend` to compile TypeScript.
     *   Frontend: Run `markbind serve -d` to enable hot reloading of client assets.
     *   Troubleshooting: Run `npm run clean` to remove compiled artifacts if you encounter "orphaned file" issues (e.g., after renaming `.ts` files).
     *   Warning: Do NOT build full release bundles (`npm run build:web`) manually unless releasing.
 * Testing:
     *   Run `npm test` for all tests.
+    *   Run `npm run updatetest` to update test snapshots.
     *   Localized Testing: Run tests in specific package directories (`packages/core`, etc.) for efficiency.
 * CI/CD Process: GitHub Actions (`.github/workflows`) handle testing and linting on PRs.
 
