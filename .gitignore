@@ -110,3 +110,8 @@ packages/core/src/lib/progress/*.js
 # Nx for Lerna
 .nx/cache
 .nx/workspace-data
+
+# AI tool-specific configuration
+.opencode
+.claude
+.cline
