@@ -15,11 +15,16 @@ The MarkBind project has configurations that facilitate AI use.
 
 ## AI Skills
 
-Skills are designed to improve AI agent performance by providing structured instructions and resources for specific tasks. This is applicable to any AI agent with skill support, and developers can point AI agents to the skills directory for structured task handling.
+Skills are designed to improve AI agent performance by providing structured instructions and resources for specific tasks. Skills are best used in conjunction with tools that support skill use, though agents can be manually directed to use the skills as well.
 
-### Skills Directory
+### Setting up Skills
 
-Skills are located in the `.github/skills/` directory. You can point AI agents to this directory to leverage the structured instructions and resources provided by the skills.
+Skills are located in the `.github/skills/` directory. Many tools and agents require different directory structures to enable skill use. It is suggested to set up symlinks for the specific directory structure required. 
+
+For example, if configuring opencode:
+```
+mkdir .opencode && cd .opencode/ && ln -s ../.github/skills skills
+```
 
 ### List of Skills
 
@@ -39,7 +44,7 @@ If you find yourself performing similar structured tasks with an AI agent, consi
 
 ### Using Skills
 
-Skills relevant to particular tasks should be invoked automatically by AI agents. You may opt to directly point the agent to a skill.
+Skills relevant to particular tasks should be invoked automatically by AI agents.
 
 ### Useful Links
 - [Skill.sh skill repository](https://skills.sh/)
