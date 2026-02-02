@@ -424,7 +424,7 @@ As a developer, you may use AI in your workflow to perform tasks. If a specific 
 
 Skills are invoked whenever an agent detects a task to be relevant to one, though sometimes manual pointing may be necessary.
 
-MarkBind houses several skills that you may find useful. See the [Skills](./skills.md) page for a full list and more information.
+MarkBind houses several skills that you may find useful. See the [Skills](aiUse.md#ai-skills) page for a full list and more information.
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('settingUp', 'skills') }}
+{{ previous_next('settingUp', 'aiUse') }}

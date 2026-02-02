@@ -17,7 +17,7 @@
 * Development :expanded:
   * [Setting up]({{baseUrl}}/devGuide/development/settingUp.html)
   * [Workflow]({{baseUrl}}/devGuide/development/workflow.html)
-  * [Skills]({{baseUrl}}/devGuide/development/skills.html)
+  * [AI Use]({{baseUrl}}/devGuide/development/aiUse.html)
   * [Writing Components]({{baseUrl}}/devGuide/development/writingComponents.html)
   * [Writing Plugins]({{baseUrl}}/devGuide/development/writingPlugins.html)
   * [Migrating to TypeScript]({{baseUrl}}/devGuide/development/migratingToTypeScript.html)
