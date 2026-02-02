@@ -1,4 +1,4 @@
-import { processCardStackAttributes } from '../../../src/html/cardStackProcessor.ts';
+import { processCardStackAttributes } from '../../../src/html/cardStackProcessor';
 import { MbNode, parseHTML } from '../../../src/utils/node';
 
 describe('processCardStackAttributes', () => {
