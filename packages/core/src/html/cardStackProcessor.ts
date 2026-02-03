@@ -1,6 +1,7 @@
 import { encode } from 'html-entities';
 import { MbNode, NodeOrText } from '../utils/node';
-import { CardStackTagConfig } from './MdAttributeRenderer';
+
+export type CardStackTagConfig = { name: string; color?: string };
 
 function isTag(child: NodeOrText): child is MbNode {
   return child.type === 'tag' && (child as MbNode).name === 'tag';

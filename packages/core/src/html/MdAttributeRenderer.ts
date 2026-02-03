@@ -9,8 +9,6 @@ const _ = {
   has,
 };
 
-export type CardStackTagConfig = { name: string; color?: string };
-
 /**
  * Class that is responsible for rendering markdown-in-attributes
  */
@@ -168,8 +166,6 @@ export class MdAttributeRenderer {
   processCardAttributes(node: MbNode) {
     this.processSlotAttribute(node, 'header', true);
   }
-
-  // eslint-disable-next-line class-methods-use-this
 
   /*
    * Dropdowns
