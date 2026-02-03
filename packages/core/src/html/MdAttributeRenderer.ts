@@ -30,7 +30,7 @@ export class MdAttributeRenderer {
   processAttributeWithoutOverride(node: MbNode, attribute: string,
                                   isInline: boolean, slotName = attribute): void {
     const hasAttributeSlot = node.children
-      && node.children.some(child => getVslotShorthandName(child) === slotName);
+        && node.children.some(child => getVslotShorthandName(child) === slotName);
 
     if (!hasAttributeSlot && _.has(node.attribs, attribute)) {
       let rendered;
