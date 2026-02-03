@@ -16,6 +16,7 @@ import { centertext_plugin } from './plugins/markdown-it-center-text';
 import { colourTextPlugin } from './plugins/markdown-it-colour-text';
 import { createDoubleDelimiterInlineRule } from './plugins/markdown-it-double-delimiter';
 import { footnotePlugin } from './plugins/markdown-it-footnotes';
+import { radioButtonPlugin } from './plugins/markdown-it-radio-button';
 
 // const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
@@ -42,7 +43,7 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-linkify-images'), { imgClass: 'img-fluid' })
   .use(require('markdown-it-texmath'), { engine: katex, delimiters: ['dollars', 'brackets'] })
   .use(require('markdown-it-attrs'))
-  .use(require('./plugins/markdown-it-radio-button'))
+  .use(radioButtonPlugin, { enabled: true, label: true })
   .use(require('./plugins/markdown-it-block-embed'))
   .use(markdownItIconsPlugin)
   .use(footnotePlugin)
