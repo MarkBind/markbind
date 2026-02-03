@@ -8,14 +8,14 @@ export enum HIGHLIGHT_TYPES {
 
 // Define color mappings
 const COLOR_MAPPING: { [key: string]: string } = {
-  r: 'red',
-  g: 'green',
-  b: 'blue',
-  c: 'cyan',
-  m: 'magenta',
-  y: 'yellow',
-  k: 'black',
-  w: 'white',
+  r: 'var(--red)',
+  g: 'var(--green)',
+  b: 'var(--blue)',
+  c: 'var(--cyan)',
+  m: 'var(--magenta)',
+  y: 'var(--yellow)',
+  k: 'var(--black)',
+  w: 'var(--white)',
 };
 
 export class HighlightRule {

@@ -4,6 +4,30 @@
     --sticky-header-height: 0;
 }
 
+/** Light code theme variables **/
+[data-code-theme="light"] {
+    --red: rgb(255 121 115 / 40%);
+    --green: rgb(0 255 0 / 70%);
+    --blue: rgb(124 153 255 / 50%);
+    --cyan: rgb(0 255 255 / 60%);
+    --magenta: rgb(255 100 255 / 70%);
+    --yellow: rgb(255 255 0 / 70%);
+    --black: rgb(217 217 217 / 100%);
+    --white: rgb(255 255 255 / 100%);
+}
+
+/** Dark code theme variables **/
+[data-code-theme="dark"] {
+    --red: rgb(176 13 19 / 70%);
+    --green: rgb(5 102 0 / 70%);
+    --blue: rgb(2 38 255 / 70%);
+    --cyan: rgb(0 150 150 / 70%);
+    --magenta: rgb(139 0 139 / 100%);
+    --yellow: rgb(150 140 0 / 70%);
+    --black: rgb(0 0 0 / 100%);
+    --white: rgb(150 150 150 / 50%);
+}
+
 a {
     text-decoration: none;
 }
