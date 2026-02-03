@@ -17,6 +17,8 @@ The MarkBind project has configurations that facilitate AI use.
 
 Skills are designed to improve AI agent performance by providing structured instructions and resources for specific tasks. Skills are best used in conjunction with tools that support skill use, though agents can be manually directed to use the skills as well.
 
+Do not use Skills found online without auditing them first. It is also strongly recommended to create a separate pull request to review the Skill before proper use.
+
 ### Setting up Skills
 
 Skills are located in the `.github/skills/` directory. Many tools and agents require different directory structures to enable skill use. It is suggested to set up symlinks for the specific directory structure required. 
