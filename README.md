@@ -143,6 +143,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/yyccbb"><img src="https://avatars.githubusercontent.com/u/35594369?v=4?s=100" width="100px;" alt="yyccbb"/><br /><sub><b>yyccbb</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=yyccbb" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Harjun751"><img src="https://avatars.githubusercontent.com/u/57029562?v=4?s=100" width="100px;" alt="Arjun"/><br /><sub><b>Arjun</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=harjun751" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/MoshiMoshiMochi"><img src="https://avatars.githubusercontent.com/u/73746196?v=4?s=100" width="100px;" alt="MoshiMoshiMochi"/><br /><sub><b>MoshiMoshiMochi</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=MoshiMoshiMochi" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/yihao03"><img src="https://avatars.githubusercontent.com/u/165232024?v=4?s=100" width="100px;" alt="Hon Yi Hao"/><br /><sub><b>Hon Yi Hao</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=yihao03" title="Code">💻</a> <a href="https://github.com/MarkBind/markbind/commits?author=yihao03" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
