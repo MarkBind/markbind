@@ -15,6 +15,7 @@ import { markdownItIconsPlugin } from './plugins/markdown-it-icons';
 import { centertext_plugin } from './plugins/markdown-it-center-text';
 import { colourTextPlugin } from './plugins/markdown-it-colour-text';
 import { createDoubleDelimiterInlineRule } from './plugins/markdown-it-double-delimiter';
+import { footnotePlugin } from './plugins/markdown-it-footnotes';
 
 // const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
 
@@ -44,7 +45,7 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('./plugins/markdown-it-radio-button'))
   .use(require('./plugins/markdown-it-block-embed'))
   .use(markdownItIconsPlugin)
-  .use(require('./plugins/markdown-it-footnotes'))
+  .use(footnotePlugin)
   .use(centertext_plugin)
   .use(colourTextPlugin)
   .use(altFrontmatterPlugin);
