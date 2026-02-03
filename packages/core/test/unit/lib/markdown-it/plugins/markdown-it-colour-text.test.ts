@@ -1,6 +1,6 @@
 import markdownIt from 'markdown-it';
 
-const colourTextPlugin = require('../../../../../src/lib/markdown-it/plugins/markdown-it-colour-text');
+import { colourTextPlugin } from '../../../../../src/lib/markdown-it/plugins/markdown-it-colour-text';
 
 describe('markdown-it-colour-text plugin', () => {
   let md: markdownIt;

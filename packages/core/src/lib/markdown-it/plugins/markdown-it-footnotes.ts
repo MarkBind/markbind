@@ -172,6 +172,7 @@ export function footnotePlugin(md: MarkdownIt): void {
     token       = new state.Token('footnote_reference_open', '', 1);
     token.meta  = { label: label };
     token.level = state.level++;
+    state.tokens.push(token);
 
     const oldBMark = state.bMarks[startLine];
     const oldTShift = state.tShift[startLine];
@@ -219,7 +220,7 @@ export function footnotePlugin(md: MarkdownIt): void {
 
     token       = new state.Token('footnote_reference_close', '', -1);
     token.level = --state.level;
-
+    state.tokens.push(token);
 
     return true;
   }
@@ -378,14 +379,15 @@ export function footnotePlugin(md: MarkdownIt): void {
         token.block    = true;
         tokens.push(token);
 
-      } else if (list[i].label) {
+      } else if (list[i].label && refTokens[`:${list[i].label}`]) {
         tokens = refTokens[`:${list[i].label}`];
       } else {
         tokens = [];
       }
 
       state.tokens = state.tokens.concat(tokens);
-      if (state.tokens.length > 0 && state.tokens[state.tokens.length - 1].type === 'paragraph_close') {
+      const lastToken = state.tokens[state.tokens.length - 1];
+      if (lastToken && lastToken.type === 'paragraph_close') {
         lastParagraph = state.tokens.pop()!;
       } else {
         lastParagraph = null;

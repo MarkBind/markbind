@@ -1,13 +1,13 @@
 import markdownIt from 'markdown-it';
 
-const footnotesPlugin = require('../../../../../src/lib/markdown-it/plugins/markdown-it-footnotes');
+import { footnotePlugin } from '../../../../../src/lib/markdown-it/plugins/markdown-it-footnotes';
 
 describe('markdown-it-footnotes plugin', () => {
   let md: markdownIt;
 
   beforeEach(() => {
     md = markdownIt();
-    md.use(footnotesPlugin);
+    md.use(footnotePlugin);
   });
 
   describe('basic footnotes', () => {
@@ -209,7 +209,7 @@ describe('markdown-it-footnotes plugin', () => {
     test('should handle docId environment and subId scenarios', () => {
       // Test with docId in environment (covers env.docId branch at line 48)
       const docIdMd = markdownIt();
-      docIdMd.use(footnotesPlugin);
+      docIdMd.use(footnotePlugin);
       const env = { docId: 'test-doc' };
       const docIdSource = [
         'Text with footnote[^1].',

@@ -1,13 +1,15 @@
 import markdownIt from 'markdown-it';
 
-const centerTextPlugin = require('../../../../../src/lib/markdown-it/plugins/markdown-it-center-text');
+import { centertext_plugin } from '../../../../../src/lib/markdown-it/plugins/markdown-it-center-text';
+
+// const centerTextPlugin = require('../../../../../src/lib/markdown-it/plugins/markdown-it-center-text');
 
 describe('markdown-it-center-text plugin', () => {
   let md: markdownIt;
 
   beforeEach(() => {
     md = markdownIt();
-    md.use(centerTextPlugin);
+    md.use(centertext_plugin);
   });
 
   test('should render center text with various content types', () => {

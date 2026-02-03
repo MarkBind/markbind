@@ -115,7 +115,9 @@ export function colourTextPlugin(md: MarkdownIt): void {
     for (let i = 0; i < delimiters.length; i++) {
       const delim = delimiters[i];
       if (delim.marker === 35 && delim.open) {
-        foundStart = true;
+        if (delimMarkerToClassMap.has(tokens[delim.token].content)) {
+          foundStart = true;
+        }
       } else if (delim.marker === 35 && delim.close) {
         foundEnd = true;
       }
@@ -132,12 +134,12 @@ export function colourTextPlugin(md: MarkdownIt): void {
           const className = delimMarkerToClassMap.get(token.content);
           if (className) {
             foundStart = true;
-            token.type = 'colourtext_open';
-            token.tag = 'span';
+            token.type    = 'colourtext_open';
+            token.tag     = 'span';
             token.nesting = 1;
-            token.markup = token.content;
+            token.markup  = token.content;
             token.content = '';
-            token.attrs = [['class', className]];
+            token.attrs   = [['class', className]];
           }
         } else if (delim.marker === 35 && delim.close) {
           if (foundStart) {
@@ -148,6 +150,16 @@ export function colourTextPlugin(md: MarkdownIt): void {
             token.content = '';
           }
         }
+      }
+    }
+
+    // Clear content for ANY remaining colourtext markers
+    // This restores the "deletion" behavior for unmatched tags.
+    for (let i = 0; i < delimiters.length; i++) {
+      const delim = delimiters[i];
+      const token = tokens[delim.token];
+      if (delim.marker === 35 && (token.type === 'text')) {
+         token.content = '';
       }
     }
     return true;
