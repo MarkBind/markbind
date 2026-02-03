@@ -331,7 +331,10 @@ describe('CardStack', () => {
     const { tagMapping } = wrapper.vm.cardStackRef;
     expect(tagMapping.length).toBe(3);
     expect(tagMapping[0][1].badgeColor).toMatch(/^bg-/);
-    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('Failed to parse tag-configs'), expect.any(SyntaxError));
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('Failed to parse tag-configs'),
+      expect.any(SyntaxError),
+    );
     warnSpy.mockRestore();
   });
 
