@@ -23,7 +23,7 @@ Skills are located in the `.github/skills/` directory. Many tools and agents req
 
 For example, if configuring opencode:
 ```
-mkdir .opencode && cd .opencode/ && ln -s ../.github/skills skills
+ln -s .github/ .opencode
 ```
 
 ### List of Skills
