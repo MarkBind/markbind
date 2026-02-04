@@ -3,7 +3,7 @@
 
 "use strict";
 
-const VideoServiceBase = require("./VideoServiceBase");
+import VideoServiceBase from "./VideoServiceBase";
 
 export interface YouTubeOptions {
   width?: number;
