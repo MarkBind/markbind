@@ -29,6 +29,3 @@ export default class PreziService extends VideoServiceBase {
   }
 
 }
-
-
-module.exports = PreziService;
