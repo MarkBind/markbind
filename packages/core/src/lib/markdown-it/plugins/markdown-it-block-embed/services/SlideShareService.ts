@@ -5,7 +5,7 @@ export interface SlideShareOptions extends VideoServiceOptions {
   height?: number;
 }
 
-class SlideShareService extends VideoServiceBase {
+export default class SlideShareService extends VideoServiceBase {
 
   getDefaultOptions(): SlideShareOptions {
     return {width: 599, height: 487};
@@ -20,5 +20,3 @@ class SlideShareService extends VideoServiceBase {
     return `//www.slideshare.net/slideshow/embed_code/key/${escapedVideoID}`;
   }
 }
-
-module.exports = SlideShareService;

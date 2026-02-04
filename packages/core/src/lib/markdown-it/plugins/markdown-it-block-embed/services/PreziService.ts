@@ -1,23 +1,26 @@
 // Copyright (c) Rotorz Limited and portions by original markdown-it-video authors
 // Licensed under the MIT license. See LICENSE file in the project root.
 
-"use strict";
+import VideoServiceBase, { VideoServiceOptions } from './VideoServiceBase';
 
-const VideoServiceBase = require("./VideoServiceBase");
+export interface PreziOptions extends VideoServiceOptions {
+  width?: number;
+  height?: number;
+}
 
 
-class PreziService extends VideoServiceBase {
+export default class PreziService extends VideoServiceBase {
 
-  getDefaultOptions() {
+  getDefaultOptions(): PreziOptions {
     return { width: 550, height: 400 };
   }
 
-  extractVideoID(reference) {
+  extractVideoID(reference: string): string {
     let match = reference.match(/^https:\/\/prezi.com\/(.[^/]+)/);
     return match ? match[1] : reference;
   }
 
-  getVideoUrl(videoID) {
+  getVideoUrl(videoID: string): string {
     let escapedVideoID = this.env.md.utils.escapeHtml(videoID);
     return "https://prezi.com/embed/" + escapedVideoID
         + "/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0&amp;"
