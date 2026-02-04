@@ -5,7 +5,7 @@ import MarkdownIt from 'markdown-it';
 import { EmbedServiceMap } from './tokenizer';
 import { BlockEmbedOptions } from './index';
 
-const YouTubeService = require('./services/YouTubeService');
+import { YouTubeService } from './services/YouTubeService';
 const VimeoService = require('./services/VimeoService');
 const VineService = require('./services/VineService');
 const PreziService = require('./services/PreziService');
