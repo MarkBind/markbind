@@ -3,7 +3,7 @@
 
 import MarkdownIt from 'markdown-it';
 
-const PluginEnvironment = require("./PluginEnvironment");
+import PluginEnvironment from './PluginEnvironment';
 const renderer = require("./renderer");
 import { createTokenizer } from './tokenizer';
 
