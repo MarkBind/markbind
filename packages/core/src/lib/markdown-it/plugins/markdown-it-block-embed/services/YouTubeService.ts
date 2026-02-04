@@ -1,8 +1,6 @@
 // Copyright (c) Rotorz Limited and portions by original markdown-it-video authors
 // Licensed under the MIT license. See LICENSE file in the project root.
 
-"use strict";
-
 import VideoServiceBase from "./VideoServiceBase";
 
 export interface YouTubeOptions {
@@ -11,7 +9,7 @@ export interface YouTubeOptions {
   [key: string]: any;
 }
 
-export class YouTubeService extends VideoServiceBase {
+export default class YouTubeService extends VideoServiceBase {
 
   getDefaultOptions(): YouTubeOptions {
     return { width: 640, height: 390 };

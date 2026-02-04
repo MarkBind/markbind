@@ -5,12 +5,12 @@ import MarkdownIt from 'markdown-it';
 import { EmbedServiceMap } from './tokenizer';
 import { BlockEmbedOptions } from './index';
 
-import { YouTubeService } from './services/YouTubeService';
-const VimeoService = require('./services/VimeoService');
-const VineService = require('./services/VineService');
-const PreziService = require('./services/PreziService');
-const SlideShareService = require('./services/SlideShareService');
-const PowerPointOnlineService = require('./services/PowerPointOnlineService');
+import YouTubeService from './services/YouTubeService';
+import VimeoService from './services/VimeoService';
+import VineService from './services/VineService';
+import PreziService from './services/PreziService';
+import SlideShareService from './services/SlideShareService';
+import PowerPointOnlineService from './services/PowerPointOnlineService';
 
 export default class PluginEnvironment {
   public md: MarkdownIt;
@@ -38,7 +38,13 @@ export default class PluginEnvironment {
     let services: EmbedServiceMap = {};
     for (let serviceName of Object.keys(serviceBindings)) {
       let _serviceClass = serviceBindings[serviceName];
-      services[serviceName] = new _serviceClass(serviceName, this.options[serviceName], this);
+      const ActualConstructor = _serviceClass.default || _serviceClass;
+
+      if (typeof ActualConstructor === 'function') {
+        services[serviceName] = new ActualConstructor(serviceName, this.options[serviceName], this);
+      } else {
+        console.error(`BlockEmbed Error: Service "${serviceName}" is not a valid constructor.`);
+      }
     }
 
     this.services = services;

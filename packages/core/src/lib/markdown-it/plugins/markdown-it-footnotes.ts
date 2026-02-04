@@ -42,7 +42,6 @@ import { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } from '../../../html/constants';
 
 // Process footnotes
 //
-'use strict';
 
 ////////////////////////////////////////////////////////////////////////////////
 // Renderer partials

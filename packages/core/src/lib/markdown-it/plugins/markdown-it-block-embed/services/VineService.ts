@@ -12,7 +12,7 @@ export interface VineOptions extends VideoServiceOptions {
   embed?: string;
 }
 
-class VineService extends VideoServiceBase {
+export default class VineService extends VideoServiceBase {
 
   getDefaultOptions(): VineOptions {
     return { width: 600, height: 600, embed: "simple" };
