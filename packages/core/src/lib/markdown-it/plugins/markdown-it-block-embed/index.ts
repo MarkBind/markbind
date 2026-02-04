@@ -4,7 +4,7 @@
 import MarkdownIt from 'markdown-it';
 
 import PluginEnvironment from './PluginEnvironment';
-const renderer = require("./renderer");
+import renderer from './renderer';
 import { createTokenizer } from './tokenizer';
 
 export interface BlockEmbedOptions {
