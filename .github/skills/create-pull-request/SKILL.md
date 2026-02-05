@@ -198,11 +198,6 @@ When filling out the template:
 
 **Important**: If the user did not specify one of the following options in their request, ask the user which they would like before proceeding. Do not assume which option without explicit confirmation from the user.
 
-**Standard PR**:
-   ```bash
-   gh pr create --repo upstream_owner/repo_name --base main --head your_username:your_branch --title "PR_TITLE" --body "PR_BODY"
-   ```
-
 **Draft PR (For early feedback)**:
    ```bash
    gh pr create --repo upstream_owner/repo_name --base main --head your_username:your_branch --title "PR_TITLE" --body "PR_BODY" --draft
