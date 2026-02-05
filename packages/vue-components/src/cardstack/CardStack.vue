@@ -45,6 +45,9 @@
         <slot></slot>
       </div>
     </div>
+    <div class="results-count">
+      {{ matchingCardsCount }} result{{ matchingCardsCount > 1 ? 's' : '' }}
+    </div>
   </div>
 </template>
 
@@ -89,6 +92,9 @@ export default {
       const isEnabled = String(this.$props.showSelectAll).toLowerCase() !== 'false';
       const hasEnoughTags = this.cardStackRef.tagMapping.length > MIN_TAGS_FOR_SELECT_ALL;
       return isEnabled && hasEnoughTags;
+    },
+    matchingCardsCount() {
+      return this.cardStackRef.children.filter(child => !child.computeDisabled).length;
     },
   },
   watch: {
@@ -278,18 +284,6 @@ export default {
         max-width: 25.4em;
     }
 
-    /* .tag-container {
-        display: flex;
-        flex-direction: row;
-        width: 50%;
-        text-align: right
-    } */
-
-    /* .tag-badge-container {
-        display: flex;
-        flex-flow: row wrap;
-        width: 100%;
-    } */
     .tag-badge {
         margin: 2px;
         cursor: pointer;
@@ -310,5 +304,12 @@ export default {
 
     .select-all-toggle .tag-indicator {
         margin-right: 1.5px;
+    }
+
+    .results-count {
+        text-align: center;
+        margin-top: 15px;
+        color: #666;
+        font-size: 14px;
     }
 </style>

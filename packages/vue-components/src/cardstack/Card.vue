@@ -66,7 +66,7 @@ export default {
   },
   components: {
   },
-  inject: ['cardStackRef'], // Inject the ref
+  inject: ['cardStackRef'],
   computed: {
     computedWidth() {
       const block = this.$parent.$props.blocks;
