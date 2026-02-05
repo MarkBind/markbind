@@ -34,7 +34,7 @@
         @click="updateTag(key[0])"
       >
         {{ key[0] }}&nbsp;
-        <span class="badge bg-light text-dark tag-indicator">
+        <span v-if="!disableTagCount" class="badge tag-count bg-light text-dark tag-indicator">
           {{ key[1].count }}
         </span>
         <span class="badge bg-light text-dark tag-indicator">
@@ -71,6 +71,10 @@ export default {
       default: 'Search',
     },
     searchable: {
+      type: Boolean,
+      default: false,
+    },
+    disableTagCount: {
       type: Boolean,
       default: false,
     },
@@ -294,10 +298,14 @@ export default {
     }
 
     .tag-badge {
-        margin: 2px;
         cursor: pointer;
         height: inherit;
         padding: 5px;
+    }
+
+    .tag-count {
+        margin: 2px;
+        border-radius: 50%;
     }
 
     .tag-indicator {
