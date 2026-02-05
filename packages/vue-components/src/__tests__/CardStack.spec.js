@@ -456,4 +456,76 @@ describe('CardStack', () => {
     // Second one is select indicator, should display ✓ (since allSelected is true initially)
     expect(tagIndicators[1].text()).toContain('✓');
   });
+
+  test('should hide tag count when disableTagCount is true', async () => {
+    const CARDS_WITH_DUPLICATE_TAGS = `
+      <card header="Card 1" tag="Tag1"></card>
+      <card header="Card 2" tag="Tag1"></card>
+      <card header="Card 3" tag="Tag2"></card>
+    `;
+    const wrapper = mount(CardStack, {
+      propsData: {
+        disableTagCount: true,
+      },
+      slots: { default: CARDS_WITH_DUPLICATE_TAGS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    const firstTagBadge = wrapper.find('.tag-badge');
+    const countBadge = firstTagBadge.find('.tag-count');
+    // Count badge should not exist when disableTagCount is true
+    expect(countBadge.exists()).toBe(false);
+
+    // Should only have select indicator badge
+    const tagIndicators = firstTagBadge.findAll('.tag-indicator');
+    expect(tagIndicators.length).toBe(1);
+    // The only indicator should be the select indicator with ✓
+    expect(tagIndicators[0].text()).toContain('✓');
+  });
+
+  test('should show tag count by default when disableTagCount is false', async () => {
+    const CARDS_WITH_DUPLICATE_TAGS = `
+      <card header="Card 1" tag="Tag1"></card>
+      <card header="Card 2" tag="Tag1"></card>
+      <card header="Card 3" tag="Tag2"></card>
+    `;
+    const wrapper = mount(CardStack, {
+      propsData: {
+        disableTagCount: false,
+      },
+      slots: { default: CARDS_WITH_DUPLICATE_TAGS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    const firstTagBadge = wrapper.find('.tag-badge');
+    const countBadge = firstTagBadge.find('.tag-count');
+    // Count badge should exist when disableTagCount is false
+    expect(countBadge.exists()).toBe(true);
+    expect(countBadge.text()).toBe('2');
+
+    // Should have both count and select indicator badges
+    const tagIndicators = firstTagBadge.findAll('.tag-indicator');
+    expect(tagIndicators.length).toBe(2);
+  });
+
+  test('should show tag count by default when disableTagCount is not specified', async () => {
+    const CARDS_WITH_DUPLICATE_TAGS = `
+      <card header="Card 1" tag="Success"></card>
+      <card header="Card 2" tag="Success"></card>
+      <card header="Card 3" tag="Success"></card>
+    `;
+    const wrapper = mount(CardStack, {
+      slots: { default: CARDS_WITH_DUPLICATE_TAGS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    const firstTagBadge = wrapper.find('.tag-badge');
+    const countBadge = firstTagBadge.find('.tag-count');
+    // Count badge should exist by default (disableTagCount defaults to false)
+    expect(countBadge.exists()).toBe(true);
+    expect(countBadge.text()).toBe('3');
+  });
 });

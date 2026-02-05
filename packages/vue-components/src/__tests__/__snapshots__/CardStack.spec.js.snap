@@ -109,7 +109,7 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
     >
       Short  
       <span
-        class="badge bg-light text-dark tag-indicator"
+        class="badge tag-count bg-light text-dark tag-indicator"
       >
         1
       </span>
