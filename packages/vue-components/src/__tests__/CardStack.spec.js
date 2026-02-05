@@ -42,6 +42,12 @@ const MARKDOWN_CARDS = `
   </card>
 `;
 
+const CARDS_WITH_CUSTOM_TAGS = `
+  <card header="Card 1" tag="Success"></card>
+  <card header="Card 2" tag="Failure"></card>
+  <card header="Card 3" tag="Neutral"></card>
+`;
+
 describe('CardStack', () => {
   test('should not hide cards when no filter is provided', async () => {
     const wrapper = mount(CardStack, {
@@ -227,5 +233,131 @@ describe('CardStack', () => {
 
     const selectAllBadge = wrapper.find('.select-all-toggle');
     expect(selectAllBadge.exists()).toBe(false);
+  });
+
+  test('should respect custom tag order from tag-configs', async () => {
+    const tagConfigs = JSON.stringify([
+      { name: 'Neutral', color: '#6c757d' },
+      { name: 'Success', color: '#28a745' },
+      { name: 'Failure', color: '#dc3545' },
+    ]);
+    const wrapper = mount(CardStack, {
+      propsData: {
+        dataTagConfigs: tagConfigs.replace(/"/g, '&quot;'),
+      },
+      slots: { default: CARDS_WITH_CUSTOM_TAGS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    const { tagMapping } = wrapper.vm.cardStackRef;
+    expect(tagMapping.length).toBe(3);
+    expect(tagMapping[0][0]).toBe('Neutral');
+    expect(tagMapping[1][0]).toBe('Success');
+    expect(tagMapping[2][0]).toBe('Failure');
+  });
+
+  test('should apply custom hex colors from tag-configs', async () => {
+    const tagConfigs = JSON.stringify([
+      { name: 'Success', color: '#28a745' },
+      { name: 'Failure', color: '#dc3545' },
+    ]);
+    const wrapper = mount(CardStack, {
+      propsData: {
+        dataTagConfigs: tagConfigs.replace(/"/g, '&quot;'),
+      },
+      slots: { default: CARDS_WITH_CUSTOM_TAGS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    const { tagMapping } = wrapper.vm.cardStackRef;
+    expect(tagMapping[0][1].badgeColor).toBe('#28a745');
+    expect(tagMapping[1][1].badgeColor).toBe('#dc3545');
+  });
+
+  test('should convert Bootstrap color names to classes', async () => {
+    const tagConfigs = JSON.stringify([
+      { name: 'Success', color: 'success' },
+      { name: 'Failure', color: 'danger' },
+      { name: 'Neutral', color: 'warning' },
+    ]);
+    const wrapper = mount(CardStack, {
+      propsData: {
+        dataTagConfigs: tagConfigs.replace(/"/g, '&quot;'),
+      },
+      slots: { default: CARDS_WITH_CUSTOM_TAGS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    const { tagMapping } = wrapper.vm.cardStackRef;
+    expect(tagMapping[0][1].badgeColor).toBe('bg-success');
+    expect(tagMapping[1][1].badgeColor).toBe('bg-danger');
+    expect(tagMapping[2][1].badgeColor).toBe('bg-warning text-dark');
+  });
+
+  test('should use default colors for unconfigured tags', async () => {
+    const tagConfigs = JSON.stringify([{ name: 'Success', color: '#28a745' }]);
+    const wrapper = mount(CardStack, {
+      propsData: {
+        dataTagConfigs: tagConfigs.replace(/"/g, '&quot;'),
+      },
+      slots: { default: CARDS_WITH_CUSTOM_TAGS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    const { tagMapping } = wrapper.vm.cardStackRef;
+    // Success should have custom color
+    expect(tagMapping[0][1].badgeColor).toBe('#28a745');
+    // Other tags should have default Bootstrap colors
+    expect(tagMapping[1][1].badgeColor).toMatch(/^bg-/);
+    expect(tagMapping[2][1].badgeColor).toMatch(/^bg-/);
+  });
+
+  test('should handle invalid tag-configs gracefully', async () => {
+    const wrapper = mount(CardStack, {
+      propsData: {
+        dataTagConfigs: 'invalid-json',
+      },
+      slots: { default: CARDS_WITH_CUSTOM_TAGS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    // Should still render with default colors
+    const { tagMapping } = wrapper.vm.cardStackRef;
+    expect(tagMapping.length).toBe(3);
+    expect(tagMapping[0][1].badgeColor).toMatch(/^bg-/);
+  });
+
+  test('isBootstrapColor should correctly identify Bootstrap colors', async () => {
+    const wrapper = mount(CardStack, {
+      slots: { default: CARDS_WITH_CUSTOM_TAGS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.vm.isBootstrapColor('bg-primary')).toBe(true);
+    expect(wrapper.vm.isBootstrapColor('bg-warning text-dark')).toBe(true);
+    expect(wrapper.vm.isBootstrapColor('#28a745')).toBe(false);
+    expect(wrapper.vm.isBootstrapColor('custom-color')).toBe(false);
+  });
+
+  test('getTextColor should return correct contrast color', async () => {
+    const wrapper = mount(CardStack, {
+      slots: { default: CARDS_WITH_CUSTOM_TAGS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    // Light background should have dark text
+    expect(wrapper.vm.getTextColor('#ffffff')).toBe('#000');
+    expect(wrapper.vm.getTextColor('#f0f0f0')).toBe('#000');
+
+    // Dark background should have light text
+    expect(wrapper.vm.getTextColor('#000000')).toBe('#fff');
+    expect(wrapper.vm.getTextColor('#333333')).toBe('#fff');
   });
 });

@@ -121,7 +121,7 @@ describe('getHighlightType', () => {
     expect(result?.[0]).toEqual({
       highlightType: HIGHLIGHT_TYPES.WholeText,
       bounds: null,
-      color: 'red',
+      color: 'var(--red)',
     });
   });
 
@@ -141,7 +141,7 @@ describe('getHighlightType', () => {
     expect(result?.[0]).toEqual({
       highlightType: HIGHLIGHT_TYPES.PartialText,
       bounds: [[1, 4]],
-      color: 'blue',
+      color: 'var(--blue)',
     });
   });
 });

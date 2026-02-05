@@ -26,7 +26,11 @@
       <span
         v-for="(key, index) in cardStackRef.tagMapping"
         :key="index"
-        :class="['badge', key[1].badgeColor, 'tag-badge']"
+        :class="['badge', isBootstrapColor(key[1].badgeColor) ? key[1].badgeColor : '', 'tag-badge']"
+        :style="isBootstrapColor(key[1].badgeColor) ? {} : {
+          backgroundColor: key[1].badgeColor,
+          color: getTextColor(key[1].badgeColor)
+        }"
         @click="updateTag(key[0])"
       >
         {{ key[0] }}&nbsp;
@@ -45,18 +49,10 @@
 </template>
 
 <script>
-const MIN_TAGS_FOR_SELECT_ALL = 3;
-
-const BADGE_COLOURS = [
-  'bg-primary',
-  'bg-secondary',
-  'bg-success',
-  'bg-danger',
-  'bg-warning text-dark',
-  'bg-info text-dark',
-  'bg-light text-dark',
-  'bg-dark',
-];
+import { decode } from 'html-entities';
+import {
+  MIN_TAGS_FOR_SELECT_ALL, BADGE_COLOURS, isBootstrapColor, getTextColor, normalizeColor,
+} from '../utils/colors';
 
 export default {
   props: {
@@ -71,6 +67,14 @@ export default {
     searchable: {
       type: Boolean,
       default: false,
+    },
+    tagConfigs: {
+      type: String,
+      default: '',
+    },
+    dataTagConfigs: {
+      type: String,
+      default: '',
     },
     showSelectAll: {
       type: [Boolean, String],
@@ -139,8 +143,11 @@ export default {
         this.showAllTags();
       }
     },
+    isBootstrapColor,
+    getTextColor,
   },
   data() {
+    const vm = this;
     return {
       value: '',
       tags: [],
@@ -152,13 +159,38 @@ export default {
         searchTerms: [],
         selectedTags: [],
         searchData: new Map(),
+        tagConfigs: vm.tagConfigs,
+        dataTagConfigs: vm.dataTagConfigs,
         updateTagMapping() {
           const tags = this.rawTags;
           const tagMap = new Map();
           let index = 0;
 
+          // Parse custom tag configs if provided
+          let customConfigs = [];
+          try {
+            const configSource = this.dataTagConfigs || this.tagConfigs;
+            if (configSource && configSource !== '') {
+              const decodedConfig = decode(configSource);
+              customConfigs = JSON.parse(decodedConfig);
+            }
+          } catch (e) {
+            // eslint-disable-next-line no-console
+            console.warn('Failed to parse tag-configs:', e);
+          }
+
+          // Process tags in the order specified in customConfigs first
+          customConfigs.forEach((config) => {
+            if (tags.includes(config.name)) {
+              const color = normalizeColor(config.color) || BADGE_COLOURS[index % BADGE_COLOURS.length];
+              const tagMapping = { badgeColor: color, children: [], disableTag: false };
+              tagMap.set(config.name, tagMapping);
+              index += 1;
+            }
+          });
+
+          // Then add any remaining tags that weren't in customConfigs
           tags.forEach((tag) => {
-            // "tag" -> {badgeColor, children : [child], disableTag: false}
             if (!tagMap.has(tag)) {
               const color = BADGE_COLOURS[index % BADGE_COLOURS.length];
               const tagMapping = { badgeColor: color, children: [], disableTag: false };
@@ -166,6 +198,7 @@ export default {
               index += 1;
             }
           });
+
           this.tagMapping = Array.from(tagMap.entries());
         },
         updateSearchData() {
@@ -187,6 +220,9 @@ export default {
         },
       },
     };
+  },
+  created() {
+    this.cardStackRef.updateTagMapping();
   },
   mounted() {
     this.isMounted = true;

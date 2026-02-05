@@ -24,7 +24,7 @@ const PAGE_NJK_LITERAL = `
         <link rel="icon" href="{{ faviconUrl }}">
     {% endif %}
 </head>
-<body>
+<body >
 <div id="app">
     {{ content }}
 </div>
