@@ -35,6 +35,9 @@
       >
         {{ key[0] }}&nbsp;
         <span class="badge bg-light text-dark tag-indicator">
+          {{ key[1].count }}
+        </span>
+        <span class="badge bg-light text-dark tag-indicator">
           <span v-if="computeShowTag(key[0])">✓</span>
           <span v-else>&nbsp;&nbsp;&nbsp;</span>
         </span>
@@ -183,7 +186,9 @@ export default {
           customConfigs.forEach((config) => {
             if (tags.includes(config.name)) {
               const color = normalizeColor(config.color) || BADGE_COLOURS[index % BADGE_COLOURS.length];
-              const tagMapping = { badgeColor: color, children: [], disableTag: false };
+              const tagMapping = {
+                badgeColor: color, children: [], disableTag: false, count: 0,
+              };
               tagMap.set(config.name, tagMapping);
               index += 1;
             }
@@ -193,9 +198,13 @@ export default {
           tags.forEach((tag) => {
             if (!tagMap.has(tag)) {
               const color = BADGE_COLOURS[index % BADGE_COLOURS.length];
-              const tagMapping = { badgeColor: color, children: [], disableTag: false };
+              const tagMapping = {
+                badgeColor: color, children: [], disableTag: false, count: 1,
+              };
               tagMap.set(tag, tagMapping);
               index += 1;
+            } else {
+              tagMap.get(tag).count += 1;
             }
           });
 
@@ -298,6 +307,7 @@ export default {
     }
 
     .tag-indicator {
+        margin: 1px;
         width: 18px;
         height: 100%;
     }
