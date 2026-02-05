@@ -78,6 +78,11 @@ exports[`CardStack markdown in header, content 1`] = `
       
     </div>
   </div>
+  <div
+    class="results-count"
+  >
+    0 result
+  </div>
 </div>
 `;
 
@@ -207,6 +212,11 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
       
     </div>
   </div>
+  <div
+    class="results-count"
+  >
+    1 result
+  </div>
 </div>
 `;
 
@@ -285,6 +295,11 @@ exports[`CardStack should not hide cards when no filter is provided 2`] = `
       </div>
       
     </div>
+  </div>
+  <div
+    class="results-count"
+  >
+    0 result
   </div>
 </div>
 `;
