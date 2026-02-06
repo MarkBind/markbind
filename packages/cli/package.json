@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@types/url-parse": "^1.4.8",
-    "diff": "^4.0.1",
+    "diff": "^8.0.3",
     "ignore": "^5.1.4",
     "istextorbinary": "^3.3.0",
     "jest": "^29.7.0",
