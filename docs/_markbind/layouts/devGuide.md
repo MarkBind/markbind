@@ -14,10 +14,13 @@
   * [Contribute to Documentation]({{baseUrl}}/devGuide/bootcamp/contributeToDocs.html)
   * [Fix a Bug]({{baseUrl}}/devGuide/bootcamp/fixABug.html)
   * [Implement a New Feature]({{baseUrl}}/devGuide/bootcamp/implementAFeature.html)
+* AI Use
+  * [Overview]({{baseUrl}}/devGuide/aiUse/index.html)
+  * [Skills]({{baseUrl}}/devGuide/aiUse/skills.html)
+  * [Agents]({{baseUrl}}/devGuide/aiUse/subagents.html)
 * Development :expanded:
   * [Setting up]({{baseUrl}}/devGuide/development/settingUp.html)
   * [Workflow]({{baseUrl}}/devGuide/development/workflow.html)
-  * [AI Use]({{baseUrl}}/devGuide/development/aiUse.html)
   * [Writing Components]({{baseUrl}}/devGuide/development/writingComponents.html)
   * [Writing Plugins]({{baseUrl}}/devGuide/development/writingPlugins.html)
   * [Migrating to TypeScript]({{baseUrl}}/devGuide/development/migratingToTypeScript.html)
