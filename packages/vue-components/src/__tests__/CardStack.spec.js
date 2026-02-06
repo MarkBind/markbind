@@ -317,7 +317,7 @@ describe('CardStack', () => {
   });
 
   test('should handle invalid tag-configs gracefully', async () => {
-    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => { });
     const wrapper = mount(CardStack, {
       propsData: {
         dataTagConfigs: 'invalid-json',
@@ -427,12 +427,12 @@ describe('CardStack', () => {
     const tagBadges = wrapper.findAll('.tag-badge');
     // First tag (Success) should show count 2
     expect(tagBadges[0].text()).toContain('Success');
-    const firstTagCountBadge = tagBadges[0].find('.tag-indicator');
+    const firstTagCountBadge = tagBadges[0].find('.tag-count');
     expect(firstTagCountBadge.text()).toBe('2');
 
     // Second tag (Failure) should show count 1
     expect(tagBadges[1].text()).toContain('Failure');
-    const secondTagCountBadge = tagBadges[1].findAll('.tag-indicator')[0];
+    const secondTagCountBadge = tagBadges[1].findAll('.tag-count')[0];
     expect(secondTagCountBadge.text()).toBe('1');
   });
 
@@ -448,7 +448,7 @@ describe('CardStack', () => {
     await wrapper.vm.$nextTick();
 
     const firstTagBadge = wrapper.find('.tag-badge');
-    const tagIndicators = firstTagBadge.findAll('.tag-indicator');
+    const tagIndicators = firstTagBadge.findAll('.badge');
     // Should have two indicators: count badge and select badge
     expect(tagIndicators.length).toBe(2);
     // First one is count, should display "2"
@@ -506,7 +506,7 @@ describe('CardStack', () => {
     expect(countBadge.text()).toBe('2');
 
     // Should have both count and select indicator badges
-    const tagIndicators = firstTagBadge.findAll('.tag-indicator');
+    const tagIndicators = firstTagBadge.findAll('.badge');
     expect(tagIndicators.length).toBe(2);
   });
 
