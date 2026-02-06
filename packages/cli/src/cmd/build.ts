@@ -1,14 +1,16 @@
-const path = require('path');
+import path from 'path';
+import { Site } from '@markbind/core';
+import isBoolean from 'lodash/isBoolean';
+import isError from 'lodash/isError';
+import * as cliUtil from '../util/cliUtil';
+import * as logger from '../util/logger';
 
-const { Site } = require('@markbind/core');
+const _ = {
+  isBoolean,
+  isError,
+};
 
-const cliUtil = require('../util/cliUtil');
-const logger = require('../util/logger');
-
-const _ = {};
-_.isBoolean = require('lodash/isBoolean');
-
-function build(userSpecifiedRoot, output, options) {
+function build(userSpecifiedRoot: string, output: string, options: any) {
   // if --baseUrl contains no arguments (options.baseUrl === true) then set baseUrl to empty string
   const baseUrl = _.isBoolean(options.baseUrl) ? '' : options.baseUrl;
 
@@ -16,20 +18,25 @@ function build(userSpecifiedRoot, output, options) {
   try {
     rootFolder = cliUtil.findRootFolder(userSpecifiedRoot, options.siteConfig);
   } catch (error) {
-    logger.error(error.message);
-    logger.error('This directory does not appear to contain a valid MarkBind site. '
-              + 'Check that you are running the command in the correct directory!\n'
-              + '\n'
-              + 'To create a new MarkBind site, run:\n'
-              + '   markbind init');
-    cliUtil.cleanupFailedMarkbindBuild(userSpecifiedRoot);
+    if (_.isError(error)) {
+      logger.error(error.message);
+      logger.error('This directory does not appear to contain a valid MarkBind site. '
+          + 'Check that you are running the command in the correct directory!\n'
+          + '\n'
+          + 'To create a new MarkBind site, run:\n'
+          + '   markbind init');
+    } else {
+      logger.error(`Unknown error occurred: ${error}`);
+    }
+    cliUtil.cleanupFailedMarkbindBuild();
     process.exitCode = 1;
     process.exit();
   }
 
   const defaultOutputRoot = path.join(rootFolder, '_site');
   const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
-  new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig)
+  new Site(rootFolder, outputFolder, '', undefined, options.siteConfig,
+           false, false, () => {})
     .generate(baseUrl)
     .then(() => {
       logger.info('Build success!');
@@ -40,6 +47,4 @@ function build(userSpecifiedRoot, output, options) {
     });
 }
 
-module.exports = {
-  build,
-};
+export { build };
