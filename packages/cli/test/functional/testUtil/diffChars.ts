@@ -1,4 +1,4 @@
-import {ChangeObject, diffChars} from 'diff';
+import { ChangeObject, diffChars } from 'diff';
 import { DiffPrinter } from './diffPrinter';
 
 /**
@@ -11,7 +11,7 @@ import { DiffPrinter } from './diffPrinter';
  */
 const diffCharsAndPrint = (expected: string, actual: string, filePathName: string) => {
   const diffParts = diffChars(expected, actual);
-  const isDiff = ((part : ChangeObject<string>)=> part.added || part.removed);
+  const isDiff = ((part: ChangeObject<string>) => part.added || part.removed);
   const hasDiff = diffParts.some(isDiff);
   if (hasDiff) {
     DiffPrinter.printDiffFoundMessage(filePathName);

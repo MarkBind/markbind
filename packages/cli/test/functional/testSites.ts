@@ -55,4 +55,4 @@ export {
   plantumlGeneratedFilesForTestSites,
   plantumlGeneratedFilesForConvertSites,
   plantumlGeneratedFilesForTemplateSites,
-}
+};

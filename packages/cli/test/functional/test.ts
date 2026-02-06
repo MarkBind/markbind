@@ -1,10 +1,11 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { execSync } from 'child_process';
-import { compare } from './testUtil/compare';
-import { cleanupConvert } from './testUtil/cleanup';
 import isError from 'lodash/isError';
 import * as logger from '@markbind/core/src/utils/logger';
+import { ExecSyncOptions } from 'node:child_process';
+import { compare } from './testUtil/compare';
+import { cleanupConvert } from './testUtil/cleanup';
 import {
   testSites,
   testConvertSites,
@@ -13,12 +14,12 @@ import {
   plantumlGeneratedFilesForConvertSites,
   plantumlGeneratedFilesForTemplateSites,
 } from './testSites';
-import {ExecSyncOptions} from "node:child_process";
-const _ = { isError }
-// Path to the compiled CLI executable
-const CLI_PATH = path.resolve(__dirname, '../../dist/index.js');
-/* eslint-disable no-console */
 
+const _ = { isError };
+// Path to the compiled CLI executable
+const CLI_PATH = path.resolve(__dirname, '../../index');
+
+/* eslint-disable no-console */
 function printFailedMessage(err: Error, siteName: string) {
   console.log(err);
   console.log(`Test result: ${siteName} FAILED`);
@@ -58,7 +59,7 @@ testSites.forEach((siteName) => {
     if (_.isError(err)) {
       printFailedMessage(err, siteName);
     } else {
-      console.error(`Unknown error for site ${siteName} occurred: ${err}`)
+      console.error(`Unknown error for site ${siteName} occurred: ${err}`);
     }
     process.exit(1);
   }
@@ -77,12 +78,12 @@ testConvertSites.forEach((sitePath) => {
     if (_.isError(err)) {
       printFailedMessage(err, sitePath);
     } else {
-      console.error(`Unknown error for site ${sitePath} occurred: ${err}`)
+      console.error(`Unknown error for site ${sitePath} occurred: ${err}`);
     }
-    cleanupConvert(path.resolve(__dirname, sitePath));
+    cleanupConvert(sitePath);
     process.exit(1);
   }
-  cleanupConvert(path.resolve(__dirname, sitePath));
+  cleanupConvert(sitePath);
 });
 
 testTemplateSites.forEach((templateAndSitePath) => {
@@ -101,17 +102,17 @@ testTemplateSites.forEach((templateAndSitePath) => {
     if (_.isError(err)) {
       printFailedMessage(err, sitePath);
     } else {
-      console.error(`Unknown error for site ${sitePath} occurred: ${err}`)
+      console.error(`Unknown error for site ${sitePath} occurred: ${err}`);
     }
-    fs.removeSync(path.resolve(__dirname, siteCreationTempPath));
+    fs.removeSync(siteCreationTempPath);
     process.exit(1);
   }
-  fs.removeSync(path.resolve(__dirname, siteCreationTempPath));
+  fs.removeSync(siteCreationTempPath);
 });
 
 function testEmptyDirectoryBuild() {
   const siteRootName = 'test_site_empty';
-  const siteRootPath = path.join(__dirname, siteRootName);
+  const siteRootPath = path.join('./', siteRootName);
 
   const emptySiteName = 'empty_dir';
   const emptySitePath = path.join(siteRootPath, emptySiteName);
@@ -144,7 +145,7 @@ function testEmptyDirectoryBuild() {
         if (_.isError(compareErr)) {
           printFailedMessage(compareErr, siteRootName);
         } else {
-          console.error(`Unknown error for site ${siteRootName} occurred: ${compareErr}`)
+          console.error(`Unknown error for site ${siteRootName} occurred: ${compareErr}`);
         }
         // Reset test_site_empty/empty_dir
         fs.emptyDirSync(emptySitePath);

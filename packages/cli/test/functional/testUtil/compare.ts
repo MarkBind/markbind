@@ -3,12 +3,11 @@ import path from 'path';
 import ignore from 'ignore';
 import walkSync from 'walk-sync';
 import { isBinary } from 'istextorbinary';
-import { diffCharsAndPrint as diffChars } from './diffChars';
 import isEqual from 'lodash/isEqual';
 import intersection from 'lodash/intersection';
+import { diffCharsAndPrint as diffChars } from './diffChars';
 
 const _ = { isEqual, intersection };
-
 
 // List of file patterns to ignore during content diff comparison.
 // Either binary files or files not recognized correctly by the istextorbinary package.
@@ -114,7 +113,7 @@ function compare(root: string, expectedSiteRelativePath = 'expected', siteRelati
       continue;
     }
 
-    const expectedBuf= _readFileSync(expectedDirectory, expectedFilePath)
+    const expectedBuf = _readFileSync(expectedDirectory, expectedFilePath);
     if (isBinary(null, expectedBuf)) {
       // eslint-disable-next-line no-console
       console.warn(`Unrecognised file extension ${expectedFilePath} contains null characters, skipping`);
@@ -124,10 +123,10 @@ function compare(root: string, expectedSiteRelativePath = 'expected', siteRelati
     // Get actual string content for comparison
     const expected = expectedBuf
       .toString('utf8')
-      .replace(CRLF_REGEX, '\n')
+      .replace(CRLF_REGEX, '\n');
     const actual = _readFileSync(actualDirectory, actualFilePath)
-        .toString('utf8')
-        .replace(CRLF_REGEX, '\n');
+      .toString('utf8')
+      .replace(CRLF_REGEX, '\n');
 
     const hasDiff = diffChars(expected, actual, expectedFilePath);
     error = error || hasDiff;

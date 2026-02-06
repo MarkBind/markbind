@@ -1,4 +1,4 @@
-import {ChangeObject} from "diff";
+import { ChangeObject } from 'diff';
 
 const chalk = require('chalk');
 
@@ -50,7 +50,7 @@ class DiffPrinter {
    * @returns {Array} change objects where their value contains a single line
    */
   static generateLineParts(diffObjects: ChangeObject<string>[]) {
-    const parts :Printable[] = [];
+    const parts: Printable[] = [];
     diffObjects.forEach(({ value, added, removed }, i) => {
       let printValue = value;
       if (added || removed) {

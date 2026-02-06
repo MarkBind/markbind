@@ -1,17 +1,17 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { execSync } from 'child_process';
-import { cleanupConvert } from './testUtil/cleanup';
 import isError from 'lodash/isError';
+import { ExecSyncOptions } from 'node:child_process';
+import { cleanupConvert } from './testUtil/cleanup';
 
 import {
   testSites,
   testConvertSites,
   testTemplateSites,
 } from './testSites';
-import {ExecSyncOptions} from "node:child_process";
 
-const _ = { isError }
+const _ = { isError };
 
 /* eslint-disable no-console */
 function printFailedMessage(err: string, siteName: string) {
