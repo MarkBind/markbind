@@ -11,23 +11,23 @@ const logger = require('../../../core/src/utils/logger');
 // Path to the compiled CLI executable
 const CLI_PATH = path.resolve(__dirname, '../../dist/index.js');
 
-const {
+import {
   testSites,
   testConvertSites,
   testTemplateSites,
   plantumlGeneratedFilesForTestSites,
   plantumlGeneratedFilesForConvertSites,
   plantumlGeneratedFilesForTemplateSites,
-} = require('./testSites');
+} from './testSites';
 
 /* eslint-disable no-console */
 
-function printFailedMessage(err, siteName) {
+function printFailedMessage(err, siteName: string) {
   console.log(err);
   console.log(`Test result: ${siteName} FAILED`);
 }
 
-process.env.TEST_MODE = true;
+process.env.TEST_MODE = 'true';
 process.env.FORCE_COLOR = '3';
 
 const execOptions = {
