@@ -200,15 +200,42 @@ The `<tags>` element allows you to:
   - Bootstrap color names (e.g., `success`, `danger`, `primary`, `warning`, `info`, `secondary`, `light`, `dark`)
 - Any tags used in cards but not defined in `<tags>` will appear after the defined tags with default colors
 
+### Disabling Tag Counts
+
+By default, tag badges display a count showing how many cards have that tag. You can disable this count display using the `disable-tag-count` attribute:
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<cardstack searchable disable-tag-count>
+  <card header="**Winston Churchill**" tag="Success, Perseverance">
+    Success is not final, failure is not fatal: it is the courage to continue that counts
+  </card>
+  <card header="**Albert Einstein**" tag="Success, Perseverance">
+    In the middle of every difficulty lies opportunity
+  </card>
+  <card header="**Theodore Roosevelt**" tag="Motivation, Hard Work">
+    Do what you can, with what you have, where you are
+  </card>
+  <card header="**Steve Jobs**" tag="Happiness, Mindset">
+    Your time is limited, so don't waste it living someone else's life
+  </card>
+</cardstack>
+</variable>
+</include>
+
+With `disable-tag-count` enabled, tag badges will only show the tag name and selection indicator, without the numerical count.
+
 **Options**
 
 `cardstack`:
 
-| Name            | Type      | Default | Description                                                                       |
-| --------------- | --------- | ------- | --------------------------------------------------------------------------------- |
-| blocks          | `String`  | `2`     | Number of `card` columns per row.<br> Supports: `1`, `2`, `3`, `4`, `6`           |
-| searchable      | `Boolean` | `false` | Whether the card stack is searchable.                                             |
-| show-select-all | `Boolean` | `true`  | Whether the select all tag button appears. (`false` by default if total tags ≤ 3) |
+| Name               | Type      | Default | Description                                                                       |
+| ------------------ | --------- | ------- | --------------------------------------------------------------------------------- |
+| blocks             | `String`  | `2`     | Number of `card` columns per row.<br> Supports: `1`, `2`, `3`, `4`, `6`           |
+| searchable         | `Boolean` | `false` | Whether the card stack is searchable.                                             |
+| show-select-all    | `Boolean` | `true`  | Whether the select all tag button appears. (`false` by default if total tags ≤ 3) |
+| disable-tag-count  | `Boolean` | `false` | Whether to hide the tag count badges. By default, counts are shown.              |
 
 `tags` (optional):
 A container element inside `cardstack` to define tag ordering and colors.
