@@ -1,7 +1,8 @@
 {% from "userGuide/components/advanced.md" import slot_info_trigger %}
 
 ## Card Stack
-The Card Stack component allows you to display a collection of information in the form of a cards layout. The `cardstack` component acts as the container for  `card` components each containing the content you want to show.
+
+The Card Stack component allows you to display a collection of information in the form of a cards layout. The `cardstack` component acts as the container for `card` components each containing the content you want to show.
 
 A `cardstack` component is used in conjunction with one or more `card` components.
 - `cardstack`: Wrapper used to hold cards and their content.
@@ -9,18 +10,18 @@ A `cardstack` component is used in conjunction with one or more `card` component
 
 Each `card` contains `tag` and `keyword` field:
 - `Keywords`: Adds to the search space but does not allow users to filter them manually. Add keywords when the content have different known aliases.
-- `Tags`: Adds to the search space and also provides readers a way to filter the cards according to the selected tags. Add tags to categorise the content. 
+- `Tags`: Adds to the search space and also provides readers a way to filter the cards according to the selected tags. Add tags to categorise the content.
 
 <box type="info">
 
-The search feature searches the `card` components of `cardstack` by header, tags and keywords specified within each card component. 
+The search feature searches the `card` components of `cardstack` by header, tags and keywords specified within each card component.
 
 Specifying them can help improve searchability of the `cardstack` component!
 
 For example, if a card is about "Machine Learning," you might tag it as `AI` and `Data Science` and add keywords like `ML` and `Artificial Intelligence` to improve searchability.
 </box>
 
-<include src="codeAndOutputSeparate.md" boilerplate >
+<include src="codeAndOutput.md" boilerplate >
 <variable name="highlightStyle">html</variable>
 <variable name="code">
 <cardstack searchable>
@@ -135,23 +136,98 @@ In the example given below, a Card Stack is used to show a list of questions and
 
 The example above also illustrates how to use the `keywords` attribute to specify additional search terms for a card.
 
-****Options****
+### Custom Tag Order and Colors
+
+You can customize the order and colors of tags by using a `<tags>` element inside the `cardstack`:
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<cardstack searchable>
+  <tags>
+    <tag name="Success" color="#28a745" />
+    <tag name="Perseverance" color="#17a2b8" />
+    <tag name="Motivation" color="#ffc107" />
+    <tag name="Hard Work" color="#dc3545" />
+    <tag name="Happiness" color="#6f42c1" />
+    <tag name="Mindset" color="#fd7e14" />
+  </tags>
+  <card header="**Winston Churchill**" tag="Success, Perseverance">
+    Success is not final, failure is not fatal: it is the courage to continue that counts
+  </card>
+  <card header="**Albert Einstein**" tag="Success, Perseverance">
+    In the middle of every difficulty lies opportunity
+  </card>
+  <card header="**Theodore Roosevelt**" tag="Motivation, Hard Work">
+    Do what you can, with what you have, where you are
+  </card>
+  <card header="**Steve Jobs**" tag="Happiness, Mindset">
+    Your time is limited, so don't waste it living someone else's life
+  </card>
+</cardstack>
+</variable>
+</include>
+
+You can also use Bootstrap color names instead of hex colors:
+
+<include src="codeAndOutput.md" boilerplate >
+<variable name="highlightStyle">html</variable>
+<variable name="code">
+<cardstack searchable>
+  <tags>
+    <tag name="Success" color="success" />
+    <tag name="Perseverance" color="info" />
+    <tag name="Motivation" color="warning" />
+    <tag name="Hard Work" color="danger" />
+  </tags>
+  <card header="**Winston Churchill**" tag="Success, Perseverance">
+    Success is not final, failure is not fatal: it is the courage to continue that counts
+  </card>
+  <card header="**Albert Einstein**" tag="Success, Perseverance">
+    In the middle of every difficulty lies opportunity
+  </card>
+  <card header="**Theodore Roosevelt**" tag="Motivation, Hard Work">
+    Do what you can, with what you have, where you are
+  </card>
+</cardstack>
+</variable>
+</include>
+
+The `<tags>` element allows you to:
+- Specify the order in which tags appear in the filter badges
+- Assign custom colors to each tag using either:
+  - Hex format (e.g., `#28a745`)
+  - Bootstrap color names (e.g., `success`, `danger`, `primary`, `warning`, `info`, `secondary`, `light`, `dark`)
+- Any tags used in cards but not defined in `<tags>` will appear after the defined tags with default colors
+
+**Options**
 
 `cardstack`:
-Name | Type | Default | Description
---- | --- | --- | ---
-blocks | `String` | `2` | Number of `card` columns per row.<br> Supports: `1`, `2`, `3`, `4`, `6`
-searchable | `Boolean` | `false` | Whether the card stack is searchable.
+
+| Name            | Type      | Default | Description                                                                       |
+| --------------- | --------- | ------- | --------------------------------------------------------------------------------- |
+| blocks          | `String`  | `2`     | Number of `card` columns per row.<br> Supports: `1`, `2`, `3`, `4`, `6`           |
+| searchable      | `Boolean` | `false` | Whether the card stack is searchable.                                             |
+| show-select-all | `Boolean` | `true`  | Whether the select all tag button appears. (`false` by default if total tags ≤ 3) |
+
+`tags` (optional):
+A container element inside `cardstack` to define tag ordering and colors.
+
+`tag` (inside `tags` element):
+
+| Name  | Type     | Default    | Description                                                                                                                                                                                   |
+| ----- | -------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name  | `String` | (required) | The name of the tag (must match tags used in cards).                                                                                                                                          |
+| color | `String` | (auto)     | Custom color for the tag.<br>Supports hex format (e.g., `#28a745`) or Bootstrap color names (e.g., `success`, `danger`, `primary`).<br>If not specified, uses default Bootstrap color scheme. |
 
 `card`:
-Name | Type | Default | Description
---- | --- | --- | ---
-tag | `String` | `null` | Tags of each card component.<br>Each unique tag should be seperated by a `,`.<br> Tags are added to the search field.
-header | `String` | `null` | Header of each card component.<br> Supports the use of inline markdown elements.
-keywords | `String` | `null` | Keywords of each card component.<br>Each unique keyword should be seperated by a `,`.<br> Keywords are added to the search field.
-disable | `Boolean` | `false` | Disable card. <br> This removes visibility of the card and makes it unsearchable. 
 
-
+| Name     | Type      | Default | Description                                                                                                                       |
+| -------- | --------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| tag      | `String`  | `null`  | Tags of each card component.<br>Each unique tag should be separated by a `,`.<br> Tags are added to the search field.             |
+| header   | `String`  | `null`  | Header of each card component.<br> Supports the use of inline markdown elements.                                                  |
+| keywords | `String`  | `null`  | Keywords of each card component.<br>Each unique keyword should be separated by a `,`.<br> Keywords are added to the search field. |
+| disabled | `Boolean` | `false` | Disable card. <br> This removes visibility of the card and makes it unsearchable.                                                 |
 
 <div id="short" class="d-none">
 

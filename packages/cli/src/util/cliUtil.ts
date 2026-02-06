@@ -4,6 +4,35 @@ import path from 'path';
 
 import { SITE_CONFIG_NAME } from '@markbind/core/src/Site/constants';
 
+const DIR_NOT_EMPTY_ERROR_CODE = 'ENOTEMPTY';
+
+function hasErrorCodeAndMessage(err: any): err is { code: string, message: string } {
+  return err.code !== undefined && err.message !== undefined;
+}
+
+function tryDeleteFolder(pathName: string) {
+  if (!fs.pathExistsSync(pathName)) {
+    return;
+  }
+  try {
+    fs.rmdirSync(pathName);
+  } catch (error) {
+    if (hasErrorCodeAndMessage(error)) {
+      // If directory is not empty, fail silently
+      if (error.code !== DIR_NOT_EMPTY_ERROR_CODE) {
+        // Warn for other unexpected errors
+        // Use `console` instead of logger as we don't want to create a new logger instance
+        // that might pollute the working directory again.
+        // eslint-disable-next-line no-console
+        console.warn(`WARNING: Failed to delete directory ${pathName}: ${error.message}`);
+      }
+    } else {
+      // eslint-disable-next-line no-console
+      console.warn(`WARNING: Failed to delete directory ${pathName}: Unknown err ${error}`);
+    }
+  }
+}
+
 export function findRootFolder(
   userSpecifiedRoot: string, siteConfigPath: string = SITE_CONFIG_NAME): string {
   if (userSpecifiedRoot) {
@@ -27,8 +56,8 @@ export function findRootFolder(
 
 export function cleanupFailedMarkbindBuild() {
   const markbindDir = path.join(process.cwd(), '_markbind');
-  if (fs.pathExistsSync(markbindDir)) {
-    // delete _markbind/ folder and contents
-    fs.rmSync(markbindDir, { recursive: true, force: true });
-  }
+  const logsDir = path.join(markbindDir, 'logs');
+
+  tryDeleteFolder(logsDir);
+  tryDeleteFolder(markbindDir);
 }

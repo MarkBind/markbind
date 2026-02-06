@@ -16,6 +16,7 @@ exports[`CardStack markdown in header, content 1`] = `
         type="text"
       />
     </span>
+    <!--v-if-->
     
     
   </div>
@@ -77,6 +78,11 @@ exports[`CardStack markdown in header, content 1`] = `
       
     </div>
   </div>
+  <div
+    class="results-count"
+  >
+    0 result
+  </div>
 </div>
 `;
 
@@ -96,6 +102,7 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
         type="text"
       />
     </span>
+    <!--v-if-->
     
     <span
       class="badge bg-primary tag-badge"
@@ -105,7 +112,7 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
         class="badge bg-light text-dark tag-indicator"
       >
         <span>
-             
+          ✓
         </span>
       </span>
     </span>
@@ -158,6 +165,7 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
       <div
         class="col-md-6"
         header="Short Body"
+        style=""
       >
         <div
           class="card"
@@ -199,6 +207,11 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
       
     </div>
   </div>
+  <div
+    class="results-count"
+  >
+    1 result
+  </div>
 </div>
 `;
 
@@ -218,6 +231,7 @@ exports[`CardStack should not hide cards when no filter is provided 2`] = `
         type="text"
       />
     </span>
+    <!--v-if-->
     
     
   </div>
@@ -276,6 +290,11 @@ exports[`CardStack should not hide cards when no filter is provided 2`] = `
       </div>
       
     </div>
+  </div>
+  <div
+    class="results-count"
+  >
+    0 result
   </div>
 </div>
 `;

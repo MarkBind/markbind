@@ -1,6 +1,6 @@
 {
   "name": "@markbind/vue-components",
-  "version": "6.1.0",
+  "version": "6.2.0",
   "description": "Bootstrap components built with Vue.js",
   "keywords": [
     "bootstrap",
@@ -44,5 +44,8 @@
     "vue-final-modal": "^4.5.5",
     "vue-style-loader": "^4.1.3"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "html-entities": "^2.6.0"
+  }
 }
