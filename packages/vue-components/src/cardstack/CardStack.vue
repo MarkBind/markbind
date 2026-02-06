@@ -305,7 +305,9 @@ export default {
 
     .tag-count {
         margin: 2px;
-        border-radius: 50%;
+
+        /* set radius to a huge value to ensure always rounded corners */
+        border-radius: 999px;
     }
 
     .tag-indicator {
