@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-function cleanupConvert(siteName) {
+function cleanupConvert(siteName: string) {
   const directoriesToRemove = [
     path.join(siteName, 'non_markbind_site/_markbind'),
     path.join(siteName, 'non_markbind_site/_site'),
@@ -20,6 +20,6 @@ function cleanupConvert(siteName) {
   });
 }
 
-module.exports = {
+export {
   cleanupConvert,
 };
