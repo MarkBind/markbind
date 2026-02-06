@@ -1,18 +1,26 @@
+import {ChangeObject} from "diff";
+
 const chalk = require('chalk');
 
 const EMPTY_LINE = '|-------------------empty-line-------------------|';
 const CONSECUTIVE_NEWLINE_REGEX = /\n{2,}/g;
 const WHITESPACE_REGEX = /\s+/g;
 
+interface Printable {
+  value: string,
+  diff: boolean,
+  toPrint?: boolean
+}
+
 class DiffPrinter {
   /**
    * Replaces all newlines except the first with EMPTY_LINE.
    */
-  static prependNewLines(match) {
+  static prependNewLines(match: string) {
     return `\n${match.replace('\n', '').split('\n').join(`${EMPTY_LINE}\n`)}`;
   }
 
-  static formatNewLines(value, prevVal, nextVal) {
+  static formatNewLines(value: string, prevVal: string, nextVal: string) {
     let printValue;
     printValue = value.replace(CONSECUTIVE_NEWLINE_REGEX, this.prependNewLines);
 
@@ -41,8 +49,8 @@ class DiffPrinter {
    * @param {Array} diffObjects array of change objects returned by jsdiff#diffWords
    * @returns {Array} change objects where their value contains a single line
    */
-  static generateLineParts(diffObjects) {
-    const parts = [];
+  static generateLineParts(diffObjects: ChangeObject<string>[]) {
+    const parts :Printable[] = [];
     diffObjects.forEach(({ value, added, removed }, i) => {
       let printValue = value;
       if (added || removed) {
@@ -76,7 +84,7 @@ class DiffPrinter {
    * @param {Array} lineParts array of line objects after being split
    *                          into lines by DiffPrinter#generateLineParts
    */
-  static setPartsToPrint(lineParts) {
+  static setPartsToPrint(lineParts: Printable[]) {
     lineParts.forEach((linePart, i) => {
       if (linePart.diff) {
         for (let j = -3; j <= 3; j += 1) {
@@ -87,7 +95,7 @@ class DiffPrinter {
     });
   }
 
-  static printDiffFoundMessage(filePath) {
+  static printDiffFoundMessage(filePath: string) {
     const message = chalk.grey(`\n-------------------------------------\nDiff found in ${filePath}\n\n`);
     process.stderr.write(message);
   }
@@ -98,7 +106,7 @@ class DiffPrinter {
    * @param {Array} lineParts array of line objects after being set for printing
    *                          in DiffPrinter#setPartsToPrint
    */
-  static printLineParts(lineParts) {
+  static printLineParts(lineParts: Printable[]) {
     lineParts.forEach((linePart, i) => {
       const prevPart = lineParts[i - 1];
       if (linePart.toPrint) {
@@ -114,11 +122,11 @@ class DiffPrinter {
    * Prints diff with ANSI Escape Codes for colour
    * @param {Array} parts array of change of objects as returned by jsdiff#diffWords
    */
-  static printDiff(parts) {
+  static printDiff(parts: ChangeObject<string>[]) {
     const lineParts = this.generateLineParts(parts);
     this.setPartsToPrint(lineParts);
     this.printLineParts(lineParts);
   }
 }
 
-module.exports = DiffPrinter;
+export { DiffPrinter };
