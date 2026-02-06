@@ -1,13 +1,14 @@
-const fs = require('fs');
-const path = require('path');
-const ignore = require('ignore');
-const walkSync = require('walk-sync');
-const { isBinary } = require('istextorbinary');
-const diffChars = require('./diffChars');
+import fs from 'fs';
+import path from 'path';
+import ignore from 'ignore';
+import walkSync from 'walk-sync';
+import { isBinary } from 'istextorbinary';
+import { diffCharsAndPrint as diffChars } from './diffChars';
+import isEqual from 'lodash/isEqual';
+import intersection from 'lodash/intersection';
 
-const _ = {};
-_.isEqual = require('lodash/isEqual');
-_.intersection = require('lodash/intersection');
+const _ = { isEqual, intersection };
+
 
 // List of file patterns to ignore during content diff comparison.
 // Either binary files or files not recognized correctly by the istextorbinary package.
@@ -20,8 +21,8 @@ const TEST_BLACKLIST = ignore().add([
 
 const CRLF_REGEX = /\r\n/g;
 
-function _readFileSync(...paths) {
-  return fs.readFileSync(path.resolve(...paths), 'utf8');
+function _readFileSync(...paths: string[]) {
+  return fs.readFileSync(path.resolve(...paths));
 }
 
 /**
@@ -29,7 +30,7 @@ function _readFileSync(...paths) {
  * @param {string[]} filePaths - List of file paths
  * @returns {string[]} Filtered list without *.page-vue-render.js files
  */
-function filterPageVueRenderFiles(filePaths) {
+function filterPageVueRenderFiles(filePaths: string[]) {
   return filePaths.filter(p => !p.endsWith('.page-vue-render.js'));
 }
 
@@ -38,7 +39,7 @@ function filterPageVueRenderFiles(filePaths) {
  * @param {string} dirPath - Existing directory path to analyze
  * @returns {string[]} Sorted array of relative directory paths
  */
-function getDirectoryStructure(dirPath) {
+function getDirectoryStructure(dirPath: string) {
   const allPaths = walkSync(dirPath, { directories: true, globs: ['**/*'] });
   return allPaths
     .filter(p => fs.statSync(path.join(dirPath, p))
@@ -59,8 +60,8 @@ function getDirectoryStructure(dirPath) {
  * @param {string[]} ignoredPaths - Specify any paths to ignore for comparison, but still check for existence.
  * @param {boolean} compareDirectories - Whether to compare directory structures (default: false)
  */
-function compare(root, expectedSiteRelativePath = 'expected', siteRelativePath = '_site',
-                 ignoredPaths = [], compareDirectories = false) {
+function compare(root: string, expectedSiteRelativePath = 'expected', siteRelativePath = '_site',
+                 ignoredPaths: string[] = [], compareDirectories = false) {
   const expectedDirectory = path.join(root, expectedSiteRelativePath);
   const actualDirectory = path.join(root, siteRelativePath);
 
@@ -113,16 +114,20 @@ function compare(root, expectedSiteRelativePath = 'expected', siteRelativePath =
       continue;
     }
 
-    const expected = _readFileSync(expectedDirectory, expectedFilePath)
-      .replace(CRLF_REGEX, '\n');
-    const actual = _readFileSync(actualDirectory, actualFilePath)
-      .replace(CRLF_REGEX, '\n');
-
-    if (isBinary(null, expected)) {
+    const expectedBuf= _readFileSync(expectedDirectory, expectedFilePath)
+    if (isBinary(null, expectedBuf)) {
       // eslint-disable-next-line no-console
       console.warn(`Unrecognised file extension ${expectedFilePath} contains null characters, skipping`);
       continue;
     }
+
+    // Get actual string content for comparison
+    const expected = expectedBuf
+      .toString('utf8')
+      .replace(CRLF_REGEX, '\n')
+    const actual = _readFileSync(actualDirectory, actualFilePath)
+        .toString('utf8')
+        .replace(CRLF_REGEX, '\n');
 
     const hasDiff = diffChars(expected, actual, expectedFilePath);
     error = error || hasDiff;
@@ -134,6 +139,6 @@ function compare(root, expectedSiteRelativePath = 'expected', siteRelativePath =
   }
 }
 
-module.exports = {
+export {
   compare,
 };
