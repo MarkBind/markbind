@@ -1,8 +1,8 @@
-const fs = require('fs');
-const path = require('path');
+import { SITE_JSON_DEFAULT } from '@markbind/core/test/unit/utils/data';
+import * as cliUtil from '../../src/util/cliUtil';
 
-const { SITE_JSON_DEFAULT } = require('@markbind/core/test/unit/utils/data');
-const cliUtil = require('../../src/util/cliUtil');
+const fs = require('fs-extra');
+const path = require('path');
 
 jest.mock('fs');
 jest.mock('process');
@@ -39,6 +39,7 @@ test('findRootFolder without user specified root returns first parent dir contai
   const nestedDir = path.join(currentWorkingDir, 'nested');
   fs.vol.fromJSON(json, currentWorkingDir);
   process.cwd = jest.fn().mockReturnValue(nestedDir);
+  // @ts-ignore
   expect(cliUtil.findRootFolder()).toBe(currentWorkingDir);
 });
 
@@ -52,6 +53,7 @@ test('findRootFolder without user specified root throws error if no parent dirs 
   process.cwd = jest.fn().mockReturnValue(nestedDir);
   expect(
     () => {
+      // @ts-ignore
       cliUtil.findRootFolder();
     })
     .toThrow(`No config file found in parent directories of ${nestedDir}`);
