@@ -34,7 +34,7 @@
         @click="updateTag(key[0])"
       >
         {{ key[0] }}&nbsp;
-        <span v-if="!disableTagCount" class="badge tag-count bg-light text-dark tag-indicator">
+        <span v-if="!disableTagCount" class="badge tag-count bg-light text-dark">
           {{ key[1].count }}
         </span>
         <span class="badge bg-light text-dark tag-indicator">
