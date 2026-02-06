@@ -43,11 +43,11 @@ const plantumlGeneratedFilesForTemplateSites = {
   test_project: ['diagrams/example.png'],
 };
 
-module.exports = {
+export {
   testSites,
   testConvertSites,
   testTemplateSites,
   plantumlGeneratedFilesForTestSites,
   plantumlGeneratedFilesForConvertSites,
   plantumlGeneratedFilesForTemplateSites,
-};
+}
