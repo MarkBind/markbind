@@ -1,16 +1,10 @@
-const path = require('path');
-const fs = require('fs-extra');
-const { execSync } = require('child_process');
-
-const { compare } = require('./testUtil/compare');
-
-const { cleanupConvert } = require('./testUtil/cleanup');
-
-const logger = require('../../../core/src/utils/logger');
-
-// Path to the compiled CLI executable
-const CLI_PATH = path.resolve(__dirname, '../../dist/index.js');
-
+import path from 'path';
+import fs from 'fs-extra';
+import { execSync } from 'child_process';
+import { compare } from './testUtil/compare';
+import { cleanupConvert } from './testUtil/cleanup';
+import isError from 'lodash/isError';
+import * as logger from '@markbind/core/src/utils/logger';
 import {
   testSites,
   testConvertSites,
@@ -19,10 +13,13 @@ import {
   plantumlGeneratedFilesForConvertSites,
   plantumlGeneratedFilesForTemplateSites,
 } from './testSites';
-
+import {ExecSyncOptions} from "node:child_process";
+const _ = { isError }
+// Path to the compiled CLI executable
+const CLI_PATH = path.resolve(__dirname, '../../dist/index.js');
 /* eslint-disable no-console */
 
-function printFailedMessage(err, siteName: string) {
+function printFailedMessage(err: Error, siteName: string) {
   console.log(err);
   console.log(`Test result: ${siteName} FAILED`);
 }
@@ -30,7 +27,7 @@ function printFailedMessage(err, siteName: string) {
 process.env.TEST_MODE = 'true';
 process.env.FORCE_COLOR = '3';
 
-const execOptions = {
+const execOptions: ExecSyncOptions = {
   stdio: ['inherit', 'inherit', 'inherit'],
 };
 
@@ -58,7 +55,11 @@ testSites.forEach((siteName) => {
     const siteIgnoredFiles = plantumlGeneratedFilesForTestSites[siteName];
     compare(siteName, 'expected', '_site', siteIgnoredFiles);
   } catch (err) {
-    printFailedMessage(err, siteName);
+    if (_.isError(err)) {
+      printFailedMessage(err, siteName);
+    } else {
+      console.error(`Unknown error for site ${siteName} occurred: ${err}`)
+    }
     process.exit(1);
   }
 });
@@ -73,7 +74,11 @@ testConvertSites.forEach((sitePath) => {
     const siteIgnoredFiles = plantumlGeneratedFilesForConvertSites[siteName];
     compare(sitePath, 'expected', 'non_markbind_site/_site', siteIgnoredFiles);
   } catch (err) {
-    printFailedMessage(err, sitePath);
+    if (_.isError(err)) {
+      printFailedMessage(err, sitePath);
+    } else {
+      console.error(`Unknown error for site ${sitePath} occurred: ${err}`)
+    }
     cleanupConvert(path.resolve(__dirname, sitePath));
     process.exit(1);
   }
@@ -93,7 +98,11 @@ testTemplateSites.forEach((templateAndSitePath) => {
     const siteIgnoredFiles = plantumlGeneratedFilesForTemplateSites[siteName];
     compare(sitePath, 'expected', 'tmp/_site', siteIgnoredFiles);
   } catch (err) {
-    printFailedMessage(err, sitePath);
+    if (_.isError(err)) {
+      printFailedMessage(err, sitePath);
+    } else {
+      console.error(`Unknown error for site ${sitePath} occurred: ${err}`)
+    }
     fs.removeSync(path.resolve(__dirname, siteCreationTempPath));
     process.exit(1);
   }
@@ -110,7 +119,7 @@ function testEmptyDirectoryBuild() {
   const expectedSiteName = 'expected';
   const expectedSitePath = path.join(siteRootPath, expectedSiteName);
 
-  const execOptionsWithCwd = {
+  const execOptionsWithCwd: ExecSyncOptions = {
     stdio: ['inherit', 'inherit', 'inherit'],
     cwd: emptySitePath, // Set the working directory to testEmptyPath
   };
@@ -132,7 +141,11 @@ function testEmptyDirectoryBuild() {
       try {
         compare(siteRootName, 'expected', 'empty_dir', [], true);
       } catch (compareErr) {
-        printFailedMessage(compareErr, siteRootName);
+        if (_.isError(compareErr)) {
+          printFailedMessage(compareErr, siteRootName);
+        } else {
+          console.error(`Unknown error for site ${siteRootName} occurred: ${compareErr}`)
+        }
         // Reset test_site_empty/empty_dir
         fs.emptyDirSync(emptySitePath);
         process.exit(1);
