@@ -1,4 +1,10 @@
 {
   "extends": "./tsconfig_base.json",
-  "exclude": ["**/node_modules", "**/*.test.ts"]
+  "exclude": ["**/node_modules", "**/*.test.ts"],
+  // Prevent just `tsc` from building files - always use `tsc --build`
+  "files": [],
+  "references": [
+    { "path":  "./packages/cli/tsconfig.json" },
+    { "path":  "./packages/core/tsconfig.json" }
+  ]
 }

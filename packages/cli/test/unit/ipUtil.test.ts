@@ -1,4 +1,4 @@
-const { isValidServeHost, isIPAddressZero } = require('../../src/util/ipUtil');
+const { isValidServeHost, isIPAddressZero } = require('../../dist/src/util/ipUtil');
 
 describe('isValidServeHost', () => {
   test('returns true for localhost', () => {
