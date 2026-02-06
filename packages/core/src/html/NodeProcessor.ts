@@ -27,6 +27,7 @@ import { setHeadingId, assignPanelId } from './headerProcessor';
 import { FootnoteProcessor } from './FootnoteProcessor';
 import { MbNode, NodeOrText, TextElement } from '../utils/node';
 import { processUlNode } from './CustomListIconProcessor';
+import { processCardStackAttributes } from './cardStackProcessor';
 
 const fm = require('fastmatter');
 
@@ -213,6 +214,9 @@ export class NodeProcessor {
         break;
       case 'card':
         this.mdAttributeRenderer.processCardAttributes(node);
+        break;
+      case 'cardstack':
+        processCardStackAttributes(node);
         break;
       case 'modal':
         this.processModal(node);

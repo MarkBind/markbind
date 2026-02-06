@@ -166,6 +166,7 @@ export class Page {
       markBindVersion: `MarkBind ${PACKAGE_VERSION}`,
       title,
       enableSearch: this.siteConfig.enableSearch,
+      codeTheme: this.siteConfig.style.codeTheme,
     };
   }
 
