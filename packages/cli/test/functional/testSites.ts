@@ -1,3 +1,8 @@
+// Type definitions for plantuml generated files
+interface PlantumlGeneratedFiles {
+  [key: string]: string[];
+}
+
 const testSites = [
   'test_site',
   'test_site_algolia_plugin',
@@ -22,7 +27,7 @@ const testTemplateSites = [
 // these files create git diffs every time they are generated,
 // we decided to not commit them to the repository.
 // However, we still want to verify that they are present.
-const plantumlGeneratedFilesForTestSites = {
+const plantumlGeneratedFilesForTestSites: PlantumlGeneratedFiles = {
   test_site: [
     '9c9e77fc0a983cb6b592e65733787bec.png',
     'inline-output.png',
@@ -37,9 +42,9 @@ const plantumlGeneratedFilesForTestSites = {
   ],
 };
 
-const plantumlGeneratedFilesForConvertSites = {};
+const plantumlGeneratedFilesForConvertSites: PlantumlGeneratedFiles = {};
 
-const plantumlGeneratedFilesForTemplateSites = {
+const plantumlGeneratedFilesForTemplateSites: PlantumlGeneratedFiles = {
   test_project: ['diagrams/example.png'],
 };
 
