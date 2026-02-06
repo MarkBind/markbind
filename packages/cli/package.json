@@ -32,7 +32,7 @@
     "chokidar": "^3.3.0",
     "colors": "1.4.0",
     "commander": "^8.1.0",
-    "figlet": "^1.2.4",
+    "figlet": "^1.9.4",
     "find-up": "^4.1.0",
     "fs-extra": "^9.0.1",
     "live-server": "1.2.1",
