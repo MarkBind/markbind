@@ -419,12 +419,11 @@ To update PlantUML to a newer version:
 
 As Bootswatch is built on Bootstrap, ensure that the versions of both are in sync to avoid unexpected differences in styling behavior between default and other themes. Both are currently using version 5.1.3.
 
-## Using Skills
-As a developer, you may use AI in your workflow to perform tasks. If a specific task is done repeatedly, you may leverage Skills to improve AI output and save time.
+## Using AI Tools in Your Workflow
 
-Skills are invoked whenever an agent detects a task to be relevant to one, though sometimes manual pointing may be necessary.
+As a developer, you may use AI in your workflow to perform tasks. If a specific task is done repeatedly, you may leverage Skills or Agents to improve AI output and save time.
 
-MarkBind houses several skills that you may find useful. See the [Skills](aiUse.md#ai-skills) page for a full list and more information.
+MarkBind houses several AI tools that you may find useful. See the [AI Use](../aiUse/index.html) page for a full list and more information.
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('settingUp', 'aiUse') }}
+{{ previous_next('settingUp', 'writingComponents') }}

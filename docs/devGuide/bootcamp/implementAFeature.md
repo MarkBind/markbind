@@ -83,4 +83,5 @@ And...that's it!:rocket::rocket::rocket:
 You have completed the bootcamp! Take a well-deserved rest and we look forward to your contributions!
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('fixABug', '../development/settingUp') }}
+{{ previous_next('fixABug', '../aiUse/index') }}
+
