@@ -45,7 +45,7 @@
     "@types/url-parse": "^1.4.8",
     "diff": "^8.0.3",
     "ignore": "^5.1.4",
-    "istextorbinary": "^3.3.0",
+    "istextorbinary": "^9.5.0",
     "jest": "^29.7.0",
     "memfs": "^4.56.2",
     "walk-sync": "^2.0.2"
