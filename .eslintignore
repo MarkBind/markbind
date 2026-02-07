@@ -37,6 +37,10 @@ packages/core/src/lib/markdown-it/plugins/*
 
 # --- packages/core end ---
 
+# --- packages/cli ---
+packages/cli/dist/**/*.js
+# --- packages/cli end ---
+
 !.eslintrc.js
 
 # --- packages/vue-components ---

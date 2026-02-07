@@ -1,9 +1,8 @@
-const chalk = require('chalk');
-const figlet = require('figlet');
-const DailyRotateFile = require('winston-daily-rotate-file');
-const winston = require('winston');
+import chalk from 'chalk';
+import figlet from 'figlet';
 
-const coreLogger = require('@markbind/core/src/utils/logger');
+import * as winston from 'winston';
+import 'winston-daily-rotate-file';
 
 // @markbind/core's consoleTransport but with level: info
 const consoleTransport = new (winston.transports.Console)({
@@ -14,19 +13,17 @@ const consoleTransport = new (winston.transports.Console)({
   showLevel: true,
 });
 
-function useDebugConsole() {
+function useDebugConsole(): void {
   consoleTransport.level = 'debug';
 }
 
-const dailyRotateFileTransport = new DailyRotateFile({
+const dailyRotateFileTransport = new winston.transports.DailyRotateFile({
   datePattern: 'YYYY-MM-DD',
   dirname: '_markbind/logs',
   filename: 'markbind-%DATE%.log',
   handleExceptions: true,
-  humanReadableUnhandledException: true,
   level: 'debug',
   maxFiles: 5,
-  showLevel: true,
 });
 
 // Reconfigure the default instance logger winston provides with DailyRotateFile for markbind-cli
@@ -38,14 +35,19 @@ winston.configure({
   ],
 });
 
-module.exports = {
-  error: coreLogger.error,
-  warn: coreLogger.warn,
-  info: coreLogger.info,
-  verbose: coreLogger.verbose,
-  debug: coreLogger.debug,
-  /* eslint-disable no-console */
-  log: console.log,
-  logo: () => console.log(chalk.cyan(figlet.textSync('MarkBind', { horizontalLayout: 'full' }))),
+export {
+  error,
+  warn,
+  info,
+  verbose,
+  debug,
+} from '@markbind/core/src/utils/logger';
+
+export {
   useDebugConsole,
 };
+
+// eslint-disable-next-line no-console
+export const logo = () => console.log(chalk.cyan(figlet.textSync('MarkBind', { horizontalLayout: 'full' })));
+// eslint-disable-next-line no-console
+export const log = (msg: string) => console.log(msg);
