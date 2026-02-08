@@ -2,8 +2,9 @@
 name: create-pull-request
 description: Create a GitHub pull request following project conventions. Use when the user asks to create a PR, submit changes for review, or open a pull request. Handles commit analysis, branch management, and PR creation using the gh CLI tool.
 compatibility: opencode
-credit: This skill was adapted from the original `create-pull-request` skill developed by the **[Cline](https://github.com/cline/cline)** team. 
-- **Original Source**: [cline/cline/.cline/skills/create-pull-request](https://github.com/cline/cline/blob/main/.cline/skills/create-pull-request/SKILL.md)
+credit: |
+  This skill was adapted from the original `create-pull-request` skill developed by the **[Cline](https://github.com/cline/cline)** team. 
+  - **Original Source**: [cline/cline/.cline/skills/create-pull-request](https://github.com/cline/cline/blob/main/.cline/skills/create-pull-request/SKILL.md)
 modification: Modified to support **Fork-to-Upstream** workflows and automated upstream remote detection.
 ---
 
