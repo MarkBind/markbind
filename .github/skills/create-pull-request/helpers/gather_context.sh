@@ -2,11 +2,15 @@
 
 # 1. Get current branch name
 CURRENT_BRANCH=$(git branch --show-current)
-REMOTE_NAME="origin"
-DEFAULT_BRANCH=$(git remote show $REMOTE_NAME | grep 'HEAD branch' | cut -d' ' -f5)
+LOCAL_MASTER="master"
+
+# Verify local master exists (fall back to main if necessary)
+if ! git rev-parse --verify "$LOCAL_MASTER" &>/dev/null; then
+    LOCAL_MASTER="main"
+fi
 
 # 2. Upstream Verification
-# Checks if a remote named 'upstream' exists
+# Check if 'upstream' remote exists
 UPSTREAM_URL=$(git remote get-url upstream 2>/dev/null)
 if [ -z "$UPSTREAM_URL" ]; then
     UPSTREAM_STATUS="MISSING"
@@ -14,17 +18,14 @@ else
     UPSTREAM_STATUS="EXISTS"
 fi
 
-# 3. Fetch latest from origin to ensure analysis is current
-git fetch $REMOTE_NAME $DEFAULT_BRANCH --quiet
-
-# 4. Generate Analysis Data
-COMMIT_COUNT=$(git rev-list --count $REMOTE_NAME/$DEFAULT_BRANCH..HEAD)
-DIFF_STAT=$(git diff $REMOTE_NAME/$DEFAULT_BRANCH..HEAD --stat)
+# 3. Generate Analysis Data
+# We compare HEAD (current branch) against the LOCAL_MASTER identified in step 1
+COMMIT_COUNT=$(git rev-list --count $LOCAL_MASTER..HEAD)
+DIFF_STAT=$(git diff $LOCAL_MASTER..HEAD --stat)
 
 echo "---CONTEXT_DATA---"
 echo "CURRENT_BRANCH: $CURRENT_BRANCH"
-echo "BASE_REMOTE: $REMOTE_NAME"
-echo "BASE_BRANCH: $DEFAULT_BRANCH"
+echo "COMPARISON_BASE: $LOCAL_MASTER"
 echo "UPSTREAM_STATUS: $UPSTREAM_STATUS"
 echo "UPSTREAM_URL: $UPSTREAM_URL"
 echo "AHEAD_BY: $COMMIT_COUNT"

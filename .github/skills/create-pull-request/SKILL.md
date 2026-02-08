@@ -68,7 +68,7 @@ This skill guides you through creating a well-structured GitHub pull request tha
    - Identify the **Primary Impact Zone** (where the most significant logic resides).
 
    **Step B: Detailed Investigation**
-   - For every file in the Primary Impact Zone, run `git diff origin/master..HEAD -- [file_path]`.
+   - For every file in the Primary Impact Zone, run `git diff master..HEAD -- [file_path]`. (Use `main` if `COMPARISON_BASE` was `main`).
    - **Requirement**: Do not just skim. Read the logic to understand *how* the implementation achieves the intent found in the commits.
    - Cross-reference with `ANALYSIS_GUIDE.md` to identify missing linkages (e.g., "Logic changed, but no tests found in `DIFF_SUMMARY`").
 
