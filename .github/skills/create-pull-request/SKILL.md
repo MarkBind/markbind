@@ -11,204 +11,154 @@ modification: Modified to support **Fork-to-Upstream** workflows and automated u
 # Create Pull Request (Fork-to-Upstream Version)
 
 This skill guides you through creating a well-structured GitHub pull request that follows project conventions and best practices.
-**Important**: Follow each step closely. Do not default to a more direct approach.
+**Important**: Follow each step closely. Do not default to a more direct approach. For each section, you **must** follow these each step number incrementally (**DO NOT SKIP ANY STEPS**).
 
-## Prerequisites Check
+## Step 1. Mode Validation (Mandatory Start)
 
-Before proceeding, verify the following:
+**Strict Requirement**: You must determine the PR mode from the user's initial request before executing any other commands.
 
-### 1. Check if `gh` CLI is installed
+## Step 1.1. **Check Mode**: Run `bash helpers/validate_mode.sh "{{user_message}}"`.
+   
+## Step 1.2. **Evaluate**:
+   - **If `MODE: UNDEFINED`**:
+     - **TERMINATE IMMEDIATELY**. Do not check prerequisites. Do not gather context. Do not proceed with the skill.
+     - **Response to User**: 
+       > "To create a pull request, I need to know the intended mode. Please specify if you would like a **Standard PR**, a **Draft PR** (for early feedback), or a **Dry Run** (to preview the PR locally)."
+   - **If `MODE: DRAFT` or `DRY_RUN`**:
+     - Record the mode and proceed to **## Step 2. Prerequisites Check**.
 
-```bash
-gh --version
-```
+## Step 2. Prerequisites Check
 
-If not installed, inform the user:
-> The GitHub CLI (`gh`) is required but not installed. Please install it:
-> - macOS: `brew install gh`
-> - Other: https://cli.github.com/
+**Strict Requirement**: You must verify the environment before any other actions. Do not proceed if any check fails.
 
-### 2. Check if authenticated with GitHub
+### Step 2.1. **Execute Checks**: Run `bash helpers/check_prereqs.sh`.
+   
+### Step 2.2. **Handle Results**:
+   - **If `gh_not_installed`**: Output the installation instructions found in `RESOURCES.md` and stop.
+   - **If `gh_not_authenticated`**: Instruct the user to run `gh auth login` as detailed in `RESOURCES.md` and stop.
+   - **If `dirty_working_dir`**: 
+     - **STOP** and display the current `git status`.
+     - Explicitly ask the user: "Would you like to commit these changes, stash them, or discard them?" as detailed in `RESOURCES.md`
+     - **Important**: Do not stage any uncommitted changes without explicit confirmation.
+   - **If `all_systems_go`**: Proceed to "Gather Context."
 
-```bash
-gh auth status
-```
+## Step 3. Gather Context
 
-If not authenticated, guide the user to run `gh auth login`.
+**Strict Requirement**: You must analyze the delta between your local branch and `origin` while ensuring an `upstream` target is configured. 
 
-### 3. Verify clean working directory
+**Strict Requirement**: You **must** follow these 4 steps incrementally (**DO NOT SKIP ANY STEPS**)
 
-```bash
-git status
-```
+### Step 3.1. **Execute Discovery**: Run `bash helpers/gather_context.sh`.
 
-If there are uncommitted changes, ask the user whether to:
-- Commit them as part of this PR
-- Stash them temporarily
-- Discard them (with caution)
-- **Important** Do not stage any uncommitted changes without explict request/reply by the user
+### Step 3.2. **Upstream Verification**:
+   - Check the `UPSTREAM_STATUS`.
+   - **If `MISSING`**: 
+     - **STOP**. Inform the user that the `upstream` remote is required for the Fork-to-Upstream workflow.
+     - Provide the command: `git remote add upstream <url_of_original_repo>`.
+   - **If `EXISTS`**: Proceed.
 
-## Gather Context
+### Step 3.3. **Branch & Commit Validation**:
+   - Ensure `CURRENT_BRANCH` is not `main` or `master`.
+   - Review the commits in the `AHEAD_BY` count to understand scope and intent.
 
-### 1. Identify the current branch
+### Step 3.4. **Deep Diff Analysis (Three-Step Process)**:
 
-```bash
-git branch --show-current
-```
+   **Step A: Structural Mapping**
+   - Use the `DIFF_SUMMARY` to identify all affected directories. 
+   - Identify the **Primary Impact Zone** (where the most significant logic resides).
 
-Ensure you're not on `main` or `master`. If so, ask the user to create or switch to a feature branch.
+   **Step B: Detailed Investigation**
+   - For every file in the Primary Impact Zone, run `git diff origin/master..HEAD -- [file_path]`.
+   - **Requirement**: Do not just skim. Read the logic to understand *how* the implementation achieves the intent found in the commits.
+   - Cross-reference with `ANALYSIS_GUIDE.md` to identify missing linkages (e.g., "Logic changed, but no tests found in `DIFF_SUMMARY`").
 
-### 2. Identify the Upstream Remote
+   **Step C: Synthesis**
+   - Mentally map how these files interact. 
+   - *Example: "The logic change in `packages/core` necessitates the configuration update seen in `opencode.json`."*
 
-```bash
-git remote -v
-```
+## Step 4. Information Gathering
 
-If 'upstream' is missing, instruct the user to add it: git remote add upstream `https://github.com/ORIGINAL_OWNER/REPO_NAME.git`
+### Step 4.1. **Validate & Infer**:
+   - **Type of Change (Nature & Purpose Analysis)**: Do not rely solely on keywords. Use your **Deep Diff Analysis** to classify the changes based on its architectural impact.
+   - **Description**: Do not provide a generic summary. Construct a "Technical Summary" that covers:
+      - **The "What"**: Document the specific mechanical changes.
+      - **The "Why"**: Based on the code context, infer the technical necessity. Why was this specific approach taken over another?
+      - **The "Context"**: Describe how this change flows through the system.
+      - **The "Conclusion"**: State the expected final state of the system once this PR is merged.
+   - **Test Procedure**: Review the `DIFF_SUMMARY`. If no new tests were added, you **must** ask: *"How should this change be manually tested, and what are the potential breaking points?"*.
 
-### 3. Find the base branch on Upstream
+### Step 4.2. **User Confirmation**:
+   - Present your gathered "PR Profile" to the user:
+     - **Type**: [Type]
+     - **Description**: [Summary]
+     - **Tests**: [Procedure]
+   - Ask: *"Does this profile look correct, or should I adjust anything before I check Git Best Practices?"*
 
-```bash
-# First, get the actual owner/repo string for the upstream remote
-UPSTREAM_REPO=$(git remote get-url upstream | sed 's/.*github.com[\/:]//;s/\.git$//')
+## Step 5. Git Best Practices
 
-# Then use that string to get the default branch
-gh repo view "$UPSTREAM_REPO" --json defaultBranchRef -q .defaultBranchRef.name
-```
+**Strict Requirement**: You must audit the branch history and ensure it is "PR-ready" according to project standards.
 
-### 4. Analyze recent commits relevant to this PR from the Upstream
+### Step 5.1. **Run Hygiene Audit**: Execute `bash helpers/check_git_hygiene.sh`.
 
-```bash
-git log upstream/main..HEAD --oneline --no-decorate
-```
+### Step 5.2. **Address Commit Hygiene**:
+   - **Atomic Commits**: If `LARGE_COMMITS` are detected, ask: *"I noticed commit [hash] touches many files. Should we squash or split these to maintain atomic commit history?"*
+   - **Conventional Commits**: Verify if existing messages follow the [SE-Education standards](https://se-education.org/guides/conventions/git.html). If not, suggest: `git commit --amend` for the most recent one.
+   - **Merge Commits**: If `MERGE_COMMITS_FOUND` is not "None", inform the user: *"I detected merge commits. Project policy prefers a clean history via rebasing."*
 
-Review these commits to understand:
-- What changes are being introduced
-- The scope of the PR (single feature/fix or multiple changes)
-- Whether commits should be squashed or reorganized
+### Step 5.3. **Branch Management (Rebase Flow)**:
+   - Check `BEHIND_UPSTREAM_MAIN`.
+   - **If > 0**: You **must** recommend a rebase to ensure no conflicts occur after PR creation:
+     ```bash
+     git fetch upstream
+     git rebase upstream/main
+     ```
+   - **Warning**: If a rebase occurs, explicitly notify the user that the next push will require `--force-with-lease`.
 
-### 5. Review the diff
+### Step 5.4. **Final Synchronization**:
+   - Ensure all local work is reflected on the remote fork:
+     ```bash
+     git push origin HEAD
+     ```
+   - If a rebase was performed: `git push origin HEAD --force-with-lease`.
+   - **Verification**: Confirm the push was successful before moving to "Create the Pull Request."
 
-```bash
-git diff upstream/main..HEAD --stat
-```
+## Step 6. Create the Pull Request
 
-This shows which files changed and helps identify the type of change. Use this to perform a **Deep Diff Analysis** which will be crucial in understanding how to classify these changes when creating the PR.:
-- Impact Surface Area: 
-   - Identify which directory the changes were made (e.g. `packages/`, `docs/`).
-   - Note any changes to `package.json` or lockfiles (e.g., `package-lock.json`).
-- Logic:
-   - Distinguish between actual logic changes in `.js`, `.ts` files versus configuration changes (`.yml`, `.json`, etc).
-   - Understand the context of these changes and if or how they link to one another.
+**Strict Requirement**: You must use the project's PR template and follow the Fork-to-Upstream execution flow.
 
-## Information Gathering
+### Step 6.1. Template Preparation
+   - **Check Template**: Run `bash helpers/prepare_pr_bundle.sh`. 
+   - **If `TEMPLATE_MISSING`**: Notify the user and ask: *"The .github/PULL_REQUEST_TEMPLATE is missing. Should I proceed with a standard format?"*
+   - **Formatting**: Populate the template. Your PR body **must** strictly match the template's Markdown structure.
 
-Before creating the PR, you need the following information. Check if it can be inferred from:
-- Commit messages
-- Branch name (e.g., `fix/issue-123`, `feature/new-login`)
-- Changed files and their content
+### Step 6.2. Content Generation Logic (based on the Template fill in each section accordingly)
+   - **What is the purpose of this pull request?**: Apply rules from **Purpose Checklist Rules** in `PR_STANDARDS.md`.
+   - **Overview of changes**: Write 1-2 sentences. **Mandatory**: Append "This PR was generated using the `create-pull-request` skill."
+   - **Anything you'd like to highlight/discuss**: Explain the *how* and *why* of specific technical choices. **Important**: This section should go in depth based on the **Deep Diff Analysis** & **Information Gathering** findings. You **must** avoid buzzwords at all costs to keep the writing natural.
+   - **Testing instructions**: Detail manual steps (e.g., `markbind serve`). If none, leave the section blank.
+   - **Proposed commit message: (wrap lines at 72 characters)**: Title < 50 chars, Body wrapped at 72. Follow [SE-Education standards](https://se-education.org/guides/conventions/git.html) referenced in the template.
+   - **Checklist**: Apply rules from **Final Checklist Section** in `PR_STANDARDS.md`.
+   - **Reviewer checklist**: Leave the **Reviewer checklist** and **SEMVER** sections **unchecked** and unmodified. These are for the maintainers to fill out during review.
 
-If any critical information is missing, ask the user clarifying questions:
+### Step 6.3. Final Execution Choice
+- **STOP**: You must ask the user which type of PR to create before running the command:
+  1. **Draft PR**: For early feedback.
+  2. **Dry Run**: Preview the PR locally.
 
-### Required Information
+### Step 6.4. CLI Execution
+Execute the command based on the choice:
 
-1. **Related Issue Number**: Look for patterns like `#123`, `fixes #123`, or `closes #123` in commit messages
-2. **Description**: What problem does this solve? Why were these changes made?
-3. **Type of Change**: Bug fix, new feature, breaking change, refactor, cosmetic, documentation, or workflow
-4. **Test Procedure**: How was this tested? What could break?
-
-### Example clarifying question
-
-If the issue number is not found:
-> I couldn't find a related issue number in the commit messages or branch name. What GitHub issue does this PR address? (Enter the issue number, e.g., "123" or "N/A" for small fixes)
-
-## Git Best Practices
-
-Before creating the PR, consider these best practices:
-
-### Commit Hygiene
-
-1. **Atomic commits**: Each commit should represent a single logical change
-2. **Clear commit messages**: Follow conventional commit format when possible
-3. **No merge commits**: Prefer rebasing over merging to keep history clean
-
-### Branch Management
-
-1. **Rebase on latest main** (if needed):
-   ```bash
-   git fetch upstream
-   git rebase upstream/main
-   ```
-
-### Push Changes
-
-Ensure all commits are pushed:
-```bash
-git push origin HEAD
-```
-
-If the branch was rebased, you may need:
-```bash
-git push origin HEAD --force-with-lease
-```
-
-## Create the Pull Request
-
-**IMPORTANT**: Read and use the PR template at `.github/PULL_REQUEST_TEMPLATE`. The PR body format must **strictly match** the template structure. Do not deviate from the template format. 
-
-- Notify the user if the PR template missing before asking if they would like to proceed.
-
-When filling out the template:
-1. **Purpose Checklist**: Based on the file changes detected check the relevant boxes under **"What is the purpose of this pull request?"**. 
-   - Check **Documentation update** ONLY if files within the `docs/` directory were modified.
-   - Check **Feature addition or enhancement** ONLY if 
-      - **Code Diff Profile**:
-         - Creation of new logic is added to files within the `packages/` directory (specifically NOT refactored or fixed logic refer to bug fixes section below).
-         - Addition of new exported functions or classes.
-   - Check **Bug fix** ONLY if the commit messages or code diff in the `packages/` directory indicate a correction.
-      - **Logic Indicators**: Look for "Fix", "Patch", "Hotfix", "Close", or "Resolve" in commit messages.
-   - Check **Developer Experience** ONLY if 
-      - Changes in the `packages/` directory focus on code quality (e.g., commit messages include "refactor", "improve", "cleanup", or "optimize").
-      - The changes are indirect tools or scripts specifically designed to improve the development workflow (e.g., CI/CD improvements, linting rules, or internal dev-tooling).
-   - If it doesn't fit the main categories, use the "Others" box and provide a 1-sentence explanation.
-   - **Linking Issues**: Search for issue numbers in your commits. If found, use keywords like "Fixes #123" or "Resolves #123" in the comment block provided. Skip if missing or if user replies "N/A".
-
-2. **Overview of changes**: Provide a high-level, 1-2 sentence summary of what this PR achieves.
-   - **Mandatory Note**: Append this exact line to the end of this section: This PR was generated using the `create-pull-request` skill. 
-
-3. **Highlight/Discuss**: Elaborate on the technical implementation. Explain *how* you changed the code or documentation and point out any specific logic or layout choices you want the reviewer to notice.
-
-4. **Testing instructions**: Identify any manual testing steps. 
-   - *Example: "Run `markbind serve`, navigate to /docs/plugin, and verify the new warning component renders correctly."*
-   - If no special steps are needed beyond automated tests, leave this blank or state "No special instructions."
-
-5. **Proposed commit message**: Generate a high-quality commit message:
-   - **Title**: Maximum 50 characters.
-   - **Body**: Wrap lines at 72 characters.
-   - Follow the [SE-Education standards](https://se-education.org/guides/conventions/git.html) referenced in the template.
-
-6. **Checklist**: Analyze the changes to check the appropriate boxes:
-   - Check "Updated documentation" ONLY if changes are detected in the `docs/` folder.
-   - Check "Added tests" if files in `test` or `spec` files were add or modified.
-   - Check "Linked all related issues" if you identified an issue number.
-   - Check "No unrelated changes" after verifying the diff doesn't contain stray edits.
-
-7. **Reviewer Section**: Leave the **Reviewer checklist** and **SEMVER** sections **unchecked** and unmodified. These are for the maintainers to fill out during review.
-
-### Create PR with gh CLI
-
-**Important**: If the user did not specify one of the following options in their request, ask the user which they would like before proceeding. Do not assume which option without explicit confirmation from the user.
-
-**Draft PR (For early feedback)**:
+- **Draft PR**:
    ```bash
    gh pr create --repo upstream_owner/repo_name --base main --head your_username:your_branch --title "PR_TITLE" --body "PR_BODY" --draft
    ```
 
-**Dry Run (To preview the PR locally without creating it)**:
+- **Dry Run**:
    ```bash
    gh pr create --repo upstream_owner/repo_name --base main --head your_username:your_branch --title "PR_TITLE" --body "PR_BODY" --dry-run
    ```
-## Post-Creation
+
+## Step 7. Post-Creation
 
 After creating the PR:
 
