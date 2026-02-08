@@ -23,7 +23,7 @@ This skill guides you through creating a well-structured GitHub pull request tha
    - **If `MODE: UNDEFINED`**:
      - **TERMINATE IMMEDIATELY**. Do not check prerequisites. Do not gather context. Do not proceed with the skill.
      - **Response to User**: 
-       > "To create a pull request, I need to know the intended mode. Please specify if you would like a **Standard PR**, a **Draft PR** (for early feedback), or a **Dry Run** (to preview the PR locally)."
+       > "To create a pull request, I need to know the intended mode. Please specify if you would like a **Draft PR** (for early feedback), or a **Dry Run** (to preview the PR locally)."
    - **If `MODE: DRAFT` or `DRY_RUN`**:
      - Record the mode and proceed to **## Step 2. Prerequisites Check**.
 
