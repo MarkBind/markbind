@@ -1,0 +1,112 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Setup Graphviz
+        uses: ts-graphviz/setup-graphviz@v2
+      - name: Install Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - if: matrix.platform == 'macos-latest'
+        run: brew install python-setuptools
+      - run: npm run setup
+      - run: npm run test
+      - name: Upload coverage report to Codecov
+        if: matrix.platform == 'ubuntu-latest'
+        uses: codecov/codecov-action@v5
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+  check-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Setup Graphviz
+        uses: ts-graphviz/setup-graphviz@v2
+      - name: Install Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - run: npm run setup
+      - run: npm run build:web
+      - name: Build MarkBind docs (UG + DG)
+        run: npm run build:docs
+      - name: Check build log
+        run: |
+          log_file="docs/_markbind/logs/markbind-$(date +'%Y-%m-%d').log"
+          pattern="^[0-9T:.Z-]+ - (warn|error):"
+          
+          if grep -q -E "$pattern" "$log_file"; then
+            printf "The following issues were found when building the documentation:\n"
+            grep -E "$pattern" "$log_file"
+            exit 1
+          fi
+  deploy-docs:
+    needs: test
+    # disabled on forks
+    if: github.event_name == 'push' && github.repository == 'MarkBind/markbind'
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Setup Graphviz
+        uses: ts-graphviz/setup-graphviz@v2
+      - name: Install Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - run: npm run setup
+      - name: Deploy DG on any commit to master, to markbind.org/devdocs
+        run: >-
+          npm run build:web &&
+          npm run deploy:dg
+      - name: Deploy UG on release, to markbind.org
+        if: github.ref_type == 'tag'
+        run: npm run deploy:ug
+      - name: Check deploy log
+        run: |
+          log_file="docs/_markbind/logs/markbind-$(date +'%Y-%m-%d').log"
+          pattern="^[0-9T:.Z-]+ - error:"
+          
+          if grep -q -E "$pattern" "$log_file"; then
+            printf "The following issues were found when deploying the documentation:\n"
+            grep -E "$pattern" "$log_file"
+            exit 1
+          fi
