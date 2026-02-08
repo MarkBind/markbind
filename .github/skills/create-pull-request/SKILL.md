@@ -106,7 +106,7 @@ This skill guides you through creating a well-structured GitHub pull request tha
    - **Merge Commits**: If `MERGE_COMMITS_FOUND` is not "None", inform the user: *"I detected merge commits. Project policy prefers a clean history via rebasing."*
 
 ### Step 5.3. **Branch Management (Rebase Flow)**:
-   - Check `BEHIND_UPSTREAM_MAIN`.
+   - Check `BEHIND_UPSTREAM`.
    - **If > 0**: You **must** recommend a rebase to ensure no conflicts occur after PR creation:
      ```bash
      git fetch upstream
