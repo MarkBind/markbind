@@ -382,11 +382,9 @@ describe('CardStack', () => {
     await wrapper.vm.$nextTick();
 
     const { tagCounts } = wrapper.vm;
-    // Custom tags in config that appear in cards should be counted (Success and Failure appear once each)
-    expect(tagCounts.Success).toBe(1);
-    expect(tagCounts.Failure).toBe(1);
-    // Remaining tags not in config should have count 1
-    expect(tagCounts.Neutral).toBe(1);
+    expect(tagCounts.get('Success')).toBe(1);
+    expect(tagCounts.get('Failure')).toBe(1);
+    expect(tagCounts.get('Neutral')).toBe(1);
   });
 
   test('should increment tag count when same tag appears in multiple cards', async () => {
@@ -404,9 +402,8 @@ describe('CardStack', () => {
     await wrapper.vm.$nextTick();
 
     const { tagCounts } = wrapper.vm;
-    // Tag1 appears 3 times, Tag2 appears 2 times
-    expect(tagCounts.Tag1).toBe(3);
-    expect(tagCounts.Tag2).toBe(2);
+    expect(tagCounts.get('Tag1')).toBe(3);
+    expect(tagCounts.get('Tag2')).toBe(2);
   });
 
   test('should display tag count in the badge', async () => {
@@ -526,8 +523,8 @@ describe('CardStack', () => {
     await wrapper.vm.$nextTick();
 
     // Initially, Tag1 has 3 cards and Tag2 has 2 cards
-    expect(wrapper.vm.tagCounts.Tag1).toBe(3);
-    expect(wrapper.vm.tagCounts.Tag2).toBe(2);
+    expect(wrapper.vm.tagCounts.get('Tag1')).toBe(3);
+    expect(wrapper.vm.tagCounts.get('Tag2')).toBe(2);
 
     // Simulate a search for "alpha" which only matches the first card (Tag1)
     const searchInput = wrapper.find('input.search-bar');
@@ -535,9 +532,8 @@ describe('CardStack', () => {
     await searchInput.trigger('input');
     await wrapper.vm.$nextTick();
 
-    // After search, only "Alpha Card" (Tag1) matches
-    expect(wrapper.vm.tagCounts.Tag1).toBe(1);
-    expect(wrapper.vm.tagCounts.Tag2).toBeUndefined();
+    expect(wrapper.vm.tagCounts.get('Tag1')).toBe(1);
+    expect(wrapper.vm.tagCounts.get('Tag2')).toBeUndefined();
 
     // Verify the DOM reflects the updated count
     const tagBadges = wrapper.findAll('.tag-badge');
@@ -554,8 +550,8 @@ describe('CardStack', () => {
     await searchInput.trigger('input');
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.vm.tagCounts.Tag1).toBe(3);
-    expect(wrapper.vm.tagCounts.Tag2).toBe(2);
+    expect(wrapper.vm.tagCounts.get('Tag1')).toBe(3);
+    expect(wrapper.vm.tagCounts.get('Tag2')).toBe(2);
   });
 
   test('tag counts should not change when tags are toggled off', async () => {
@@ -571,15 +567,15 @@ describe('CardStack', () => {
     await wrapper.vm.$nextTick();
 
     // Initially both tags are selected
-    expect(wrapper.vm.tagCounts.Tag1).toBe(2);
-    expect(wrapper.vm.tagCounts.Tag2).toBe(1);
+    expect(wrapper.vm.tagCounts.get('Tag1')).toBe(2);
+    expect(wrapper.vm.tagCounts.get('Tag2')).toBe(1);
 
     // Deselect Tag1 - counts should remain the same since counts ignore tag selection
     wrapper.vm.updateTag('Tag1');
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.vm.tagCounts.Tag1).toBe(2);
-    expect(wrapper.vm.tagCounts.Tag2).toBe(1);
+    expect(wrapper.vm.tagCounts.get('Tag1')).toBe(2);
+    expect(wrapper.vm.tagCounts.get('Tag2')).toBe(1);
   });
 
   test('should show tag count by default when disableTagCount is not specified', async () => {
@@ -675,10 +671,10 @@ describe('CardStack', () => {
     expect(tagNames).toContain('Tag4');
 
     // Verify tag counts
-    expect(wrapper.vm.tagCounts.Tag1).toBe(1);
-    expect(wrapper.vm.tagCounts.Tag2).toBe(2);
-    expect(wrapper.vm.tagCounts.Tag3).toBe(1);
-    expect(wrapper.vm.tagCounts.Tag4).toBe(1);
+    expect(wrapper.vm.tagCounts.get('Tag1')).toBe(1);
+    expect(wrapper.vm.tagCounts.get('Tag2')).toBe(2);
+    expect(wrapper.vm.tagCounts.get('Tag3')).toBe(1);
+    expect(wrapper.vm.tagCounts.get('Tag4')).toBe(1);
   });
 
   test('should handle cards with comma-separated keywords', async () => {
@@ -760,6 +756,6 @@ describe('CardStack', () => {
 
     // Disabled cards should not be counted
     // Only 2 non-disabled cards with Tag1
-    expect(wrapper.vm.tagCounts.Tag1).toBe(2);
+    expect(wrapper.vm.tagCounts.get('Tag1')).toBe(2);
   });
 });
