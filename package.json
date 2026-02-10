@@ -7,7 +7,7 @@
   "scripts": {
     "build:web": "cd packages/core-web && npm run build",
     "prebuild:backend": "npm run clean",
-    "build:backend": "tsc --build",
+    "build:backend": "node ./scripts/prepCliOutput.js && tsc --build",
     "build:dg": "cd docs && node ../packages/cli/dist/index.js build -s dg-site.json",
     "build:ug": "cd docs && node ../packages/cli/dist/index.js build -s ug-site.json",
     "build:docs": "cd docs && node ../packages/cli/dist/index.js build --baseUrl",
@@ -17,7 +17,7 @@
     "clean": "tsc --build --clean && node ./scripts/clean.js",
     "csslint": "stylelint **/*.css **/*.vue",
     "csslintfix": "stylelint **/*.css **/*.vue --fix",
-    "dev": "tsc --build --watch",
+    "dev": "node ./scripts/prepCliOutput.js && tsc --build --watch",
     "lint": "eslint . --ext .js,.ts,.vue && npm run csslint",
     "lintfix": "eslint . --ext .js,.ts,.vue --fix && npm run csslintfix",
     "setup": "npm ci && npm run build:backend",
