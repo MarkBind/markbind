@@ -1,40 +1,45 @@
-const chokidar = require('chokidar');
-const path = require('path');
-const readline = require('readline');
+import chokidar from 'chokidar';
+import path from 'path';
+import readline from 'readline';
+import isError from 'lodash/isError';
 
-const { Site } = require('@markbind/core');
-const { pageVueServerRenderer } = require('@markbind/core/src/Page/PageVueServerRenderer');
+import { Site } from '@markbind/core';
+import { pageVueServerRenderer } from '@markbind/core/src/Page/PageVueServerRenderer';
 
-const fsUtil = require('@markbind/core/src/utils/fsUtil');
-const { INDEX_MARKDOWN_FILE } = require('@markbind/core/src/Site/constants');
+import * as fsUtil from '@markbind/core/src/utils/fsUtil';
+import { INDEX_MARKDOWN_FILE } from '@markbind/core/src/Site/constants';
 
-const cliUtil = require('../util/cliUtil');
-const liveServer = require('../lib/live-server');
-const logger = require('../util/logger');
-const {
+import * as cliUtil from '../util/cliUtil';
+import liveServer from '../lib/live-server';
+import * as logger from '../util/logger';
+import {
   addHandler,
   changeHandler,
   lazyReloadMiddleware,
   removeHandler,
-} = require('../util/serveUtil');
+} from '../util/serveUtil';
 
-const {
+import {
   isValidServeHost,
   isIPAddressZero,
-} = require('../util/ipUtil');
+} from '../util/ipUtil';
 
-function questionAsync(question) {
+const _ = {
+  isError,
+};
+
+function questionAsync(question: string): Promise<string> {
   const readlineInterface = readline.createInterface({ input: process.stdin, output: process.stdout });
 
   return new Promise((resolve) => {
-    readlineInterface.question(question, (response) => {
+    readlineInterface.question(question, (response: string) => {
       readlineInterface.close();
       resolve(response);
     });
   });
 }
 
-function serve(userSpecifiedRoot, options) {
+function serve(userSpecifiedRoot: string, options: any) {
   if (options.dev) {
     logger.useDebugConsole();
   }
@@ -49,13 +54,17 @@ function serve(userSpecifiedRoot, options) {
       process.exit();
     }
   } catch (error) {
-    logger.error(error.message);
-    logger.error('This directory does not appear to contain a valid MarkBind site. '
-              + 'Check that you are running the command in the correct directory!\n'
-              + '\n'
-              + 'To create a new MarkBind site, run:\n'
-              + '   markbind init');
-    cliUtil.cleanupFailedMarkbindBuild(userSpecifiedRoot);
+    if (_.isError(error)) {
+      logger.error(error.message);
+      logger.error('This directory does not appear to contain a valid MarkBind site. '
+          + 'Check that you are running the command in the correct directory!\n'
+          + '\n'
+          + 'To create a new MarkBind site, run:\n'
+          + '   markbind init');
+    } else {
+      logger.error(`Unknown error occurred: ${error}`);
+    }
+    cliUtil.cleanupFailedMarkbindBuild();
     process.exitCode = 1;
     process.exit();
   }
@@ -82,7 +91,7 @@ function serve(userSpecifiedRoot, options) {
                         options.backgroundBuild, reloadAfterBackgroundBuild);
 
   // server config
-  const serverConfig = {
+  const serverConfig: any = {
     open: options.open,
     logLevel: 0,
     root: outputFolder,
@@ -97,7 +106,7 @@ function serve(userSpecifiedRoot, options) {
     .then(async (config) => {
       if (!isValidServeHost(serverConfig.host)) {
         logger.error(`The provided IP address "${serverConfig.host}" is invalid. `
-                    + 'Please enter a valid IPv4 or IPv6 address and try again.');
+              + 'Please enter a valid IPv4 or IPv6 address and try again.');
         process.exitCode = 1;
         process.exit();
       }
@@ -105,8 +114,8 @@ function serve(userSpecifiedRoot, options) {
       if (isIPAddressZero(serverConfig.host)) {
         const response = await questionAsync(
           'WARNING: Using the address \'0.0.0.0\' or \'::\' could potentially expose your server '
-          + 'to the internet, which may pose security risks. \n'
-          + 'Proceed with caution? [y/N] ');
+              + 'to the internet, which may pose security risks. \n'
+              + 'Proceed with caution? [y/N] ');
         if (response.toLowerCase() === 'y') {
           logger.info('Proceeding to generate website');
         } else {
@@ -124,7 +133,7 @@ function serve(userSpecifiedRoot, options) {
 
         const getMiddlewares = webpackDevConfig.clientEntry;
         getMiddlewares(`${config.baseUrl}/markbind`)
-          .forEach(middleware => serverConfig.middleware.push(middleware));
+          .forEach((middleware: any) => serverConfig.middleware.push(middleware));
       }
 
       if (onePagePath) {
@@ -135,7 +144,7 @@ function serve(userSpecifiedRoot, options) {
         serverConfig.open = serverConfig.open && `${config.baseUrl}/`;
       }
 
-      return site.generate();
+      return site.generate('');
     })
     .then(() => {
       const watcher = chokidar.watch(rootFolder, {
@@ -165,11 +174,15 @@ function serve(userSpecifiedRoot, options) {
       });
     })
     .catch((error) => {
-      logger.error(error.message);
+      if (_.isError(error)) {
+        logger.error(error.message);
+      } else {
+        logger.error(`Unknown error occurred: ${error}`);
+      }
       process.exitCode = 1;
     });
 }
 
-module.exports = {
+export {
   serve,
 };

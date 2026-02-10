@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 
 // Entry file for MarkBind project
-const program = require('commander');
-
-const logger = require('./src/util/logger');
-const { build } = require('./src/cmd/build');
-const { deploy } = require('./src/cmd/deploy');
-const { init } = require('./src/cmd/init');
-const { serve } = require('./src/cmd/serve');
-
-const CLI_VERSION = require('./package.json').version;
+import { program } from 'commander';
+import * as logger from './src/util/logger';
+import { build } from './src/cmd/build';
+import { deploy } from './src/cmd/deploy';
+import { init } from './src/cmd/init';
+import { serve } from './src/cmd/serve';
+import { version as CLI_VERSION } from './package.json';
 
 process.title = 'MarkBind';
 process.stdout.write(
@@ -19,6 +17,7 @@ process.stdout.write(
 function printHeader() {
   logger.logo();
   logger.log(` v${CLI_VERSION}`);
+  return '';
 }
 
 program
@@ -49,10 +48,10 @@ program
   .option('-f, --force-reload', 'force a full reload of all site files when a file is changed')
   .option('-n, --no-open', 'do not automatically open the site in browser')
   .option('-o, --one-page [file]', 'build and serve only a single page in the site initially,'
-    + 'building more pages when they are navigated to. Also lazily rebuilds only the page being viewed when'
-    + 'there are changes to the source files (if needed), building others when navigated to')
+      + 'building more pages when they are navigated to. Also lazily rebuilds only the page being viewed when'
+      + 'there are changes to the source files (if needed), building others when navigated to')
   .option('-b, --background-build', 'when --one-page is specified, enhances one-page serve by building'
-    + 'remaining pages in the background')
+      + 'remaining pages in the background')
   .option('-p, --port <port>', 'port for server to listen on (Default is 8080)')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
   .option('-d, --dev', 'development mode, enabling live & hot reload for frontend source files.')

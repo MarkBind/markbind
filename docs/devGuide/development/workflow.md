@@ -39,6 +39,7 @@ The sections below has more information about various stages of submitting a PR.
   **1. Using the docs as a development environment**, with:
   * the <a tags="environment--combined" href="/userGuide/cliCommands.html#serve-command">lazy reload`-o`</a><a tags="environment--dg" href="https://markbind.org/userGuide/cliCommands.html#serve-command">lazy reload`-o`</a> option to speed up page building
   * the `-d` developer option. (see [below](#editing-frontend-features))
+  * the project-bundled `tsx` as a [TypeScript runner](https://nodejs.org/en/learn/typescript/run)
 
     {.mb-3}  
   
