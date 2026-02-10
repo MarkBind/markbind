@@ -35,7 +35,7 @@
       >
         {{ key[0] }}&nbsp;
         <span v-if="!disableTagCount" class="badge tag-count bg-light text-dark">
-          {{ tagCounts[key[0]] || 0 }}
+          {{ tagCounts.get(key[0]) || 0 }}
         </span>
         <span class="badge bg-light text-dark tag-indicator">
           <span v-if="computeShowTag(key[0])">✓</span>
@@ -181,7 +181,7 @@ export default {
       return this.cardStackRef.children.filter(child => !child.computeDisabled).length;
     },
     tagCounts() {
-      const counts = {};
+      const counts = new Map();
       this.cardStackRef.children.forEach((child) => {
         if (child.disabled) return;
         const searchTerms = this.cardStackRef.searchTerms || [];
@@ -191,7 +191,8 @@ export default {
           || searchTerms.every(term => searchTarget.includes(term.toLowerCase()));
         if (matchesSearch) {
           child.computeTags.forEach((tag) => {
-            counts[tag] = (counts[tag] || 0) + 1;
+            const tagCount = counts.get(tag) || 0;
+            counts.set(tag, tagCount + 1);
           });
         }
       });
