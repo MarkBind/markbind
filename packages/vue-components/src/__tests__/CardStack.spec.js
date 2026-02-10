@@ -600,4 +600,166 @@ describe('CardStack', () => {
     expect(countBadge.exists()).toBe(true);
     expect(countBadge.text()).toBe('3');
   });
+
+  test('should cover card mounted lifecycle hook registration', async () => {
+    const CARDS_FOR_MOUNTED = `
+      <card header="Card 1" tag="Tag1" keywords="keyword1"></card>
+      <card header="Card 2" tag="Tag2" keywords="keyword2"></card>
+    `;
+    const wrapper = mount(CardStack, {
+      slots: { default: CARDS_FOR_MOUNTED },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    // Verify cards were registered in cardStack children
+    expect(wrapper.vm.cardStackRef.children.length).toBe(2);
+
+    // Verify tags were added to rawTags
+    expect(wrapper.vm.cardStackRef.rawTags).toContain('Tag1');
+    expect(wrapper.vm.cardStackRef.rawTags).toContain('Tag2');
+
+    // Verify tagMapping was updated
+    expect(wrapper.vm.cardStackRef.tagMapping.length).toBe(2);
+
+    // Verify searchData was populated
+    expect(wrapper.vm.cardStackRef.searchData.size).toBe(2);
+  });
+
+  test('should display correct results count text for single and multiple results', async () => {
+    // Use cards with content to prevent them from being disabled
+    const SINGLE_CARD = `
+      <card header="Only Card" tag="Tag1">Content</card>
+    `;
+    const wrapper = mount(CardStack, {
+      slots: { default: SINGLE_CARD },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    // Single result should show "1 result"
+    const resultsCount = wrapper.find('.results-count');
+    expect(resultsCount.text()).toBe('1 result');
+
+    // Add another card and verify plural form
+    const MULTIPLE_CARDS = `
+      <card header="Card 1" tag="Tag1">Content 1</card>
+      <card header="Card 2" tag="Tag2">Content 2</card>
+    `;
+    const wrapper2 = mount(CardStack, {
+      slots: { default: MULTIPLE_CARDS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper2.vm.$nextTick();
+
+    const resultsCount2 = wrapper2.find('.results-count');
+    expect(resultsCount2.text()).toBe('2 results');
+  });
+
+  test('should handle cards with comma-separated tags', async () => {
+    const CARDS_WITH_COMMA_TAGS = `
+      <card header="Card 1" tag="Tag1, Tag2, Tag3"></card>
+      <card header="Card 2" tag="Tag2, Tag4"></card>
+    `;
+    const wrapper = mount(CardStack, {
+      slots: { default: CARDS_WITH_COMMA_TAGS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    // Verify all unique tags are in the mapping
+    const tagNames = wrapper.vm.cardStackRef.tagMapping.map(t => t[0]);
+    expect(tagNames).toContain('Tag1');
+    expect(tagNames).toContain('Tag2');
+    expect(tagNames).toContain('Tag3');
+    expect(tagNames).toContain('Tag4');
+
+    // Verify tag counts
+    expect(wrapper.vm.tagCounts.Tag1).toBe(1);
+    expect(wrapper.vm.tagCounts.Tag2).toBe(2);
+    expect(wrapper.vm.tagCounts.Tag3).toBe(1);
+    expect(wrapper.vm.tagCounts.Tag4).toBe(1);
+  });
+
+  test('should handle cards with comma-separated keywords', async () => {
+    const CARDS_WITH_KEYWORDS = `
+      <card header="Card 1" tag="Tag1" keywords="key1, key2, key3"></card>
+    `;
+    const wrapper = mount(CardStack, {
+      propsData: { searchable: true },
+      slots: { default: CARDS_WITH_KEYWORDS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    const cards = wrapper.findAllComponents(Card);
+    // Verify keywords are formatted correctly with comma and space
+    expect(cards.at(0).vm.computeKeywords).toBe('key1, key2, key3');
+  });
+
+  test('should handle search with multiple terms', async () => {
+    const CARDS_FOR_SEARCH = `
+      <card header="Alpha Card" tag="Tag1" keywords="alpha beta">Alpha content</card>
+      <card header="Beta Card" tag="Tag2" keywords="beta gamma">Beta content</card>
+      <card header="Gamma Card" tag="Tag3" keywords="gamma delta">Gamma content</card>
+    `;
+    const wrapper = mount(CardStack, {
+      propsData: { searchable: true },
+      slots: { default: CARDS_FOR_SEARCH },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    // Initially all 3 cards should be visible
+    expect(wrapper.vm.matchingCardsCount).toBe(3);
+
+    // Search for "alpha beta" - should match only first card
+    const searchInput = wrapper.find('input.search-bar');
+    await searchInput.setValue('alpha beta');
+    await searchInput.trigger('input');
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.vm.matchingCardsCount).toBe(1);
+  });
+
+  test('should show empty state when all tags are deselected', async () => {
+    const CARDS = `
+      <card header="Card 1" tag="Tag1">Content 1</card>
+      <card header="Card 2" tag="Tag2">Content 2</card>
+    `;
+    const wrapper = mount(CardStack, {
+      slots: { default: CARDS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    // Initially both cards visible
+    expect(wrapper.vm.matchingCardsCount).toBe(2);
+
+    // Deselect all tags
+    wrapper.vm.hideAllTags();
+    await wrapper.vm.$nextTick();
+
+    // No cards should be visible
+    expect(wrapper.vm.matchingCardsCount).toBe(0);
+    const resultsCount = wrapper.find('.results-count');
+    expect(resultsCount.text()).toBe('0 result');
+  });
+
+  test('should correctly handle disabled cards in tag count', async () => {
+    const CARDS_WITH_DISABLED = `
+      <card header="Card 1" tag="Tag1"></card>
+      <card header="Card 2" tag="Tag1" disabled></card>
+      <card header="Card 3" tag="Tag1"></card>
+    `;
+    const wrapper = mount(CardStack, {
+      slots: { default: CARDS_WITH_DISABLED },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    // Disabled cards should not be counted
+    // Only 2 non-disabled cards with Tag1
+    expect(wrapper.vm.tagCounts.Tag1).toBe(2);
+  });
 });
