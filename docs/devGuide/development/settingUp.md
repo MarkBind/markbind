@@ -41,11 +41,18 @@ We recommend the **WebStorm IDE** or **VS Code** for working with MarkBind code.
 
 1. **Fork and clone** the MarkBind repo.
 
+1. **Install dependencies** by running
+   <popover content="Under the hood, this calls `npm ci` and `npm run build:backend`">`npm run setup`</popover>
+   in the **root folder** of your cloned repo.
+
 1. **Bind your cloned version of MarkBind to your console** by navigating to the cloned `packages/cli` folder and running `npm link`
 
-1. **Install dependencies** by running
-   <popover content="Under the hood, this calls `npm ci` and `npm prepare`">`npm run setup`</popover>
-   in the **root folder** of your cloned repo.
+<box type="warning" class="ms-4" seamless>
+
+If the `markbind` command fails to execute with permission issues in the console, add execute permissions to the generated file in `packages/cli/dist/index.js`
+
+To prevent this from occurring, it is recommended to use the `dev`/`build:backend` scripts as described in [the workflow](workflow.md#editing-backend-features)
+</box>
 
 1. **Congratulations!** Now you are ready to start modifying MarkBind code.
 

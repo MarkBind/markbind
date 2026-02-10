@@ -1,26 +1,28 @@
-const path = require('path');
-const fs = require('fs-extra');
-const { execSync } = require('child_process');
+import path from 'path';
+import fs from 'fs-extra';
+import { execSync } from 'child_process';
+import isError from 'lodash/isError';
+import { ExecSyncOptions } from 'node:child_process';
+import { cleanupConvert } from './testUtil/cleanup';
 
-const { cleanupConvert } = require('./testUtil/cleanup');
-
-const {
+import {
   testSites,
   testConvertSites,
   testTemplateSites,
-} = require('./testSites');
+} from './testSites';
+
+const _ = { isError };
 
 /* eslint-disable no-console */
-
-function printFailedMessage(err, siteName) {
+function printFailedMessage(err: string, siteName: string) {
   console.log(err);
   console.log(`Failed to update: ${siteName}`);
 }
 
-process.env.TEST_MODE = true;
+process.env.TEST_MODE = String(true);
 process.env.FORCE_COLOR = '3';
 
-const execOptions = {
+const execOptions: ExecSyncOptions = {
   stdio: ['inherit', 'inherit', 'inherit'],
 };
 
@@ -29,7 +31,11 @@ testSites.forEach((siteName) => {
   try {
     execSync(`node ../../index.js build ${siteName} ${siteName}/expected`, execOptions);
   } catch (err) {
-    printFailedMessage(err, siteName);
+    if (_.isError(err)) {
+      printFailedMessage(err.message, siteName);
+    } else {
+      console.error(`Unknown error occurred ${err} for site ${siteName}`);
+    }
     process.exit(1);
   }
 });
@@ -42,7 +48,11 @@ testConvertSites.forEach((siteName) => {
     execSync(`node ../../index.js init ${nonMarkBindSitePath} -c`, execOptions);
     execSync(`node ../../index.js build ${nonMarkBindSitePath} ${expectedOutputDirectory}`, execOptions);
   } catch (err) {
-    printFailedMessage(err, siteName);
+    if (_.isError(err)) {
+      printFailedMessage(err.message, siteName);
+    } else {
+      console.error(`Unknown error occurred ${err} for site ${siteName}`);
+    }
     cleanupConvert(path.resolve(__dirname, siteName));
     process.exit(1);
   }
@@ -60,7 +70,11 @@ testTemplateSites.forEach((templateAndSitePath) => {
     execSync(`node ../../index.js init ${siteCreationTempPath} --template ${flag}`, execOptions);
     execSync(`node ../../index.js build ${siteCreationTempPath} ${expectedOutputDirectory}`, execOptions);
   } catch (err) {
-    printFailedMessage(err, sitePath);
+    if (_.isError(err)) {
+      printFailedMessage(err.message, sitePath);
+    } else {
+      console.error(`Unknown error occurred ${err} for site ${sitePath}`);
+    }
     fs.removeSync(path.resolve(__dirname, siteCreationTempPath));
     process.exit(1);
   }

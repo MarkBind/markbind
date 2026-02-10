@@ -10,6 +10,7 @@
     "declarationMap": true,
     "forceConsistentCasingInFileNames": true,
     "newLine": "lf",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   }
 }
