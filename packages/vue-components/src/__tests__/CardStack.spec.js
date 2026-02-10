@@ -381,12 +381,12 @@ describe('CardStack', () => {
     });
     await wrapper.vm.$nextTick();
 
-    const { tagMapping } = wrapper.vm.cardStackRef;
-    // Custom tags in config that appear in cards should be incremented (Success and Failure appear once each)
-    expect(tagMapping[0][1].count).toBe(1);
-    expect(tagMapping[1][1].count).toBe(1);
+    const { tagCounts } = wrapper.vm;
+    // Custom tags in config that appear in cards should be counted (Success and Failure appear once each)
+    expect(tagCounts.Success).toBe(1);
+    expect(tagCounts.Failure).toBe(1);
     // Remaining tags not in config should have count 1
-    expect(tagMapping[2][1].count).toBe(1);
+    expect(tagCounts.Neutral).toBe(1);
   });
 
   test('should increment tag count when same tag appears in multiple cards', async () => {
@@ -403,12 +403,10 @@ describe('CardStack', () => {
     });
     await wrapper.vm.$nextTick();
 
-    const { tagMapping } = wrapper.vm.cardStackRef;
+    const { tagCounts } = wrapper.vm;
     // Tag1 appears 3 times, Tag2 appears 2 times
-    expect(tagMapping[0][0]).toBe('Tag1');
-    expect(tagMapping[0][1].count).toBe(3);
-    expect(tagMapping[1][0]).toBe('Tag2');
-    expect(tagMapping[1][1].count).toBe(2);
+    expect(tagCounts.Tag1).toBe(3);
+    expect(tagCounts.Tag2).toBe(2);
   });
 
   test('should display tag count in the badge', async () => {
@@ -508,6 +506,80 @@ describe('CardStack', () => {
     // Should have both count and select indicator badges
     const tagIndicators = firstTagBadge.findAll('.badge');
     expect(tagIndicators.length).toBe(2);
+  });
+
+  test('should update tag counts reactively when search filters cards', async () => {
+    const CARDS_WITH_SEARCHABLE_TAGS = `
+      <card header="Alpha Card" tag="Tag1" keywords="alpha"></card>
+      <card header="Beta Card" tag="Tag1" keywords="beta"></card>
+      <card header="Gamma Card" tag="Tag1" keywords="gamma"></card>
+      <card header="Delta Card" tag="Tag2" keywords="delta"></card>
+      <card header="Epsilon Card" tag="Tag2" keywords="epsilon"></card>
+    `;
+    const wrapper = mount(CardStack, {
+      propsData: {
+        searchable: true,
+      },
+      slots: { default: CARDS_WITH_SEARCHABLE_TAGS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    // Initially, Tag1 has 3 cards and Tag2 has 2 cards
+    expect(wrapper.vm.tagCounts.Tag1).toBe(3);
+    expect(wrapper.vm.tagCounts.Tag2).toBe(2);
+
+    // Simulate a search for "alpha" which only matches the first card (Tag1)
+    const searchInput = wrapper.find('input.search-bar');
+    await searchInput.setValue('alpha');
+    await searchInput.trigger('input');
+    await wrapper.vm.$nextTick();
+
+    // After search, only "Alpha Card" (Tag1) matches
+    expect(wrapper.vm.tagCounts.Tag1).toBe(1);
+    expect(wrapper.vm.tagCounts.Tag2).toBeUndefined();
+
+    // Verify the DOM reflects the updated count
+    const tagBadges = wrapper.findAll('.tag-badge');
+    const tag1Badge = tagBadges.find(b => b.text().includes('Tag1'));
+    const tag1Count = tag1Badge.find('.tag-count');
+    expect(tag1Count.text()).toBe('1');
+
+    const tag2Badge = tagBadges.find(b => b.text().includes('Tag2'));
+    const tag2Count = tag2Badge.find('.tag-count');
+    expect(tag2Count.text()).toBe('0');
+
+    // Clear search - counts should go back to original
+    await searchInput.setValue('');
+    await searchInput.trigger('input');
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.vm.tagCounts.Tag1).toBe(3);
+    expect(wrapper.vm.tagCounts.Tag2).toBe(2);
+  });
+
+  test('tag counts should not change when tags are toggled off', async () => {
+    const CARDS = `
+      <card header="Card A" tag="Tag1"></card>
+      <card header="Card B" tag="Tag1"></card>
+      <card header="Card C" tag="Tag2"></card>
+    `;
+    const wrapper = mount(CardStack, {
+      slots: { default: CARDS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    // Initially both tags are selected
+    expect(wrapper.vm.tagCounts.Tag1).toBe(2);
+    expect(wrapper.vm.tagCounts.Tag2).toBe(1);
+
+    // Deselect Tag1 - counts should remain the same since counts ignore tag selection
+    wrapper.vm.updateTag('Tag1');
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.vm.tagCounts.Tag1).toBe(2);
+    expect(wrapper.vm.tagCounts.Tag2).toBe(1);
   });
 
   test('should show tag count by default when disableTagCount is not specified', async () => {
