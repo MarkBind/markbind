@@ -47,8 +47,5 @@
   "private": true,
   "dependencies": {
     "html-entities": "^2.6.0"
-  },
-  "peerDependencies": {
-    "vue": "^3.0.0"
   }
 }
