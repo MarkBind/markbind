@@ -35,7 +35,7 @@
       >
         {{ key[0] }}&nbsp;
         <span v-if="!disableTagCount" class="badge tag-count bg-light text-dark">
-          {{ key[1].count }}
+          {{ tagCounts[key[0]] || 0 }}
         </span>
         <span class="badge bg-light text-dark tag-indicator">
           <span v-if="computeShowTag(key[0])">✓</span>
@@ -55,10 +55,82 @@
 </template>
 
 <script>
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { reactive, provide } from 'vue';
 import { decode } from 'html-entities';
 import {
   MIN_TAGS_FOR_SELECT_ALL, BADGE_COLOURS, isBootstrapColor, getTextColor, normalizeColor,
 } from '../utils/colors';
+
+function createCardStackRef(props) {
+  return reactive({
+    rawTags: [],
+    tagMapping: [],
+    children: [],
+    searchTerms: [],
+    selectedTags: [],
+    searchData: new Map(),
+    tagConfigs: props.tagConfigs,
+    dataTagConfigs: props.dataTagConfigs,
+    updateTagMapping() {
+      const tags = this.rawTags;
+      const tagMap = new Map();
+      let index = 0;
+
+      // Parse custom tag configs if provided
+      let customConfigs = [];
+      try {
+        const configSource = this.dataTagConfigs || this.tagConfigs;
+        if (configSource && configSource !== '') {
+          const decodedConfig = decode(configSource);
+          customConfigs = JSON.parse(decodedConfig);
+        }
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.warn('Failed to parse tag-configs:', e);
+      }
+
+      // Process tags in the order specified in customConfigs first
+      customConfigs.forEach((config) => {
+        if (tags.includes(config.name)) {
+          const color = normalizeColor(config.color) || BADGE_COLOURS[index % BADGE_COLOURS.length];
+          const tagMapping = { badgeColor: color, children: [], disableTag: false };
+          tagMap.set(config.name, tagMapping);
+          index += 1;
+        }
+      });
+
+      // Then add any remaining tags that weren't in customConfigs
+      tags.forEach((tag) => {
+        if (!tagMap.has(tag)) {
+          const color = BADGE_COLOURS[index % BADGE_COLOURS.length];
+          const tagMapping = { badgeColor: color, children: [], disableTag: false };
+          tagMap.set(tag, tagMapping);
+          index += 1;
+        }
+      });
+
+      this.tagMapping = Array.from(tagMap.entries());
+    },
+    updateSearchData() {
+      const primitiveMap = new Map();
+
+      this.children.forEach((child) => {
+        const rawTags = child.computeTags;
+        const keywords = child.computeKeywords;
+        const header = child.headerText;
+        const searchTarget = rawTags.join(' ') + keywords + header;
+
+        primitiveMap.set(searchTarget, child);
+      });
+
+      this.searchData = primitiveMap;
+    },
+    updateRawTags(tags) {
+      this.rawTags.push(...tags);
+    },
+  });
+}
 
 export default {
   props: {
@@ -91,6 +163,11 @@ export default {
       default: true,
     },
   },
+  setup(props) {
+    const cardStackRef = createCardStackRef(props);
+    provide('cardStackRef', cardStackRef);
+    return { cardStackRef };
+  },
   computed: {
     allSelected() {
       return this.selectedTags.length === this.cardStackRef.tagMapping.length;
@@ -102,6 +179,23 @@ export default {
     },
     matchingCardsCount() {
       return this.cardStackRef.children.filter(child => !child.computeDisabled).length;
+    },
+    tagCounts() {
+      const counts = {};
+      this.cardStackRef.children.forEach((child) => {
+        if (child.disabled) return;
+        const searchTerms = this.cardStackRef.searchTerms || [];
+        const searchTarget = (child.computeTags.join(' ')
+          + child.keywords + child.headerText).toLowerCase();
+        const matchesSearch = searchTerms.length === 0
+          || searchTerms.every(term => searchTarget.includes(term.toLowerCase()));
+        if (matchesSearch) {
+          child.computeTags.forEach((tag) => {
+            counts[tag] = (counts[tag] || 0) + 1;
+          });
+        }
+      });
+      return counts;
     },
   },
   watch: {
@@ -115,11 +209,6 @@ export default {
       },
       immediate: true,
     },
-  },
-  provide() {
-    return {
-      cardStackRef: this.cardStackRef,
-    };
   },
   methods: {
     update() {
@@ -160,84 +249,10 @@ export default {
     getTextColor,
   },
   data() {
-    const vm = this;
     return {
       value: '',
       tags: [],
       selectedTags: [],
-      cardStackRef: {
-        rawTags: [],
-        tagMapping: [],
-        children: [],
-        searchTerms: [],
-        selectedTags: [],
-        searchData: new Map(),
-        tagConfigs: vm.tagConfigs,
-        dataTagConfigs: vm.dataTagConfigs,
-        updateTagMapping() {
-          const tags = this.rawTags;
-          const tagMap = new Map();
-          let index = 0;
-
-          // Parse custom tag configs if provided
-          let customConfigs = [];
-          try {
-            const configSource = this.dataTagConfigs || this.tagConfigs;
-            if (configSource && configSource !== '') {
-              const decodedConfig = decode(configSource);
-              customConfigs = JSON.parse(decodedConfig);
-            }
-          } catch (e) {
-            // eslint-disable-next-line no-console
-            console.warn('Failed to parse tag-configs:', e);
-          }
-
-          // Process tags in the order specified in customConfigs first
-          customConfigs.forEach((config) => {
-            if (tags.includes(config.name)) {
-              const color = normalizeColor(config.color) || BADGE_COLOURS[index % BADGE_COLOURS.length];
-              const tagMapping = {
-                badgeColor: color, children: [], disableTag: false, count: 0,
-              };
-              tagMap.set(config.name, tagMapping);
-              index += 1;
-            }
-          });
-
-          // Then add any remaining tags that weren't in customConfigs
-          tags.forEach((tag) => {
-            if (!tagMap.has(tag)) {
-              const color = BADGE_COLOURS[index % BADGE_COLOURS.length];
-              const tagMapping = {
-                badgeColor: color, children: [], disableTag: false, count: 1,
-              };
-              tagMap.set(tag, tagMapping);
-              index += 1;
-            } else {
-              tagMap.get(tag).count += 1;
-            }
-          });
-
-          this.tagMapping = Array.from(tagMap.entries());
-        },
-        updateSearchData() {
-          const primitiveMap = new Map();
-
-          this.children.forEach((child) => {
-            const rawTags = child.computeTags;
-            const keywords = child.computeKeywords;
-            const header = child.headerText;
-            const searchTarget = rawTags.join(' ') + keywords + header;
-
-            primitiveMap.set(searchTarget, child);
-          });
-
-          this.searchData = primitiveMap;
-        },
-        updateRawTags(tags) {
-          this.rawTags.push(...tags);
-        },
-      },
     };
   },
   created() {
