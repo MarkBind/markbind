@@ -53,6 +53,7 @@ packages/vue-components/src/utils/utils.js
 packages/vue-components/src/utils/pubsub.js
 packages/vue-components/src/utils/urls.js
 packages/vue-components/src/utils/dropdown.js
+packages/vue-components/src/utils/submenu.js
 
 # --- packages/vue-components end ---
 

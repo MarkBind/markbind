@@ -112,6 +112,7 @@ packages/core/src/lib/progress/*.js
 packages/vue-components/src/utils/pubsub.js
 packages/vue-components/src/utils/urls.js
 packages/vue-components/src/utils/dropdown.js
+packages/vue-components/src/utils/submenu.js
 # --- packages/vue-components end ---
 
 # Manual type definitions need to be included
