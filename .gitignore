@@ -111,6 +111,7 @@ packages/core/src/lib/progress/*.js
 # Ignore JS files that are compiled from TS
 packages/vue-components/src/utils/pubsub.js
 packages/vue-components/src/utils/urls.js
+packages/vue-components/src/utils/dropdown.js
 # --- packages/vue-components end ---
 
 # Manual type definitions need to be included
