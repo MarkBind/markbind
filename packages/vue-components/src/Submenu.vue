@@ -25,7 +25,7 @@
 <script>
 import { toBoolean } from './utils/utils';
 import $ from './utils/NodeList';
-import positionSubmenu from './utils/submenu';
+import { isRightAlign, preventOverflow } from './utils/submenu';
 import preventOverflowOnMobile from './utils/dropdown';
 
 export default {
@@ -74,12 +74,12 @@ export default {
           return;
         }
 
-        if (positionSubmenu.isRightAlign(ul)) {
+        if (isRightAlign(ul)) {
           this.alignMenuRight();
         } else {
           this.alignMenuLeft();
         }
-        positionSubmenu.preventOverflow(ul);
+        preventOverflow(ul);
       });
     },
     alignMenuRight() {
