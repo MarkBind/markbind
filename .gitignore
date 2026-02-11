@@ -115,6 +115,7 @@ packages/vue-components/src/utils/dropdown.js
 packages/vue-components/src/utils/submenu.js
 packages/vue-components/src/utils/colors.js
 packages/vue-components/src/utils/utils.js
+packages/vue-components/src/utils/NodeList.js
 # --- packages/vue-components end ---
 
 # Manual type definitions need to be included
