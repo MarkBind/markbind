@@ -106,6 +106,12 @@ packages/core/index.js
 packages/core/src/lib/progress/*.js
 # --- packages/core end ---
 
+# --- packages/vue-components ---
+
+# Ignore JS files that are compiled from TS
+packages/vue-components/src/utils/pubsub.js
+# --- packages/vue-components end ---
+
 # Manual type definitions need to be included
 !packages/cli/src/lib/live-server/index.d.ts
 

@@ -50,6 +50,7 @@ packages/vue-components/src/directives/Closeable.js
 packages/vue-components/src/directives/Float.js
 packages/vue-components/src/utils/NodeList.js
 packages/vue-components/src/utils/utils.js
+packages/vue-components/src/utils/pubsub.js
 
 # --- packages/vue-components end ---
 
