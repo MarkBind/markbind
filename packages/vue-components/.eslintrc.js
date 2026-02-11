@@ -21,4 +21,15 @@ module.exports = {
     'vue/order-in-components': 'off',
     'vue/multi-word-component-names': 'off',
   },
+  'overrides': [
+    {
+      'files': '**/*.ts',
+      'parser': '@typescript-eslint/parser',
+      'rules': {
+        // vue-components uses default exports for single-function utility modules,
+        // consumed by .vue files via default imports
+        'import/no-default-export': 'off',
+      },
+    },
+  ],
 };
