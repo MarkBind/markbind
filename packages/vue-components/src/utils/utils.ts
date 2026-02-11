@@ -43,56 +43,27 @@ export function toNumber(val: any): number | null {
       : Number(val));
 }
 
-interface SimplePromise {
-  then(fn1: Function, fn2?: Function): SimplePromise;
-  catch(fn: Function): SimplePromise;
-  always(fn: Function): SimplePromise;
-  done(fn: Function): SimplePromise;
-  fail(fn: Function): SimplePromise;
-  [key: string]: any;
-}
-
-export function getJSON(url: string): SimplePromise {
-  const request = new window.XMLHttpRequest();
-  const data: Record<string, Function[]> = {};
-  // p (-simulated- promise)
-  const p: SimplePromise = {
-    then(fn1: Function, fn2?: Function) { return p.done(fn1).fail(fn2 as Function); },
-    catch(fn: Function) { return p.fail(fn); },
-    always(fn: Function) { return p.done(fn).fail(fn); },
-    done(fn: Function) { return p; },
-    fail(fn: Function) { return p; },
-  };
-  (['done', 'fail'] as const).forEach((name) => {
-    data[name] = [];
-    p[name] = (fn: Function) => {
-      if (fn instanceof Function) data[name].push(fn);
-      return p;
-    };
-  });
-  p.done(JSON.parse);
-  request.onreadystatechange = () => {
-    if (request.readyState === 4) {
-      const e = { status: request.status };
-      if (request.status === 200) {
-        try {
-          let response: any = request.responseText;
-          for (const i in data.done) {
-            const value = data.done[i](response);
-            if (value !== undefined) { response = value; }
+export function getJSON(url: string): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const request = new window.XMLHttpRequest();
+    request.onreadystatechange = () => {
+      if (request.readyState === 4) {
+        if (request.status === 200) {
+          try {
+            const data = JSON.parse(request.responseText);
+            resolve(data);
+          } catch (err) {
+            reject(err);
           }
-        } catch (err) {
-          data.fail.forEach(fail => fail(err));
+        } else {
+          reject({ status: request.status });
         }
-      } else {
-        data.fail.forEach(fail => fail(e));
       }
-    }
-  };
-  request.open('GET', url);
-  request.setRequestHeader('Accept', 'application/json');
-  request.send();
-  return p;
+    };
+    request.open('GET', url);
+    request.setRequestHeader('Accept', 'application/json');
+    request.send();
+  });
 }
 
 export function getScrollBarWidth(): number {
