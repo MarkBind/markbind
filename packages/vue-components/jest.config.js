@@ -7,6 +7,7 @@ module.exports = {
   ],
   'moduleFileExtensions': [
     'js',
+    'ts',
     'json',
     'vue',
   ],
@@ -16,7 +17,7 @@ module.exports = {
   },
   'transform': {
     '.*\\.vue$': '@vue/vue3-jest',
-    '^.+\\.js$': ['babel-jest', { rootMode: 'upward' }],
+    '^.+\\.[jt]s$': ['babel-jest', { rootMode: 'upward' }],
   },
   'globals': {
     'vue-jest': {
