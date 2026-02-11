@@ -28,6 +28,7 @@
     "@babel/core": "^7.26.9",
     "@babel/plugin-transform-runtime": "^7.26.9",
     "@babel/preset-env": "^7.26.9",
+    "@babel/preset-typescript": "^7.28.5",
     "@babel/runtime": "^7.26.9",
     "@vue/test-utils": "^2.4.6",
     "@vue/vue3-jest": "^29.2.6",
