@@ -22,7 +22,8 @@
   },
   "scripts": {
     "test": "jest --clearCache && jest --colors",
-    "updatetest": "jest --updateSnapshot"
+    "updatetest": "jest --updateSnapshot",
+    "typecheck": "tsc"
   },
   "devDependencies": {
     "@babel/core": "^7.26.9",
