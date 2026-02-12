@@ -1,30 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-// coerce convert some types of data into another type
-export const coerce = {
-  // Convert a string to boolean. Otherwise, return the value without modification,
-  // so if is not boolean, Vue throws a warning.
-  boolean: (val: any): boolean | any => (typeof val === 'string'
-    ? val === '' || val === 'true'
-      ? true
-      : (val === 'false' || val === 'null' || val === 'undefined' ? false : val)
-    : val),
-  // Attempt to convert a string value to a Number. Otherwise, return alt.
-  number: (val: any, alt: number | null = null): number | null => (typeof val === 'number'
-    ? val
-    : val === undefined || val === null || isNaN(Number(val))
-      ? alt
-      : Number(val)),
-  // Attempt to convert to string any value, except for null or undefined.
-  string: (val: any): string => (val === undefined || val === null ? '' : val + ''),
-  // Pattern accept RegExp, function, or string (converted to RegExp). Otherwise return null.
-  pattern: (val: any): Function | RegExp | null => (val instanceof Function || val instanceof RegExp
-    ? val
-    : typeof val === 'string'
-      ? new RegExp(val)
-      : null),
-};
-
 export function toBoolean(val: any): boolean | any {
   return (typeof val === 'string')
     ? ((val === '' || val === 'true')
@@ -64,35 +39,6 @@ export function getJSON(url: string): Promise<any> {
     request.setRequestHeader('Accept', 'application/json');
     request.send();
   });
-}
-
-export function getScrollBarWidth(): number {
-  if (document.documentElement.scrollHeight <= document.documentElement.clientHeight) {
-    return 0;
-  }
-  const inner = document.createElement('p');
-  inner.style.width = '100%';
-  inner.style.height = '200px';
-
-  const outer = document.createElement('div');
-  outer.style.position = 'absolute';
-  outer.style.top = '0px';
-  outer.style.left = '0px';
-  outer.style.visibility = 'hidden';
-  outer.style.width = '200px';
-  outer.style.height = '150px';
-  outer.style.overflow = 'hidden';
-  outer.appendChild(inner);
-
-  document.body.appendChild(outer);
-  const w1 = inner.offsetWidth;
-  outer.style.overflow = 'scroll';
-  let w2 = inner.offsetWidth;
-  if (w1 === w2) w2 = outer.clientWidth;
-
-  document.body.removeChild(outer);
-
-  return (w1 - w2);
 }
 
 // delayer: set a function that executes after a delay
