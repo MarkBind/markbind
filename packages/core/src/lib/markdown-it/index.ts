@@ -19,8 +19,6 @@ import { footnotePlugin } from './plugins/markdown-it-footnotes';
 import { radioButtonPlugin } from './plugins/markdown-it-radio-button';
 import blockEmbedPlugin from './plugins/markdown-it-block-embed';
 
-// const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
-
 const markdownIt = markdownItImport({ html: true, linkify: true });
 
 markdownIt.linkify.set({ fuzzyLink: false });
@@ -242,4 +240,5 @@ markdownIt.use(require('markdown-it-emoji'), {
   defs: fixedNumberEmojiDefs,
 });
 
+(markdownIt as any).createDoubleDelimiterInlineRule = createDoubleDelimiterInlineRule;
 export = markdownIt;

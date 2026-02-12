@@ -36,7 +36,7 @@ export function radioButtonPlugin(md: MarkdownIt, options?: RadioOptions): void 
           if (i >= 4 && tokens[i-4]) {
             hash.update(tokens[i-4].content);
           }
-          group = hash.update(tokens[i].content).digest('hex').substring(2, 5); // generate a deterministic group id
+          group = hash.update(tokens[i].content).digest('hex').slice(2, 7); // generate a deterministic group id
         }
         radioify(tokens[i], group, disableRadio, useLabelWrapper);
         attrSet(tokens[i - 2], 'class', 'radio-list-item');
@@ -111,9 +111,9 @@ function makeRadioButton(token: Token, radioId: string, disableRadio: boolean): 
   const isChecked = token.content.indexOf('(x) ') === 0 ||
                     token.content.indexOf('(X) ') === 0;
   if (isUnchecked) {
-    radio.content = `<input class="radio-list-input" name="${radioId}"${disabledAttr}type="radio">`;
+    radio.content = `<input class="radio-list-input" name="${radioId}"${disabledAttr} type="radio">`;
   } else if (isChecked) {
-    radio.content = `<input class="radio-list-input" checked="" name="${radioId}"${disabledAttr}type="radio">`;
+    radio.content = `<input class="radio-list-input" checked="" name="${radioId}"${disabledAttr} type="radio">`;
   }
   return radio;
 }
