@@ -1,6 +1,6 @@
 {
   "name": "@markbind/core",
-  "version": "6.1.0",
+  "version": "6.2.0",
   "description": "MarkBind core module",
   "keywords": [
     "mark",
@@ -29,11 +29,11 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.2",
-    "@markbind/core-web": "6.1.0",
+    "@markbind/core-web": "6.2.0",
     "@primer/octicons": "^15.0.1",
     "@sindresorhus/slugify": "^0.9.1",
     "@tlylt/markdown-it-imsize": "^3.0.0",
-    "bootstrap-icons": "^1.11.3",
+    "bootstrap-icons": "^1.13.1",
     "bootswatch": "5.1.3",
     "cheerio": "^0.22.0",
     "csv-parse": "^4.14.2",
@@ -42,6 +42,7 @@
     "fs-extra": "^9.0.1",
     "gh-pages": "^6.3.0",
     "highlight.js": "^10.4.1",
+    "html-entities": "^2.6.0",
     "htmlparser2": "^3.10.1",
     "ignore": "^5.1.4",
     "js-beautify": "1.14.3",

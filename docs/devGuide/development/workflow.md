@@ -39,6 +39,7 @@ The sections below has more information about various stages of submitting a PR.
   **1. Using the docs as a development environment**, with:
   * the <a tags="environment--combined" href="/userGuide/cliCommands.html#serve-command">lazy reload`-o`</a><a tags="environment--dg" href="https://markbind.org/userGuide/cliCommands.html#serve-command">lazy reload`-o`</a> option to speed up page building
   * the `-d` developer option. (see [below](#editing-frontend-features))
+  * the project-bundled `tsx` as a [TypeScript runner](https://nodejs.org/en/learn/typescript/run)
 
     {.mb-3}  
   
@@ -419,5 +420,12 @@ To update PlantUML to a newer version:
 
 As Bootswatch is built on Bootstrap, ensure that the versions of both are in sync to avoid unexpected differences in styling behavior between default and other themes. Both are currently using version 5.1.3.
 
+## Using Skills
+As a developer, you may use AI in your workflow to perform tasks. If a specific task is done repeatedly, you may leverage Skills to improve AI output and save time.
+
+Skills are invoked whenever an agent detects a task to be relevant to one, though sometimes manual pointing may be necessary.
+
+MarkBind houses several skills that you may find useful. See the [Skills](aiUse.md#ai-skills) page for a full list and more information.
+
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('settingUp', 'writingComponents') }}
+{{ previous_next('settingUp', 'aiUse') }}

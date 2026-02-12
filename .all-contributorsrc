@@ -820,6 +820,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "yihao03",
+      "name": "Hon Yi Hao",
+      "avatar_url": "https://avatars.githubusercontent.com/u/165232024?v=4",
+      "profile": "https://github.com/yihao03",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

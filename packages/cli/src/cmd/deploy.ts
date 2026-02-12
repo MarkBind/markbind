@@ -1,21 +1,28 @@
-const path = require('path');
+import path from 'path';
+import { Site } from '@markbind/core';
+import isError from 'lodash/isError';
+import * as cliUtil from '../util/cliUtil';
+import * as logger from '../util/logger';
 
-const { Site } = require('@markbind/core');
+const _ = {
+  isError,
+};
 
-const cliUtil = require('../util/cliUtil');
-const logger = require('../util/logger');
-
-function deploy(userSpecifiedRoot, options) {
+function deploy(userSpecifiedRoot: string, options: any) {
   let rootFolder;
   try {
     rootFolder = cliUtil.findRootFolder(userSpecifiedRoot, options.siteConfig);
   } catch (error) {
-    logger.error(error.message);
-    logger.error('This directory does not appear to contain a valid MarkBind site. '
-              + 'Check that you are running the command in the correct directory!\n'
-              + '\n'
-              + 'To create a new MarkBind site, run:\n'
-              + '   markbind init');
+    if (_.isError(error)) {
+      logger.error(error.message);
+      logger.error('This directory does not appear to contain a valid MarkBind site. '
+          + 'Check that you are running the command in the correct directory!\n'
+          + '\n'
+          + 'To create a new MarkBind site, run:\n'
+          + '   markbind init');
+    } else {
+      logger.error(`Unknown error occurred: ${error}`);
+    }
     process.exitCode = 1;
     process.exit();
   }
@@ -23,9 +30,10 @@ function deploy(userSpecifiedRoot, options) {
 
   // Choose to build or not build depending on --no-build flag
   // We cannot chain generate and deploy while calling generate conditionally, so we split with if-else
-  const site = new Site(rootFolder, outputFolder, undefined, undefined, options.siteConfig);
+  const site = new Site(rootFolder, outputFolder, '', undefined, options.siteConfig,
+                        false, false, () => {});
   if (options.build) {
-    site.generate()
+    site.generate(undefined)
       .then(() => {
         logger.info('Build success!');
         site.deploy(options.ci)
@@ -49,6 +57,4 @@ function deploy(userSpecifiedRoot, options) {
   }
 }
 
-module.exports = {
-  deploy,
-};
+export { deploy };

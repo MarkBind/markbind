@@ -1,11 +1,16 @@
-const fs = require('fs-extra');
-const path = require('path');
+import fs from 'fs-extra';
+import path from 'path';
+import isError from 'lodash/isError';
 
-const { Template } = require('@markbind/core');
+import { Template } from '@markbind/core';
 
-const logger = require('../util/logger');
+import * as logger from '../util/logger';
 
-async function init(root, options) {
+const _ = {
+  isError,
+};
+
+async function init(root: string, options: any) {
   const rootFolder = path.resolve(root || process.cwd());
 
   if (options.convert) {
@@ -21,7 +26,11 @@ async function init(root, options) {
     await template.init();
     logger.info('Initialization success.');
   } catch (error) {
-    logger.error(`Failed to initialize site with given template with error: ${error.message}`);
+    if (_.isError(error)) {
+      logger.error(`Failed to initialize site with given template with error: ${error.message}`);
+    } else {
+      logger.error(`Failed to initialize site with given template with error: ${error}`);
+    }
     process.exitCode = 1;
   }
 
@@ -31,12 +40,14 @@ async function init(root, options) {
       await template.convert();
       logger.info('Conversion success.');
     } catch (error) {
-      logger.error(error.message);
+      if (_.isError(error)) {
+        logger.error(error.message);
+      } else {
+        logger.error(`Unknown error occurred: ${error}`);
+      }
       process.exitCode = 1;
     }
   }
 }
 
-module.exports = {
-  init,
-};
+export { init };

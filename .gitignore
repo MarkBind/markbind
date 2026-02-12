@@ -107,9 +107,14 @@ packages/core/index.js
 packages/core/src/lib/progress/*.js
 # --- packages/core end ---
 
+# Manual type definitions need to be included
+!packages/cli/src/lib/live-server/index.d.ts
+
 # Nx for Lerna
 .nx/cache
 .nx/workspace-data
 
 # AI tool-specific configuration
 .opencode
+# Build folder
+dist/
