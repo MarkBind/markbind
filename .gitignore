@@ -107,6 +107,9 @@ packages/core/index.js
 packages/core/src/lib/progress/*.js
 # --- packages/core end ---
 
+# Manual type definitions need to be included
+!packages/cli/src/lib/live-server/index.d.ts
+
 # Nx for Lerna
 .nx/cache
 .nx/workspace-data
@@ -115,3 +118,6 @@ packages/core/src/lib/progress/*.js
 .opencode
 .cline
 .claude
+
+# Build folder
+dist/

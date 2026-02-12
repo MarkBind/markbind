@@ -5,22 +5,22 @@
     "packages/*"
   ],
   "scripts": {
-    "prebuild:backend": "npm run clean",
-    "build:backend": "tsc --noEmitOnError",
     "build:web": "cd packages/core-web && npm run build",
-    "build:dg": "cd docs && ../packages/cli/index.js build -s dg-site.json",
-    "build:ug": "cd docs && ../packages/cli/index.js build -s ug-site.json",
-    "build:docs": "cd docs && node ../packages/cli/index.js build --baseUrl",
-    "deploy:dg": "cd docs && ../packages/cli/index.js deploy -s dg-site.json --ci",
-    "deploy:ug": "cd docs && ../packages/cli/index.js deploy -s ug-site.json --ci",
-    "deploy:netlify": "npm run setup && npm run build:web && cd docs && node ../packages/cli/index.js build --baseUrl",
-    "clean": "node ./scripts/clean.js",
+    "prebuild:backend": "npm run clean",
+    "build:backend": "node ./scripts/prepCliOutput.js && tsc --build",
+    "build:dg": "cd docs && node ../packages/cli/dist/index.js build -s dg-site.json",
+    "build:ug": "cd docs && node ../packages/cli/dist/index.js build -s ug-site.json",
+    "build:docs": "cd docs && node ../packages/cli/dist/index.js build --baseUrl",
+    "deploy:dg": "cd docs && node ../packages/cli/dist/index.js deploy -s dg-site.json --ci",
+    "deploy:ug": "cd docs && node ../packages/cli/dist/index.js deploy -s ug-site.json --ci",
+    "deploy:netlify": "npm run setup && npm run build:web && cd docs && node ../packages/cli/dist/index.js build --baseUrl",
+    "clean": "tsc --build --clean && node ./scripts/clean.js",
     "csslint": "stylelint **/*.css **/*.vue",
     "csslintfix": "stylelint **/*.css **/*.vue --fix",
-    "dev": "tsc --watch",
+    "dev": "node ./scripts/prepCliOutput.js && tsc --build --watch",
     "lint": "eslint . --ext .js,.ts,.vue && npm run csslint",
     "lintfix": "eslint . --ext .js,.ts,.vue --fix && npm run csslintfix",
-    "setup": "npm ci && npm run clean && lerna run prepare",
+    "setup": "npm ci && npm run build:backend",
     "test": "npm run lint && lerna run test --stream",
     "updatetest": "lerna run updatetest --stream"
   },
@@ -41,6 +41,7 @@
     "stylelint-config-recommended-vue": "^1.5.0",
     "stylelint-config-standard": "^36.0.0",
     "typescript": "^5.3.3",
-    "walk-sync": "^2.0.2"
+    "walk-sync": "^2.0.2",
+    "tsx": "^4.21.0"
   }
 }
