@@ -108,8 +108,8 @@ For complete instructions with examples and troubleshooting, see:
 
 | CommonJS                    | TypeScript Equivalent | ES6                             |
 | --------------------------- | --------------------- | ------------------------------- |
-| `module.exports = X`        | `export = X`          | ❌ `export default` (don't use) |
-| `module.exports = { a, b }` | `export = { a, b }`   | ✅ `export { a, b }`            |
+| `module.exports = X`        | `export = X`          | **Avoid**: `export default` (don't use) |
+| `module.exports = { a, b }` | `export = { a, b }`   | **Preferred**: `export { a, b }` |
 
 ### Imports
 
@@ -122,7 +122,7 @@ For complete instructions with examples and troubleshooting, see:
 
 ## Common Mistakes to Avoid
 
-### ❌ Don't
+### Don't
 
 - Combine rename and adapt in one commit
 - Use `export default` during migration
@@ -131,7 +131,7 @@ For complete instructions with examples and troubleshooting, see:
 - Use `any` type without justification
 - Push "Rename" commit without `--no-verify`
 
-### ✅ Do
+### Do
 
 - Separate rename from adapt commits
 - Install `@types/*` packages before starting
@@ -252,12 +252,12 @@ Current settings:
 
 A successful migration:
 
-- ✅ Two commits: "Rename" and "Adapt"
-- ✅ Files show as renamed in first commit
-- ✅ All tests pass
-- ✅ No `any` types (or justified)
-- ✅ Import/export syntax consistent
-- ✅ Dependent files updated
-- ✅ Stand-in types documented
+- Two commits: "Rename" and "Adapt"
+- Files show as renamed in first commit
+- All tests pass
+- No `any` types (or justified)
+- Import/export syntax consistent
+- Dependent files updated
+- Stand-in types documented
 
 Your migration is ready when you can confidently say: "This TypeScript code provides better type safety without changing runtime behavior."

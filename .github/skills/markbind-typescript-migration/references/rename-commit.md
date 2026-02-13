@@ -117,7 +117,7 @@ Changes to be committed:
   renamed:    packages/core/src/html/HtmlProcessor.js -> packages/core/src/html/HtmlProcessor.ts
 ```
 
-**If you see this instead** (❌ WRONG):
+**If you see this instead** (WRONG):
 ```
   deleted:    packages/core/src/html/NodeProcessor.js
   new file:   packages/core/src/html/NodeProcessor.ts
@@ -283,15 +283,15 @@ Before proceeding to adapt commit:
 ## What's in This Commit?
 
 **Included**:
-- ✅ Modified `.gitignore`
-- ✅ Modified `.eslintignore`
-- ✅ Renamed files (.js → .ts)
+- Modified `.gitignore`
+- Modified `.eslintignore`
+- Renamed files (.js → .ts)
 
 **Not included**:
-- ❌ Content changes
-- ❌ Import/export syntax changes
-- ❌ Type annotations
-- ❌ Package.json changes
+- Content changes
+- Import/export syntax changes
+- Type annotations
+- Package.json changes
 
 ## Next Steps
 

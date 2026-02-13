@@ -27,7 +27,7 @@ class MyClass { }
 export = MyClass;
 ```
 
-**ES6** (❌ Don't use during migration):
+**ES6** (Don't use during migration):
 ```typescript
 class MyClass { }
 export default MyClass;  // AVOID - breaks JS imports
@@ -84,7 +84,7 @@ import MyClass from './MyClass';
 **Common mistake**:
 ```typescript
 // MyClass.ts uses: export = MyClass
-import MyClass from './MyClass';  // ❌ WRONG - won't work
+import MyClass from './MyClass';  // WRONG - won't work
 ```
 
 ### Importing Multiple Things
@@ -226,7 +226,7 @@ function loadPlugins(): Plugin[] {
 
 // Export main as default, helpers as named
 export = Plugin;
-export { loadPlugins };  // ❌ Can't do this - choose one style!
+export { loadPlugins };  // Cannot do this - choose one style!
 ```
 
 **Correct approach**:
@@ -265,7 +265,7 @@ import type { MyType } from './types';
 const data: MyType = { };
 
 // Can't use as value
-const instance = new MyType();  // ❌ Error
+const instance = new MyType();  // Error
 ```
 
 **When to use**:
@@ -386,31 +386,31 @@ npm run build:backend
 **Error: `Cannot find module`**
 ```typescript
 // File uses: export = X
-import X from './file';  // ❌ Wrong
-import X = require('./file');  // ✅ Correct
+import X from './file';  // Wrong
+import X = require('./file');  // Correct
 ```
 
 **Error: `X is not a function`**
 ```typescript
 // File uses: export { foo }
 import utils = require('./utils');
-utils.foo();  // ❌ Wrong - utils is not an object
+utils.foo();  // Wrong - utils is not an object
 
-import { foo } from './utils';  // ✅ Correct
+import { foo } from './utils';  // Correct
 foo();
 ```
 
 **Error: `Module has no default export`**
 ```typescript
 // File uses: export { a, b }
-import utils from './utils';  // ❌ Wrong - no default
+import utils from './utils';  // Wrong - no default
 
-import { a, b } from './utils';  // ✅ Correct
+import { a, b } from './utils';  // Correct
 ```
 
 ## Best Practices
 
-### ✅ Do
+### Do
 
 - Match import syntax with export syntax
 - Use TypeScript equivalent (`export =`) for single exports
@@ -418,7 +418,7 @@ import { a, b } from './utils';  // ✅ Correct
 - Be consistent within a file
 - Update all imports when changing export style
 
-### ❌ Don't
+### Don't
 
 - Use `export default` during migration
 - Mix `export =` and `export { }` in same file

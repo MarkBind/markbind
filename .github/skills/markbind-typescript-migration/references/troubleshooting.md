@@ -344,7 +344,7 @@ When migration issues occur, follow this systematic approach:
 
 ## Common Anti-patterns
 
-### ❌ Don't: Mix changes in Rename commit
+### Don't: Mix changes in Rename commit
 
 ```bash
 # BAD: Changed import style during rename
@@ -355,7 +355,7 @@ git show
 
 **Fix**: Revert, rename only, then adapt imports in separate commit.
 
-### ❌ Don't: Use `any` everywhere to silence errors
+### Don't: Use `any` everywhere to silence errors
 
 ```typescript
 // BAD: Defeats purpose of TypeScript
@@ -366,7 +366,7 @@ return data as any;
 
 **Fix**: Add proper types incrementally, use `unknown` if truly uncertain.
 
-### ❌ Don't: Change behavior during migration
+### Don't: Change behavior during migration
 
 ```typescript
 // BAD: "Fixed" a bug while migrating
@@ -376,7 +376,7 @@ return data as any;
 
 **Fix**: Migrate syntax only. File bugs separately, fix in later commits.
 
-### ❌ Don't: Commit without running tests
+### Don't: Commit without running tests
 
 ```bash
 # BAD: Skipping verification

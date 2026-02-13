@@ -265,28 +265,28 @@ Create `.vscode/settings.json` (if not exists):
 
 ## Common Preparation Mistakes
 
-### ❌ Mistake 1: Skipping Type Installation
+### Mistake 1: Skipping Type Installation
 ```bash
 # Migrate without installing @types/cheerio
 # Result: TypeScript errors for cheerio usage
 ```
 **Fix**: Install types before starting.
 
-### ❌ Mistake 2: Not Stashing Package Changes
+### Mistake 2: Not Stashing Package Changes
 ```bash
 # Include package.json in rename commit
 # Result: Confusing commit history
 ```
 **Fix**: Stash and include in adapt commit.
 
-### ❌ Mistake 3: Forgetting to Stop Compilation
+### Mistake 3: Forgetting to Stop Compilation
 ```bash
 # npm run dev still running
 # Result: Compiler errors during rename phase
 ```
 **Fix**: Stop all compilation processes.
 
-### ❌ Mistake 4: Dirty Working Directory
+### Mistake 4: Dirty Working Directory
 ```bash
 # Unrelated changes present
 # Result: Messy commits, hard to review
@@ -296,10 +296,10 @@ Create `.vscode/settings.json` (if not exists):
 ## Ready to Proceed?
 
 Once preparation is complete:
-1. ✅ Types are installed and stashed
-2. ✅ Working directory is clean
-3. ✅ Compilation is stopped
-4. ✅ You understand the two-commit strategy
+1. Types are installed and stashed
+2. Working directory is clean
+3. Compilation is stopped
+4. You understand the two-commit strategy
 
 **Next step**: Proceed to [rename-commit.md](rename-commit.md) for creating the "Rename" commit.
 

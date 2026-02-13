@@ -170,21 +170,21 @@ obj.newProp = 'value';
 
 ### Avoid `any` Type
 
-**❌ Bad**:
+**Bad**:
 ```typescript
 function process(data: any): any {
   return data.value;
 }
 ```
 
-**✅ Better**:
+**Better**:
 ```typescript
 function process(data: { value: string }): string {
   return data.value;
 }
 ```
 
-**✅ Best** (with proper interface):
+**Best** (with proper interface):
 ```typescript
 interface DataItem {
   value: string;
@@ -403,22 +403,22 @@ git log -1 --stat
 ## What's in This Commit?
 
 **Included**:
-- ✅ Modified `.ts` files (syntax and types)
-- ✅ Modified `package.json` (if types added)
-- ✅ Modified `package-lock.json` (if types added)
-- ✅ Type annotations and interfaces
-- ✅ Import/export syntax changes
+- Modified `.ts` files (syntax and types)
+- Modified `package.json` (if types added)
+- Modified `package-lock.json` (if types added)
+- Type annotations and interfaces
+- Import/export syntax changes
 
 **Not included**:
-- ❌ File renames (in previous commit)
-- ❌ Ignore list changes (in previous commit)
-- ❌ Logic changes (separate PR if needed)
+- File renames (in previous commit)
+- Ignore list changes (in previous commit)
+- Logic changes (separate PR if needed)
 
 ## Next Steps
 
 Your migration is complete! You now have:
-1. ✅ "Rename" commit preserving history
-2. ✅ "Adapt" commit with TypeScript
+1. "Rename" commit preserving history
+2. "Adapt" commit with TypeScript
 
 **Next**: Create PR with rebase-merge request.
 
