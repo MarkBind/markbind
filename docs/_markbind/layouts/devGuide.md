@@ -17,7 +17,7 @@
 * AI Use
   * [Overview]({{baseUrl}}/devGuide/aiUse/index.html)
   * [Skills]({{baseUrl}}/devGuide/aiUse/skills.html)
-  * [Agents]({{baseUrl}}/devGuide/aiUse/subagents.html)
+  * [Subagents]({{baseUrl}}/devGuide/aiUse/subagents.html)
 * Development :expanded:
   * [Setting up]({{baseUrl}}/devGuide/development/settingUp.html)
   * [Workflow]({{baseUrl}}/devGuide/development/workflow.html)

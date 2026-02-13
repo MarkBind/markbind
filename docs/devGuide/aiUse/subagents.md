@@ -55,4 +55,4 @@ Subagents can also be manually triggered. Please refer to the documentation of y
 - [Opencode documentation on creating subagents](https://opencode.ai/docs/agents/)
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('index', '../development/settingUp') }}
+{{ previous_next('skills', '../development/settingUp') }}

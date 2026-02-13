@@ -40,4 +40,4 @@ Skills are structured instructions and tools that help AI agents perform specifi
 Subagents are specialized AI agents designed to handle specific types of tasks autonomously. For detailed information about available subagents and how to use them, see the [Subagents](subagents.html) page.
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('../devGuide', 'skills') }}
+{{ previous_next('../bootcamp/implementAFeature', 'skills') }}
