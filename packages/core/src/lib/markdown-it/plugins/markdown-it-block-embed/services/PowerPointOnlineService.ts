@@ -1,20 +1,21 @@
-"use strict";
+import VideoServiceBase, { VideoServiceOptions } from './VideoServiceBase';
 
-const VideoServiceBase = require("./VideoServiceBase");
+export interface PowerPointOnlineOptions extends VideoServiceOptions {
+  width?: number;
+  height?: number;
+}
 
-class PowerPointOnlineService extends VideoServiceBase {
+export default class PowerPointOnlineService extends VideoServiceBase {
 
-  getDefaultOptions() {
+  getDefaultOptions(): PowerPointOnlineOptions {
     return { width: 610, height: 481, ignoreStyle: true };
   }
 
-  extractVideoID(reference) {
+  extractVideoID(reference: string): string {
     return reference;
   }
 
-  getVideoUrl(serviceUrl) {
+  getVideoUrl(serviceUrl: string): string {
     return `${serviceUrl}&action=embedview&wdAr=1.3333333333333333`;
   }
 }
-
-module.exports = PowerPointOnlineService;
