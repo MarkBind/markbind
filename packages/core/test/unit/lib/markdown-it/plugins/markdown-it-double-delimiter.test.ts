@@ -1,7 +1,8 @@
 import markdownIt from 'markdown-it';
 
-const createDoubleDelimiterInlineRule
-  = require('../../../../../src/lib/markdown-it/plugins/markdown-it-double-delimiter');
+import {
+  createDoubleDelimiterInlineRule,
+} from '../../../../../src/lib/markdown-it/plugins/markdown-it-double-delimiter';
 
 describe('markdown-it-double-delimiter plugin', () => {
   let md: markdownIt;
