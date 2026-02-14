@@ -113,5 +113,7 @@ packages/core/src/lib/progress/*.js
 .nx/cache
 .nx/workspace-data
 
+# AI tool-specific configuration
+.opencode
 # Build folder
 dist/
