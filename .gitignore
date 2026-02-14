@@ -93,8 +93,7 @@ packages/core/src/Layout/*.js
 packages/core/src/lib/nunjucks-extensions/*.js
 packages/core/src/lib/markdown-it/index.js
 packages/core/src/lib/markdown-it/highlight/*.js
-packages/core/src/lib/markdown-it/plugins/markdown-it-icons.js
-packages/core/src/lib/markdown-it/plugins/markdown-it-alt-frontmatter.js
+packages/core/src/lib/markdown-it/plugins/**/*.js
 packages/core/src/lib/markdown-it/utils/*.js
 packages/core/src/Page/*.js
 packages/core/src/plugins/**/*.js
