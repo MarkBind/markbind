@@ -25,10 +25,11 @@
 
 // Process #(char)# coloured text ##
 
-'use strict';
+import MarkdownIt from 'markdown-it';
+import StateInline from 'markdown-it/lib/rules_inline/state_inline';
 
-module.exports = function colourtext_plugin(md) {
-  const acsiiCodeToTokenMap = new Map([
+export function colourTextPlugin(md: MarkdownIt): void {
+  const asciiCodeToTokenMap = new Map<number, string>([
     [114, '#r#'],
     [103, '#g#'],
     [98, '#b#'],
@@ -38,7 +39,8 @@ module.exports = function colourtext_plugin(md) {
     [107, '#k#'],
     [119, '#w#'],
   ]);
-  const delimMarkerToClassMap = new Map([
+
+  const delimMarkerToClassMap = new Map<string, string>([
     ['#r#', 'mkb-text-red'],
     ['#g#', 'mkb-text-green'],
     ['#b#', 'mkb-text-blue'],
@@ -49,103 +51,108 @@ module.exports = function colourtext_plugin(md) {
     ['#w#', 'mkb-text-white'],
   ]);
 
-  function tokenize(state, silent) {
-    var token,
-        max = state.posMax,
-        start = state.pos,
-        marker = state.src.charCodeAt(start);
+  function tokenize(state: StateInline, silent: boolean): boolean {
+    let token;
+    const max = state.posMax;
+    const start = state.pos;
+    const marker = state.src.charCodeAt(start);
+
     if (start + 1 > max) { return false; }
     if (silent) { return false; } // don't run any pairs in validation mode
 
+    const nextChar = state.src.charCodeAt(start + 1);
+
+    // Check for opening: #x#
     if (marker === 35/* # */ &&
-      acsiiCodeToTokenMap.has(state.src.charCodeAt(start + 1)) &&
+      asciiCodeToTokenMap.has(nextChar) &&
       start + 2 <= max &&
       state.src.charCodeAt(start + 2) === 35/* # */
-      ) {
+    ) {
       state.scanDelims(state.pos, true);
-      token         = state.push('text', '', 0);
-      token.content = acsiiCodeToTokenMap.get(state.src.charCodeAt(start + 1));
+      token = state.push('text', '', 0);
+      const tokenContent = asciiCodeToTokenMap.get(nextChar)!;
+      token.content = tokenContent;
+      
       state.delimiters.push({
-        marker: token.content,
-        jump:   0,
-        token:  state.tokens.length - 1,
-        level:  state.level,
-        end:    -1,
-        open:   true,
-        close:  false
+        marker: 35, // Use # as the marker code
+        length: 3,  // length of #x# is 3
+        jump: 0,
+        token: state.tokens.length - 1,
+        end: -1,
+        open: true,
+        close: false,
       });
       state.pos += 3;
-    } else if (marker === 35/* # */ &&
-      state.src.charCodeAt(start + 1) === 35/* # */
-      ) {
-      // found the close marker
+    } 
+    // Check for closing: ##
+    else if (marker === 35/* # */ && nextChar === 35/* # */) {
       state.scanDelims(state.pos, true);
-      token         = state.push('text', '', 0);
+      token = state.push('text', '', 0);
       token.content = '##';
+      
       state.delimiters.push({
-        marker: token.content,
-        jump:   0,
-        token:  state.tokens.length - 1,
-        level:  state.level,
-        end:    -1,
-        open:   false,
-        close:  true
+        marker: 35,
+        length: 2, // length of ## is 2
+        jump: 0,
+        token: state.tokens.length - 1,
+        end: -1,
+        open: false,
+        close: true,
       });
       state.pos += 2;
     } else {
-      // neither
       return false;
     }
 
     return true;
   }
 
+  function postProcess(state: StateInline): boolean {
+    let foundStart = false;
+    let foundEnd = false;
+    const { delimiters, tokens } = state;
 
-  // Walk through delimiter list and replace text tokens with tags
-  function postProcess(state) {
-    var i,
-        foundStart = false,
-        foundEnd = false,
-        delim,
-        token,
-        delimiters = state.delimiters,
-        max = state.delimiters.length;
-
-    for (i = 0; i < max; i++) {
-      delim = delimiters[i];
-      if (delimMarkerToClassMap.has(delim.marker)) {
-        foundStart = true;
-      } else if (delim.marker === '##') {
+    for (let i = 0; i < delimiters.length; i++) {
+      const delim = delimiters[i];
+      if (delim.marker === 35 && delim.open) {
+        if (delimMarkerToClassMap.has(tokens[delim.token].content)) {
+          foundStart = true;
+        }
+      } else if (delim.marker === 35 && delim.close) {
         foundEnd = true;
       }
     }
-    if (foundStart && foundEnd) {
-      for (i = 0; i < max; i++) {
-        delim = delimiters[i];
 
-        if (delimMarkerToClassMap.has(delim.marker)) {
-          foundStart = true;
-          token         = state.tokens[delim.token];
-          token.type    = 'colourtext_open';
-          token.tag     = 'span';
-          token.nesting = 1;
-          token.markup  = delim.marker;
-          token.content = '';
-          token.attrs = [ [ 'class', delimMarkerToClassMap.get(delim.marker) ] ];
-        } else if (delim.marker === '##') {
-          if (foundStart) {
-            token         = state.tokens[delim.token];
-            token.type    = 'colourtext_close';
+    if (foundStart && foundEnd) {
+      foundStart = false; 
+      for (let i = 0; i < delimiters.length; i++) {
+        const delim = delimiters[i];
+        const token = tokens[delim.token];
+        
+        if (delim.marker === 35 && delim.open) {
+          // Check if the content is one of our color tokens
+          const className = delimMarkerToClassMap.get(token.content);
+          if (className) {
+            foundStart = true;
+            token.type    = 'colourtext_open';
             token.tag     = 'span';
-            token.nesting = -1;
-            token.markup  = '##';
+            token.nesting = 1;
+            token.markup  = token.content;
             token.content = '';
+            token.attrs   = [['class', className]];
           }
+        } else if (delim.marker === 35 && delim.close) {
+          token.type = 'colourtext_close';
+          token.tag = 'span';
+          token.nesting = -1;
+          token.markup = '##';
+          token.content = '';
         }
       }
     }
+    return true;
   }
 
   md.inline.ruler.before('strikethrough', 'colourtext', tokenize);
   md.inline.ruler2.before('strikethrough', 'colourtext', postProcess);
-};
+}

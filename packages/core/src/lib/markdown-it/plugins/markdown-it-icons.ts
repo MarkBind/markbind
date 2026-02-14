@@ -1,7 +1,9 @@
 // import the necessary packages
-const octicons = require('@primer/octicons');
-const cheerio = require('cheerio');
-const markdownItRegExp = require('markdown-it-regexp');
+import octicons from '@primer/octicons';
+import * as cheerio from 'cheerio';
+// markdown-it-regexp type definitions are undefined
+// @ts-ignore
+import markdownItRegExp from 'markdown-it-regexp';
 
 // regular expression to match the icon patterns
 const ICON_REGEXP
@@ -9,6 +11,8 @@ const ICON_REGEXP
 
 // function to get the octicon icons
 function getOcticonIcon(iconName: string) {
+  // Indexing octicons varies based on @types/primer__octicons version
+  // @ts-ignore
   return octicons[iconName] ?? null;
 }
 
