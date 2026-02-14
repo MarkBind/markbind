@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.4.6",
-    "@types/lodash": "^4.14.181",
+    "@types/lodash": "^4.17.15",
     "@types/url-parse": "^1.4.8",
     "diff": "^8.0.3",
     "ignore": "^5.1.4",
