@@ -6,6 +6,8 @@
   ],
   "compilerOptions": {
     "outDir": "./dist",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "allowJs": true,
   }
 }

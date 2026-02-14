@@ -1,6 +1,7 @@
 {
   "name": "markbind-cli",
   "version": "6.2.0",
+  "type": "module",
   "description": "Command line interface for MarkBind",
   "keywords": [
     "mark",
