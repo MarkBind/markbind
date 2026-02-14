@@ -1,4 +1,4 @@
-import { isValidServeHost, isIPAddressZero } from '../../src/util/ipUtil';
+import { isValidServeHost, isIPAddressZero } from '../../src/util/ipUtil.js';
 
 describe('isValidServeHost', () => {
   test('returns true for localhost', () => {

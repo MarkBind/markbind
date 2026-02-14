@@ -5,7 +5,7 @@ import walkSync from 'walk-sync';
 import { isBinary } from 'istextorbinary';
 import isEqual from 'lodash/isEqual';
 import intersection from 'lodash/intersection';
-import { diffCharsAndPrint as diffChars } from './diffChars';
+import { diffCharsAndPrint as diffChars } from './diffChars.js';
 
 const _ = { isEqual, intersection };
 

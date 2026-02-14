@@ -1,5 +1,5 @@
 import { SITE_JSON_DEFAULT } from '@markbind/core/test/unit/utils/data';
-import * as cliUtil from '../../src/util/cliUtil';
+import * as cliUtil from '../../src/util/cliUtil.js';
 
 const fs = require('fs-extra');
 const path = require('path');

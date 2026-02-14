@@ -4,8 +4,9 @@ import { execSync } from 'child_process';
 import isError from 'lodash/isError';
 import * as logger from '@markbind/core/src/utils/logger';
 import { ExecSyncOptions } from 'node:child_process';
-import { compare } from './testUtil/compare';
-import { cleanupConvert } from './testUtil/cleanup';
+import { fileURLToPath } from 'url';
+import { compare } from './testUtil/compare.js';
+import { cleanupConvert } from './testUtil/cleanup.js';
 import {
   testSites,
   testConvertSites,
@@ -13,11 +14,12 @@ import {
   plantumlGeneratedFilesForTestSites,
   plantumlGeneratedFilesForConvertSites,
   plantumlGeneratedFilesForTemplateSites,
-} from './testSites';
+} from './testSites.js';
 
 const _ = { isError };
 // Path to the compiled CLI executable
-const CLI_PATH = path.resolve(__dirname, '../../index');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const CLI_PATH = path.resolve(__dirname, '../../index.js');
 
 /* eslint-disable no-console */
 function printFailedMessage(err: Error, siteName: string) {
