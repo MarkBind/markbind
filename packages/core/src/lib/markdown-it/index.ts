@@ -12,8 +12,12 @@ import { Highlighter } from './highlight/Highlighter';
 
 import { altFrontmatterPlugin } from './plugins/markdown-it-alt-frontmatter';
 import { markdownItIconsPlugin } from './plugins/markdown-it-icons';
-
-const createDoubleDelimiterInlineRule = require('./plugins/markdown-it-double-delimiter');
+import { centertext_plugin } from './plugins/markdown-it-center-text';
+import { colourTextPlugin } from './plugins/markdown-it-colour-text';
+import { createDoubleDelimiterInlineRule } from './plugins/markdown-it-double-delimiter';
+import { footnotePlugin } from './plugins/markdown-it-footnotes';
+import { radioButtonPlugin } from './plugins/markdown-it-radio-button';
+import blockEmbedPlugin from './plugins/markdown-it-block-embed';
 
 const markdownIt = markdownItImport({ html: true, linkify: true });
 
@@ -38,12 +42,12 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-linkify-images'), { imgClass: 'img-fluid' })
   .use(require('markdown-it-texmath'), { engine: katex, delimiters: ['dollars', 'brackets'] })
   .use(require('markdown-it-attrs'))
-  .use(require('./plugins/markdown-it-radio-button'))
-  .use(require('./plugins/markdown-it-block-embed'))
+  .use(radioButtonPlugin, { enabled: true, label: true })
+  .use(blockEmbedPlugin)
   .use(markdownItIconsPlugin)
-  .use(require('./plugins/markdown-it-footnotes'))
-  .use(require('./plugins/markdown-it-center-text'))
-  .use(require('./plugins/markdown-it-colour-text'))
+  .use(footnotePlugin)
+  .use(centertext_plugin)
+  .use(colourTextPlugin)
   .use(altFrontmatterPlugin);
 
 // fix table style
@@ -236,4 +240,5 @@ markdownIt.use(require('markdown-it-emoji'), {
   defs: fixedNumberEmojiDefs,
 });
 
+(markdownIt as any).createDoubleDelimiterInlineRule = createDoubleDelimiterInlineRule;
 export = markdownIt;
