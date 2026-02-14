@@ -9,20 +9,20 @@ import { pageVueServerRenderer } from '@markbind/core/src/Page/PageVueServerRend
 import * as fsUtil from '@markbind/core/src/utils/fsUtil';
 import { INDEX_MARKDOWN_FILE } from '@markbind/core/src/Site/constants';
 
-import * as cliUtil from '../util/cliUtil';
-import liveServer from '../lib/live-server';
-import * as logger from '../util/logger';
+import * as cliUtil from '../util/cliUtil.js';
+import { LiveServer as liveServer } from '../lib/live-server/index.js';
+import * as logger from '../util/logger.js';
 import {
   addHandler,
   changeHandler,
   lazyReloadMiddleware,
   removeHandler,
-} from '../util/serveUtil';
+} from '../util/serveUtil.js';
 
 import {
   isValidServeHost,
   isIPAddressZero,
-} from '../util/ipUtil';
+} from '../util/ipUtil.js';
 
 const _ = {
   isError,
@@ -127,8 +127,7 @@ function serve(userSpecifiedRoot: string, options: any) {
       serverConfig.mount.push([config.baseUrl || '/', outputFolder]);
 
       if (options.dev) {
-        // eslint-disable-next-line global-require
-        const webpackDevConfig = require('@markbind/core-web/webpack.dev');
+        const { default: webpackDevConfig } = await import('@markbind/core-web/webpack.dev.js');
         await webpackDevConfig.serverEntry(pageVueServerRenderer.updateMarkBindVueBundle, rootFolder);
 
         const getMiddlewares = webpackDevConfig.clientEntry;

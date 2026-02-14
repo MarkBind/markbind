@@ -1,8 +1,8 @@
 import path from 'path';
 import { Site } from '@markbind/core';
 import isError from 'lodash/isError';
-import * as cliUtil from '../util/cliUtil';
-import * as logger from '../util/logger';
+import * as cliUtil from '../util/cliUtil.js';
+import * as logger from '../util/logger.js';
 
 const _ = {
   isError,
