@@ -1,7 +1,7 @@
 import chokidar from 'chokidar';
 import path from 'path';
 import readline from 'readline';
-import isError from 'lodash/isError';
+import _ from 'lodash';
 
 import { Site } from '@markbind/core';
 import { pageVueServerRenderer } from '@markbind/core/src/Page/PageVueServerRenderer';
@@ -23,10 +23,6 @@ import {
   isValidServeHost,
   isIPAddressZero,
 } from '../util/ipUtil.js';
-
-const _ = {
-  isError,
-};
 
 function questionAsync(question: string): Promise<string> {
   const readlineInterface = readline.createInterface({ input: process.stdin, output: process.stdout });

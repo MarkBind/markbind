@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { execSync } from 'child_process';
-import isError from 'lodash/isError';
+import _ from 'lodash';
 import * as logger from '@markbind/core/src/utils/logger';
 import { ExecSyncOptions } from 'node:child_process';
 import { fileURLToPath } from 'url';
@@ -16,7 +16,6 @@ import {
   plantumlGeneratedFilesForTemplateSites,
 } from './testSites.js';
 
-const _ = { isError };
 // Path to the compiled CLI executable
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CLI_PATH = path.resolve(__dirname, '../../index.js');

@@ -3,11 +3,8 @@ import path from 'path';
 import ignore from 'ignore';
 import walkSync from 'walk-sync';
 import { isBinary } from 'istextorbinary';
-import isEqual from 'lodash/isEqual';
-import intersection from 'lodash/intersection';
+import _ from 'lodash';
 import { diffCharsAndPrint as diffChars } from './diffChars.js';
-
-const _ = { isEqual, intersection };
 
 // List of file patterns to ignore during content diff comparison.
 // Either binary files or files not recognized correctly by the istextorbinary package.

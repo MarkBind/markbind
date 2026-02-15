@@ -1,14 +1,8 @@
 import path from 'path';
 import { Site } from '@markbind/core';
-import isBoolean from 'lodash/isBoolean';
-import isError from 'lodash/isError';
+import _ from 'lodash';
 import * as cliUtil from '../util/cliUtil.js';
 import * as logger from '../util/logger.js';
-
-const _ = {
-  isBoolean,
-  isError,
-};
 
 function build(userSpecifiedRoot: string, output: string, options: any) {
   // if --baseUrl contains no arguments (options.baseUrl === true) then set baseUrl to empty string

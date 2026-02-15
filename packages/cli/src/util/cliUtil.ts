@@ -1,14 +1,14 @@
 import findUp from 'find-up';
 import fs from 'fs-extra';
 import path from 'path';
-import isString from 'lodash/isString';
+import _ from 'lodash';
 
 import { SITE_CONFIG_NAME } from '@markbind/core/src/Site/constants';
 
 const DIR_NOT_EMPTY_ERROR_CODE = 'ENOTEMPTY';
 
 function hasErrorCodeAndMessage(err: any): err is { code: string, message: string } {
-  return isString(err.code) && isString(err.message);
+  return _.isString(err.code) && _.isString(err.message);
 }
 
 function tryDeleteFolder(pathName: string) {
