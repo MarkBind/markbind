@@ -49,15 +49,6 @@ packages/cli/dist/**/*.js
 packages/vue-components/src/directives/Closeable.js
 packages/vue-components/src/directives/Float.js
 
-# Ignore compiled JS from TS
-packages/vue-components/src/utils/pubsub.js
-packages/vue-components/src/utils/urls.js
-packages/vue-components/src/utils/dropdown.js
-packages/vue-components/src/utils/submenu.js
-packages/vue-components/src/utils/colors.js
-packages/vue-components/src/utils/utils.js
-packages/vue-components/src/utils/NodeList.js
-
 # Legacy code with pre-existing lint issues
 packages/vue-components/src/utils/NodeList.ts
 packages/vue-components/src/utils/utils.ts
