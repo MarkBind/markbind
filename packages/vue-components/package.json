@@ -21,9 +21,8 @@
     "directory": "packages/vue-components"
   },
   "scripts": {
-    "test": "jest --clearCache && jest --colors",
-    "updatetest": "jest --updateSnapshot",
-    "typecheck": "tsc"
+    "test": "tsc && jest --clearCache && jest --colors",
+    "updatetest": "jest --updateSnapshot"
   },
   "devDependencies": {
     "@babel/core": "^7.26.9",
