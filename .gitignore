@@ -113,5 +113,10 @@ packages/core/src/lib/progress/*.js
 .nx/cache
 .nx/workspace-data
 
+# AI Tools directories (symlinks)
+.opencode
+.cline
+.claude
+
 # Build folder
 dist/
