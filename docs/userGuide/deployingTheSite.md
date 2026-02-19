@@ -113,7 +113,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '22'
       - run: npm i -g markbind-cli
       - run: markbind deploy --ci
 ```
@@ -316,7 +316,7 @@ Commit and push `appveyor.yml` to your GitHub repository. Thereafter, AppVeyor C
         steps:
           - checkout
           - node/install:
-              node-version: "18"
+              node-version: "22"
               npm-version: "10"
               install-yarn: false
           - run: node --version
@@ -436,7 +436,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
       - name: Build MarkBind website
         run: |
           npm install -g markbind-cli
@@ -506,7 +506,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
       - name: Build PR preview url
         id: pr-url
         run: |
