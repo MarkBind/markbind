@@ -1,11 +1,13 @@
 {
   "extends": "../../tsconfig_base.json",
-  "exclude": ["node_modules", "**/*.test.ts", "dist", "**/*.test.js", "test/**/*.js", "**/__mocks__", "coverage"],
+  "exclude": ["node_modules", "dist", "**/*.test.js", "test/**/*.js", "**/__mocks__", "coverage"],
   "references": [
     { "path":  "../core/tsconfig.json" }
   ],
   "compilerOptions": {
     "outDir": "./dist",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "allowJs": true,
   }
 }

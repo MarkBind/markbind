@@ -1,14 +1,10 @@
 import fs from 'fs-extra';
 import path from 'path';
-import isError from 'lodash/isError';
+import _ from 'lodash';
 
 import { Template } from '@markbind/core';
 
-import * as logger from '../util/logger';
-
-const _ = {
-  isError,
-};
+import * as logger from '../util/logger.js';
 
 async function init(root: string, options: any) {
   const rootFolder = path.resolve(root || process.cwd());

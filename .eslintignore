@@ -40,6 +40,7 @@ packages/core/src/lib/markdown-it/plugins/*
 
 # --- packages/cli ---
 packages/cli/dist/**/*.js
+packages/cli/test/functional/**/*.js
 # --- packages/cli end ---
 
 !.eslintrc.js

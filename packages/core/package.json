@@ -9,6 +9,32 @@
     "fragment",
     "reusable"
   ],
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./src/utils/fsUtil": {
+      "types": "./src/utils/fsUtil.d.ts",
+      "default": "./src/utils/fsUtil.js"
+    },
+    "./src/utils/logger": {
+      "types": "./src/utils/logger.d.ts",
+      "default": "./src/utils/logger.js"
+    },
+    "./src/Site/constants": {
+      "types": "./src/Site/constants.d.ts",
+      "default": "./src/Site/constants.js"
+    },
+    "./src/Page/PageVueServerRenderer": {
+      "types": "./src/Page/PageVueServerRenderer.d.ts",
+      "default": "./src/Page/PageVueServerRenderer.js"
+    },
+    "./test/unit/utils/data": {
+      "types": "./test/unit/utils/data.d.ts",
+      "default": "./test/unit/utils/data.js"
+    }
+  },
   "homepage": "https://markbind.org",
   "license": "MIT",
   "main": "index.js",
@@ -81,7 +107,7 @@
     "@types/jest": "^27.4.1",
     "@types/js-beautify": "^1.13.3",
     "@types/katex": "^0.16.0",
-    "@types/lodash": "^4.14.181",
+    "@types/lodash": "4.14.181",
     "@types/markdown-it": "^12.2.3",
     "@types/node": "^18.15.0",
     "@types/nunjucks": "^3.2.1",

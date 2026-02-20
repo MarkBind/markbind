@@ -216,7 +216,8 @@
     "*.md",
     "testFileIgnore.sh",
     "testFileIgnore/*",
-    "expected/*"
+    "expected/*",
+    "_markbind/plugins/package.json"
   ],
   "deploy": {
     "message": "Site Update."

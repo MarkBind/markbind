@@ -8,8 +8,8 @@
 ## Core Technologies & Stack
 
 * Languages:
-    * TypeScript (Backend/Core logic, `packages/core`)
-    * JavaScript (Legacy scripts, CLI, Webpack configs)
+    * TypeScript (Backend/Core logic, CLI, `packages/core`, `packages/cli`)
+    * JavaScript (Legacy scripts, Webpack configs)
     * Vue.js 3 (Frontend components, `packages/vue-components`, `packages/core-web`)
 * Frameworks & Runtimes:
     * Node.js (Runtime)
@@ -49,8 +49,8 @@
 
 ## Key Files & Entrypoints
 
-* CLI Entry: `packages/cli/index.js`
-* Core Entry: `packages/core/index.js`
+* CLI Entry: `packages/cli/index.ts` (TypeScript, ESM)
+* Core Entry: `packages/core/index.js` (JavaScript, CommonJS)
 * Monorepo Config: `lerna.json`
 * Lint Config: `.eslintrc.js`
 

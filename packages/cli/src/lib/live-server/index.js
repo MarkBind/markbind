@@ -15,25 +15,27 @@
  * The **only** changes are prefaced with a CHANGED comment
  */
 
-var fs = require('fs'),
-  connect = require('connect'),
-  serveIndex = require('serve-index'),
-  logger = require('morgan'),
-  WebSocket = require('faye-websocket'),
-  path = require('path'),
-  parse = require('url-parse'),
-  http = require('http'),
-  send = require('send'),
-  open = require('opn'),
-  es = require("event-stream"),
-  os = require('os'),
-  chokidar = require('chokidar'),
-  // CHANGED: added MarkBind's core fsUtil package
-  fsUtil = require('@markbind/core/src/utils/fsUtil');
-require('colors');
+import fs from "fs";
+import connect from "connect";
+import serveIndex from 'serve-index';
+import logger from "morgan";
+import WebSocket from "faye-websocket";
+import path from "path";
+import parse from "url-parse";
+import http from "http";
+import send from "send";
+import open from "opn";
+import es from "event-stream";
+import os from "os";
+import chokidar from "chokidar";
+import fsUtil from "@markbind/core/src/utils/fsUtil";
+import "colors";
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 // CHANGED: added absolute path that directs to the live-server directory
-const pathToLiveServerDir = path.dirname(require.resolve('live-server'));
+// Use createRequire for Node 18 compatibility (import.meta.resolve is synchronous only in Node 20.6.0+)
+const pathToLiveServerDir = dirname(fileURLToPath(import.meta.resolve('live-server')))
 
 // CHANGED: correctly resolve to the live-server directory
 var INJECTED_CODE = fs.readFileSync(path.join(pathToLiveServerDir, "injected.html"), "utf8");
@@ -285,7 +287,7 @@ LiveServer.start = function(options) {
       setTimeout(function() {
         server.listen(0, host);
       }, 1000);
-    
+
     // CHANGED: Added handling for EADDRNOTAVAIL error
     } else if (e.code === 'EADDRNOTAVAIL') {
       console.log('%s is not available. Trying another address'.yellow, host);
@@ -364,7 +366,7 @@ LiveServer.start = function(options) {
 
   // Setup server to listen at port
   server.listen(port, host);
-  
+
   // WebSocket
   // CHANGED: Removed local clients variable in favour of the clients in active tabs entries
   server.addListener('upgrade', function(request, socket, head) {
@@ -398,7 +400,7 @@ LiveServer.start = function(options) {
     const reqUrl = path.dirname(request.url);
     const normalizedUrl = fsUtil.ensurePosix(path.relative(LiveServer.baseUrl, reqUrl));
 
-    // If an entry with empty client is present, reuse existing entry to maintain order from pre-reload 
+    // If an entry with empty client is present, reuse existing entry to maintain order from pre-reload
     const existingTab = LiveServer.activeTabs.find(tab => tab.url === normalizedUrl && !tab.client);
     if (existingTab) {
       existingTab.client = ws;
@@ -505,4 +507,4 @@ LiveServer.sendMessageToActiveTabs = (msg) => {
 // CHANGED: Added convenience method to reload all active tabs
 LiveServer.reloadActiveTabs = () => LiveServer.sendMessageToActiveTabs('reload');
 
-module.exports = LiveServer;
+export { LiveServer }

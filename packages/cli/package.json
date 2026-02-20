@@ -1,6 +1,7 @@
 {
   "name": "markbind-cli",
   "version": "6.2.0",
+  "type": "module",
   "description": "Command line interface for MarkBind",
   "keywords": [
     "mark",
@@ -27,7 +28,7 @@
   },
   "scripts": {
     "test": "jest --colors && cd test/functional && node ../../dist/test/functional/test.js",
-    "updatetest": "cd test/functional && node updatetest.js",
+    "updatetest": "cd test/functional && node ../../dist/test/functional/updatetest.js",
     "build": "tsc",
     "dev": "tsc --watch"
   },
@@ -50,14 +51,17 @@
   },
   "devDependencies": {
     "@types/jest": "^29.4.6",
-    "@types/lodash": "^4.14.181",
+    "@types/lodash": "^4.17.15",
     "@types/url-parse": "^1.4.8",
     "diff": "^8.0.3",
-    "ignore": "^5.1.4",
+    "ignore": "^7.0.5",
     "istextorbinary": "^9.5.0",
     "jest": "^29.7.0",
     "memfs": "^4.56.2",
-    "ts-jest": "^29.4.6",
-    "walk-sync": "^2.0.2"
+    "walk-sync": "^2.0.2",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.0",
+    "@babel/preset-typescript": "^7.28.5",
+    "babel-jest": "^29.7.0"
   }
 }
