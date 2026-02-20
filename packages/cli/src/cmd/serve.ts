@@ -144,7 +144,7 @@ function serve(userSpecifiedRoot: string, options: any) {
         serverConfig.open = serverConfig.open && `${config.baseUrl}/`;
       }
 
-      return site.generate('');
+      return site.generate(undefined);
     })
     .then(() => {
       const watcher = chokidar.watch(rootFolder, {
