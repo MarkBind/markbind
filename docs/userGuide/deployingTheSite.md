@@ -201,7 +201,7 @@ Since May 2018, Travis CI has been [undergoing migration to `travis-ci.com`](htt
     ```yml
     language: node_js
     node_js:
-      - 18
+      - 22
     install:
       - npm i -g markbind-cli
     script: markbind build
@@ -269,7 +269,7 @@ The `repo` value can be changed to your specific repository as desired.
 
     ```yml
     environment:
-      nodejs_version: '18'
+      nodejs_version: '22'
     
     branches:
       only:
