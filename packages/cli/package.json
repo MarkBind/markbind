@@ -28,7 +28,7 @@
   },
   "scripts": {
     "test": "jest --colors && cd test/functional && node ../../dist/test/functional/test.js",
-    "updatetest": "cd test/functional && node updatetest.js",
+    "updatetest": "cd test/functional && node ../../dist/test/functional/updatetest.js",
     "build": "tsc",
     "dev": "tsc --watch"
   },
