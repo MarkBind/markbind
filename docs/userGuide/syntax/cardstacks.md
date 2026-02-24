@@ -14,7 +14,7 @@ Each `card` contains `tag` and `keyword` field:
 
 <box type="info">
 
-The search feature searches the `card` components of `cardstack` by header, tags and keywords specified within each card component.
+The search feature searches the `card` components of `cardstack` by header, body text, tags, and keywords specified within each card component.
 
 Specifying them can help improve searchability of the `cardstack` component!
 
@@ -60,7 +60,7 @@ For example, if a card is about "Machine Learning," you might tag it as `AI` and
 As shown in the above example,
 - a `card` can be given a `header` attribute (optional).
 - tags can be added to cards using the `tag` attribute, which can then be used to filter cards.
-- the `searchable` attribute can be used to make the Card Stack searchable based on tags and headers.
+- the `searchable` attribute can be used to make the Card Stack searchable based on card content, tags, and headers.
 
 In the example given below, a Card Stack is used to show a list of questions and answers, by including `question` components inside `card` components.
 

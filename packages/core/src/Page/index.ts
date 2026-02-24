@@ -50,6 +50,7 @@ export class Page {
   includedFiles!: Set<string>;
   headings!: Record<string, string>;
   keywords!: Record<string, string[]>;
+  body!: string;
   navigableHeadings!: {
     [id: string]: {
       text: string,
@@ -113,6 +114,10 @@ export class Page {
      * https://markbind.org/userGuide/makingTheSiteSearchable.html#keywords
      */
     this.keywords = {};
+    /**
+     * Normalized page body text used for search indexing.
+     */
+    this.body = '';
     /**
      * The title of the page.
      * This is initially set to the title specified in the site configuration,
@@ -291,6 +296,13 @@ export class Page {
    */
   collectHeadingsAndKeywords(pageContent: string) {
     this.collectHeadingsAndKeywordsInContent(pageContent, null, false, []);
+    this.collectBodyText(pageContent);
+  }
+
+  collectBodyText(content: string) {
+    const $ = cheerio.load(content);
+    $('modal, panel, script, style, noscript').remove();
+    this.body = $.root().text().replace(/\s+/g, ' ').trim();
   }
 
   /**
