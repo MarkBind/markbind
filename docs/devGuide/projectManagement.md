@@ -107,6 +107,8 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
 
 1. **Login to your npm account in your terminal** by running `npm login`.
 
+1. **Make sure to start with a "clean slate"** by running `npx lerna clean` and then `npm run setup` in the root MarkBind directory.
+
 1. **Increment the version number** by running `npx lerna version --no-push --exact`. Which to increment (`patch`, `minor` or `major`) depends on what PRs are merged for the new version, which means you must know beforehand about the changes.
 
    <box type="info" seamless>
@@ -117,7 +119,13 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    * Do not push this commit to the remote repository yet.
    </box>
 
-1. **Make sure to start with a "clean slate"** by running `npx lerna clean` and then `npm run setup` in the root MarkBind directory.
+1. **Rerun `npm run setup`** to ensure that the updated version numbers are reflected in the packages.
+
+   <box type="info" seamless>
+
+   * This is to ensure that the updated version numbers are reflected in the built distribution folder `dist`.
+   * This is because the version number is updated in the `package.json` file of the packages in the previous step, and `npm run setup` will copy the updated file into the built distribution folder `dist`.
+   </box>
 
 1. **Build the core-web package bundle** by executing `npm run build:web` in the root directory, after which you should see changes in the bundles located in `packages/core-web/dist`. <br><br>Take a peek at the diff for the bundles to see if there are any strange changes.
 
