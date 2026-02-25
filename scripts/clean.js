@@ -15,8 +15,6 @@
 
 const fs = require('fs');
 const path = require('path');
-// eslint-disable-next-line import/no-extraneous-dependencies
-const walkSync = require('walk-sync');
 
 const JS_MAP_RE = /\.js\.map$/;
 const COMPILED_FILES_EXTS = ['.d.ts', '.d.ts.map', '.js', '.js.map'];
@@ -38,18 +36,14 @@ function removeFile(file) {
 }
 
 function cleanDir(dir) {
-  const jsMapFiles = walkSync(dir, {
-    globs: ['**/*.js.map'],
-    ignore: ['**/node_modules'],
-    directories: false,
-    includeBasePath: true,
-  });
+  const jsMapFilePaths = fs.globSync('**/*.js.map', {
+    cwd: dir,
+    exclude: ['**/node_modules/**'],
+  }).map(file => path.join(dir, file));
 
-  jsMapFiles.forEach((jsMapFile) => {
-    COMPILED_FILES_EXTS.forEach((ext) => {
-      const extFile = jsMapFile.replace(JS_MAP_RE, ext);
-      removeFile(extFile);
-    });
+  jsMapFilePaths.forEach((jsMapFilePath) => {
+    const compiledFilePaths = COMPILED_FILES_EXTS.map(ext => jsMapFilePath.replace(JS_MAP_RE, ext));
+    compiledFilePaths.forEach(removeFile);
   });
 }
 
