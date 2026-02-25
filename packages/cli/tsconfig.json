@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig_base.json",
-  "exclude": ["node_modules", "dist", "**/*.test.js", "test/**/*.js", "**/__mocks__", "coverage"],
+  "exclude": ["node_modules", "dist", "test/unit/**/*.ts","**/*.test.js", "test/**/*.js", "**/__mocks__", "coverage"],
   "references": [
     { "path":  "../core/tsconfig.json" }
   ],
