@@ -34,7 +34,6 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 // CHANGED: added absolute path that directs to the live-server directory
-// Use createRequire for Node 18 compatibility (import.meta.resolve is synchronous only in Node 20.6.0+)
 const pathToLiveServerDir = dirname(fileURLToPath(import.meta.resolve('live-server')))
 
 // CHANGED: correctly resolve to the live-server directory
