@@ -39,6 +39,9 @@ Switch to use the Node.js version that you are migrating to.
     - Go to the [Node.js changelog](https://nodejs.org/en/blog/release) of the new version
     - Go through the list of deprecated syntax and check if it is being used in MarkBind
     - Replace any deprecated syntax
+1. Update Node type dependency
+    - TypeScript does not automatically know which version of Node.js you are using. You must update the `@types/node` package to match your target Node.js runtime so that the compiler can recognize new global variables, modules, and method signatures.
+    - Run `npm install -D @types/node@<new-version>` to install the new type definitions.
 2. Check that all user-facing functionalities are working
     - A quick way to do this is to go to the <a tags="environment--combined" href="/userGuide/readerFacingFeatures.html">Reader Facing Features in the User Guide</a><a tags="environment--dg" href="https://markbind.org/userGuide/readerFacingFeatures.html">Reader Facing Features in the User Guide</a>.
 3. Check that there are no issues with development setup
