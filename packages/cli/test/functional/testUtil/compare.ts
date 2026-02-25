@@ -35,6 +35,11 @@ function filterIgnoredFiles(filePaths: string[]) {
   return filteredFiles;
 }
 
+function direntToRelativePath(dir: string, dirent: fs.Dirent): string {
+  const relativeDir = path.relative(dir, dirent.parentPath || dirent.path);
+  return relativeDir ? `${relativeDir}/${dirent.name}` : dirent.name;
+}
+
 /**
  * Gets directory structure as a sorted array of relative directory paths
  * @param {string} dirPath - Existing directory path to analyze
@@ -52,11 +57,6 @@ function getRecursiveListOfFilesInDirectory(dir: string): string[] {
     .filter((dirent: fs.Dirent) => dirent.isFile())
     .map((dirent: fs.Dirent) => direntToRelativePath(dir, dirent))
     .sort();
-}
-
-function direntToRelativePath(dir: string, dirent: fs.Dirent): string {
-  const relativeDir = path.relative(dir, dirent.parentPath || dirent.path);
-  return relativeDir ? `${relativeDir}/${dirent.name}` : dirent.name;
 }
 
 /**
@@ -111,7 +111,8 @@ function compare(root: string, expectedSiteRelativePath = 'expected', siteRelati
   if (expectedPaths.length !== actualPaths.length) {
     const missing = expectedPaths.filter(p => !actualPaths.includes(p));
     const extra = actualPaths.filter(p => !expectedPaths.includes(p));
-    let errorMessage = `Unequal number of files! Expected: ${expectedPaths.length}, Actual: ${actualPaths.length}`;
+    let errorMessage = 'Unequal number of files! '
+      + `Expected: ${expectedPaths.length}, Actual: ${actualPaths.length}`;
     if (missing.length > 0) errorMessage += `\nMissing files:\n  ${missing.join('\n  ')}`;
     if (extra.length > 0) errorMessage += `\nExtra files:\n  ${extra.join('\n  ')}`;
     throw new Error(errorMessage);
