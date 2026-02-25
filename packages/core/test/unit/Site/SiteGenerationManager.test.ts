@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { SiteGenerationManager } from '../../../src/Site/SiteGenerationManager';
+import * as fsUtil from '../../../src/utils/fsUtil';
 import {
   PAGE_NJK, SITE_JSON_DEFAULT,
 } from '../utils/data';
@@ -10,7 +11,15 @@ import {
 // keeping tests fast and isolated.
 const mockFs = fs as any;
 jest.mock('fs');
-jest.mock('walk-sync');
+jest.mock('../../../src/utils/fsUtil', () => {
+  const originalModule = jest.requireActual('../../../src/utils/fsUtil');
+
+  return {
+    __esModule: true,
+    ...originalModule,
+    getFilePaths: jest.fn(),
+  };
+});
 jest.mock('../../../src/Page');
 jest.mock('../../../src/plugins/PluginManager');
 jest.mock('../../../src/Site/SiteAssetsManager', () => ({
@@ -77,6 +86,11 @@ describe('SiteGenerationManager', () => {
       'otherSub/sub/site.json': SITE_JSON_DEFAULT,
     };
     mockFs.vol.fromJSON(json, rootPath);
+
+    // Mock getFilePaths to return relative file paths as they would be from rootPath
+    (fsUtil.getFilePaths as jest.Mock).mockReturnValue(
+      Object.keys(json).filter(p => !p.endsWith('/')),
+    );
 
     const baseUrlMapExpected = new Set(['', 'sub', 'sub/sub', 'otherSub/sub']
       .map(url => path.resolve(rootPath, url)));
@@ -154,6 +168,12 @@ describe('SiteGenerationManager', () => {
     mockFs.vol.fromJSON(json, rootPath);
 
     await generationManager.readSiteConfig();
+
+    // Mock getFilePaths for collectBaseUrl
+    (fsUtil.getFilePaths as jest.Mock).mockReturnValue(
+      Object.keys(json).filter(p => !p.endsWith('/')),
+    );
+
     generationManager.collectBaseUrl();
     generationManager.collectUserDefinedVariablesMap();
 
@@ -183,6 +203,12 @@ describe('SiteGenerationManager', () => {
     mockFs.vol.fromJSON(json, rootPath);
 
     await generationManager.readSiteConfig();
+
+    // Mock getFilePaths for collectBaseUrl
+    (fsUtil.getFilePaths as jest.Mock).mockReturnValue(
+      Object.keys(json).filter(p => !p.endsWith('/')),
+    );
+
     generationManager.collectBaseUrl();
     generationManager.collectUserDefinedVariablesMap();
 

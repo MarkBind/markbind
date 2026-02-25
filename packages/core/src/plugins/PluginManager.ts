@@ -2,11 +2,11 @@ import merge from 'lodash/merge';
 
 import path from 'path';
 import fs from 'fs-extra';
-import walkSync from 'walk-sync';
 import flatMap from 'lodash/flatMap';
 import get from 'lodash/get';
 import includes from 'lodash/includes';
 import isError from 'lodash/isError';
+import * as fsUtil from '../utils/fsUtil';
 import * as logger from '../utils/logger';
 import {
   FrontMatter, Plugin, PluginContext, TagConfigs,
@@ -69,10 +69,9 @@ export class PluginManager {
    * Load all plugins of the site
    */
   _collectPlugins() {
-    const defaultPluginNames = walkSync(MARKBIND_DEFAULT_PLUGIN_DIRECTORY, {
-      directories: false,
-      globs: [`${MARKBIND_PLUGIN_PREFIX}*.js`],
-    }).map(file => path.basename(file, '.js'));
+    const defaultPluginNames = fsUtil.getFilePaths(MARKBIND_DEFAULT_PLUGIN_DIRECTORY)
+      .filter(file => file.startsWith(MARKBIND_PLUGIN_PREFIX) && file.endsWith('.js'))
+      .map(file => path.basename(file, '.js'));
 
     this.pluginsRaw
       .filter(plugin => !_.includes(defaultPluginNames, plugin))

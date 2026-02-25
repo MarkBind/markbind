@@ -1,11 +1,23 @@
 import fs from 'fs-extra';
+import ignore from 'ignore';
 import { SitePagesManager } from '../../../src/Site/SitePagesManager';
 import { SiteConfig } from '../../../src/Site/SiteConfig';
 import { PAGE_NJK, SITE_JSON_DEFAULT } from '../utils/data';
+import * as fsUtil from '../../../src/utils/fsUtil';
 
 const mockFs = fs as any;
 
 jest.mock('fs');
+jest.mock('../../../src/utils/fsUtil', () => {
+  const originalModule = jest.requireActual('../../../src/utils/fsUtil');
+
+  return {
+    __esModule: true,
+    ...originalModule,
+    getFilePaths: jest.fn(),
+    getPageGlobPaths: jest.fn(),
+  };
+});
 jest.mock('../../../src/Page');
 jest.mock('../../../src/plugins/PluginManager');
 
@@ -154,6 +166,9 @@ describe('SitePagesManager', () => {
 
       const manager = new SitePagesManager(rootPath, outputPath, false);
       manager.siteConfig = customSiteConfig as unknown as SiteConfig;
+
+      (fsUtil.getPageGlobPaths as jest.Mock).mockReturnValue(['index.md']);
+
       manager.collectAddressablePages();
       expect(manager.addressablePages)
         .toEqual(testCase.expected);
@@ -190,6 +205,9 @@ describe('SitePagesManager', () => {
 
     const manager = new SitePagesManager(rootPath, outputPath, false);
     manager.siteConfig = customSiteConfig as unknown as SiteConfig;
+
+    (fsUtil.getPageGlobPaths as jest.Mock).mockReturnValue(['index.md']);
+
     expect(() => manager.collectAddressablePages())
       .toThrow(new Error('Duplicate page entries found in site config: index.md'));
   });
@@ -259,6 +277,16 @@ describe('SitePagesManager', () => {
       mockFs.vol.fromJSON(json, rootPath);
       const manager = new SitePagesManager(rootPath, outputPath, false);
       manager.siteConfig = customSiteConfig as unknown as SiteConfig;
+
+      const allFiles = ['index.md', 'exclude.md'];
+      (fsUtil.getPageGlobPaths as jest.Mock).mockImplementation(
+        (_root: string, _globs: string[], ignPaths: string[]) => {
+          const ig = ignore();
+          ig.add(ignPaths);
+          return allFiles.filter(f => !ig.ignores(f));
+        },
+      );
+
       manager.collectAddressablePages();
       expect(manager.addressablePages)
         .toEqual(testCase.expected);

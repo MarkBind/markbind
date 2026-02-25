@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import ignore, { Ignore } from 'ignore';
 import path from 'path';
-import walkSync from 'walk-sync';
+import * as fsUtil from '../utils/fsUtil';
 
 import { SiteConfig, SiteConfigStyle } from './SiteConfig';
 import { delay } from '../utils/delay';
@@ -49,7 +49,7 @@ export class SiteAssetsManager {
   }
 
   listAssets(fileIgnore: Ignore) {
-    const files = walkSync(this.rootPath, { directories: false });
+    const files = fsUtil.getFilePaths(this.rootPath);
     return fileIgnore.filter(files);
   }
 

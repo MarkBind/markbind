@@ -1,6 +1,5 @@
 import fs from 'fs-extra';
 import path from 'path';
-import walkSync from 'walk-sync';
 import { Template as NunjucksTemplate } from 'nunjucks';
 
 import { Page } from '../Page';
@@ -179,15 +178,14 @@ export class SitePagesManager {
 
   getPageGlobPaths(page: SiteConfigPage, pagesExclude: string[]) {
     const pageGlobs = page.glob ?? [];
-    return walkSync(this.rootPath, {
-      directories: false,
-      globs: Array.isArray(pageGlobs) ? pageGlobs : [pageGlobs],
-      ignore: [
-        CONFIG_FOLDER_NAME,
-        SITE_FOLDER_NAME,
-        ...pagesExclude.concat(page.globExclude || []),
-      ],
-    });
+    const globsArray = Array.isArray(pageGlobs) ? pageGlobs : [pageGlobs];
+    const ignorePaths = [
+      CONFIG_FOLDER_NAME,
+      SITE_FOLDER_NAME,
+      ...pagesExclude.concat(page.globExclude || []),
+    ];
+
+    return fsUtil.getPageGlobPaths(this.rootPath, globsArray, ignorePaths);
   }
 
   /**

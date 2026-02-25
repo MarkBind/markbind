@@ -1,13 +1,13 @@
 import path from 'path';
 import fs from 'fs-extra';
-import walkSync from 'walk-sync';
+import * as fsUtil from '../../../src/utils/fsUtil';
 import { SiteAssetsManager } from '../../../src/Site/SiteAssetsManager';
 import { SiteConfig } from '../../../src/Site/SiteConfig';
 
 const mockFs = fs as any;
 
 jest.mock('fs');
-jest.mock('walk-sync', () => jest.fn());
+jest.mock('../../../src/utils/fsUtil');
 
 afterEach(() => mockFs.vol.reset());
 
@@ -45,7 +45,7 @@ describe('SiteAssetsManager', () => {
     };
     mockFs.vol.fromJSON(json, '');
 
-    (walkSync as unknown as jest.Mock).mockReturnValue(['style.css', 'script.js', 'ignore.md']);
+    (fsUtil.getFilePaths as jest.Mock).mockReturnValue(['style.css', 'script.js', 'ignore.md']);
 
     const manager = new SiteAssetsManager(rootPath, outputPath);
     manager.siteConfig = mockSiteConfig;
@@ -78,7 +78,7 @@ describe('SiteAssetsManager', () => {
     };
     mockFs.vol.fromJSON(json, '');
 
-    (walkSync as unknown as jest.Mock).mockReturnValue(['new.css']);
+    (fsUtil.getFilePaths as jest.Mock).mockReturnValue(['new.css']);
 
     const manager = new SiteAssetsManager(rootPath, outputPath);
     manager.siteConfig = { ignore: ['_site/*'] } as any;

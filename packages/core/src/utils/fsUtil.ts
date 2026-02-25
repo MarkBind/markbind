@@ -1,9 +1,42 @@
 import path from 'path';
 import fs from 'fs-extra';
+import { globSync } from 'node:fs';
+import ignore from 'ignore';
 import ensurePosix from 'ensure-posix-path';
 
 export interface CopyOptions {
   overwrite: boolean
+}
+
+/**
+ * Recursively gets all file paths in a directory
+ * Does not include the directory itself
+ */
+export function getFilePaths(dir: string): string[] {
+  if (!fs.existsSync(dir)) {
+    return [];
+  }
+  return globSync('**/*', { cwd: dir }).sort();
+}
+
+/**
+ * Gets file paths matching glob patterns, excluding specified paths.
+ * Uses native fs.globSync (Node 22+) for glob matching.
+ *
+ * @param rootPath root directory to search from
+ * @param globs glob patterns to match
+ * @param ignorePaths paths to exclude from results
+ * @returns array of matching relative file paths
+ */
+export function getPageGlobPaths(
+  rootPath: string,
+  globs: string[],
+  ignorePaths: string[],
+): string[] {
+  const ignorer = ignore().add(ignorePaths);
+  return globSync(globs, { cwd: rootPath })
+    .map(ensurePosix)
+    .filter(file => !ignorer.ignores(file));
 }
 
 const markdownFileExts = '.md';

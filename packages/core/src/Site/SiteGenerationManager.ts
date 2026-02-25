@@ -1,7 +1,6 @@
 import cheerio from 'cheerio';
 import fs from 'fs-extra';
 import path from 'path';
-import walkSync from 'walk-sync';
 
 import { SiteAssetsManager } from './SiteAssetsManager';
 import { SitePagesManager, AddressablePage } from './SitePagesManager';
@@ -183,7 +182,7 @@ export class SiteGenerationManager {
    * Collects the base url map in the site/subsites
    */
   collectBaseUrl() {
-    const candidates = walkSync(this.rootPath, { directories: false })
+    const candidates = fsUtil.getFilePaths(this.rootPath)
       .filter(x => x.endsWith(this.siteConfigPath))
       .map(x => path.resolve(this.rootPath, x));
 

@@ -1,6 +1,5 @@
 import fs from 'fs-extra';
 import path from 'path';
-import walkSync from 'walk-sync';
 import * as fsUtil from '../utils/fsUtil';
 import { INDEX_MARKDOWN_FILE, SITE_CONFIG_NAME, _ } from './constants';
 import { SiteConfig, SiteConfigPage } from './SiteConfig';
@@ -90,15 +89,14 @@ export class Template {
 
   getPageGlobPaths(page: SiteConfigPage, pagesExclude: string[]) {
     const pageGlobs = page.glob ?? [];
-    return walkSync(this.rootPath, {
-      directories: false,
-      globs: Array.isArray(pageGlobs) ? pageGlobs : [pageGlobs],
-      ignore: [
-        CONFIG_FOLDER_NAME,
-        SITE_FOLDER_NAME,
-        ...pagesExclude.concat(page.globExclude || []),
-      ],
-    });
+    const globsArray = Array.isArray(pageGlobs) ? pageGlobs : [pageGlobs];
+    const ignorePaths = [
+      CONFIG_FOLDER_NAME,
+      SITE_FOLDER_NAME,
+      ...pagesExclude.concat(page.globExclude || []),
+    ];
+
+    return fsUtil.getPageGlobPaths(this.rootPath, globsArray, ignorePaths);
   }
 
   /**

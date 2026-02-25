@@ -6,7 +6,6 @@ import { VariableProcessor } from '../../../src/variables/VariableProcessor';
 const mockFs = fs as any;
 
 jest.mock('fs');
-jest.mock('walk-sync');
 jest.mock('../../../src/Page/PageVueServerRenderer');
 jest.mock('../../../src/html/NodeProcessor');
 jest.mock('../../../src/variables/VariableProcessor');

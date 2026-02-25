@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { globSync } from 'node:fs';
 import path from 'path';
 import ignore from 'ignore';
 import { isBinary } from 'istextorbinary';
@@ -46,6 +47,10 @@ function direntToRelativePath(dir: string, dirent: fs.Dirent): string {
  * @returns {string[]} Sorted array of relative directory paths
  */
 function getDirectoryStructure(dirPath: string): string[] {
+  if (!fs.existsSync(dirPath)) {
+    return [];
+  }
+
   return fs.readdirSync(dirPath, { recursive: true, withFileTypes: true })
     .filter((dirent: fs.Dirent) => dirent.isDirectory())
     .map((dirent: fs.Dirent) => `${direntToRelativePath(dirPath, dirent)}/`)
@@ -100,6 +105,9 @@ function compare(root: string, expectedSiteRelativePath = 'expected', siteRelati
 
   // Check for file existence of ignoredPaths and that they are present in actualPaths
   if (ignoredPaths.length !== 0 && !_.isEqual(_.intersection(ignoredPaths, actualPaths), ignoredPaths)) {
+    console.log('ignoredPaths:', ignoredPaths);
+    console.log('actualPaths sample:', actualPaths.slice(0, 20));
+    console.log('Missing from actualPaths:', ignoredPaths.filter(p => !actualPaths.includes(p)));
     throw new Error('Ignored paths are not present in actual paths!');
   }
 
