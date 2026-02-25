@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import ignore from 'ignore';
-import walkSync from 'walk-sync';
 import { isBinary } from 'istextorbinary';
 import isEqual from 'lodash/isEqual';
 import intersection from 'lodash/intersection';
@@ -25,12 +24,15 @@ function _readFileSync(...paths: string[]) {
 }
 
 /**
- * Filters out .page-vue-render.js files from the list of file paths.
+ * Filters out .page-vue-render.js and .DS_Store files from the list of file paths.
  * @param {string[]} filePaths - List of file paths
- * @returns {string[]} Filtered list without *.page-vue-render.js files
+ * @returns {string[]} Filtered list without *.page-vue-render.js and *.DS_Store files
  */
-function filterPageVueRenderFiles(filePaths: string[]) {
-  return filePaths.filter(p => !p.endsWith('.page-vue-render.js'));
+function filterIgnoredFiles(filePaths: string[]) {
+  const filteredFiles = filePaths
+    .filter(p => !p.endsWith('.page-vue-render.js'))
+    .filter(p => !p.endsWith('.DS_Store'));
+  return filteredFiles;
 }
 
 /**
@@ -38,13 +40,23 @@ function filterPageVueRenderFiles(filePaths: string[]) {
  * @param {string} dirPath - Existing directory path to analyze
  * @returns {string[]} Sorted array of relative directory paths
  */
-function getDirectoryStructure(dirPath: string) {
-  const allPaths = walkSync(dirPath, { directories: true, globs: ['**/*'] });
-  return allPaths
-    .filter(p => fs.statSync(path.join(dirPath, p))
-      .isDirectory())
-    .map(p => p.replace(/\\/g, '/')) // Normalize path separators
+function getDirectoryStructure(dirPath: string): string[] {
+  return fs.readdirSync(dirPath, { recursive: true, withFileTypes: true })
+    .filter((dirent: fs.Dirent) => dirent.isDirectory())
+    .map((dirent: fs.Dirent) => `${direntToRelativePath(dirPath, dirent)}/`)
     .sort();
+}
+
+function getRecursiveListOfFilesInDirectory(dir: string): string[] {
+  return fs.readdirSync(dir, { recursive: true, withFileTypes: true })
+    .filter((dirent: fs.Dirent) => dirent.isFile())
+    .map((dirent: fs.Dirent) => direntToRelativePath(dir, dirent))
+    .sort();
+}
+
+function direntToRelativePath(dir: string, dirent: fs.Dirent): string {
+  const relativeDir = path.relative(dir, dirent.parentPath || dirent.path);
+  return relativeDir ? `${relativeDir}/${dirent.name}` : dirent.name;
 }
 
 /**
@@ -76,14 +88,15 @@ function compare(root: string, expectedSiteRelativePath = 'expected', siteRelati
     }
   }
 
-  let expectedPaths = walkSync(expectedDirectory, { directories: false });
-  let actualPaths = walkSync(actualDirectory, { directories: false });
+  let expectedPaths = getRecursiveListOfFilesInDirectory(expectedDirectory);
+  let actualPaths = getRecursiveListOfFilesInDirectory(actualDirectory);
 
   // Vue render JS files (*.page-vue-render.js) are not committed to version control,
   // so we exclude them from the comparison to avoid false positive diffs.
   // Note: Every non-includes .html file has a corresponding js render binary file
-  actualPaths = filterPageVueRenderFiles(actualPaths);
-  expectedPaths = filterPageVueRenderFiles(expectedPaths);
+  // We also exclude .DS_Store files which are created by macOS.
+  actualPaths = filterIgnoredFiles(actualPaths);
+  expectedPaths = filterIgnoredFiles(expectedPaths);
 
   // Check for file existence of ignoredPaths and that they are present in actualPaths
   if (ignoredPaths.length !== 0 && !_.isEqual(_.intersection(ignoredPaths, actualPaths), ignoredPaths)) {
@@ -96,8 +109,12 @@ function compare(root: string, expectedSiteRelativePath = 'expected', siteRelati
 
   let error = false;
   if (expectedPaths.length !== actualPaths.length) {
-    throw new Error('Unequal number of files! '
-      + `Expected: ${expectedPaths.length}, Actual: ${actualPaths.length}`);
+    const missing = expectedPaths.filter(p => !actualPaths.includes(p));
+    const extra = actualPaths.filter(p => !expectedPaths.includes(p));
+    let errorMessage = `Unequal number of files! Expected: ${expectedPaths.length}, Actual: ${actualPaths.length}`;
+    if (missing.length > 0) errorMessage += `\nMissing files:\n  ${missing.join('\n  ')}`;
+    if (extra.length > 0) errorMessage += `\nExtra files:\n  ${extra.join('\n  ')}`;
+    throw new Error(errorMessage);
   }
 
   /* eslint-disable no-continue */
@@ -106,7 +123,12 @@ function compare(root: string, expectedSiteRelativePath = 'expected', siteRelati
     const actualFilePath = actualPaths[i];
 
     if (expectedFilePath !== actualFilePath) {
-      throw new Error(`Different files built! Expected: ${expectedFilePath}, Actual: ${actualFilePath}`);
+      const missing = expectedPaths.filter(p => !actualPaths.includes(p));
+      const extra = actualPaths.filter(p => !expectedPaths.includes(p));
+      let errorMessage = `Different files built! Expected: ${expectedFilePath}, Actual: ${actualFilePath}`;
+      if (missing.length > 0) errorMessage += `\nMissing files:\n  ${missing.join('\n  ')}`;
+      if (extra.length > 0) errorMessage += `\nExtra files:\n  ${extra.join('\n  ')}`;
+      throw new Error(errorMessage);
     }
 
     if (isBinary(expectedFilePath) || TEST_BLACKLIST.ignores(expectedFilePath)) {
