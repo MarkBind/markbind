@@ -114,6 +114,10 @@ export class Page {
      */
     this.keywords = {};
     /**
+     * Normalized page body text used for search indexing.
+     */
+    this.body = '';
+    /**
      * The title of the page.
      * This is initially set to the title specified in the site configuration,
      * if there is none, we look for one in the frontmatter(s) as well.
@@ -291,6 +295,13 @@ export class Page {
    */
   collectHeadingsAndKeywords(pageContent: string) {
     this.collectHeadingsAndKeywordsInContent(pageContent, null, false, []);
+    this.collectBodyText(pageContent);
+  }
+
+  collectBodyText(content: string) {
+    const $ = cheerio.load(content);
+    $('modal, panel, script, style, noscript').remove();
+    this.body = $.root().text().replace(/\s+/g, ' ').trim();
   }
 
   /**
