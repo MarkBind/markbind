@@ -50,7 +50,6 @@ export class Page {
   includedFiles!: Set<string>;
   headings!: Record<string, string>;
   keywords!: Record<string, string[]>;
-  body!: string;
   navigableHeadings!: {
     [id: string]: {
       text: string,
