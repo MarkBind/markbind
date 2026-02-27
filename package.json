@@ -27,7 +27,7 @@
   "devDependencies": {
     "@babel/preset-typescript": "^7.28.5",
     "@stylistic/stylelint-plugin": "^2.1.0",
-    "@types/node": "^18.15.0",
+    "@types/node": "^22.19.11",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "danger": "^13.0.4",
