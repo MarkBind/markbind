@@ -1,4 +1,4 @@
-export const BADGE_COLOURS = [
+export const BADGE_COLOURS: string[] = [
   'bg-primary',
   'bg-secondary',
   'bg-success',
@@ -9,13 +9,13 @@ export const BADGE_COLOURS = [
   'bg-dark',
 ];
 
-export const MIN_TAGS_FOR_SELECT_ALL = 3;
+export const MIN_TAGS_FOR_SELECT_ALL: number = 3;
 
-export function isBootstrapColor(color) {
+export function isBootstrapColor(color: string): boolean {
   return BADGE_COLOURS.some(c => c === color);
 }
 
-export function getTextColor(backgroundColor) {
+export function getTextColor(backgroundColor: string | null | undefined): string {
   if (!backgroundColor || backgroundColor.startsWith('bg-')) {
     return '#000';
   }
@@ -28,7 +28,7 @@ export function getTextColor(backgroundColor) {
 }
 
 // Helper function to normalize color value
-export const normalizeColor = (color) => {
+export const normalizeColor = (color: string | null | undefined): string | null => {
   if (!color) return null;
 
   // If it's a hex color, return as-is
@@ -37,7 +37,7 @@ export const normalizeColor = (color) => {
   }
 
   // Check if it's a Bootstrap color name (without bg- prefix)
-  const bootstrapColorNames = [
+  const bootstrapColorNames: string[] = [
     'primary', 'secondary', 'success', 'danger',
     'warning', 'info', 'light', 'dark',
   ];

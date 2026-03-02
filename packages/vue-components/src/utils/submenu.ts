@@ -6,8 +6,15 @@
  * Licensed under MIT (https://github.com/kybarg/bootstrap-dropdown-hover/blob/master/LICENSE)
  * ======================================================================== */
 
-function isRightAlign(el) {
-  const viewport = {
+interface Rect {
+  top: number;
+  left: number;
+  right: number;
+  bottom: number;
+}
+
+export function isRightAlign(el: HTMLElement): boolean {
+  const viewport: Rect = {
     top: 0,
     left: 0,
     right: window.innerWidth,
@@ -20,7 +27,7 @@ function isRightAlign(el) {
     return true;
   }
 
-  const bounds = {
+  const bounds: Rect = {
     top: position.y,
     left: position.x,
     right: position.x + el.offsetWidth,
@@ -40,10 +47,10 @@ function isRightAlign(el) {
   return true;
 }
 
-function preventOverflow(el) {
+export function preventOverflow(el: HTMLElement): void {
   el.removeAttribute('style');
 
-  const viewport = {
+  const viewport: Rect = {
     top: 0,
     left: 0,
     right: window.innerWidth,
@@ -56,7 +63,7 @@ function preventOverflow(el) {
     return;
   }
 
-  const bounds = {
+  const bounds: Rect = {
     top: position.y,
     left: position.x,
     right: position.x + el.offsetWidth,
@@ -69,5 +76,3 @@ function preventOverflow(el) {
     el.setAttribute('style', `top: auto; bottom: ${-(viewport.top - bounds.top)}px;`);
   }
 }
-
-export default { isRightAlign, preventOverflow };

@@ -9,6 +9,13 @@ module.exports = {
   },
   "plugins": ["lodash"],
   "extends": ["airbnb-base", "plugin:lodash/recommended"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts", ".vue", ".json"],
+      },
+    },
+  },
   "rules": {
     "array-bracket-newline": ["error", { "multiline": true }],
     "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
@@ -32,6 +39,14 @@ module.exports = {
     "lodash/prefer-noop": [0],
     "max-len": ["error", { "code": 110 }],
     "no-param-reassign": ["error", { "props": false }],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "ts": "never",
+      },
+    ],
     "operator-linebreak": ["error", "before"],
     // override airbnb-base dev dependencies, latest version does not white list __mocks__
     "import/no-extraneous-dependencies": [
@@ -55,6 +70,7 @@ module.exports = {
         "project": [
           "./tsconfig.lint.json",
           "./packages/core/tsconfig.lint.json",
+          "./packages/vue-components/tsconfig.json",
         ],
       },
       "plugins": ["@typescript-eslint", "lodash"],

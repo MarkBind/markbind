@@ -1,6 +1,6 @@
 {
   "name": "@markbind/vue-components",
-  "version": "6.2.0",
+  "version": "6.3.1",
   "description": "Bootstrap components built with Vue.js",
   "keywords": [
     "bootstrap",
@@ -21,13 +21,14 @@
     "directory": "packages/vue-components"
   },
   "scripts": {
-    "test": "jest --clearCache && jest --colors",
+    "test": "tsc && jest --clearCache && jest --colors",
     "updatetest": "jest --updateSnapshot"
   },
   "devDependencies": {
     "@babel/core": "^7.26.9",
     "@babel/plugin-transform-runtime": "^7.26.9",
     "@babel/preset-env": "^7.26.9",
+    "@babel/preset-typescript": "^7.28.5",
     "@babel/runtime": "^7.26.9",
     "@vue/test-utils": "^2.4.6",
     "@vue/vue3-jest": "^29.2.6",

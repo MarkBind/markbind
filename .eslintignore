@@ -49,8 +49,10 @@ packages/cli/test/functional/**/*.js
 
 packages/vue-components/src/directives/Closeable.js
 packages/vue-components/src/directives/Float.js
-packages/vue-components/src/utils/NodeList.js
-packages/vue-components/src/utils/utils.js
+
+# Legacy code with pre-existing lint issues
+packages/vue-components/src/utils/NodeList.ts
+packages/vue-components/src/utils/utils.ts
 
 # --- packages/vue-components end ---
 
