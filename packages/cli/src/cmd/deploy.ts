@@ -1,21 +1,9 @@
 import path from 'path';
 import { Site } from '@markbind/core';
-import type { DeployResult } from '@markbind/core';
 import _ from 'lodash';
 import * as cliUtil from '../util/cliUtil.js';
 import * as logger from '../util/logger.js';
-
-function logDeployResult(result: DeployResult) {
-  if (result.ghActionsUrl) {
-    logger.info(`GitHub Actions deployment initiated. Check status at: ${result.ghActionsUrl}`);
-  }
-  if (result.ghPagesUrl) {
-    logger.info(`The website will be deployed at: ${result.ghPagesUrl}`);
-  }
-  if (!result.ghActionsUrl && !result.ghPagesUrl) {
-    logger.info('Deployed!');
-  }
-}
+import { logDeployResult } from '../util/deploy.js';
 
 function deploy(userSpecifiedRoot: string, options: any) {
   let rootFolder;
