@@ -287,3 +287,99 @@ describe('Site deploy with various CI environments', () => {
         + `The specified repository ${invalidRepoConfig.deploy.repo} is not valid.`));
   });
 });
+
+describe('SiteDeployManager URL construction utilities', () => {
+  describe('parseGitHubRemoteUrl', () => {
+    test('parses HTTPS remote URL correctly', () => {
+      const result = SiteDeployManager.parseGitHubRemoteUrl('https://github.com/UserName/my-repo.git');
+      expect(result).toEqual({ name: 'username', repoName: 'my-repo' });
+    });
+
+    test('parses SSH remote URL correctly', () => {
+      const result = SiteDeployManager.parseGitHubRemoteUrl('git@github.com:UserName/my-repo.git');
+      expect(result).toEqual({ name: 'UserName', repoName: 'my-repo' });
+    });
+
+    test('returns null for empty string', () => {
+      expect(SiteDeployManager.parseGitHubRemoteUrl('')).toBeNull();
+    });
+
+    test('returns null for unrecognized URL format', () => {
+      expect(SiteDeployManager.parseGitHubRemoteUrl('ftp://example.com/repo.git')).toBeNull();
+    });
+  });
+
+  describe('constructGhPagesUrl', () => {
+    test('constructs GitHub Pages URL from HTTPS remote', () => {
+      const result = SiteDeployManager.constructGhPagesUrl('https://github.com/user/repo.git');
+      expect(result).toEqual('https://user.github.io/repo');
+    });
+
+    test('constructs GitHub Pages URL from SSH remote', () => {
+      const result = SiteDeployManager.constructGhPagesUrl('git@github.com:user/repo.git');
+      expect(result).toEqual('https://user.github.io/repo');
+    });
+
+    test('returns null for invalid remote URL', () => {
+      expect(SiteDeployManager.constructGhPagesUrl('')).toBeNull();
+    });
+  });
+
+  describe('constructGhActionsUrl', () => {
+    test('constructs GitHub Actions URL from HTTPS remote', () => {
+      const result = SiteDeployManager.constructGhActionsUrl('https://github.com/user/repo.git');
+      expect(result).toEqual('https://github.com/user/repo/actions');
+    });
+
+    test('constructs GitHub Actions URL from SSH remote', () => {
+      const result = SiteDeployManager.constructGhActionsUrl('git@github.com:user/repo.git');
+      expect(result).toEqual('https://github.com/user/repo/actions');
+    });
+
+    test('returns null for invalid remote URL', () => {
+      expect(SiteDeployManager.constructGhActionsUrl('')).toBeNull();
+    });
+  });
+
+  describe('getDeploymentUrl', () => {
+    test('returns both ghPagesUrl and ghActionsUrl', async () => {
+      const result = await SiteDeployManager.getDeploymentUrl({} as any, {
+        remote: 'origin',
+        branch: 'gh-pages',
+        repo: '',
+        message: '',
+      });
+      expect(result).toEqual({
+        ghPagesUrl: 'https://mock-user.github.io/mock-repo',
+        ghActionsUrl: 'https://github.com/mock-user/mock-repo/actions',
+      });
+    });
+
+    test('uses CNAME for ghPagesUrl when available', async () => {
+      const gitUtil = require('../../../src/utils/git');
+      gitUtil.getRemoteBranchFile.mockResolvedValueOnce('custom.domain.com');
+
+      const result = await SiteDeployManager.getDeploymentUrl({} as any, {
+        remote: 'origin',
+        branch: 'gh-pages',
+        repo: '',
+        message: '',
+      });
+      expect(result.ghPagesUrl).toEqual('custom.domain.com');
+      expect(result.ghActionsUrl).toEqual('https://github.com/mock-user/mock-repo/actions');
+    });
+
+    test('uses repo option over remote URL when specified', async () => {
+      const result = await SiteDeployManager.getDeploymentUrl({} as any, {
+        remote: 'origin',
+        branch: 'gh-pages',
+        repo: 'https://github.com/other-user/other-repo.git',
+        message: '',
+      });
+      expect(result).toEqual({
+        ghPagesUrl: 'https://other-user.github.io/other-repo',
+        ghActionsUrl: 'https://github.com/other-user/other-repo/actions',
+      });
+    });
+  });
+});

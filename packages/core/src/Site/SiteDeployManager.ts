@@ -15,6 +15,16 @@ export type DeployOptions = {
   user?: { name: string; email: string; },
 };
 
+export type DeployResult = {
+  ghPagesUrl: string | null,
+  ghActionsUrl: string | null,
+};
+
+type ParsedGitHubRepo = {
+  name: string,
+  repoName: string,
+};
+
 /**
  * Handles the deployment of the generated site to GitHub Pages or other configured remote repositories.
  */
@@ -40,7 +50,7 @@ export class SiteDeployManager {
   }
 
   /**
-   * Helper function for deploy(). Returns the ghpages link where the repo will be hosted.
+   * Helper function for deploy(). Returns the deployment URLs (GitHub Pages and GitHub Actions).
    */
   async generateDepUrl(ciTokenVar: boolean | string, defaultDeployConfig: DeployOptions) {
     if (!this.siteConfig) {
@@ -59,7 +69,7 @@ export class SiteDeployManager {
    * Helper function for deploy(). Set the options needed to be used by ghpages.publish.
    */
   async getDepOptions(ciTokenVar: boolean | string, defaultDeployConfig: DeployOptions,
-                      publish: (basePath: string, options: PublishOptions) => Promise<void>) {
+    publish: (basePath: string, options: PublishOptions) => Promise<void>) {
     const basePath = this.siteConfig.deploy.baseDir || this.outputPath;
     if (!fs.existsSync(basePath)) {
       throw new Error(
@@ -144,7 +154,7 @@ export class SiteDeployManager {
     const repoSlugMatch = repoSlugRegex.exec(repo);
     if (!repoSlugMatch) {
       throw new Error('-c/--ci expects a GitHub repository.\n'
-            + `The specified repository ${repo} is not valid.`);
+        + `The specified repository ${repo} is not valid.`);
     }
     const [, repoSlug] = repoSlugMatch;
     return repoSlug;
@@ -159,35 +169,54 @@ export class SiteDeployManager {
   }
 
   /**
-   * Gets the deployed website's url, returning null if there was an error retrieving it.
+   * Parses a GitHub remote URL (HTTPS or SSH) and extracts the owner name and repo name.
+   * Returns null if the URL format is not recognized.
    */
-  static async getDeploymentUrl(git: SimpleGit, options: DeployOptions) {
+  static parseGitHubRemoteUrl(remoteUrl: string): ParsedGitHubRepo | null {
     const HTTPS_PREAMBLE = 'https://';
     const SSH_PREAMBLE = 'git@github.com:';
-    const GITHUB_IO_PART = 'github.io';
 
-    // https://<name|org name>.github.io/<repo name>/
-    function constructGhPagesUrl(remoteUrl: string) {
-      if (!remoteUrl) {
-        return null;
-      }
-      const parts = remoteUrl.split('/');
-      if (remoteUrl.startsWith(HTTPS_PREAMBLE)) {
-        // https://github.com/<name|org>/<repo>.git (HTTPS)
-        const repoNameWithExt = parts[parts.length - 1];
-        const repoName = repoNameWithExt.substring(0, repoNameWithExt.lastIndexOf('.'));
-        const name = parts[parts.length - 2].toLowerCase();
-        return `https://${name}.${GITHUB_IO_PART}/${repoName}`;
-      } else if (remoteUrl.startsWith(SSH_PREAMBLE)) {
-        // git@github.com:<name|org>/<repo>.git (SSH)
-        const repoNameWithExt = parts[parts.length - 1];
-        const repoName = repoNameWithExt.substring(0, repoNameWithExt.lastIndexOf('.'));
-        const name = parts[0].substring(SSH_PREAMBLE.length);
-        return `https://${name}.${GITHUB_IO_PART}/${repoName}`;
-      }
+    if (!remoteUrl) {
       return null;
     }
+    const parts = remoteUrl.split('/');
+    if (remoteUrl.startsWith(HTTPS_PREAMBLE)) {
+      // https://github.com/<name|org>/<repo>.git (HTTPS)
+      const repoNameWithExt = parts[parts.length - 1];
+      const repoName = repoNameWithExt.substring(0, repoNameWithExt.lastIndexOf('.'));
+      const name = parts[parts.length - 2].toLowerCase();
+      return { name, repoName };
+    } else if (remoteUrl.startsWith(SSH_PREAMBLE)) {
+      // git@github.com:<name|org>/<repo>.git (SSH)
+      const repoNameWithExt = parts[parts.length - 1];
+      const repoName = repoNameWithExt.substring(0, repoNameWithExt.lastIndexOf('.'));
+      const name = parts[0].substring(SSH_PREAMBLE.length);
+      return { name, repoName };
+    }
+    return null;
+  }
 
+  /**
+   * Constructs the GitHub Pages URL from a remote URL.
+   * Returns a URL in the format: https://<name>.github.io/<repo>
+   */
+  static constructGhPagesUrl(repo: ParsedGitHubRepo): string {
+    return `https://${repo.name}.github.io/${repo.repoName}`;
+  }
+
+  /**
+   * Constructs the GitHub Actions URL from a remote URL.
+   * Returns a URL in the format: https://github.com/<name>/<repo>/actions
+   */
+  static constructGhActionsUrl(repo: ParsedGitHubRepo): string {
+    return `https://github.com/${repo.name}/${repo.repoName}/actions`;
+  }
+
+  /**
+   * Gets the deployed website's url and GitHub Actions url,
+   * returning null for either if there was an error retrieving it.
+   */
+  static async getDeploymentUrl(git: SimpleGit, options: DeployOptions): Promise<DeployResult> {
     const { remote, branch, repo } = options;
     const cnamePromise = gitUtil.getRemoteBranchFile(git, 'blob', remote, branch, 'CNAME');
     const remoteUrlPromise = gitUtil.getRemoteUrl(git, remote);
@@ -195,21 +224,25 @@ export class SiteDeployManager {
 
     try {
       const promiseResults: string[] = await Promise.all(promises) as string[];
-      const generateGhPagesUrl = (results: string[]) => {
-        const cname = results[0];
-        const remoteUrl = results[1];
-        if (cname) {
-          return cname.trim();
-        } else if (repo) {
-          return constructGhPagesUrl(repo);
-        }
-        return constructGhPagesUrl(remoteUrl.trim());
-      };
+      const cname = promiseResults[0];
+      const remoteUrl = promiseResults[1];
 
-      return generateGhPagesUrl(promiseResults);
+      const effectiveRemoteUrl = repo || (remoteUrl ? remoteUrl.trim() : '');
+
+      const parsedRepo = SiteDeployManager.parseGitHubRemoteUrl(effectiveRemoteUrl);
+      let ghPagesUrl: string | null;
+      if (cname) {
+        ghPagesUrl = cname.trim();
+      } else {
+        ghPagesUrl = parsedRepo ? SiteDeployManager.constructGhPagesUrl(parsedRepo) : null;
+      }
+
+      const ghActionsUrl = parsedRepo ? SiteDeployManager.constructGhActionsUrl(parsedRepo) : null;
+
+      return { ghPagesUrl, ghActionsUrl };
     } catch (err) {
       logger.error(err);
-      return null;
+      return { ghPagesUrl: null, ghActionsUrl: null };
     }
   }
 }
