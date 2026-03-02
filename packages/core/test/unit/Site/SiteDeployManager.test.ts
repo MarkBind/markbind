@@ -2,6 +2,7 @@ import fs from 'fs-extra';
 import { SiteDeployManager, DeployOptions } from '../../../src/Site/SiteDeployManager';
 import { SiteConfig } from '../../../src/Site/SiteConfig';
 import { SITE_JSON_DEFAULT } from '../utils/data';
+import * as gitUtil from '../../../src/utils/git';
 
 const mockFs = fs as any;
 
@@ -310,34 +311,16 @@ describe('SiteDeployManager URL construction utilities', () => {
   });
 
   describe('constructGhPagesUrl', () => {
-    test('constructs GitHub Pages URL from HTTPS remote', () => {
-      const result = SiteDeployManager.constructGhPagesUrl('https://github.com/user/repo.git');
+    test('constructs GitHub Pages URL correctly', () => {
+      const result = SiteDeployManager.constructGhPagesUrl({ name: 'user', repoName: 'repo' });
       expect(result).toEqual('https://user.github.io/repo');
-    });
-
-    test('constructs GitHub Pages URL from SSH remote', () => {
-      const result = SiteDeployManager.constructGhPagesUrl('git@github.com:user/repo.git');
-      expect(result).toEqual('https://user.github.io/repo');
-    });
-
-    test('returns null for invalid remote URL', () => {
-      expect(SiteDeployManager.constructGhPagesUrl('')).toBeNull();
     });
   });
 
   describe('constructGhActionsUrl', () => {
-    test('constructs GitHub Actions URL from HTTPS remote', () => {
-      const result = SiteDeployManager.constructGhActionsUrl('https://github.com/user/repo.git');
+    test('constructs GitHub Actions URL correctly', () => {
+      const result = SiteDeployManager.constructGhActionsUrl({ name: 'user', repoName: 'repo' });
       expect(result).toEqual('https://github.com/user/repo/actions');
-    });
-
-    test('constructs GitHub Actions URL from SSH remote', () => {
-      const result = SiteDeployManager.constructGhActionsUrl('git@github.com:user/repo.git');
-      expect(result).toEqual('https://github.com/user/repo/actions');
-    });
-
-    test('returns null for invalid remote URL', () => {
-      expect(SiteDeployManager.constructGhActionsUrl('')).toBeNull();
     });
   });
 
@@ -356,8 +339,7 @@ describe('SiteDeployManager URL construction utilities', () => {
     });
 
     test('uses CNAME for ghPagesUrl when available', async () => {
-      const gitUtil = require('../../../src/utils/git');
-      gitUtil.getRemoteBranchFile.mockResolvedValueOnce('custom.domain.com');
+      jest.mocked(gitUtil.getRemoteBranchFile).mockResolvedValueOnce('custom.domain.com');
 
       const result = await SiteDeployManager.getDeploymentUrl({} as any, {
         remote: 'origin',

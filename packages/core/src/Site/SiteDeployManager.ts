@@ -69,7 +69,7 @@ export class SiteDeployManager {
    * Helper function for deploy(). Set the options needed to be used by ghpages.publish.
    */
   async getDepOptions(ciTokenVar: boolean | string, defaultDeployConfig: DeployOptions,
-    publish: (basePath: string, options: PublishOptions) => Promise<void>) {
+                      publish: (basePath: string, options: PublishOptions) => Promise<void>) {
     const basePath = this.siteConfig.deploy.baseDir || this.outputPath;
     if (!fs.existsSync(basePath)) {
       throw new Error(
