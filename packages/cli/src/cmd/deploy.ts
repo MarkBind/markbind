@@ -1,12 +1,8 @@
 import path from 'path';
 import { Site } from '@markbind/core';
-import isError from 'lodash/isError';
-import * as cliUtil from '../util/cliUtil';
-import * as logger from '../util/logger';
-
-const _ = {
-  isError,
-};
+import _ from 'lodash';
+import * as cliUtil from '../util/cliUtil.js';
+import * as logger from '../util/logger.js';
 
 function deploy(userSpecifiedRoot: string, options: any) {
   let rootFolder;

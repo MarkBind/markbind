@@ -2,12 +2,14 @@
 
 // Entry file for MarkBind project
 import { program } from 'commander';
-import * as logger from './src/util/logger';
-import { build } from './src/cmd/build';
-import { deploy } from './src/cmd/deploy';
-import { init } from './src/cmd/init';
-import { serve } from './src/cmd/serve';
-import { version as CLI_VERSION } from './package.json';
+import * as logger from './src/util/logger.js';
+import { build } from './src/cmd/build.js';
+import { deploy } from './src/cmd/deploy.js';
+import { init } from './src/cmd/init.js';
+import { serve } from './src/cmd/serve.js';
+import packageJson from './package.json' with { type: 'json' };
+
+const CLI_VERSION = packageJson.version;
 
 process.title = 'MarkBind';
 process.stdout.write(

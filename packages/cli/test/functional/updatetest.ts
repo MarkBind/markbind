@@ -1,18 +1,19 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { execSync } from 'child_process';
-import isError from 'lodash/isError';
+import _ from 'lodash';
 import { ExecSyncOptions } from 'node:child_process';
-import { cleanupConvert } from './testUtil/cleanup';
+import { fileURLToPath } from 'url';
+import { cleanupConvert } from './testUtil/cleanup.js';
 
 import {
   testSites,
   testConvertSites,
   testTemplateSites,
-} from './testSites';
+} from './testSites.js';
 
-const _ = { isError };
-const CLI_PATH = path.resolve(__dirname, '../../index');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const CLI_PATH = path.resolve(__dirname, '../../dist/index');
 
 /* eslint-disable no-console */
 function printFailedMessage(err: string, siteName: string) {

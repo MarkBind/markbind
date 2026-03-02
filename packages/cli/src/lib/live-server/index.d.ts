@@ -30,18 +30,34 @@ export interface LiveServerParams {
 }
 
 /**
- * Start live-server.
+ * The LiveServer object with methods to start, shutdown, and manage the server.
  */
-// CHANGED: return type from void => Server
-export function start(params: LiveServerParams): Server;
+export interface LiveServer {
+  /**
+   * Start live-server.
+   * @param params - The live-server start params.
+   * @returns The HTTP server instance.
+   */
+  start(params: LiveServerParams): Server;
+
+  /**
+   * Shutdown live-server.
+   */
+  shutdown(): void;
+
+  /**
+   * Reload all active tabs.
+   */
+  reloadActiveTabs(): void;
+
+  /**
+   * Get the URLs of all active tabs.
+   * @returns Array of active URLs.
+   */
+  getActiveUrls(): string[];
+}
 
 /**
- * Shutdown live-server.
+ * The LiveServer instance exported by this module.
  */
-export function shutdown(): void;
-
-// CHANGED: add reloadActiveTabs export
-export function reloadActiveTabs(): void;
-
-// CHANGED: add getActiveUrls export
-export function getActiveUrls(): string[]
+export const LiveServer: LiveServer;
