@@ -1,13 +1,14 @@
-const { HTML_TAG_RE } = require('./htmlRe');
+import type StateInline from 'markdown-it/lib/rules_inline/state_inline';
+import { HTML_TAG_RE } from './htmlRe';
 
 // Forked and modified from 'markdown-it/lib/rules_inline/html_inline.js'
 
-const isLetter = (ch) => {
+const isLetter = (ch: number) => {
   const lc = ch | 0x20 // to lower case
   return lc >= 0x61 /* a */ && lc <= 0x7a /* z */
 }
 
-const htmlInlineRule = (state, silent) => {
+const htmlInlineRule = (state: StateInline, silent: boolean) => {
   const pos = state.pos
   if (!state.md.options.html) {
     return false
@@ -44,4 +45,4 @@ const htmlInlineRule = (state, silent) => {
   return true
 }
 
-module.exports = htmlInlineRule;
+export = htmlInlineRule;
