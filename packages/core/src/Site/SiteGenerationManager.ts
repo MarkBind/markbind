@@ -17,7 +17,7 @@ import * as fsUtil from '../utils/fsUtil';
 import * as logger from '../utils/logger';
 import {
   SITE_CONFIG_NAME, LAZY_LOADING_SITE_FILE_NAME, _,
-  TEMP_FOLDER_NAME, SITE_DATA_NAME, USER_VARIABLES_PATH,
+  TEMP_FOLDER_NAME, SITE_DATA_NAME, USER_VARIABLES_PATH, TEMPLATE_SITE_ASSET_FOLDER_NAME,
 } from './constants';
 import { LayoutManager } from '../Layout';
 import { LayoutConfig } from '../Layout/Layout';
@@ -311,6 +311,9 @@ export class SiteGenerationManager {
       await this.siteAssets.copyOcticonsAsset();
       await this.siteAssets.copyMaterialIconsAsset();
       await this.writeSiteData();
+      if (this.siteConfig.enableSearch) {
+        await this.indexSiteWithPagefind();
+      }
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
         this.backgroundBuildNotViewedFiles();
@@ -861,6 +864,38 @@ export class SiteGenerationManager {
     this._backgroundBuildNotViewedFiles.bind(this) as (args: string[]) => Promise<void>,
     1000,
   );
+
+  /**
+ * Indexes all the pages of the site using pagefind.
+ */
+  async indexSiteWithPagefind() {
+    const startTime = new Date();
+    logger.info('Creating Pagefind Search Index...');
+    // TODO: Update this dynamic import to a static import when migrating to ESM
+    // eslint-disable-next-line no-eval
+    const { createIndex, close } = await (eval('import("pagefind")') as Promise<typeof import('pagefind')>);
+    const { index } = await createIndex({
+      keepIndexUrl: true,
+      verbose: true,
+      logfile: 'debug.log',
+    });
+    if (index) {
+      const { errors, page_count } = await index.addDirectory({ path: this.outputPath });
+      errors.forEach(error => logger.error(error));
+
+      const endTime = new Date();
+      const totalTime = (endTime.getTime() - startTime.getTime()) / 1000;
+      logger.info(`Pagefind indexed ${page_count} pages in ${totalTime}s`);
+
+      const pagefindOutputPath = path.join(this.outputPath, TEMPLATE_SITE_ASSET_FOLDER_NAME, 'pagefind');
+      await fs.ensureDir(pagefindOutputPath);
+      await index.writeFiles({ outputPath: pagefindOutputPath });
+      logger.info(`Pagefind assets written to ${pagefindOutputPath}`);
+    } else {
+      logger.error('Pagefind failed to create index');
+    }
+    await close();
+  }
 
   async reloadSiteConfig() {
     if (this.backgroundBuildMode) {

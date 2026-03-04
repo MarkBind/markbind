@@ -5,6 +5,7 @@ import { Template as NunjucksTemplate } from 'nunjucks';
 
 import { Page } from '../Page';
 import { PageConfig } from '../Page/PageConfig';
+import { getPagefindScript } from '../Page/pagefindScript';
 import { VariableProcessor } from '../variables/VariableProcessor';
 import { VariableRenderer } from '../variables/VariableRenderer';
 import { ExternalManager } from '../External/ExternalManager';
@@ -141,6 +142,15 @@ export class SitePagesManager {
           ? 'https://cdn.jsdelivr.net/npm/vue@3.3.11/dist/vue.global.min.js'
           : path.posix.join(baseAssetsPath, 'js', 'vue.global.prod.min.js'),
         layoutUserScriptsAndStyles: [],
+        pagefindCss: this.siteConfig.enableSearch
+          ? path.posix.join(baseAssetsPath || '/', 'pagefind', 'pagefind-ui.css')
+          : undefined,
+        pagefindJs: this.siteConfig.enableSearch
+          ? path.posix.join(baseAssetsPath || '/', 'pagefind', 'pagefind-ui.js')
+          : undefined,
+        pagefindScript: this.siteConfig.enableSearch
+          ? getPagefindScript()
+          : undefined,
       },
       baseUrlMap: this.baseUrlMap,
       dev: this.isDevMode,
