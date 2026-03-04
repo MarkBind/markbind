@@ -37,7 +37,7 @@ function customComponentPlugin(md, tagsToIgnore) {
  * Sets up the plugin with the provided tag names to ignore.
  * Replaces any previously injected tags.
  */
-function injectTags(tagsToIgnore) {
+export function injectTags(tagsToIgnore: Iterable<string>) {
   markdownIt.use(customComponentPlugin, tagsToIgnore);
 }
 

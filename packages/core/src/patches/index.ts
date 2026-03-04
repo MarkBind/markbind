@@ -1,12 +1,11 @@
-const htmlparser2patch = require('./htmlparser2');
-const markdownItCustomComponent
-  = require('../lib/markdown-it/patches/custom-component/customComponentPlugin');
+import { injectTags } from '../lib/markdown-it/patches/custom-component/customComponentPlugin';
+import { injectIgnoreTags } from './htmlparser2';
 
-function ignoreTags(tagsToIgnore) {
-  htmlparser2patch.injectIgnoreTags(tagsToIgnore);
-  markdownItCustomComponent.injectTags(tagsToIgnore);
+function ignoreTags(tagsToIgnore: Iterable<string>) {
+  injectIgnoreTags(tagsToIgnore);
+  injectTags(tagsToIgnore);
 }
 
-module.exports = {
+export = {
   ignoreTags,
 };

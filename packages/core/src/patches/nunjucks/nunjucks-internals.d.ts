@@ -11,7 +11,7 @@
 // This export makes the file a module, turning 'declare module' blocks below
 // into module augmentations (merged with existing declarations) rather than
 // ambient module declarations (which would replace existing declarations).
-export {};
+export { };
 
 // ---------------------------------------------------------------------------
 // Sub-module: nunjucks/src/runtime
@@ -144,19 +144,6 @@ declare module 'nunjucks' {
     function _prettifyError(path: string | null, withInternals: boolean, err: Error): Error;
     function inOperator(key: any, val: any): boolean;
     function isArray(obj: any): obj is any[];
-  }
-
-  // ---- runtime namespace additions ----
-  namespace runtime {
-    export { Frame };
-
-    function contextOrFrameLookup(context: any, frame: Frame, name: string): any;
-    function makeMacro(
-      argNames: string[],
-      kwargNames: string[],
-      func: (...args: any[]) => any,
-    ): (...args: any[]) => any;
-    function handleError(error: any, lineno: number | null, colno: number | null): Error;
   }
 
   // ---- nodes namespace (AST node types used by the patches) ----
