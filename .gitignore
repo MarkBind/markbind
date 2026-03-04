@@ -105,6 +105,7 @@ packages/core/index.js
 
 packages/core/src/lib/progress/*.js
 packages/core/src/patches/nunjucks/*.js
+packages/core/src/lib/markdown-it/patches/custom-component/*.js
 # --- packages/core end ---
 
 # Manual type definitions need to be included
