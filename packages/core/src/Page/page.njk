@@ -61,9 +61,6 @@
 {%- if asset.pagefindJs %}
     <script src="{{ asset.pagefindJs }}"></script>
 {%- endif %}
-{%- if asset.pagefindScript %}
-    {{ asset.pagefindScript }}
-{%- endif %}
 {%- if asset.scriptBottom %}
 {%- for scripts in asset.scriptBottom %}
     {{ scripts }}

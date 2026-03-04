@@ -53,15 +53,15 @@ The Pagefind index is currently only generated during a full site build (e.g., <
 
 To add the Pagefind search bar to your page, simply insert the following `div` where you want it to appear:
 
-```html
-<div id="pagefind-search-input"></div>
+```md
+<search />
 ```
 
 MarkBind will automatically inject the necessary scripts and styles to render the search UI.
 
 The following UI will be rendered, which is provided by Pagefind:
 
-<div id="pagefind-search-input"></div>
+<search />
 
 
 <br>

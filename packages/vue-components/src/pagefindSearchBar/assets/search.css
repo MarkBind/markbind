@@ -1,0 +1,368 @@
+:root {
+  --font-sans: "Inter", --apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
+    Droid Sans, Helvetica Neue, sans-serif;
+  --app-bg: var(--gray1);
+  --app-text: #000000;
+  --command-shadow: 0 16px 70px rgb(0 0 0 / 20%);
+  --lowContrast: #ffffff;
+  --highContrast: #000000;
+  --vcp-c-brand: var(--vp-c-brand-2);
+  --vcp-c-accent: #35495e;
+  --gray1: hsl(0, 0%, 98%);
+  --gray2: hsl(0, 0%, 97.3%);
+  --gray3: hsl(0, 0%, 95.1%);
+  --gray4: hsl(0, 0%, 93%);
+  --gray5: hsl(0, 0%, 90.9%);
+  --gray6: hsl(0, 0%, 88.7%);
+  --gray7: hsl(0, 0%, 85.8%);
+  --gray8: hsl(0, 0%, 78%);
+  --gray9: hsl(0, 0%, 56.1%);
+  --gray10: hsl(0, 0%, 52.3%);
+  --gray11: hsl(0, 0%, 43.5%);
+  --gray12: hsl(0, 0%, 9%);
+  --grayA1: hsla(0, 0%, 0%, 0.012);
+  --grayA2: hsla(0, 0%, 0%, 0.027);
+  --grayA3: hsla(0, 0%, 0%, 0.047);
+  --grayA4: hsla(0, 0%, 0%, 0.071);
+  --grayA5: hsla(0, 0%, 0%, 0.09);
+  --grayA6: hsla(0, 0%, 0%, 0.114);
+  --grayA7: hsla(0, 0%, 0%, 0.141);
+  --grayA8: hsla(0, 0%, 0%, 0.22);
+  --grayA9: hsla(0, 0%, 0%, 0.439);
+  --grayA10: hsla(0, 0%, 0%, 0.478);
+  --grayA11: hsla(0, 0%, 0%, 0.565);
+  --grayA12: hsla(0, 0%, 0%, 0.91);
+  --blue1: hsl(206, 100%, 99.2%);
+  --blue2: hsl(210, 100%, 98%);
+  --blue3: hsl(209, 100%, 96.5%);
+  --blue4: hsl(210, 98.8%, 94%);
+  --blue5: hsl(209, 95%, 90.1%);
+  --blue6: hsl(209, 81.2%, 84.5%);
+  --blue7: hsl(208, 77.5%, 76.9%);
+  --blue8: hsl(206, 81.9%, 65.3%);
+  --blue9: hsl(206, 100%, 50%);
+  --blue10: hsl(208, 100%, 47.3%);
+  --blue11: hsl(211, 100%, 43.2%);
+  --blue12: hsl(211, 100%, 15%);
+}
+.dark {
+  --app-bg: var(--gray1);
+  --app-text: #ffffff;
+  --lowContrast: #000000;
+  --highContrast: #ffffff;
+  --gray1: hsl(0, 0%, 8.5%);
+  --gray2: hsl(0, 0%, 11%);
+  --gray3: hsl(0, 0%, 13.6%);
+  --gray4: hsl(0, 0%, 15.8%);
+  --gray5: hsl(0, 0%, 17.9%);
+  --gray6: hsl(0, 0%, 20.5%);
+  --gray7: hsl(0, 0%, 24.3%);
+  --gray8: hsl(0, 0%, 31.2%);
+  --gray9: hsl(0, 0%, 43.9%);
+  --gray10: hsl(0, 0%, 49.4%);
+  --gray11: hsl(0, 0%, 62.8%);
+  --gray12: hsl(0, 0%, 93%);
+  --grayA1: hsla(0, 0%, 100%, 0);
+  --grayA2: hsla(0, 0%, 100%, 0.026);
+  --grayA3: hsla(0, 0%, 100%, 0.056);
+  --grayA4: hsla(0, 0%, 100%, 0.077);
+  --grayA5: hsla(0, 0%, 100%, 0.103);
+  --grayA6: hsla(0, 0%, 100%, 0.129);
+  --grayA7: hsla(0, 0%, 100%, 0.172);
+  --grayA8: hsla(0, 0%, 100%, 0.249);
+  --grayA9: hsla(0, 0%, 100%, 0.386);
+  --grayA10: hsla(0, 0%, 100%, 0.446);
+  --grayA11: hsla(0, 0%, 100%, 0.592);
+  --grayA12: hsla(0, 0%, 100%, 0.923);
+  --blue1: hsl(212, 35%, 9.2%);
+  --blue2: hsl(216, 50%, 11.8%);
+  --blue3: hsl(214, 59.4%, 15.3%);
+  --blue4: hsl(214, 65.8%, 17.9%);
+  --blue5: hsl(213, 71.2%, 20.2%);
+  --blue6: hsl(212, 77.4%, 23.1%);
+  --blue7: hsl(211, 85.1%, 27.4%);
+  --blue8: hsl(211, 89.7%, 34.1%);
+  --blue9: hsl(206, 100%, 50%);
+  --blue10: hsl(209, 100%, 60.6%);
+  --blue11: hsl(210, 100%, 66.1%);
+  --blue12: hsl(206, 98%, 95.8%);
+}
+
+div [command-dialog-mask] {
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 200;
+}
+div [command-dialog-wrapper] {
+  position: relative;
+  background: var(--gray2);
+  border-radius: 6px;
+  box-shadow: none;
+  flex-direction: column;
+  margin: 20vh auto auto;
+  max-width: 560px;
+}
+div [command-dialog-footer] {
+  border-top: 1px solid var(--gray6);
+  align-items: center;
+  background: var(--gray4);
+  color: var(--gray11);
+  border-radius: 0 0 8px 8px;
+  box-shadow: none;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-shrink: 0;
+  height: 44px;
+  justify-content: space-between;
+  padding: 0 12px;
+  position: relative;
+  user-select: none;
+  width: 100%;
+  z-index: 300;
+  font-size: 12px;
+}
+.algolia [command-input] {
+  font-family: var(--font-sans);
+  width: 100%;
+  font-size: 18px;
+  padding: 12px;
+  outline: none;
+  background: var(--bg);
+  color: var(--gray12);
+  caret-color: var(--vcp-c-brand);
+  margin: 0;
+}
+.algolia [command-input]::placeholder {
+  color: var(--gray9);
+}
+.algolia [command-list] {
+  height: var(--command-list-height);
+  max-height: 360px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  transition: 100ms ease;
+  transition-property: height;
+}
+.algolia .detail-list [command-item] {
+  min-height: 56px;
+  max-height: 112px;
+  padding: 10px 16px;
+  height: auto;
+}
+.algolia .detail-list [command-item] .des {
+  word-break: break-all;
+  white-space: wrap;
+  margin-top: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.algolia [command-item] {
+  position: relative;
+  content-visibility: auto;
+  cursor: pointer;
+  height: 56px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0px 16px;
+  color: var(--gray12);
+  user-select: none;
+  will-change: background, color;
+  transition: all 150ms ease;
+  transition-property: none;
+  border-radius: 4px;
+  margin-top: 4px;
+  background-color: var(--lowContrast);
+}
+.algolia [command-item]:first-child {
+  margin-top: 0px;
+}
+.algolia [command-item][aria-selected="true"],
+.algolia [command-item]:hover {
+  background: var(--vcp-c-brand);
+  color: #fff;
+}
+.algolia [command-item][aria-selected="true"] svg,
+.algolia [command-item]:hover svg {
+  color: #fff;
+}
+.algolia [command-item][aria-selected="true"] [command-linear-shortcuts],
+.algolia [command-item]:hover [command-linear-shortcuts] {
+  display: flex;
+  margin-left: auto;
+  gap: 8px;
+}
+.algolia [command-item][aria-selected="true"] [command-linear-shortcuts] kbd,
+.algolia [command-item]:hover [command-linear-shortcuts] kbd {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--gray11);
+}
+.algolia [command-item]:active {
+  transition-property: background;
+  background: var(--gray4);
+}
+.algolia [command-item] svg {
+  width: 16px;
+  height: 16px;
+  color: var(--gray10);
+}
+.algolia [command-empty=""] {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  white-space: pre-wrap;
+  color: var(--gray11);
+}
+.algolia [command-dialog-mask] {
+  background-color: rgba(75, 75, 75, 0.8);
+}
+.algolia [command-dialog-header] {
+  padding: 12px;
+}
+.algolia [command-dialog-body] {
+  padding: 0 12px 12px;
+}
+.algolia [command-dialog-footer] {
+  align-items: center;
+  border-radius: 0 0 8px 8px;
+  box-shadow:
+    0 -1px 0 0 #e0e3e8,
+    0 -3px 6px 0 rgba(69, 98, 155, 0.12);
+  display: flex;
+  flex-direction: row-reverse;
+  flex-shrink: 0;
+  height: 44px;
+  justify-content: space-between;
+  padding: 0 12px;
+  position: relative;
+  user-select: none;
+  width: 100%;
+  z-index: 300;
+}
+.algolia [command-group-heading] {
+  color: var(--vcp-c-brand);
+  font-size: 0.85em;
+  font-weight: 600;
+  line-height: 32px;
+  margin: 0 -4px;
+  padding: 0 4px;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+}
+
+.algolia .command-palette-commands {
+  color: var(--docsearch-muted-color);
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+@media screen and (max-width: 560px) {
+  .algolia .command-palette-commands {
+    display: none;
+  }
+
+  div [command-dialog-wrapper] {
+    margin: 0;
+    height: 100vh;
+  }
+  .algolia [command-dialog-footer] {
+    justify-content: center;
+  }
+  .algolia [command-input] {
+    padding: 6px 4px;
+  }
+  .algolia [command-list] {
+    max-height: calc(100vh - 120px);
+  }
+}
+.algolia .command-palette-commands li {
+  display: flex;
+  align-items: center;
+}
+.algolia .command-palette-commands li:not(:last-of-type) {
+  margin-right: 0.8em;
+}
+.algolia .command-palette-logo a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.algolia .command-palette-logo svg {
+  height: 24px;
+  width: 24px;
+}
+.algolia .command-palette-commands-key {
+  align-items: center;
+  background: var(--gray3);
+  border-radius: 2px;
+  display: flex;
+  height: 18px;
+  justify-content: center;
+  margin-right: 0.4em;
+  padding: 0 0 1px;
+  color: var(--gray11);
+  border: 0;
+  width: 20px;
+}
+.dark .algolia [command-dialog-footer] {
+  box-shadow: none;
+}
+div[command-group] {
+  display: block !important;
+}
+div[command-item] {
+  display: flex !important;
+}
+.search-dialog div[command-item] > div.link {
+  width: 100%;
+}
+.search-dialog div[command-item] .title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-dialog div[command-item] .title i.prefix {
+  color: var(--vp-c-brand-1);
+}
+.search-dialog div[command-item]:hover .title i.prefix,
+.search-dialog div[command-item][aria-selected="true"] .title i.prefix {
+  color: #fff;
+}
+
+.search-dialog div[command-item] .des {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+.search-dialog div[command-item] .headings {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.search-dialog div[command-item] .date {
+  min-width: 86px;
+  text-align: right;
+}
+.search-dialog div[command-item] mark {
+  background: none;
+  color: var(--vp-c-brand-1);
+}
+.search-dialog div[command-item][aria-selected="true"] mark,
+.search-dialog div[command-item]:hover mark {
+  color: inherit;
+  text-decoration: underline;
+}

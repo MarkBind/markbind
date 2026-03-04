@@ -5,7 +5,6 @@ import { Template as NunjucksTemplate } from 'nunjucks';
 
 import { Page } from '../Page';
 import { PageConfig } from '../Page/PageConfig';
-import { getPagefindScript } from '../Page/pagefindScript';
 import { VariableProcessor } from '../variables/VariableProcessor';
 import { VariableRenderer } from '../variables/VariableRenderer';
 import { ExternalManager } from '../External/ExternalManager';
@@ -147,9 +146,6 @@ export class SitePagesManager {
           : undefined,
         pagefindJs: this.siteConfig.enableSearch
           ? path.posix.join(baseAssetsPath || '/', 'pagefind', 'pagefind-ui.js')
-          : undefined,
-        pagefindScript: this.siteConfig.enableSearch
-          ? getPagefindScript()
           : undefined,
       },
       baseUrlMap: this.baseUrlMap,

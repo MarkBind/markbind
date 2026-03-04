@@ -27,7 +27,6 @@ export interface PageAssets {
   pluginLinks?: string[];
   pagefindCss?: string;
   pagefindJs?: string;
-  pagefindScript?: string;
 }
 
 /**
