@@ -13,20 +13,32 @@
  The **only** changes are delimited with a // CHANGE HERE comment
  */
 
+/* linting is disabled for this file to keep the patch close to the source */
 /* eslint-disable */
 
-const runtime = require('nunjucks/src/runtime');
-const {
-  Environment, Template, lib, compiler, nodes,
-} = require('nunjucks');
-const { Obj } = require('nunjucks/src/object');
 
-const globalRuntime = runtime;
+import * as runtimeTypes from 'nunjucks/src/runtime';
+import { Environment, Template, lib, compiler, nodes } from 'nunjucks';
+import { Obj } from 'nunjucks/src/object';
+
+// We need a mutable reference to the runtime module so we can monkey-patch
+// Frame and contextOrFrameLookup. ESM namespace imports (import * as ...) are
+// frozen objects, so we fall back to require() which returns the original mutable exports.
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const globalRuntime: typeof runtimeTypes & Record<string, any> = require('nunjucks/src/runtime');
 
 const MB_CTX_KEY = '_markBindReserved';
 
+/**
+ * Replacement for nunjucks' internal callbackAsap which is not exported.
+ * Schedules a callback to run asynchronously via queueMicrotask.
+ */
+function callbackAsap(cb: Function, err: any, res?: any) {
+  queueMicrotask(() => { cb(err, res); });
+}
 
-Environment.prototype.render = function render(name, ctx, cb) {
+
+Environment.prototype.render = function render(this: Environment, name: any, ctx: any, cb?: any) {
   if (lib.isFunction(ctx)) {
     cb = ctx;
     ctx = null;
@@ -44,8 +56,8 @@ Environment.prototype.render = function render(name, ctx, cb) {
     }
   }
 
-  var syncResult = null;
-  this.getTemplate(name, function (err, tmpl) {
+  var syncResult: any = null;
+  this.getTemplate(name, function (err: any, tmpl: any) {
     if (err && cb) {
       callbackAsap(cb, err);
     } else if (err) {
@@ -57,7 +69,7 @@ Environment.prototype.render = function render(name, ctx, cb) {
   return syncResult;
 };
 
-Environment.prototype.renderString = function renderString(src, ctx, opts, cb) {
+(Environment.prototype as any).renderString = function renderString(this: Environment, src: any, ctx: any, opts?: any, cb?: any) {
   if (lib.isFunction(opts)) {
     cb = opts;
     opts = {};
@@ -73,14 +85,19 @@ Environment.prototype.renderString = function renderString(src, ctx, opts, cb) {
   }
 
   opts = opts || {};
-  var tmpl = new Template(src, this, opts.path);
+  var tmpl = new Template(src, this as any, opts.path);
   return tmpl.render(ctx, cb);
 };
 
 // Unfortunately the Context class isn't exposed so we can't patch it directly.
 // So we import methods that use it and let them use this custom implementation instead
 class Context extends Obj {
-  init(ctx, blocks, env) {
+  env: any;
+  ctx!: Record<string, any>;
+  blocks!: Record<string, Function[]>;
+  exported!: string[];
+
+  init(ctx: any, blocks: any, env: any) {
     // Has to be tied to an environment so we can tap into its globals.
     this.env = env || new Environment();
 
@@ -90,12 +107,12 @@ class Context extends Obj {
     this.blocks = {};
     this.exported = [];
 
-    lib.keys(blocks).forEach(name => {
+    lib.keys(blocks).forEach((name: string) => {
       this.addBlock(name, blocks[name]);
     });
   }
 
-  lookup(name) {
+  lookup(name: string) {
     // This is one of the most called functions, so optimize for
     // the typical case where the name isn't in the globals
     if (name in this.env.globals && !(name in this.ctx)) {
@@ -106,13 +123,13 @@ class Context extends Obj {
   }
 
   // CHANGE HERE - new method
-  lookupMbVariable(name) {
+  lookupMbVariable(name: string) {
     return MB_CTX_KEY in this.ctx
       ? this.ctx[MB_CTX_KEY][name]
       : undefined;
   }
 
-  setVariable(name, val) {
+  setVariable(name: string, val: any) {
     this.ctx[name] = val;
   }
 
@@ -120,13 +137,13 @@ class Context extends Obj {
     return this.ctx;
   }
 
-  addBlock(name, block) {
+  addBlock(name: string, block: Function) {
     this.blocks[name] = this.blocks[name] || [];
     this.blocks[name].push(block);
     return this;
   }
 
-  getBlock(name) {
+  getBlock(name: string) {
     if (!this.blocks[name]) {
       throw new Error('unknown block "' + name + '"');
     }
@@ -134,7 +151,7 @@ class Context extends Obj {
     return this.blocks[name][0];
   }
 
-  getSuper(env, name, block, frame, runtime, cb) {
+  getSuper(env: any, name: string, block: Function, frame: any, runtime: any, cb: Function) {
     var idx = lib.indexOf(this.blocks[name] || [], block);
     var blk = this.blocks[name][idx + 1];
     var context = this;
@@ -146,12 +163,12 @@ class Context extends Obj {
     blk(env, context, frame, runtime, cb);
   }
 
-  addExport(name) {
+  addExport(name: string) {
     this.exported.push(name);
   }
 
   getExported() {
-    var exported = {};
+    var exported: Record<string, any> = {};
     this.exported.forEach((name) => {
       exported[name] = this.ctx[name];
     });
@@ -160,7 +177,13 @@ class Context extends Obj {
 }
 
 class Frame {
-  constructor(parent, isolateWrites) {
+  variables: Record<string, any>;
+  parent: Frame | null | undefined;
+  topLevel: boolean;
+  isolateWrites: boolean | undefined;
+  imports?: Set<string>;
+
+  constructor(parent?: Frame, isolateWrites?: boolean) {
     this.variables = {};
     this.parent = parent;
     this.topLevel = false;
@@ -171,12 +194,12 @@ class Frame {
 
   // CHANGE HERE
   // Additional parameter isImport
-  set(name, val, resolveUp, isImport) {
+  set(name: string, val: any, resolveUp?: boolean, isImport?: boolean) {
     // Allow variables with dots by automatically creating the
     // nested structure
     var parts = name.split('.');
-    var obj = this.variables;
-    var frame = this;
+    var obj: any = this.variables;
+    var frame: Frame | undefined = this;
 
     // CHANGE HERE
     // flag imports, so we can exclude them from Compiler#compileSymbol
@@ -204,7 +227,7 @@ class Frame {
     obj[parts[parts.length - 1]] = val;
   }
 
-  get(name) {
+  get(name: string) {
     var val = this.variables[name];
     if (val !== undefined) {
       return val;
@@ -213,7 +236,7 @@ class Frame {
   }
 
   // CHANGE HERE - additional parameter checkIfIsImport, used for compileSymbol
-  lookup(name, checkIfIsImport) {
+  lookup(name: string, checkIfIsImport?: boolean): any {
     var p = this.parent;
     var val = this.variables[name];
     if (val !== undefined) {
@@ -228,16 +251,16 @@ class Frame {
     return p && p.lookup(name);
   }
 
-  resolve(name, forWrite) {
-    var p = (forWrite && this.isolateWrites) ? undefined : this.parent;
+  resolve(name: string, forWrite?: boolean): Frame | undefined {
+    var p: Frame | null | undefined = (forWrite && this.isolateWrites) ? undefined : this.parent;
     var val = this.variables[name];
     if (val !== undefined) {
       return this;
     }
-    return p && p.resolve(name);
+    return p ? p.resolve(name) : undefined;
   }
 
-  push(isolateWrites) {
+  push(isolateWrites?: boolean) {
     return new Frame(this, isolateWrites);
   }
 
@@ -245,9 +268,9 @@ class Frame {
     return this.parent;
   }
 }
-runtime.Frame = Frame;
+globalRuntime.Frame = Frame;
 
-compiler.Compiler.prototype.compileImport = function compileImport(node, frame) {
+compiler.Compiler.prototype.compileImport = function compileImport(this: compiler.Compiler, node: any, frame: any) {
   const target = node.target.value;
   const id = this._compileGetTemplate(node, frame, false, false);
   this._addScopeLevel();
@@ -267,7 +290,7 @@ compiler.Compiler.prototype.compileImport = function compileImport(node, frame) 
   }
 }
 
-compiler.Compiler.prototype.compileFromImport = function compileFromImport(node, frame) {
+compiler.Compiler.prototype.compileFromImport = function compileFromImport(this: compiler.Compiler, node: any, frame: any) {
   const importedId = this._compileGetTemplate(node, frame, false, false);
   this._addScopeLevel();
 
@@ -276,7 +299,7 @@ compiler.Compiler.prototype.compileFromImport = function compileFromImport(node,
     this._makeCallback(importedId));
   this._addScopeLevel();
 
-  node.names.children.forEach((nameNode) => {
+  node.names.children.forEach((nameNode: any) => {
     var name;
     var alias;
     var id = this._tmpid();
@@ -306,7 +329,7 @@ compiler.Compiler.prototype.compileFromImport = function compileFromImport(node,
   });
 }
 
-compiler.Compiler.prototype.compileSymbol = function compileSymbol(node, frame) {
+compiler.Compiler.prototype.compileSymbol = function compileSymbol(this: compiler.Compiler, node: any, frame: any) {
   var name = node.value;
   // CHANGE HERE
   // returns undefined if it is an import
@@ -319,7 +342,7 @@ compiler.Compiler.prototype.compileSymbol = function compileSymbol(node, frame) 
   }
 };
 
-runtime.contextOrFrameLookup = function contextOrFrameLookup(context, frame, name) {
+globalRuntime.contextOrFrameLookup = function contextOrFrameLookup(context: any, frame: any, name: string) {
   // CHANGE HERE - always look up MarkBind variables first
   var mbVar = context.lookupMbVariable(name);
   if (mbVar !== undefined) {
@@ -335,7 +358,7 @@ runtime.contextOrFrameLookup = function contextOrFrameLookup(context, frame, nam
  */
 
 // No modifications, redefined only to redirect the Context class to our custom implementation
-Template.prototype.render = function render(ctx, parentFrame, cb) {
+Template.prototype.render = function render(this: Template, ctx?: any, parentFrame?: any, cb?: any) {
   var _this6 = this;
 
   if (typeof ctx === 'function') {
@@ -354,8 +377,8 @@ Template.prototype.render = function render(ctx, parentFrame, cb) {
 
   try {
     this.compile();
-  } catch (e) {
-    var err = lib._prettifyError(this.path, this.env.opts.dev, e);
+  } catch (e: any) {
+    var err = lib._prettifyError(this.path, this.env.opts.dev!, e);
 
     if (cb) {
       return callbackAsap(cb, err);
@@ -367,9 +390,9 @@ Template.prototype.render = function render(ctx, parentFrame, cb) {
   var context = new Context(ctx || {}, this.blocks, this.env);
   var frame = parentFrame ? parentFrame.push(true) : new Frame();
   frame.topLevel = true;
-  var syncResult = null;
+  var syncResult: any = null;
   var didError = false;
-  this.rootRenderFunc(this.env, context, frame, globalRuntime, function (err, res) {
+  this.rootRenderFunc(this.env, context, frame, globalRuntime, function (err: any, res: any) {
     // TODO: this is actually a bug in the compiled template (because waterfall
     // tasks are both not passing errors up the chain of callbacks AND are not
     // causing a return from the top-most render function). But fixing that
@@ -380,7 +403,7 @@ Template.prototype.render = function render(ctx, parentFrame, cb) {
     }
 
     if (err) {
-      err = lib._prettifyError(_this6.path, _this6.env.opts.dev, err);
+      err = lib._prettifyError(_this6.path, _this6.env.opts.dev!, err);
       didError = true;
     }
 
@@ -402,7 +425,7 @@ Template.prototype.render = function render(ctx, parentFrame, cb) {
 };
 
 // No modifications, redefined only to redirect the Context class to our custom implementation
-Template.prototype.getExported = function getExported(ctx, parentFrame, cb) {
+(Template.prototype as any).getExported = function getExported(this: Template, ctx?: any, parentFrame?: any, cb?: any) {
   // eslint-disable-line consistent-return
   if (typeof ctx === 'function') {
     cb = ctx;
@@ -429,7 +452,7 @@ Template.prototype.getExported = function getExported(ctx, parentFrame, cb) {
   frame.topLevel = true; // Run the rootRenderFunc to populate the context with exported vars
 
   var context = new Context(ctx || {}, this.blocks, this.env);
-  this.rootRenderFunc(this.env, context, frame, globalRuntime, function (err) {
+  this.rootRenderFunc(this.env, context, frame, globalRuntime, function (err: any) {
     if (err) {
       cb(err, null);
     } else {
@@ -439,14 +462,14 @@ Template.prototype.getExported = function getExported(ctx, parentFrame, cb) {
 };
 
 // No modifications, redefined only to redirect the Context class to our custom implementation
-compiler.Compiler.prototype._compileMacro = function _compileMacro(node, frame) {
-  var args = [];
-  var kwargs = null;
+compiler.Compiler.prototype._compileMacro = function _compileMacro(this: compiler.Compiler, node: any, frame: any) {
+  var args: any[] = [];
+  var kwargs: any = null;
   var funcId = 'macro_' + this._tmpid();
   var keepFrame = (frame !== undefined);
 
   // Type check the definition of the args
-  node.args.children.forEach((arg, i) => {
+  node.args.children.forEach((arg: any, i: number) => {
     if (i === node.args.children.length - 1 && arg instanceof nodes.Dict) {
       kwargs = arg;
     } else {
@@ -455,17 +478,17 @@ compiler.Compiler.prototype._compileMacro = function _compileMacro(node, frame) 
     }
   });
 
-  const realNames = [...args.map((n) => `l_${n.value}`), 'kwargs'];
+  const realNames = [...args.map((n: any) => `l_${n.value}`), 'kwargs'];
 
   // Quoted argument names
-  const argNames = args.map((n) => `"${n.value}"`);
-  const kwargNames = ((kwargs && kwargs.children) || []).map((n) => `"${n.key.value}"`);
+  const argNames = args.map((n: any) => `"${n.value}"`);
+  const kwargNames = ((kwargs && kwargs.children) || []).map((n: any) => `"${n.key.value}"`);
 
   // We pass a function to makeMacro which destructures the
   // arguments so support setting positional args with keywords
   // args and passing keyword args as positional args
   // (essentially default values). See runtime.js.
-  let currFrame;
+  let currFrame: any;
   if (keepFrame) {
     currFrame = frame.push(true);
   } else {
@@ -485,14 +508,14 @@ compiler.Compiler.prototype._compileMacro = function _compileMacro(node, frame) 
   // Expose the arguments to the template. Don't need to use
   // random names because the function
   // will create a new run-time scope for us
-  args.forEach((arg) => {
+  args.forEach((arg: any) => {
     this._emitLine(`frame.set("${arg.value}", l_${arg.value});`);
     currFrame.set(arg.value, `l_${arg.value}`);
   });
 
   // Expose the keyword arguments
   if (kwargs) {
-    kwargs.children.forEach((pair) => {
+    kwargs.children.forEach((pair: any) => {
       const name = pair.key.value;
       this._emit(`frame.set("${name}", `);
       this._emit(`Object.prototype.hasOwnProperty.call(kwargs, "${name}")`);
@@ -517,7 +540,7 @@ compiler.Compiler.prototype._compileMacro = function _compileMacro(node, frame) 
 }
 
 // No modifications, redefined only to redirect the Context class to our custom implementation
-compiler.Compiler.prototype.compileRoot = function compileRoot(node, frame) {
+compiler.Compiler.prototype.compileRoot = function compileRoot(this: compiler.Compiler, node: any, frame: any) {
   if (frame) {
     this.fail('compileRoot: root node can\'t have frame');
   }
@@ -536,11 +559,11 @@ compiler.Compiler.prototype.compileRoot = function compileRoot(node, frame) {
 
   this.inBlock = true;
 
-  const blockNames = [];
+  const blockNames: string[] = [];
 
   const blocks = node.findAll(nodes.Block);
 
-  blocks.forEach((block, i) => {
+  blocks.forEach((block: any, i: number) => {
     const name = block.name.value;
 
     if (blockNames.indexOf(name) !== -1) {
@@ -558,7 +581,7 @@ compiler.Compiler.prototype.compileRoot = function compileRoot(node, frame) {
 
   this._emitLine('return {');
 
-  blocks.forEach((block, i) => {
+  blocks.forEach((block: any, i: number) => {
     const blockName = `b_${block.name.value}`;
     this._emitLine(`${blockName}: ${blockName},`);
   });
