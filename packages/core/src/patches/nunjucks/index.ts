@@ -1,2 +1,2 @@
-require('./load-event');
-require('./context-overrides-frame');
+import './load-event';
+import './context-overrides-frame';

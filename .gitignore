@@ -104,10 +104,13 @@ packages/core/test/unit/**/*.js
 packages/core/index.js
 
 packages/core/src/lib/progress/*.js
+packages/core/src/patches/nunjucks/*.js
 # --- packages/core end ---
 
 # Manual type definitions need to be included
 !packages/cli/src/lib/live-server/index.d.ts
+!packages/core/src/patches/nunjucks/nunjucks-internals.d.ts
+!packages/core/src/patches/nunjucks/nunjucks-submodules.d.ts
 
 # Nx for Lerna
 .nx/cache
