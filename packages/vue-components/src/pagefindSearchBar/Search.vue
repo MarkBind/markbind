@@ -1,7 +1,7 @@
 <script setup>
 /* eslint-disable import/no-extraneous-dependencies */
 import {
-  ref, onMounted, nextTick, watch,
+  ref, onMounted, nextTick, watch, onUnmounted,
 } from 'vue';
 import LogoPagefind from './LogoPagefind.vue';
 
@@ -9,6 +9,62 @@ const showModal = ref(false);
 
 const toggleSearch = () => {
   showModal.value = !showModal.value;
+};
+
+const handleKeyDown = (e) => {
+  if (!showModal.value) return;
+  if (!['ArrowUp', 'ArrowDown', 'Enter'].includes(e.key)) return;
+
+  const results = Array.from(document.querySelectorAll('.pagefind-ui__result-link'));
+  if (results.length === 0) return;
+
+  const { activeElement } = document;
+  const index = results.indexOf(activeElement);
+
+  if (e.key === 'Enter' && index !== -1) {
+    e.preventDefault();
+    results[index].click();
+    showModal.value = false;
+    return;
+  }
+
+  let targetIndex;
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    // If not in results (index -1), go to first result (0).
+    // If at end, loop to top.
+    targetIndex = (index + 1) % results.length;
+    results[targetIndex].focus();
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    // If not in results or at top, go to bottom.
+    targetIndex = (index <= 0) ? results.length - 1 : index - 1;
+    results[targetIndex].focus();
+  }
+  const target = results[targetIndex];
+  if (target) {
+    target.focus();
+    // block: 'nearest' prevents the whole page from jumping
+    target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+};
+
+const handleGlobalKeydown = (e) => {
+  // Shortcut: Cmd/Ctrl + K
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    toggleSearch();
+    return;
+  }
+
+  // Shortcut: Escape
+  if (e.key === 'Escape' && showModal.value) {
+    showModal.value = false;
+    return;
+  }
+
+  // Navigation: Up/Down/Enter
+  handleKeyDown(e);
 };
 
 watch(showModal, (isOpen) => {
@@ -21,6 +77,7 @@ watch(showModal, (isOpen) => {
           showSubResults: true,
           resetFilters: true,
           showImages: false,
+          autofocus: true,
           // Pagefind UI default styles will be applied here
           processResult: (result) => {
           // Remove the '/markbind' prefixt
@@ -66,17 +123,13 @@ onMounted(() => {
   metaKey.value = /(Mac|iPhone|iPod|iPad)/i.test(navigator?.platform)
     ? '⌘'
     : 'Ctrl';
-
-  window.addEventListener('keydown', (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-      e.preventDefault();
-      toggleSearch();
-    }
-    if (e.key === 'Escape' && showModal.value) {
-      showModal.value = false;
-    }
-  });
+  window.addEventListener('keydown', handleGlobalKeydown);
 });
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleGlobalKeydown);
+});
+
 </script>
 
 <template>
@@ -128,6 +181,47 @@ onMounted(() => {
               <li>
                 <kbd class="command-palette-commands-key">↵</kbd>
                 <span class="command-palette-Label">to select</span>
+              </li>
+              <li>
+                <kbd class="command-palette-commands-key">
+                  <svg
+                    width="15"
+                    height="15"
+                    aria-label="Arrow down"
+                    role="img"
+                  >
+                    <g
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.2"
+                    >
+                      <path d="M7.5 3.5v8M10.5 8.5l-3 3-3-3" />
+                    </g>
+                  </svg>
+                </kbd>
+                <kbd class="command-palette-commands-key">
+                  <svg
+                    width="15"
+                    height="15"
+                    aria-label="Arrow up"
+                    role="img"
+                  >
+                    <g
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.2"
+                    >
+                      <path d="M7.5 11.5v-8M10.5 6.5l-3-3-3 3" />
+                    </g>
+                  </svg>
+                </kbd>
+                <span class="command-palette-Label">
+                  to navigate
+                </span>
               </li>
               <li>
                 <kbd class="command-palette-commands-key">esc</kbd>
@@ -187,8 +281,61 @@ onMounted(() => {
 #pagefind-search-input :deep(.pagefind-ui__drawer) {
   max-height: 360px;
   overflow-y: auto;
-  padding: 0 12px;
+  padding: 0px;
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
+
+#pagefind-search-input :deep(.pagefind-ui__message) {
+  box-sizing: content-box;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  margin-top: 0;
+}
+
+#pagefind-search-input :deep(.pagefind-ui__result) {
+  padding: 0px 5px;
+}
+
+#pagefind-search-input :deep(.pagefind-ui__result-inner) {
+  border-radius: 8px;
+  padding: 2px;
+}
+
+#pagefind-search-input :deep(.pagefind-ui__result-link:focus) {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  border-radius: 6px;
+  display: block;
+  padding: 4px 8px;
+}
+
+/* 1. Main Container: Keep the blue background when navigating inside */
+#pagefind-search-input :deep(.pagefind-ui__result:focus-within) {
+  background-color: #5468ff !important;
+  border-radius: 8px;
+  transition: background-color 0.1s ease;
+}
+
+#pagefind-search-input :deep(.pagefind-ui__result:focus-within *) {
+  color: #fff !important;
+}
+
+/* Highlighting search terms (mark tags) */
+#pagefind-search-input :deep(.pagefind-ui__result:focus-within mark) {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+}
+
 </style>
 
 <style>
