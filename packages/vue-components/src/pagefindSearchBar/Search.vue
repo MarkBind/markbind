@@ -22,6 +22,21 @@ watch(showModal, (isOpen) => {
           resetFilters: true,
           showImages: false,
           // Pagefind UI default styles will be applied here
+          processResult: (result) => {
+          // Remove the '/markbind' prefixt
+            if (result.url.startsWith('/markbind/')) {
+              result.url = result.url.substring(9);
+            }
+            // Also process subresults (headings within the page)
+            if (result.sub_results && Array.isArray(result.sub_results)) {
+              result.sub_results.forEach((subResult) => {
+                if (subResult.url.startsWith('/markbind/')) {
+                  subResult.url = subResult.url.substring(9);
+                }
+              });
+            }
+            return result;
+          },
         });
 
         // Focus the input inside the new structure
@@ -29,6 +44,18 @@ watch(showModal, (isOpen) => {
         if (input) {
           input.focus();
         }
+
+        // Fix for Redirection & Modal Closing:
+        // We listen for clicks on the results. If a result is clicked,
+        // we close the modal. This is especially important for anchors (#).
+        const container = document.querySelector('#pagefind-search-input');
+        container.addEventListener('click', (e) => {
+          const anchor = e.target.closest('a');
+          if (anchor) {
+            // Close the modal before the browser navigates
+            showModal.value = false;
+          }
+        });
       }
     });
   }
