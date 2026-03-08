@@ -39,7 +39,10 @@ You can add a search bar component to your website to allow users to search the 
 
 
 
+<div class='algolia-no-index'>
+
 ## Using Pagefind (Beta)
+
 
 MarkBind now supports [Pagefind](https://pagefind.app/), a static low-bandwidth search library, as a built-in feature. This provides full-text search capabilities without external services.
 
@@ -61,8 +64,49 @@ MarkBind will automatically inject the necessary scripts and styles to render th
 
 The following UI will be rendered, which is provided by Pagefind:
 
-<search />
+<search menu-align-right/>
 
+<br>
+
+### Ignoring Individual Elements from Pagefind Search
+
+You can exclude specific elements from the search index by adding the `data-pagefind-ignore` attribute to them:
+
+```html
+<div>
+    <h1>This content will be in your search index.</h1>
+    <div data-pagefind-ignore>
+        This content and all its children will be excluded from search.
+    </div>
+</div>
+```
+
+For more details, see the [Pagefind documentation on removing individual elements](https://pagefind.app/docs/indexing/#removing-individual-elements-from-the-index).
+
+### Using Pagefind Configuration File
+
+You can customize Pagefind's indexing behavior by creating a `pagefind.json` file in your website's root directory. This is useful if you are migrating from Algolia and want to reuse your existing CSS class selectors.
+
+For example, if you use Algolia's `algolia-no-index` class to mark content that should not be indexed:
+
+```json
+{
+    "exclude_selectors": [".algolia-no-index", "[class*='algolia-no-index']"]
+}
+```
+
+This tells Pagefind to exclude any element with the `algolia-no-index` class (or containing it in a space-separated list) from the search index, similar to using `data-pagefind-ignore`.
+
+Other supported configuration options include:
+- `root_selector`: The element that Pagefind should treat as the root of the document
+- `force_language`: Forces a specific language for indexing (e.g., `"en"`)
+- `glob`: Configures the glob pattern used to discover HTML files
+
+For a full list of options, see the [Pagefind CLI configuration documentation](https://pagefind.app/docs/config-options/).
+
+The `pagefind.json` file will be automatically copied to the output directory when building your site.
+
+</div>
 
 <br>
 

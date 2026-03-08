@@ -311,6 +311,7 @@ export class SiteGenerationManager {
       await this.siteAssets.copyOcticonsAsset();
       await this.siteAssets.copyMaterialIconsAsset();
       await this.writeSiteData();
+      await this.siteAssets.buildPagefindConfig();
       if (this.siteConfig.enableSearch) {
         await this.indexSiteWithPagefind();
       }
@@ -866,6 +867,21 @@ export class SiteGenerationManager {
   );
 
   /**
+   * Reads and returns the pagefind configuration from pagefind.json
+   */
+  private getPagefindConfig() {
+    const pagefindConfigPath = path.join(this.rootPath, 'pagefind.json');
+    if (fs.existsSync(pagefindConfigPath)) {
+      try {
+        return fs.readJsonSync(pagefindConfigPath);
+      } catch (error) {
+        logger.warn('Failed to read pagefind.json config, using defaults');
+      }
+    }
+    return {};
+  }
+
+  /**
  * Indexes all the pages of the site using pagefind.
  */
   async indexSiteWithPagefind() {
@@ -874,13 +890,34 @@ export class SiteGenerationManager {
     // TODO: Update this dynamic import to a static import when migrating to ESM
     // eslint-disable-next-line no-eval
     const { createIndex, close } = await (eval('import("pagefind")') as Promise<typeof import('pagefind')>);
-    const { index } = await createIndex({
+
+    const pagefindConfig = this.getPagefindConfig();
+
+    const createIndexOptions: Record<string, unknown> = {
       keepIndexUrl: true,
       verbose: true,
       logfile: 'debug.log',
-    });
+    };
+
+    if (pagefindConfig.exclude_selectors) {
+      createIndexOptions.excludeSelectors = pagefindConfig.exclude_selectors;
+    }
+    if (pagefindConfig.root_selector) {
+      createIndexOptions.rootSelector = pagefindConfig.root_selector;
+    }
+    if (pagefindConfig.force_language) {
+      createIndexOptions.forceLanguage = pagefindConfig.force_language;
+    }
+
+    const { index } = await createIndex(createIndexOptions);
     if (index) {
-      const { errors, page_count } = await index.addDirectory({ path: this.outputPath });
+      const addDirectoryOptions: Record<string, unknown> = { path: this.outputPath };
+      if (pagefindConfig.glob) {
+        addDirectoryOptions.glob = pagefindConfig.glob;
+      }
+      const { errors, page_count } = await index.addDirectory(
+        addDirectoryOptions as { path: string; glob?: string },
+      );
       errors.forEach(error => logger.error(error));
 
       const endTime = new Date();
