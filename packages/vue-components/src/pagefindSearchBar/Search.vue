@@ -15,7 +15,8 @@ const handleKeyDown = (e) => {
   if (!showModal.value) return;
   if (!['ArrowUp', 'ArrowDown', 'Enter'].includes(e.key)) return;
 
-  const results = Array.from(document.querySelectorAll('.pagefind-ui__result-link'));
+  const results = Array.from(document.querySelectorAll(
+    '.pagefind-ui__result-link, .pagefind-ui__sub-result-link'));
   if (results.length === 0) return;
 
   const input = document.querySelector('#pagefind-search-input input');
@@ -127,6 +128,25 @@ watch(showModal, (isOpen) => {
             if (!val) observer.disconnect();
           });
         }
+
+        container.addEventListener('mouseover', (e) => {
+          const resultLink = e.target.closest('.pagefind-ui__result-link');
+          if (resultLink) {
+            // Remove active class from all other results
+            container.querySelectorAll('.pagefind-ui__result.is-active').forEach((el) => {
+              el.classList.remove('is-active');
+            });
+
+            // Add active class to the hovered one
+            const resultElement = resultLink.closest('.pagefind-ui__result');
+            if (resultElement) {
+              resultElement.classList.add('is-active');
+            }
+
+            // Move browser focus to the link (optional, but keeps Enter key logic synced)
+            resultLink.focus({ preventScroll: true });
+          }
+        });
 
         // Fix for Redirection & Modal Closing:
         // We listen for clicks on the results. If a result is clicked,
@@ -328,7 +348,7 @@ onUnmounted(() => {
 }
 
 #pagefind-search-input :deep(.pagefind-ui__result) {
-  padding: 0px 5px;
+  padding: 1px 5px;
 }
 
 #pagefind-search-input :deep(.pagefind-ui__result-inner) {
@@ -363,6 +383,11 @@ onUnmounted(() => {
   background-color: rgba(255, 255, 255, 0.2) !important;
   color: #fff !important;
 }
+
+/* Disable default hover to let the .is-active class handle the UI */
+/* #pagefind-search-input :deep(.pagefind-ui__result-link:hover) {
+  background-color: transparent !important;
+} */
 
 </style>
 
