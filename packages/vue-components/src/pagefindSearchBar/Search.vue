@@ -18,34 +18,41 @@ const handleKeyDown = (e) => {
   const results = Array.from(document.querySelectorAll('.pagefind-ui__result-link'));
   if (results.length === 0) return;
 
+  const input = document.querySelector('#pagefind-search-input input');
   const { activeElement } = document;
+
+  if (e.key === 'Enter' && activeElement === input) {
+    const activeResult = document.querySelector('.pagefind-ui__result.is-active .pagefind-ui__result-link');
+    if (activeResult) {
+      e.preventDefault();
+      activeResult.click();
+      showModal.value = false;
+      return;
+    }
+  }
+
   const index = results.indexOf(activeElement);
+  if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+    document.querySelectorAll('.pagefind-ui__result.is-active').forEach((el) => {
+      el.classList.remove('is-active');
+    });
 
-  if (e.key === 'Enter' && index !== -1) {
-    e.preventDefault();
-    results[index].click();
-    showModal.value = false;
-    return;
-  }
+    let targetIndex;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      // index is -1 if focus is in the input; this correctly jumps to 0
+      targetIndex = (index + 1) % results.length;
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      targetIndex = (index <= 0) ? results.length - 1 : index - 1;
+    }
 
-  let targetIndex;
-  if (e.key === 'ArrowDown') {
-    e.preventDefault();
-    // If not in results (index -1), go to first result (0).
-    // If at end, loop to top.
-    targetIndex = (index + 1) % results.length;
-    results[targetIndex].focus();
-  } else if (e.key === 'ArrowUp') {
-    e.preventDefault();
-    // If not in results or at top, go to bottom.
-    targetIndex = (index <= 0) ? results.length - 1 : index - 1;
-    results[targetIndex].focus();
-  }
-  const target = results[targetIndex];
-  if (target) {
-    target.focus();
-    // block: 'nearest' prevents the whole page from jumping
-    target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // Single source of truth for focusing
+    const target = results[targetIndex];
+    if (target) {
+      target.focus();
+      target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   }
 };
 
@@ -97,15 +104,33 @@ watch(showModal, (isOpen) => {
         });
 
         // Focus the input inside the new structure
+        const container = document.querySelector('#pagefind-search-input');
         const input = document.querySelector('#pagefind-search-input input');
         if (input) {
           input.focus();
+          const observer = new MutationObserver(() => {
+            container.querySelectorAll('.pagefind-ui__result').forEach((el) => {
+              el.classList.remove('is-active');
+            });
+
+            const firstResult = container.querySelector('.pagefind-ui__result');
+            if (firstResult) {
+              firstResult.classList.add('is-active');
+            }
+          });
+
+          // Start observing the container for added search results
+          observer.observe(container, { childList: true, subtree: true });
+
+          // Disconnect observer when modal closes to prevent memory leaks
+          watch(showModal, (val) => {
+            if (!val) observer.disconnect();
+          });
         }
 
         // Fix for Redirection & Modal Closing:
         // We listen for clicks on the results. If a result is clicked,
         // we close the modal. This is especially important for anchors (#).
-        const container = document.querySelector('#pagefind-search-input');
         container.addEventListener('click', (e) => {
           const anchor = e.target.closest('a');
           if (anchor) {
@@ -320,18 +345,21 @@ onUnmounted(() => {
 }
 
 /* 1. Main Container: Keep the blue background when navigating inside */
-#pagefind-search-input :deep(.pagefind-ui__result:focus-within) {
+#pagefind-search-input :deep(.pagefind-ui__result:focus-within),
+#pagefind-search-input :deep(.pagefind-ui__result.is-active) {
   background-color: #5468ff !important;
   border-radius: 8px;
   transition: background-color 0.1s ease;
 }
 
-#pagefind-search-input :deep(.pagefind-ui__result:focus-within *) {
+#pagefind-search-input :deep(.pagefind-ui__result:focus-within *),
+#pagefind-search-input :deep(.pagefind-ui__result.is-active *) {
   color: #fff !important;
 }
 
 /* Highlighting search terms (mark tags) */
-#pagefind-search-input :deep(.pagefind-ui__result:focus-within mark) {
+#pagefind-search-input :deep(.pagefind-ui__result:focus-within mark),
+#pagefind-search-input :deep(.pagefind-ui__result.is-active mark) {
   background-color: rgba(255, 255, 255, 0.2) !important;
   color: #fff !important;
 }
