@@ -86,6 +86,8 @@ watch(showModal, (isOpen) => {
           resetFilters: true,
           showImages: false,
           autofocus: true,
+          excerptLength: 10,
+          pageSize: 100,
           // Pagefind UI default styles will be applied here
           processResult: (result) => {
           // Remove the '/markbind' prefixt
@@ -383,11 +385,6 @@ onUnmounted(() => {
   background-color: rgba(255, 255, 255, 0.2) !important;
   color: #fff !important;
 }
-
-/* Disable default hover to let the .is-active class handle the UI */
-/* #pagefind-search-input :deep(.pagefind-ui__result-link:hover) {
-  background-color: transparent !important;
-} */
 
 </style>
 
