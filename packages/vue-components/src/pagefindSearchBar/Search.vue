@@ -90,15 +90,19 @@ watch(showModal, (isOpen) => {
           pageSize: 100,
           // Pagefind UI default styles will be applied here
           processResult: (result) => {
-          // Remove the '/markbind' prefixt
-            if (result.url.startsWith('/markbind/')) {
-              result.url = result.url.substring(9);
+            // Remove the '/markbind' prefixt
+            const markbindRegex = /markbind\//g;
+
+            // Process the main result URL
+            if (result.url.includes('markbind/')) {
+              result.url = result.url.replace(markbindRegex, '');
             }
+
             // Also process subresults (headings within the page)
             if (result.sub_results && Array.isArray(result.sub_results)) {
               result.sub_results.forEach((subResult) => {
-                if (subResult.url.startsWith('/markbind/')) {
-                  subResult.url = subResult.url.substring(9);
+                if (subResult.url.includes('markbind/')) {
+                  subResult.url = subResult.url.replace(markbindRegex, '');
                 }
               });
             }

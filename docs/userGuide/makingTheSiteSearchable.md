@@ -64,7 +64,7 @@ MarkBind will automatically inject the necessary scripts and styles to render th
 
 The following UI will be rendered, which is provided by Pagefind:
 
-<search menu-align-right/>
+<search />
 
 <br>
 
