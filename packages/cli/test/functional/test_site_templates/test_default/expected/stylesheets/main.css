@@ -133,3 +133,20 @@ mark {
         display: none;
     }
 }
+
+[data-bs-theme="dark"] mark {
+    background-color: #665c00;
+    color: #fff3bf;
+}
+
+[data-bs-theme="dark"] #site-nav {
+    border-right-color: #495057;
+}
+
+[data-bs-theme="dark"] #page-nav {
+    border-left-color: #495057;
+}
+
+[data-bs-theme="dark"] .slim-scroll::-webkit-scrollbar-thumb {
+    background: #6c757d;
+}
