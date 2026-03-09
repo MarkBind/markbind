@@ -28,6 +28,7 @@ const dailyRotateFileTransport = new DailyRotateFile({
   handleExceptions: true,
   level: 'debug',
   maxFiles: 5,
+  auditFile: '_markbind/logs/audit.json',
 });
 
 // Reconfigure the default instance logger winston provides with DailyRotateFile for markbind-cli

@@ -15,8 +15,23 @@ function tryDeleteFolder(pathName: string) {
   if (!fs.pathExistsSync(pathName)) {
     return;
   }
+  fs.rmdirSync(pathName);
+}
+
+function tryDeleteFile(pathName: string) {
+  if (!fs.existsSync(pathName)) {
+    return;
+  }
+  fs.rmSync(pathName);
+}
+
+function tryDelete(pathName: string, isFile: boolean) {
   try {
-    fs.rmdirSync(pathName);
+    if (isFile) {
+      tryDeleteFile(pathName);
+    } else {
+      tryDeleteFolder(pathName);
+    }
   } catch (error) {
     if (hasErrorCodeAndMessage(error)) {
       // If directory is not empty, fail silently
@@ -58,7 +73,9 @@ export function findRootFolder(
 export function cleanupFailedMarkbindBuild() {
   const markbindDir = path.join(process.cwd(), '_markbind');
   const logsDir = path.join(markbindDir, 'logs');
+  const auditFileDir = path.join(logsDir, 'audit.json');
 
-  tryDeleteFolder(logsDir);
-  tryDeleteFolder(markbindDir);
+  tryDelete(auditFileDir, true);
+  tryDelete(logsDir, false);
+  tryDelete(markbindDir, false);
 }
