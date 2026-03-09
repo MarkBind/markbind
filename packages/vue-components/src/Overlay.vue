@@ -94,4 +94,8 @@ export default {
         background: #fff;
         clear: both;
     }
+
+    [data-bs-theme="dark"] .nav-menu-open {
+        background: #212529;
+    }
 </style>

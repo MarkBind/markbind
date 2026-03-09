@@ -119,5 +119,9 @@ export default {
             border-radius: 5px;
             padding: 20px;
         }
+
+        [data-bs-theme="dark"] .printable-tabs {
+            border-color: #495057;
+        }
     }
 </style>

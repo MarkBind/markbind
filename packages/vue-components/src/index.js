@@ -9,6 +9,7 @@ import 'vue-final-modal/style.css'; // eslint-disable-line import/no-unresolved
 import box from './Box.vue';
 import breadcrumb from './Breadcrumb.vue';
 import closeable from './directives/Closeable';
+import darkModeToggle from './DarkModeToggle.vue';
 import dropdown from './Dropdown.vue';
 import navbar from './Navbar.vue';
 import panel from './Panel.vue';
@@ -41,6 +42,7 @@ import card from './cardstack/Card.vue';
 const components = {
   box,
   breadcrumb,
+  darkModeToggle,
   cardstack,
   card,
   dropdown,

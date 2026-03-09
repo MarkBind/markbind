@@ -338,6 +338,10 @@ export default {
         font-weight: 400;
     }
 
+    [data-bs-theme="dark"] .badge.tag-badge.select-all-toggle {
+        color: #e9ecef !important;
+    }
+
     .select-all-toggle .tag-indicator {
         margin-right: 1.5px;
     }
@@ -347,5 +351,9 @@ export default {
         margin-top: 15px;
         color: #666;
         font-size: 14px;
+    }
+
+    [data-bs-theme="dark"] .results-count {
+        color: #adb5bd;
     }
 </style>

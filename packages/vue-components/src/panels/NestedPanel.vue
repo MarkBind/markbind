@@ -222,6 +222,10 @@ export default {
         background-image: linear-gradient(180deg, transparent, white 90%);
     }
 
+    [data-bs-theme="dark"] .card-peek-collapsed::after {
+        background-image: linear-gradient(180deg, transparent, #212529 90%);
+    }
+
     .peek-read-more {
         z-index: 1;
         opacity: 0.2;

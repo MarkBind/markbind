@@ -14,9 +14,12 @@
           </ul>
         </div>
 
-        <ul v-if="slots.right" class="navbar-nav navbar-right">
-          <slot name="right"></slot>
-        </ul>
+        <div class="navbar-right">
+          <ul v-if="slots.right" class="navbar-nav">
+            <slot name="right"></slot>
+          </ul>
+          <dark-mode-toggle class="navbar-dark-mode-toggle" />
+        </div>
       </div>
     </nav>
     <div
@@ -38,11 +41,13 @@ import { toBoolean } from './utils/utils';
 import normalizeUrl from './utils/urls';
 import SiteNavButton from './SiteNavButton.vue';
 import PageNavButton from './PageNavButton.vue';
+import DarkModeToggle from './DarkModeToggle.vue';
 
 export default {
   components: {
     SiteNavButton,
     PageNavButton,
+    DarkModeToggle,
   },
   props: {
     type: {
@@ -318,6 +323,7 @@ export default {
             order: 1;
             max-width: 50%;
             padding: 0 16px;
+            justify-content: flex-end;
         }
 
         .navbar-default {
@@ -384,7 +390,14 @@ export default {
     }
 
     .navbar-right {
+        align-items: center;
+        display: flex;
+        gap: 0.5rem;
         padding-right: 1rem;
+    }
+
+    .navbar-dark-mode-toggle {
+        flex: 0 0 auto;
     }
 
     .navbar-left {
@@ -420,6 +433,11 @@ export default {
         height: 50px;
         width: 100%;
         position: relative;
+    }
+
+    :global([data-bs-theme="dark"]) .lower-navbar-container {
+        background-color: #212529;
+        border-bottom-color: #495057;
     }
 
     /* Navbar link highlight for current page */

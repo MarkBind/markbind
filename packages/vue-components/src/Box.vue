@@ -390,6 +390,16 @@ export default {
         border-width: 0 0 0 5px;
     }
 
+    [data-bs-theme="dark"] .alert-default {
+        color: #e9ecef;
+        background-color: #2b3035;
+        border-color: #495057;
+    }
+
+    [data-bs-theme="dark"] .alert-border-left {
+        background-color: #2b3035;
+    }
+
     .vertical-divider {
         width: 4px;
     }

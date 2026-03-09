@@ -289,6 +289,10 @@ export default {
         background-color: rgb(0 0 0 / 7.5%); /* follows Bootstrap's table-active */
     }
 
+    [data-bs-theme="dark"] .table-active {
+        background-color: rgb(255 255 255 / 12.5%);
+    }
+
     .dropdown-menu-end {
         right: 0;
         left: auto;

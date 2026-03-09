@@ -98,6 +98,10 @@ export default {
             border-bottom: 1px solid #dee2e6;
         }
 
+        [data-bs-theme="dark"] .printable-tab-header {
+            border-bottom-color: #495057;
+        }
+
         .printable-tab-header > div {
             margin-bottom: -2px;
         }

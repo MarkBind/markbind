@@ -136,6 +136,7 @@ var i = 0,
 	HAS_MATCHED               = -3;
 
 const DEFAULT_SPECIAL_TAGS = [
+  'dark-mode-toggle',
 	'script',
 	'site-nav',
 	'style',

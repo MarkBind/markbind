@@ -138,4 +138,30 @@ export default {
         max-height: 1000px;
         transition: max-height 0.25s ease-in;
     }
+
+    [data-bs-theme="dark"] .site-nav-root a.current {
+        color: #7cb8ff;
+    }
+
+    [data-bs-theme="dark"] .site-nav-default-list-item,
+    [data-bs-theme="dark"] .site-nav-custom-list-item,
+    [data-bs-theme="dark"] .site-nav-default-list-item a {
+        color: #dee2e6;
+    }
+
+    [data-bs-theme="dark"] .site-nav-default-list-item:hover {
+        background-color: rgb(124 184 255 / 16%);
+    }
+
+    [data-bs-theme="dark"] .site-nav-default-list-item:hover a {
+        color: #fff;
+    }
+
+    [data-bs-theme="dark"] .site-nav-dropdown-btn-icon:hover {
+        background-color: rgb(124 184 255 / 16%);
+    }
+
+    [data-bs-theme="dark"] .site-nav-rotate-icon {
+        color: #7cb8ff;
+    }
 </style>

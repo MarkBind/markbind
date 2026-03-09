@@ -84,6 +84,10 @@ export default {
             margin: 10px 0;
         }
 
+        [data-bs-theme="dark"] .printable-tab-group {
+            border-color: #495057;
+        }
+
         .printable-tab-group-header {
             display: block;
             margin-bottom: 10px;

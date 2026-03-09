@@ -183,6 +183,10 @@ export default {
         background-image: linear-gradient(180deg, transparent, white 90%);
     }
 
+    [data-bs-theme="dark"] .card-peek-collapsed::after {
+        background-image: linear-gradient(180deg, transparent, #212529 90%);
+    }
+
     .morph-title {
         padding: 0 0.3em;
         border-color: black;
@@ -234,6 +238,10 @@ export default {
         width: 100%;
         display: inline-block;
         background-color: white;
+    }
+
+    [data-bs-theme="dark"] .header-wrapper {
+        background-color: #212529;
     }
 
     .header-wrapper-bottom {
