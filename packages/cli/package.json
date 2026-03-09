@@ -46,8 +46,8 @@
     "live-server": "1.2.1",
     "lodash": "^4.17.15",
     "url-parse": "^1.5.10",
-    "winston": "^2.4.4",
-    "winston-daily-rotate-file": "^3.10.0"
+    "winston": "^3.19.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.4.6",

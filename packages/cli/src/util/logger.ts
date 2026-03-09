@@ -1,22 +1,27 @@
 import chalk from 'chalk';
 import figlet from 'figlet';
+import winston from 'winston';
+import DailyRotateFile from 'winston-daily-rotate-file';
 
-import { winston, transports } from './logger-wrapper.cjs';
+const { transports, format } = winston;
+
+const consoleFormat = format.combine(
+  format.colorize(),
+  format.printf(info => `${info.level}: ${info.message}`),
+);
 
 // @markbind/core's consoleTransport but with level: info
 const consoleTransport = new transports.Console({
-  colorize: true,
+  format: consoleFormat,
   handleExceptions: true,
-  humanReadableUnhandledException: true,
   level: 'info',
-  showLevel: true,
 });
 
 function useDebugConsole(): void {
   consoleTransport.level = 'debug';
 }
 
-const dailyRotateFileTransport = new transports.DailyRotateFile({
+const dailyRotateFileTransport = new DailyRotateFile({
   datePattern: 'YYYY-MM-DD',
   dirname: '_markbind/logs',
   filename: 'markbind-%DATE%.log',
