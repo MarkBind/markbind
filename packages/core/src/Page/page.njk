@@ -1,6 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script>
+      (function() {
+        const storageKey = 'markbind-theme';
+        const darkTheme = 'dark';
+        const lightTheme = 'light';
+        let resolvedTheme = '{{ codeTheme }}';
+
+        try {
+          const storedTheme = localStorage.getItem(storageKey);
+          if (storedTheme === darkTheme || storedTheme === lightTheme) {
+            resolvedTheme = storedTheme;
+          } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            resolvedTheme = darkTheme;
+          } else {
+            resolvedTheme = lightTheme;
+          }
+        } catch (error) {
+          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            resolvedTheme = darkTheme;
+          }
+        }
+
+        document.documentElement.setAttribute('data-bs-theme', resolvedTheme);
+        window.__MARKBIND_THEME__ = resolvedTheme;
+      }());
+    </script>
     {%- if asset.headTop %}
     {%- for headContent in asset.headTop %}
     {{ headContent }}
@@ -17,7 +43,8 @@
     {% if asset.octicons %} <link rel="stylesheet" href="{{ asset.octicons }}"> {%- endif -%}
     {% if asset.materialIcons %} <link rel="stylesheet" href="{{ asset.materialIcons }}"> {%- endif -%}
     {% if asset.bootstrapIcons %} <link rel="stylesheet" href="{{ asset.bootstrapIcons }}"> {%- endif -%}
-    <link rel="stylesheet" href="{{ asset.highlight }}">
+    <link rel="stylesheet" id="markbind-highlight-light" href="{{ asset.highlightLight }}">
+    <link rel="stylesheet" id="markbind-highlight-dark" href="{{ asset.highlightDark }}">
     {%- if not dev -%}<link rel="stylesheet" href="{{ asset.markBindCss }}">{%- endif -%}
     {%- if asset.pluginLinks -%}
     {%- for link in asset.pluginLinks -%}
@@ -30,6 +57,18 @@
     {%- endfor %}
     {%- endif %}
     {%- if faviconUrl -%} <link rel="icon" href="{{ faviconUrl }}"> {%- endif -%}
+    <script>
+      (function() {
+        const theme = window.__MARKBIND_THEME__ || '{{ codeTheme }}';
+        const lightStylesheet = document.getElementById('markbind-highlight-light');
+        const darkStylesheet = document.getElementById('markbind-highlight-dark');
+
+        if (lightStylesheet && darkStylesheet) {
+          lightStylesheet.disabled = theme !== 'light';
+          darkStylesheet.disabled = theme !== 'dark';
+        }
+      }());
+    </script>
 </head>
 <script>
   const baseUrl = '{{ baseUrl }}'
@@ -44,6 +83,9 @@
 <script src="{{ asset.vue }}"></script>
 <script src="{{ asset.markBindJs }}"></script>
 <script src="{{ asset.pageVueRenderJs }}"></script>
+<script>
+  document.body.setAttribute('data-code-theme', window.__MARKBIND_THEME__ || '{{ codeTheme }}');
+</script>
 <script>
   {% if enableSearch %}MarkBind.setupWithSearch(){% else %}MarkBind.setup(){% endif %}
 </script>

@@ -380,3 +380,57 @@ h6 {
     width: 100%;
     height: 100%;
 }
+
+[data-bs-theme="dark"] blockquote {
+    border-left-color: #495057;
+    color: #adb5bd;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+[data-bs-theme="dark"] code {
+    background: #2b3035;
+}
+
+[data-bs-theme="dark"] mark code {
+    background: rgb(255 248 198 / 25%);
+}
+
+[data-bs-theme="dark"] kbd {
+    background-color: #2b3035;
+    border-color: #495057;
+    border-bottom-color: #6c757d;
+    box-shadow: inset 0 -1px 0 #6c757d;
+    color: #e9ecef;
+}
+
+[data-bs-theme="dark"] .table-striped > thead,
+[data-bs-theme="dark"] .table-striped > tbody > tr:nth-of-type(even) {
+    background-color: #212529;
+}
+
+[data-bs-theme="dark"] footer {
+    background-color: #1a1d20;
+    color: #adb5bd;
+}
+
+[data-bs-theme="dark"] .dimmed {
+    color: #adb5bd;
+}
+
+[data-bs-theme="dark"] .navbar-nav .open .dropdown-menu {
+    background-color: #212529;
+}
+
+[data-bs-theme="dark"] li.footnote-item:target {
+    background-color: #343a40;
+}
+
+[data-bs-theme="dark"] .hljs:not(.inline).line-numbers > span::before,
+[data-bs-theme="dark"] .hljs:not(.inline).line-numbers-print > span::before {
+    border-right-color: #495057;
+    color: #adb5bd;
+}
+
+[data-bs-theme="dark"] hr {
+    border-top-color: rgb(255 255 255 / 15%);
+}
