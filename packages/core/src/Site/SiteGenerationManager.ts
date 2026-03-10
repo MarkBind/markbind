@@ -866,6 +866,39 @@ export class SiteGenerationManager {
   );
 
   /**
+   * Normalizes a gitignore-style glob pattern to a valid Wax/Pagefind pattern
+   * by appending .html extension if not already present.
+   *
+   * @param pattern - The glob pattern from user config (gitignore-style)
+   * @returns A valid Wax/Pagefind glob pattern
+   */
+  // eslint-disable-next-line
+  private normalizeGlobPattern(pattern: string): string {
+    // If already ends with .html, return as is
+    if (pattern.endsWith('.html')) {
+      return pattern;
+    }
+
+    // If ends with /**, append .html
+    if (pattern.endsWith('/**')) {
+      return `${pattern}/*.html`;
+    }
+
+    // If ends with /*, append .html
+    if (pattern.endsWith('/*')) {
+      return `${pattern}.html`;
+    }
+
+    // If ends with /, treat as directory - append /**
+    if (pattern.endsWith('/')) {
+      return `${pattern}**/*.html`;
+    }
+
+    // Otherwise, treat as directory - append /**
+    return `${pattern}/**/*.html`;
+  }
+
+  /**
  * Indexes all the pages of the site using pagefind.
  */
   async indexSiteWithPagefind() {
@@ -886,12 +919,6 @@ export class SiteGenerationManager {
     if (pagefindConfig.exclude_selectors) {
       createIndexOptions.excludeSelectors = pagefindConfig.exclude_selectors;
     }
-    if (pagefindConfig.root_selector) {
-      createIndexOptions.rootSelector = pagefindConfig.root_selector;
-    }
-    if (pagefindConfig.force_language) {
-      createIndexOptions.forceLanguage = pagefindConfig.force_language;
-    }
 
     const { index } = await createIndex(createIndexOptions);
     if (index) {
@@ -906,10 +933,12 @@ export class SiteGenerationManager {
         // If there are multiple patterns - call addDirectory for each glob pattern
         const results = await Promise.all(
           globPatterns.map(async (pattern) => {
-            logger.info(`Pagefind indexing with glob: ${pattern}`);
+            // Normalize gitignore-style patterns to valid Wax/Pagefind patterns
+            const normalizedPattern = this.normalizeGlobPattern(pattern);
+            logger.info(`Pagefind indexing with glob: ${normalizedPattern} (from: ${pattern})`);
             const result = await index.addDirectory({
               path: this.outputPath,
-              glob: pattern,
+              glob: normalizedPattern,
             });
 
             // Handle errors immediately within the iteration

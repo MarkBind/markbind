@@ -66,8 +66,6 @@ export class SiteConfig {
 
   pagefind?: {
     exclude_selectors?: string[];
-    root_selector?: string;
-    force_language?: string;
     glob?: string | string[];
   };
 

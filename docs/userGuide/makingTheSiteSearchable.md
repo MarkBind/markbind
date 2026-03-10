@@ -85,9 +85,13 @@ For more details, see the [Pagefind documentation on removing individual element
 
 ### Using Pagefind Configuration
 
-You can customize Pagefind's indexing behavior by adding a `pagefind` configuration in your `site.json`. This is useful if you are migrating from Algolia and want to reuse your existing CSS class selectors.
+You can customize Pagefind's indexing behavior by adding a `pagefind` configuration in your `site.json`. This allows you to control which content is indexed and how search works.
 
-In your `site.json`, add a `pagefind` key:
+#### Excluding Content from Search Index
+
+You can use the `exclude_selectors` option to exclude specific elements from the search index. This is useful if you are migrating from Algolia and want to reuse your existing CSS class selectors.
+
+In your `site.json`:
 
 ```json
 {
@@ -99,16 +103,9 @@ In your `site.json`, add a `pagefind` key:
 
 This tells Pagefind to exclude any element with the `algolia-no-index` class (or containing it in a space-separated list) from the search index, similar to using `data-pagefind-ignore`.
 
-Other supported configuration options include:
-- `root_selector`: The element that Pagefind should treat as the root of the document
-- `force_language`: Forces a specific language for indexing (e.g., `"en"`)
-- `glob`: Configures the glob pattern used to discover HTML files
-
-For a full list of options, see the [Pagefind CLI configuration documentation](https://pagefind.app/docs/config-options/).
-
 #### Limiting Which Pages Are Searchable
 
-You can use the `glob` option to limit which pages are indexed by Pagefind. This is useful when you want search results to only show pages from specific sections of your site (similar to Algolia's URL-based tagging).
+You can use the `glob` option to limit which pages are indexed by Pagefind. This is useful when you want search results to only show pages from specific sections of your site.
 
 In your `site.json`:
 
@@ -116,18 +113,33 @@ In your `site.json`:
 {
   "pagefind": {
     "glob": [
-      "**/admin/**/*.html"
+      "devGuide",
+      "userGuide/*"
     ]
   }
 }
 ```
 
-Only pages matching these glob patterns will appear in search results. This is particularly useful for:
+MarkBind supports glob patterns and will automatically append `.html` to your patterns if not specified. For example:
+- `"devGuide"` becomes `"devGuide/**/*.html"`
+- `"devGuide/*"` becomes `"devGuide/*.html"`
+- `"**/devGuide/**"` becomes `"**/devGuide/**/*.html"`
+- `"*.html"` remains `"*.html"` (no change needed)
+
+Only pages matching these glob patterns will appear in search results. This can be particularly useful for:
 - Multi-site setups where you want to search only specific sections
-- Excluding certain directories from search results entirely
-- Creating targeted search experiences for different user groups
+- Including only certain directories from search results
 
 For more details on glob patterns, see the [Pagefind documentation](https://pagefind.app/docs/config-options/#glob).
+
+<panel header="Potential Future Enhancements">
+
+Additional Pagefind configuration options may be supported in future releases:
+
+- **`root_selector`**: Allows specifying a custom root element for indexing (default: `html`). Useful for sites with specific content containers.
+- **`force_language`**: Forces a specific language for indexing (e.g., `"en"`, `"pt"`). Improves search accuracy for multilingual sites.
+
+</panel>
 
 </div>
 

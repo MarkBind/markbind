@@ -7,7 +7,7 @@
   },
   "pagefind": {
     "exclude_selectors": [".algolia-no-index", "[class*='algolia-no-index']"],
-    "glob": ["**/userGuide/**/*.html", "**/devGuide/**/*.html"]
+    "glob": "**/userGuide/"
   },
   "pages": [
     {
