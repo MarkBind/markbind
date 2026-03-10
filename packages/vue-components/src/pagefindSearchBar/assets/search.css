@@ -105,6 +105,7 @@ div [command-dialog-wrapper] {
   flex-direction: column;
   margin: 20vh auto auto;
   max-width: 560px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.51);
 }
 div [command-dialog-footer] {
   border-top: 1px solid var(--gray6);

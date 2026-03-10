@@ -330,7 +330,7 @@ onUnmounted(() => {
 
 /* Align the list with the sugar-blog container */
 #pagefind-search-input :deep(.pagefind-ui__drawer) {
-  max-height: 360px;
+  max-height: 55vh;
   overflow-y: auto;
   padding: 0px;
 
@@ -354,11 +354,14 @@ onUnmounted(() => {
 }
 
 #pagefind-search-input :deep(.pagefind-ui__result) {
-  padding: 1px 5px;
+  border-radius: 5px;
+  padding: 2px 5px;
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
+  margin: 5px;
 }
 
 #pagefind-search-input :deep(.pagefind-ui__result-inner) {
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 2px;
 }
 
