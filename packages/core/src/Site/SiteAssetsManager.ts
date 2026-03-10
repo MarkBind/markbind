@@ -90,14 +90,6 @@ export class SiteAssetsManager {
     logger.info('Assets built');
   }
 
-  async buildPagefindConfig() {
-    const pagefindConfigPath = path.join(this.rootPath, 'pagefind.json');
-    if (fs.existsSync(pagefindConfigPath)) {
-      await fs.copy(pagefindConfigPath, path.join(this.outputPath, 'pagefind.json'));
-      logger.info('pagefind.json copied to output folder');
-    }
-  }
-
   /**
    * Handles the reloading of ignore attributes
    */

@@ -311,7 +311,6 @@ export class SiteGenerationManager {
       await this.siteAssets.copyOcticonsAsset();
       await this.siteAssets.copyMaterialIconsAsset();
       await this.writeSiteData();
-      await this.siteAssets.buildPagefindConfig();
       if (this.siteConfig.enableSearch) {
         await this.indexSiteWithPagefind();
       }
@@ -867,21 +866,6 @@ export class SiteGenerationManager {
   );
 
   /**
-   * Reads and returns the pagefind configuration from pagefind.json
-   */
-  private getPagefindConfig() {
-    const pagefindConfigPath = path.join(this.rootPath, 'pagefind.json');
-    if (fs.existsSync(pagefindConfigPath)) {
-      try {
-        return fs.readJsonSync(pagefindConfigPath);
-      } catch (error) {
-        logger.warn('Failed to read pagefind.json config, using defaults');
-      }
-    }
-    return {};
-  }
-
-  /**
  * Indexes all the pages of the site using pagefind.
  */
   async indexSiteWithPagefind() {
@@ -891,7 +875,7 @@ export class SiteGenerationManager {
     // eslint-disable-next-line no-eval
     const { createIndex, close } = await (eval('import("pagefind")') as Promise<typeof import('pagefind')>);
 
-    const pagefindConfig = this.getPagefindConfig();
+    const pagefindConfig = this.siteConfig.pagefind || {};
 
     const createIndexOptions: Record<string, unknown> = {
       keepIndexUrl: true,

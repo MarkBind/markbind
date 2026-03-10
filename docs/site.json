@@ -5,6 +5,9 @@
   "style": {
     "codeTheme": "light"
   },
+  "pagefind": {
+    "exclude_selectors": [".algolia-no-index", "[class*='algolia-no-index']"]
+  },
   "pages": [
     {
       "src": "userGuide/customFileTypes/sampleJson.md",

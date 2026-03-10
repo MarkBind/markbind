@@ -39,7 +39,7 @@ You can add a search bar component to your website to allow users to search the 
 
 
 
-<div class='algolia-no-index'>
+<div class='hellodarknessmyoldfriend algolia-no-index'>
 
 ## Using Pagefind (Beta)
 
@@ -83,15 +83,17 @@ You can exclude specific elements from the search index by adding the `data-page
 
 For more details, see the [Pagefind documentation on removing individual elements](https://pagefind.app/docs/indexing/#removing-individual-elements-from-the-index).
 
-### Using Pagefind Configuration File
+### Using Pagefind Configuration
 
-You can customize Pagefind's indexing behavior by creating a `pagefind.json` file in your website's root directory. This is useful if you are migrating from Algolia and want to reuse your existing CSS class selectors.
+You can customize Pagefind's indexing behavior by adding a `pagefind` configuration in your `site.json`. This is useful if you are migrating from Algolia and want to reuse your existing CSS class selectors.
 
-For example, if you use Algolia's `algolia-no-index` class to mark content that should not be indexed:
+In your `site.json`, add a `pagefind` key:
 
 ```json
 {
+  "pagefind": {
     "exclude_selectors": [".algolia-no-index", "[class*='algolia-no-index']"]
+  }
 }
 ```
 
@@ -103,8 +105,6 @@ Other supported configuration options include:
 - `glob`: Configures the glob pattern used to discover HTML files
 
 For a full list of options, see the [Pagefind CLI configuration documentation](https://pagefind.app/docs/config-options/).
-
-The `pagefind.json` file will be automatically copied to the output directory when building your site.
 
 </div>
 
