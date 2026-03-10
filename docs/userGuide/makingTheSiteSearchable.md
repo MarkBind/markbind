@@ -106,6 +106,29 @@ Other supported configuration options include:
 
 For a full list of options, see the [Pagefind CLI configuration documentation](https://pagefind.app/docs/config-options/).
 
+#### Limiting Which Pages Are Searchable
+
+You can use the `glob` option to limit which pages are indexed by Pagefind. This is useful when you want search results to only show pages from specific sections of your site (similar to Algolia's URL-based tagging).
+
+In your `site.json`:
+
+```json
+{
+  "pagefind": {
+    "glob": [
+      "**/admin/**/*.html"
+    ]
+  }
+}
+```
+
+Only pages matching these glob patterns will appear in search results. This is particularly useful for:
+- Multi-site setups where you want to search only specific sections
+- Excluding certain directories from search results entirely
+- Creating targeted search experiences for different user groups
+
+For more details on glob patterns, see the [Pagefind documentation](https://pagefind.app/docs/config-options/#glob).
+
 </div>
 
 <br>

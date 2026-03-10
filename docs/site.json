@@ -6,7 +6,8 @@
     "codeTheme": "light"
   },
   "pagefind": {
-    "exclude_selectors": [".algolia-no-index", "[class*='algolia-no-index']"]
+    "exclude_selectors": [".algolia-no-index", "[class*='algolia-no-index']"],
+    "glob": ["**/userGuide/**/*.html"]
   },
   "pages": [
     {

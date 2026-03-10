@@ -897,8 +897,14 @@ export class SiteGenerationManager {
     if (index) {
       const addDirectoryOptions: Record<string, unknown> = { path: this.outputPath };
       if (pagefindConfig.glob) {
-        addDirectoryOptions.glob = pagefindConfig.glob;
+        const globValue = pagefindConfig.glob;
+        if (Array.isArray(globValue)) {
+          addDirectoryOptions.glob = globValue.join('||');
+        } else {
+          addDirectoryOptions.glob = globValue;
+        }
       }
+      logger.info(`Pagefind addDirectory options: ${JSON.stringify(addDirectoryOptions)}`);
       const { errors, page_count } = await index.addDirectory(
         addDirectoryOptions as { path: string; glob?: string },
       );
