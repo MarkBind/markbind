@@ -39,7 +39,7 @@ You can add a search bar component to your website to allow users to search the 
 
 
 
-<div class='hellodarknessmyoldfriend algolia-no-index'>
+
 
 ## Using Pagefind (Beta)
 
@@ -141,7 +141,7 @@ Additional Pagefind configuration options may be supported in future releases:
 
 </panel>
 
-</div>
+
 
 <br>
 
