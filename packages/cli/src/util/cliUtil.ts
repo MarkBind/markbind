@@ -33,6 +33,7 @@ function tryDelete(pathName: string, isFile: boolean) {
       tryDeleteFolder(pathName);
     }
   } catch (error) {
+    const targetType = isFile ? 'file' : 'directory';
     if (hasErrorCodeAndMessage(error)) {
       // If directory is not empty, fail silently
       if (error.code !== DIR_NOT_EMPTY_ERROR_CODE) {
@@ -40,11 +41,11 @@ function tryDelete(pathName: string, isFile: boolean) {
         // Use `console` instead of logger as we don't want to create a new logger instance
         // that might pollute the working directory again.
         // eslint-disable-next-line no-console
-        console.warn(`WARNING: Failed to delete directory ${pathName}: ${error.message}`);
+        console.warn(`WARNING: Failed to delete ${targetType} ${pathName}: ${error.message}`);
       }
     } else {
       // eslint-disable-next-line no-console
-      console.warn(`WARNING: Failed to delete directory ${pathName}: Unknown err ${error}`);
+      console.warn(`WARNING: Failed to delete ${targetType} ${pathName}: Unknown err ${error}`);
     }
   }
 }
@@ -73,9 +74,9 @@ export function findRootFolder(
 export function cleanupFailedMarkbindBuild() {
   const markbindDir = path.join(process.cwd(), '_markbind');
   const logsDir = path.join(markbindDir, 'logs');
-  const auditFileDir = path.join(logsDir, 'audit.json');
+  const auditFilePath = path.join(logsDir, 'audit.json');
 
-  tryDelete(auditFileDir, true);
+  tryDelete(auditFilePath, true);
   tryDelete(logsDir, false);
   tryDelete(markbindDir, false);
 }

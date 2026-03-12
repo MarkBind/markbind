@@ -5,10 +5,12 @@ import DailyRotateFile from 'winston-daily-rotate-file';
 
 const { transports, format } = winston;
 
-const LEVEL_AND_MESSAGE = (info: winston.Logform.TransformableInfo) => `${info.level}: ${info.message}`;
+const LEVEL_AND_MESSAGE = (info: winston.Logform.TransformableInfo) =>
+  `${info.level}: ${info.stack || info.message}`;
 
 const consoleFormat = format.combine(
   format.colorize(),
+
   format.printf(LEVEL_AND_MESSAGE),
 );
 
