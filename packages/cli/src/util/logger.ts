@@ -5,9 +5,16 @@ import DailyRotateFile from 'winston-daily-rotate-file';
 
 const { transports, format } = winston;
 
+const LEVEL_AND_MESSAGE = (info: winston.Logform.TransformableInfo) => `${info.level}: ${info.message}`;
+
 const consoleFormat = format.combine(
   format.colorize(),
-  format.printf(info => `${info.level}: ${info.message}`),
+  format.printf(LEVEL_AND_MESSAGE),
+);
+
+const fileFormat = format.combine(
+  format.timestamp(),
+  format.printf(info => `${info.timestamp} - ${LEVEL_AND_MESSAGE(info)}`),
 );
 
 // @markbind/core's consoleTransport but with level: info
@@ -22,6 +29,7 @@ function useDebugConsole(): void {
 }
 
 const dailyRotateFileTransport = new DailyRotateFile({
+  format: fileFormat,
   datePattern: 'YYYY-MM-DD',
   dirname: '_markbind/logs',
   filename: 'markbind-%DATE%.log',
