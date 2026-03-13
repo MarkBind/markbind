@@ -115,6 +115,7 @@ program
   .option('-c, --ci [githubTokenName]', 'deploy the site in CI Environment [GITHUB_TOKEN]')
   .option('-n, --no-build', 'do not automatically build the site before deployment')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
+  .option('-v, --verbose', 'enable verbose logging (e.g., page building logs)')
   .summary('Deploy the latest build of the site to GitHub Pages')
   .description('Deploy the latest build of the site to the repo\'s GitHub Pages')
   .action((userSpecifiedRoot, options) => {
