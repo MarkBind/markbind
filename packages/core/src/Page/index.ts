@@ -518,6 +518,7 @@ export class Page {
    */
   async generate(externalManager: ExternalManager) {
     this.resetState(); // Reset for live reload
+    logger.verbose(`Building page: ${this.pageConfig.sourcePath}`);
 
     const fileConfig: NodeProcessorConfig = {
       baseUrl: this.siteConfig.baseUrl,
