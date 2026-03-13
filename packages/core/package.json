@@ -95,7 +95,7 @@
     "uuid": "^8.3.1",
     "vue": "3.3.11",
     "walk-sync": "^2.0.2",
-    "winston": "^2.4.4"
+    "winston": "^3.19.0"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
