@@ -28,48 +28,39 @@ winston.configure({
   transports: [consoleTransport],
 });
 
-// create a wrapper for error messages
-const errorWrap = (input: any) => {
+/**
+ * Creates a wrapper function for a specific Winston log level.
+ *
+ * The wrapper ensures that if a progress bar is active, it is interrupted
+ * before logging and resumed after, preventing the log message from being
+ * mangled by the progress bar re-rendering.
+ *
+ * @param level - The Winston log level (e.g., 'error', 'warn', 'info', 'verbose', 'debug').
+ * @returns A function that logs the provided input at the specified level, 
+ *          handling progress bar interruptions if necessary.
+ */
+const createWrapper = (level: string) => (input: any) => {
   if (progressBar) {
     progressBar.interruptBegin();
-    winston.error(input);
+    winston.log(level, input);
     progressBar.interruptEnd();
   } else {
-    winston.error(input);
+    winston.log(level, input);
   }
 };
 
-// create a wrapper for warning messages
-const warnWrap = (input: any) => {
-  if (progressBar) {
-    progressBar.interruptBegin();
-    winston.warn(input);
-    progressBar.interruptEnd();
-  } else {
-    winston.warn(input);
-  }
-};
-
-// create a wrapper for info messages
-const infoWrap = (input: any) => {
-  if (progressBar) {
-    progressBar.interruptBegin();
-    winston.info(input);
-    progressBar.interruptEnd();
-  } else {
-    winston.info(input);
-  }
-};
-
-const { debug } = winston;
-const { verbose } = winston;
+const errorWrap = createWrapper('error');
+const warnWrap = createWrapper('warn');
+const infoWrap = createWrapper('info');
+const verboseWrap = createWrapper('verbose');
+const debugWrap = createWrapper('debug');
 
 export {
   errorWrap as error,
   warnWrap as warn,
   infoWrap as info,
-  verbose,
-  debug,
+  verboseWrap as verbose,
+  debugWrap as debug,
   setProgressBar,
   removeProgressBar,
 };
