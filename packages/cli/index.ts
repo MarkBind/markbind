@@ -28,7 +28,8 @@ program
   .showHelpAfterError('(run "markbind --help" to list commands)')
   .configureHelp({
     styleTitle: (str) => chalk.bold.cyan(str),
-    styleUsage: (str) => chalk.bold.cyan(str),
+    styleUsage: (str) => chalk.white(str),
+    styleOptionText: (str) => chalk.yellow(str),
   });
 
 program
@@ -40,27 +41,31 @@ program
   .version(CLI_VERSION);
 
 program
+  .commandsGroup('Setup Commands')
   .command('init [root]')
   .option('-c, --convert', 'convert a GitHub wiki or docs folder to a MarkBind website')
   .option('-t, --template <type>', 'initialise markbind with a specified template', 'default')
   .alias('i')
+  .summary('init a markbind site')
   .description('init a markbind website project')
   .action((root, options) => {
     init(root, options);
   });
 
 program
+  .commandsGroup('Site Commands')
   .command('serve [root]')
   .alias('s')
+  .summary('Build then serve a website from a directory')
   .description('Build and serve a website from a directory')
 
   .optionsGroup('Build Options')
   .addOption(program.createOption('-f, --force-reload', 'force a full reload of all site files when a file is changed')
     .conflicts('onePage'))
   .addOption(program.createOption('-o, --one-page [file]', 'build and serve only a single page in the site initially, '
-      + 'building more pages when they are navigated to. Also lazily rebuilds only the page being viewed when'
+      + 'building more pages when they are navigated to. Also lazily rebuilds only the page being viewed when '
       + 'there are changes to the source files (if needed), building others when navigated to'))
-  .addOption(program.createOption('-b, --background-build', 'when --one-page is specified, enhances one-page serve by building'
+  .addOption(program.createOption('-b, --background-build', 'when --one-page is specified, enhances one-page serve by building '
       + 'remaining pages in the background'))
 
   .optionsGroup('Server Options')
@@ -82,7 +87,8 @@ program
   .option('--baseUrl [baseUrl]',
           'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
-  .description('build a website')
+  .summary('Build a website')
+  .description('Build a website')
   .action((userSpecifiedRoot, output, options) => {
     build(userSpecifiedRoot, output, options);
   });
@@ -93,7 +99,8 @@ program
   .option('-c, --ci [githubTokenName]', 'deploy the site in CI Environment [GITHUB_TOKEN]')
   .option('-n, --no-build', 'do not automatically build the site before deployment')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
-  .description('deploy the latest build of the site to the repo\'s Github pages')
+  .summary('Deploy the latest build of the site to Github pages')
+  .description('Deploy the latest build of the site to the repo\'s Github pages')
   .action((userSpecifiedRoot, options) => {
     deploy(userSpecifiedRoot, options);
   });
