@@ -28,18 +28,7 @@ winston.configure({
   transports: [consoleTransport],
 });
 
-/**
- * Creates a wrapper function for a specific Winston log level.
- *
- * The wrapper ensures that if a progress bar is active, it is interrupted
- * before logging and resumed after, preventing the log message from being
- * mangled by the progress bar re-rendering.
- *
- * @param level - The Winston log level (e.g., 'error', 'warn', 'info', 'verbose', 'debug').
- * @returns A function that logs the provided input at the specified level, 
- *          handling progress bar interruptions if necessary.
- */
-const createWrapper = (level: string) => (input: any) => {
+const createLoggerThatInterruptsProgressBar = (level: string) => (input: any) => {
   if (progressBar) {
     progressBar.interruptBegin();
     winston.log(level, input);
@@ -49,11 +38,11 @@ const createWrapper = (level: string) => (input: any) => {
   }
 };
 
-const errorWrap = createWrapper('error');
-const warnWrap = createWrapper('warn');
-const infoWrap = createWrapper('info');
-const verboseWrap = createWrapper('verbose');
-const debugWrap = createWrapper('debug');
+const errorWrap = createLoggerThatInterruptsProgressBar('error');
+const warnWrap = createLoggerThatInterruptsProgressBar('warn');
+const infoWrap = createLoggerThatInterruptsProgressBar('info');
+const verboseWrap = createLoggerThatInterruptsProgressBar('verbose');
+const debugWrap = createLoggerThatInterruptsProgressBar('debug');
 
 export {
   errorWrap as error,
