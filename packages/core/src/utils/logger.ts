@@ -28,13 +28,13 @@ winston.configure({
   transports: [consoleTransport],
 });
 
-const createLoggerThatInterruptsProgressBar = (level: string) => (input: any) => {
+const createLoggerThatInterruptsProgressBar = (level: string) => (...args: any[]) => {
   if (progressBar) {
     progressBar.interruptBegin();
-    winston.log(level, input);
+    (winston as any).log(level, ...args);
     progressBar.interruptEnd();
   } else {
-    winston.log(level, input);
+    (winston as any).log(level, ...args);
   }
 };
 
