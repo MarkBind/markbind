@@ -1,5 +1,5 @@
-import { HighlightRule, HIGHLIGHT_TYPES } from '../../../../../src/lib/markdown-it/highlight/HighlightRule';
-import { HighlightRuleComponent } from '../../../../../src/lib/markdown-it/highlight/HighlightRuleComponent';
+import { HighlightRule, HIGHLIGHT_TYPES } from '../../../../../src/lib/markdown-it/highlight/HighlightRule.js';
+import { HighlightRuleComponent } from '../../../../../src/lib/markdown-it/highlight/HighlightRuleComponent.js';
 
 describe('parseAllRules', () => {
   test('parses multiple rules correctly', () => {

@@ -1,9 +1,9 @@
 import * as path from 'path';
 import * as fs from 'fs-extra';
 import * as os from 'os';
-import { Site } from '../../src/Site';
-import * as logger from '../../src/utils/logger';
-import { SITE_JSON_DEFAULT, INDEX_MD_DEFAULT } from '../unit/utils/data';
+import { Site } from '../../src/Site.js';
+import * as logger from '../../src/utils/logger.js';
+import { SITE_JSON_DEFAULT, INDEX_MD_DEFAULT } from '../unit/utils/data.js';
 
 describe('Site Functional Tests', () => {
   jest.setTimeout(20000); // Functional tests involving file I/O can be slow

@@ -1,9 +1,9 @@
 import { decode } from 'html-entities';
 import cheerio from 'cheerio';
 import has from 'lodash/has';
-import { NodeOrText, MbNode } from '../utils/node';
+import { NodeOrText, MbNode } from '../utils/node.js';
 
-import md from '../lib/markdown-it';
+import { markdownIt as md } from '../lib/markdown-it/index.js';
 
 const _ = {
   has,

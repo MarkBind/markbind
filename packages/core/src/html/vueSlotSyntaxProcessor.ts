@@ -1,6 +1,6 @@
 import has from 'lodash/has';
 import find from 'lodash/find';
-import { MbNode, NodeOrText, parseHTML } from '../utils/node';
+import { MbNode, NodeOrText, parseHTML } from '../utils/node.js';
 
 const _ = {
   has,

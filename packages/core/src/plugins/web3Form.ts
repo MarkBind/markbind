@@ -1,9 +1,8 @@
 import cheerio from 'cheerio';
 import has from 'lodash/has';
-import { PluginContext } from './Plugin';
-import { MbNode } from '../utils/node';
-
-const md = require('../lib/markdown-it');
+import { PluginContext } from './Plugin.js';
+import { MbNode } from '../utils/node.js';
+import { markdownIt as md } from '../lib/markdown-it/index.js';
 
 const _ = {
   has,
@@ -134,17 +133,22 @@ const submitFormScript = `
         }
     </script>`;
 
-export = {
-  processNode: (pluginContext: PluginContext, node: MbNode) => {
-    if (node.name !== 'web-3-form') {
-      return;
-    }
-    if (isDefaultContactForm(node)) {
-      createDefaultContactForm(pluginContext, node);
-      return;
-    }
-    createCustomForm(pluginContext, node);
-  },
-  getLinks: () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`],
-  getScripts: () => [submitFormScript],
+const processNode = (pluginContext: PluginContext, node: MbNode) => {
+  if (node.name !== 'web-3-form') {
+    return;
+  }
+  if (isDefaultContactForm(node)) {
+    createDefaultContactForm(pluginContext, node);
+    return;
+  }
+  createCustomForm(pluginContext, node);
+};
+
+const getLinks = () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`];
+const getScripts = () => [submitFormScript];
+
+export {
+  processNode,
+  getLinks,
+  getScripts,
 };

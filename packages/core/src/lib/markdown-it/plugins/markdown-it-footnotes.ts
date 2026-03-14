@@ -38,7 +38,7 @@ import Token from 'markdown-it/lib/token';
 import StateBlock from 'markdown-it/lib/rules_block/state_block';
 import StateInline from 'markdown-it/lib/rules_inline/state_inline';
 import StateCore from 'markdown-it/lib/rules_core/state_core';
-import { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } from '../../../html/constants';
+import { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } from '../../../html/constants.js';
 
 // Process footnotes
 //

@@ -4,40 +4,38 @@ import htmlparser, { DomElement } from 'htmlparser2';
 import isArray from 'lodash/isArray';
 import has from 'lodash/has';
 
-import { ATTRIB_CWF } from '../constants';
-import { Context } from './Context';
-import { createErrorNode } from './elements';
-import { PageSources } from '../Page/PageSources';
-import { isMarkdownFileExt } from '../utils/fsUtil';
-import * as logger from '../utils/logger';
-import * as linkProcessor from './linkProcessor';
-import type { VariableProcessor } from '../variables/VariableProcessor';
-import { warnConflictingAtributesMap } from './warnings';
-import { shiftSlotNodeDeeper, transformOldSlotSyntax } from './vueSlotSyntaxProcessor';
-import { MdAttributeRenderer } from './MdAttributeRenderer';
-import { MarkdownProcessor } from './MarkdownProcessor';
-import { processScriptAndStyleTag } from './scriptAndStyleTagProcessor';
-import type { SiteLinkManager } from './SiteLinkManager';
-import type { PluginManager } from '../plugins/PluginManager';
-import { processInclude, processPanelSrc, processPopoverSrc } from './includePanelProcessor';
+import fm from 'fastmatter';
+import { ATTRIB_CWF } from '../constants.js';
+import { Context } from './Context.js';
+import { createErrorNode } from './elements.js';
+import { PageSources } from '../Page/PageSources.js';
+import { isMarkdownFileExt } from '../utils/fsUtil.js';
+import * as logger from '../utils/logger.js';
+import * as linkProcessor from './linkProcessor.js';
+import type { VariableProcessor } from '../variables/VariableProcessor.js';
+import { warnConflictingAtributesMap } from './warnings.js';
+import { shiftSlotNodeDeeper, transformOldSlotSyntax } from './vueSlotSyntaxProcessor.js';
+import { MdAttributeRenderer } from './MdAttributeRenderer.js';
+import { MarkdownProcessor } from './MarkdownProcessor.js';
+import { processScriptAndStyleTag } from './scriptAndStyleTagProcessor.js';
+import type { SiteLinkManager } from './SiteLinkManager.js';
+import type { PluginManager } from '../plugins/PluginManager.js';
+import { processInclude, processPanelSrc, processPopoverSrc } from './includePanelProcessor.js';
 
-import { PageNavProcessor, renderSiteNav, addSitePageNavPortal } from './siteAndPageNavProcessor';
-import { highlightCodeBlock, setCodeLineNumbers } from './codeblockProcessor';
-import { setHeadingId, assignPanelId } from './headerProcessor';
-import { FootnoteProcessor } from './FootnoteProcessor';
-import { MbNode, NodeOrText, TextElement } from '../utils/node';
-import { processUlNode } from './CustomListIconProcessor';
-import { processCardStackAttributes } from './cardStackProcessor';
+import { PageNavProcessor, renderSiteNav, addSitePageNavPortal } from './siteAndPageNavProcessor.js';
+import { highlightCodeBlock, setCodeLineNumbers } from './codeblockProcessor.js';
+import { setHeadingId, assignPanelId } from './headerProcessor.js';
+import { FootnoteProcessor } from './FootnoteProcessor.js';
+import { MbNode, NodeOrText, TextElement } from '../utils/node.js';
+import { processUlNode } from './CustomListIconProcessor.js';
+import { processCardStackAttributes } from './cardStackProcessor.js';
 
-const fm = require('fastmatter');
+import '../patches/htmlparser2.js';
 
 const _ = {
   isArray,
   has,
 };
-
-// Load our htmlparser2 patch for supporting "special" tags
-require('../patches/htmlparser2');
 
 const FRONTMATTER_FENCE = '---';
 
@@ -128,7 +126,6 @@ export class NodeProcessor {
         ? ((frontmatterIncludeDiv[0] as MbNode).children as MbNode[])[0].data
         : ((frontmatter[0] as MbNode).children as MbNode[])[0].data;
       const frontmatterWrapped = `${FRONTMATTER_FENCE}\n${frontmatterData}\n${FRONTMATTER_FENCE}`;
-
       currentFrontmatter = fm(frontmatterWrapped).attributes;
     }
 

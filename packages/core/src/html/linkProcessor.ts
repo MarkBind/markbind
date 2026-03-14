@@ -1,16 +1,19 @@
 import path from 'path';
 import has from 'lodash/has';
 import parse from 'url-parse';
-import ignore from 'ignore';
+import ignoreModule from 'ignore';
+import type { Ignore } from 'ignore';
 
-import * as fsUtil from '../utils/fsUtil';
-import * as logger from '../utils/logger';
-import * as urlUtil from '../utils/urlUtil';
+const ignore = ignoreModule as unknown as (opts?: { ignorecase?: boolean }) => Ignore;
 
-import { PluginManager } from '../plugins/PluginManager';
-import type { NodeProcessorConfig } from './NodeProcessor';
-import type { PageSources } from '../Page/PageSources';
-import { MbNode } from '../utils/node';
+import * as fsUtil from '../utils/fsUtil.js';
+import * as logger from '../utils/logger.js';
+import * as urlUtil from '../utils/urlUtil.js';
+
+import { PluginManager } from '../plugins/PluginManager.js';
+import type { NodeProcessorConfig } from './NodeProcessor.js';
+import type { PageSources } from '../Page/PageSources.js';
+import { MbNode } from '../utils/node.js';
 
 const _ = { has };
 

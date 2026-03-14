@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
-import { SiteDeployManager, DeployOptions } from '../../../src/Site/SiteDeployManager';
-import { SiteConfig } from '../../../src/Site/SiteConfig';
-import { SITE_JSON_DEFAULT } from '../utils/data';
+import { SiteDeployManager, DeployOptions } from '../../../src/Site/SiteDeployManager.js';
+import { SiteConfig } from '../../../src/Site/SiteConfig.js';
+import { SITE_JSON_DEFAULT } from '../utils/data.js';
 
 const mockFs = fs as any;
 

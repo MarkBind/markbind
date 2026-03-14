@@ -4,19 +4,18 @@ import parse from 'url-parse';
 
 import has from 'lodash/has';
 import isEmpty from 'lodash/isEmpty';
-import { createErrorNode, createSlotTemplateNode } from './elements';
-import CyclicReferenceError from '../errors/CyclicReferenceError';
+import { createErrorNode, createSlotTemplateNode } from './elements.js';
+import { CyclicReferenceError } from '../errors/CyclicReferenceError.js';
 
-import * as fsUtil from '../utils/fsUtil';
-import * as logger from '../utils/logger';
-import * as urlUtil from '../utils/urlUtil';
-import type { Context } from './Context';
-import type { PageSources } from '../Page/PageSources';
-import type { VariableProcessor } from '../variables/VariableProcessor';
-import { MbNode, NodeOrText } from '../utils/node';
-import { SiteLinkManager } from './SiteLinkManager';
-
-require('../patches/htmlparser2');
+import * as fsUtil from '../utils/fsUtil.js';
+import * as logger from '../utils/logger.js';
+import * as urlUtil from '../utils/urlUtil.js';
+import type { Context } from './Context.js';
+import type { PageSources } from '../Page/PageSources.js';
+import type { VariableProcessor } from '../variables/VariableProcessor.js';
+import { MbNode, NodeOrText } from '../utils/node.js';
+import { SiteLinkManager } from './SiteLinkManager.js';
+import '../patches/htmlparser2.js';
 
 const _ = { has, isEmpty };
 

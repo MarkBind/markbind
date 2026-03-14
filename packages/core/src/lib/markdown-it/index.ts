@@ -5,19 +5,28 @@ import lodashConstant from 'lodash/constant';
 import Renderer from 'markdown-it/lib/renderer';
 import Token from 'markdown-it/lib/token';
 
-import * as logger from '../../utils/logger';
-
-import { HighlightRule, HIGHLIGHT_TYPES } from './highlight/HighlightRule';
-import { Highlighter } from './highlight/Highlighter';
-
-import { altFrontmatterPlugin } from './plugins/markdown-it-alt-frontmatter';
-import { markdownItIconsPlugin } from './plugins/markdown-it-icons';
-import { centertext_plugin } from './plugins/markdown-it-center-text';
-import { colourTextPlugin } from './plugins/markdown-it-colour-text';
-import { createDoubleDelimiterInlineRule } from './plugins/markdown-it-double-delimiter';
-import { footnotePlugin } from './plugins/markdown-it-footnotes';
-import { radioButtonPlugin } from './plugins/markdown-it-radio-button';
-import blockEmbedPlugin from './plugins/markdown-it-block-embed';
+import markdownItMark from 'markdown-it-mark';
+import markdownItSub from 'markdown-it-sub';
+import markdownItSup from 'markdown-it-sup';
+import markdownItImsize from '@tlylt/markdown-it-imsize';
+import markdownItTableOfContents from 'markdown-it-table-of-contents';
+import markdownItTaskLists from 'markdown-it-task-lists';
+import markdownItLinkifyImages from 'markdown-it-linkify-images';
+import markdownItTexmath from 'markdown-it-texmath';
+import markdownItAttrs from 'markdown-it-attrs';
+import markdownItEmoji from 'markdown-it-emoji';
+import { Highlighter } from './highlight/Highlighter.js';
+import { HighlightRule, HIGHLIGHT_TYPES } from './highlight/HighlightRule.js';
+import * as logger from '../../utils/logger.js';
+import { altFrontmatterPlugin } from './plugins/markdown-it-alt-frontmatter.js';
+import { markdownItIconsPlugin } from './plugins/markdown-it-icons.js';
+import { centertext_plugin } from './plugins/markdown-it-center-text.js';
+import { colourTextPlugin } from './plugins/markdown-it-colour-text.js';
+import { createDoubleDelimiterInlineRule } from './plugins/markdown-it-double-delimiter.js';
+import { footnotePlugin } from './plugins/markdown-it-footnotes.js';
+import { radioButtonPlugin } from './plugins/markdown-it-radio-button.js';
+import { setup as blockEmbedPlugin } from './plugins/markdown-it-block-embed/index.js';
+import { emojiData as fixedNumberEmojiDefs } from './patches/markdown-it-emoji-fixed.js';
 
 const markdownIt = markdownItImport({ html: true, linkify: true });
 
@@ -33,15 +42,15 @@ markdownIt.use(createDoubleDelimiterInlineRule('%%', 'dimmed', 'emphasis'))
   .use(createDoubleDelimiterInlineRule('++', 'large', 'underline'))
   .use(createDoubleDelimiterInlineRule('--', 'small', 'large'));
 
-markdownIt.use(require('markdown-it-mark'))
-  .use(require('markdown-it-sub'))
-  .use(require('markdown-it-sup'))
-  .use(require('@tlylt/markdown-it-imsize'), { autofill: false })
-  .use(require('markdown-it-table-of-contents'))
-  .use(require('markdown-it-task-lists'), { enabled: true })
-  .use(require('markdown-it-linkify-images'), { imgClass: 'img-fluid' })
-  .use(require('markdown-it-texmath'), { engine: katex, delimiters: ['dollars', 'brackets'] })
-  .use(require('markdown-it-attrs'))
+markdownIt.use(markdownItMark)
+  .use(markdownItSub)
+  .use(markdownItSup)
+  .use(markdownItImsize, { autofill: false })
+  .use(markdownItTableOfContents)
+  .use(markdownItTaskLists, { enabled: true })
+  .use(markdownItLinkifyImages, { imgClass: 'img-fluid' })
+  .use(markdownItTexmath, { engine: katex, delimiters: ['dollars', 'brackets'] })
+  .use(markdownItAttrs)
   .use(radioButtonPlugin, { enabled: true, label: true })
   .use(blockEmbedPlugin)
   .use(markdownItIconsPlugin)
@@ -235,10 +244,10 @@ markdownIt.renderer.rules.code_inline
     }</code>`;
   };
 
-const fixedNumberEmojiDefs = require('./patches/markdown-it-emoji-fixed');
-markdownIt.use(require('markdown-it-emoji'), {
+markdownIt.use(markdownItEmoji, {
   defs: fixedNumberEmojiDefs,
 });
 
 (markdownIt as any).createDoubleDelimiterInlineRule = createDoubleDelimiterInlineRule;
-export = markdownIt;
+
+export { markdownIt };

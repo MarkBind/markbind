@@ -1,9 +1,9 @@
 import cheerio from 'cheerio';
 import slugify from '@sindresorhus/slugify';
 import has from 'lodash/has';
-import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
-import type { NodeProcessorConfig } from './NodeProcessor';
-import { MbNode, NodeOrText } from '../utils/node';
+import { getVslotShorthandName } from './vueSlotSyntaxProcessor.js';
+import type { NodeProcessorConfig } from './NodeProcessor.js';
+import { MbNode, NodeOrText } from '../utils/node.js';
 
 const _ = {
   has,

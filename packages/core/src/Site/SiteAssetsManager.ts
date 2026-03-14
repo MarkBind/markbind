@@ -1,12 +1,17 @@
 import fs from 'fs-extra';
-import ignore, { Ignore } from 'ignore';
+import ignoreModule, { type Ignore } from 'ignore';
+
+const ignore = ignoreModule as unknown as (opts?: { ignorecase?: boolean }) => Ignore;
 import path from 'path';
 import walkSync from 'walk-sync';
 
-import { SiteConfig, SiteConfigStyle } from './SiteConfig';
-import { delay } from '../utils/delay';
-import * as logger from '../utils/logger';
-import { TEMPLATE_SITE_ASSET_FOLDER_NAME, _ } from './constants';
+import { createRequire } from 'module';
+import { SiteConfig, SiteConfigStyle } from './SiteConfig.js';
+import { delay } from '../utils/delay.js';
+import * as logger from '../utils/logger.js';
+import { TEMPLATE_SITE_ASSET_FOLDER_NAME, _ } from './constants.js';
+
+const require = createRequire(import.meta.url);
 
 function getBootswatchThemePath(theme: string) {
   return require.resolve(`bootswatch/dist/${theme}/bootstrap.min.css`);

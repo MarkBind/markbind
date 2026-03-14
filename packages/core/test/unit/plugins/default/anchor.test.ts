@@ -1,5 +1,5 @@
-import anchorsPlugin from '../../../../src/plugins/default/markbind-plugin-anchors';
-import { MbNode, parseHTML } from '../../../../src/utils/node';
+import * as anchorsPlugin from '../../../../src/plugins/default/markbind-plugin-anchors.js';
+import { MbNode, parseHTML } from '../../../../src/utils/node.js';
 
 test('getLinks should return the expected link in an array', () => {
   const links = anchorsPlugin.getLinks();

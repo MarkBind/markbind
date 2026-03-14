@@ -1,6 +1,6 @@
 import cheerio from 'cheerio';
-import { PluginContext, FrontMatter } from '../../../../src/plugins/Plugin';
-import mermaid from '../../../../src/plugins/mermaid';
+import { PluginContext, FrontMatter } from '../../../../src/plugins/Plugin.js';
+import * as mermaid from '../../../../src/plugins/mermaid.js';
 
 test('postRender should replace mermaid tags with appropriate divs', () => {
   const content = `<mermaid>

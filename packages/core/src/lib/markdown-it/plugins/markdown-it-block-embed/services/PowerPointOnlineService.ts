@@ -1,4 +1,4 @@
-import VideoServiceBase, { VideoServiceOptions } from './VideoServiceBase';
+import VideoServiceBase, { VideoServiceOptions } from './VideoServiceBase.js';
 
 export interface PowerPointOnlineOptions extends VideoServiceOptions {
   width?: number;

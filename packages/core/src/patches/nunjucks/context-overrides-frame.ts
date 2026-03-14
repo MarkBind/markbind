@@ -17,15 +17,17 @@
 /* eslint-disable */
 
 
-import * as runtimeTypes from 'nunjucks/src/runtime';
-import { Environment, Template, lib, compiler, nodes } from 'nunjucks';
-import { Obj } from 'nunjucks/src/object';
+import * as runtimeTypes from 'nunjucks/src/runtime.js';
+//@ts-ignore
+// import * as compiler from 'nunjucks/src/compiler.js';
+import nunjucks, { Environment, Template } from 'nunjucks';
+const { lib, nodes, compiler, runtime } = nunjucks;
+import { Obj } from 'nunjucks/src/object.js';
 
-// We need a mutable reference to the runtime module so we can monkey-patch
-// Frame and contextOrFrameLookup. ESM namespace imports (import * as ...) are
-// frozen objects, so we fall back to require() which returns the original mutable exports.
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const globalRuntime: typeof runtimeTypes & Record<string, any> = require('nunjucks/src/runtime');
+type CompilerInstance = InstanceType<typeof compiler.Compiler>;
+
+//@ts-ignore
+const globalRuntime: typeof runtimeTypes & Record<string, any> = runtime;
 
 const MB_CTX_KEY = '_markBindReserved';
 
@@ -69,7 +71,7 @@ Environment.prototype.render = function render(this: Environment, name: any, ctx
   return syncResult;
 };
 
-(Environment.prototype as any).renderString = function renderString(this: Environment, src: any, ctx: any, opts?: any, cb?: any) {
+(Environment.prototype as any).renderString = function renderString(this: typeof Environment, src: any, ctx: any, opts?: any, cb?: any) {
   if (lib.isFunction(opts)) {
     cb = opts;
     opts = {};
@@ -270,7 +272,7 @@ class Frame {
 }
 globalRuntime.Frame = Frame;
 
-compiler.Compiler.prototype.compileImport = function compileImport(this: compiler.Compiler, node: any, frame: any) {
+compiler.Compiler.prototype.compileImport = function compileImport(this: CompilerInstance, node: any, frame: any) {
   const target = node.target.value;
   const id = this._compileGetTemplate(node, frame, false, false);
   this._addScopeLevel();
@@ -290,7 +292,7 @@ compiler.Compiler.prototype.compileImport = function compileImport(this: compile
   }
 }
 
-compiler.Compiler.prototype.compileFromImport = function compileFromImport(this: compiler.Compiler, node: any, frame: any) {
+compiler.Compiler.prototype.compileFromImport = function compileFromImport(this: CompilerInstance, node: any, frame: any) {
   const importedId = this._compileGetTemplate(node, frame, false, false);
   this._addScopeLevel();
 
@@ -329,7 +331,7 @@ compiler.Compiler.prototype.compileFromImport = function compileFromImport(this:
   });
 }
 
-compiler.Compiler.prototype.compileSymbol = function compileSymbol(this: compiler.Compiler, node: any, frame: any) {
+compiler.Compiler.prototype.compileSymbol = function compileSymbol(this: CompilerInstance, node: any, frame: any) {
   var name = node.value;
   // CHANGE HERE
   // returns undefined if it is an import
@@ -462,7 +464,7 @@ Template.prototype.render = function render(this: Template, ctx?: any, parentFra
 };
 
 // No modifications, redefined only to redirect the Context class to our custom implementation
-compiler.Compiler.prototype._compileMacro = function _compileMacro(this: compiler.Compiler, node: any, frame: any) {
+compiler.Compiler.prototype._compileMacro = function _compileMacro(this: CompilerInstance, node: any, frame: any) {
   var args: any[] = [];
   var kwargs: any = null;
   var funcId = 'macro_' + this._tmpid();
@@ -540,7 +542,7 @@ compiler.Compiler.prototype._compileMacro = function _compileMacro(this: compile
 }
 
 // No modifications, redefined only to redirect the Context class to our custom implementation
-compiler.Compiler.prototype.compileRoot = function compileRoot(this: compiler.Compiler, node: any, frame: any) {
+compiler.Compiler.prototype.compileRoot = function compileRoot(this: CompilerInstance, node: any, frame: any) {
   if (frame) {
     this.fail('compileRoot: root node can\'t have frame');
   }

@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
-import { PageSources } from '../Page/PageSources';
-import { NodeProcessor } from '../html/NodeProcessor';
-import * as logger from '../utils/logger';
-import { ExternalManager, ExternalManagerConfig } from '../External/ExternalManager';
+import { PageSources } from '../Page/PageSources.js';
+import { NodeProcessor } from '../html/NodeProcessor.js';
+import * as logger from '../utils/logger.js';
+import { ExternalManager, ExternalManagerConfig } from '../External/ExternalManager.js';
 
 const LAYOUT_PAGE_BODY_VARIABLE = 'content';
 

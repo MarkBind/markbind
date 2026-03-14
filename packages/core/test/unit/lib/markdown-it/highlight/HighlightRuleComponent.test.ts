@@ -1,4 +1,4 @@
-import { HighlightRuleComponent } from '../../../../../src/lib/markdown-it/highlight/HighlightRuleComponent';
+import { HighlightRuleComponent } from '../../../../../src/lib/markdown-it/highlight/HighlightRuleComponent.js';
 
 describe('parseRuleComponent', () => {
   test('parses line-part syntax correctly', () => {

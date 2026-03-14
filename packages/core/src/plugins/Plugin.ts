@@ -3,12 +3,12 @@ import fs from 'fs-extra';
 import cheerio from 'cheerio';
 
 import isString from 'lodash/isString';
-import * as logger from '../utils/logger';
-import * as urlUtil from '../utils/urlUtil';
-import type { NodeProcessorConfig } from '../html/NodeProcessor';
-import { NodeOrText } from '../utils/node';
+import * as logger from '../utils/logger.js';
+import * as urlUtil from '../utils/urlUtil.js';
+import type { NodeProcessorConfig } from '../html/NodeProcessor.js';
+import { NodeOrText } from '../utils/node.js';
 
-require('../patches/htmlparser2');
+import '../patches/htmlparser2.js';
 
 const _ = { isString };
 
@@ -52,11 +52,10 @@ export class Plugin {
   constructor(pluginName: string, pluginPath: string, pluginOptions: PluginContext, siteOutputPath: string) {
     this.pluginName = pluginName;
 
-    /**
-     * The plugin module
-     */
-    // eslint-disable-next-line global-require,import/no-dynamic-require
-    this.plugin = require(pluginPath);
+    // Dynamic import for plugin loading - needed for user-provided plugins
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    // eslint-disable-next-line import/no-dynamic-require
+    this.plugin = require(pluginPath); // eslint-disable-line global-require
 
     this.pluginOptions = pluginOptions || {};
 

@@ -15,7 +15,7 @@
 // ---------------------------------------------------------------------------
 // Sub-module: nunjucks/src/runtime
 // ---------------------------------------------------------------------------
-declare module 'nunjucks/src/runtime' {
+declare module 'nunjucks/src/runtime.js' {
 
   export class Frame {
     variables: Record<string, any>;
@@ -94,7 +94,7 @@ declare module 'nunjucks/src/runtime' {
 // ---------------------------------------------------------------------------
 // Sub-module: nunjucks/src/object
 // ---------------------------------------------------------------------------
-declare module 'nunjucks/src/object' {
+declare module 'nunjucks/src/object.js' {
   export class Obj {
     constructor(...args: any[]);
 

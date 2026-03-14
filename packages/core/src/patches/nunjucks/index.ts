@@ -1,2 +1,2 @@
-import './load-event';
-import './context-overrides-frame';
+import './load-event.js';
+import './context-overrides-frame.js';

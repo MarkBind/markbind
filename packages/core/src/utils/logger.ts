@@ -1,5 +1,7 @@
 import winston from 'winston';
-import type { ProgressBar } from '../lib/progress';
+// eslint-disable-next-line lodash/import-scope
+import _ from 'lodash';
+import type { ProgressBar } from '../lib/progress/index.js';
 
 const { format } = winston;
 

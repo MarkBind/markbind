@@ -1,13 +1,13 @@
 import fs from 'fs-extra';
 import path from 'path';
 import walkSync from 'walk-sync';
-import * as fsUtil from '../utils/fsUtil';
-import { INDEX_MARKDOWN_FILE, SITE_CONFIG_NAME, _ } from './constants';
-import { SiteConfig, SiteConfigPage } from './SiteConfig';
-import { VariableRenderer } from '../variables/VariableRenderer';
-import * as logger from '../utils/logger';
+import * as fsUtil from '../utils/fsUtil.js';
+import { INDEX_MARKDOWN_FILE, SITE_CONFIG_NAME, _ } from './constants.js';
+import { SiteConfig, SiteConfigPage } from './SiteConfig.js';
+import { VariableRenderer } from '../variables/VariableRenderer.js';
+import * as logger from '../utils/logger.js';
 
-import { LAYOUT_DEFAULT_NAME, LAYOUT_FOLDER_PATH } from '../Layout';
+import { LAYOUT_DEFAULT_NAME, LAYOUT_FOLDER_PATH } from '../Layout/index.js';
 
 const requiredFiles = ['index.md', 'site.json', '_markbind/'];
 

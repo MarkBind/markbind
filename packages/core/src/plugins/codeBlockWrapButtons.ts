@@ -1,13 +1,13 @@
 // NOTE: this code is a modified copy of codeBlockCopyButtons.js
 
 import cheerio from 'cheerio';
-import { MbNode } from '../utils/node';
+import { MbNode } from '../utils/node.js';
 import {
   CONTAINER_HTML,
   isFunctionBtnContainer,
   doesFunctionBtnContainerExistInNode,
-} from './codeBlockButtonsAssets/codeBlockButtonsContainer';
-import type { PluginContext } from './Plugin';
+} from './codeBlockButtonsAssets/codeBlockButtonsContainer.js';
+import type { PluginContext } from './Plugin.js';
 
 const CSS_FILE_NAME = 'codeBlockButtonsAssets/codeBlockButtons.css';
 
@@ -49,7 +49,7 @@ const wrapCodeBlockScript = `<script>
     function toggleCodeBlockWrap(element) {
       const pre = element.parentElement.parentElement;
       const tooltipText = element.querySelector(".tooltiptext");
-      const classList = pre.querySelector('code').classList; 
+      const classList = pre.querySelector('code').classList;
       if (classList.contains('wrap')) {
           classList.remove('wrap');
           tooltipText.innerText  = \`${WRAP_MESSAGE}\`;
@@ -60,16 +60,21 @@ const wrapCodeBlockScript = `<script>
     }
     </script>`;
 
-export = {
-  getLinks: () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`],
-  getScripts: () => [wrapCodeBlockScript],
-  processNode: (_: PluginContext, node: MbNode) => {
-    if (node.name === 'pre' && node.children?.some(child => child.name === 'code')) {
-      if (!doesFunctionBtnContainerExistInNode(node)) {
-        cheerio(node).append(CONTAINER_HTML);
-      }
-    } else if (isFunctionBtnContainer(node)) {
-      cheerio(node).append(getButtonHTML());
+const getLinks = () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`];
+
+const getScripts = () => [wrapCodeBlockScript];
+
+const processNode = (_: PluginContext, node: MbNode) => {
+  if (node.name === 'pre' && node.children?.some(child => child.name === 'code')) {
+    if (!doesFunctionBtnContainerExistInNode(node)) {
+      cheerio(node).append(CONTAINER_HTML);
     }
-  },
+  } else if (isFunctionBtnContainer(node)) {
+    cheerio(node).append(getButtonHTML());
+  }
+};
+export {
+  getLinks,
+  processNode,
+  getScripts,
 };

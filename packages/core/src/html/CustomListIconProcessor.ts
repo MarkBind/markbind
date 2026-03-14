@@ -1,9 +1,8 @@
 import cheerio from 'cheerio';
-import { MbNode, NodeOrText } from '../utils/node';
-import * as logger from '../utils/logger';
-import { processIconString } from '../lib/markdown-it/plugins/markdown-it-icons';
-
-const emojiDictionary = require('../lib/markdown-it/patches/markdown-it-emoji-fixed');
+import { MbNode, NodeOrText } from '../utils/node.js';
+import * as logger from '../utils/logger.js';
+import { processIconString } from '../lib/markdown-it/plugins/markdown-it-icons.js';
+import { emojiData as emojiDictionary } from '../lib/markdown-it/patches/markdown-it-emoji-fixed.js';
 
 interface EmojiData {
   [key: string]: string;

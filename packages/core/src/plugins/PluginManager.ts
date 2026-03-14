@@ -7,15 +7,14 @@ import flatMap from 'lodash/flatMap';
 import get from 'lodash/get';
 import includes from 'lodash/includes';
 import isError from 'lodash/isError';
-import * as logger from '../utils/logger';
+import * as logger from '../utils/logger.js';
 import {
   FrontMatter, Plugin, PluginContext, TagConfigs,
-} from './Plugin';
-import type { NodeProcessorConfig } from '../html/NodeProcessor';
-import type { PageAssets } from '../Page/PageConfig';
-import { NodeOrText } from '../utils/node';
-
-const { ignoreTags } = require('../patches');
+} from './Plugin.js';
+import type { NodeProcessorConfig } from '../html/NodeProcessor.js';
+import type { PageAssets } from '../Page/PageConfig.js';
+import { NodeOrText } from '../utils/node.js';
+import { ignoreTags } from '../patches/index.js';
 
 const _ = {
   flatMap,
@@ -158,7 +157,7 @@ export class PluginManager {
    * Collects the tag configuration of the site's plugins, and injects them into the parsers.
    */
   _collectPluginTagConfigs() {
-    const specialTags = new Set(); // "non-html containing" tags parsed like <script>, <style>
+    const specialTags = new Set<string>(); // "non-html containing" tags parsed like <script>, <style>
 
     Object.values(this.plugins).forEach((plugin) => {
       const pluginTagConfig = plugin.getTagConfig();

@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import * as path from 'path';
-import * as logger from '../../../src/utils/logger';
-import { checkForVueHydrationViolation } from '../../../src/utils/htmlValidationUtil';
+import * as logger from '../../../src/utils/logger.js';
+import { checkForVueHydrationViolation } from '../../../src/utils/htmlValidationUtil.js';
 
 const tableWithoutTbody = readFileSync(path.resolve(__dirname, 'htmlStr/tableWithoutTbody.txt'), 'utf8');
 const tableWithTbody = readFileSync(path.resolve(__dirname, 'htmlStr/tableWithTbody.txt'), 'utf8');

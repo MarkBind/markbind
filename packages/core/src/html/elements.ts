@@ -1,5 +1,5 @@
 import pick from 'lodash/pick';
-import { MbNode, NodeOrText, parseHTML } from '../utils/node';
+import { MbNode, NodeOrText, parseHTML } from '../utils/node.js';
 
 const _ = { pick };
 

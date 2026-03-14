@@ -1,5 +1,5 @@
-import treePlugin from '../../../../src/plugins/default/markbind-plugin-tree';
-import { MbNode, parseHTML } from '../../../../src/utils/node';
+import * as treePlugin from '../../../../src/plugins/default/markbind-plugin-tree.js';
+import { MbNode, parseHTML } from '../../../../src/utils/node.js';
 
 /*
 The plugin converts the following tree syntax:
