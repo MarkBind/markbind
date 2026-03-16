@@ -40,7 +40,10 @@ markdownIt.use(require('markdown-it-mark'))
   .use(require('markdown-it-table-of-contents'))
   .use(require('markdown-it-task-lists'), { enabled: true })
   .use(require('markdown-it-linkify-images'), { imgClass: 'img-fluid' })
-  .use(require('markdown-it-texmath'), { engine: katex, delimiters: ['dollars', 'brackets'] })
+  .use(
+    require('./patches/markdown-it-texmath-fixed'),
+    { engine: katex, delimiters: ['dollars', 'brackets', 'beg_end'] },
+  )
   .use(require('markdown-it-attrs'))
   .use(radioButtonPlugin, { enabled: true, label: true })
   .use(blockEmbedPlugin)
