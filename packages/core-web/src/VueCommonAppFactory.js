@@ -26,7 +26,7 @@ const appFactory = () => ({
   },
 });
 
-export default {
+export {
   MarkBindVue,
   appFactory,
 };
