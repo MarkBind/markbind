@@ -1,6 +1,7 @@
 {
   "name": "@markbind/core",
   "version": "6.3.1",
+  "type": "module",
   "description": "MarkBind core module",
   "keywords": [
     "mark",
