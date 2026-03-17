@@ -904,71 +904,75 @@ export class SiteGenerationManager {
   async indexSiteWithPagefind() {
     const startTime = new Date();
     logger.info('Creating Pagefind Search Index...');
-    // TODO: Update this dynamic import to a static import when migrating to ESM
-    // eslint-disable-next-line no-eval
-    const { createIndex, close } = await (eval('import("pagefind")') as Promise<typeof import('pagefind')>);
+    try {
+      // TODO: Update this dynamic import to a static import when migrating to ESM
+      // eslint-disable-next-line no-eval
+      const { createIndex, close } = await (eval('import("pagefind")') as Promise<typeof import('pagefind')>);
 
-    const pagefindConfig = this.siteConfig.pagefind || {};
+      const pagefindConfig = this.siteConfig.pagefind || {};
 
-    const createIndexOptions: Record<string, unknown> = {
-      keepIndexUrl: true,
-      verbose: true,
-      logfile: 'debug.log',
-    };
+      const createIndexOptions: Record<string, unknown> = {
+        keepIndexUrl: true,
+        verbose: true,
+        logfile: 'debug.log',
+      };
 
-    if (pagefindConfig.exclude_selectors) {
-      createIndexOptions.excludeSelectors = pagefindConfig.exclude_selectors;
-    }
-
-    const { index } = await createIndex(createIndexOptions);
-    if (index) {
-      // Handle glob patterns - support both single string and array of strings
-      const globValue = pagefindConfig.glob;
-      const value = globValue ?? [];
-      const globPatterns = Array.isArray(value) ? value : [value];
-
-      let totalPageCount = 0;
-
-      if (globPatterns.length > 0) {
-        // If there are multiple patterns - call addDirectory for each glob pattern
-        const results = await Promise.all(
-          globPatterns.map(async (pattern) => {
-            // Normalize gitignore-style patterns to valid Wax/Pagefind patterns
-            const normalizedPattern = this.normalizeGlobPattern(pattern);
-            logger.info(`Pagefind indexing with glob: ${normalizedPattern} (from: ${pattern})`);
-            const result = await index.addDirectory({
-              path: this.outputPath,
-              glob: normalizedPattern,
-            });
-
-            // Handle errors immediately within the iteration
-            result.errors.forEach(error => logger.error(error));
-
-            return result.page_count;
-          }),
-        );
-
-        // Sum total pages indexed across all patterns
-        totalPageCount += results.reduce((acc, count) => acc + count, 0);
-      } else {
-        // No glob specified - this will index all HTML files
-        const result = await index.addDirectory({ path: this.outputPath });
-        result.errors.forEach(error => logger.error(error));
-        totalPageCount = result.page_count;
+      if (pagefindConfig.exclude_selectors) {
+        createIndexOptions.excludeSelectors = pagefindConfig.exclude_selectors;
       }
 
-      const endTime = new Date();
-      const totalTime = (endTime.getTime() - startTime.getTime()) / 1000;
-      logger.info(`Pagefind indexed ${totalPageCount} pages in ${totalTime}s`);
+      const { index } = await createIndex(createIndexOptions);
+      if (index) {
+        // Handle glob patterns - support both single string and array of strings
+        const globValue = pagefindConfig.glob;
+        const value = globValue ?? [];
+        const globPatterns = Array.isArray(value) ? value : [value];
 
-      const pagefindOutputPath = path.join(this.outputPath, TEMPLATE_SITE_ASSET_FOLDER_NAME, 'pagefind');
-      await fs.ensureDir(pagefindOutputPath);
-      await index.writeFiles({ outputPath: pagefindOutputPath });
-      logger.info(`Pagefind assets written to ${pagefindOutputPath}`);
-    } else {
-      logger.error('Pagefind failed to create index');
+        let totalPageCount = 0;
+
+        if (globPatterns.length > 0) {
+          // If there are multiple patterns - call addDirectory for each glob pattern
+          const results = await Promise.all(
+            globPatterns.map(async (pattern) => {
+              // Normalize gitignore-style patterns to valid Wax/Pagefind patterns
+              const normalizedPattern = this.normalizeGlobPattern(pattern);
+              logger.info(`Pagefind indexing with glob: ${normalizedPattern} (from: ${pattern})`);
+              const result = await index.addDirectory({
+                path: this.outputPath,
+                glob: normalizedPattern,
+              });
+
+              // Handle errors immediately within the iteration
+              result.errors.forEach(error => logger.error(error));
+
+              return result.page_count;
+            }),
+          );
+
+          // Sum total pages indexed across all patterns
+          totalPageCount += results.reduce((acc, count) => acc + count, 0);
+        } else {
+          // No glob specified - this will index all HTML files
+          const result = await index.addDirectory({ path: this.outputPath });
+          result.errors.forEach(error => logger.error(error));
+          totalPageCount = result.page_count;
+        }
+
+        const endTime = new Date();
+        const totalTime = (endTime.getTime() - startTime.getTime()) / 1000;
+        logger.info(`Pagefind indexed ${totalPageCount} pages in ${totalTime}s`);
+
+        const pagefindOutputPath = path.join(this.outputPath, TEMPLATE_SITE_ASSET_FOLDER_NAME, 'pagefind');
+        await fs.ensureDir(pagefindOutputPath);
+        await index.writeFiles({ outputPath: pagefindOutputPath });
+        logger.info(`Pagefind assets written to ${pagefindOutputPath}`);
+      } else {
+        logger.error('Pagefind failed to create index');
+      }
+      await close();
+    } catch (error) {
+      logger.warn(`Pagefind indexing skipped: ${error}`);
     }
-    await close();
   }
 
   async reloadSiteConfig() {
