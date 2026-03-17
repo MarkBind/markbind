@@ -1,5 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import constant from 'lodash/constant';
 import Search from '../pagefindSearchBar/Search.vue';
 
 describe('Search', () => {
@@ -10,7 +12,7 @@ describe('Search', () => {
   beforeEach(() => {
     mockContainer = {
       querySelectorAll: jest.fn(() => []),
-      querySelector: jest.fn(() => null),
+      querySelector: jest.fn(constant(null)),
       addEventListener: jest.fn(),
       removeEventListener: jest.fn(),
     };
