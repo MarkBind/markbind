@@ -13,6 +13,11 @@ const TEST_BLACKLIST = ignore().add([
   '*.log',
   '*.woff',
   '*.woff2',
+  '*.pf_fragment',
+  '*.pf_index',
+  '*.pf_meta',
+  '*.wasm.pagefind',
+  'wasm.unknown.pagefind',
 ]);
 
 const CRLF_REGEX = /\r\n/g;

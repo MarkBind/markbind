@@ -899,15 +899,25 @@ export class SiteGenerationManager {
   }
 
   /**
+   * Helper method to dynamically import pagefind module.
+   * This wraps the eval-based import to make it mockable for testing.
+   * @returns The pagefind module
+   */
+  // eslint-disable-next-line class-methods-use-this
+  protected async getPagefind() {
+    // TODO: Update this dynamic import to a static import when migrating to ESM
+    // eslint-disable-next-line no-eval
+    return eval('import("pagefind")') as Promise<typeof import('pagefind')>;
+  }
+
+  /**
  * Indexes all the pages of the site using pagefind.
  */
   async indexSiteWithPagefind() {
     const startTime = new Date();
     logger.info('Creating Pagefind Search Index...');
     try {
-      // TODO: Update this dynamic import to a static import when migrating to ESM
-      // eslint-disable-next-line no-eval
-      const { createIndex, close } = await (eval('import("pagefind")') as Promise<typeof import('pagefind')>);
+      const { createIndex, close } = await this.getPagefind();
 
       const pagefindConfig = this.siteConfig.pagefind || {};
 
