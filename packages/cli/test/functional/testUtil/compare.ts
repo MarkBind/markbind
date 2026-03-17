@@ -20,6 +20,16 @@ const TEST_BLACKLIST = ignore().add([
   'wasm.unknown.pagefind',
 ]);
 
+// File patterns to completely ignore (skip both content AND existence comparison)
+// These are files with non-deterministic content/hashes that differ across environments (e.g., PageFind)
+const TEST_BLACKLIST_EXISTENCE = ignore().add([
+  '*.pf_fragment',
+  '*.pf_index',
+  '*.pf_meta',
+  '*.wasm.pagefind',
+  'wasm.unknown.pagefind',
+]);
+
 const CRLF_REGEX = /\r\n/g;
 
 function _readFileSync(...paths: string[]) {
@@ -95,6 +105,11 @@ function compare(root: string, expectedSiteRelativePath = 'expected', siteRelati
   // Filter out ignoredPaths to avoid comparing them because they are binary files
   actualPaths = actualPaths.filter(p => !ignoredPaths.includes(p));
   expectedPaths = expectedPaths.filter(p => !ignoredPaths.includes(p));
+
+  // Filter out files with non-deterministic hashes (e.g., PageFind generated files)
+  // These files have content-dependent hashes that differ across environments
+  actualPaths = actualPaths.filter(p => !TEST_BLACKLIST_EXISTENCE.ignores(p));
+  expectedPaths = expectedPaths.filter(p => !TEST_BLACKLIST_EXISTENCE.ignores(p));
 
   let error = false;
   if (expectedPaths.length !== actualPaths.length) {
