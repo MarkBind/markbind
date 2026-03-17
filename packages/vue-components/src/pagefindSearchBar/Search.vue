@@ -211,9 +211,11 @@ onUnmounted(() => {
     <div
       v-if="showModal"
       class="algolia"
-      @click.self="showModal = false"
     >
-      <div command-dialog-mask>
+      <div
+        command-dialog-mask
+        @click.self="showModal = false"
+      >
         <div command-dialog-wrapper class="search-modal">
           <div command-dialog-header class="search-header">
             <div class="search-bar">
