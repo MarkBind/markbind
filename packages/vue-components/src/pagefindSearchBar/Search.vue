@@ -287,115 +287,115 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-/* Inject the variables and layout styles from sugar-blog */
-.blog-search {
-  display: flex;
-}
+    /* Inject the variables and layout styles from sugar-blog */
+    .blog-search {
+        display: flex;
+    }
 
-.nav-search-btn-wait {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-  height: 40px;
-  background-color: var(--mb-bg-alt, #fff);
-  color: #212529;
-  border-radius: 10px;
-  border: 1px solid #ced4da;
-  transition: border 0.2s;
-}
+    .nav-search-btn-wait {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        height: 40px;
+        background-color: var(--mb-bg-alt, #fff);
+        color: #212529;
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+        transition: border 0.2s;
+    }
 
-.nav-search-btn-wait:hover {
-  border-color: var(--vcp-c-brand, #5468ff);
-}
+    .nav-search-btn-wait:hover {
+        border-color: var(--vcp-c-brand, #5468ff);
+    }
 
-.metaKey {
-  margin-left: 10px;
-  font-size: 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 4px;
-  padding: 0 6px;
-}
+    .metaKey {
+        margin-left: 10px;
+        font-size: 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: 4px;
+        padding: 0 6px;
+    }
 
-/* Pagefind UI Override to match the clean 'Algolia' input look */
-#pagefind-search-input :deep(.pagefind-ui__search-input) {
-  border: none !important;
-  background: transparent !important;
-  font-size: 18px !important;
-}
+    /* Pagefind UI Override to match the clean 'Algolia' input look */
+    #pagefind-search-input :deep(.pagefind-ui__search-input) {
+        border: none !important;
+        background: transparent !important;
+        font-size: 18px !important;
+    }
 
-#pagefind-search-input :deep(.pagefind-ui__search-clear) {
-  display: none; /* We use the sugar-blog style spacing instead */
-}
+    #pagefind-search-input :deep(.pagefind-ui__search-clear) {
+        display: none; /* We use the sugar-blog style spacing instead */
+    }
 
-/* Align the list with the sugar-blog container */
-#pagefind-search-input :deep(.pagefind-ui__drawer) {
-  max-height: 55vh;
-  overflow-y: auto;
-  padding: 0px;
+    /* Align the list with the sugar-blog container */
+    #pagefind-search-input :deep(.pagefind-ui__drawer) {
+        max-height: 55vh;
+        overflow-y: auto;
+        padding: 0;
 
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  &::-webkit-scrollbar {
-    display: none;
-  }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        &::-webkit-scrollbar {
+            display: none;
+        }
 
-  /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
+        /* Hide scrollbar for IE, Edge and Firefox */
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
 
-#pagefind-search-input :deep(.pagefind-ui__message) {
-  box-sizing: content-box;
-  padding: 0px;
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-  margin-top: 0;
-}
+    #pagefind-search-input :deep(.pagefind-ui__message) {
+        box-sizing: content-box;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+        margin-top: 0;
+    }
 
-#pagefind-search-input :deep(.pagefind-ui__result) {
-  border-radius: 5px;
-  padding: 2px 5px;
-  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
-  margin: 5px;
-}
+    #pagefind-search-input :deep(.pagefind-ui__result) {
+        border-radius: 5px;
+        padding: 2px 5px;
+        box-shadow: 0 2px 7px rgba(0 0 0 / 20%);
+        margin: 5px;
+    }
 
-#pagefind-search-input :deep(.pagefind-ui__result-inner) {
-  border-radius: 5px;
-  padding: 2px;
-}
+    #pagefind-search-input :deep(.pagefind-ui__result-inner) {
+        border-radius: 5px;
+        padding: 2px;
+    }
 
-#pagefind-search-input :deep(.pagefind-ui__result-link:focus) {
-  outline: none;
-  background-color: rgba(255, 255, 255, 0.15) !important;
-  border-radius: 6px;
-  display: block;
-  padding: 4px 8px;
-}
+    #pagefind-search-input :deep(.pagefind-ui__result-link:focus) {
+        outline: none;
+        background-color: rgba(255 255 255 / 15%) !important;
+        border-radius: 6px;
+        display: block;
+        padding: 4px 8px;
+    }
 
-/* 1. Main Container: Keep the blue background when navigating inside */
-#pagefind-search-input :deep(.pagefind-ui__result:focus-within),
-#pagefind-search-input :deep(.pagefind-ui__result.is-active) {
-  background-color: #5468ff !important;
-  border-radius: 8px;
-  transition: background-color 0.1s ease;
-}
+    /* 1. Main Container: Keep the blue background when navigating inside */
+    #pagefind-search-input :deep(.pagefind-ui__result:focus-within),
+    #pagefind-search-input :deep(.pagefind-ui__result.is-active) {
+        background-color: #5468ff !important;
+        border-radius: 8px;
+        transition: background-color 0.1s ease;
+    }
 
-#pagefind-search-input :deep(.pagefind-ui__result:focus-within *),
-#pagefind-search-input :deep(.pagefind-ui__result.is-active *) {
-  color: #fff !important;
-}
+    #pagefind-search-input :deep(.pagefind-ui__result:focus-within *),
+    #pagefind-search-input :deep(.pagefind-ui__result.is-active *) {
+        color: #fff !important;
+    }
 
-/* Highlighting search terms (mark tags) */
-#pagefind-search-input :deep(.pagefind-ui__result:focus-within mark),
-#pagefind-search-input :deep(.pagefind-ui__result.is-active mark) {
-  background-color: rgba(255, 255, 255, 0.2) !important;
-  color: #fff !important;
-}
+    /* Highlighting search terms (mark tags) */
+    #pagefind-search-input :deep(.pagefind-ui__result:focus-within mark),
+    #pagefind-search-input :deep(.pagefind-ui__result.is-active mark) {
+        background-color: rgba(255 255 255 / 20%) !important;
+        color: #fff !important;
+    }
 
 </style>
 
 <style>
-/* Import the external CSS file you provided */
-@import './assets/search.css';
+    /* Import the external CSS file you provided */
+    @import url('./assets/search.css');
 </style>
