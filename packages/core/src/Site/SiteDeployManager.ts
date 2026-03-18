@@ -150,14 +150,14 @@ export class SiteDeployManager {
     if (!repo) {
       return ciRepoSlug;
     }
-    const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)(?:\.git)?$/;
-    const repoSlugMatch = repoSlugRegex.exec(repo);
-    if (!repoSlugMatch) {
+
+    const parsed = SiteDeployManager.parseGitHubRemoteUrl(repo);
+    if (!parsed) {
       throw new Error('-c/--ci expects a GitHub repository.\n'
         + `The specified repository ${repo} is not valid.`);
     }
-    const [, repoSlug] = repoSlugMatch;
-    return repoSlug;
+
+    return `${parsed.owner}/${parsed.repoName}`;
   }
 
   /**
