@@ -4,13 +4,12 @@
  * that are easier to visualise the relationships.
  * A common use case is folder structures visualisations.
  */
-import has from 'lodash/has';
+import _ from 'lodash';
 import { MbNode } from '../../utils/node.js';
 import { PluginContext } from '../Plugin.js';
 
 import { markdownIt as md } from '../../lib/markdown-it/index.js';
 
-const _ = { has };
 
 const CSS_FILE_NAME = 'markbind-plugin-tree.css';
 

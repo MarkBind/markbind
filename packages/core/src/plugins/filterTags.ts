@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import escapeRegExp from 'lodash/escapeRegExp';
+import _ from 'lodash';
 import { FrontMatter, PluginContext } from './Plugin.js';
 
 /**
@@ -14,7 +14,7 @@ function filterTags(tags: string[], content: string) {
   const $ = cheerio.load(content);
   const tagOperations = tags.map(tag => ({
     // Trim leading + or -, replace * with .*, add ^ and $
-    tagExp: `^${escapeRegExp(tag.replace(/^(\+|-)/g, '')).replace(/\\\*/, '.*')}$`,
+    tagExp: `^${_.escapeRegExp(tag.replace(/^(\+|-)/g, '')).replace(/\\\*/, '.*')}$`,
     // Whether it is makes tags visible or hides them
     isHidden: tag.startsWith('-'),
   }));

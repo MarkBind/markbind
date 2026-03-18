@@ -1,5 +1,5 @@
 import path from 'path';
-import uniqBy from 'lodash/uniqBy';
+import _ from 'lodash';
 import { External } from './External.js';
 import * as fsUtil from '../utils/fsUtil.js';
 import * as urlUtil from '../utils/urlUtil.js';
@@ -9,9 +9,6 @@ import type { SiteLinkManager } from '../html/SiteLinkManager.js';
 import type { PluginManager } from '../plugins/PluginManager.js';
 import { NodeProcessorConfig } from '../html/NodeProcessor.js';
 
-const _ = {
-  uniqBy,
-};
 
 export type ExternalManagerConfig = NodeProcessorConfig & {
   variableProcessor: VariableProcessor,

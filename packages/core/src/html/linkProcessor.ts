@@ -1,5 +1,5 @@
 import path from 'path';
-import has from 'lodash/has';
+import _ from 'lodash';
 import parse from 'url-parse';
 import ignoreModule from 'ignore';
 import type { Ignore } from 'ignore';
@@ -15,7 +15,6 @@ import type { NodeProcessorConfig } from './NodeProcessor.js';
 import type { PageSources } from '../Page/PageSources.js';
 import { MbNode } from '../utils/node.js';
 
-const _ = { has };
 
 const pluginTagConfig = PluginManager.tagConfig;
 

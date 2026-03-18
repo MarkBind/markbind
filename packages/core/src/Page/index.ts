@@ -3,9 +3,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import jsPkg from 'js-beautify';
 
-import cloneDeep from 'lodash/cloneDeep';
-import isObject from 'lodash/isObject';
-import isArray from 'lodash/isArray';
+import _ from 'lodash';
 import { pageVueServerRenderer } from './PageVueServerRenderer.js';
 
 import { CyclicReferenceError } from '../errors/CyclicReferenceError.js';
@@ -26,7 +24,6 @@ import packageJson from '../../package.json' with { type: 'json' };
 
 import '../patches/htmlparser2.js';
 
-const _ = { cloneDeep, isObject, isArray };
 const { html: htmlBeautify } = jsPkg;
 
 const PACKAGE_VERSION = packageJson.version;

@@ -2,8 +2,7 @@ import cheerio from 'cheerio';
 import path from 'path';
 import parse from 'url-parse';
 
-import has from 'lodash/has';
-import isEmpty from 'lodash/isEmpty';
+import _ from 'lodash';
 import { createErrorNode, createSlotTemplateNode } from './elements.js';
 import { CyclicReferenceError } from '../errors/CyclicReferenceError.js';
 
@@ -17,7 +16,6 @@ import { MbNode, NodeOrText } from '../utils/node.js';
 import { SiteLinkManager } from './SiteLinkManager.js';
 import '../patches/htmlparser2.js';
 
-const _ = { has, isEmpty };
 
 /*
  * Common panel and include helper functions

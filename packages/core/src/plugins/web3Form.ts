@@ -1,12 +1,9 @@
 import cheerio from 'cheerio';
-import has from 'lodash/has';
+import _ from 'lodash';
 import { PluginContext } from './Plugin.js';
 import { MbNode } from '../utils/node.js';
 import { markdownIt as md } from '../lib/markdown-it/index.js';
 
-const _ = {
-  has,
-};
 
 const CSS_FILE_NAME = 'web3FormAssets/web-3-form.css';
 

@@ -1,7 +1,6 @@
-import pick from 'lodash/pick';
+import _ from 'lodash';
 import { MbNode, NodeOrText, parseHTML } from '../utils/node.js';
 
-const _ = { pick };
 
 export function createErrorNode(element: NodeOrText, error: any) {
   const errorElement = parseHTML(`<div style="color: red">${error.message}</div>`)[0];

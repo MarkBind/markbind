@@ -1,12 +1,8 @@
-import merge from 'lodash/merge';
+import _ from 'lodash';
 
 import path from 'path';
 import fs from 'fs-extra';
 import walkSync from 'walk-sync';
-import flatMap from 'lodash/flatMap';
-import get from 'lodash/get';
-import includes from 'lodash/includes';
-import isError from 'lodash/isError';
 import * as logger from '../utils/logger.js';
 import {
   FrontMatter, Plugin, PluginContext, TagConfigs,
@@ -16,13 +12,6 @@ import type { PageAssets } from '../Page/PageConfig.js';
 import { NodeOrText } from '../utils/node.js';
 import { ignoreTags } from '../patches/index.js';
 
-const _ = {
-  flatMap,
-  get,
-  includes,
-  isError,
-  merge,
-};
 
 const MARKBIND_PLUGIN_DIRECTORY = __dirname;
 const MARKBIND_DEFAULT_PLUGIN_DIRECTORY = path.join(__dirname, 'default');

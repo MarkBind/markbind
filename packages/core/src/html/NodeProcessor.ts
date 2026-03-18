@@ -1,8 +1,7 @@
 import path from 'path';
 import cheerio from 'cheerio';
 import htmlparser, { DomElement } from 'htmlparser2';
-import isArray from 'lodash/isArray';
-import has from 'lodash/has';
+import _ from 'lodash';
 
 import fm from 'fastmatter';
 import { ATTRIB_CWF } from '../constants.js';
@@ -32,10 +31,6 @@ import { processCardStackAttributes } from './cardStackProcessor.js';
 
 import '../patches/htmlparser2.js';
 
-const _ = {
-  isArray,
-  has,
-};
 
 const FRONTMATTER_FENCE = '---';
 

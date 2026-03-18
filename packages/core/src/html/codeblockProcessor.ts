@@ -1,13 +1,10 @@
 import { decode } from 'html-entities';
 import cheerio from 'cheerio';
-import has from 'lodash/has';
+import _ from 'lodash';
 import { NodeOrText, MbNode } from '../utils/node.js';
 
 import { markdownIt as md } from '../lib/markdown-it/index.js';
 
-const _ = {
-  has,
-};
 
 interface TraverseLinePartData {
   numCharsTraversed: number,

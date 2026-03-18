@@ -1,7 +1,7 @@
 import katex from 'katex';
 import hljs from 'highlight.js';
 import markdownItImport, { Options } from 'markdown-it';
-import lodashConstant from 'lodash/constant';
+import _ from 'lodash';
 import Renderer from 'markdown-it/lib/renderer';
 import Token from 'markdown-it/lib/token';
 
@@ -32,9 +32,6 @@ const markdownIt = markdownItImport({ html: true, linkify: true });
 
 markdownIt.linkify.set({ fuzzyLink: false });
 
-const _ = {
-  constant: lodashConstant,
-};
 
 // markdown-it plugins
 markdownIt.use(createDoubleDelimiterInlineRule('%%', 'dimmed', 'emphasis'))

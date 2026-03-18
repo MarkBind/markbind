@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs-extra';
 import cheerio from 'cheerio';
 
-import isString from 'lodash/isString';
+import _ from 'lodash';
 import * as logger from '../utils/logger.js';
 import * as urlUtil from '../utils/urlUtil.js';
 import type { NodeProcessorConfig } from '../html/NodeProcessor.js';
@@ -10,7 +10,6 @@ import { NodeOrText } from '../utils/node.js';
 
 import '../patches/htmlparser2.js';
 
-const _ = { isString };
 
 const PLUGIN_OUTPUT_SITE_ASSET_FOLDER_NAME = 'plugins';
 
