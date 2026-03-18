@@ -21,7 +21,7 @@ export type DeployResult = {
 };
 
 type ParsedGitHubRepo = {
-  name: string,
+  owner: string,
   repoName: string,
 };
 
@@ -173,7 +173,7 @@ export class SiteDeployManager {
    * Returns null if the URL format is not recognized.
    */
   static parseGitHubRemoteUrl(remoteUrl: string): ParsedGitHubRepo | null {
-    const HTTPS_PREAMBLE = 'https://';
+    const HTTPS_PREAMBLE = 'https://github.com';
     const SSH_PREAMBLE = 'git@github.com:';
 
     if (!remoteUrl) {
@@ -184,26 +184,26 @@ export class SiteDeployManager {
     // get repo name
     const repoNameWithExt = parts[parts.length - 1];
     const dotIndex = repoNameWithExt.lastIndexOf('.');
-    const repoName = dotIndex == -1 ? repoNameWithExt : repoNameWithExt.substring(0, dotIndex);
+    const repoName = dotIndex === -1 ? repoNameWithExt : repoNameWithExt.substring(0, dotIndex);
 
     if (remoteUrl.startsWith(HTTPS_PREAMBLE)) {
       // https://github.com/<name|org>/<repo>.git (HTTPS)
-      const name = parts[parts.length - 2].toLowerCase();
-      return { name, repoName };
+      const owner = parts[parts.length - 2];
+      return { owner, repoName };
     } else if (remoteUrl.startsWith(SSH_PREAMBLE)) {
       // git@github.com:<name|org>/<repo>.git (SSH)
-      const name = parts[0].substring(SSH_PREAMBLE.length);
-      return { name, repoName };
+      const owner = parts[0].substring(SSH_PREAMBLE.length);
+      return { owner, repoName };
     }
     return null;
   }
 
   /**
-   * Constructs the GitHub Pages URL from a remote URL.
+   * Constructs the GitHub Pages URL from a parsed remote URL.
    * Returns a URL in the format: https://<name>.github.io/<repo>
    */
   static constructGhPagesUrl(repo: ParsedGitHubRepo): string {
-    return `https://${repo.name}.github.io/${repo.repoName}`;
+    return `https://${repo.owner}.github.io/${repo.repoName}`;
   }
 
   /**
@@ -211,7 +211,7 @@ export class SiteDeployManager {
    * Returns a URL in the format: https://github.com/<name>/<repo>/actions
    */
   static constructGhActionsUrl(repo: ParsedGitHubRepo): string {
-    return `https://github.com/${repo.name}/${repo.repoName}/actions`;
+    return `https://github.com/${repo.owner}/${repo.repoName}/actions`;
   }
 
   /**

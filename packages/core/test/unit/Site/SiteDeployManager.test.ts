@@ -293,12 +293,12 @@ describe('SiteDeployManager URL construction utilities', () => {
   describe('parseGitHubRemoteUrl', () => {
     test('parses HTTPS remote URL correctly', () => {
       const result = SiteDeployManager.parseGitHubRemoteUrl('https://github.com/UserName/my-repo.git');
-      expect(result).toEqual({ name: 'username', repoName: 'my-repo' });
+      expect(result).toEqual({ owner: 'UserName', repoName: 'my-repo' });
     });
 
     test('parses SSH remote URL correctly', () => {
       const result = SiteDeployManager.parseGitHubRemoteUrl('git@github.com:UserName/my-repo.git');
-      expect(result).toEqual({ name: 'UserName', repoName: 'my-repo' });
+      expect(result).toEqual({ owner: 'UserName', repoName: 'my-repo' });
     });
 
     test('returns null for empty string', () => {
@@ -312,14 +312,14 @@ describe('SiteDeployManager URL construction utilities', () => {
 
   describe('constructGhPagesUrl', () => {
     test('constructs GitHub Pages URL correctly', () => {
-      const result = SiteDeployManager.constructGhPagesUrl({ name: 'user', repoName: 'repo' });
+      const result = SiteDeployManager.constructGhPagesUrl({ owner: 'user', repoName: 'repo' });
       expect(result).toEqual('https://user.github.io/repo');
     });
   });
 
   describe('constructGhActionsUrl', () => {
     test('constructs GitHub Actions URL correctly', () => {
-      const result = SiteDeployManager.constructGhActionsUrl({ name: 'user', repoName: 'repo' });
+      const result = SiteDeployManager.constructGhActionsUrl({ owner: 'user', repoName: 'repo' });
       expect(result).toEqual('https://github.com/user/repo/actions');
     });
   });
