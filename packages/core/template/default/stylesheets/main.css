@@ -1,5 +1,6 @@
 mark {
-    background-color: #ff0;
+    background-color: var(--bs-highlight-bg, #ff0);
+    color: var(--bs-highlight-color, inherit);
     border-radius: 5px;
     padding-top: 0;
     padding-bottom: 0;
@@ -132,11 +133,6 @@ mark {
     #page-nav {
         display: none;
     }
-}
-
-[data-bs-theme="dark"] mark {
-    background-color: #665c00;
-    color: #fff3bf;
 }
 
 [data-bs-theme="dark"] #site-nav {

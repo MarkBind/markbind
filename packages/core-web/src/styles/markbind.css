@@ -33,9 +33,16 @@ a {
 }
 
 blockquote {
-    border-left: 0.25em solid #dfe2e5;
-    color: #6a737d;
+    border-left: 0.25em solid #ffffff;
+    color: var(--bs-body-bg, inherit);
     padding: 0 1rem;
+}
+
+mark {
+    background-color: var(--bs-highlight-bg, #ff0);
+    color: var(--bs-highlight-color, inherit);
+    border-radius: 5px;
+    padding: 0;
 }
 
 code {
