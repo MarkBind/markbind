@@ -50,7 +50,7 @@ expectedErrors.forEach((error, index) => {
   logger.info(`${index + 1}: ${error}`);
 });
 
-const GENERATED_DIRECTORIES_TO_IGNORE = ['pagefind'];
+const GENERATED_DIRECTORIES_TO_IGNORE = ['**/pagefind/**'];
 
 testSites.forEach((siteName) => {
   console.log(`Running ${siteName} tests`);

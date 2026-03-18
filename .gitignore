@@ -116,5 +116,8 @@ packages/core/src/lib/progress/*.js
 .nx/cache
 .nx/workspace-data
 
+# Pagefind fragments
+*.pf_fragment
+
 # Build folder
 dist/
