@@ -167,10 +167,15 @@ export class SiteDeployManager {
     if (!SiteDeployManager.isAuthError(errMessage)) return;
     const hint = usingDefaultGithubToken
       ? '\nThis may be because the built-in GITHUB_TOKEN cannot push to a different repository.\n'
-        + 'Create a Personal Access Token (PAT) with "repo" scope, store it as a repository secret '
-        + '(e.g. GH_TOKEN), and run: markbind deploy --ci GH_TOKEN'
+         + 'Create a GitHub personal access token (PAT) (either a classic token with "repo" scope, or a '
+         + 'fine-grained token with Contents: Read and Write access), store it as a repository secret '
+         + '(e.g. GH_TOKEN), and run: markbind deploy --ci GH_TOKEN'
       : '';
-    throw new Error(`Deployment failed due to an authentication error: ${errMessage}${hint}`);
+    const error = new Error(
+      `Deployment failed due to an authentication error: ${errMessage}${hint}`,
+    );
+    (error as any).cause = err;
+    throw error;
   }
 
   static warnCrossRepoToken(repoSlug: string | undefined, currentRepo: string | undefined) {
@@ -179,7 +184,8 @@ export class SiteDeployManager {
       + `("${repoSlug}" vs "${currentRepo}").\n`
       + 'The built-in GITHUB_TOKEN is scoped only to the triggering repository and cannot push '
       + 'to other repositories.\n'
-      + 'To fix this, create a Personal Access Token (PAT) with "repo" scope, store it as a '
+       + 'To fix this, create a GitHub personal access token (either a classic token with "repo" '
+       + 'scope, or a fine-grained token with Contents: Read and Write access), store it as a '
       + 'repository secret (e.g. GH_TOKEN), and run: markbind deploy --ci GH_TOKEN',
     );
   }
