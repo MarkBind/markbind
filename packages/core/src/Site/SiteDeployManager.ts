@@ -150,7 +150,7 @@ export class SiteDeployManager {
     if (!repo) {
       return ciRepoSlug;
     }
-    const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)\.git$/;
+    const repoSlugRegex = /github\.com[:/]([\w-]+\/[\w-.]+)(?:\.git)?$/;
     const repoSlugMatch = repoSlugRegex.exec(repo);
     if (!repoSlugMatch) {
       throw new Error('-c/--ci expects a GitHub repository.\n'
@@ -180,16 +180,18 @@ export class SiteDeployManager {
       return null;
     }
     const parts = remoteUrl.split('/');
+
+    // get repo name
+    const repoNameWithExt = parts[parts.length - 1];
+    const dotIndex = repoNameWithExt.lastIndexOf('.');
+    const repoName = dotIndex == -1 ? repoNameWithExt : repoNameWithExt.substring(0, dotIndex);
+
     if (remoteUrl.startsWith(HTTPS_PREAMBLE)) {
       // https://github.com/<name|org>/<repo>.git (HTTPS)
-      const repoNameWithExt = parts[parts.length - 1];
-      const repoName = repoNameWithExt.substring(0, repoNameWithExt.lastIndexOf('.'));
       const name = parts[parts.length - 2].toLowerCase();
       return { name, repoName };
     } else if (remoteUrl.startsWith(SSH_PREAMBLE)) {
       // git@github.com:<name|org>/<repo>.git (SSH)
-      const repoNameWithExt = parts[parts.length - 1];
-      const repoName = repoNameWithExt.substring(0, repoNameWithExt.lastIndexOf('.'));
       const name = parts[0].substring(SSH_PREAMBLE.length);
       return { name, repoName };
     }
