@@ -122,7 +122,7 @@ jobs:
 
 The sample `deploy.yml` workflow above uses the [default GitHub Token secret](https://docs.github.com/en/actions/reference/authentication-in-a-workflow) that is generated automatically for each GitHub Actions workflow. You may also use a [GitHub Personal Access Token](#generating-a-github-personal-access-token) in place of the default GitHub Token.
 
-Note that **Cross-repository deployments require a Personal Access Token (PAT).**, as the built-in `GITHUB_TOKEN` is scoped to the repository that triggered the workflow and **cannot push to a different repository**. If your `site.json` specifies a `deploy.repo` that differs from the repository running the workflow, the deploy will fail with an authentication error.
+Note that **Cross-repository deployments require a Personal Access Token (PAT)**, as the built-in `GITHUB_TOKEN` is scoped to the repository that triggered the workflow and **cannot push to a different repository**. If your `site.json` specifies a `deploy.repo` that differs from the repository running the workflow, the deploy will fail with an authentication error.
 
 To deploy to a different repository:
 1. [Generate a PAT](#generating-a-github-personal-access-token) with **Contents: Read and Write** permission

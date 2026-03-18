@@ -1,7 +1,9 @@
 import fs from 'fs-extra';
+import ghpages from 'gh-pages';
 import { SiteDeployManager, DeployOptions } from '../../../src/Site/SiteDeployManager';
 import { SiteConfig } from '../../../src/Site/SiteConfig';
 import { SITE_JSON_DEFAULT } from '../utils/data';
+import * as mockLogger from '../../../src/utils/logger';
 
 const mockFs = fs as any;
 
@@ -17,7 +19,6 @@ jest.mock('../../../src/utils/logger', () => ({
   error: jest.fn(),
   info: jest.fn(),
 }));
-const mockLogger = require('../../../src/utils/logger');
 
 const rootPath = '/tmp/test';
 const outputPath = '/tmp/test/_site';
@@ -31,9 +32,7 @@ const mockGhPages = {
 };
 
 // Mock gh-pages publish
-const ghpages = require('gh-pages');
-
-ghpages.publish = jest.fn((dir: string, options: DeployOptions, callback?: (err?: any) => void) => {
+(ghpages as any).publish = jest.fn((dir: string, options: DeployOptions, callback?: (err?: any) => void) => {
   mockGhPages.dir = dir;
   mockGhPages.options = options;
   if (callback) {
@@ -41,7 +40,7 @@ ghpages.publish = jest.fn((dir: string, options: DeployOptions, callback?: (err?
   }
   return Promise.resolve();
 });
-ghpages.clean = jest.fn();
+(ghpages as any).clean = jest.fn();
 
 afterEach(() => {
   mockFs.vol.reset();
@@ -158,7 +157,7 @@ describe('SiteDeployManager.warnCrossRepoToken', () => {
 
   test('warning message mentions GITHUB_TOKEN and PAT fix', () => {
     SiteDeployManager.warnCrossRepoToken('other-org/other-repo', 'my-org/my-repo');
-    const msg = mockLogger.warn.mock.calls[0][0] as string;
+    const msg = (mockLogger.warn as jest.Mock).mock.calls[0][0] as string;
     expect(msg).toContain('GITHUB_TOKEN');
     expect(msg).toContain('Personal Access Token');
   });

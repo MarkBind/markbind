@@ -112,7 +112,12 @@ export class SiteDeployManager {
 
         // Warn early if deploying to a different repo with the default GITHUB_TOKEN,
         // which is scoped only to the triggering repository.
-        if (usingDefaultGithubToken && repoSlug !== process.env.GITHUB_REPOSITORY) {
+        if (
+          usingDefaultGithubToken
+          && repoSlug
+          && process.env.GITHUB_REPOSITORY
+          && repoSlug.toLowerCase() !== process.env.GITHUB_REPOSITORY.toLowerCase()
+        ) {
           SiteDeployManager.warnCrossRepoToken(repoSlug, process.env.GITHUB_REPOSITORY);
         }
 
@@ -148,11 +153,17 @@ export class SiteDeployManager {
   }
 
   static isAuthError(errMessage: string) {
-    return /403|Authentication failed|Permission to|could not read Username|Invalid username/i.test(errMessage);
+    const authErrorPattern = new RegExp(
+      '\\b403\\b|Authentication failed|Permission to'
+      + '|could not read Username|Invalid username',
+      'i',
+    );
+    return authErrorPattern.test(errMessage);
   }
 
   static throwIfAuthError(err: unknown, usingDefaultGithubToken: boolean) {
-    const errMessage = err instanceof Error ? err.message : String(err);
+    // eslint-disable-next-line lodash/prefer-lodash-typecheck
+    const errMessage = (err instanceof Error) ? err.message : String(err);
     if (!SiteDeployManager.isAuthError(errMessage)) return;
     const hint = usingDefaultGithubToken
       ? '\nThis may be because the built-in GITHUB_TOKEN cannot push to a different repository.\n'
@@ -169,7 +180,7 @@ export class SiteDeployManager {
       + 'The built-in GITHUB_TOKEN is scoped only to the triggering repository and cannot push '
       + 'to other repositories.\n'
       + 'To fix this, create a Personal Access Token (PAT) with "repo" scope, store it as a '
-      + 'repository secret (e.g. GH_TOKEN), then use that token in env.',
+      + 'repository secret (e.g. GH_TOKEN), and run: markbind deploy --ci GH_TOKEN',
     );
   }
 
