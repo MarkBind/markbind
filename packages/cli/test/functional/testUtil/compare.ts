@@ -20,16 +20,6 @@ const TEST_BLACKLIST = ignore().add([
   'wasm.unknown.pagefind',
 ]);
 
-// File patterns to completely ignore (skip both content AND existence comparison)
-// These are files with non-deterministic content/hashes that differ across environments (e.g., PageFind)
-const TEST_BLACKLIST_EXISTENCE = ignore().add([
-  '*.pf_fragment',
-  '*.pf_index',
-  '*.pf_meta',
-  '*.wasm.pagefind',
-  'wasm.unknown.pagefind',
-]);
-
 const CRLF_REGEX = /\r\n/g;
 
 function _readFileSync(...paths: string[]) {
@@ -69,10 +59,12 @@ function getDirectoryStructure(dirPath: string) {
  * @param {string} expectedSiteRelativePath - Relative path to expected site output (default: "expected")
  * @param {string} siteRelativePath - Relative path to actual generated site output (default: "_site")
  * @param {string[]} ignoredPaths - Specify any paths to ignore for comparison, but still check for existence.
+ * @param {string[]} ignoredDirectories - Specify any directories to ignore for comparison (e.g. 'pagefind')
  * @param {boolean} compareDirectories - Whether to compare directory structures (default: false)
  */
 function compare(root: string, expectedSiteRelativePath = 'expected', siteRelativePath = '_site',
-                 ignoredPaths: string[] = [], compareDirectories = false) {
+                 ignoredPaths: string[] = [], ignoredDirectories: string[] = [],
+                 compareDirectories = false) {
   const expectedDirectory = path.join(root, expectedSiteRelativePath);
   const actualDirectory = path.join(root, siteRelativePath);
 
@@ -88,8 +80,9 @@ function compare(root: string, expectedSiteRelativePath = 'expected', siteRelati
     }
   }
 
-  let expectedPaths = walkSync(expectedDirectory, { directories: false });
-  let actualPaths = walkSync(actualDirectory, { directories: false });
+  const walkSyncOptions = { directories: false, ignore: ignoredDirectories };
+  let expectedPaths = walkSync(expectedDirectory, walkSyncOptions);
+  let actualPaths = walkSync(actualDirectory, walkSyncOptions);
 
   // Vue render JS files (*.page-vue-render.js) are not committed to version control,
   // so we exclude them from the comparison to avoid false positive diffs.
@@ -105,11 +98,6 @@ function compare(root: string, expectedSiteRelativePath = 'expected', siteRelati
   // Filter out ignoredPaths to avoid comparing them because they are binary files
   actualPaths = actualPaths.filter(p => !ignoredPaths.includes(p));
   expectedPaths = expectedPaths.filter(p => !ignoredPaths.includes(p));
-
-  // Filter out files with non-deterministic hashes (e.g., PageFind generated files)
-  // These files have content-dependent hashes that differ across environments
-  actualPaths = actualPaths.filter(p => !TEST_BLACKLIST_EXISTENCE.ignores(p));
-  expectedPaths = expectedPaths.filter(p => !TEST_BLACKLIST_EXISTENCE.ignores(p));
 
   let error = false;
   if (expectedPaths.length !== actualPaths.length) {

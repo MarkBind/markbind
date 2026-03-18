@@ -50,12 +50,14 @@ expectedErrors.forEach((error, index) => {
   logger.info(`${index + 1}: ${error}`);
 });
 
+const GENERATED_DIRECTORIES_TO_IGNORE = ['pagefind'];
+
 testSites.forEach((siteName) => {
   console.log(`Running ${siteName} tests`);
   try {
     execSync(`node ${CLI_PATH} build ${siteName}`, execOptions);
     const siteIgnoredFiles = plantumlGeneratedFilesForTestSites[siteName];
-    compare(siteName, 'expected', '_site', siteIgnoredFiles);
+    compare(siteName, 'expected', '_site', siteIgnoredFiles, GENERATED_DIRECTORIES_TO_IGNORE);
   } catch (err) {
     if (_.isError(err)) {
       printFailedMessage(err, siteName);
@@ -74,7 +76,8 @@ testConvertSites.forEach((sitePath) => {
     execSync(`node ${CLI_PATH} init ${nonMarkBindSitePath} -c`, execOptions);
     execSync(`node ${CLI_PATH} build ${nonMarkBindSitePath}`, execOptions);
     const siteIgnoredFiles = plantumlGeneratedFilesForConvertSites[siteName];
-    compare(sitePath, 'expected', 'non_markbind_site/_site', siteIgnoredFiles);
+    compare(sitePath, 'expected', 'non_markbind_site/_site', siteIgnoredFiles,
+            GENERATED_DIRECTORIES_TO_IGNORE);
   } catch (err) {
     if (_.isError(err)) {
       printFailedMessage(err, sitePath);
@@ -98,7 +101,7 @@ testTemplateSites.forEach((templateAndSitePath) => {
     execSync(`node ${CLI_PATH} init ${siteCreationTempPath} --template ${flag}`, execOptions);
     execSync(`node ${CLI_PATH} build ${siteCreationTempPath}`, execOptions);
     const siteIgnoredFiles = plantumlGeneratedFilesForTemplateSites[siteName];
-    compare(sitePath, 'expected', 'tmp/_site', siteIgnoredFiles);
+    compare(sitePath, 'expected', 'tmp/_site', siteIgnoredFiles, GENERATED_DIRECTORIES_TO_IGNORE);
   } catch (err) {
     if (_.isError(err)) {
       printFailedMessage(err, sitePath);
@@ -141,7 +144,7 @@ function testEmptyDirectoryBuild() {
     } catch (err) {
       // Verify that test_empty directory remains empty using compare()
       try {
-        compare(siteRootName, 'expected', 'empty_dir', [], true);
+        compare(siteRootName, 'expected', 'empty_dir', [], [], true);
       } catch (compareErr) {
         if (_.isError(compareErr)) {
           printFailedMessage(compareErr, siteRootName);
