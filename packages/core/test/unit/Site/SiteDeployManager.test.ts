@@ -12,6 +12,12 @@ jest.mock('../../../src/utils/git', () => ({
   getRemoteBranchFile: jest.fn(() => Promise.resolve(null)),
   getRemoteUrl: jest.fn(() => Promise.resolve('https://github.com/mock-user/mock-repo.git')),
 }));
+jest.mock('../../../src/utils/logger', () => ({
+  warn: jest.fn(),
+  error: jest.fn(),
+  info: jest.fn(),
+}));
+const mockLogger = require('../../../src/utils/logger');
 
 const rootPath = '/tmp/test';
 const outputPath = '/tmp/test/_site';
@@ -102,6 +108,60 @@ test('SiteDeployManager should not deploy without a built site', async () => {
     .toThrow(
       new Error('The site directory does not exist. '
         + 'Please build the site first before deploy.'));
+});
+
+describe('SiteDeployManager.isAuthError', () => {
+  test.each([
+    ['403 error', 'Request failed with status code 403'],
+    ['Authentication failed', 'Authentication failed for repo'],
+    ['Permission to', 'Permission to org/repo denied'],
+    ['could not read Username', 'could not read Username for repo'],
+    ['Invalid username', 'Invalid username or password'],
+  ])('returns true for auth error: %s', (_, message) => {
+    expect(SiteDeployManager.isAuthError(message)).toBe(true);
+  });
+
+  test('returns false for non-auth errors', () => {
+    expect(SiteDeployManager.isAuthError('Network timeout')).toBe(false);
+    expect(SiteDeployManager.isAuthError('branch not found')).toBe(false);
+  });
+});
+
+describe('SiteDeployManager.throwIfAuthError', () => {
+  test('does not throw for non-auth errors', () => {
+    expect(() => SiteDeployManager.throwIfAuthError(new Error('Network timeout'), false)).not.toThrow();
+  });
+
+  test('throws with auth error message (no PAT hint when not using default token)', () => {
+    expect(() => SiteDeployManager.throwIfAuthError(new Error('403 forbidden'), false))
+      .toThrow('Deployment failed due to an authentication error: 403 forbidden');
+  });
+
+  test('throws with PAT hint when using default GITHUB_TOKEN', () => {
+    expect(() => SiteDeployManager.throwIfAuthError(new Error('Authentication failed'), true))
+      .toThrow('GITHUB_TOKEN cannot push to a different repository');
+  });
+
+  test('handles non-Error thrown values', () => {
+    expect(() => SiteDeployManager.throwIfAuthError('403', false))
+      .toThrow('Deployment failed due to an authentication error: 403');
+  });
+});
+
+describe('SiteDeployManager.warnCrossRepoToken', () => {
+  test('logs a warning mentioning both repos', () => {
+    SiteDeployManager.warnCrossRepoToken('other-org/other-repo', 'my-org/my-repo');
+    expect(mockLogger.warn).toHaveBeenCalledWith(
+      expect.stringContaining('"other-org/other-repo" vs "my-org/my-repo"'),
+    );
+  });
+
+  test('warning message mentions GITHUB_TOKEN and PAT fix', () => {
+    SiteDeployManager.warnCrossRepoToken('other-org/other-repo', 'my-org/my-repo');
+    const msg = mockLogger.warn.mock.calls[0][0] as string;
+    expect(msg).toContain('GITHUB_TOKEN');
+    expect(msg).toContain('Personal Access Token');
+  });
 });
 
 describe('Site deploy with various CI environments', () => {
@@ -285,5 +345,37 @@ describe('Site deploy with various CI environments', () => {
       .rejects
       .toThrow(new Error('-c/--ci expects a GitHub repository.\n'
         + `The specified repository ${invalidRepoConfig.deploy.repo} is not valid.`));
+  });
+
+  test('warns when GITHUB_TOKEN is used to deploy to a different repo in GitHub Actions', async () => {
+    process.env.GITHUB_ACTIONS = 'true';
+    process.env.GITHUB_TOKEN = 'githubToken';
+    process.env.GITHUB_REPOSITORY = 'my-org/my-repo';
+
+    const crossRepoConfig = JSON.parse(SITE_JSON_DEFAULT);
+    crossRepoConfig.deploy.repo = 'https://github.com/other-org/other-repo.git';
+    mockFs.vol.fromJSON({ _site: {} }, rootPath);
+
+    const deployManager = new SiteDeployManager(rootPath, outputPath);
+    deployManager.siteConfig = crossRepoConfig as SiteConfig;
+
+    await deployManager.deploy(true);
+    expect(mockLogger.warn).toHaveBeenCalledWith(
+      expect.stringContaining('"other-org/other-repo" vs "my-org/my-repo"'),
+    );
+  });
+
+  test('does not warn when GITHUB_TOKEN deploys to the same repo', async () => {
+    process.env.GITHUB_ACTIONS = 'true';
+    process.env.GITHUB_TOKEN = 'githubToken';
+    process.env.GITHUB_REPOSITORY = 'GENERIC_USER/GENERIC_REPO';
+
+    mockFs.vol.fromJSON({ _site: {} }, rootPath);
+
+    const deployManager = new SiteDeployManager(rootPath, outputPath);
+    deployManager.siteConfig = JSON.parse(SITE_JSON_DEFAULT) as SiteConfig;
+
+    await deployManager.deploy(true);
+    expect(mockLogger.warn).not.toHaveBeenCalled();
   });
 });

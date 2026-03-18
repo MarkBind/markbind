@@ -80,6 +80,8 @@ export class SiteDeployManager {
       process.env.CACHE_DIR = cacheDirectory;
     }
 
+    let usingDefaultGithubToken = false;
+
     if (ciTokenVar) {
       const ciToken = _.isBoolean(ciTokenVar) ? 'GITHUB_TOKEN' : ciTokenVar;
       if (!process.env[ciToken]) {
@@ -106,6 +108,13 @@ export class SiteDeployManager {
         // Set cache folder to a location Github Actions can find.
         process.env.CACHE_DIR = path.join(process.env.GITHUB_WORKSPACE || '.cache');
         repoSlug = SiteDeployManager.extractRepoSlug(options.repo, process.env.GITHUB_REPOSITORY);
+        usingDefaultGithubToken = ciToken === 'GITHUB_TOKEN';
+
+        // Warn early if deploying to a different repo with the default GITHUB_TOKEN,
+        // which is scoped only to the triggering repository.
+        if (usingDefaultGithubToken && repoSlug !== process.env.GITHUB_REPOSITORY) {
+          SiteDeployManager.warnCrossRepoToken(repoSlug, process.env.GITHUB_REPOSITORY);
+        }
 
         options.user = {
           name: 'github-actions',
@@ -129,8 +138,39 @@ export class SiteDeployManager {
     }
 
     // Waits for the repo to be updated.
-    await publish(basePath, options);
+    try {
+      await publish(basePath, options);
+    } catch (err) {
+      SiteDeployManager.throwIfAuthError(err, usingDefaultGithubToken);
+      throw err;
+    }
     return options;
+  }
+
+  static isAuthError(errMessage: string) {
+    return /403|Authentication failed|Permission to|could not read Username|Invalid username/i.test(errMessage);
+  }
+
+  static throwIfAuthError(err: unknown, usingDefaultGithubToken: boolean) {
+    const errMessage = err instanceof Error ? err.message : String(err);
+    if (!SiteDeployManager.isAuthError(errMessage)) return;
+    const hint = usingDefaultGithubToken
+      ? '\nThis may be because the built-in GITHUB_TOKEN cannot push to a different repository.\n'
+        + 'Create a Personal Access Token (PAT) with "repo" scope, store it as a repository secret '
+        + '(e.g. GH_TOKEN), and run: markbind deploy --ci GH_TOKEN'
+      : '';
+    throw new Error(`Deployment failed due to an authentication error: ${errMessage}${hint}`);
+  }
+
+  static warnCrossRepoToken(repoSlug: string | undefined, currentRepo: string | undefined) {
+    logger.warn(
+      'Warning: You are deploying to a repository different from the one running this workflow '
+      + `("${repoSlug}" vs "${currentRepo}").\n`
+      + 'The built-in GITHUB_TOKEN is scoped only to the triggering repository and cannot push '
+      + 'to other repositories.\n'
+      + 'To fix this, create a Personal Access Token (PAT) with "repo" scope, store it as a '
+      + 'repository secret (e.g. GH_TOKEN), then use that token in env.',
+    );
   }
 
   /**
