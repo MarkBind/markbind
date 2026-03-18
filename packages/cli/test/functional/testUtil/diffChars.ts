@@ -1,5 +1,5 @@
 import { ChangeObject, diffChars } from 'diff';
-import { DiffPrinter } from './diffPrinter';
+import { DiffPrinter } from './diffPrinter.js';
 
 /**
  * Checks for any diffs between expected.html and actual.html,

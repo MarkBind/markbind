@@ -42,4 +42,4 @@ const HTML_OPEN_CLOSE_TAG_RE = new RegExp(
   '^(?:' + open_tag + '|' + close_tag + ')'
 )
 
-module.exports = { HTML_TAG_RE, HTML_OPEN_CLOSE_TAG_RE };
+export { HTML_TAG_RE, HTML_OPEN_CLOSE_TAG_RE };

@@ -6,7 +6,7 @@
  * 3. Ability to inject/whitelist certain tags to be parsed like script/style tags do. ('special' tags)
  */
 
-const { Tokenizer, Parser } = require('htmlparser2');
+import { Tokenizer, Parser } from 'htmlparser2';
 
 /*
  Enable any self closing tags '<xx />' to be parsed.
@@ -23,29 +23,11 @@ Parser.prototype.onselfclosingtag = function () {
  This is equivalent to the { lowerCaseAttributeNames: false } option of htmlparser2;
  We modify the relevant code to avoid passing it in repeatedly as well.
  */
-Parser.prototype.onattribname = function (name) {
+Parser.prototype.onattribname = function (name: string) {
   this._attribname = name;
 };
 
-/* eslint-disable
-    brace-style,
-    indent,
-    keyword-spacing,
-    max-len,
-    no-mixed-spaces-and-tabs,
-    no-multi-spaces,
-    no-plusplus,
-    no-tabs,
-    no-unused-vars,
-    no-var,
-    one-var,
-    quotes,
-    semi,
-    space-before-blocks,
-    space-before-function-paren,
-    spaced-comment,
-    vars-on-top,
-*/
+/* eslint-disable */
 
 var i = 0,
 
@@ -145,7 +127,7 @@ const DEFAULT_SPECIAL_TAGS = [
 	'md',
 ];
 
-function whitespace(c) {
+function whitespace(c: string) {
 	return c === " " || c === "\n" || c === "\t" || c === "\f" || c === "\r";
 }
 
@@ -155,7 +137,7 @@ Tokenizer.prototype.specialTagNames = [...DEFAULT_SPECIAL_TAGS];
  * Checks whether the token matches one of the first characters of the special tags,
  * and initialises the _matchingSpecialTagIndexes array with the matches' indexes if so.
  */
-Tokenizer.prototype._matchSpecialTagsFirstCharacters = function(c) {
+Tokenizer.prototype._matchSpecialTagsFirstCharacters = function(c: string) {
 	this._matchingSpecialTagIndexes = [];
 	const numSpecialTags = this.specialTagNames.length;
 	const lowerCaseChar = c.toLowerCase();
@@ -177,7 +159,7 @@ Tokenizer.prototype._matchSpecialTagsFirstCharacters = function(c) {
  * that do not match the current token.
  * If one of the previous matches successfully matched, the match index is returned.
  */
-Tokenizer.prototype._matchSpecialTagsNextCharacters = function(c) {
+Tokenizer.prototype._matchSpecialTagsNextCharacters = function(c: string) {
 	const matchingSpecialTags = [];
 	const numMatchingTags = this._matchingSpecialTagIndexes.length;
 	const lowerCaseChar = c.toLowerCase();
@@ -206,7 +188,7 @@ Tokenizer.prototype._matchSpecialTagsNextCharacters = function(c) {
  * Changes the Tokenizer state to BEFORE_SPECIAL if the token matches one of
  * the first characters of _specialTagNames.
  */
-Tokenizer.prototype._stateBeforeTagName = function(c) {
+Tokenizer.prototype._stateBeforeTagName = function(c: string) {
 	if (c === "/") {
 		this._state = BEFORE_CLOSING_TAG_NAME;
 	} else if (c === "<") {
@@ -233,7 +215,7 @@ Tokenizer.prototype._stateBeforeTagName = function(c) {
  * Changes the Tokenizer state to IN_TAG_NAME or BEFORE_SPECIAL state again depending
  * on whether there are still matches in _matchingSpecialTagIndexes.
  */
-Tokenizer.prototype._stateBeforeSpecial = function(c) {
+Tokenizer.prototype._stateBeforeSpecial = function(c: string) {
 	const result = this._matchSpecialTagsNextCharacters(c);
 	if (result === HAS_MATCHING) {
 		this._nextSpecialTagMatchIndex += 1;
@@ -262,7 +244,7 @@ Tokenizer.prototype._stateBeforeSpecial = function(c) {
  * Patched self closing tag state handler that removes the special state
  * if the special tag was self-closed.
  */
-Tokenizer.prototype._stateInSelfClosingTag = function(c) {
+Tokenizer.prototype._stateInSelfClosingTag = function(c: string) {
 	if (c === ">") {
 		this._cbs.onselfclosingtag();
 		this._state = TEXT;
@@ -285,7 +267,7 @@ Tokenizer.prototype._stateInSelfClosingTag = function(c) {
  * Processes the _special flag and _nextSpecialTagMatchIndex state variable,
  * returning a flag indicating whether the current special tag has finished matching or not.
  */
-Tokenizer.prototype._matchNextSpecialTagClosingCharacter = function(c) {
+Tokenizer.prototype._matchNextSpecialTagClosingCharacter = function(c: string) {
 	const nextTestChar = this.specialTagNames[this._special - 1][this._nextSpecialTagMatchIndex];
 
 	if (nextTestChar === undefined) {
@@ -306,9 +288,10 @@ Tokenizer.prototype._matchNextSpecialTagClosingCharacter = function(c) {
  * Changes the Tokenizer state to BEFORE_SPECIAL_END if the token matches one of
  * the first character of the currently matched special tag.
  */
-Tokenizer.prototype._stateBeforeCloseingTagName = function(c) {
-	if (whitespace(c));
-	else if (c === ">") {
+Tokenizer.prototype._stateBeforeCloseingTagName = function(c: string) {
+	if (whitespace(c)) {
+		// do nothing, consume whitespace
+	} else if (c === ">") {
 		this._state = TEXT;
 	} else if (this._special !== SPECIAL_NONE) {
 		if (this._matchNextSpecialTagClosingCharacter(c) !== NO_MATCH) {
@@ -328,7 +311,7 @@ Tokenizer.prototype._stateBeforeCloseingTagName = function(c) {
  * on whether the token has finished or is still matching
  * the currently matched special tag.
  */
-Tokenizer.prototype._stateBeforeSpecialEnd = function(c) {
+Tokenizer.prototype._stateBeforeSpecialEnd = function(c: string) {
 	const result = this._matchNextSpecialTagClosingCharacter(c);
 	if (result === HAS_MATCHING) {
 		return;
@@ -479,10 +462,7 @@ Tokenizer.prototype._parse = function(){
 /**
  * Injects the tagsToIgnore into the Tokenizer's specialTagNames.
  */
-function injectIgnoreTags(tagsToIgnore) {
+export function injectIgnoreTags(tagsToIgnore: Iterable<string>): void {
 	Tokenizer.prototype.specialTagNames = [...DEFAULT_SPECIAL_TAGS, ...tagsToIgnore];
 }
 
-module.exports = {
-  injectIgnoreTags,
-};

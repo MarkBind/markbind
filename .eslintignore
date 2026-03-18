@@ -20,6 +20,7 @@ packages/core/src/lib/markdown-it/highlight/*.js
 packages/core/src/lib/markdown-it/plugins/**/*.js
 packages/core/src/lib/markdown-it/utils/*.js
 packages/core/src/Page/*.js
+packages/core/src/patches/**/*.js
 packages/core/src/plugins/**/*.js
 packages/core/src/Site/*.js
 packages/core/src/utils/*.js
@@ -40,6 +41,7 @@ packages/core/src/lib/markdown-it/plugins/*
 
 # --- packages/cli ---
 packages/cli/dist/**/*.js
+packages/cli/test/functional/**/*.js
 # --- packages/cli end ---
 
 !.eslintrc.js

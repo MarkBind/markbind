@@ -1,3 +1,4 @@
 __mocks__
 node_modules
 test
+dist/test
