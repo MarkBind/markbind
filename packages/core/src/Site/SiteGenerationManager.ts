@@ -1,6 +1,7 @@
 import cheerio from 'cheerio';
 import fs from 'fs-extra';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import walkSync from 'walk-sync';
 
 import { SiteAssetsManager } from './SiteAssetsManager.js';
@@ -25,6 +26,9 @@ import { ProgressBar } from '../lib/progress/index.js';
 import packageJson from '../../package.json' with { type: 'json' };
 
 import '../patches/htmlparser2.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const MARKBIND_VERSION = packageJson.version;
 

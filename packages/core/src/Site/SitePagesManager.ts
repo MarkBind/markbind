@@ -1,5 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import walkSync from 'walk-sync';
 import { Template as NunjucksTemplate } from 'nunjucks';
 
@@ -25,6 +26,9 @@ import * as fsUtil from '../utils/fsUtil.js';
 import * as logger from '../utils/logger.js';
 import { SiteConfig, SiteConfigPage } from './SiteConfig.js';
 import { LayoutManager } from '../Layout/index.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const url = {
   join: path.posix.join,

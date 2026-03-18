@@ -1,6 +1,8 @@
 import _ from 'lodash';
 
 import path from 'path';
+import { createRequire } from 'module';
+import { fileURLToPath } from 'url';
 import fs from 'fs-extra';
 import walkSync from 'walk-sync';
 import * as logger from '../utils/logger.js';
@@ -12,6 +14,10 @@ import type { PageAssets } from '../Page/PageConfig.js';
 import { NodeOrText } from '../utils/node.js';
 import { ignoreTags } from '../patches/index.js';
 
+
+const require = createRequire(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const MARKBIND_PLUGIN_DIRECTORY = __dirname;
 const MARKBIND_DEFAULT_PLUGIN_DIRECTORY = path.join(__dirname, 'default');

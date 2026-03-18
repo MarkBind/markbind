@@ -7,7 +7,8 @@ import cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
-import crypto = require('crypto');
+import { createHash } from 'crypto';
+import { fileURLToPath } from 'url';
 
 import * as fsUtil from '../../utils/fsUtil.js';
 import * as logger from '../../utils/logger.js';
@@ -20,6 +21,9 @@ import { instance as LockManager } from '../../utils/LockManager.js';
 interface DiagramStatus {
   hashKey: string;
 }
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
@@ -42,7 +46,7 @@ let graphvizCheckCompleted = false;
  * @param content puml dsl used to generate the puml diagram
  */
 function generateDiagram(imageOutputPath: string, content: string) {
-  const hashKey = crypto.createHash('md5').update(imageOutputPath + content).digest('hex').toString();
+  const hashKey = createHash('md5').update(imageOutputPath + content).digest('hex').toString();
 
   // Avoid generating twice
   if (processedDiagrams.has(imageOutputPath) && processedDiagrams.get(imageOutputPath)?.hashKey === hashKey) {
@@ -163,7 +167,7 @@ const processNode = (_pluginContext: PluginContext, node: MbNode, config: NodePr
       delete node.attribs.name;
     } else {
       const normalizedContent = pumlContent.replace(/\r\n/g, '\n');
-      const hashedContent = crypto.createHash('md5').update(normalizedContent).digest('hex').toString();
+      const hashedContent = createHash('md5').update(normalizedContent).digest('hex').toString();
       pathFromRootToImage = `${hashedContent}${PUML_EXT}`;
     }
 

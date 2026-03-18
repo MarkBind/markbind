@@ -1,4 +1,5 @@
 import path from 'path';
+import { createRequire } from 'module';
 import fs from 'fs-extra';
 import cheerio from 'cheerio';
 
@@ -10,6 +11,8 @@ import { NodeOrText } from '../utils/node.js';
 
 import '../patches/htmlparser2.js';
 
+
+const require = createRequire(import.meta.url);
 
 const PLUGIN_OUTPUT_SITE_ASSET_FOLDER_NAME = 'plugins';
 
@@ -51,10 +54,7 @@ export class Plugin {
   constructor(pluginName: string, pluginPath: string, pluginOptions: PluginContext, siteOutputPath: string) {
     this.pluginName = pluginName;
 
-    // Dynamic import for plugin loading - needed for user-provided plugins
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    // eslint-disable-next-line import/no-dynamic-require
-    this.plugin = require(pluginPath); // eslint-disable-line global-require
+    this.plugin = require(pluginPath);
 
     this.pluginOptions = pluginOptions || {};
 
