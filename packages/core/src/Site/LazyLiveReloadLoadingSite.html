@@ -3,6 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Building ...</title>
+  <script>
+    (function() {
+      var stored = '';
+      try { stored = localStorage.getItem('markbind-theme') || ''; } catch (e) {}
+      var theme = (stored === 'dark' || stored === 'light')
+        ? stored
+        : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-bs-theme', theme);
+    }());
+  </script>
 </head>
 <body>
   <div id="loading-spinner"></div>
@@ -10,18 +20,33 @@
 </body>
 
 <style>
+    :root {
+        --spinner-accent-color: #00b0f0;
+        --spinner-track-color: #d3d3d3;
+        --loading-text-color: #9b9b9b;
+        --loading-bg-color: #ffffff;
+    }
+
+    [data-bs-theme="dark"] {
+        --spinner-accent-color: #66d0ff;
+        --spinner-track-color: #495057;
+        --loading-text-color: #adb5bd;
+        --loading-bg-color: #212529;
+    }
+
     body {
         height: 90vh;
         display: flex;
         justify-content: center;
         align-items: center;
+        background-color: var(--loading-bg-color);
     }
 
     #loading-spinner {
         height: 50px;
         width: 50px;
         border-width: 5px;
-        border-color: #00b0f0 lightgrey;
+        border-color: var(--spinner-accent-color) var(--spinner-track-color);
         border-style: solid;
         border-radius: 50%;
         animation-name: loading-spinner;
@@ -33,7 +58,7 @@
     #loading-text {
         position: absolute;
         bottom: 20px;
-        color: #9b9b9b;
+        color: var(--loading-text-color);
         font-size: 1.2rem;
         font-family: sans-serif;
         animation-name: loading-text;
