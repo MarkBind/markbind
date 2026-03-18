@@ -170,10 +170,13 @@ export default {
       if (this.isSeamless) {
         return 'bg-transparent';
       }
-      return `bg-${this.type || 'light'}`;
+      if (!this.type) {
+        return '';
+      }
+      return `bg-${this.type}`;
     },
     isLightBg() {
-      return this.cardType === 'bg-light' || this.cardType === 'bg-warning';
+      return !this.type || this.cardType === 'bg-light' || this.cardType === 'bg-warning';
     },
   },
 };
@@ -219,11 +222,7 @@ export default {
         width: 100%;
         bottom: 0;
         height: 125px;
-        background-image: linear-gradient(180deg, transparent, white 90%);
-    }
-
-    [data-bs-theme="dark"] .card-peek-collapsed::after {
-        background-image: linear-gradient(180deg, transparent, #212529 90%);
+        background-image: linear-gradient(180deg, transparent, var(--bs-body-bg) 90%);
     }
 
     .peek-read-more {
@@ -253,6 +252,19 @@ export default {
 </style>
 
 <style>
+    .header-wrapper {
+        display: inline-block;
+        width: calc(100% - 32px - 96px);
+        transition: 0.5s opacity;
+    }
+
+    .card-container > .card:not([class*="bg-"]),
+    .card-container .card-header:not([class*="bg-"]),
+    .card-container .header-wrapper:not([class*="bg-"]) {
+        background-color: var(--bs-body-bg);
+        color: var(--bs-body-color);
+    }
+
     .card-heading {
         width: 100%;
     }
@@ -283,12 +295,6 @@ export default {
         display: inline-block;
         font-size: 13px;
         margin-right: 5px;
-    }
-
-    .header-wrapper {
-        display: inline-block;
-        width: calc(100% - 32px - 96px);
-        transition: 0.5s opacity;
     }
 
     .header-transparent {
@@ -364,6 +370,14 @@ export default {
 
     .morph-display-wrapper-seamless:hover {
         color: inherit;
+    }
+
+    [data-bs-theme="dark"] .card-container > .card.bg-light,
+    [data-bs-theme="dark"] .card-container .card-header.bg-light,
+    [data-bs-theme="dark"] .card-container .header-wrapper.bg-light {
+        background-color: var(--bs-secondary-bg) !important;
+        color: var(--bs-emphasis-color) !important;
+        border-color: var(--bs-border-color) !important;
     }
 
     /* Bootstrap extra small(xs) responsive breakpoint */
