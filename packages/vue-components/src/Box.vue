@@ -402,12 +402,14 @@ export default {
 
     .vertical-divider {
         width: 4px;
+        background-color: var(--bs-alert-border-color, currentcolor);
     }
 
     .horizontal-divider {
         margin: 0 auto;
         width: calc(100% - 2.5rem);
         height: 3px;
+        background-color: var(--bs-alert-border-color, currentcolor);
     }
 
     .no-background {
