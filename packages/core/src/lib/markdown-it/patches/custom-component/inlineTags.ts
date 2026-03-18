@@ -84,4 +84,4 @@ const inlineTags = [
   'wbr',
 ];
 
-module.exports = inlineTags;
+export = inlineTags;

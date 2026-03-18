@@ -171,6 +171,17 @@ Hence, if you need to view the latest frontend changes (relating to `packages/co
 1. Run `npm run build:web` in the root directory, which builds the above bundles,
    then run your markbind-cli <a tags="environment--combined" href="/userGuide/cliCommands.html">command</a><a tags="environment--dg" href="https://markbind.org/userGuide/cliCommands.html">command</a> of choice.
 
+<box type="info" header="Recommended Development Command" seamless>
+
+<!-- Added as header to be captured in MarkBind legacy internal search -->
+
+##### `markbind serve -d`
+
+`markbind serve -d` adds the necessary webpack middlewares to the development server to compile the bundles for `markbind-core-web` and `markbind-vue-components`, and enables live and hot reloading for frontend source files. 
+
+Note that the command is only applicable for local development, and does not work when you install MarkBind from npm, as it relies on developmental dependencies. 
+</box>
+
 <div id="workflow-testing">
 
 ## Testing

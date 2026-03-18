@@ -8,14 +8,18 @@
  Changes are delimited with a // CHANGE HERE comment
  */
 
-const { Environment, Template, lib } = require('nunjucks');
-
+/* linting is disabled for this file to keep the patch close to the source */
 /* eslint-disable */
+
+import { Environment, Template, lib } from 'nunjucks';
+import { handleError } from 'nunjucks/src/runtime';
+
+/* eslint-disable @typescript-eslint/no-this-alias */
 
 var noopTmplSrc = {
   type: 'code',
   obj: {
-    root: function root(env, context, frame, runtime, cb) {
+    root: function root(env: any, context: any, frame: any, runtime: any, cb: Function) {
       try {
         cb(null, '');
       } catch (e) {
@@ -25,11 +29,18 @@ var noopTmplSrc = {
   }
 };
 
-Environment.prototype.getTemplate = function getTemplate(name, eagerCompile, parentName, ignoreMissing, cb) {
+(Environment.prototype as any).getTemplate = function getTemplate(
+  this: Environment,
+  name: any,
+  eagerCompile?: any,
+  parentName?: any,
+  ignoreMissing?: any,
+  cb?: any,
+) {
   var _this3 = this;
 
   var that = this;
-  var tmpl = null;
+  var tmpl: Template | null = null;
 
   if (name && name.raw) {
     // this fixes autoescape for templates referenced in symbols
@@ -63,7 +74,7 @@ Environment.prototype.getTemplate = function getTemplate(name, eagerCompile, par
         Object.entries(loader.pathsToNames).forEach(([fullPath, templateName]) => {
           if (name === templateName) {
             // Emit the load event
-            this.emit('load', name, {
+            (this as any).emit('load', name, {
               src: tmpl,
               path: fullPath, // we only need this
               noCache: loader.noCache
@@ -89,9 +100,9 @@ Environment.prototype.getTemplate = function getTemplate(name, eagerCompile, par
     }
   }
 
-  var syncResult;
+  var syncResult: Template | undefined;
 
-  var createTemplate = function createTemplate(err, info) {
+  var createTemplate = function createTemplate(err: any, info: any) {
     if (!info && !err && !ignoreMissing) {
       err = new Error('template not found: ' + name);
     }
@@ -108,7 +119,7 @@ Environment.prototype.getTemplate = function getTemplate(name, eagerCompile, par
     var newTmpl;
 
     if (!info) {
-      newTmpl = new Template(noopTmplSrc, _this3, '', eagerCompile);
+      newTmpl = new Template(noopTmplSrc as any, _this3, '', eagerCompile);
     } else {
       newTmpl = new Template(info.src, _this3, info.path, eagerCompile);
 
@@ -124,8 +135,8 @@ Environment.prototype.getTemplate = function getTemplate(name, eagerCompile, par
     }
   };
 
-  lib.asyncIter(this.loaders, function (loader, i, next, done) {
-    function handle(err, src) {
+  lib.asyncIter(this.loaders, function (loader: any, i: number, next: () => void, done: Function) {
+    function handle(err: any, src: any) {
       if (err) {
         done(err);
       } else if (src) {

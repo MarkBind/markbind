@@ -1,6 +1,8 @@
 import winston from 'winston';
 import type { ProgressBar } from '../lib/progress';
 
+const { format } = winston;
+
 let progressBar: ProgressBar | null = null;
 
 const setProgressBar = (bar: ProgressBar) => {
@@ -10,12 +12,15 @@ const removeProgressBar = () => {
   progressBar = null;
 };
 
+const consoleFormat = format.combine(
+  format.colorize(),
+  format.printf(info => `${info.level}: ${info.message}`),
+);
+
 const consoleTransport = new winston.transports.Console({
-  colorize: true,
+  format: consoleFormat,
   handleExceptions: true,
-  humanReadableUnhandledException: true,
   level: 'debug',
-  showLevel: true,
 });
 
 winston.configure({

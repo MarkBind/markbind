@@ -43,12 +43,6 @@ function serve(userSpecifiedRoot: string, options: any) {
   let rootFolder;
   try {
     rootFolder = cliUtil.findRootFolder(userSpecifiedRoot, options.siteConfig);
-
-    if (options.forceReload && options.onePage) {
-      logger.error('Oops! You shouldn\'t need to use the --force-reload option with --one-page.');
-      process.exitCode = 1;
-      process.exit();
-    }
   } catch (error) {
     if (_.isError(error)) {
       logger.error(error.message);
