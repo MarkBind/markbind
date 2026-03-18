@@ -351,13 +351,13 @@ export default {
 
         /* Deep applies to slotted components and deep children */
         .navbar-default > ul > :deep(*) {
-            background: rgb(0 0 0 / 20%);
+            background: rgb(var(--bs-emphasis-color-rgb) / 20%);
             padding: 0.3125rem 0.625rem;
             flex-grow: 1;
         }
 
         .navbar-light .navbar-default > ul > :deep(*) {
-            background: rgb(0 0 0 / 5%);
+            background: rgb(var(--bs-emphasis-color-rgb) / 5%);
         }
 
         .navbar-default > ul > .current {
@@ -423,31 +423,26 @@ export default {
     }
 
     :deep(.dropdown-current) {
-        color: #fff !important;
-        background: #007bff;
+        color: var(--bs-white) !important;
+        background: var(--bs-primary);
     }
 
     .lower-navbar-container {
-        background-color: #fff;
-        border-bottom: 1px solid #c1c1c1;
+        background-color: var(--bs-body-bg);
+        border-bottom: 1px solid var(--bs-border-color);
         height: 50px;
         width: 100%;
         position: relative;
     }
 
-    :global([data-bs-theme="dark"]) .lower-navbar-container {
-        background-color: #212529;
-        border-bottom-color: #495057;
-    }
-
     /* Navbar link highlight for current page */
     .navbar.navbar-dark .navbar-nav :deep(.current:not(.dropdown) a),
     .navbar.navbar-dark .navbar-nav :deep(.dropdown.current > a) {
-        color: #fff;
+        color: var(--bs-white);
     }
 
     .navbar.navbar-light .navbar-nav :deep(.current:not(.dropdown)) a,
     .navbar.navbar-light .navbar-nav :deep(.dropdown.current > a) {
-        color: #000;
+        color: var(--bs-emphasis-color);
     }
 </style>

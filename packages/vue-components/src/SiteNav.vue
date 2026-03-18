@@ -36,7 +36,7 @@ export default {
     /* Site navigation */
 
     .site-nav-root a.current {
-        color: #0072ec;
+        color: var(--bs-primary);
     }
 
     /* Navigation list */
@@ -50,13 +50,13 @@ export default {
         display: flex;
         padding: 0.5rem 0 0 2.8rem;
         transition: background-color 0.08s;
-        color: #454545;
+        color: var(--bs-emphasis-color);
         cursor: pointer;
     }
 
     .site-nav-custom-list-item {
         padding: 0.5rem 0 0 2.8rem;
-        color: #454545;
+        color: var(--bs-emphasis-color);
     }
 
     .site-nav-list-item-0 {
@@ -81,17 +81,17 @@ export default {
     }
 
     .site-nav-default-list-item:hover {
-        background-color: rgb(214 233 255 / 35%);
+        background-color: rgb(var(--bs-primary-rgb) / 16%);
     }
 
     .site-nav-default-list-item a {
         display: inline-block;
         height: 100%;
-        color: #454545;
+        color: var(--bs-emphasis-color);
     }
 
     .site-nav-default-list-item:hover a {
-        color: black;
+        color: var(--bs-emphasis-color);
         text-decoration: none;
     }
 
@@ -119,11 +119,11 @@ export default {
     }
 
     .site-nav-dropdown-btn-icon:hover {
-        background-color: #d8e3fb;
+        background-color: rgb(var(--bs-primary-rgb) / 16%);
     }
 
     .site-nav-rotate-icon {
-        color: #4c7ff1;
+        color: var(--bs-primary);
         transform: rotate(-180deg);
     }
 
@@ -139,29 +139,4 @@ export default {
         transition: max-height 0.25s ease-in;
     }
 
-    [data-bs-theme="dark"] .site-nav-root a.current {
-        color: #7cb8ff;
-    }
-
-    [data-bs-theme="dark"] .site-nav-default-list-item,
-    [data-bs-theme="dark"] .site-nav-custom-list-item,
-    [data-bs-theme="dark"] .site-nav-default-list-item a {
-        color: #dee2e6;
-    }
-
-    [data-bs-theme="dark"] .site-nav-default-list-item:hover {
-        background-color: rgb(124 184 255 / 16%);
-    }
-
-    [data-bs-theme="dark"] .site-nav-default-list-item:hover a {
-        color: #fff;
-    }
-
-    [data-bs-theme="dark"] .site-nav-dropdown-btn-icon:hover {
-        background-color: rgb(124 184 255 / 16%);
-    }
-
-    [data-bs-theme="dark"] .site-nav-rotate-icon {
-        color: #7cb8ff;
-    }
 </style>
