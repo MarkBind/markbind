@@ -8,10 +8,10 @@
  * <include>, <script>, <style>. 
  */
 
-const markdownIt = require('../../index');
-
-const initCustomComponentHtmlBlockRule = require('./htmlBlockRule');
-const htmlInlineRule = require('./htmlInlineRule');
+import type MarkdownIt from 'markdown-it';
+import markdownIt = require('../../index');
+import initCustomComponentHtmlBlockRule = require('./htmlBlockRule');
+import htmlInlineRule = require('./htmlInlineRule');
 
 /* 
  * MODIFIED (MarkBind): tweaked customComponentPlugin function and added injectTags function 
@@ -21,7 +21,7 @@ const htmlInlineRule = require('./htmlInlineRule');
 /**
  * Replacing the default htmlBlock rule to allow using custom components in markdown
  */
-function customComponentPlugin(md, tagsToIgnore) {
+function customComponentPlugin(md: MarkdownIt, tagsToIgnore: string[]) {
   const customComponentHtmlBlockRule = initCustomComponentHtmlBlockRule(tagsToIgnore);
 
   // override default html block ruler
@@ -31,16 +31,12 @@ function customComponentPlugin(md, tagsToIgnore) {
 
   // override default html inline ruler
   md.inline.ruler.at('html_inline', htmlInlineRule);
-};
+}
 
 /**
  * Sets up the plugin with the provided tag names to ignore.
  * Replaces any previously injected tags.
  */
-function injectTags(tagsToIgnore) {
+export function injectTags(tagsToIgnore: Iterable<string>) {
   markdownIt.use(customComponentPlugin, tagsToIgnore);
 }
-
-module.exports = {
-  injectTags,
-};

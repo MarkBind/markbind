@@ -1,8 +1,9 @@
-const blockNames = require('markdown-it/lib/common/html_blocks');
-const { HTML_OPEN_CLOSE_TAG_RE } = require('./htmlRe');
-const inlineTags = require('./inlineTags');
+import blockNames = require('markdown-it/lib/common/html_blocks');
+import StateBlock from 'markdown-it/lib/rules_block/state_block';
+import { HTML_OPEN_CLOSE_TAG_RE } from './htmlRe';
+import inlineTags = require('./inlineTags');
 
-function initCustomComponentHtmlBlockRule(tagsToIgnore) {
+function initCustomComponentHtmlBlockRule(tagsToIgnore: string[]) {
   // MODIFIED (MarkBind): Added 'special tags' and 'minimal panel' related rules
 
   /* 
@@ -41,7 +42,7 @@ function initCustomComponentHtmlBlockRule(tagsToIgnore) {
 
   // An array of opening and corresponding closing sequences for html tags,
   // last argument defines whether it can terminate a paragraph or not
-  const HTML_SEQUENCES = [
+  const HTML_SEQUENCES: [RegExp, RegExp, boolean][] = [
     // MODIFIED (MarkBind): ignore special tags
     [ startingSpecialTagRegex, endingSpecialTagRegex, true ],
     [/^<!--/, /-->/, true],
@@ -65,7 +66,7 @@ function initCustomComponentHtmlBlockRule(tagsToIgnore) {
     [new RegExp(HTML_OPEN_CLOSE_TAG_RE.source + '\\s*$'), /^$/, false],
   ]
 
-  function customComponentHtmlBlockRule(state, startLine, endLine, silent) {
+  function customComponentHtmlBlockRule(state: StateBlock, startLine: number, endLine: number, silent: boolean) {
     let i;
     let nextLine;
     let lineText;
@@ -137,4 +138,4 @@ function initCustomComponentHtmlBlockRule(tagsToIgnore) {
   return customComponentHtmlBlockRule;
 }
 
-module.exports = initCustomComponentHtmlBlockRule;
+export = initCustomComponentHtmlBlockRule;
