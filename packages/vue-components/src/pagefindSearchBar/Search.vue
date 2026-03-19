@@ -5,10 +5,33 @@ import {
 } from 'vue';
 import LogoPagefind from './LogoPagefind.vue';
 
+const MARKBIND_PREFIX = 'markbind/';
+const MARKBIND_PREFIX_REGEX = /markbind\//g;
+
 const showModal = ref(false);
 
 const toggleSearch = () => {
   showModal.value = !showModal.value;
+};
+
+// process subresults (headings within the page) by stripping the "markbind/" prefix if it exists
+const stripMarkbindPrefix = (url, regex) => {
+  if (url.includes(MARKBIND_PREFIX)) {
+    return url.replace(regex, '');
+  }
+  return url;
+};
+
+// Process the main result URL and its sub-results to strip the "markbind/" prefix if it exists
+const processPagefindResult = (result) => {
+  result.url = stripMarkbindPrefix(result.url, MARKBIND_PREFIX_REGEX);
+
+  if (result.sub_results && Array.isArray(result.sub_results)) {
+    result.sub_results.forEach((subResult) => {
+      subResult.url = stripMarkbindPrefix(subResult.url, MARKBIND_PREFIX_REGEX);
+    });
+  }
+  return result;
 };
 
 const handleKeyDown = (e) => {
@@ -88,26 +111,7 @@ watch(showModal, (isOpen) => {
           autofocus: true,
           excerptLength: 10,
           pageSize: 100,
-          // Pagefind UI default styles will be applied here
-          processResult: (result) => {
-            // Remove the '/markbind' prefixt
-            const markbindRegex = /markbind\//g;
-
-            // Process the main result URL
-            if (result.url.includes('markbind/')) {
-              result.url = result.url.replace(markbindRegex, '');
-            }
-
-            // Also process subresults (headings within the page)
-            if (result.sub_results && Array.isArray(result.sub_results)) {
-              result.sub_results.forEach((subResult) => {
-                if (subResult.url.includes('markbind/')) {
-                  subResult.url = subResult.url.replace(markbindRegex, '');
-                }
-              });
-            }
-            return result;
-          },
+          processResult: processPagefindResult,
         });
 
         // Focus the input inside the new structure
@@ -225,7 +229,11 @@ onUnmounted(() => {
 
           <div command-dialog-footer>
             <div class="command-palette-logo">
-              <a href="https://github.com/cloudcannon/pagefind" target="_blank">
+              <a
+                href="https://github.com/cloudcannon/pagefind"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <span class="command-palette-Label">Search by</span>
                 <LogoPagefind style="width: 77px" />
               </a>
