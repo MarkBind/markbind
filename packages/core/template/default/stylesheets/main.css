@@ -1,11 +1,3 @@
-mark {
-    background-color: var(--bs-highlight-bg, #ff0);
-    color: var(--bs-highlight-color, inherit);
-    border-radius: 5px;
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
 .indented {
     padding-left: 20px;
 }
