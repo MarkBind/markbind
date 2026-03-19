@@ -198,7 +198,7 @@ onUnmounted(() => {
         >
           <path
             d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115
-            2.9419-10.65330-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419
+            2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419
             7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z"
             stroke="currentColor"
             fill="none"
@@ -299,6 +299,7 @@ onUnmounted(() => {
 <style scoped>
     /* Inject the variables and layout styles from sugar-blog */
     .blog-search {
+        flex: 1;
         display: flex;
     }
 
@@ -306,17 +307,26 @@ onUnmounted(() => {
         cursor: pointer;
         display: flex;
         align-items: center;
-        padding: 0 12px;
+        justify-content: center;
+        padding: 0 10px 0 12px;
+        box-sizing: border-box;
         height: 40px;
         background-color: var(--mb-bg-alt, #fff);
         color: #212529;
-        border-radius: 10px;
+        border-radius: 8px;
         border: 1px solid #ced4da;
         transition: border 0.2s;
     }
 
     .nav-search-btn-wait:hover {
-        border-color: var(--vcp-c-brand, #5468ff);
+        border: 1px solid var(--vcp-c-brand, #5468ff);
+    }
+
+    .blog-search .nav-search-btn-wait .search-tip {
+      color: #909399;
+      font-size: 12px;
+      padding-left: 8px;
+      padding-right: 16px;
     }
 
     .metaKey {
@@ -325,6 +335,17 @@ onUnmounted(() => {
         border: 1px solid #e2e8f0;
         border-radius: 4px;
         padding: 0 6px;
+    }
+
+    .search-bar {
+      cursor: text;
+      align-items: center;
+      border-radius: 4px;
+      border: 1px solid var(--vcp-c-brand);
+    }
+
+    .search-bar input {
+      width: 100%;
     }
 
     /* Pagefind UI Override to match the clean 'Algolia' input look */
