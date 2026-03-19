@@ -323,10 +323,10 @@ onUnmounted(() => {
     }
 
     .blog-search .nav-search-btn-wait .search-tip {
-      color: #909399;
-      font-size: 12px;
-      padding-left: 8px;
-      padding-right: 16px;
+        color: #909399;
+        font-size: 12px;
+        padding-left: 8px;
+        padding-right: 16px;
     }
 
     .metaKey {
@@ -338,14 +338,14 @@ onUnmounted(() => {
     }
 
     .search-bar {
-      cursor: text;
-      align-items: center;
-      border-radius: 4px;
-      border: 1px solid var(--vcp-c-brand);
+        cursor: text;
+        align-items: center;
+        border-radius: 4px;
+        border: 1px solid var(--vcp-c-brand);
     }
 
     .search-bar input {
-      width: 100%;
+        width: 100%;
     }
 
     /* Pagefind UI Override to match the clean 'Algolia' input look */
