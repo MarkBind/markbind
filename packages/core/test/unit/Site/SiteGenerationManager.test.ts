@@ -80,6 +80,35 @@ describe('SiteGenerationManager', () => {
     generationManager.configure(siteAssets, sitePages);
   });
 
+  describe('isValidGlobPattern', () => {
+    const prototypeMethod = (SiteGenerationManager.prototype as any).isValidGlobPattern;
+
+    test('should accept valid relative patterns', () => {
+      expect(prototypeMethod.call(generationManager, 'docs/*.html')).toBe(true);
+      expect(prototypeMethod.call(generationManager, '**/*.html')).toBe(true);
+      expect(prototypeMethod.call(generationManager, 'userGuide')).toBe(true);
+    });
+
+    test('should reject absolute paths', () => {
+      expect(prototypeMethod.call(generationManager, '/absolute/path')).toBe(false);
+      expect(prototypeMethod.call(generationManager, 'C:/Windows/path')).toBe(false);
+    });
+
+    test('should reject patterns with path traversal', () => {
+      expect(prototypeMethod.call(generationManager, '../../../etc/**')).toBe(false);
+      expect(prototypeMethod.call(generationManager, 'dir/../etc')).toBe(false);
+      expect(prototypeMethod.call(generationManager, '../root')).toBe(false);
+    });
+
+    test('should reject patterns starting with /', () => {
+      expect(prototypeMethod.call(generationManager, '/root/**/*.html')).toBe(false);
+    });
+
+    test('should reject Windows-style path traversal', () => {
+      expect(prototypeMethod.call(generationManager, '..\\..\\windows\\path')).toBe(false);
+    });
+  });
+
   describe('normalizeGlobPattern', () => {
     const prototypeMethod = (SiteGenerationManager.prototype as any).normalizeGlobPattern;
 
@@ -106,6 +135,16 @@ describe('SiteGenerationManager', () => {
     test('should append /**/*.html for plain directory names', () => {
       const result = prototypeMethod.call(generationManager, 'dir');
       expect(result).toBe('dir/**/*.html');
+    });
+
+    test('should return empty string for invalid path traversal patterns', () => {
+      const result = prototypeMethod.call(generationManager, '../../../etc/**');
+      expect(result).toBe('');
+    });
+
+    test('should return empty string for absolute paths', () => {
+      const result = prototypeMethod.call(generationManager, '/etc/passwd');
+      expect(result).toBe('');
     });
   });
 

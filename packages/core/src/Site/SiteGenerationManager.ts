@@ -866,36 +866,73 @@ export class SiteGenerationManager {
   );
 
   /**
+   * Validates that a glob pattern is safe and won't traverse outside the output directory.
+   *
+   * @param pattern - The glob pattern to validate
+   * @returns true if the pattern is safe, false otherwise
+   */
+  // eslint-disable-next-line class-methods-use-this
+  protected isValidGlobPattern(pattern: string): boolean {
+    const normalizedPattern = pattern.replace(/\\/g, '/');
+
+    if (path.isAbsolute(pattern)) {
+      return false;
+    }
+
+    if (normalizedPattern.includes('..')) {
+      return false;
+    }
+
+    if (normalizedPattern.startsWith('/')) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
    * Normalizes a gitignore-style glob pattern to a valid Wax/Pagefind pattern
    * by appending .html extension if not already present.
+   * Invalid patterns (e.g., path traversal attempts) are logged and return empty string.
    *
    * @param pattern - The glob pattern from user config (gitignore-style)
-   * @returns A valid Wax/Pagefind glob pattern
+   * @returns A valid Wax/Pagefind glob pattern, or empty string if invalid
    */
-  // eslint-disable-next-line
   private normalizeGlobPattern(pattern: string): string {
-    // If already ends with .html, return as is
+    if (!this.isValidGlobPattern(pattern)) {
+      logger.error(`Invalid glob pattern rejected (potential path traversal): ${pattern}`);
+      return '';
+    }
+
     if (pattern.endsWith('.html')) {
       return pattern;
     }
 
-    // If ends with /**, append .html
     if (pattern.endsWith('/**')) {
       return `${pattern}/*.html`;
     }
 
-    // If ends with /*, append .html
     if (pattern.endsWith('/*')) {
       return `${pattern}.html`;
     }
 
-    // If ends with /, treat as directory - append /**
     if (pattern.endsWith('/')) {
       return `${pattern}**/*.html`;
     }
 
-    // Otherwise, treat as directory - append /**
     return `${pattern}/**/*.html`;
+  }
+
+  /**
+   * Indexes all HTML files in the output directory and logs any errors.
+   * @param index - The pagefind index instance
+   * @returns The number of pages indexed
+   */
+  // eslint-disable-next-line class-methods-use-this
+  private async indexAllHtmlFiles(index: any): Promise<number> {
+    const result = await index.addDirectory({ path: this.outputPath });
+    result.errors.forEach((error: string) => logger.error(error));
+    return result.page_count;
   }
 
   /**
@@ -941,31 +978,32 @@ export class SiteGenerationManager {
         let totalPageCount = 0;
 
         if (globPatterns.length > 0) {
-          // If there are multiple patterns - call addDirectory for each glob pattern
-          const results = await Promise.all(
-            globPatterns.map(async (pattern) => {
-              // Normalize gitignore-style patterns to valid Wax/Pagefind patterns
-              const normalizedPattern = this.normalizeGlobPattern(pattern);
-              logger.info(`Pagefind indexing with glob: ${normalizedPattern} (from: ${pattern})`);
-              const result = await index.addDirectory({
-                path: this.outputPath,
-                glob: normalizedPattern,
-              });
+          const normalizedPatterns = globPatterns
+            .map(pattern => this.normalizeGlobPattern(pattern))
+            .filter(pattern => pattern !== '');
 
-              // Handle errors immediately within the iteration
-              result.errors.forEach(error => logger.error(error));
+          if (normalizedPatterns.length > 0) {
+            const results = await Promise.all(
+              normalizedPatterns.map(async (normalizedPattern) => {
+                logger.info(`Pagefind indexing with glob: ${normalizedPattern}`);
+                const result = await index.addDirectory({
+                  path: this.outputPath,
+                  glob: normalizedPattern,
+                });
 
-              return result.page_count;
-            }),
-          );
+                result.errors.forEach((error: string) => logger.error(error));
 
-          // Sum total pages indexed across all patterns
-          totalPageCount += results.reduce((acc, count) => acc + count, 0);
+                return result.page_count;
+              }),
+            );
+
+            totalPageCount += results.reduce((acc, count) => acc + count, 0);
+          } else {
+            logger.warn('All glob patterns were invalid, falling back to indexing all HTML files');
+            totalPageCount = await this.indexAllHtmlFiles(index);
+          }
         } else {
-          // No glob specified - this will index all HTML files
-          const result = await index.addDirectory({ path: this.outputPath });
-          result.errors.forEach(error => logger.error(error));
-          totalPageCount = result.page_count;
+          totalPageCount = await this.indexAllHtmlFiles(index);
         }
 
         const endTime = new Date();
