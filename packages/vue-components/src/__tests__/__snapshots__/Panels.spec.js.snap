@@ -8,7 +8,7 @@ exports[`NestedPanels print behavior card body should have d-print-none class wh
     class="card expandable-card"
   >
     <div
-      class="card-header header-toggle bg-light"
+      class="card-header header-toggle"
     >
       <div
         class="caret-wrapper"
@@ -16,7 +16,7 @@ exports[`NestedPanels print behavior card body should have d-print-none class wh
         <!--v-if-->
       </div>
       <div
-        class="header-wrapper card-title bg-light"
+        class="header-wrapper card-title"
       >
         
         test header
@@ -105,7 +105,7 @@ exports[`NestedPanels print behavior card body should not have d-print-none clas
     class="card expandable-card"
   >
     <div
-      class="card-header header-toggle bg-light"
+      class="card-header header-toggle"
     >
       <div
         class="caret-wrapper"
@@ -113,7 +113,7 @@ exports[`NestedPanels print behavior card body should not have d-print-none clas
         <!--v-if-->
       </div>
       <div
-        class="header-wrapper card-title bg-light"
+        class="header-wrapper card-title"
       >
         
         test header
@@ -281,7 +281,7 @@ exports[`NestedPanels should have span.anchor when id is present 1`] = `
     class="card expandable-card"
   >
     <div
-      class="card-header header-toggle bg-light"
+      class="card-header header-toggle"
     >
       <div
         class="caret-wrapper"
@@ -289,7 +289,7 @@ exports[`NestedPanels should have span.anchor when id is present 1`] = `
         <!--v-if-->
       </div>
       <div
-        class="header-wrapper card-title bg-light"
+        class="header-wrapper card-title"
       >
         
         test header
@@ -359,7 +359,7 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
     class="card expandable-card"
   >
     <div
-      class="card-header header-toggle bg-light"
+      class="card-header header-toggle"
     >
       <div
         class="caret-wrapper"
@@ -367,7 +367,7 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
         <!--v-if-->
       </div>
       <div
-        class="header-wrapper card-title bg-light header-transparent"
+        class="header-wrapper card-title header-transparent"
       >
         
         test header
@@ -456,7 +456,7 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
     class="card expandable-card"
   >
     <div
-      class="card-header header-toggle bg-light"
+      class="card-header header-toggle"
     >
       <div
         class="caret-wrapper"
@@ -464,7 +464,7 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
         <!--v-if-->
       </div>
       <div
-        class="header-wrapper card-title bg-light"
+        class="header-wrapper card-title"
       >
         
         test header
@@ -553,7 +553,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
     class="card expandable-card"
   >
     <div
-      class="card-header header-toggle bg-light"
+      class="card-header header-toggle"
     >
       <div
         class="caret-wrapper"
@@ -561,7 +561,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
         <!--v-if-->
       </div>
       <div
-        class="header-wrapper card-title bg-light"
+        class="header-wrapper card-title"
       >
         
         test header
@@ -631,7 +631,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
     class="card expandable-card"
   >
     <div
-      class="card-header header-toggle bg-light"
+      class="card-header header-toggle"
     >
       <div
         class="caret-wrapper"
@@ -639,7 +639,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
         <!--v-if-->
       </div>
       <div
-        class="header-wrapper card-title bg-light"
+        class="header-wrapper card-title"
       >
         
         test header

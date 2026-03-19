@@ -1,10 +1,3 @@
-mark {
-    background-color: #ff0;
-    border-radius: 5px;
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
 .indented {
     padding-left: 20px;
 }
@@ -135,11 +128,6 @@ h4,
 h5,
 h6 {
     color: #e46c0a;
-}
-
-[data-bs-theme="dark"] mark {
-    background-color: #665c00;
-    color: #fff3bf;
 }
 
 [data-bs-theme="dark"] #site-nav {

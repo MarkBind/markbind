@@ -33,7 +33,7 @@ a {
 }
 
 blockquote {
-    border-left: 0.25em solid #ffffff;
+    border-left: 0.25em solid #fff;
     color: var(--bs-body-bg, inherit);
     padding: 0 1rem;
 }
