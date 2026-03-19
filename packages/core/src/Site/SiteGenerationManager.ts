@@ -875,10 +875,6 @@ export class SiteGenerationManager {
   protected isValidGlobPattern(pattern: string): boolean {
     const normalizedPattern = pattern.replace(/\\/g, '/');
 
-    if (path.isAbsolute(pattern)) {
-      return false;
-    }
-
     if (normalizedPattern.includes('..')) {
       return false;
     }

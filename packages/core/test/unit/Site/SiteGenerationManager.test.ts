@@ -89,11 +89,6 @@ describe('SiteGenerationManager', () => {
       expect(prototypeMethod.call(generationManager, 'userGuide')).toBe(true);
     });
 
-    test('should reject absolute paths', () => {
-      expect(prototypeMethod.call(generationManager, '/absolute/path')).toBe(false);
-      expect(prototypeMethod.call(generationManager, 'C:/Windows/path')).toBe(false);
-    });
-
     test('should reject patterns with path traversal', () => {
       expect(prototypeMethod.call(generationManager, '../../../etc/**')).toBe(false);
       expect(prototypeMethod.call(generationManager, 'dir/../etc')).toBe(false);
