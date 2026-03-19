@@ -16,7 +16,6 @@ import { MbNode, NodeOrText } from '../utils/node.js';
 import { SiteLinkManager } from './SiteLinkManager.js';
 import '../patches/htmlparser2.js';
 
-
 /*
  * Common panel and include helper functions
  */

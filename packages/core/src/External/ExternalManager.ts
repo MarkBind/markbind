@@ -9,7 +9,6 @@ import type { SiteLinkManager } from '../html/SiteLinkManager.js';
 import type { PluginManager } from '../plugins/PluginManager.js';
 import { NodeProcessorConfig } from '../html/NodeProcessor.js';
 
-
 export type ExternalManagerConfig = NodeProcessorConfig & {
   variableProcessor: VariableProcessor,
   siteLinkManager: SiteLinkManager,
@@ -44,6 +43,7 @@ export class ExternalManager {
                              userScriptsAndStyles: string[]) {
     const resolvingExternals: Promise<External>[] = [];
 
+    // eslint-disable-next-line lodash/prefer-lodash-chain, lodash/prop-shorthand
     _.uniqBy(dependencies, d => d.asIfTo).forEach((src) => {
       if (urlUtil.isUrl(src.to)) {
         return;
@@ -62,7 +62,6 @@ export class ExternalManager {
 
       resolvingExternals.push(this.builtFiles[resultPathWithExternalExt]);
     });
-
     const externals = await Promise.all(resolvingExternals);
     externals.forEach((external) => {
       external.includedFiles.forEach(filePath => includedFiles.add(filePath));

@@ -5,7 +5,6 @@ import { NodeOrText, MbNode } from '../utils/node.js';
 
 import { markdownIt as md } from '../lib/markdown-it/index.js';
 
-
 interface TraverseLinePartData {
   numCharsTraversed: number,
   shouldParentHighlight: boolean,

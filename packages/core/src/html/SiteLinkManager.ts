@@ -4,7 +4,6 @@ import type { NodeProcessorConfig } from './NodeProcessor.js';
 import { MbNode } from '../utils/node.js';
 import { setHeadingId } from './headerProcessor.js';
 
-
 const tagsToValidate: Set<string> = new Set([
   'img',
   'pic',

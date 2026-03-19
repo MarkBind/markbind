@@ -10,7 +10,6 @@ import { PluginContext } from '../Plugin.js';
 
 import { markdownIt as md } from '../../lib/markdown-it/index.js';
 
-
 const CSS_FILE_NAME = 'markbind-plugin-tree.css';
 
 const TOKEN = {

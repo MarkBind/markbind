@@ -335,7 +335,7 @@ export function footnotePlugin(md: MarkdownIt): void {
 
     if (!state.env.footnotes) { return; }
 
-    state.tokens = state.tokens.filter((tok) => {
+    state.tokens = state.tokens.filter((tok: Token) => {
       if (tok.type === 'footnote_reference_open') {
         insideRef = true;
         current = [];

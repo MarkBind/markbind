@@ -189,7 +189,9 @@ export class PluginManager {
     const pluginLinksAndScripts = Object.values(this.plugins)
       .map(plugin => plugin.getPageNjkLinksAndScripts(frontmatter, content, this.config.baseUrl));
 
+    // eslint-disable-next-line lodash/prop-shorthand
     pageAsset.pluginLinks = _.flatMap(pluginLinksAndScripts, pluginResult => pluginResult.links);
+    // eslint-disable-next-line lodash/prop-shorthand
     pageAsset.pluginScripts = _.flatMap(pluginLinksAndScripts, pluginResult => pluginResult.scripts);
   }
 

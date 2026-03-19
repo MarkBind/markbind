@@ -31,7 +31,6 @@ import { processCardStackAttributes } from './cardStackProcessor.js';
 
 import '../patches/htmlparser2.js';
 
-
 const FRONTMATTER_FENCE = '---';
 
 cheerio.prototype.options.decodeEntities = false; // Don't escape HTML entities

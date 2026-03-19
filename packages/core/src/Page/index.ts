@@ -25,7 +25,6 @@ import packageJson from '../../package.json' with { type: 'json' };
 import '../patches/htmlparser2.js';
 
 const { html: htmlBeautify } = jsPkg;
-
 const PACKAGE_VERSION = packageJson.version;
 
 const TITLE_PREFIX_SEPARATOR = ' - ';

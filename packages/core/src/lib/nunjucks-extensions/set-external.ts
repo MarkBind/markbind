@@ -68,7 +68,7 @@ export class SetExternalExtension implements Extension {
                 columns: (
                   hasNoHeader
                     ? false // if noHeader is present, first row is not header row
-                    : header => header.map((col: string) => col)
+                    : (header: string[]) => header.map((col: string) => col)
                 ),
               });
             const resourceRaw = JSON.stringify(csvResourceRaw);

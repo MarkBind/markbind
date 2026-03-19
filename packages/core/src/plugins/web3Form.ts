@@ -4,7 +4,6 @@ import { PluginContext } from './Plugin.js';
 import { MbNode } from '../utils/node.js';
 import { markdownIt as md } from '../lib/markdown-it/index.js';
 
-
 const CSS_FILE_NAME = 'web3FormAssets/web-3-form.css';
 
 const NAME_INPUT = '<label for="name">Name</label>\n'

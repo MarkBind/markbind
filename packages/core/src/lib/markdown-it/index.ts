@@ -32,7 +32,6 @@ const markdownIt = markdownItImport({ html: true, linkify: true });
 
 markdownIt.linkify.set({ fuzzyLink: false });
 
-
 // markdown-it plugins
 markdownIt.use(createDoubleDelimiterInlineRule('%%', 'dimmed', 'emphasis'))
   .use(createDoubleDelimiterInlineRule('!!', 'underline', 'dimmed'))

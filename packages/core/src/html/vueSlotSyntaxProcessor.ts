@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import { MbNode, NodeOrText, parseHTML } from '../utils/node.js';
 
-
 export function getVslotShorthandName(node: NodeOrText) {
   if (!node.attribs) {
     return '';

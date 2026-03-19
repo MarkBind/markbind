@@ -5,7 +5,6 @@ import * as logger from '../utils/logger.js';
 import { createSlotTemplateNode } from './elements.js';
 import { MbNode, NodeOrText, parseHTML } from '../utils/node.js';
 
-
 /**
  * Class that is responsible for rendering markdown-in-attributes
  */

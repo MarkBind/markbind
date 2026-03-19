@@ -5,7 +5,6 @@ import { getVslotShorthandName } from './vueSlotSyntaxProcessor.js';
 import type { NodeProcessorConfig } from './NodeProcessor.js';
 import { MbNode, NodeOrText } from '../utils/node.js';
 
-
 /**
  * Increment the counter for same heading text, and set the id of the heading node
  *

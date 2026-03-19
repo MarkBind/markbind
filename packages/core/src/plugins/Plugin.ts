@@ -53,6 +53,7 @@ export class Plugin {
   constructor(pluginName: string, pluginPath: string, pluginOptions: PluginContext, siteOutputPath: string) {
     this.pluginName = pluginName;
 
+    // eslint-disable-next-line import/no-dynamic-require
     this.plugin = require(pluginPath);
 
     this.pluginOptions = pluginOptions || {};
