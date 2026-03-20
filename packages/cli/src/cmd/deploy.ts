@@ -6,6 +6,9 @@ import * as logger from '../util/logger.js';
 
 function deploy(userSpecifiedRoot: string, options: any) {
   let rootFolder;
+  if (options.verbose) {
+    logger.useVerboseConsole();
+  }
   try {
     rootFolder = cliUtil.findRootFolder(userSpecifiedRoot, options.siteConfig);
   } catch (error) {

@@ -38,6 +38,8 @@ function questionAsync(question: string): Promise<string> {
 function serve(userSpecifiedRoot: string, options: any) {
   if (options.dev) {
     logger.useDebugConsole();
+  } else if (options.verbose) {
+    logger.useVerboseConsole();
   }
 
   let rootFolder;
