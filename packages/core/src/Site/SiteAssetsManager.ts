@@ -1,7 +1,5 @@
 import fs from 'fs-extra';
-import ignoreModule, { type Ignore } from 'ignore';
-
-const ignore = ignoreModule as unknown as (opts?: { ignorecase?: boolean }) => Ignore;
+import { type Ignore } from 'ignore';
 import path from 'path';
 import walkSync from 'walk-sync';
 
@@ -12,6 +10,10 @@ import * as logger from '../utils/logger.js';
 import { TEMPLATE_SITE_ASSET_FOLDER_NAME, _ } from './constants.js';
 
 const require = createRequire(import.meta.url);
+// `ignore` is a CJS package with no `exports` field. Under NodeNext, TS resolves
+// the default import as the module namespace (not callable). Using require() returns
+// module.exports directly, which is the callable factory function
+const ignore: (opts?: { ignorecase?: boolean }) => Ignore = require('ignore');
 
 function getBootswatchThemePath(theme: string) {
   return require.resolve(`bootswatch/dist/${theme}/bootstrap.min.css`);
