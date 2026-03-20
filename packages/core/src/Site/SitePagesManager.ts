@@ -27,8 +27,8 @@ import * as logger from '../utils/logger.js';
 import { SiteConfig, SiteConfigPage } from './SiteConfig.js';
 import { LayoutManager } from '../Layout/index.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filepath = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filepath);
 
 const url = {
   join: path.posix.join,

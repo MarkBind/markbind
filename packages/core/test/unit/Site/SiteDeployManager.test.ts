@@ -7,7 +7,7 @@ const mockFs = fs as any;
 
 jest.mock('fs');
 jest.mock('gh-pages');
-jest.mock('simple-git', () => jest.fn(() => ({})));
+jest.mock('simple-git');
 jest.mock('../../../src/utils/git', () => ({
   getRemoteBranchFile: jest.fn(() => Promise.resolve(null)),
   getRemoteUrl: jest.fn(() => Promise.resolve('https://github.com/mock-user/mock-repo.git')),

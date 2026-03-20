@@ -14,10 +14,9 @@ import type { PageAssets } from '../Page/PageConfig.js';
 import { NodeOrText } from '../utils/node.js';
 import { ignoreTags } from '../patches/index.js';
 
-
 const require = createRequire(import.meta.url);
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filepath = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filepath);
 
 const MARKBIND_PLUGIN_DIRECTORY = __dirname;
 const MARKBIND_DEFAULT_PLUGIN_DIRECTORY = path.join(__dirname, 'default');
@@ -74,7 +73,7 @@ export class PluginManager {
 
     const markbindPrefixRegex = new RegExp(`^${MARKBIND_PLUGIN_PREFIX}`);
     defaultPluginNames
-      .filter(plugin => !_.get(this.pluginsContextRaw, [plugin.replace(markbindPrefixRegex, ''), 'off'],
+      .filter(plugin => !_.get(this.pluginsContextRaw, `${plugin.replace(markbindPrefixRegex, '')}.off`,
                                false))
       .forEach(plugin => this._loadPlugin(plugin, true));
   }

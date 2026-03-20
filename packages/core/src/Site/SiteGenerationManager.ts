@@ -27,8 +27,8 @@ import packageJson from '../../package.json' with { type: 'json' };
 
 import '../patches/htmlparser2.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filepath = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filepath);
 
 const MARKBIND_VERSION = packageJson.version;
 

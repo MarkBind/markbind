@@ -11,7 +11,6 @@ import { NodeOrText } from '../utils/node.js';
 
 import '../patches/htmlparser2.js';
 
-
 const require = createRequire(import.meta.url);
 
 const PLUGIN_OUTPUT_SITE_ASSET_FOLDER_NAME = 'plugins';

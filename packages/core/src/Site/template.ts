@@ -10,8 +10,8 @@ import * as logger from '../utils/logger.js';
 
 import { LAYOUT_DEFAULT_NAME, LAYOUT_FOLDER_PATH } from '../Layout/index.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filepath = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filepath);
 
 const requiredFiles = ['index.md', 'site.json', '_markbind/'];
 

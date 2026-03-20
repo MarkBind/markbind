@@ -22,8 +22,8 @@ interface DiagramStatus {
   hashKey: string;
 }
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filepath = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filepath);
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
