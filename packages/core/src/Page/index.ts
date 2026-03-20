@@ -24,6 +24,8 @@ import packageJson from '../../package.json' with { type: 'json' };
 
 import '../patches/htmlparser2.js';
 
+// Destructure for CJS interoperability.
+// Using ESM-style import does not work due to the fact that jsPkg is exported as a CJS module.
 const { html: htmlBeautify } = jsPkg;
 const PACKAGE_VERSION = packageJson.version;
 

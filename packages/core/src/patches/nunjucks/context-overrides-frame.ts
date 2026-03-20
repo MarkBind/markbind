@@ -18,8 +18,6 @@
 
 
 import * as runtimeTypes from 'nunjucks/src/runtime.js';
-//@ts-ignore
-// import * as compiler from 'nunjucks/src/compiler.js';
 import nunjucks, { Environment, Template } from 'nunjucks';
 const { lib, nodes, compiler, runtime } = nunjucks;
 import { Obj } from 'nunjucks/src/object.js';
@@ -27,6 +25,8 @@ import { Obj } from 'nunjucks/src/object.js';
 type CompilerInstance = InstanceType<typeof compiler.Compiler>;
 
 //@ts-ignore
+// We need a mutable reference to the runtime module so we can monkey-patch
+// Frame and contextOrFrameLookup.
 const globalRuntime: typeof runtimeTypes & Record<string, any> = runtime;
 
 const MB_CTX_KEY = '_markBindReserved';
