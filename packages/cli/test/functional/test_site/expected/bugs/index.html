@@ -2,32 +2,7 @@
 <html>
 
 <head>
-  <script>
-      (function() {
-        const storageKey = 'markbind-theme';
-        const darkTheme = 'dark';
-        const lightTheme = 'light';
-        let resolvedTheme = 'dark';
 
-        try {
-          const storedTheme = localStorage.getItem(storageKey);
-          if (storedTheme === darkTheme || storedTheme === lightTheme) {
-            resolvedTheme = storedTheme;
-          } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            resolvedTheme = darkTheme;
-          } else {
-            resolvedTheme = lightTheme;
-          }
-        } catch (error) {
-          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            resolvedTheme = darkTheme;
-          }
-        }
-
-        document.documentElement.setAttribute('data-bs-theme', resolvedTheme);
-        window.__MARKBIND_THEME__ = resolvedTheme;
-      }());
-    </script>
 
   <meta name="default-head-top">
   <script src="/test_site/headFiles/customScriptTop.js"></script>
@@ -270,9 +245,7 @@
 <script src="/test_site/markbind/js/vue.global.prod.min.js"></script>
 <script src="/test_site/markbind/js/markbind.min.js"></script>
 <script src="index.page-vue-render.js"></script>
-<script>
-  document.body.setAttribute('data-code-theme', window.__MARKBIND_THEME__ || 'dark');
-</script>
+
 <script>
   MarkBind.setupWithSearch()
 </script>
