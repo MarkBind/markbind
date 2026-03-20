@@ -64,6 +64,8 @@ export class SiteConfig {
 
   plantumlCheck: boolean;
 
+  darkMode: boolean;
+
   /**
    * @param siteConfigJson The raw json read from the site configuration file
    * @param cliBaseUrl As read from the --baseUrl option
@@ -103,6 +105,8 @@ export class SiteConfig {
     // TODO this should probably be in pluginsContext
     this.plantumlCheck = siteConfigJson.plantumlCheck !== undefined
       ? siteConfigJson.plantumlCheck : true; // check PlantUML's prerequisite by default
+
+    this.darkMode = siteConfigJson.darkMode === true;
   }
 
   /**

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% if darkMode %}
     <script>
       (function() {
+        window.__MARKBIND_DARK_MODE__ = true;
         const storageKey = 'markbind-theme';
         const darkTheme = 'dark';
         const lightTheme = 'light';
@@ -27,6 +29,7 @@
         window.__MARKBIND_THEME__ = resolvedTheme;
       }());
     </script>
+    {% endif %}
     {%- if asset.headTop %}
     {%- for headContent in asset.headTop %}
     {{ headContent }}
@@ -83,9 +86,11 @@
 <script src="{{ asset.vue }}"></script>
 <script src="{{ asset.markBindJs }}"></script>
 <script src="{{ asset.pageVueRenderJs }}"></script>
+{% if darkMode %}
 <script>
   document.body.setAttribute('data-code-theme', window.__MARKBIND_THEME__ || '{{ codeTheme }}');
 </script>
+{% endif %}
 <script>
   {% if enableSearch %}MarkBind.setupWithSearch(){% else %}MarkBind.setup(){% endif %}
 </script>
