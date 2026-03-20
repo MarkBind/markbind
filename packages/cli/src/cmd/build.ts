@@ -5,6 +5,10 @@ import * as cliUtil from '../util/cliUtil.js';
 import * as logger from '../util/logger.js';
 
 function build(userSpecifiedRoot: string, output: string, options: any) {
+  if (options.verbose) {
+    logger.useVerboseConsole();
+  }
+
   // if --baseUrl contains no arguments (options.baseUrl === true) then set baseUrl to empty string
   const baseUrl = _.isBoolean(options.baseUrl) ? '' : options.baseUrl;
 

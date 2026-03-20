@@ -519,7 +519,6 @@ export class Page {
    */
   async generate(externalManager: ExternalManager) {
     this.resetState(); // Reset for live reload
-
     const fileConfig: NodeProcessorConfig = {
       baseUrl: this.siteConfig.baseUrl,
       ignore: this.siteConfig.ignore,
@@ -595,6 +594,7 @@ export class Page {
      * However, for automated testings (e.g. snapshots), we will output the pre SSR-processed HTML content
      * as we want to retain the unrendered DOM for easier reference and checking.
      */
+    logger.verbose(`Rendering page: ${this.pageConfig.sourcePath}`);
     const vueSsrHtml = await pageVueServerRenderer.renderVuePage(renderFn);
     this.filterIconAssets(content, vueSsrHtml);
     if (process.env.TEST_MODE) {
