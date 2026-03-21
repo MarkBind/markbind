@@ -8,6 +8,8 @@ import LogoPagefind from './LogoPagefind.vue';
 const MARKBIND_PREFIX = 'markbind/';
 const MARKBIND_PREFIX_REGEX = /markbind\//g;
 
+let observer = null;
+
 const showModal = ref(false);
 
 const toggleSearch = () => {
@@ -98,10 +100,48 @@ const handleGlobalKeydown = (e) => {
   handleKeyDown(e);
 };
 
+// --- CHANGE: Extracted event listeners to named functions for reliable removal (Issues 2, 3) ---
+const handleMouseOver = (e) => {
+  const container = document.querySelector('#pagefind-search-input');
+  if (!container) return;
+  const resultLink = e.target.closest('.pagefind-ui__result-link');
+  if (resultLink) {
+    container.querySelectorAll('.pagefind-ui__result.is-active').forEach((el) => {
+      el.classList.remove('is-active');
+    });
+    const resultElement = resultLink.closest('.pagefind-ui__result');
+    if (resultElement) {
+      resultElement.classList.add('is-active');
+    }
+    resultLink.focus({ preventScroll: true });
+  }
+};
+
+const handleResultClick = (e) => {
+  if (e.target.closest('a')) {
+    showModal.value = false;
+  }
+};
+
+const cleanupModalAssets = () => {
+  if (observer) {
+    observer.disconnect();
+    observer = null;
+  }
+  const container = document.querySelector('#pagefind-search-input');
+  if (container) {
+    container.removeEventListener('mouseover', handleMouseOver);
+    container.removeEventListener('click', handleResultClick);
+    // Clear content to ensure a fresh Pagefind UI on next open
+    container.innerHTML = '';
+  }
+};
+
 watch(showModal, (isOpen) => {
   if (isOpen) {
     nextTick(() => {
-      if (window.PagefindUI) {
+      const container = document.querySelector('#pagefind-search-input');
+      if (window.PagefindUI && container && !container.querySelector('.pagefind-ui')) {
         // eslint-disable-next-line no-unused-vars
         const pagefind = new window.PagefindUI({
           element: '#pagefind-search-input',
@@ -115,11 +155,10 @@ watch(showModal, (isOpen) => {
         });
 
         // Focus the input inside the new structure
-        const container = document.querySelector('#pagefind-search-input');
         const input = document.querySelector('#pagefind-search-input input');
         if (input) {
           input.focus();
-          const observer = new MutationObserver(() => {
+          observer = new MutationObserver(() => {
             container.querySelectorAll('.pagefind-ui__result').forEach((el) => {
               el.classList.remove('is-active');
             });
@@ -132,44 +171,14 @@ watch(showModal, (isOpen) => {
 
           // Start observing the container for added search results
           observer.observe(container, { childList: true, subtree: true });
-
-          // Disconnect observer when modal closes to prevent memory leaks
-          watch(showModal, (val) => {
-            if (!val) observer.disconnect();
-          });
         }
 
-        container.addEventListener('mouseover', (e) => {
-          const resultLink = e.target.closest('.pagefind-ui__result-link');
-          if (resultLink) {
-            // Remove active class from all other results
-            container.querySelectorAll('.pagefind-ui__result.is-active').forEach((el) => {
-              el.classList.remove('is-active');
-            });
-
-            // Add active class to the hovered one
-            const resultElement = resultLink.closest('.pagefind-ui__result');
-            if (resultElement) {
-              resultElement.classList.add('is-active');
-            }
-
-            // Move browser focus to the link (optional, but keeps Enter key logic synced)
-            resultLink.focus({ preventScroll: true });
-          }
-        });
-
-        // Fix for Redirection & Modal Closing:
-        // We listen for clicks on the results. If a result is clicked,
-        // we close the modal. This is especially important for anchors (#).
-        container.addEventListener('click', (e) => {
-          const anchor = e.target.closest('a');
-          if (anchor) {
-            // Close the modal before the browser navigates
-            showModal.value = false;
-          }
-        });
+        container.addEventListener('mouseover', handleMouseOver);
+        container.addEventListener('click', handleResultClick);
       }
     });
+  } else {
+    cleanupModalAssets();
   }
 });
 
@@ -183,6 +192,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('keydown', handleGlobalKeydown);
+  cleanupModalAssets();
 });
 
 </script>
@@ -364,11 +374,6 @@ onUnmounted(() => {
         max-height: 55vh;
         overflow-y: auto;
         padding: 0;
-
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        &::-webkit-scrollbar {
-            display: none;
-        }
 
         /* Hide scrollbar for IE, Edge and Firefox */
         -ms-overflow-style: none;  /* IE and Edge */
