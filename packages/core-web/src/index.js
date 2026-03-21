@@ -4,12 +4,13 @@
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createSSRApp } from 'vue';
-import { MarkBindVue, appFactory } from './VueCommonAppFactory';
+import vueCommonAppFactory from './VueCommonAppFactory';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import './styles/index.css';
 import './print';
 
+const { MarkBindVue, appFactory } = vueCommonAppFactory;
 const { plugin } = MarkBindVue;
 window.MarkBindVuePlugin = plugin;
 
