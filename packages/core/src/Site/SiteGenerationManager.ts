@@ -312,7 +312,8 @@ export class SiteGenerationManager {
       await this.siteAssets.copyMaterialIconsAsset();
       await this.writeSiteData();
       if (this.siteConfig.enableSearch) {
-        await this.indexSiteWithPagefind();
+        const indexingSucceeded = await this.indexSiteWithPagefind();
+        this.sitePages.pagefindIndexingSucceeded = indexingSucceeded;
       }
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
@@ -945,8 +946,9 @@ export class SiteGenerationManager {
 
   /**
  * Indexes all the pages of the site using pagefind.
+ * @returns true if indexing succeeded and pagefind assets were written, false otherwise.
  */
-  async indexSiteWithPagefind() {
+  async indexSiteWithPagefind(): Promise<boolean> {
     const startTime = new Date();
     logger.info('Creating Pagefind Search Index...');
     try {
@@ -1010,12 +1012,15 @@ export class SiteGenerationManager {
         await fs.ensureDir(pagefindOutputPath);
         await index.writeFiles({ outputPath: pagefindOutputPath });
         logger.info(`Pagefind assets written to ${pagefindOutputPath}`);
-      } else {
-        logger.error('Pagefind failed to create index');
+        await close();
+        return true;
       }
+      logger.error('Pagefind failed to create index');
       await close();
+      return false;
     } catch (error) {
       logger.warn(`Pagefind indexing skipped: ${error}`);
+      return false;
     }
   }
 
