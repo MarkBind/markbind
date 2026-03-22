@@ -21,7 +21,7 @@
     "directory": "packages/vue-components"
   },
   "scripts": {
-    "test": "tsc && jest --clearCache && jest --colors",
+    "test": "tsc && jest --colors",
     "updatetest": "jest --updateSnapshot"
   },
   "devDependencies": {
