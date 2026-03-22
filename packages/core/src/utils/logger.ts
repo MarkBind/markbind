@@ -14,17 +14,18 @@ const removeProgressBar = () => {
 
 const consoleFormat = format.combine(
   format.colorize(),
+  format.errors({ stack: true }),
   format.printf(info => `${info.level}: ${info.message}`),
 );
 
 const consoleTransport = new winston.transports.Console({
-  format: consoleFormat,
   handleExceptions: true,
   level: 'debug',
 });
 
 winston.configure({
   exitOnError: false,
+  format: consoleFormat,
   transports: [consoleTransport],
 });
 
