@@ -30,6 +30,10 @@ function useDebugConsole(): void {
   consoleTransport.level = 'debug';
 }
 
+function useVerboseConsole(): void {
+  consoleTransport.level = 'verbose';
+}
+
 const dailyRotateFileTransport = new DailyRotateFile({
   format: fileFormat,
   datePattern: 'YYYY-MM-DD',
@@ -60,6 +64,7 @@ export {
 
 export {
   useDebugConsole,
+  useVerboseConsole,
 };
 
 // eslint-disable-next-line no-console
