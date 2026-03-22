@@ -18,6 +18,9 @@ export function logDeployResult(result: DeployResult) {
 
 function deploy(userSpecifiedRoot: string, options: any) {
   let rootFolder;
+  if (options.verbose) {
+    logger.useVerboseConsole();
+  }
   try {
     rootFolder = cliUtil.findRootFolder(userSpecifiedRoot, options.siteConfig);
   } catch (error) {

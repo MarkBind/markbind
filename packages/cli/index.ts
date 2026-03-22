@@ -86,8 +86,9 @@ program
     program.createOption('-a, --address <address>', 'specify the server address/host (Default is 127.0.0.1)'))
   .addOption(
     program.createOption('-s, --site-config <file>', 'specify the site config file (default: site.json)'))
-
-  // Development mode is hidden as it is not user facing and only works during local development
+  .addOption(
+    program.createOption('-v, --verbose', 'enable verbose logging (e.g., page building logs)'))
+  // Development mode is hidden as it is not user facing and only works in local development environment
   .addOption(
     new Option('-d, --dev', 'development mode, enabling live & hot reload for frontend source files.')
       .hideHelp())
@@ -101,6 +102,7 @@ program
   .option('--baseUrl [baseUrl]',
           'optional flag which overrides baseUrl in site.json, leave argument empty for empty baseUrl')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
+  .option('-v, --verbose', 'enable verbose logging (e.g., page building logs)')
   .summary('Build a website')
   .description('Build a website')
   .action((userSpecifiedRoot, output, options) => {
@@ -113,6 +115,7 @@ program
   .option('-c, --ci [githubTokenName]', 'deploy the site in CI Environment [GITHUB_TOKEN]')
   .option('-n, --no-build', 'do not automatically build the site before deployment')
   .option('-s, --site-config <file>', 'specify the site config file (default: site.json)')
+  .option('-v, --verbose', 'enable verbose logging (e.g., page building logs)')
   .summary('Deploy the latest build of the site to GitHub Pages')
   .description('Deploy the latest build of the site to the repo\'s GitHub Pages')
   .action((userSpecifiedRoot, options) => {
