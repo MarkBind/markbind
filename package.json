@@ -21,7 +21,7 @@
     "lint": "eslint . --ext .js,.ts,.vue && npm run csslint",
     "lintfix": "eslint . --ext .js,.ts,.vue --fix && npm run csslintfix",
     "setup": "npm ci && npm run build:backend",
-    "test": "npm run lint && lerna run test --stream",
+    "test": "npm run lint && lerna run test --stream --concurrency=1",
     "updatetest": "lerna run updatetest --stream"
   },
   "devDependencies": {
