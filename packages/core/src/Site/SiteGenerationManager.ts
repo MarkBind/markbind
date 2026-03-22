@@ -873,14 +873,14 @@ export class SiteGenerationManager {
    * @returns true if the pattern is safe, false otherwise
    */
   // eslint-disable-next-line class-methods-use-this
-  protected isValidGlobPattern(pattern: string): boolean {
-    const normalizedPattern = pattern.replace(/\\/g, '/');
-
-    if (normalizedPattern.includes('..')) {
+  private isValidGlobPattern(pattern: string): boolean {
+    if (pattern.includes('..')) {
       return false;
     }
 
-    if (normalizedPattern.startsWith('/')) {
+    const isUnixAbsolutePath = pattern.startsWith('/');
+    const isWindowsAbsolutePath = /^[a-zA-Z]:[\\/]/.test(pattern);
+    if (isUnixAbsolutePath || isWindowsAbsolutePath) {
       return false;
     }
 
@@ -896,28 +896,30 @@ export class SiteGenerationManager {
    * @returns A valid Wax/Pagefind glob pattern, or empty string if invalid
    */
   private normalizeGlobPattern(pattern: string): string {
+    const normalizedPattern = pattern.replace(/\\/g, '/');
+
     if (!this.isValidGlobPattern(pattern)) {
       logger.error(`Invalid glob pattern rejected (potential path traversal): ${pattern}`);
       return '';
     }
 
-    if (pattern.endsWith('.html')) {
-      return pattern;
+    if (normalizedPattern.endsWith('.html')) {
+      return normalizedPattern;
     }
 
-    if (pattern.endsWith('/**')) {
-      return `${pattern}/*.html`;
+    if (normalizedPattern.endsWith('/**')) {
+      return `${normalizedPattern}/*.html`;
     }
 
-    if (pattern.endsWith('/*')) {
-      return `${pattern}.html`;
+    if (normalizedPattern.endsWith('/*')) {
+      return `${normalizedPattern}.html`;
     }
 
-    if (pattern.endsWith('/')) {
-      return `${pattern}**/*.html`;
+    if (normalizedPattern.endsWith('/')) {
+      return `${normalizedPattern}**/*.html`;
     }
 
-    return `${pattern}/**/*.html`;
+    return `${normalizedPattern}/**/*.html`;
   }
 
   /**

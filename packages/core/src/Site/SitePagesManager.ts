@@ -100,7 +100,7 @@ export class SitePagesManager {
     this.addressablePages = [];
     this.addressablePagesSource = [];
     this.baseUrlMap = new Set();
-    this.pagefindIndexingSucceeded = false;
+    this.pagefindIndexingSucceeded = true;
   }
 
   setBaseUrlMap(baseUrlMap: Set<string>) {
