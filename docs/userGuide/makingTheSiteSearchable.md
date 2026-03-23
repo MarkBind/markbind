@@ -60,8 +60,6 @@ To add the Pagefind search bar to your page, simply insert the following element
 <search />
 ```
 
-MarkBind will automatically inject the necessary scripts and styles to render the search UI.
-
 The following UI will be rendered, which is provided by Pagefind:
 
 <search />
