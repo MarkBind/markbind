@@ -18,7 +18,7 @@ import * as fsUtil from '../utils/fsUtil.js';
 import * as logger from '../utils/logger.js';
 import {
   SITE_CONFIG_NAME, LAZY_LOADING_SITE_FILE_NAME, _,
-  TEMP_FOLDER_NAME, SITE_DATA_NAME, USER_VARIABLES_PATH,
+  TEMP_FOLDER_NAME, SITE_DATA_NAME, USER_VARIABLES_PATH, TEMPLATE_SITE_ASSET_FOLDER_NAME,
 } from './constants.js';
 import { LayoutManager } from '../Layout/index.js';
 import { LayoutConfig } from '../Layout/Layout.js';
