@@ -1,5 +1,5 @@
-import CyclicReferenceError from './CyclicReferenceError';
+import { CyclicReferenceError } from './CyclicReferenceError.js';
 
-export = {
+export {
   CyclicReferenceError,
 };

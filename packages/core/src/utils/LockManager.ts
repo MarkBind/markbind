@@ -83,4 +83,4 @@ class LockManager {
 }
 
 // Export the singleton instance of LockManager.
-export = LockManager.instance;
+export const { instance } = LockManager;

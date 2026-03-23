@@ -1,5 +1,5 @@
 import * as cheerio from 'cheerio';
-import dataTable from '../../../../src/plugins/dataTable';
+import * as dataTable from '../../../../src/plugins/dataTable.js';
 
 test('postRender should add appropriate classes and attributes to m-table elements', () => {
   const content = `

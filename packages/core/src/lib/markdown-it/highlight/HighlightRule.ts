@@ -1,4 +1,4 @@
-import { HighlightRuleComponent } from './HighlightRuleComponent';
+import { HighlightRuleComponent } from './HighlightRuleComponent.js';
 
 export enum HIGHLIGHT_TYPES {
   WholeLine,

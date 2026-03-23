@@ -1,6 +1,6 @@
 import cheerio from 'cheerio';
-import { FrontMatter, PluginContext } from './Plugin';
-import md from '../lib/markdown-it';
+import { FrontMatter, PluginContext } from './Plugin.js';
+import { markdownIt as md } from '../lib/markdown-it/index.js';
 
 const CSS_FILE_NAME = 'dataTableAssets/datatables.min.css';
 const CSS_ADDITIONAL = 'dataTableAssets/datatables-additional.css';
@@ -96,44 +96,49 @@ const initScript = `
   </script>
 `;
 
-export = {
-  getLinks: () => [
-    `<link rel="stylesheet" href="${CSS_FILE_NAME}">`,
-    `<link rel="stylesheet" href="${CSS_ADDITIONAL}">`,
-  ],
-  getScripts: () => [`<script src="${JS_FILE_NAME}"></script>`, initScript],
-  postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => {
-    const $ = cheerio.load(content);
+const getLinks = () => [
+  `<link rel="stylesheet" href="${CSS_FILE_NAME}">`,
+  `<link rel="stylesheet" href="${CSS_ADDITIONAL}">`,
+];
 
-    $('d-table').each((index: number, node: cheerio.Element) => {
-      const $node = $(node);
-      const html = $node.html();
+const getScripts = () => [`<script src="${JS_FILE_NAME}"></script>`, initScript];
+const postRender = (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => {
+  const $ = cheerio.load(content);
 
-      if (html == null) {
-        return;
-      }
+  $('d-table').each((index: number, node: cheerio.Element) => {
+    const $node = $(node);
+    const html = $node.html();
 
-      const isSortable = $node.attr('sortable') !== undefined;
-      const isSearchable = $node.attr('searchable') !== undefined;
+    if (html == null) {
+      return;
+    }
 
-      let tableClass: string = '';
-      if (isSortable && isSearchable) {
-        tableClass = 'sortable-searchable-table';
-      } else if (isSortable) {
-        tableClass = 'sortable-table';
-      } else if (isSearchable) {
-        tableClass = 'searchable-table';
-      }
+    const isSortable = $node.attr('sortable') !== undefined;
+    const isSearchable = $node.attr('searchable') !== undefined;
 
-      const renderedTable = md.render(html);
-      const $renderedTable = $(renderedTable);
-      $renderedTable.find('table')
-        .addClass(tableClass)
-        .attr('id', `datatable-${index}`);
+    let tableClass: string = '';
+    if (isSortable && isSearchable) {
+      tableClass = 'sortable-searchable-table';
+    } else if (isSortable) {
+      tableClass = 'sortable-table';
+    } else if (isSearchable) {
+      tableClass = 'searchable-table';
+    }
 
-      $node.replaceWith($renderedTable);
-    });
+    const renderedTable = md.render(html);
+    const $renderedTable = $(renderedTable);
+    $renderedTable.find('table')
+      .addClass(tableClass)
+      .attr('id', `datatable-${index}`);
 
-    return $.html();
-  },
+    $node.replaceWith($renderedTable);
+  });
+
+  return $.html();
+};
+
+export {
+  postRender,
+  getScripts,
+  getLinks,
 };

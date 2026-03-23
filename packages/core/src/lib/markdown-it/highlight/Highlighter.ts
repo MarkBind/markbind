@@ -1,4 +1,4 @@
-import { collateAllIntervalsWithColors, splitCodeAndIndentation } from './helper';
+import { collateAllIntervalsWithColors, splitCodeAndIndentation } from './helper.js';
 
 export class Highlighter {
   static highlightWholeLine(code: string, color?: string) {

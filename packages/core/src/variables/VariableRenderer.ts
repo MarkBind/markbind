@@ -1,14 +1,14 @@
 import path from 'path';
 import nunjucks, { Environment } from 'nunjucks';
 
-import { PageSources } from '../Page/PageSources';
+import { PageSources } from '../Page/PageSources.js';
 import {
   dateFilter,
   SetExternalExtension,
-} from '../lib/nunjucks-extensions';
-import * as fsUtil from '../utils/fsUtil';
+} from '../lib/nunjucks-extensions/index.js';
+import * as fsUtil from '../utils/fsUtil.js';
 
-require('../patches/nunjucks'); // load patch
+import '../patches/nunjucks/index.js'; // load patch
 
 const unescapedEnv = nunjucks.configure({ autoescape: false })
   .addFilter('date', dateFilter);

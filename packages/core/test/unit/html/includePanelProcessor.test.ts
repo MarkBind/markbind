@@ -1,6 +1,6 @@
 import path from 'path';
-import { getNewDefaultNodeProcessor } from '../utils/utils';
-import * as logger from '../../../src/utils/logger';
+import { getNewDefaultNodeProcessor } from '../utils/utils.js';
+import * as logger from '../../../src/utils/logger.js';
 
 const fs = require('fs');
 

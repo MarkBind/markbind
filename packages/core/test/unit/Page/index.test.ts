@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { Page } from '../../../src/Page';
-import { VariableProcessor } from '../../../src/variables/VariableProcessor';
+import { Page } from '../../../src/Page/index.js';
+import { VariableProcessor } from '../../../src/variables/VariableProcessor.js';
 
 const mockFs = fs as any;
 

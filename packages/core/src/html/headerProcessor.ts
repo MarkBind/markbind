@@ -1,13 +1,9 @@
 import cheerio from 'cheerio';
 import slugify from '@sindresorhus/slugify';
-import has from 'lodash/has';
-import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
-import type { NodeProcessorConfig } from './NodeProcessor';
-import { MbNode, NodeOrText } from '../utils/node';
-
-const _ = {
-  has,
-};
+import _ from 'lodash';
+import { getVslotShorthandName } from './vueSlotSyntaxProcessor.js';
+import type { NodeProcessorConfig } from './NodeProcessor.js';
+import { MbNode, NodeOrText } from '../utils/node.js';
 
 /**
  * Increment the counter for same heading text, and set the id of the heading node

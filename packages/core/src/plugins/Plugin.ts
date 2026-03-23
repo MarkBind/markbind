@@ -1,16 +1,17 @@
 import path from 'path';
+import { createRequire } from 'module';
 import fs from 'fs-extra';
 import cheerio from 'cheerio';
 
-import isString from 'lodash/isString';
-import * as logger from '../utils/logger';
-import * as urlUtil from '../utils/urlUtil';
-import type { NodeProcessorConfig } from '../html/NodeProcessor';
-import { NodeOrText } from '../utils/node';
+import _ from 'lodash';
+import * as logger from '../utils/logger.js';
+import * as urlUtil from '../utils/urlUtil.js';
+import type { NodeProcessorConfig } from '../html/NodeProcessor.js';
+import { NodeOrText } from '../utils/node.js';
 
-require('../patches/htmlparser2');
+import '../patches/htmlparser2.js';
 
-const _ = { isString };
+const require = createRequire(import.meta.url);
 
 const PLUGIN_OUTPUT_SITE_ASSET_FOLDER_NAME = 'plugins';
 
@@ -55,7 +56,7 @@ export class Plugin {
     /**
      * The plugin module
      */
-    // eslint-disable-next-line global-require,import/no-dynamic-require
+    // eslint-disable-next-line import/no-dynamic-require
     this.plugin = require(pluginPath);
 
     this.pluginOptions = pluginOptions || {};

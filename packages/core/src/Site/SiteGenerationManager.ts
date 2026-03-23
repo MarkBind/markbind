@@ -1,32 +1,36 @@
 import cheerio from 'cheerio';
 import fs from 'fs-extra';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import walkSync from 'walk-sync';
 
-import { SiteAssetsManager } from './SiteAssetsManager';
-import { SitePagesManager, AddressablePage } from './SitePagesManager';
-import { SiteConfig } from './SiteConfig';
-import { Page } from '../Page';
-import { VariableProcessor } from '../variables/VariableProcessor';
-import { ExternalManager } from '../External/ExternalManager';
-import { SiteLinkManager } from '../html/SiteLinkManager';
-import { PluginManager } from '../plugins/PluginManager';
-import { sequentialAsyncForEach } from '../utils/async';
-import { delay } from '../utils/delay';
-import * as fsUtil from '../utils/fsUtil';
-import * as logger from '../utils/logger';
+import { SiteAssetsManager } from './SiteAssetsManager.js';
+import { SitePagesManager, AddressablePage } from './SitePagesManager.js';
+import { SiteConfig } from './SiteConfig.js';
+import { Page } from '../Page/index.js';
+import { VariableProcessor } from '../variables/VariableProcessor.js';
+import { ExternalManager } from '../External/ExternalManager.js';
+import { SiteLinkManager } from '../html/SiteLinkManager.js';
+import { PluginManager } from '../plugins/PluginManager.js';
+import { sequentialAsyncForEach } from '../utils/async.js';
+import { delay } from '../utils/delay.js';
+import * as fsUtil from '../utils/fsUtil.js';
+import * as logger from '../utils/logger.js';
 import {
   SITE_CONFIG_NAME, LAZY_LOADING_SITE_FILE_NAME, _,
   TEMP_FOLDER_NAME, SITE_DATA_NAME, USER_VARIABLES_PATH,
-} from './constants';
-import { LayoutManager } from '../Layout';
-import { LayoutConfig } from '../Layout/Layout';
-import { ProgressBar } from '../lib/progress';
+} from './constants.js';
+import { LayoutManager } from '../Layout/index.js';
+import { LayoutConfig } from '../Layout/Layout.js';
+import { ProgressBar } from '../lib/progress/index.js';
+import packageJson from '../../package.json' with { type: 'json' };
 
-// Change when migrated to TypeScript
-require('../patches/htmlparser2');
+import '../patches/htmlparser2.js';
 
-const MARKBIND_VERSION = require('../../package.json').version;
+const __filepath = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filepath);
+
+const MARKBIND_VERSION = packageJson.version;
 
 const MAX_CONCURRENT_PAGE_GENERATION_PROMISES = 4;
 

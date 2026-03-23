@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
-import { Layout, LayoutConfig, PageNjkAssets } from './Layout';
-import * as logger from '../utils/logger';
+import { Layout, LayoutConfig, PageNjkAssets } from './Layout.js';
+import * as logger from '../utils/logger.js';
 
 const FRONTMATTER_NONE_ATTR = 'none';
 

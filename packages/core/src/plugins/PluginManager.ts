@@ -1,29 +1,22 @@
-import merge from 'lodash/merge';
+import _ from 'lodash';
 
 import path from 'path';
+import { createRequire } from 'module';
+import { fileURLToPath } from 'url';
 import fs from 'fs-extra';
 import walkSync from 'walk-sync';
-import flatMap from 'lodash/flatMap';
-import get from 'lodash/get';
-import includes from 'lodash/includes';
-import isError from 'lodash/isError';
-import * as logger from '../utils/logger';
+import * as logger from '../utils/logger.js';
 import {
   FrontMatter, Plugin, PluginContext, TagConfigs,
-} from './Plugin';
-import type { NodeProcessorConfig } from '../html/NodeProcessor';
-import type { PageAssets } from '../Page/PageConfig';
-import { NodeOrText } from '../utils/node';
+} from './Plugin.js';
+import type { NodeProcessorConfig } from '../html/NodeProcessor.js';
+import type { PageAssets } from '../Page/PageConfig.js';
+import { NodeOrText } from '../utils/node.js';
+import { ignoreTags } from '../patches/index.js';
 
-const { ignoreTags } = require('../patches');
-
-const _ = {
-  flatMap,
-  get,
-  includes,
-  isError,
-  merge,
-};
+const require = createRequire(import.meta.url);
+const __filepath = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filepath);
 
 const MARKBIND_PLUGIN_DIRECTORY = __dirname;
 const MARKBIND_DEFAULT_PLUGIN_DIRECTORY = path.join(__dirname, 'default');
@@ -80,7 +73,7 @@ export class PluginManager {
 
     const markbindPrefixRegex = new RegExp(`^${MARKBIND_PLUGIN_PREFIX}`);
     defaultPluginNames
-      .filter(plugin => !_.get(this.pluginsContextRaw, [plugin.replace(markbindPrefixRegex, ''), 'off'],
+      .filter(plugin => !_.get(this.pluginsContextRaw, `${plugin.replace(markbindPrefixRegex, '')}.off`,
                                false))
       .forEach(plugin => this._loadPlugin(plugin, true));
   }
@@ -158,7 +151,7 @@ export class PluginManager {
    * Collects the tag configuration of the site's plugins, and injects them into the parsers.
    */
   _collectPluginTagConfigs() {
-    const specialTags = new Set(); // "non-html containing" tags parsed like <script>, <style>
+    const specialTags = new Set<string>(); // "non-html containing" tags parsed like <script>, <style>
 
     Object.values(this.plugins).forEach((plugin) => {
       const pluginTagConfig = plugin.getTagConfig();
@@ -196,7 +189,9 @@ export class PluginManager {
     const pluginLinksAndScripts = Object.values(this.plugins)
       .map(plugin => plugin.getPageNjkLinksAndScripts(frontmatter, content, this.config.baseUrl));
 
+    // eslint-disable-next-line lodash/prop-shorthand
     pageAsset.pluginLinks = _.flatMap(pluginLinksAndScripts, pluginResult => pluginResult.links);
+    // eslint-disable-next-line lodash/prop-shorthand
     pageAsset.pluginScripts = _.flatMap(pluginLinksAndScripts, pluginResult => pluginResult.scripts);
   }
 

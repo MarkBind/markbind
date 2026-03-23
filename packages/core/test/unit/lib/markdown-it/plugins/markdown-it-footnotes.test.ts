@@ -1,6 +1,6 @@
 import markdownIt from 'markdown-it';
 
-import { footnotePlugin } from '../../../../../src/lib/markdown-it/plugins/markdown-it-footnotes';
+import { footnotePlugin } from '../../../../../src/lib/markdown-it/plugins/markdown-it-footnotes.js';
 
 describe('markdown-it-footnotes plugin', () => {
   let md: markdownIt;

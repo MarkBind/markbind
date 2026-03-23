@@ -1,6 +1,6 @@
 import cheerio from 'cheerio';
-import escapeRegExp from 'lodash/escapeRegExp';
-import { FrontMatter, PluginContext } from './Plugin';
+import _ from 'lodash';
+import { FrontMatter, PluginContext } from './Plugin.js';
 
 /**
  * Filters out elements on the page based on config tags
@@ -14,7 +14,7 @@ function filterTags(tags: string[], content: string) {
   const $ = cheerio.load(content);
   const tagOperations = tags.map(tag => ({
     // Trim leading + or -, replace * with .*, add ^ and $
-    tagExp: `^${escapeRegExp(tag.replace(/^(\+|-)/g, '')).replace(/\\\*/, '.*')}$`,
+    tagExp: `^${_.escapeRegExp(tag.replace(/^(\+|-)/g, '')).replace(/\\\*/, '.*')}$`,
     // Whether it is makes tags visible or hides them
     isHidden: tag.startsWith('-'),
   }));
@@ -37,10 +37,12 @@ function filterTags(tags: string[], content: string) {
   return $.html();
 }
 
-export = {
-  postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => {
-    // Tags specified in site.json will be merged with tags specified in frontmatter
-    const mergedTags = (frontmatter.tags || []).concat(pluginContext.tags || []);
-    return filterTags(mergedTags, content);
-  },
+const postRender = (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => {
+  // Tags specified in site.json will be merged with tags specified in frontmatter
+  const mergedTags = (frontmatter.tags || []).concat(pluginContext.tags || []);
+  return filterTags(mergedTags, content);
+};
+
+export {
+  postRender,
 };
