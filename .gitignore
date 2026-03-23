@@ -86,7 +86,7 @@ packages/cli/test/functional/test_site_templates/test_project/expected/diagrams/
 dangerfile.js
 
 # --- packages/core ---
-# Generate vue-module in case it doesn't get cleaned up (PageVueServerRenderer)
+# Generated vue-module in case it doesn't get cleaned up (PageVueServerRenderer)
 **/vue-module*.cjs
 
 # Ignore JS files that are compiled from TS
