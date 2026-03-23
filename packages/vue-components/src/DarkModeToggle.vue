@@ -1,6 +1,5 @@
 <template>
   <button
-    v-if="enabled"
     type="button"
     class="btn btn-sm btn-outline-secondary dark-mode-toggle"
     :aria-label="buttonLabel"
@@ -51,7 +50,6 @@ function isStoredTheme(theme) {
 export default {
   data() {
     return {
-      enabled: typeof window !== 'undefined' && window.__MARKBIND_DARK_MODE__ === true,
       resolvedTheme: LIGHT_THEME,
       themePreference: null,
       mediaQueryList: null,
@@ -65,9 +63,6 @@ export default {
     },
   },
   mounted() {
-    if (!this.enabled) {
-      return;
-    }
     this.themePreference = this.getStoredThemePreference();
     this.applyTheme(this.themePreference);
 
