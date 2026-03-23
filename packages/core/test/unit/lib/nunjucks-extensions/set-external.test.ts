@@ -1,6 +1,6 @@
 import nunjucks from 'nunjucks';
 import path from 'path';
-import { SetExternalExtension } from '../../../../src/lib/nunjucks-extensions/set-external';
+import { SetExternalExtension } from '../../../../src/lib/nunjucks-extensions/set-external.js';
 
 test('does not render the header row when noHeader is not set', () => {
   const nj = nunjucks.configure({});

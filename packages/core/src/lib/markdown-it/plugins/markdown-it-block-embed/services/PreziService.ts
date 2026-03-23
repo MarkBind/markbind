@@ -1,7 +1,7 @@
 // Copyright (c) Rotorz Limited and portions by original markdown-it-video authors
 // Licensed under the MIT license. See LICENSE file in the project root.
 
-import VideoServiceBase, { VideoServiceOptions } from './VideoServiceBase';
+import VideoServiceBase, { VideoServiceOptions } from './VideoServiceBase.js';
 
 export interface PreziOptions extends VideoServiceOptions {
   width?: number;

@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import * as logger from './logger';
+import * as logger from './logger.js';
 
 function logWarningForMissingTbody(rootNode: cheerio.Root, path: string) {
   const tables = rootNode('table');

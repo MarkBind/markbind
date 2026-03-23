@@ -3,5 +3,7 @@
   "exclude": ["node_modules", "**/*.test.ts"],
   "compilerOptions": {
     "composite": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
   },
 }

@@ -1,6 +1,7 @@
 import markdownIt from 'markdown-it';
 
-import blockEmbedPlugin from '../../../../../src/lib/markdown-it/plugins/markdown-it-block-embed';
+import { setup as blockEmbedPlugin }
+  from '../../../../../src/lib/markdown-it/plugins/markdown-it-block-embed/index.js';
 
 describe('markdown-it-block-embed plugin', () => {
   let md: markdownIt;

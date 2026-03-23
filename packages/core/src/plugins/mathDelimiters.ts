@@ -1,8 +1,7 @@
 import katex from 'katex';
-import { PluginContext } from './Plugin';
-import md from '../lib/markdown-it';
-
-const texmath = require('markdown-it-texmath');
+import texmath from 'markdown-it-texmath';
+import { PluginContext } from './Plugin.js';
+import { markdownIt as md } from '../lib/markdown-it/index.js';
 
 let pluginAdded = false;
 
@@ -18,6 +17,8 @@ function mathDelimiters(pluginContext: PluginContext) {
   }
 }
 
-export = {
-  beforeSiteGenerate: (pluginContext: PluginContext) => mathDelimiters(pluginContext),
+const beforeSiteGenerate = (pluginContext: PluginContext) => mathDelimiters(pluginContext);
+
+export {
+  beforeSiteGenerate,
 };

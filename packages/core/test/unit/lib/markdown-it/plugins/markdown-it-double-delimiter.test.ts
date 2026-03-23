@@ -2,7 +2,7 @@ import markdownIt from 'markdown-it';
 
 import {
   createDoubleDelimiterInlineRule,
-} from '../../../../../src/lib/markdown-it/plugins/markdown-it-double-delimiter';
+} from '../../../../../src/lib/markdown-it/plugins/markdown-it-double-delimiter.js';
 
 describe('markdown-it-double-delimiter plugin', () => {
   let md: markdownIt;

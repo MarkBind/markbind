@@ -7,19 +7,23 @@ import cheerio from 'cheerio';
 import fs from 'fs';
 import path from 'path';
 import { exec } from 'child_process';
-import crypto = require('crypto');
+import { createHash } from 'crypto';
+import { fileURLToPath } from 'url';
 
-import * as fsUtil from '../../utils/fsUtil';
-import * as logger from '../../utils/logger';
-import * as urlUtil from '../../utils/urlUtil';
-import { PluginContext } from '../Plugin';
-import { NodeProcessorConfig } from '../../html/NodeProcessor';
-import { MbNode } from '../../utils/node';
-import LockManager from '../../utils/LockManager';
+import * as fsUtil from '../../utils/fsUtil.js';
+import * as logger from '../../utils/logger.js';
+import * as urlUtil from '../../utils/urlUtil.js';
+import { PluginContext } from '../Plugin.js';
+import { NodeProcessorConfig } from '../../html/NodeProcessor.js';
+import { MbNode } from '../../utils/node.js';
+import { instance as LockManager } from '../../utils/LockManager.js';
 
 interface DiagramStatus {
   hashKey: string;
 }
+
+const __filepath = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filepath);
 
 const JAR_PATH = path.resolve(__dirname, 'plantuml.jar');
 
@@ -42,7 +46,7 @@ let graphvizCheckCompleted = false;
  * @param content puml dsl used to generate the puml diagram
  */
 function generateDiagram(imageOutputPath: string, content: string) {
-  const hashKey = crypto.createHash('md5').update(imageOutputPath + content).digest('hex').toString();
+  const hashKey = createHash('md5').update(imageOutputPath + content).digest('hex').toString();
 
   // Avoid generating twice
   if (processedDiagrams.has(imageOutputPath) && processedDiagrams.get(imageOutputPath)?.hashKey === hashKey) {
@@ -94,86 +98,90 @@ function generateDiagram(imageOutputPath: string, content: string) {
   });
 }
 
-export = {
-  tagConfig: {
-    puml: {
-      isSpecial: true,
-      attributes: [
-        {
-          name: 'name',
-          isRelative: true,
-        },
-        {
-          name: 'src',
-          isRelative: true,
-          isSourceFile: true,
-        },
-      ],
-    },
-  },
+const beforeSiteGenerate = () => {
+  graphvizCheckCompleted = false;
+};
 
-  beforeSiteGenerate: () => {
-    graphvizCheckCompleted = false;
+const tagConfig = {
+  puml: {
+    isSpecial: true,
+    attributes: [
+      {
+        name: 'name',
+        isRelative: true,
+      },
+      {
+        name: 'src',
+        isRelative: true,
+        isSourceFile: true,
+      },
+    ],
   },
+};
 
-  processNode: (_pluginContext: PluginContext, node: MbNode, config: NodeProcessorConfig) => {
-    if (node.name !== 'puml') {
+const processNode = (_pluginContext: PluginContext, node: MbNode, config: NodeProcessorConfig) => {
+  if (node.name !== 'puml') {
+    return;
+  }
+  if (process.platform !== 'win32' && config.plantumlCheck && !graphvizCheckCompleted) {
+    exec(`java -jar "${JAR_PATH}" -testdot`, (_error, _stdout, stderr) => {
+      if (stderr.includes('Error: No dot executable found')) {
+        logger.warn('You are using PlantUML diagrams but Graphviz is not installed!');
+      }
+    });
+    graphvizCheckCompleted = true;
+  }
+
+  node.name = 'pic';
+
+  let pumlContent;
+  let pathFromRootToImage;
+
+  if (node.attribs.src) {
+    const srcWithoutBaseUrl = urlUtil.stripBaseUrl(node.attribs.src, config.baseUrl);
+    const srcWithoutLeadingSlash = srcWithoutBaseUrl.startsWith('/')
+      ? srcWithoutBaseUrl.substring(1)
+      : srcWithoutBaseUrl;
+
+    const rawPath = path.resolve(config.rootPath, srcWithoutLeadingSlash);
+    try {
+      pumlContent = fs.readFileSync(rawPath, 'utf8');
+    } catch (err) {
+      logger.debug(err as string);
+      logger.error(`Error reading ${rawPath} for <puml> tag`);
       return;
     }
-    if (process.platform !== 'win32' && config.plantumlCheck && !graphvizCheckCompleted) {
-      exec(`java -jar "${JAR_PATH}" -testdot`, (_error, _stdout, stderr) => {
-        if (stderr.includes('Error: No dot executable found')) {
-          logger.warn('You are using PlantUML diagrams but Graphviz is not installed!');
-        }
-      });
-      graphvizCheckCompleted = true;
-    }
 
-    node.name = 'pic';
+    pathFromRootToImage = fsUtil.setExtension(srcWithoutLeadingSlash, PUML_EXT);
+    node.attribs.src = fsUtil.ensurePosix(fsUtil.setExtension(node.attribs.src, PUML_EXT));
+  } else {
+    pumlContent = cheerio(node).text();
 
-    let pumlContent;
-    let pathFromRootToImage;
+    if (node.attribs.name) {
+      const nameWithoutBaseUrl = urlUtil.stripBaseUrl(node.attribs.name, config.baseUrl);
+      const nameWithoutLeadingSlash = nameWithoutBaseUrl.startsWith('/')
+        ? nameWithoutBaseUrl.substring(1)
+        : nameWithoutBaseUrl;
+      pathFromRootToImage = fsUtil.ensurePosix(fsUtil.setExtension(nameWithoutLeadingSlash, PUML_EXT));
 
-    if (node.attribs.src) {
-      const srcWithoutBaseUrl = urlUtil.stripBaseUrl(node.attribs.src, config.baseUrl);
-      const srcWithoutLeadingSlash = srcWithoutBaseUrl.startsWith('/')
-        ? srcWithoutBaseUrl.substring(1)
-        : srcWithoutBaseUrl;
-
-      const rawPath = path.resolve(config.rootPath, srcWithoutLeadingSlash);
-      try {
-        pumlContent = fs.readFileSync(rawPath, 'utf8');
-      } catch (err) {
-        logger.debug(err as string);
-        logger.error(`Error reading ${rawPath} for <puml> tag`);
-        return;
-      }
-
-      pathFromRootToImage = fsUtil.setExtension(srcWithoutLeadingSlash, PUML_EXT);
-      node.attribs.src = fsUtil.ensurePosix(fsUtil.setExtension(node.attribs.src, PUML_EXT));
+      delete node.attribs.name;
     } else {
-      pumlContent = cheerio(node).text();
-
-      if (node.attribs.name) {
-        const nameWithoutBaseUrl = urlUtil.stripBaseUrl(node.attribs.name, config.baseUrl);
-        const nameWithoutLeadingSlash = nameWithoutBaseUrl.startsWith('/')
-          ? nameWithoutBaseUrl.substring(1)
-          : nameWithoutBaseUrl;
-        pathFromRootToImage = fsUtil.ensurePosix(fsUtil.setExtension(nameWithoutLeadingSlash, PUML_EXT));
-
-        delete node.attribs.name;
-      } else {
-        const normalizedContent = pumlContent.replace(/\r\n/g, '\n');
-        const hashedContent = crypto.createHash('md5').update(normalizedContent).digest('hex').toString();
-        pathFromRootToImage = `${hashedContent}${PUML_EXT}`;
-      }
-
-      node.attribs.src = `${config.baseUrl}/${pathFromRootToImage}`;
+      const normalizedContent = pumlContent.replace(/\r\n/g, '\n');
+      const hashedContent = createHash('md5').update(normalizedContent).digest('hex').toString();
+      pathFromRootToImage = `${hashedContent}${PUML_EXT}`;
     }
 
-    node.children = [];
+    node.attribs.src = `${config.baseUrl}/${pathFromRootToImage}`;
+  }
 
-    const imageOutputPath = path.resolve(config.outputPath, pathFromRootToImage);
-    generateDiagram(imageOutputPath, pumlContent);
-  },
+  node.children = [];
+
+  const imageOutputPath = path.resolve(config.outputPath, pathFromRootToImage);
+  generateDiagram(imageOutputPath, pumlContent);
+};
+
+export {
+  tagConfig,
+  beforeSiteGenerate,
+  processNode,
 };

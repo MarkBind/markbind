@@ -1,5 +1,5 @@
 import winston from 'winston';
-import type { ProgressBar } from '../lib/progress';
+import type { ProgressBar } from '../lib/progress/index.js';
 
 const { format } = winston;
 

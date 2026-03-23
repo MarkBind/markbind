@@ -1,5 +1,5 @@
-import { processCardStackAttributes } from '../../../src/html/cardStackProcessor';
-import { MbNode, parseHTML } from '../../../src/utils/node';
+import { processCardStackAttributes } from '../../../src/html/cardStackProcessor.js';
+import { MbNode, parseHTML } from '../../../src/utils/node.js';
 
 describe('processCardStackAttributes', () => {
   it('should do nothing when node has no children', () => {
