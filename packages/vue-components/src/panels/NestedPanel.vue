@@ -54,7 +54,7 @@
         <div
           ref="headerWrapper"
           :class="[{'header-wrapper-seamless': isSeamless}, 'header-wrapper card-title', cardType,
-                   {'text-white':!isLightBg && !isSeamless, 'header-transparent':!shouldShowHeader}]"
+                   {'text-body': !type && !isSeamless, 'header-transparent':!shouldShowHeader}]"
         >
           <slot name="header"></slot>
         </div>
@@ -63,14 +63,12 @@
             <panel-switch
               v-show="isExpandableCard && !noSwitchBool && !showCaret"
               :is-open="localExpanded"
-              :is-light-bg="isLightBg"
             />
             <button
               v-show="!noCloseBool"
               type="button"
               class="close-button btn"
-              :class="[isLightBg ? 'btn-outline-secondary' : 'btn-outline-light',
-                       { 'seamless-button': isSeamless }]"
+              :class="['btn-panel', { 'seamless-button': isSeamless }]"
               @click.stop="close()"
             >
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -79,8 +77,7 @@
               v-show="popupUrl"
               type="button"
               class="popup-button btn"
-              :class="[isLightBg ? 'btn-outline-secondary' : 'btn-outline-light',
-                       { 'seamless-button': isSeamless }]"
+              :class="['btn-panel', { 'seamless-button': isSeamless }]"
               @click.stop="openPopup()"
             >
               <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
@@ -171,12 +168,9 @@ export default {
         return 'bg-transparent';
       }
       if (!this.type) {
-        return '';
+        return 'bg-body-tertiary';
       }
-      return `bg-${this.type}`;
-    },
-    isLightBg() {
-      return !this.type || this.cardType === 'bg-light' || this.cardType === 'bg-warning';
+      return `text-bg-${this.type}`;
     },
   },
 };
@@ -258,12 +252,6 @@ export default {
         transition: 0.5s opacity;
     }
 
-    .card-container > .card:not([class*="bg-"]),
-    .card-container .card-header:not([class*="bg-"]),
-    .card-container .header-wrapper:not([class*="bg-"]) {
-        background-color: var(--bs-body-bg);
-        color: var(--bs-body-color);
-    }
 
     .card-heading {
         width: 100%;
@@ -271,6 +259,7 @@ export default {
 
     .card-seamless {
         background-color: inherit;
+        color: inherit;
     }
 
     .card-title {
@@ -372,9 +361,8 @@ export default {
         color: inherit;
     }
 
-    [data-bs-theme="dark"] .card-container > .card.bg-light,
-    [data-bs-theme="dark"] .card-container .card-header.bg-light,
-    [data-bs-theme="dark"] .card-container .header-wrapper.bg-light {
+    [data-bs-theme="dark"] .card-container .card-header.text-bg-light,
+    [data-bs-theme="dark"] .card-container .header-wrapper.text-bg-light {
         background-color: var(--bs-secondary-bg) !important;
         color: var(--bs-emphasis-color) !important;
         border-color: var(--bs-border-color) !important;
