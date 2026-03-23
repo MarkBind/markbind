@@ -1,15 +1,14 @@
-import { SiteAssetsManager } from './SiteAssetsManager';
-import { SiteDeployManager } from './SiteDeployManager';
-import { SiteGenerationManager } from './SiteGenerationManager';
-import { SitePagesManager } from './SitePagesManager';
-import { SiteConfig } from './SiteConfig';
-import * as logger from '../utils/logger';
+import { SiteAssetsManager } from './SiteAssetsManager.js';
+import { SiteDeployManager } from './SiteDeployManager.js';
+import { SiteGenerationManager } from './SiteGenerationManager.js';
+import { SitePagesManager } from './SitePagesManager.js';
+import { SiteConfig } from './SiteConfig.js';
+import * as logger from '../utils/logger.js';
 import {
   SITE_CONFIG_NAME,
-} from './constants';
+} from './constants.js';
 
-// Change when migrated to TypeScript
-require('../patches/htmlparser2');
+import '../patches/htmlparser2.js';
 
 export class Site {
   isDevMode: boolean;

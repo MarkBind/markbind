@@ -1,4 +1,3 @@
-
 /**
  * According to markdown spec, all non-block html tags are treated as "inline"
  * tags (wrapped with <p></p>), including those "unknown" tags
@@ -84,4 +83,4 @@ const inlineTags = [
   'wbr',
 ];
 
-export = inlineTags;
+export { inlineTags };

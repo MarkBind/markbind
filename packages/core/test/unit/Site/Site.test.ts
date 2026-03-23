@@ -1,11 +1,11 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { Site } from '../../../src/Site';
-import { Template } from '../../../src/Site/template';
+import { Site } from '../../../src/Site/index.js';
+import { Template } from '../../../src/Site/template.js';
 
 import {
   INDEX_MD_DEFAULT, PAGE_NJK, SITE_JSON_DEFAULT, getDefaultTemplateFileFullPath,
-} from '../utils/data';
+} from '../utils/data.js';
 
 const DEFAULT_TEMPLATE = 'default';
 const mockFs = fs as any;

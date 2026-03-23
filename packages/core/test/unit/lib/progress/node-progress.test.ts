@@ -1,4 +1,4 @@
-import { ProgressBar } from '../../../../src/lib/progress/node-progress';
+import { ProgressBar } from '../../../../src/lib/progress/node-progress.js';
 
 describe('ProgressBar', () => {
   let mockStream: any;

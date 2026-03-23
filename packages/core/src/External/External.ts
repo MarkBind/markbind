@@ -1,10 +1,10 @@
 import fs from 'fs-extra';
 import path from 'path';
-import * as jsBeautify from 'js-beautify';
-import { PageSources } from '../Page/PageSources';
-import { NodeProcessor } from '../html/NodeProcessor';
-import * as fsUtil from '../utils/fsUtil';
-import type { ExternalManager, ExternalManagerConfig } from './ExternalManager';
+import jsBeautify from 'js-beautify';
+import { PageSources } from '../Page/PageSources.js';
+import { NodeProcessor } from '../html/NodeProcessor.js';
+import * as fsUtil from '../utils/fsUtil.js';
+import type { ExternalManager, ExternalManagerConfig } from './ExternalManager.js';
 
 const htmlBeautify = jsBeautify.html;
 

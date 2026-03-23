@@ -1,5 +1,5 @@
-import shorthandSyntaxPlugin from '../../../../src/plugins/default/markbind-plugin-shorthandSyntax';
-import { MbNode, parseHTML } from '../../../../src/utils/node';
+import * as shorthandSyntaxPlugin from '../../../../src/plugins/default/markbind-plugin-shorthandSyntax.js';
+import { MbNode, parseHTML } from '../../../../src/utils/node.js';
 
 /*
 The plugin converts the following shorthand syntax:

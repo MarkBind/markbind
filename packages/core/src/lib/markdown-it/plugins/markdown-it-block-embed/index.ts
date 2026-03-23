@@ -3,9 +3,9 @@
 
 import MarkdownIt from 'markdown-it';
 
-import PluginEnvironment from './PluginEnvironment';
-import renderer from './renderer';
-import { createTokenizer } from './tokenizer';
+import PluginEnvironment from './PluginEnvironment.js';
+import renderer from './renderer.js';
+import { createTokenizer } from './tokenizer.js';
 
 export type UrlFilterDelegate = (
   url: string,
@@ -24,12 +24,12 @@ export interface BlockEmbedOptions {
   [serviceConfig: string]: any;
 }
 
-export default function setup(md: MarkdownIt, options?: BlockEmbedOptions) {
+export function setup(md: MarkdownIt, options?: BlockEmbedOptions) {
   const normalizedOptions: BlockEmbedOptions = options ?? {};
-  let env = new PluginEnvironment(md, normalizedOptions);
+  const env = new PluginEnvironment(md, normalizedOptions);
 
-  md.block.ruler.before("fence", "video", createTokenizer(env.services), {
-    alt: [ "paragraph", "reference", "blockquote", "list" ]
+  md.block.ruler.before('fence', 'video', createTokenizer(env.services), {
+    alt: ['paragraph', 'reference', 'blockquote', 'list'],
   });
-  md.renderer.rules["video"] = renderer.bind(env);
+  md.renderer.rules.video = renderer.bind(env);
 }

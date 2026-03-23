@@ -1,5 +1,5 @@
 import { encode } from 'html-entities';
-import { MbNode, NodeOrText } from '../utils/node';
+import { MbNode, NodeOrText } from '../utils/node.js';
 
 export type CardStackTagConfig = { name: string; color?: string };
 

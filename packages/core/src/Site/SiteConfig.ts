@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
-import { FrontMatter } from '../plugins/Plugin';
+import { FrontMatter } from '../plugins/Plugin.js';
 
 const HEADING_INDEXING_LEVEL_DEFAULT = 3;
 

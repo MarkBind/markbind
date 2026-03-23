@@ -1,18 +1,23 @@
 import path from 'path';
-import has from 'lodash/has';
+import _ from 'lodash';
 import parse from 'url-parse';
-import ignore from 'ignore';
+import { createRequire } from 'module';
+import type { Ignore } from 'ignore';
 
-import * as fsUtil from '../utils/fsUtil';
-import * as logger from '../utils/logger';
-import * as urlUtil from '../utils/urlUtil';
+import * as fsUtil from '../utils/fsUtil.js';
+import * as logger from '../utils/logger.js';
+import * as urlUtil from '../utils/urlUtil.js';
 
-import { PluginManager } from '../plugins/PluginManager';
-import type { NodeProcessorConfig } from './NodeProcessor';
-import type { PageSources } from '../Page/PageSources';
-import { MbNode } from '../utils/node';
+import { PluginManager } from '../plugins/PluginManager.js';
+import type { NodeProcessorConfig } from './NodeProcessor.js';
+import type { PageSources } from '../Page/PageSources.js';
+import { MbNode } from '../utils/node.js';
 
-const _ = { has };
+const require = createRequire(import.meta.url);
+// `ignore` is a CJS package with no `exports` field. Under NodeNext, TS resolves
+// the default import as the module namespace (not callable). Using require() returns
+// module.exports directly, which is the callable factory function
+const ignore: (opts?: { ignorecase?: boolean }) => Ignore = require('ignore');
 
 const pluginTagConfig = PluginManager.tagConfig;
 

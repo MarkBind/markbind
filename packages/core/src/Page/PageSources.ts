@@ -1,6 +1,4 @@
-import clone from 'lodash/clone';
-
-const _ = { clone };
+import _ from 'lodash';
 
 interface Src {
   to: string,

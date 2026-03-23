@@ -1,6 +1,7 @@
 import markdownIt from 'markdown-it';
 
-import { altFrontmatterPlugin } from '../../../../../src/lib/markdown-it/plugins/markdown-it-alt-frontmatter';
+import { altFrontmatterPlugin }
+  from '../../../../../src/lib/markdown-it/plugins/markdown-it-alt-frontmatter.js';
 
 describe('markdown-it-alt-frontmatter plugin', () => {
   let md: markdownIt;

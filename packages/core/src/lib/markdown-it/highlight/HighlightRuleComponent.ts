@@ -1,4 +1,4 @@
-import { splitCodeAndIndentation } from './helper';
+import { splitCodeAndIndentation } from './helper.js';
 
 const LINESLICE_CHAR_REGEX = /(\+?)(\d+)\[(\d*):(\d*)]/;
 const LINESLICE_WORD_REGEX = /(\d+)\[(\d*)::(\d*)]/;

@@ -1,5 +1,5 @@
-import { MbNode, parseHTML } from '../../../src/utils/node';
-import { getNewSiteLinkManager } from '../utils/utils';
+import { MbNode, parseHTML } from '../../../src/utils/node.js';
+import { getNewSiteLinkManager } from '../utils/utils.js';
 
 const fs = require('fs');
 

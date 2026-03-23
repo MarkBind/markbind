@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import { PluginContext, FrontMatter } from './Plugin';
+import { PluginContext, FrontMatter } from './Plugin.js';
 
 const DEFAULT_CDN_ADDRESS = 'https://unpkg.com/mermaid@10/dist/mermaid.esm.min.mjs';
 
@@ -86,22 +86,26 @@ function genScript(address: string) {
   </script>`;
 }
 
-export = {
-  tagConfig: {
-    mermaid: {
-      isSpecial: true,
-    },
+const tagConfig = {
+  mermaid: {
+    isSpecial: true,
   },
-  getScripts: (pluginContext: PluginContext) => [genScript(pluginContext.address)],
-  postRender: (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => {
-    const $ = cheerio.load(content);
-    const mermaidTags = $('mermaid');
-    if (mermaidTags.length > 0) {
-      mermaidTags.each((index: number, node: cheerio.Element) => {
-        const $node = $(node);
-        $node.replaceWith(`<pre class="mermaid">${$node.html()}</pre>`);
-      });
-    }
-    return $.html();
-  },
+};
+const getScripts = (pluginContext: PluginContext) => [genScript(pluginContext.address)];
+const postRender = (pluginContext: PluginContext, frontmatter: FrontMatter, content: string) => {
+  const $ = cheerio.load(content);
+  const mermaidTags = $('mermaid');
+  if (mermaidTags.length > 0) {
+    mermaidTags.each((index: number, node: cheerio.Element) => {
+      const $node = $(node);
+      $node.replaceWith(`<pre class="mermaid">${$node.html()}</pre>`);
+    });
+  }
+  return $.html();
+};
+
+export {
+  tagConfig,
+  getScripts,
+  postRender,
 };

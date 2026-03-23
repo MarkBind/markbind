@@ -1,9 +1,9 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { SiteGenerationManager } from '../../../src/Site/SiteGenerationManager';
+import { SiteGenerationManager } from '../../../src/Site/SiteGenerationManager.js';
 import {
   PAGE_NJK, SITE_JSON_DEFAULT,
-} from '../utils/data';
+} from '../utils/data.js';
 
 // We use 'memfs' (via the mocked 'fs' module) to simulate a file system in memory.
 // This ensures that no actual files are written to the disk during testing,
@@ -37,8 +37,8 @@ jest.mock('../../../src/Site/SitePagesManager', () => ({
 }));
 
 // Access mocked constructors to create instances for injection
-const { SiteAssetsManager } = require('../../../src/Site/SiteAssetsManager');
-const { SitePagesManager } = require('../../../src/Site/SitePagesManager');
+const { SiteAssetsManager } = require('../../../src/Site/SiteAssetsManager.js');
+const { SitePagesManager } = require('../../../src/Site/SitePagesManager.js');
 
 const rootPath = '/tmp/test';
 const outputPath = '/tmp/test/_site';

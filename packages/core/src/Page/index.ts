@@ -1,34 +1,33 @@
 import cheerio from 'cheerio';
 import fs from 'fs-extra';
 import path from 'path';
-import { html as htmlBeautify } from 'js-beautify';
+import jsPkg from 'js-beautify';
 
-import cloneDeep from 'lodash/cloneDeep';
-import isObject from 'lodash/isObject';
-import isArray from 'lodash/isArray';
-import { pageVueServerRenderer } from './PageVueServerRenderer';
+import _ from 'lodash';
+import { pageVueServerRenderer } from './PageVueServerRenderer.js';
 
-import CyclicReferenceError from '../errors/CyclicReferenceError';
-import { PageSources } from './PageSources';
-import { NodeProcessor, NodeProcessorConfig } from '../html/NodeProcessor';
+import { CyclicReferenceError } from '../errors/CyclicReferenceError.js';
+import { PageSources } from './PageSources.js';
+import { NodeProcessor, NodeProcessorConfig } from '../html/NodeProcessor.js';
 
-import * as logger from '../utils/logger';
-import type { PageAssets, PageConfig } from './PageConfig';
-import type { SiteConfig } from '../Site/SiteConfig';
-import type { FrontMatter } from '../plugins/Plugin';
-import type { ExternalManager } from '../External/ExternalManager';
-import { MbNode } from '../utils/node';
-import { checkForVueHydrationViolation } from '../utils/htmlValidationUtil';
+import * as logger from '../utils/logger.js';
+import type { PageAssets, PageConfig } from './PageConfig.js';
+import type { SiteConfig } from '../Site/SiteConfig.js';
+import type { FrontMatter } from '../plugins/Plugin.js';
+import type { ExternalManager } from '../External/ExternalManager.js';
+import { MbNode } from '../utils/node.js';
+import { checkForVueHydrationViolation } from '../utils/htmlValidationUtil.js';
 
-import { LAYOUT_DEFAULT_NAME } from '../Layout';
+import { LAYOUT_DEFAULT_NAME } from '../Layout/index.js';
+import { instance as LockManager } from '../utils/LockManager.js';
+import packageJson from '../../package.json' with { type: 'json' };
 
-require('../patches/htmlparser2');
+import '../patches/htmlparser2.js';
 
-const _ = { cloneDeep, isObject, isArray };
-
-const LockManager = require('../utils/LockManager');
-
-const PACKAGE_VERSION = require('../../package.json').version;
+// Destructure for CJS interoperability.
+// Using ESM-style import does not work due to the fact that jsPkg is exported as a CJS module.
+const { html: htmlBeautify } = jsPkg;
+const PACKAGE_VERSION = packageJson.version;
 
 const TITLE_PREFIX_SEPARATOR = ' - ';
 const TITLE_SUFFIX_SEPARATOR = ' - ';

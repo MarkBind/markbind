@@ -1,13 +1,9 @@
-import has from 'lodash/has';
-import { getVslotShorthandName } from './vueSlotSyntaxProcessor';
-import type { MarkdownProcessor } from './MarkdownProcessor';
-import * as logger from '../utils/logger';
-import { createSlotTemplateNode } from './elements';
-import { MbNode, NodeOrText, parseHTML } from '../utils/node';
-
-const _ = {
-  has,
-};
+import _ from 'lodash';
+import { getVslotShorthandName } from './vueSlotSyntaxProcessor.js';
+import type { MarkdownProcessor } from './MarkdownProcessor.js';
+import * as logger from '../utils/logger.js';
+import { createSlotTemplateNode } from './elements.js';
+import { MbNode, NodeOrText, parseHTML } from '../utils/node.js';
 
 /**
  * Class that is responsible for rendering markdown-in-attributes
