@@ -33,8 +33,8 @@ a {
 }
 
 blockquote {
-    border-left: 0.25em solid #fff;
-    color: var(--bs-body-bg, inherit);
+    border-left: 0.25em solid var(--bs-border-color);
+    color: var(--bs-secondary-color);
     padding: 0 1rem;
 }
 
@@ -46,7 +46,7 @@ mark {
 }
 
 code {
-    background: #f8f8f8;
+    background: var(--bs-tertiary-bg);
     border-radius: 3px;
     padding: 0.2em 0.4em;
     word-break: normal;
@@ -110,7 +110,7 @@ pre > code.hljs[heading] {
 
     /* display line numbers beside each span */
     .hljs:not(.inline).line-numbers-print > span::before {
-        border-right: 1px solid #ddd;
+        border-right: 1px solid var(--bs-border-color);
         display: inline-block;
         color: #888;
         content: counter(line);
@@ -167,7 +167,7 @@ code.hljs.inline {
 
 .table-striped > thead,
 .table-striped > tbody > tr:nth-of-type(even) {
-    background-color: #fff;
+    background-color: var(--bs-body-bg);
 }
 
 /**
@@ -265,7 +265,7 @@ footer {
     }
 
     .navbar-nav .open .dropdown-menu {
-        background-color: #fff;
+        background-color: var(--bs-body-bg);
     }
 }
 
@@ -388,16 +388,7 @@ h6 {
     height: 100%;
 }
 
-[data-bs-theme="dark"] blockquote {
-    border-left-color: #495057;
-    color: #adb5bd;
-}
-
 /* stylelint-disable-next-line no-descending-specificity */
-[data-bs-theme="dark"] code {
-    background: #2b3035;
-}
-
 [data-bs-theme="dark"] mark code {
     background: rgb(255 248 198 / 25%);
 }
@@ -410,10 +401,6 @@ h6 {
     color: #e9ecef;
 }
 
-[data-bs-theme="dark"] .table-striped > thead,
-[data-bs-theme="dark"] .table-striped > tbody > tr:nth-of-type(even) {
-    background-color: #212529;
-}
 
 [data-bs-theme="dark"] footer {
     background-color: #1a1d20;
@@ -424,9 +411,6 @@ h6 {
     color: #adb5bd;
 }
 
-[data-bs-theme="dark"] .navbar-nav .open .dropdown-menu {
-    background-color: #212529;
-}
 
 [data-bs-theme="dark"] li.footnote-item:target {
     background-color: #343a40;
@@ -434,7 +418,6 @@ h6 {
 
 [data-bs-theme="dark"] .hljs:not(.inline).line-numbers > span::before,
 [data-bs-theme="dark"] .hljs:not(.inline).line-numbers-print > span::before {
-    border-right-color: #495057;
     color: #adb5bd;
 }
 

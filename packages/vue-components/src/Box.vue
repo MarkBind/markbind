@@ -385,7 +385,7 @@ export default {
     }
 
     .alert-border-left {
-        background-color: #f9f8f8;
+        background-color: var(--bs-tertiary-bg);
         border-left: solid;
         border-width: 0 0 0 5px;
     }
@@ -394,10 +394,6 @@ export default {
         color: #e9ecef;
         background-color: #2b3035;
         border-color: #495057;
-    }
-
-    [data-bs-theme="dark"] .alert-border-left {
-        background-color: #2b3035;
     }
 
     .vertical-divider {

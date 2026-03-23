@@ -78,14 +78,10 @@ export default {
 
     @media print {
         .printable-tab-group {
-            border: 1px solid #dee2e6;
+            border: 1px solid var(--bs-border-color);
             border-radius: 5px;
             padding: 10px;
             margin: 10px 0;
-        }
-
-        [data-bs-theme="dark"] .printable-tab-group {
-            border-color: #495057;
         }
 
         .printable-tab-group-header {

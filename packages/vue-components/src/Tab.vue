@@ -95,11 +95,7 @@ export default {
         .printable-tab-header {
             display: flex;
             margin-bottom: 15px;
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        [data-bs-theme="dark"] .printable-tab-header {
-            border-bottom-color: #495057;
+            border-bottom: 1px solid var(--bs-border-color);
         }
 
         .printable-tab-header > div {

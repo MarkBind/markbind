@@ -115,13 +115,9 @@ export default {
 
     @media print {
         .printable-tabs {
-            border: 1px solid #dee2e6;
+            border: 1px solid var(--bs-border-color);
             border-radius: 5px;
             padding: 20px;
-        }
-
-        [data-bs-theme="dark"] .printable-tabs {
-            border-color: #495057;
         }
     }
 </style>
