@@ -3,6 +3,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import walkSync from 'walk-sync';
+import * as pagefind from 'pagefind';
 
 import { SiteAssetsManager } from './SiteAssetsManager.js';
 import { SitePagesManager, AddressablePage } from './SitePagesManager.js';
@@ -939,15 +940,13 @@ export class SiteGenerationManager {
   }
 
   /**
-   * Helper method to dynamically import pagefind module.
-   * This wraps the eval-based import to make it mockable for testing.
+   * Helper method to get the pagefind module.
+   * Uses static import for ESM compatibility.
    * @returns The pagefind module
    */
   // eslint-disable-next-line class-methods-use-this
-  protected async getPagefind() {
-    // TODO: Update this dynamic import to a static import when migrating to ESM
-    // eslint-disable-next-line no-eval
-    return eval('import("pagefind")') as Promise<typeof import('pagefind')>;
+  protected getPagefind() {
+    return pagefind;
   }
 
   /**

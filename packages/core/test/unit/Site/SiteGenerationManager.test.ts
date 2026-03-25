@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs-extra';
+import * as pagefind from 'pagefind';
 import { SiteGenerationManager } from '../../../src/Site/SiteGenerationManager.js';
 import {
   PAGE_NJK, SITE_JSON_DEFAULT,
@@ -7,7 +8,6 @@ import {
   createMockIndex,
   createMockPagefind,
   createMockPagefindNullIndex,
-  createMockPagefindReject,
 } from '../utils/data.js';
 import * as logger from '../../../src/utils/logger.js';
 
@@ -198,21 +198,21 @@ describe('SiteGenerationManager', () => {
       };
       mockFs.vol.fromJSON(json, rootPath);
 
-      const mockPagefind = createMockPagefind(createMockIndex({ page_count: 5, errors: [] }));
-      const getPagefindSpy = jest.spyOn(generationManager as any, 'getPagefind')
-        .mockResolvedValue(mockPagefind);
+      const mockPagefindInstance = createMockPagefind(createMockIndex({ page_count: 5, errors: [] }));
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
 
       await generationManager.readSiteConfig();
       await generationManager.indexSiteWithPagefind();
 
-      expect(getPagefindSpy).toHaveBeenCalled();
-      expect(mockPagefind.createIndex).toHaveBeenCalledWith({
+      expect(pagefindSpy).toHaveBeenCalledWith({
         keepIndexUrl: true,
         verbose: true,
         logfile: 'debug.log',
       });
 
-      getPagefindSpy.mockRestore();
+      pagefindSpy.mockRestore();
     });
 
     test('should use excludeSelectors from pagefind config', async () => {
@@ -227,21 +227,22 @@ describe('SiteGenerationManager', () => {
         '_site/index.html': '<html><body>Test</body></html>',
       }, rootPath);
 
-      const mockPagefind = createMockPagefind(createMockIndex({ page_count: 1, errors: [] }));
-      const getPagefindSpy = jest.spyOn(generationManager as any, 'getPagefind')
-        .mockResolvedValue(mockPagefind);
+      const mockPagefindInstance = createMockPagefind(createMockIndex({ page_count: 1, errors: [] }));
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
 
       await generationManager.readSiteConfig();
       await generationManager.indexSiteWithPagefind();
 
-      expect(mockPagefind.createIndex).toHaveBeenCalledWith({
+      expect(pagefindSpy).toHaveBeenCalledWith({
         keepIndexUrl: true,
         verbose: true,
         logfile: 'debug.log',
         excludeSelectors: ['.no-index', '#sidebar'],
       });
 
-      getPagefindSpy.mockRestore();
+      pagefindSpy.mockRestore();
     });
 
     test('should handle glob pattern as string', async () => {
@@ -257,9 +258,10 @@ describe('SiteGenerationManager', () => {
       }, rootPath);
 
       const mockIndex = createMockIndex({ page_count: 3, errors: [] });
-      const mockPagefind = createMockPagefind(mockIndex, true); // return index wrapped
-      const getPagefindSpy = jest.spyOn(generationManager as any, 'getPagefind')
-        .mockResolvedValue(mockPagefind);
+      const mockPagefindInstance = createMockPagefind(mockIndex, true);
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
 
       await generationManager.readSiteConfig();
       await generationManager.indexSiteWithPagefind();
@@ -269,7 +271,7 @@ describe('SiteGenerationManager', () => {
         glob: '**/docs/*.html',
       });
 
-      getPagefindSpy.mockRestore();
+      pagefindSpy.mockRestore();
     });
 
     test('should handle glob pattern as array', async () => {
@@ -285,9 +287,10 @@ describe('SiteGenerationManager', () => {
       }, rootPath);
 
       const mockIndex = createMockIndex({ page_count: 2, errors: [] });
-      const mockPagefind = createMockPagefind(mockIndex, true); // return index wrapped
-      const getPagefindSpy = jest.spyOn(generationManager as any, 'getPagefind')
-        .mockResolvedValue(mockPagefind);
+      const mockPagefindInstance = createMockPagefind(mockIndex, true);
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
 
       await generationManager.readSiteConfig();
       await generationManager.indexSiteWithPagefind();
@@ -302,7 +305,7 @@ describe('SiteGenerationManager', () => {
         glob: '**/guide/*.html',
       });
 
-      getPagefindSpy.mockRestore();
+      pagefindSpy.mockRestore();
     });
 
     test('should index all HTML files when no glob specified', async () => {
@@ -314,9 +317,10 @@ describe('SiteGenerationManager', () => {
       mockFs.vol.fromJSON(json, rootPath);
 
       const mockIndex = createMockIndex({ page_count: 10, errors: [] });
-      const mockPagefind = createMockPagefind(mockIndex, true); // return index wrapped
-      const getPagefindSpy = jest.spyOn(generationManager as any, 'getPagefind')
-        .mockResolvedValue(mockPagefind);
+      const mockPagefindInstance = createMockPagefind(mockIndex, true);
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
 
       await generationManager.readSiteConfig();
       await generationManager.indexSiteWithPagefind();
@@ -325,7 +329,7 @@ describe('SiteGenerationManager', () => {
         path: outputPath,
       });
 
-      getPagefindSpy.mockRestore();
+      pagefindSpy.mockRestore();
     });
 
     test('should log errors from addDirectory', async () => {
@@ -337,9 +341,10 @@ describe('SiteGenerationManager', () => {
       mockFs.vol.fromJSON(json, rootPath);
 
       const mockIndex = createMockIndex({ page_count: 1, errors: ['Error 1', 'Error 2'] });
-      const mockPagefind = createMockPagefind(mockIndex, true); // return index wrapped
-      const getPagefindSpy = jest.spyOn(generationManager as any, 'getPagefind')
-        .mockResolvedValue(mockPagefind);
+      const mockPagefindInstance = createMockPagefind(mockIndex, true);
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
       const errorSpy = jest.spyOn(logger, 'error').mockImplementation();
 
       await generationManager.readSiteConfig();
@@ -348,7 +353,7 @@ describe('SiteGenerationManager', () => {
       expect(errorSpy).toHaveBeenCalledWith('Error 1');
       expect(errorSpy).toHaveBeenCalledWith('Error 2');
 
-      getPagefindSpy.mockRestore();
+      pagefindSpy.mockRestore();
       errorSpy.mockRestore();
     });
 
@@ -360,9 +365,9 @@ describe('SiteGenerationManager', () => {
       };
       mockFs.vol.fromJSON(json, rootPath);
 
-      const mockPagefind = createMockPagefindReject(new Error('Module not found'));
-      const getPagefindSpy = jest.spyOn(generationManager as any, 'getPagefind')
-        .mockResolvedValue(mockPagefind);
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockRejectedValue(
+        new Error('Module not found'),
+      );
       const warnSpy = jest.spyOn(logger, 'warn').mockImplementation();
 
       await generationManager.readSiteConfig();
@@ -370,7 +375,7 @@ describe('SiteGenerationManager', () => {
 
       expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('Pagefind indexing skipped'));
 
-      getPagefindSpy.mockRestore();
+      pagefindSpy.mockRestore();
       warnSpy.mockRestore();
     });
 
@@ -382,9 +387,10 @@ describe('SiteGenerationManager', () => {
       };
       mockFs.vol.fromJSON(json, rootPath);
 
-      const mockPagefind = createMockPagefindNullIndex();
-      const getPagefindSpy = jest.spyOn(generationManager as any, 'getPagefind')
-        .mockResolvedValue(mockPagefind);
+      const mockPagefindInstance = createMockPagefindNullIndex();
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
       const errorSpy = jest.spyOn(logger, 'error').mockImplementation();
 
       await generationManager.readSiteConfig();
@@ -392,7 +398,7 @@ describe('SiteGenerationManager', () => {
 
       expect(errorSpy).toHaveBeenCalledWith('Pagefind failed to create index');
 
-      getPagefindSpy.mockRestore();
+      pagefindSpy.mockRestore();
       errorSpy.mockRestore();
     });
   });
