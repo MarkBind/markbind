@@ -117,5 +117,7 @@ packages/core/src/lib/markdown-it/patches/**/*.js
 .nx/cache
 .nx/workspace-data
 
+# AI tool-specific configuration
+.opencode
 # Build folder
 dist/
