@@ -1,5 +1,7 @@
 import winston from 'winston';
-import type { ProgressBar } from '../lib/progress';
+import type { ProgressBar } from '../lib/progress/index.js';
+
+const { format } = winston;
 
 let progressBar: ProgressBar | null = null;
 
@@ -10,61 +12,45 @@ const removeProgressBar = () => {
   progressBar = null;
 };
 
+const consoleFormat = format.combine(
+  format.colorize(),
+  format.errors({ stack: true }),
+  format.printf(info => `${info.level}: ${info.stack || info.message}`),
+);
+
 const consoleTransport = new winston.transports.Console({
-  colorize: true,
   handleExceptions: true,
-  humanReadableUnhandledException: true,
   level: 'debug',
-  showLevel: true,
 });
 
 winston.configure({
   exitOnError: false,
+  format: consoleFormat,
   transports: [consoleTransport],
 });
 
-// create a wrapper for error messages
-const errorWrap = (input: any) => {
+const createLoggerThatInterruptsProgressBar = (level: string) => (...args: any[]) => {
   if (progressBar) {
     progressBar.interruptBegin();
-    winston.error(input);
+    (winston as any).log(level, ...args);
     progressBar.interruptEnd();
   } else {
-    winston.error(input);
+    (winston as any).log(level, ...args);
   }
 };
 
-// create a wrapper for warning messages
-const warnWrap = (input: any) => {
-  if (progressBar) {
-    progressBar.interruptBegin();
-    winston.warn(input);
-    progressBar.interruptEnd();
-  } else {
-    winston.warn(input);
-  }
-};
-
-// create a wrapper for info messages
-const infoWrap = (input: any) => {
-  if (progressBar) {
-    progressBar.interruptBegin();
-    winston.info(input);
-    progressBar.interruptEnd();
-  } else {
-    winston.info(input);
-  }
-};
-
-const { debug } = winston;
-const { verbose } = winston;
+const errorWrap = createLoggerThatInterruptsProgressBar('error');
+const warnWrap = createLoggerThatInterruptsProgressBar('warn');
+const infoWrap = createLoggerThatInterruptsProgressBar('info');
+const verboseWrap = createLoggerThatInterruptsProgressBar('verbose');
+const debugWrap = createLoggerThatInterruptsProgressBar('debug');
 
 export {
   errorWrap as error,
   warnWrap as warn,
   infoWrap as info,
-  verbose,
-  debug,
+  verboseWrap as verbose,
+  debugWrap as debug,
   setProgressBar,
   removeProgressBar,
 };

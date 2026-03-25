@@ -1,4 +1,4 @@
-import LockManager from '../../../src/utils/LockManager';
+import { instance as LockManager } from '../../../src/utils/LockManager.js';
 
 describe('LockManager', () => {
   let lockManager: typeof LockManager;

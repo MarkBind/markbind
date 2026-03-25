@@ -1,17 +1,19 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { execSync } from 'child_process';
-import isError from 'lodash/isError';
+import _ from 'lodash';
 import { ExecSyncOptions } from 'node:child_process';
-import { cleanupConvert } from './testUtil/cleanup';
+import { fileURLToPath } from 'url';
+import { cleanupConvert } from './testUtil/cleanup.js';
 
 import {
   testSites,
   testConvertSites,
   testTemplateSites,
-} from './testSites';
+} from './testSites.js';
 
-const _ = { isError };
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const CLI_PATH = path.resolve(__dirname, '../../dist/index');
 
 /* eslint-disable no-console */
 function printFailedMessage(err: string, siteName: string) {
@@ -29,7 +31,7 @@ const execOptions: ExecSyncOptions = {
 testSites.forEach((siteName) => {
   console.log(`Updating ${siteName}`);
   try {
-    execSync(`node ../../index.js build ${siteName} ${siteName}/expected`, execOptions);
+    execSync(`node ${CLI_PATH} build ${siteName} ${siteName}/expected`, execOptions);
   } catch (err) {
     if (_.isError(err)) {
       printFailedMessage(err.message, siteName);
@@ -45,18 +47,18 @@ testConvertSites.forEach((siteName) => {
   const nonMarkBindSitePath = path.join(siteName, 'non_markbind_site');
   const expectedOutputDirectory = path.join(siteName, 'expected');
   try {
-    execSync(`node ../../index.js init ${nonMarkBindSitePath} -c`, execOptions);
-    execSync(`node ../../index.js build ${nonMarkBindSitePath} ${expectedOutputDirectory}`, execOptions);
+    execSync(`node ${CLI_PATH} init ${nonMarkBindSitePath} -c`, execOptions);
+    execSync(`node ${CLI_PATH} build ${nonMarkBindSitePath} ${expectedOutputDirectory}`, execOptions);
   } catch (err) {
     if (_.isError(err)) {
       printFailedMessage(err.message, siteName);
     } else {
       console.error(`Unknown error occurred ${err} for site ${siteName}`);
     }
-    cleanupConvert(path.resolve(__dirname, siteName));
+    cleanupConvert(siteName);
     process.exit(1);
   }
-  cleanupConvert(path.resolve(__dirname, siteName));
+  cleanupConvert(siteName);
 });
 
 testTemplateSites.forEach((templateAndSitePath) => {
@@ -67,18 +69,18 @@ testTemplateSites.forEach((templateAndSitePath) => {
 
   console.log(`Updating ${sitePath}`);
   try {
-    execSync(`node ../../index.js init ${siteCreationTempPath} --template ${flag}`, execOptions);
-    execSync(`node ../../index.js build ${siteCreationTempPath} ${expectedOutputDirectory}`, execOptions);
+    execSync(`node ${CLI_PATH} init ${siteCreationTempPath} --template ${flag}`, execOptions);
+    execSync(`node ${CLI_PATH} build ${siteCreationTempPath} ${expectedOutputDirectory}`, execOptions);
   } catch (err) {
     if (_.isError(err)) {
       printFailedMessage(err.message, sitePath);
     } else {
       console.error(`Unknown error occurred ${err} for site ${sitePath}`);
     }
-    fs.removeSync(path.resolve(__dirname, siteCreationTempPath));
+    fs.removeSync(siteCreationTempPath);
     process.exit(1);
   }
-  fs.removeSync(path.resolve(__dirname, siteCreationTempPath));
+  fs.removeSync(siteCreationTempPath);
 });
 
 console.log('Updated all test sites');

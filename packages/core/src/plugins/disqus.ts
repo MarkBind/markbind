@@ -1,6 +1,6 @@
 import cheerio from 'cheerio';
-import { MbNode } from '../utils/node';
-import { PluginContext } from './Plugin';
+import { MbNode } from '../utils/node.js';
+import { PluginContext } from './Plugin.js';
 
 function loadDisqus(pluginContext: PluginContext) {
   const config = `
@@ -8,7 +8,7 @@ function loadDisqus(pluginContext: PluginContext) {
 
     // strip baseUrl
     if (path.startsWith(baseUrl)) {
-      path = path.substring(baseUrl.length); 
+      path = path.substring(baseUrl.length);
     }
 
     const pathParams = path.split('/');
@@ -25,7 +25,7 @@ function loadDisqus(pluginContext: PluginContext) {
     // need to use var and ES5 function syntax to work
     var disqus_config = function() {
       this.page.identifier = path;
-    };   
+    };
   `;
 
   const load = `
@@ -35,7 +35,7 @@ function loadDisqus(pluginContext: PluginContext) {
   `;
 
   const lazyLoad = `
-    const options = { 
+    const options = {
       root: null,
       threshold: 1,
       rootMargin: '300px'
@@ -62,25 +62,27 @@ function loadDisqus(pluginContext: PluginContext) {
   `;
 }
 
-export = {
-  processNode: (pluginContext: PluginContext, node: MbNode) => {
-    if (node.name !== 'disqus') {
-      return;
-    }
+const processNode = (pluginContext: PluginContext, node: MbNode) => {
+  if (node.name !== 'disqus') {
+    return;
+  }
 
-    node.attribs['v-pre'] = '';
+  node.attribs['v-pre'] = '';
 
-    const $ = cheerio(node);
-    $.append('<div id="disqus_thread"></div>');
-    const script = `
-      <script>
-        const script = window.document.createElement('script');
-        script.innerHTML = \`${loadDisqus(pluginContext)}\`;
-        document.addEventListener("DOMContentLoaded", () => {
-          document.body.appendChild(script);
-        });
-      </script>
-    `;
-    $.append(script);
-  },
+  const $ = cheerio(node);
+  $.append('<div id="disqus_thread"></div>');
+  const script = `
+    <script>
+      const script = window.document.createElement('script');
+      script.innerHTML = \`${loadDisqus(pluginContext)}\`;
+      document.addEventListener("DOMContentLoaded", () => {
+        document.body.appendChild(script);
+      });
+    </script>
+  `;
+  $.append(script);
+};
+
+export {
+  processNode,
 };

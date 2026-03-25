@@ -39,11 +39,14 @@ Switch to use the Node.js version that you are migrating to.
     - Go to the [Node.js changelog](https://nodejs.org/en/blog/release) of the new version
     - Go through the list of deprecated syntax and check if it is being used in MarkBind
     - Replace any deprecated syntax
-2. Check that all user-facing functionalities are working
+1. Update Node type dependency
+    - TypeScript does not automatically know which version of Node.js you are using. You must update the `@types/node` package to match your target Node.js runtime so that the compiler can recognize new global variables, modules, and method signatures.
+    - Run `npm install -D @types/node@<new-version>` to install the new type definitions.
+1. Check that all user-facing functionalities are working
     - A quick way to do this is to go to the <a tags="environment--combined" href="/userGuide/readerFacingFeatures.html">Reader Facing Features in the User Guide</a><a tags="environment--dg" href="https://markbind.org/userGuide/readerFacingFeatures.html">Reader Facing Features in the User Guide</a>.
-3. Check that there are no issues with development setup
+1. Check that there are no issues with development setup
     - Set up the development environment by running through the steps in [Setting Up]({{baseUrl}}/devGuide/development/settingUp.html) to ensure there are no problems
-4. Update GitHubActions
+1. Update GitHubActions
     - Go to [MarkBind/markbind-action](https://github.com/MarkBind/markbind-action) and update the Node.js version numbers
         - See [Update node version from 14 to 16 PR](https://github.com/MarkBind/markbind-action/pull/8/files) for an example
     - Test there are no issues with workflows
@@ -51,7 +54,7 @@ Switch to use the Node.js version that you are migrating to.
           <box type="info" seamless header="If a different npm version is needed">
         
           Install correct version of npm in `action.yml` and `fork-build.yml`. Refer to [Update node version from 14 to 16 PR](https://github.com/MarkBind/markbind-action/pull/8/files) to see where npm install should be run. </box>
-5. Check deployment to Netlify/other platforms
+1. Check deployment to Netlify/other platforms
     - Deployment to Netlify
         - Follow steps in <a tags="environment--combined" href="/userGuide/deployingTheSite.html#deploying-to-netlify">Deploying to Netlify</a><a tags="environment--dg" href="https://markbind.org/userGuide/deployingTheSite.html#deploying-to-netlify">Deploying to Netlify</a> but change the `NODE_VERSION` value accordingly. Check there are no issues with deployment and deployed site is as expected.
         - MarkBind has two repos [init-minimal-netlify](https://github.com/MarkBind/init-minimal-netlify) and [init-typical-netlify](https://github.com/MarkBind/init-typical-netlify) which allows deployment to Netlify by using a config file. Update the config file `netlify.toml` with the correct Node.js version and check that deployment using button in `README` works as expected.
@@ -66,11 +69,11 @@ Switch to use the Node.js version that you are migrating to.
             - Follow steps in <a tags="environment--combined" href="/userGuide/deployingTheSite.html#using-ci-platforms">Using CI Platforms</a><a tags="environment--dg" href="https://markbind.org/userGuide/deployingTheSite.html#using-ci-platforms">Using CI Platforms</a> but update the config files for the various CI Platforms to use the correct Node.js version. Try deploying and ensure there are no problems with deployment.
               <box type="info" seamless header="If a different npm version is needed">
               Install the correct npm version before running npm commands. </box>
-6. Update documentation
+1. Update documentation
     - Update Node.js and npm version in documentation. See [Update to use Node 16](https://github.com/MarkBind/markbind/pull/2233/files#diff-0f8e38868f41667abec6adacbb5131fbd6999c4913fc43e3429390b744f7a1f3) as an example. <box type="tip" seamless>
       Don't forget to update the version numbers in the example config files in <a tags="environment--combined" href="/userGuide/deployingTheSite.html">Deploying the Site</a><a tags="environment--dg" href="https://markbind.org/userGuide/deployingTheSite.html">Deploying the Site</a>!
       </box>
-7. Update `neftlify.toml`
+1. Update `neftlify.toml`
     - The `neftlify.toml` file in the `markbind` repo's root directory is used to deploy our documentation site to Netlify. Update the `NODE_VERSION` value to the new Node.js version.
 
 {% from "njk/common.njk" import previous_next %}

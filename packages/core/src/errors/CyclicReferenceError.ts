@@ -9,4 +9,4 @@ class CyclicReferenceError extends Error {
   }
 }
 
-export = CyclicReferenceError;
+export { CyclicReferenceError };

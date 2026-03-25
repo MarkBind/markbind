@@ -21,16 +21,21 @@ An overview of MarkBind's Command Line Interface (CLI) can be referenced with `m
 ```
 $ markbind --help
 Usage: markbind <command>
- 
- Options:
-   -V, --version                      output the version number
-   -h, --help                         output usage information
- 
- Commands:
-   init|i [options] [root]            init a markbind website project
-   serve|s [options] [root]           build then serve a website from a directory
-   build|b [options] [root] [output]  build a website
-   deploy|d [options] [root]          deploy the latest build of the site to the repo's Github pages
+
+Options:
+  -V, --version                      output the version number
+  -h, --help                         display help for command
+
+Setup Commands
+  init|i [options] [root]            init a markbind site
+
+Site Commands
+  serve|s [options] [root]           Build then serve a website from a directory
+  build|b [options] [root] [output]  Build a website
+  deploy|d [options] [root]          Deploy the latest build of the site to GitHub Pages
+
+Commands:
+  help [command]                     display help for command
 ```
 <hr><!-- ========================================================================== -->
 <div id="markbind-init">
@@ -132,6 +137,9 @@ The caveat is that not building all pages during the initial process, or not reb
 * `-p <port>`, `--port <port>`<br>
     Serve the website in the specified port (Default is 8080).
 
+* `-v`, `--verbose`<br>
+    Enable verbose logging. This is useful for diagnosing page-specific errors (e.g., Vue rendering warnings) by showing which page is currently being processed.
+
 {{ icon_examples }}
 * `markbind serve` : Serves the site from the current working directory.
 * `markbind serve ./myWebsite` : Serves the site from the `./myWebsite` directory.
@@ -171,6 +179,9 @@ The caveat is that not building all pages during the initial process, or not reb
   Specify the site config file (default: `site.json`)<br>
   {{ icon_example }} `-s otherSite.json`
 
+* `-v`, `--verbose`<br>
+  Enable verbose logging. This is useful for diagnosing page-specific errors (e.g., Vue rendering warnings) by showing which page is currently being processed.
+
 **{{ icon_examples }}**
 * `markbind build` : Generates the site from the current working directory.
 * `markbind build ./myWebsite` : Generates the site from the `./myWebsite` directory.
@@ -209,6 +220,9 @@ The caveat is that not building all pages during the initial process, or not reb
 * `-s <file>`, `--site-config <file>`<br>
   Specify the site config file (default: `site.json`).<br>
   {{ icon_example }} `-s otherSite.json`
+
+* `-v`, `--verbose`<br>
+  Enable verbose logging. This is useful for diagnosing page-specific errors during the build phase of deployment.
 
 %%{{ icon_info }} Related: [User Guide: Deploying the Website](deployingTheSite.html).%%
 

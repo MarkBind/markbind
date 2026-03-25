@@ -12,6 +12,7 @@ module.exports = {
   },
   resolve: {
     modules: [path.resolve(__dirname), 'node_modules'],
+    extensions: ['.ts', '.js', '.vue', '.json'],
   },
   module: {
     rules: [
@@ -20,7 +21,7 @@ module.exports = {
         use: 'vue-loader',
       },
       {
-        test: /\.js$/,
+        test: /\.[jt]s$/,
         exclude: /node_modules|vue\/src|vue-router\/|vue-loader\/|vue-hot-reload-api\//,
         use: [
           {

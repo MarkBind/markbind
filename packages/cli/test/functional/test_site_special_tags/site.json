@@ -9,7 +9,8 @@
     "*.md",
     "*.njk",
     ".git/*",
-    "expected/*"
+    "expected/*",
+    "_markbind/plugins/package.json"
   ],
   "pages": [
     {

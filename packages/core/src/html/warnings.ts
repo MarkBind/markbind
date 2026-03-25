@@ -1,5 +1,5 @@
-import * as logger from '../utils/logger';
-import { MbNode } from '../utils/node';
+import * as logger from '../utils/logger.js';
+import { MbNode } from '../utils/node.js';
 
 /**
  * Check and warns if element has conflicting attributes.

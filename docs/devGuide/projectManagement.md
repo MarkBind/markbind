@@ -119,6 +119,14 @@ For general best practices, refer to the guide [_Working with PRs_ @SE-EDU](http
    * Do not push this commit to the remote repository yet.
    </box>
 
+1. **Rerun `npm run setup`** to ensure that the updated version numbers are reflected in the packages.
+
+   <box type="info" seamless>
+
+   * This is to ensure that the updated version numbers are reflected in the built distribution folder `dist`.
+   * This is because the version number is updated in the `package.json` file of the packages in the previous step, and `npm run setup` will copy the updated file into the built distribution folder `dist`.
+   </box>
+
 1. **Build the core-web package bundle** by executing `npm run build:web` in the root directory, after which you should see changes in the bundles located in `packages/core-web/dist`. <br><br>Take a peek at the diff for the bundles to see if there are any strange changes.
 
    <box type="tip" seamless>

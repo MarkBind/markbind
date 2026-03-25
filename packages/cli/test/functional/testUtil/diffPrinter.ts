@@ -1,6 +1,6 @@
 import { ChangeObject } from 'diff';
 
-const chalk = require('chalk');
+import chalk from 'chalk';
 
 const EMPTY_LINE = '|-------------------empty-line-------------------|';
 const CONSECUTIVE_NEWLINE_REGEX = /\n{2,}/g;

@@ -93,8 +93,7 @@ packages/core/src/Layout/*.js
 packages/core/src/lib/nunjucks-extensions/*.js
 packages/core/src/lib/markdown-it/index.js
 packages/core/src/lib/markdown-it/highlight/*.js
-packages/core/src/lib/markdown-it/plugins/markdown-it-icons.js
-packages/core/src/lib/markdown-it/plugins/markdown-it-alt-frontmatter.js
+packages/core/src/lib/markdown-it/plugins/**/*.js
 packages/core/src/lib/markdown-it/utils/*.js
 packages/core/src/Page/*.js
 packages/core/src/plugins/**/*.js
@@ -105,10 +104,14 @@ packages/core/test/unit/**/*.js
 packages/core/index.js
 
 packages/core/src/lib/progress/*.js
+packages/core/src/patches/**/*.js
+packages/core/src/lib/markdown-it/patches/**/*.js
 # --- packages/core end ---
 
 # Manual type definitions need to be included
 !packages/cli/src/lib/live-server/index.d.ts
+!packages/core/src/patches/*-internal.d.ts
+!packages/core/src/patches/*-submodules.d.ts
 
 # Nx for Lerna
 .nx/cache

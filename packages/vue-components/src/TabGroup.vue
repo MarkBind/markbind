@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { coerce } from './utils/utils';
+import { toBoolean } from './utils/utils';
 
 export default {
   props: {
@@ -33,7 +33,7 @@ export default {
       return ~this.tabs.indexOf(this._tabset.show);
     },
     disabledBool() {
-      return coerce.boolean(this.disabled);
+      return toBoolean(this.disabled);
     },
   },
   mounted() {

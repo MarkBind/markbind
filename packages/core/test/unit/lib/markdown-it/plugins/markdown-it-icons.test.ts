@@ -3,7 +3,7 @@ import markdownIt from 'markdown-it';
 import {
   markdownItIconsPlugin,
   processIconString,
-} from '../../../../../src/lib/markdown-it/plugins/markdown-it-icons';
+} from '../../../../../src/lib/markdown-it/plugins/markdown-it-icons.js';
 
 const expectedOcticon = octicons['git-pull-request'].toSVG();
 

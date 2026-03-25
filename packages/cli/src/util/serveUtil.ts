@@ -6,8 +6,8 @@ import {
   LAZY_LOADING_SITE_FILE_NAME,
 } from '@markbind/core/src/Site/constants';
 
-import * as liveServer from '../lib/live-server';
-import * as logger from './logger';
+import { LiveServer as liveServer } from '../lib/live-server/index.js';
+import * as logger from './logger.js';
 
 /**
  * Synchronizes opened pages list before reload

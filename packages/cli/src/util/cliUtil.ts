@@ -1,23 +1,39 @@
 import findUp from 'find-up';
 import fs from 'fs-extra';
 import path from 'path';
-import isString from 'lodash/isString';
+import _ from 'lodash';
 
 import { SITE_CONFIG_NAME } from '@markbind/core/src/Site/constants';
 
 const DIR_NOT_EMPTY_ERROR_CODE = 'ENOTEMPTY';
 
 function hasErrorCodeAndMessage(err: any): err is { code: string, message: string } {
-  return isString(err.code) && isString(err.message);
+  return _.isString(err.code) && _.isString(err.message);
 }
 
 function tryDeleteFolder(pathName: string) {
   if (!fs.pathExistsSync(pathName)) {
     return;
   }
+  fs.rmdirSync(pathName);
+}
+
+function tryDeleteFile(pathName: string) {
+  if (!fs.existsSync(pathName)) {
+    return;
+  }
+  fs.rmSync(pathName);
+}
+
+function tryDelete(pathName: string, isFile: boolean) {
   try {
-    fs.rmdirSync(pathName);
+    if (isFile) {
+      tryDeleteFile(pathName);
+    } else {
+      tryDeleteFolder(pathName);
+    }
   } catch (error) {
+    const targetType = isFile ? 'file' : 'directory';
     if (hasErrorCodeAndMessage(error)) {
       // If directory is not empty, fail silently
       if (error.code !== DIR_NOT_EMPTY_ERROR_CODE) {
@@ -25,11 +41,11 @@ function tryDeleteFolder(pathName: string) {
         // Use `console` instead of logger as we don't want to create a new logger instance
         // that might pollute the working directory again.
         // eslint-disable-next-line no-console
-        console.warn(`WARNING: Failed to delete directory ${pathName}: ${error.message}`);
+        console.warn(`WARNING: Failed to delete ${targetType} ${pathName}: ${error.message}`);
       }
     } else {
       // eslint-disable-next-line no-console
-      console.warn(`WARNING: Failed to delete directory ${pathName}: Unknown err ${error}`);
+      console.warn(`WARNING: Failed to delete ${targetType} ${pathName}: Unknown err ${error}`);
     }
   }
 }
@@ -58,7 +74,9 @@ export function findRootFolder(
 export function cleanupFailedMarkbindBuild() {
   const markbindDir = path.join(process.cwd(), '_markbind');
   const logsDir = path.join(markbindDir, 'logs');
+  const auditFilePath = path.join(logsDir, 'audit.json');
 
-  tryDeleteFolder(logsDir);
-  tryDeleteFolder(markbindDir);
+  tryDelete(auditFilePath, true);
+  tryDelete(logsDir, false);
+  tryDelete(markbindDir, false);
 }
