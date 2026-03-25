@@ -1,20 +1,20 @@
 /*
  * https://github.com/vuepress/vuepress-next/tree/main/packages/%40vuepress/markdown/src/plugins/customComponentPlugin
  *
- * The files in this folder, custom-component, are adapted from the above link to fit MarkBind's needs. 
+ * The files in this folder, custom-component, are adapted from the above link to fit MarkBind's needs.
  *
  * It helps us to define Vue custom components (or unknown components) as block or inline elements
  * elements during markdown-it parsing. It also helps us to define special tags to ignore such as
- * <include>, <script>, <style>. 
+ * <include>, <script>, <style>.
  */
 
 import type MarkdownIt from 'markdown-it';
-import markdownIt = require('../../index');
-import initCustomComponentHtmlBlockRule = require('./htmlBlockRule');
-import htmlInlineRule = require('./htmlInlineRule');
+import { markdownIt } from '../../index.js';
+import { initCustomComponentHtmlBlockRule } from './htmlBlockRule.js';
+import { htmlInlineRule } from './htmlInlineRule.js';
 
-/* 
- * MODIFIED (MarkBind): tweaked customComponentPlugin function and added injectTags function 
+/*
+ * MODIFIED (MarkBind): tweaked customComponentPlugin function and added injectTags function
  * to accomodate ignoring special tags capability
  */
 

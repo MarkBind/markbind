@@ -3,9 +3,9 @@ import childProcess, { ChildProcess } from 'child_process';
 import { jest } from '@jest/globals';
 import fs from 'fs';
 
-import plantumlPlugin from '../../../../src/plugins/default/markbind-plugin-plantuml';
-import { MbNode, parseHTML } from '../../../../src/utils/node';
-import { NodeProcessorConfig } from '../../../../src/html/NodeProcessor';
+import * as plantumlPlugin from '../../../../src/plugins/default/markbind-plugin-plantuml.js';
+import { MbNode, parseHTML } from '../../../../src/utils/node.js';
+import { NodeProcessorConfig } from '../../../../src/html/NodeProcessor.js';
 
 const mockReadFileSync = jest.spyOn(fs, 'readFileSync');
 const mockExec = jest.spyOn(childProcess, 'exec').mockImplementation(() => {

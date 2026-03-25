@@ -1,14 +1,16 @@
 import fs from 'fs-extra';
 import path from 'path';
-import csvParse from 'csv-parse/lib/sync';
+import csvParse from 'csv-parse/lib/sync.js';
 import { Environment, Extension } from 'nunjucks';
 // Type definitions are undefined / documented and in flux for these. See the source.
 // @ts-ignore
-import { Parser } from 'nunjucks/src/parser';
+import parserPkg from 'nunjucks/src/parser.js';
 // @ts-ignore
-import { lex } from 'nunjucks/src/lexer';
+import { lex } from 'nunjucks/src/lexer.js';
 
-import * as logger from '../../utils/logger';
+import * as logger from '../../utils/logger.js';
+
+const { Parser } = parserPkg;
 
 const acceptedFileTypes = ['json', 'csv'];
 
@@ -66,7 +68,7 @@ export class SetExternalExtension implements Extension {
                 columns: (
                   hasNoHeader
                     ? false // if noHeader is present, first row is not header row
-                    : header => header.map((col: string) => col)
+                    : (header: string[]) => header.map((col: string) => col)
                 ),
               });
             const resourceRaw = JSON.stringify(csvResourceRaw);

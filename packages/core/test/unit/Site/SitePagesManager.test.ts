@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
-import { SitePagesManager } from '../../../src/Site/SitePagesManager';
-import { SiteConfig } from '../../../src/Site/SiteConfig';
-import { PAGE_NJK, SITE_JSON_DEFAULT } from '../utils/data';
+import { SitePagesManager } from '../../../src/Site/SitePagesManager.js';
+import { SiteConfig } from '../../../src/Site/SiteConfig.js';
+import { PAGE_NJK, SITE_JSON_DEFAULT } from '../utils/data.js';
 
 const mockFs = fs as any;
 

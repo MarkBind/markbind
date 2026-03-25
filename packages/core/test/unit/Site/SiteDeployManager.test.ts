@@ -1,14 +1,14 @@
 import fs from 'fs-extra';
-import { SiteDeployManager, DeployOptions } from '../../../src/Site/SiteDeployManager';
-import { SiteConfig } from '../../../src/Site/SiteConfig';
-import { SITE_JSON_DEFAULT } from '../utils/data';
-import * as gitUtil from '../../../src/utils/git';
+import { SiteDeployManager, DeployOptions } from '../../../src/Site/SiteDeployManager.js';
+import { SiteConfig } from '../../../src/Site/SiteConfig.js';
+import { SITE_JSON_DEFAULT } from '../utils/data.js';
+import * as gitUtil from '../../../src/utils/git.js';
 
 const mockFs = fs as any;
 
 jest.mock('fs');
 jest.mock('gh-pages');
-jest.mock('simple-git', () => jest.fn(() => ({})));
+jest.mock('simple-git');
 jest.mock('../../../src/utils/git', () => ({
   getRemoteBranchFile: jest.fn(() => Promise.resolve(null)),
   getRemoteUrl: jest.fn(() => Promise.resolve('https://github.com/mock-user/mock-repo.git')),

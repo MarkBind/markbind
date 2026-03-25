@@ -1,48 +1,48 @@
 import type StateInline from 'markdown-it/lib/rules_inline/state_inline';
-import { HTML_TAG_RE } from './htmlRe';
+import { HTML_TAG_RE } from './htmlRe.js';
 
 // Forked and modified from 'markdown-it/lib/rules_inline/html_inline.js'
 
 const isLetter = (ch: number) => {
-  const lc = ch | 0x20 // to lower case
-  return lc >= 0x61 /* a */ && lc <= 0x7a /* z */
-}
+  const lc = ch | 0x20; // to lower case
+  return lc >= 0x61 /* a */ && lc <= 0x7a; /* z */
+};
 
 const htmlInlineRule = (state: StateInline, silent: boolean) => {
-  const pos = state.pos
+  const { pos } = state;
   if (!state.md.options.html) {
-    return false
+    return false;
   }
 
   // Check start
-  const max = state.posMax
+  const max = state.posMax;
   if (state.src.charCodeAt(pos) !== 0x3c /* < */ || pos + 2 >= max) {
-    return false
+    return false;
   }
 
   // Quick fail on second char
-  const ch = state.src.charCodeAt(pos + 1)
+  const ch = state.src.charCodeAt(pos + 1);
   if (
-    ch !== 0x21 /* ! */ &&
-    ch !== 0x3f /* ? */ &&
-    ch !== 0x2f /* / */ &&
-    !isLetter(ch)
+    ch !== 0x21
+    && /* ! */ ch !== 0x3f
+    && /* ? */ ch !== 0x2f
+    && /* / */ !isLetter(ch)
   ) {
-    return false
+    return false;
   }
 
   // MODIFIED HERE: Tweak the original HTML_TAG_RE
-  const match = state.src.slice(pos).match(HTML_TAG_RE)
+  const match = state.src.slice(pos).match(HTML_TAG_RE);
   if (!match) {
-    return false
+    return false;
   }
 
   if (!silent) {
-    const token = state.push('html_inline', '', 0)
-    token.content = state.src.slice(pos, pos + match[0].length)
+    const token = state.push('html_inline', '', 0);
+    token.content = state.src.slice(pos, pos + match[0].length);
   }
-  state.pos += match[0].length
-  return true
-}
+  state.pos += match[0].length;
+  return true;
+};
 
-export = htmlInlineRule;
+export { htmlInlineRule };

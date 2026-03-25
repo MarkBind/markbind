@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import MarkdownIt from 'markdown-it';
-import Token from 'markdown-it/lib/token';
+import Token from 'markdown-it/lib/token.js';
 import StateCore from 'markdown-it/lib/rules_core/state_core';
 
 interface RadioOptions {
@@ -16,25 +16,25 @@ export function radioButtonPlugin(md: MarkdownIt, options?: RadioOptions): void 
   const useLabelWrapper = options ? !!options.label : true;
 
   md.core.ruler.after('inline', 'radio-lists', (state: StateCore) => {
-    const tokens = state.tokens;
+    const { tokens } = state;
     for (let i = 2; i < tokens.length; i++) {
       if (isTodoItem(tokens, i)) {
         const parentIdx = parentToken(tokens, i - 2);
         if (parentIdx === -1) continue;
 
         const parent = tokens[parentIdx];
-        let groupAttr = attrGet(parent, 'radio-group'); // try retrieve the group id
+        const groupAttr = attrGet(parent, 'radio-group'); // try retrieve the group id
         let group: string;
 
         if (groupAttr) {
           group = groupAttr[1];
         } else {
           const hash = crypto.createHash('md5');
-          if (i >= 5 && tokens[i-5]) {
-            hash.update(tokens[i-5].content);
+          if (i >= 5 && tokens[i - 5]) {
+            hash.update(tokens[i - 5].content);
           }
-          if (i >= 4 && tokens[i-4]) {
-            hash.update(tokens[i-4].content);
+          if (i >= 4 && tokens[i - 4]) {
+            hash.update(tokens[i - 4].content);
           }
           group = hash.update(tokens[i].content).digest('hex').slice(2, 7); // generate a deterministic group id
         }
@@ -53,10 +53,8 @@ function attrSet(token: Token, name: string, value: string): void {
 
   if (index < 0) {
     token.attrPush(attr);
-  } else {
-    if (token.attrs) {
-      token.attrs[index] = attr;
-    }
+  } else if (token.attrs) {
+    token.attrs[index] = attr;
   }
 }
 
@@ -80,10 +78,10 @@ function parentToken(tokens: Token[], index: number): number {
 }
 
 function isTodoItem(tokens: Token[], index: number): boolean {
-  return isInline(tokens[index]) &&
-    isParagraph(tokens[index - 1]) &&
-    isListItem(tokens[index - 2]) &&
-    startsWithTodoMarkdown(tokens[index]);
+  return isInline(tokens[index])
+    && isParagraph(tokens[index - 1])
+    && isListItem(tokens[index - 2])
+    && startsWithTodoMarkdown(tokens[index]);
 }
 
 function radioify(token: Token, radioId: string, disableRadio: boolean, useLabelWrapper: boolean): void {
@@ -97,7 +95,7 @@ function radioify(token: Token, radioId: string, disableRadio: boolean, useLabel
     // Removed beingLabel & endLabel functions since we can just use new Token(...) now.
     token.children.unshift(new Token('html_inline', '', 0));
     token.children[0].content = '<label>';
-    
+
     token.children.push(new Token('html_inline', '', 0));
     token.children[token.children.length - 1].content = '</label>';
   }
@@ -106,10 +104,10 @@ function radioify(token: Token, radioId: string, disableRadio: boolean, useLabel
 function makeRadioButton(token: Token, radioId: string, disableRadio: boolean): Token {
   const radio = new Token('html_inline', '', 0);
   const disabledAttr = disableRadio ? ' disabled="" ' : '';
-  
+
   const isUnchecked = token.content.indexOf('( ) ') === 0;
-  const isChecked = token.content.indexOf('(x) ') === 0 ||
-                    token.content.indexOf('(X) ') === 0;
+  const isChecked = token.content.indexOf('(x) ') === 0
+                    || token.content.indexOf('(X) ') === 0;
   if (isUnchecked) {
     radio.content = `<input class="radio-list-input" name="${radioId}"${disabledAttr} type="radio">`;
   } else if (isChecked) {

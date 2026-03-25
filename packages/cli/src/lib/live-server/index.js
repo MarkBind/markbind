@@ -28,7 +28,7 @@ import open from "opn";
 import es from "event-stream";
 import os from "os";
 import chokidar from "chokidar";
-import fsUtil from "@markbind/core/src/utils/fsUtil";
+import * as fsUtil from "@markbind/core/src/utils/fsUtil";
 import "colors";
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';

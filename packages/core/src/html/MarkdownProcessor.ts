@@ -1,4 +1,4 @@
-import md from '../lib/markdown-it';
+import { markdownIt as md } from '../lib/markdown-it/index.js';
 
 export class MarkdownProcessor {
   baseDocId: string;

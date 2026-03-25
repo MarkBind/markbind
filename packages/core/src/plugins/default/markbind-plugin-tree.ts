@@ -4,13 +4,11 @@
  * that are easier to visualise the relationships.
  * A common use case is folder structures visualisations.
  */
-import has from 'lodash/has';
-import { MbNode } from '../../utils/node';
-import { PluginContext } from '../Plugin';
+import _ from 'lodash';
+import { MbNode } from '../../utils/node.js';
+import { PluginContext } from '../Plugin.js';
 
-import md from '../../lib/markdown-it';
-
-const _ = { has };
+import { markdownIt as md } from '../../lib/markdown-it/index.js';
 
 const CSS_FILE_NAME = 'markbind-plugin-tree.css';
 
@@ -162,20 +160,25 @@ class TreeNode {
   }
 }
 
-export = {
-  tagConfig: {
-    tree: {
-      isSpecial: true,
-    },
+const getLinks = () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`];
+
+const processNode = (_pluginContext: PluginContext, node: MbNode) => {
+  if (node.name !== 'tree') {
+    return;
+  }
+  node.name = 'div';
+  node.attribs.class = node.attribs.class ? `${node.attribs.class} tree` : 'tree';
+  node.children = node.children ?? [];
+  node.children[0].data = TreeNode.visualize(node.children[0].data);
+};
+const tagConfig = {
+  tree: {
+    isSpecial: true,
   },
-  getLinks: () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`],
-  processNode: (_pluginContext: PluginContext, node: MbNode) => {
-    if (node.name !== 'tree') {
-      return;
-    }
-    node.name = 'div';
-    node.attribs.class = node.attribs.class ? `${node.attribs.class} tree` : 'tree';
-    node.children = node.children ?? [];
-    node.children[0].data = TreeNode.visualize(node.children[0].data);
-  },
+};
+
+export {
+  tagConfig,
+  getLinks,
+  processNode,
 };

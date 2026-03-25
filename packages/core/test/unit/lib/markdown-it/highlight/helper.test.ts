@@ -1,7 +1,7 @@
 import {
   splitCodeAndIndentation,
   collateAllIntervalsWithColors,
-} from '../../../../../src/lib/markdown-it/highlight/helper';
+} from '../../../../../src/lib/markdown-it/highlight/helper.js';
 
 describe('splitCodeAndIndentation', () => {
   test('with leading spaces', () => {

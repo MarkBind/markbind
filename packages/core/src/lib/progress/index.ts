@@ -2,4 +2,4 @@ export {
   ProgressBar,
   ProgressBarOptions,
   ProgressBarTokens,
-} from './node-progress';
+} from './node-progress.js';

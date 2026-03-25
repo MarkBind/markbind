@@ -1,8 +1,8 @@
 import path from 'path';
 import fs from 'fs-extra';
 import walkSync from 'walk-sync';
-import { SiteAssetsManager } from '../../../src/Site/SiteAssetsManager';
-import { SiteConfig } from '../../../src/Site/SiteConfig';
+import { SiteAssetsManager } from '../../../src/Site/SiteAssetsManager.js';
+import { SiteConfig } from '../../../src/Site/SiteConfig.js';
 
 const mockFs = fs as any;
 

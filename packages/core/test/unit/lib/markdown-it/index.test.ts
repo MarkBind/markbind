@@ -12,7 +12,7 @@
  * - Custom syntax highlighting and code rendering
  * - Table enhancements and styling
  */
-import markdownIt from '../../../../src/lib/markdown-it';
+import { markdownIt } from '../../../../src/lib/markdown-it/index.js';
 
 describe('MarkBind markdown-it integration', () => {
   describe('core configuration and basic rendering', () => {

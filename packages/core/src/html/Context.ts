@@ -1,4 +1,4 @@
-import CyclicReferenceError from '../errors/CyclicReferenceError';
+import { CyclicReferenceError } from '../errors/CyclicReferenceError.js';
 
 export class Context {
   constructor(

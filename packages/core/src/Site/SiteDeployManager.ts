@@ -1,11 +1,11 @@
 import fs from 'fs-extra';
 import path from 'path';
-import simpleGit, { SimpleGit } from 'simple-git';
+import { simpleGit, SimpleGit } from 'simple-git';
 import ghpages, { PublishOptions } from 'gh-pages';
-import * as gitUtil from '../utils/git';
-import * as logger from '../utils/logger';
-import { _ } from './constants';
-import { SiteConfig } from './SiteConfig';
+import * as gitUtil from '../utils/git.js';
+import * as logger from '../utils/logger.js';
+import { _ } from './constants.js';
+import { SiteConfig } from './SiteConfig.js';
 
 export type DeployOptions = {
   branch: string,

@@ -1,6 +1,6 @@
 import markdownIt from 'markdown-it';
 
-import { radioButtonPlugin } from '../../../../../src/lib/markdown-it/plugins/markdown-it-radio-button';
+import { radioButtonPlugin } from '../../../../../src/lib/markdown-it/plugins/markdown-it-radio-button.js';
 
 const markdownItTaskLists = require('markdown-it-task-lists');
 

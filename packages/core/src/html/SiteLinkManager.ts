@@ -1,10 +1,8 @@
-import has from 'lodash/has';
-import * as linkProcessor from './linkProcessor';
-import type { NodeProcessorConfig } from './NodeProcessor';
-import { MbNode } from '../utils/node';
-import { setHeadingId } from './headerProcessor';
-
-const _ = { has };
+import _ from 'lodash';
+import * as linkProcessor from './linkProcessor.js';
+import type { NodeProcessorConfig } from './NodeProcessor.js';
+import { MbNode } from '../utils/node.js';
+import { setHeadingId } from './headerProcessor.js';
 
 const tagsToValidate: Set<string> = new Set([
   'img',

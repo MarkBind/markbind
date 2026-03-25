@@ -1,7 +1,7 @@
 // Copyright (c) Rotorz Limited and portions by original markdown-it-video authors
 // Licensed under the MIT license. See LICENSE file in the project root.
 
-import PluginEnvironment from '../PluginEnvironment';
+import PluginEnvironment from '../PluginEnvironment.js';
 
 export interface VideoServiceOptions {
   width?: number;

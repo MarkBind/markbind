@@ -2,12 +2,12 @@ import path from 'path';
 import cheerio from 'cheerio';
 import htmlparser from 'htmlparser2';
 import { expect } from '@jest/globals';
-import * as logger from '../../../src/utils/logger';
-import * as testData from './NodeProcessor.data';
-import { Context } from '../../../src/html/Context';
-import { shiftSlotNodeDeeper, transformOldSlotSyntax } from '../../../src/html/vueSlotSyntaxProcessor';
-import { getNewDefaultNodeProcessor } from '../utils/utils';
-import { MbNode, parseHTML } from '../../../src/utils/node';
+import * as logger from '../../../src/utils/logger.js';
+import * as testData from './NodeProcessor.data.js';
+import { Context } from '../../../src/html/Context.js';
+import { shiftSlotNodeDeeper, transformOldSlotSyntax } from '../../../src/html/vueSlotSyntaxProcessor.js';
+import { getNewDefaultNodeProcessor } from '../utils/utils.js';
+import { MbNode, parseHTML } from '../../../src/utils/node.js';
 
 jest.mock('../../../src/utils/logger', () => ({
   warn: jest.fn(),

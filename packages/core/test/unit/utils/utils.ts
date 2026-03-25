@@ -1,11 +1,11 @@
 import path from 'path';
 
-import { PageSources } from '../../../src/Page/PageSources';
-import { NodeProcessor, NodeProcessorConfig } from '../../../src/html/NodeProcessor';
-import { PluginManager } from '../../../src/plugins/PluginManager';
-import { SiteLinkManager } from '../../../src/html/SiteLinkManager';
-import { VariableProcessor } from '../../../src/variables/VariableProcessor';
-import { PluginContext } from '../../../src/plugins/Plugin';
+import { PageSources } from '../../../src/Page/PageSources.js';
+import { NodeProcessor, NodeProcessorConfig } from '../../../src/html/NodeProcessor.js';
+import { PluginManager } from '../../../src/plugins/PluginManager.js';
+import { SiteLinkManager } from '../../../src/html/SiteLinkManager.js';
+import { VariableProcessor } from '../../../src/variables/VariableProcessor.js';
+import { PluginContext } from '../../../src/plugins/Plugin.js';
 
 jest.mock('fs');
 jest.mock('../../../src/plugins/PluginManager');

@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import { MbNode } from '../../utils/node';
+import { MbNode } from '../../utils/node.js';
 
 export const CONTAINER_HTML = '<div class="function-btn-container"></div>';
 
