@@ -23,8 +23,10 @@ export interface PageAssets {
   vue: string;
   pageVueRenderJs?: string;
   layoutUserScriptsAndStyles: string[];
-  pluginScripts?: string[],
-  pluginLinks?: string[],
+  pluginScripts?: string[];
+  pluginLinks?: string[];
+  pagefindCss?: string;
+  pagefindJs?: string;
 }
 
 /**
