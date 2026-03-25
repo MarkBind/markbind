@@ -940,16 +940,6 @@ export class SiteGenerationManager {
   }
 
   /**
-   * Helper method to get the pagefind module.
-   * Uses static import for ESM compatibility.
-   * @returns The pagefind module
-   */
-  // eslint-disable-next-line class-methods-use-this
-  protected getPagefind() {
-    return pagefind;
-  }
-
-  /**
  * Indexes all the pages of the site using pagefind.
  * @returns true if indexing succeeded and pagefind assets were written, false otherwise.
  */
@@ -957,7 +947,7 @@ export class SiteGenerationManager {
     const startTime = new Date();
     logger.info('Creating Pagefind Search Index...');
     try {
-      const { createIndex, close } = await this.getPagefind();
+      const { createIndex, close } = pagefind;
 
       const pagefindConfig = this.siteConfig.pagefind || {};
 
