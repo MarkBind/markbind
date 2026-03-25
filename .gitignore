@@ -123,5 +123,10 @@ packages/core/src/lib/markdown-it/patches/**/*.js
 # Pagefind fragments
 *.pf_fragment
 
+# AI Tools directories (symlinks)
+.opencode
+.cline
+.claude
+
 # Build folder
 dist/
