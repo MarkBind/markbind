@@ -91,3 +91,83 @@ const DEFAULT_TEMPLATE_DIRECTORY = path.join(__dirname, '../../../template/defau
 export function getDefaultTemplateFileFullPath(relativePath: string) {
   return path.join(DEFAULT_TEMPLATE_DIRECTORY, relativePath);
 }
+
+// ============================================================================
+// Factory functions for SiteGenerationManager tests
+// ============================================================================
+
+type JestFn = typeof jest.fn;
+
+export interface MockAddDirectoryResult {
+  page_count: number;
+  errors?: string[];
+}
+
+export interface MockIndex {
+  addDirectory: ReturnType<JestFn>;
+  writeFiles: ReturnType<JestFn>;
+}
+
+export interface MockPagefind {
+  createIndex: ReturnType<JestFn>;
+  close: ReturnType<JestFn>;
+}
+
+/**
+ * Creates a mock pagefind index
+ * @param result - The result to return from addDirectory
+ */
+export function createMockIndex(
+  result: MockAddDirectoryResult = { page_count: 1, errors: [] },
+): MockIndex {
+  return {
+    addDirectory: jest.fn().mockResolvedValue(result),
+    writeFiles: jest.fn().mockResolvedValue(undefined),
+  };
+}
+
+/**
+ * Creates a mock pagefind module
+ * @param mockIndex - The mock index to use (from createMockIndex)
+ * @param returnIndexDirectly - If true, returns { index: mockIndex }, otherwise returns mockIndex directly
+ */
+export function createMockPagefind(mockIndex: MockIndex, returnIndexDirectly = false): MockPagefind {
+  return {
+    createIndex: jest.fn().mockResolvedValue(
+      returnIndexDirectly ? { index: mockIndex } : mockIndex,
+    ),
+    close: jest.fn().mockResolvedValue(undefined),
+  };
+}
+
+/**
+ * Creates a mock pagefind that returns null index (for error testing)
+ */
+export function createMockPagefindNullIndex(): MockPagefind {
+  return {
+    createIndex: jest.fn().mockResolvedValue({ index: null }),
+    close: jest.fn().mockResolvedValue(undefined),
+  };
+}
+
+/**
+ * Creates a mock pagefind that rejects (for import failure testing)
+ */
+export function createMockPagefindReject(error: Error = new Error('Module not found')): MockPagefind {
+  return {
+    createIndex: jest.fn().mockRejectedValue(error),
+    close: jest.fn().mockResolvedValue(undefined),
+  };
+}
+
+/**
+ * Creates a site.json string with pagefind configuration
+ * @param pagefindConfig - The pagefind configuration object (without baseUrl)
+ */
+export function createSiteJsonWithPagefind(pagefindConfig: Record<string, unknown>): string {
+  const siteJson = {
+    baseUrl: '',
+    ...pagefindConfig,
+  };
+  return JSON.stringify(siteJson);
+}

@@ -1,9 +1,15 @@
 import path from 'path';
 import fs from 'fs-extra';
+import * as pagefind from 'pagefind';
 import { SiteGenerationManager } from '../../../src/Site/SiteGenerationManager.js';
 import {
   PAGE_NJK, SITE_JSON_DEFAULT,
+  createSiteJsonWithPagefind,
+  createMockIndex,
+  createMockPagefind,
+  createMockPagefindNullIndex,
 } from '../utils/data.js';
+import * as logger from '../../../src/utils/logger.js';
 
 // We use 'memfs' (via the mocked 'fs' module) to simulate a file system in memory.
 // This ensures that no actual files are written to the disk during testing,
@@ -36,6 +42,12 @@ jest.mock('../../../src/Site/SitePagesManager', () => ({
   }),
 }));
 
+jest.mock('../../../src/utils/logger', () => ({
+  info: jest.fn(),
+  warn: jest.fn(),
+  error: jest.fn(),
+}));
+
 // Access mocked constructors to create instances for injection
 const { SiteAssetsManager } = require('../../../src/Site/SiteAssetsManager.js');
 const { SitePagesManager } = require('../../../src/Site/SitePagesManager.js');
@@ -66,6 +78,329 @@ describe('SiteGenerationManager', () => {
       () => {},
     );
     generationManager.configure(siteAssets, sitePages);
+  });
+
+  describe('normalizeGlobPattern', () => {
+    const prototypeMethod = (SiteGenerationManager.prototype as any).normalizeGlobPattern;
+
+    test('should return pattern as-is if it ends with .html', () => {
+      const result = prototypeMethod.call(generationManager, 'page.html');
+      expect(result).toBe('page.html');
+    });
+
+    test('should append /*.html if pattern ends with /**', () => {
+      const result = prototypeMethod.call(generationManager, 'dir/**');
+      expect(result).toBe('dir/**/*.html');
+    });
+
+    test('should append .html if pattern ends with /*', () => {
+      const result = prototypeMethod.call(generationManager, 'dir/*');
+      expect(result).toBe('dir/*.html');
+    });
+
+    test('should append **/*.html if pattern ends with /', () => {
+      const result = prototypeMethod.call(generationManager, 'dir/');
+      expect(result).toBe('dir/**/*.html');
+    });
+
+    test('should append /**/*.html for plain directory names', () => {
+      const result = prototypeMethod.call(generationManager, 'dir');
+      expect(result).toBe('dir/**/*.html');
+    });
+
+    test('should return empty string for invalid path traversal patterns', () => {
+      const result = prototypeMethod.call(generationManager, '../../../etc/**');
+      expect(result).toBe('');
+    });
+
+    test('should return empty string for absolute paths', () => {
+      const result = prototypeMethod.call(generationManager, '/etc/passwd');
+      expect(result).toBe('');
+    });
+  });
+
+  describe('indexSiteWithPagefind', () => {
+    beforeEach(() => {
+      const json = {
+        ...PAGE_NJK,
+        'site.json': SITE_JSON_DEFAULT,
+        '_site/index.html': '<html><body>Test page</body></html>',
+        '_site/page1.html': '<html><body>Page 1</body></html>',
+      };
+      mockFs.vol.fromJSON(json, rootPath);
+    });
+
+    test('should use default pagefind configuration when not specified', async () => {
+      // This test verifies that readSiteConfig properly sets up the siteConfig.pagefind
+      await generationManager.readSiteConfig();
+      expect(generationManager.siteConfig.pagefind).toBeUndefined();
+    });
+
+    test('should read pagefind configuration from site.json', async () => {
+      const customSiteJson = createSiteJsonWithPagefind({
+        pagefind: {
+          exclude_selectors: ['.no-index', '#sidebar'],
+        },
+      });
+      mockFs.vol.fromJSON({
+        ...PAGE_NJK,
+        'site.json': customSiteJson,
+        '_site/index.html': '<html><body>Test</body></html>',
+      }, rootPath);
+
+      await generationManager.readSiteConfig();
+      expect(generationManager.siteConfig.pagefind).toEqual({
+        exclude_selectors: ['.no-index', '#sidebar'],
+      });
+    });
+
+    test('should read glob configuration as string', async () => {
+      const customSiteJson = createSiteJsonWithPagefind({
+        pagefind: {
+          glob: '**/docs/*.html',
+        },
+      });
+      mockFs.vol.fromJSON({
+        ...PAGE_NJK,
+        'site.json': customSiteJson,
+        '_site/index.html': '<html><body>Test</body></html>',
+      }, rootPath);
+
+      await generationManager.readSiteConfig();
+      expect(generationManager.siteConfig.pagefind).toEqual({
+        glob: '**/docs/*.html',
+      });
+    });
+
+    test('should read glob configuration as array', async () => {
+      const customSiteJson = createSiteJsonWithPagefind({
+        pagefind: {
+          glob: ['**/docs/*.html', '**/guide/*.html'],
+        },
+      });
+      mockFs.vol.fromJSON({
+        ...PAGE_NJK,
+        'site.json': customSiteJson,
+        '_site/index.html': '<html><body>Test</body></html>',
+      }, rootPath);
+
+      await generationManager.readSiteConfig();
+      expect(generationManager.siteConfig.pagefind).toEqual({
+        glob: ['**/docs/*.html', '**/guide/*.html'],
+      });
+    });
+
+    test('should index site with default configuration', async () => {
+      const json = {
+        ...PAGE_NJK,
+        'site.json': SITE_JSON_DEFAULT,
+        '_site/index.html': '<html><body>Test page</body></html>',
+      };
+      mockFs.vol.fromJSON(json, rootPath);
+
+      const mockPagefindInstance = createMockPagefind(createMockIndex({ page_count: 5, errors: [] }));
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
+
+      await generationManager.readSiteConfig();
+      await generationManager.indexSiteWithPagefind();
+
+      expect(pagefindSpy).toHaveBeenCalledWith({
+        keepIndexUrl: true,
+        verbose: true,
+        logfile: 'debug.log',
+      });
+
+      pagefindSpy.mockRestore();
+    });
+
+    test('should use excludeSelectors from pagefind config', async () => {
+      const customSiteJson = createSiteJsonWithPagefind({
+        pagefind: {
+          exclude_selectors: ['.no-index', '#sidebar'],
+        },
+      });
+      mockFs.vol.fromJSON({
+        ...PAGE_NJK,
+        'site.json': customSiteJson,
+        '_site/index.html': '<html><body>Test</body></html>',
+      }, rootPath);
+
+      const mockPagefindInstance = createMockPagefind(createMockIndex({ page_count: 1, errors: [] }));
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
+
+      await generationManager.readSiteConfig();
+      await generationManager.indexSiteWithPagefind();
+
+      expect(pagefindSpy).toHaveBeenCalledWith({
+        keepIndexUrl: true,
+        verbose: true,
+        logfile: 'debug.log',
+        excludeSelectors: ['.no-index', '#sidebar'],
+      });
+
+      pagefindSpy.mockRestore();
+    });
+
+    test('should handle glob pattern as string', async () => {
+      const customSiteJson = createSiteJsonWithPagefind({
+        pagefind: {
+          glob: '**/docs/*.html',
+        },
+      });
+      mockFs.vol.fromJSON({
+        ...PAGE_NJK,
+        'site.json': customSiteJson,
+        '_site/index.html': '<html><body>Test</body></html>',
+      }, rootPath);
+
+      const mockIndex = createMockIndex({ page_count: 3, errors: [] });
+      const mockPagefindInstance = createMockPagefind(mockIndex, true);
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
+
+      await generationManager.readSiteConfig();
+      await generationManager.indexSiteWithPagefind();
+
+      expect(mockIndex.addDirectory).toHaveBeenCalledWith({
+        path: outputPath,
+        glob: '**/docs/*.html',
+      });
+
+      pagefindSpy.mockRestore();
+    });
+
+    test('should handle glob pattern as array', async () => {
+      const customSiteJson = createSiteJsonWithPagefind({
+        pagefind: {
+          glob: ['**/docs/*.html', '**/guide/*.html'],
+        },
+      });
+      mockFs.vol.fromJSON({
+        ...PAGE_NJK,
+        'site.json': customSiteJson,
+        '_site/index.html': '<html><body>Test</body></html>',
+      }, rootPath);
+
+      const mockIndex = createMockIndex({ page_count: 2, errors: [] });
+      const mockPagefindInstance = createMockPagefind(mockIndex, true);
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
+
+      await generationManager.readSiteConfig();
+      await generationManager.indexSiteWithPagefind();
+
+      expect(mockIndex.addDirectory).toHaveBeenCalledTimes(2);
+      expect(mockIndex.addDirectory).toHaveBeenNthCalledWith(1, {
+        path: outputPath,
+        glob: '**/docs/*.html',
+      });
+      expect(mockIndex.addDirectory).toHaveBeenNthCalledWith(2, {
+        path: outputPath,
+        glob: '**/guide/*.html',
+      });
+
+      pagefindSpy.mockRestore();
+    });
+
+    test('should index all HTML files when no glob specified', async () => {
+      const json = {
+        ...PAGE_NJK,
+        'site.json': SITE_JSON_DEFAULT,
+        '_site/index.html': '<html><body>Test</body></html>',
+      };
+      mockFs.vol.fromJSON(json, rootPath);
+
+      const mockIndex = createMockIndex({ page_count: 10, errors: [] });
+      const mockPagefindInstance = createMockPagefind(mockIndex, true);
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
+
+      await generationManager.readSiteConfig();
+      await generationManager.indexSiteWithPagefind();
+
+      expect(mockIndex.addDirectory).toHaveBeenCalledWith({
+        path: outputPath,
+      });
+
+      pagefindSpy.mockRestore();
+    });
+
+    test('should log errors from addDirectory', async () => {
+      const json = {
+        ...PAGE_NJK,
+        'site.json': SITE_JSON_DEFAULT,
+        '_site/index.html': '<html><body>Test</body></html>',
+      };
+      mockFs.vol.fromJSON(json, rootPath);
+
+      const mockIndex = createMockIndex({ page_count: 1, errors: ['Error 1', 'Error 2'] });
+      const mockPagefindInstance = createMockPagefind(mockIndex, true);
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
+      const errorSpy = jest.spyOn(logger, 'error').mockImplementation();
+
+      await generationManager.readSiteConfig();
+      await generationManager.indexSiteWithPagefind();
+
+      expect(errorSpy).toHaveBeenCalledWith('Error 1');
+      expect(errorSpy).toHaveBeenCalledWith('Error 2');
+
+      pagefindSpy.mockRestore();
+      errorSpy.mockRestore();
+    });
+
+    test('should skip indexing when pagefind import fails', async () => {
+      const json = {
+        ...PAGE_NJK,
+        'site.json': SITE_JSON_DEFAULT,
+        '_site/index.html': '<html><body>Test</body></html>',
+      };
+      mockFs.vol.fromJSON(json, rootPath);
+
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockRejectedValue(
+        new Error('Module not found'),
+      );
+      const warnSpy = jest.spyOn(logger, 'warn').mockImplementation();
+
+      await generationManager.readSiteConfig();
+      await generationManager.indexSiteWithPagefind();
+
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('Pagefind indexing skipped'));
+
+      pagefindSpy.mockRestore();
+      warnSpy.mockRestore();
+    });
+
+    test('should handle when createIndex returns null index', async () => {
+      const json = {
+        ...PAGE_NJK,
+        'site.json': SITE_JSON_DEFAULT,
+        '_site/index.html': '<html><body>Test</body></html>',
+      };
+      mockFs.vol.fromJSON(json, rootPath);
+
+      const mockPagefindInstance = createMockPagefindNullIndex();
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
+      const errorSpy = jest.spyOn(logger, 'error').mockImplementation();
+
+      await generationManager.readSiteConfig();
+      await generationManager.indexSiteWithPagefind();
+
+      expect(errorSpy).toHaveBeenCalledWith('Pagefind failed to create index');
+
+      pagefindSpy.mockRestore();
+      errorSpy.mockRestore();
+    });
   });
 
   test('collectBaseUrl should collect baseurls correctly for sub nested subsites', async () => {

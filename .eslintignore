@@ -6,6 +6,8 @@ node_modules
 
 packages/cli/src/lib/live-server/*
 
+packages/cli/test/**/pagefind/**/*.js
+
 # --- packages/core ---
 
 # Ignore JS files that are compiled from TS

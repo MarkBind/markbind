@@ -65,6 +65,10 @@ export class SiteConfig {
   plantumlCheck: boolean;
 
   darkMode: boolean;
+  pagefind?: {
+    exclude_selectors?: string[];
+    glob?: string | string[];
+  };
 
   /**
    * @param siteConfigJson The raw json read from the site configuration file
@@ -107,6 +111,7 @@ export class SiteConfig {
       ? siteConfigJson.plantumlCheck : true; // check PlantUML's prerequisite by default
 
     this.darkMode = siteConfigJson.darkMode === true;
+    this.pagefind = siteConfigJson.pagefind;
   }
 
   /**

@@ -2,6 +2,7 @@
 /* eslint quotes: ["error", "double"] */
 
 module.exports = {
+  "ignorePatterns": ["docs/_site/**", "**/dist/**", "**/node_modules/**"],
   "env": {
     "node": true,
     "es6": true,

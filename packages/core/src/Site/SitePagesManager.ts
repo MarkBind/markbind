@@ -90,6 +90,8 @@ export class SitePagesManager {
 
   isDevMode: boolean;
 
+  pagefindIndexingSucceeded: boolean;
+
   constructor(rootPath: string, outputPath: string, isDevMode: boolean) {
     this.rootPath = rootPath;
     this.outputPath = outputPath;
@@ -102,6 +104,7 @@ export class SitePagesManager {
     this.addressablePages = [];
     this.addressablePagesSource = [];
     this.baseUrlMap = new Set();
+    this.pagefindIndexingSucceeded = true;
   }
 
   setBaseUrlMap(baseUrlMap: Set<string>) {
@@ -144,6 +147,12 @@ export class SitePagesManager {
           ? 'https://cdn.jsdelivr.net/npm/vue@3.3.11/dist/vue.global.min.js'
           : path.posix.join(baseAssetsPath, 'js', 'vue.global.prod.min.js'),
         layoutUserScriptsAndStyles: [],
+        pagefindCss: this.siteConfig.enableSearch && this.pagefindIndexingSucceeded
+          ? path.posix.join(baseAssetsPath, 'pagefind', 'pagefind-ui.css')
+          : undefined,
+        pagefindJs: this.siteConfig.enableSearch && this.pagefindIndexingSucceeded
+          ? path.posix.join(baseAssetsPath, 'pagefind', 'pagefind-ui.js')
+          : undefined,
       },
       baseUrlMap: this.baseUrlMap,
       dev: this.isDevMode,

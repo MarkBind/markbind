@@ -3,6 +3,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import walkSync from 'walk-sync';
+import * as pagefind from 'pagefind';
 
 import { SiteAssetsManager } from './SiteAssetsManager.js';
 import { SitePagesManager, AddressablePage } from './SitePagesManager.js';
@@ -18,7 +19,7 @@ import * as fsUtil from '../utils/fsUtil.js';
 import * as logger from '../utils/logger.js';
 import {
   SITE_CONFIG_NAME, LAZY_LOADING_SITE_FILE_NAME, _,
-  TEMP_FOLDER_NAME, SITE_DATA_NAME, USER_VARIABLES_PATH,
+  TEMP_FOLDER_NAME, SITE_DATA_NAME, USER_VARIABLES_PATH, TEMPLATE_SITE_ASSET_FOLDER_NAME,
 } from './constants.js';
 import { LayoutManager } from '../Layout/index.js';
 import { LayoutConfig } from '../Layout/Layout.js';
@@ -315,6 +316,10 @@ export class SiteGenerationManager {
       await this.siteAssets.copyOcticonsAsset();
       await this.siteAssets.copyMaterialIconsAsset();
       await this.writeSiteData();
+      if (this.siteConfig.enableSearch) {
+        const indexingSucceeded = await this.indexSiteWithPagefind();
+        this.sitePages.pagefindIndexingSucceeded = indexingSucceeded;
+      }
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
       if (this.backgroundBuildMode) {
         this.backgroundBuildNotViewedFiles();
@@ -865,6 +870,154 @@ export class SiteGenerationManager {
     this._backgroundBuildNotViewedFiles.bind(this) as (args: string[]) => Promise<void>,
     1000,
   );
+
+  /**
+   * Validates that a glob pattern is safe and won't traverse outside the output directory.
+   *
+   * @param pattern - The glob pattern to validate
+   * @returns true if the pattern is safe, false otherwise
+   */
+  // eslint-disable-next-line class-methods-use-this
+  private isValidGlobPattern(pattern: string): boolean {
+    if (pattern.includes('..')) {
+      return false;
+    }
+
+    const isUnixAbsolutePath = pattern.startsWith('/');
+    const isWindowsAbsolutePath = /^[a-zA-Z]:[\\/]/.test(pattern);
+    if (isUnixAbsolutePath || isWindowsAbsolutePath) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Normalizes a gitignore-style glob pattern to a valid Wax/Pagefind pattern
+   * by appending .html extension if not already present.
+   * Invalid patterns (e.g., path traversal attempts) are logged and return empty string.
+   *
+   * @param pattern - The glob pattern from user config (gitignore-style)
+   * @returns A valid Wax/Pagefind glob pattern, or empty string if invalid
+   */
+  private normalizeGlobPattern(pattern: string): string {
+    const normalizedPattern = pattern.replace(/\\/g, '/');
+
+    if (!this.isValidGlobPattern(pattern)) {
+      logger.error(`Invalid glob pattern rejected (potential path traversal): ${pattern}`);
+      return '';
+    }
+
+    if (normalizedPattern.endsWith('.html')) {
+      return normalizedPattern;
+    }
+
+    if (normalizedPattern.endsWith('/**')) {
+      return `${normalizedPattern}/*.html`;
+    }
+
+    if (normalizedPattern.endsWith('/*')) {
+      return `${normalizedPattern}.html`;
+    }
+
+    if (normalizedPattern.endsWith('/')) {
+      return `${normalizedPattern}**/*.html`;
+    }
+
+    return `${normalizedPattern}/**/*.html`;
+  }
+
+  /**
+   * Indexes all HTML files in the output directory and logs any errors.
+   * @param index - The pagefind index instance
+   * @returns The number of pages indexed
+   */
+  // eslint-disable-next-line class-methods-use-this
+  private async indexAllHtmlFiles(index: any): Promise<number> {
+    const result = await index.addDirectory({ path: this.outputPath });
+    result.errors.forEach((error: string) => logger.error(error));
+    return result.page_count;
+  }
+
+  /**
+ * Indexes all the pages of the site using pagefind.
+ * @returns true if indexing succeeded and pagefind assets were written, false otherwise.
+ */
+  async indexSiteWithPagefind(): Promise<boolean> {
+    const startTime = new Date();
+    logger.info('Creating Pagefind Search Index...');
+    try {
+      const { createIndex, close } = pagefind;
+
+      const pagefindConfig = this.siteConfig.pagefind || {};
+
+      const createIndexOptions: Record<string, unknown> = {
+        keepIndexUrl: true,
+        verbose: true,
+        logfile: 'debug.log',
+      };
+
+      if (pagefindConfig.exclude_selectors) {
+        createIndexOptions.excludeSelectors = pagefindConfig.exclude_selectors;
+      }
+
+      const { index } = await createIndex(createIndexOptions);
+      if (index) {
+        // Handle glob patterns - support both single string and array of strings
+        const globValue = pagefindConfig.glob;
+        const value = globValue ?? [];
+        const globPatterns = Array.isArray(value) ? value : [value];
+
+        let totalPageCount = 0;
+
+        if (globPatterns.length > 0) {
+          const normalizedPatterns = globPatterns
+            .map(pattern => this.normalizeGlobPattern(pattern))
+            .filter(pattern => pattern !== '');
+
+          if (normalizedPatterns.length > 0) {
+            const results = await Promise.all(
+              normalizedPatterns.map(async (normalizedPattern) => {
+                logger.info(`Pagefind indexing with glob: ${normalizedPattern}`);
+                const result = await index.addDirectory({
+                  path: this.outputPath,
+                  glob: normalizedPattern,
+                });
+
+                result.errors.forEach((error: string) => logger.error(error));
+
+                return result.page_count;
+              }),
+            );
+
+            totalPageCount += results.reduce((acc, count) => acc + count, 0);
+          } else {
+            logger.warn('All glob patterns were invalid, falling back to indexing all HTML files');
+            totalPageCount = await this.indexAllHtmlFiles(index);
+          }
+        } else {
+          totalPageCount = await this.indexAllHtmlFiles(index);
+        }
+
+        const endTime = new Date();
+        const totalTime = (endTime.getTime() - startTime.getTime()) / 1000;
+        logger.info(`Pagefind indexed ${totalPageCount} pages in ${totalTime}s`);
+
+        const pagefindOutputPath = path.join(this.outputPath, TEMPLATE_SITE_ASSET_FOLDER_NAME, 'pagefind');
+        await fs.ensureDir(pagefindOutputPath);
+        await index.writeFiles({ outputPath: pagefindOutputPath });
+        logger.info(`Pagefind assets written to ${pagefindOutputPath}`);
+        await close();
+        return true;
+      }
+      logger.error('Pagefind failed to create index');
+      await close();
+      return false;
+    } catch (error) {
+      logger.warn(`Pagefind indexing skipped: ${error}`);
+      return false;
+    }
+  }
 
   async reloadSiteConfig() {
     if (this.backgroundBuildMode) {
