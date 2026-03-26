@@ -1,17 +1,13 @@
 import path from 'path';
-import uniqBy from 'lodash/uniqBy';
-import { External } from './External';
-import * as fsUtil from '../utils/fsUtil';
-import * as urlUtil from '../utils/urlUtil';
-import type { DynamicSrc } from '../Page/PageSources';
-import type { VariableProcessor } from '../variables/VariableProcessor';
-import type { SiteLinkManager } from '../html/SiteLinkManager';
-import type { PluginManager } from '../plugins/PluginManager';
-import { NodeProcessorConfig } from '../html/NodeProcessor';
-
-const _ = {
-  uniqBy,
-};
+import _ from 'lodash';
+import { External } from './External.js';
+import * as fsUtil from '../utils/fsUtil.js';
+import * as urlUtil from '../utils/urlUtil.js';
+import type { DynamicSrc } from '../Page/PageSources.js';
+import type { VariableProcessor } from '../variables/VariableProcessor.js';
+import type { SiteLinkManager } from '../html/SiteLinkManager.js';
+import type { PluginManager } from '../plugins/PluginManager.js';
+import { NodeProcessorConfig } from '../html/NodeProcessor.js';
 
 export type ExternalManagerConfig = NodeProcessorConfig & {
   variableProcessor: VariableProcessor,

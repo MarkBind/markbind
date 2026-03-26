@@ -37,6 +37,7 @@ import modal from './Modal.vue';
 import scrollTopButton from './ScrollTopButton.vue';
 import cardstack from './cardstack/CardStack.vue';
 import card from './cardstack/Card.vue';
+import Search from './pagefindSearchBar/Search.vue';
 
 const components = {
   box,
@@ -71,6 +72,7 @@ const components = {
   'VPopover': Dropdown,
   'VTooltip': Tooltip,
   scrollTopButton,
+  Search,
 };
 
 const directives = {

@@ -2,10 +2,9 @@ import { v4 as uuidv4 } from 'uuid';
 import cheerio from 'cheerio';
 import {
   MbNode, NodeOrText, parseHTML, TextElement,
-} from '../utils/node';
-import md from '../lib/markdown-it';
-
-require('../patches/htmlparser2');
+} from '../utils/node.js';
+import { markdownIt as md } from '../lib/markdown-it/index.js';
+import '../patches/htmlparser2.js';
 
 const SITE_NAV_ID = 'site-nav';
 const SITE_NAV_EMPTY_LINE_REGEX = /\r?\n\s*\r?\n/g;

@@ -1,7 +1,7 @@
 import cheerio from 'cheerio';
-import * as linkProcessor from '../../../src/html/linkProcessor';
-import { NodeProcessorConfig } from '../../../src/html/NodeProcessor';
-import { MbNode, parseHTML } from '../../../src/utils/node';
+import * as linkProcessor from '../../../src/html/linkProcessor.js';
+import { NodeProcessorConfig } from '../../../src/html/NodeProcessor.js';
+import { MbNode, parseHTML } from '../../../src/utils/node.js';
 
 const fs = require('fs-extra');
 

@@ -1,9 +1,9 @@
 import type { Template } from 'nunjucks';
-import type { SiteLinkManager } from '../html/SiteLinkManager';
-import type { PluginManager } from '../plugins/PluginManager';
+import type { SiteLinkManager } from '../html/SiteLinkManager.js';
+import type { PluginManager } from '../plugins/PluginManager.js';
 
-import { VariableProcessor } from '../variables/VariableProcessor';
-import { LayoutManager } from '../Layout';
+import { VariableProcessor } from '../variables/VariableProcessor.js';
+import { LayoutManager } from '../Layout/index.js';
 
 export interface PageAssets {
   bootstrap: string;
@@ -23,8 +23,10 @@ export interface PageAssets {
   vue: string;
   pageVueRenderJs?: string;
   layoutUserScriptsAndStyles: string[];
-  pluginScripts?: string[],
-  pluginLinks?: string[],
+  pluginScripts?: string[];
+  pluginLinks?: string[];
+  pagefindCss?: string;
+  pagefindJs?: string;
 }
 
 /**

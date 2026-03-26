@@ -11,9 +11,10 @@ describe('PageVueServerRenderer', () => {
     jest.resetModules();
 
     // Re-acquire dependencies for the new module context (As Tags are cached in PluginManager)
-    PluginManager = (await import('../../../src/plugins/PluginManager')).PluginManager;
+    PluginManager = (await import('../../../src/plugins/PluginManager.js')).PluginManager;
     compileTemplate = (await import('vue/compiler-sfc')).compileTemplate;
-    pageVueServerRenderer = (await import('../../../src/Page/PageVueServerRenderer')).pageVueServerRenderer;
+    pageVueServerRenderer
+      = (await import('../../../src/Page/PageVueServerRenderer.js')).pageVueServerRenderer;
   });
 
   afterEach(() => {

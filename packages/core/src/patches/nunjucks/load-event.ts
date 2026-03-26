@@ -11,8 +11,9 @@
 /* linting is disabled for this file to keep the patch close to the source */
 /* eslint-disable */
 
-import { Environment, Template, lib } from 'nunjucks';
-import { handleError } from 'nunjucks/src/runtime';
+import nunjucks, { Environment, Template } from 'nunjucks';
+const { lib } = nunjucks;
+import { handleError } from 'nunjucks/src/runtime.js';
 
 /* eslint-disable @typescript-eslint/no-this-alias */
 

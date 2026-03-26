@@ -38,7 +38,7 @@ import Token from 'markdown-it/lib/token';
 import StateBlock from 'markdown-it/lib/rules_block/state_block';
 import StateInline from 'markdown-it/lib/rules_inline/state_inline';
 import StateCore from 'markdown-it/lib/rules_core/state_core';
-import { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } from '../../../html/constants';
+import { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } from '../../../html/constants.js';
 
 // Process footnotes
 //
@@ -335,7 +335,7 @@ export function footnotePlugin(md: MarkdownIt): void {
 
     if (!state.env.footnotes) { return; }
 
-    state.tokens = state.tokens.filter((tok) => {
+    state.tokens = state.tokens.filter((tok: Token) => {
       if (tok.type === 'footnote_reference_open') {
         insideRef = true;
         current = [];

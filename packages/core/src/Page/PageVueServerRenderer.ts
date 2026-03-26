@@ -11,16 +11,16 @@ import type { SFCTemplateCompileOptions, CompilerOptions } from 'vue/compiler-sf
 
 import path from 'path';
 import fs from 'fs-extra';
-import * as logger from '../utils/logger';
-import type { PageConfig, PageAssets } from './PageConfig';
-import type { Page } from '.';
-import { PluginManager } from '../plugins/PluginManager';
+import vueCommonAppFactory from '@markbind/core-web/dist/js/vueCommonAppFactory.min.js';
 
-/* eslint-enable import/no-import-module-exports */
-
-let bundle = require('@markbind/core-web/dist/js/vueCommonAppFactory.min');
+import * as logger from '../utils/logger.js';
+import type { PageConfig, PageAssets } from './PageConfig.js';
+import type { Page } from './index.js';
+import { PluginManager } from '../plugins/PluginManager.js';
 
 let customElementTagsCache: Set<string> | undefined;
+
+let bundle = { ...vueCommonAppFactory };
 
 /**
  * Retrieves the set of tags that should be treated as custom elements by the Vue compiler.

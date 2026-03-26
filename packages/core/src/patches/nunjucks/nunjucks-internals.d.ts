@@ -16,7 +16,7 @@ export { };
 // ---------------------------------------------------------------------------
 // Sub-module: nunjucks/src/runtime
 // ---------------------------------------------------------------------------
-declare module 'nunjucks/src/runtime' {
+declare module 'nunjucks/src/runtime.js' {
 
   export class Frame {
     variables: Record<string, any>;
@@ -57,6 +57,9 @@ declare module 'nunjucks/src/runtime' {
     pop(): Frame | null | undefined;
   }
 
+  /** Allow reassignment of Frame for patches - MarkBind patch extension */
+  export let Frame: typeof Frame;
+
   /** Runtime variable resolution: checks frame chain, then context. */
   export function contextOrFrameLookup(context: any, frame: Frame, name: string): any;
 
@@ -95,7 +98,7 @@ declare module 'nunjucks/src/runtime' {
 // ---------------------------------------------------------------------------
 // Sub-module: nunjucks/src/object
 // ---------------------------------------------------------------------------
-declare module 'nunjucks/src/object' {
+declare module 'nunjucks/src/object.js' {
   export class Obj {
     constructor(...args: any[]);
 
@@ -127,8 +130,8 @@ declare module 'nunjucks/src/object' {
 // Augment the main 'nunjucks' module with internal properties & sub-modules
 // ---------------------------------------------------------------------------
 declare module 'nunjucks' {
-  import { Frame } from 'nunjucks/src/runtime';
-  import { Obj } from 'nunjucks/src/object';
+  import { Frame } from 'nunjucks/src/runtime.js';
+  import { Obj } from 'nunjucks/src/object.js';
 
   // ---- lib namespace additions ----
   namespace lib {
@@ -298,7 +301,7 @@ declare module 'nunjucks' {
       env: Environment,
       context: any,
       frame: Frame,
-      runtime: typeof import('nunjucks/src/runtime'),
+      runtime: typeof import('nunjucks/src/runtime.js'),
       cb: (err: Error | null, res?: string) => void,
     ) => void;
 

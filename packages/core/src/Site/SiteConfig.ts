@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
-import { FrontMatter } from '../plugins/Plugin';
+import { FrontMatter } from '../plugins/Plugin.js';
 
 const HEADING_INDEXING_LEVEL_DEFAULT = 3;
 
@@ -64,6 +64,11 @@ export class SiteConfig {
 
   plantumlCheck: boolean;
 
+  pagefind?: {
+    exclude_selectors?: string[];
+    glob?: string | string[];
+  };
+
   /**
    * @param siteConfigJson The raw json read from the site configuration file
    * @param cliBaseUrl As read from the --baseUrl option
@@ -103,6 +108,8 @@ export class SiteConfig {
     // TODO this should probably be in pluginsContext
     this.plantumlCheck = siteConfigJson.plantumlCheck !== undefined
       ? siteConfigJson.plantumlCheck : true; // check PlantUML's prerequisite by default
+
+    this.pagefind = siteConfigJson.pagefind;
   }
 
   /**

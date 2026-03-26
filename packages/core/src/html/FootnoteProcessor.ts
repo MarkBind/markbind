@@ -1,6 +1,6 @@
 import cheerio from 'cheerio';
-import { MbNode, parseHTML } from '../utils/node';
-import { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } from './constants';
+import { MbNode, parseHTML } from '../utils/node.js';
+import { MARKBIND_FOOTNOTE_POPOVER_ID_PREFIX } from './constants.js';
 
 /*
  * Footnotes of the main content and <include>s are stored, then combined by NodeProcessor at the end

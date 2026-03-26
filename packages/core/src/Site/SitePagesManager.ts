@@ -1,16 +1,17 @@
 import fs from 'fs-extra';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import walkSync from 'walk-sync';
 import { Template as NunjucksTemplate } from 'nunjucks';
 
-import { Page } from '../Page';
-import { PageConfig } from '../Page/PageConfig';
-import { VariableProcessor } from '../variables/VariableProcessor';
-import { VariableRenderer } from '../variables/VariableRenderer';
-import { ExternalManager } from '../External/ExternalManager';
-import { SiteLinkManager } from '../html/SiteLinkManager';
-import { PluginManager } from '../plugins/PluginManager';
-import type { FrontMatter } from '../plugins/Plugin';
+import { Page } from '../Page/index.js';
+import { PageConfig } from '../Page/PageConfig.js';
+import { VariableProcessor } from '../variables/VariableProcessor.js';
+import { VariableRenderer } from '../variables/VariableRenderer.js';
+import { ExternalManager } from '../External/ExternalManager.js';
+import { SiteLinkManager } from '../html/SiteLinkManager.js';
+import { PluginManager } from '../plugins/PluginManager.js';
+import type { FrontMatter } from '../plugins/Plugin.js';
 import {
   TEMPLATE_SITE_ASSET_FOLDER_NAME,
   _,
@@ -20,11 +21,14 @@ import {
   FAVICON_DEFAULT_PATH,
   USER_VARIABLES_PATH,
   PAGE_TEMPLATE_NAME,
-} from './constants';
-import * as fsUtil from '../utils/fsUtil';
-import * as logger from '../utils/logger';
-import { SiteConfig, SiteConfigPage } from './SiteConfig';
-import { LayoutManager } from '../Layout';
+} from './constants.js';
+import * as fsUtil from '../utils/fsUtil.js';
+import * as logger from '../utils/logger.js';
+import { SiteConfig, SiteConfigPage } from './SiteConfig.js';
+import { LayoutManager } from '../Layout/index.js';
+
+const __filepath = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filepath);
 
 const url = {
   join: path.posix.join,
@@ -86,6 +90,8 @@ export class SitePagesManager {
 
   isDevMode: boolean;
 
+  pagefindIndexingSucceeded: boolean;
+
   constructor(rootPath: string, outputPath: string, isDevMode: boolean) {
     this.rootPath = rootPath;
     this.outputPath = outputPath;
@@ -98,6 +104,7 @@ export class SitePagesManager {
     this.addressablePages = [];
     this.addressablePagesSource = [];
     this.baseUrlMap = new Set();
+    this.pagefindIndexingSucceeded = true;
   }
 
   setBaseUrlMap(baseUrlMap: Set<string>) {
@@ -141,6 +148,12 @@ export class SitePagesManager {
           ? 'https://cdn.jsdelivr.net/npm/vue@3.3.11/dist/vue.global.min.js'
           : path.posix.join(baseAssetsPath, 'js', 'vue.global.prod.min.js'),
         layoutUserScriptsAndStyles: [],
+        pagefindCss: this.siteConfig.enableSearch && this.pagefindIndexingSucceeded
+          ? path.posix.join(baseAssetsPath, 'pagefind', 'pagefind-ui.css')
+          : undefined,
+        pagefindJs: this.siteConfig.enableSearch && this.pagefindIndexingSucceeded
+          ? path.posix.join(baseAssetsPath, 'pagefind', 'pagefind-ui.js')
+          : undefined,
       },
       baseUrlMap: this.baseUrlMap,
       dev: this.isDevMode,

@@ -1,4 +1,4 @@
-import { Highlighter } from '../../../../../src/lib/markdown-it/highlight/Highlighter';
+import { Highlighter } from '../../../../../src/lib/markdown-it/highlight/Highlighter.js';
 
 describe('highlightWholeLine', () => {
   test('wraps code in highlighted span', () => {

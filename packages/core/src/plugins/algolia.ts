@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import { FrontMatter, PluginContext } from './Plugin';
+import { FrontMatter, PluginContext } from './Plugin.js';
 
 const ALGOLIA_CSS_URL = 'https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.0/dist/style.css';
 const ALGOLIA_JS_URL = 'https://cdn.jsdelivr.net/npm/@docsearch/js@3.2.0/dist/umd/index.js';
@@ -41,16 +41,19 @@ function addNoIndexClasses(content: string) {
   return $.html();
 }
 
-export = {
-  getLinks: (pluginContext: PluginContext) => [
-    `<link rel="stylesheet" href="${ALGOLIA_CSS_URL}">`,
-    `<link rel="preconnect" href="https://${pluginContext.appId}-dsn.algolia.net" crossorigin />`,
-  ],
-  getScripts: (pluginContext: PluginContext) => [
-    `<script src="${ALGOLIA_JS_URL}"></script>`,
-    buildAlgoliaInitScript(pluginContext),
-    insertAlgoliaCustomCss(),
-  ],
-  postRender: (_pluginContext: PluginContext,
-               _frontmatter: FrontMatter, content: string) => addNoIndexClasses(content),
+const getLinks = (pluginContext: PluginContext) => [
+  `<link rel="stylesheet" href="${ALGOLIA_CSS_URL}">`,
+  `<link rel="preconnect" href="https://${pluginContext.appId}-dsn.algolia.net" crossorigin />`,
+];
+const getScripts = (pluginContext: PluginContext) => [
+  `<script src="${ALGOLIA_JS_URL}"></script>`,
+  buildAlgoliaInitScript(pluginContext),
+  insertAlgoliaCustomCss(),
+];
+const postRender = (_pluginContext: PluginContext,
+                    _frontmatter: FrontMatter, content: string) => addNoIndexClasses(content);
+export {
+  getLinks,
+  getScripts,
+  postRender,
 };

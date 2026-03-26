@@ -1,12 +1,12 @@
 import cheerio from 'cheerio';
 
-import { ATTRIB_CWF } from '../constants';
-import { PageSources } from '../Page/PageSources';
-import { VariableRenderer } from './VariableRenderer';
-import * as logger from '../utils/logger';
-import * as urlUtil from '../utils/urlUtil';
-import type { Context } from '../html/Context';
-import { MbNode } from '../utils/node';
+import { ATTRIB_CWF } from '../constants.js';
+import { PageSources } from '../Page/PageSources.js';
+import { VariableRenderer } from './VariableRenderer.js';
+import * as logger from '../utils/logger.js';
+import * as urlUtil from '../utils/urlUtil.js';
+import type { Context } from '../html/Context.js';
+import { MbNode } from '../utils/node.js';
 
 /**
  * All variable extraction and rendering is done here.

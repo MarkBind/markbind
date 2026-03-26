@@ -1,11 +1,11 @@
 import cheerio from 'cheerio';
-import { MbNode } from '../utils/node';
+import { MbNode } from '../utils/node.js';
 import {
   CONTAINER_HTML,
   doesFunctionBtnContainerExistInNode,
   isFunctionBtnContainer,
-} from './codeBlockButtonsAssets/codeBlockButtonsContainer';
-import type { PluginContext } from './Plugin';
+} from './codeBlockButtonsAssets/codeBlockButtonsContainer.js';
+import type { PluginContext } from './Plugin.js';
 
 const CSS_FILE_NAME = 'codeBlockButtonsAssets/codeBlockButtons.css';
 
@@ -35,7 +35,7 @@ const TICK_ICON = `
     height="18"
     viewBox="2 2 22 22"
   >
-    <path d="M 19.28125 5.28125 L 9 15.5625 L 4.71875 11.28125 L 3.28125 12.71875 L 8.28125 17.71875 
+    <path d="M 19.28125 5.28125 L 9 15.5625 L 4.71875 11.28125 L 3.28125 12.71875 L 8.28125 17.71875
     L 9 18.40625 L 9.71875 17.71875 L 20.71875 6.71875 Z"></path>
   </svg>
 `;
@@ -77,16 +77,20 @@ const copyCodeBlockScript = `<script>
     }
     </script>`;
 
-export = {
-  getLinks: () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`],
-  getScripts: () => [copyCodeBlockScript],
-  processNode: (_: PluginContext, node: MbNode) => {
-    if (node.name === 'pre' && node.children?.some(child => child.name === 'code')) {
-      if (!doesFunctionBtnContainerExistInNode(node)) {
-        cheerio(node).append(CONTAINER_HTML);
-      }
-    } else if (isFunctionBtnContainer(node)) {
-      cheerio(node).append(getButtonHTML());
+const getLinks = () => [`<link rel="stylesheet" href="${CSS_FILE_NAME}">`];
+const getScripts = () => [copyCodeBlockScript];
+const processNode = (_: PluginContext, node: MbNode) => {
+  if (node.name === 'pre' && node.children?.some(child => child.name === 'code')) {
+    if (!doesFunctionBtnContainerExistInNode(node)) {
+      cheerio(node).append(CONTAINER_HTML);
     }
-  },
+  } else if (isFunctionBtnContainer(node)) {
+    cheerio(node).append(getButtonHTML());
+  }
+};
+
+export {
+  getLinks,
+  getScripts,
+  processNode,
 };

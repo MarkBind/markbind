@@ -1,4 +1,4 @@
-import { PluginContext } from './Plugin';
+import { PluginContext } from './Plugin.js';
 
 function getGoogleAnalyticsTrackingCode(pluginContext: PluginContext) {
   return `
@@ -13,6 +13,8 @@ function getGoogleAnalyticsTrackingCode(pluginContext: PluginContext) {
     </script>`;
 }
 
-export = {
-  getScripts: (pluginContext: PluginContext) => [getGoogleAnalyticsTrackingCode(pluginContext)],
+const getScripts = (pluginContext: PluginContext) => [getGoogleAnalyticsTrackingCode(pluginContext)];
+
+export {
+  getScripts,
 };

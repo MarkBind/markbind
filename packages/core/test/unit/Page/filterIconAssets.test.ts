@@ -1,6 +1,6 @@
-import { Page } from '../../../src/Page/index';
-import { PageConfig } from '../../../src/Page/PageConfig';
-import { SiteConfig } from '../../../src/Site/SiteConfig';
+import { Page } from '../../../src/Page/index.js';
+import { PageConfig } from '../../../src/Page/PageConfig.js';
+import { SiteConfig } from '../../../src/Site/SiteConfig.js';
 
 const mockPageConfigArgs = {} as ConstructorParameters<typeof PageConfig>[0];
 
