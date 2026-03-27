@@ -8,7 +8,7 @@ exports[`NestedPanels print behavior card body should have d-print-none class wh
     class="card expandable-card"
   >
     <div
-      class="card-header header-toggle"
+      class="card-header header-toggle bg-body-tertiary"
     >
       <div
         class="caret-wrapper"
@@ -16,7 +16,7 @@ exports[`NestedPanels print behavior card body should have d-print-none class wh
         <!--v-if-->
       </div>
       <div
-        class="header-wrapper card-title"
+        class="header-wrapper card-title bg-body-tertiary text-body"
       >
         
         test header
@@ -27,7 +27,7 @@ exports[`NestedPanels print behavior card body should have d-print-none class wh
       >
         
         <button
-          class="collapse-button btn btn-outline-secondary"
+          class="collapse-button btn btn-panel"
           type="button"
         >
           <span
@@ -36,7 +36,7 @@ exports[`NestedPanels print behavior card body should have d-print-none class wh
           />
         </button>
         <button
-          class="close-button btn btn-outline-secondary"
+          class="close-button btn btn-panel"
           type="button"
         >
           <span
@@ -45,7 +45,7 @@ exports[`NestedPanels print behavior card body should have d-print-none class wh
           />
         </button>
         <button
-          class="popup-button btn btn-outline-secondary"
+          class="popup-button btn btn-panel"
           style="display: none;"
           type="button"
         >
@@ -71,7 +71,7 @@ exports[`NestedPanels print behavior card body should have d-print-none class wh
           class="bottom-button-wrapper"
         >
           <button
-            class="collapse-button btn btn-outline-secondary"
+            class="collapse-button btn btn-panel"
             type="button"
           >
             <span
@@ -105,7 +105,7 @@ exports[`NestedPanels print behavior card body should not have d-print-none clas
     class="card expandable-card"
   >
     <div
-      class="card-header header-toggle"
+      class="card-header header-toggle bg-body-tertiary"
     >
       <div
         class="caret-wrapper"
@@ -113,7 +113,7 @@ exports[`NestedPanels print behavior card body should not have d-print-none clas
         <!--v-if-->
       </div>
       <div
-        class="header-wrapper card-title"
+        class="header-wrapper card-title bg-body-tertiary text-body"
       >
         
         test header
@@ -124,7 +124,7 @@ exports[`NestedPanels print behavior card body should not have d-print-none clas
       >
         
         <button
-          class="collapse-button btn btn-outline-secondary"
+          class="collapse-button btn btn-panel"
           type="button"
         >
           <span
@@ -133,7 +133,7 @@ exports[`NestedPanels print behavior card body should not have d-print-none clas
           />
         </button>
         <button
-          class="close-button btn btn-outline-secondary"
+          class="close-button btn btn-panel"
           type="button"
         >
           <span
@@ -142,7 +142,7 @@ exports[`NestedPanels print behavior card body should not have d-print-none clas
           />
         </button>
         <button
-          class="popup-button btn btn-outline-secondary"
+          class="popup-button btn btn-panel"
           style="display: none;"
           type="button"
         >
@@ -168,7 +168,7 @@ exports[`NestedPanels print behavior card body should not have d-print-none clas
           class="bottom-button-wrapper"
         >
           <button
-            class="collapse-button btn btn-outline-secondary"
+            class="collapse-button btn btn-panel"
             type="button"
           >
             <span
@@ -223,7 +223,7 @@ exports[`NestedPanels renders a seamless panel with a transparent background 1`]
       >
         
         <button
-          class="collapse-button btn btn-outline-light"
+          class="collapse-button btn btn-panel"
           style="display: none;"
           type="button"
         >
@@ -233,7 +233,7 @@ exports[`NestedPanels renders a seamless panel with a transparent background 1`]
           />
         </button>
         <button
-          class="close-button btn btn-outline-light seamless-button"
+          class="close-button btn btn-panel seamless-button"
           type="button"
         >
           <span
@@ -242,7 +242,7 @@ exports[`NestedPanels renders a seamless panel with a transparent background 1`]
           />
         </button>
         <button
-          class="popup-button btn btn-outline-light seamless-button"
+          class="popup-button btn btn-panel seamless-button"
           style="display: none;"
           type="button"
         >
@@ -281,7 +281,7 @@ exports[`NestedPanels should have span.anchor when id is present 1`] = `
     class="card expandable-card"
   >
     <div
-      class="card-header header-toggle"
+      class="card-header header-toggle bg-body-tertiary"
     >
       <div
         class="caret-wrapper"
@@ -289,7 +289,7 @@ exports[`NestedPanels should have span.anchor when id is present 1`] = `
         <!--v-if-->
       </div>
       <div
-        class="header-wrapper card-title"
+        class="header-wrapper card-title bg-body-tertiary text-body"
       >
         
         test header
@@ -300,7 +300,7 @@ exports[`NestedPanels should have span.anchor when id is present 1`] = `
       >
         
         <button
-          class="collapse-button btn btn-outline-secondary"
+          class="collapse-button btn btn-panel"
           type="button"
         >
           <span
@@ -309,7 +309,7 @@ exports[`NestedPanels should have span.anchor when id is present 1`] = `
           />
         </button>
         <button
-          class="close-button btn btn-outline-secondary"
+          class="close-button btn btn-panel"
           type="button"
         >
           <span
@@ -318,7 +318,7 @@ exports[`NestedPanels should have span.anchor when id is present 1`] = `
           />
         </button>
         <button
-          class="popup-button btn btn-outline-secondary"
+          class="popup-button btn btn-panel"
           style="display: none;"
           type="button"
         >
@@ -359,7 +359,7 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
     class="card expandable-card"
   >
     <div
-      class="card-header header-toggle"
+      class="card-header header-toggle bg-body-tertiary"
     >
       <div
         class="caret-wrapper"
@@ -367,7 +367,7 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
         <!--v-if-->
       </div>
       <div
-        class="header-wrapper card-title header-transparent"
+        class="header-wrapper card-title bg-body-tertiary text-body header-transparent"
       >
         
         test header
@@ -378,7 +378,7 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
       >
         
         <button
-          class="collapse-button btn btn-outline-secondary"
+          class="collapse-button btn btn-panel"
           type="button"
         >
           <span
@@ -387,7 +387,7 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
           />
         </button>
         <button
-          class="close-button btn btn-outline-secondary"
+          class="close-button btn btn-panel"
           type="button"
         >
           <span
@@ -396,7 +396,7 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
           />
         </button>
         <button
-          class="popup-button btn btn-outline-secondary"
+          class="popup-button btn btn-panel"
           style="display: none;"
           type="button"
         >
@@ -422,7 +422,7 @@ exports[`NestedPanels should not show header after expand with expandHeaderless 
           class="bottom-button-wrapper"
         >
           <button
-            class="collapse-button btn btn-outline-secondary"
+            class="collapse-button btn btn-panel"
             type="button"
           >
             <span
@@ -456,7 +456,7 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
     class="card expandable-card"
   >
     <div
-      class="card-header header-toggle"
+      class="card-header header-toggle bg-body-tertiary"
     >
       <div
         class="caret-wrapper"
@@ -464,7 +464,7 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
         <!--v-if-->
       </div>
       <div
-        class="header-wrapper card-title"
+        class="header-wrapper card-title bg-body-tertiary text-body"
       >
         
         test header
@@ -475,7 +475,7 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
       >
         
         <button
-          class="collapse-button btn btn-outline-secondary"
+          class="collapse-button btn btn-panel"
           type="button"
         >
           <span
@@ -484,7 +484,7 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
           />
         </button>
         <button
-          class="close-button btn btn-outline-secondary"
+          class="close-button btn btn-panel"
           type="button"
         >
           <span
@@ -493,7 +493,7 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
           />
         </button>
         <button
-          class="popup-button btn btn-outline-secondary"
+          class="popup-button btn btn-panel"
           style="display: none;"
           type="button"
         >
@@ -519,7 +519,7 @@ exports[`NestedPanels should show header after expand with expandHeaderless as f
           class="bottom-button-wrapper"
         >
           <button
-            class="collapse-button btn btn-outline-secondary"
+            class="collapse-button btn btn-panel"
             type="button"
           >
             <span
@@ -553,7 +553,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
     class="card expandable-card"
   >
     <div
-      class="card-header header-toggle"
+      class="card-header header-toggle bg-body-tertiary"
     >
       <div
         class="caret-wrapper"
@@ -561,7 +561,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
         <!--v-if-->
       </div>
       <div
-        class="header-wrapper card-title"
+        class="header-wrapper card-title bg-body-tertiary text-body"
       >
         
         test header
@@ -572,7 +572,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
       >
         
         <button
-          class="collapse-button btn btn-outline-secondary"
+          class="collapse-button btn btn-panel"
           type="button"
         >
           <span
@@ -581,7 +581,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
           />
         </button>
         <button
-          class="close-button btn btn-outline-secondary"
+          class="close-button btn btn-panel"
           type="button"
         >
           <span
@@ -590,7 +590,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
           />
         </button>
         <button
-          class="popup-button btn btn-outline-secondary"
+          class="popup-button btn btn-panel"
           style="display: none;"
           type="button"
         >
@@ -631,7 +631,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
     class="card expandable-card"
   >
     <div
-      class="card-header header-toggle"
+      class="card-header header-toggle bg-body-tertiary"
     >
       <div
         class="caret-wrapper"
@@ -639,7 +639,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
         <!--v-if-->
       </div>
       <div
-        class="header-wrapper card-title"
+        class="header-wrapper card-title bg-body-tertiary text-body"
       >
         
         test header
@@ -650,7 +650,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
       >
         
         <button
-          class="collapse-button btn btn-outline-secondary"
+          class="collapse-button btn btn-panel"
           type="button"
         >
           <span
@@ -659,7 +659,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
           />
         </button>
         <button
-          class="close-button btn btn-outline-secondary"
+          class="close-button btn btn-panel"
           type="button"
         >
           <span
@@ -668,7 +668,7 @@ exports[`NestedPanels should show header when collapsed with expandHeaderless as
           />
         </button>
         <button
-          class="popup-button btn btn-outline-secondary"
+          class="popup-button btn btn-panel"
           style="display: none;"
           type="button"
         >

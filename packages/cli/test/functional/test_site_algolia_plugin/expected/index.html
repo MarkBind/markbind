@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html data-dark-mode="false" data-code-theme="dark">
 
 <head>
-
+  <script src="/test_site_algolia_plugin/markbind/js/theme-manager.js"></script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 6.3.1">
@@ -13,24 +13,13 @@
   <link rel="stylesheet" href="/test_site_algolia_plugin/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" id="markbind-highlight-light" href="/test_site_algolia_plugin/markbind/css/codeblock-light.min.css">
   <link rel="stylesheet" id="markbind-highlight-dark" href="/test_site_algolia_plugin/markbind/css/codeblock-dark.min.css">
+  <script src="/test_site_algolia_plugin/markbind/js/code-theme.js"></script>
   <link rel="stylesheet" href="/test_site_algolia_plugin/markbind/css/markbind.min.css">
   <link rel="stylesheet" href="/test_site_algolia_plugin/markbind/pagefind/pagefind-ui.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.0/dist/style.css">
   <link rel="preconnect" href="https://R2IYF7ETH7-dsn.algolia.net" crossorigin>
   <link rel="stylesheet" href="/test_site_algolia_plugin/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
   <link rel="stylesheet" href="/test_site_algolia_plugin/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
-  <script>
-      (function() {
-        const theme = window.__MARKBIND_THEME__ || 'dark';
-        const lightStylesheet = document.getElementById('markbind-highlight-light');
-        const darkStylesheet = document.getElementById('markbind-highlight-dark');
-
-        if (lightStylesheet && darkStylesheet) {
-          lightStylesheet.disabled = theme !== 'light';
-          darkStylesheet.disabled = theme !== 'dark';
-        }
-      }());
-    </script>
 </head>
 <script>
   const baseUrl = '/test_site_algolia_plugin'
@@ -134,7 +123,6 @@
 <script src="/test_site_algolia_plugin/markbind/js/vue.global.prod.min.js"></script>
 <script src="/test_site_algolia_plugin/markbind/js/markbind.min.js"></script>
 <script src="index.page-vue-render.js"></script>
-
 <script>
   MarkBind.setupWithSearch()
 </script>

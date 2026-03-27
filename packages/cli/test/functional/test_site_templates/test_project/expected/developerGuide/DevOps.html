@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html data-dark-mode="false" data-code-theme="light">
 
 <head>
-
+  <script src="/markbind/js/theme-manager.js"></script>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="MarkBind 6.3.1">
@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" id="markbind-highlight-light" href="/markbind/css/codeblock-light.min.css">
   <link rel="stylesheet" id="markbind-highlight-dark" href="/markbind/css/codeblock-dark.min.css">
+  <script src="/markbind/js/code-theme.js"></script>
   <link rel="stylesheet" href="/markbind/css/markbind.min.css">
   <link rel="stylesheet" href="/markbind/pagefind/pagefind-ui.css">
   <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
@@ -20,18 +21,6 @@
 
   <link rel="stylesheet" href="/stylesheets/main.css">
   <link rel="icon" href="/images/SeEduLogo.png">
-  <script>
-      (function() {
-        const theme = window.__MARKBIND_THEME__ || 'light';
-        const lightStylesheet = document.getElementById('markbind-highlight-light');
-        const darkStylesheet = document.getElementById('markbind-highlight-dark');
-
-        if (lightStylesheet && darkStylesheet) {
-          lightStylesheet.disabled = theme !== 'light';
-          darkStylesheet.disabled = theme !== 'dark';
-        }
-      }());
-    </script>
 </head>
 <script>
   const baseUrl = ''
@@ -247,7 +236,6 @@
 <script src="/markbind/js/vue.global.prod.min.js"></script>
 <script src="/markbind/js/markbind.min.js"></script>
 <script src="DevOps.page-vue-render.js"></script>
-
 <script>
   MarkBind.setupWithSearch()
 </script>

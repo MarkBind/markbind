@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html data-dark-mode="false" data-code-theme="dark">
 
 <head>
-
+  <script src="/test_site/markbind/js/theme-manager.js"></script>
 
   <meta name="default-head-top">
   <script src="/test_site/headFiles/customScriptTop.js"></script>
@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="/test_site/markbind/glyphicons/css/bootstrap-glyphicons.min.css">
   <link rel="stylesheet" id="markbind-highlight-light" href="/test_site/markbind/css/codeblock-light.min.css">
   <link rel="stylesheet" id="markbind-highlight-dark" href="/test_site/markbind/css/codeblock-dark.min.css">
+  <script src="/test_site/markbind/js/code-theme.js"></script>
   <link rel="stylesheet" href="/test_site/markbind/css/markbind.min.css">
   <link rel="stylesheet" href="/test_site/markbind/pagefind/pagefind-ui.css">
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
@@ -28,18 +29,6 @@
   <link rel="stylesheet" href="/test_site/stylesheets/styles.css">
   <script src="/test_site/headFiles/customScriptBottom.js"></script>
   <link rel="icon" href="/test_site/favicon.png">
-  <script>
-      (function() {
-        const theme = window.__MARKBIND_THEME__ || 'dark';
-        const lightStylesheet = document.getElementById('markbind-highlight-light');
-        const darkStylesheet = document.getElementById('markbind-highlight-dark');
-
-        if (lightStylesheet && darkStylesheet) {
-          lightStylesheet.disabled = theme !== 'light';
-          darkStylesheet.disabled = theme !== 'dark';
-        }
-      }());
-    </script>
 </head>
 <script>
   const baseUrl = '/test_site'
@@ -385,7 +374,6 @@
 <script src="/test_site/markbind/js/vue.global.prod.min.js"></script>
 <script src="/test_site/markbind/js/markbind.min.js"></script>
 <script src="testModals.page-vue-render.js"></script>
-
 <script>
   MarkBind.setupWithSearch()
 </script>

@@ -252,7 +252,6 @@ export default {
         transition: 0.5s opacity;
     }
 
-
     .card-heading {
         width: 100%;
     }
