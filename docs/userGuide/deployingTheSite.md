@@ -121,6 +121,33 @@ jobs:
 <box type="info">
 
 The sample `deploy.yml` workflow above uses the [default GitHub Token secret](https://docs.github.com/en/actions/reference/authentication-in-a-workflow) that is generated automatically for each GitHub Actions workflow. You may also use a [GitHub Personal Access Token](#generating-a-github-personal-access-token) in place of the default GitHub Token.
+
+Note that **Cross-repository deployments require a Personal Access Token (PAT)**, as the built-in `GITHUB_TOKEN` is scoped to the repository that triggered the workflow and **cannot push to a different repository**. If your `site.json` specifies a `deploy.repo` that differs from the repository running the workflow, the deploy will fail with an authentication error.
+
+To deploy to a different repository:
+1. [Generate a PAT](#generating-a-github-personal-access-token) with **Contents: Read and Write** permission
+   (for fine-grained tokens), or **repo** scope (for classic tokens).
+1. Store it as a repository secret (e.g. `PAT_TOKEN`) in the repository running the workflow.
+1. In your workflow file, you can map the secret to an environment variable and provide its name to MarkBind:
+    - **Default Option:** Map the secret to `GITHUB_TOKEN` and use `markbind deploy --ci`.
+      ```yml
+      env:
+        GITHUB_TOKEN: {% raw %}${{ secrets.PAT_TOKEN }}{% endraw %}
+      run: markbind deploy --ci
+      ```
+    - **Custom Option:** Map the secret to an environment variable of your choice (e.g., `MY_TOKEN`) and pass its name to the `--ci` flag.
+      ```yml
+      env:
+        MY_TOKEN: {% raw %}${{ secrets.PAT_TOKEN }}{% endraw %}
+      run: markbind deploy --ci MY_TOKEN
+      ```
+
+<box type="tip">
+
+If you see `markbind deploy` reporting success but your cross-repository site is not updated, check that you are not using the default `GITHUB_TOKEN` for a cross-repository deployment. MarkBind will log a warning if it detects this situation.
+
+</box>
+
 </box>
 
 Once you have created the file, commit and push the file to your repo. 
