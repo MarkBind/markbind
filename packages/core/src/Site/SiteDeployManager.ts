@@ -90,8 +90,9 @@ export class SiteDeployManager {
       process.env.CACHE_DIR = cacheDirectory;
     }
 
+    let usingDefaultGithubToken = false;
     if (ciTokenVar) {
-      const ciToken = _.isBoolean(ciTokenVar) ? 'GITHUB_TOKEN' : ciTokenVar;
+      const ciToken = _.isString(ciTokenVar) ? (ciTokenVar as string) : 'GITHUB_TOKEN';
       if (!process.env[ciToken]) {
         throw new Error(`The environment variable ${ciToken} does not exist.`);
       }
@@ -117,6 +118,31 @@ export class SiteDeployManager {
         process.env.CACHE_DIR = path.join(process.env.GITHUB_WORKSPACE || '.cache');
         repoSlug = SiteDeployManager.extractRepoSlug(options.repo, process.env.GITHUB_REPOSITORY);
 
+        // Visit https://docs.github.com/en/authentication/keeping-your-account-and-data-secure
+        //         /about-authentication-to-github#about-authentication-to-github
+        // for more information about the different token formats.
+        const isBuiltInFormat = githubToken.startsWith('ghs_');
+        const isPatFormat = githubToken.startsWith('ghp_') || githubToken.startsWith('github_pat_');
+
+        if (isPatFormat) {
+          usingDefaultGithubToken = false;
+        } else if (isBuiltInFormat) {
+          usingDefaultGithubToken = true;
+        } else {
+          usingDefaultGithubToken = ciToken === 'GITHUB_TOKEN';
+        }
+
+        // Warn early if deploying to a different repo with the default GITHUB_TOKEN,
+        // which is scoped only to the triggering repository.
+        if (
+          usingDefaultGithubToken
+          && repoSlug
+          && process.env.GITHUB_REPOSITORY
+          && repoSlug.toLowerCase() !== process.env.GITHUB_REPOSITORY.toLowerCase()
+        ) {
+          SiteDeployManager.warnCrossRepoToken(repoSlug, process.env.GITHUB_REPOSITORY);
+        }
+
         options.user = {
           name: 'github-actions',
           email: 'github-actions@github.com',
@@ -139,8 +165,50 @@ export class SiteDeployManager {
     }
 
     // Waits for the repo to be updated.
-    await publish(basePath, options);
+    try {
+      await publish(basePath, options);
+    } catch (err) {
+      SiteDeployManager.throwIfAuthError(err, usingDefaultGithubToken);
+      throw err;
+    }
     return options;
+  }
+
+  static isAuthError(errMessage: string) {
+    const authErrorPattern = new RegExp(
+      '\\b403\\b|Authentication failed|Permission to'
+      + '|could not read Username|Invalid username',
+      'i',
+    );
+    return authErrorPattern.test(errMessage);
+  }
+
+  static throwIfAuthError(err: unknown, usingDefaultGithubToken: boolean) {
+    // eslint-disable-next-line lodash/prefer-lodash-typecheck
+    const errMessage = (err instanceof Error) ? err.message : String(err);
+    if (!SiteDeployManager.isAuthError(errMessage)) return;
+    const hint = usingDefaultGithubToken
+      ? ('\nThis may be because the built-in GITHUB_TOKEN cannot push to a different repository.\n'
+         + 'Consider using a Personal Access Token (PAT) instead, and ensure it has '
+         + '"repo" scope (classic) or "Contents: Read and Write" (fine-grained) permissions.')
+      : ('\nEnsure your PAT has "repo" scope (classic) or "Contents: Read and Write" (fine-grained) '
+         + 'permissions for the target repository.');
+    const error = new Error(
+      `Deployment failed due to an authentication error: ${errMessage}${hint}`,
+    );
+    (error as any).cause = err;
+    throw error;
+  }
+
+  static warnCrossRepoToken(repoSlug: string | undefined, currentRepo: string | undefined) {
+    logger.warn(
+      'Warning: You are deploying to a repository different from the one running this workflow '
+      + `("${repoSlug}" vs "${currentRepo}").\n`
+      + 'If this is the built-in GITHUB_TOKEN, it is scoped only to the triggering repository and '
+      + 'cannot push to other repositories.\n'
+      + 'If you are using a Personal Access Token (PAT), consider using a custom environment variable '
+      + 'name (e.g. GH_TOKEN) to avoid this warning: markbind deploy --ci GH_TOKEN',
+    );
   }
 
   /**
