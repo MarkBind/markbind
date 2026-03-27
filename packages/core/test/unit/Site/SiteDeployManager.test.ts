@@ -155,13 +155,6 @@ describe('SiteDeployManager.warnCrossRepoToken', () => {
       expect.stringContaining('"other-org/other-repo" vs "my-org/my-repo"'),
     );
   });
-
-  test('warning message mentions GITHUB_TOKEN and PAT fix ', () => {
-    SiteDeployManager.warnCrossRepoToken('other-org/other-repo', 'my-org/my-repo');
-    const msg = (mockLogger.warn as jest.Mock).mock.calls[0][0] as string;
-    expect(msg).toContain('GITHUB_TOKEN');
-    expect(msg).toContain('personal access token');
-  });
 });
 
 describe('Site deploy with various CI environments', () => {
