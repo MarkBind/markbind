@@ -127,12 +127,24 @@ Note that **Cross-repository deployments require a Personal Access Token (PAT)**
 To deploy to a different repository:
 1. [Generate a PAT](#generating-a-github-personal-access-token) with **Contents: Read and Write** permission
    (for fine-grained tokens), or **repo** scope (for classic tokens).
-1. Store it as a repository secret (e.g. `GH_TOKEN`) in the repository running the workflow, and use it instead of the default token.
-1. Alternatively, pass the secret name to the `--ci` flag.
+1. Store it as a repository secret (e.g. `PAT_TOKEN`) in the repository running the workflow.
+1. In your workflow file, you can map the secret to an environment variable and provide its name to MarkBind:
+    - **Default Option:** Map the secret to `GITHUB_TOKEN` and use `markbind deploy --ci`.
+      ```yml
+      env:
+        GITHUB_TOKEN: {% raw %}${{ secrets.PAT_TOKEN }}{% endraw %}
+      run: markbind deploy --ci
+      ```
+    - **Custom Option:** Map the secret to an environment variable of your choice (e.g., `MY_TOKEN`) and pass its name to the `--ci` flag.
+      ```yml
+      env:
+        MY_TOKEN: {% raw %}${{ secrets.PAT_TOKEN }}{% endraw %}
+      run: markbind deploy --ci MY_TOKEN
+      ```
 
 <box type="tip">
 
-If you see `markbind deploy` reporting success but the site is not updated, check that you are not using `GITHUB_TOKEN` for a cross-repository deployment. MarkBind will log a warning if it detects this situation.
+If you see `markbind deploy` reporting success but your cross-repository site is not updated, check that you are not using the default `GITHUB_TOKEN` for a cross-repository deployment. MarkBind will log a warning if it detects this situation.
 
 </box>
 
