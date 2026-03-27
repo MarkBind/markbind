@@ -1,11 +1,10 @@
 import fs from 'fs-extra';
 import ghpages from 'gh-pages';
-import * as mockLogger from '../../../src/utils/logger';
+import * as mockLogger from '../../../src/utils/logger.js';
 import { SiteDeployManager, DeployOptions } from '../../../src/Site/SiteDeployManager.js';
 import { SiteConfig } from '../../../src/Site/SiteConfig.js';
 import { SITE_JSON_DEFAULT } from '../utils/data.js';
 import * as gitUtil from '../../../src/utils/git.js';
-
 
 const mockFs = fs as any;
 
