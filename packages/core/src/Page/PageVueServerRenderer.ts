@@ -13,6 +13,8 @@ import type { PageConfig, PageAssets } from './PageConfig.js';
 import type { Page } from './index.js';
 import { PluginManager } from '../plugins/PluginManager.js';
 
+const require = createRequire(import.meta.url);
+
 let customElementTagsCache: Set<string> | undefined;
 
 let bundle = { ...vueCommonAppFactory };
@@ -89,14 +91,13 @@ async function compileVuePageCreateAndReturnScript(
 function requireFromString(src: string) {
   // Use createRequire since bundle is CJS. This allows require() calls within the bundle
   // to be resolved relative to this file.
-  const require = createRequire(import.meta.url);
   const mod = { exports: {} as any };
 
   // Use Function (like eval) to load bundle in global scope for usage
   // How this works: It passes in require from createRequire, the module and exports
   // object into the `src` code as parameters. The `src` code then uses these naturally
   // and populates the mod object, while using the require() from createRequire to
-  // load dependencies.
+  // load dependencies (which are CJS `require` calls themselves).
   try {
     // eslint-disable-next-line @typescript-eslint/no-implied-eval
     new Function('require', 'module', 'exports', src)(require, mod, mod.exports);
