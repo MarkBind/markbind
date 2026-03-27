@@ -89,4 +89,72 @@ describe('PageVueServerRenderer', () => {
       expect(isCustomElement('any-tag')).toBe(false);
     });
   });
+
+  describe('requireFromStringMethod', () => {
+    test('imports CJS javascript code', () => {
+      const src = `
+          require('node:fs');
+          
+          function helloWorld() {
+            return 'Hello World!';
+          }
+          module.exports = { helloWorld };
+      `;
+
+      const module = pageVueServerRenderer.requireFromString(src);
+
+      // Assert that helloWorld method is present in module object
+      expect('helloWorld' in module).toBe(true);
+    });
+
+    test('imports a mock Vue bundle', () => {
+      const mockVueBundle = `
+        const Vue = require('vue');
+        
+        const MarkBindVue = {
+          plugin: {
+            install: function(app) {
+              app.config.globalProperties.$test = 'test';
+            }
+          }
+        };
+        
+        const appFactory = function() {
+          return {
+            data() {
+              return { test: 'value' };
+            }
+          };
+        };
+        
+        module.exports = { MarkBindVue, appFactory };
+      `;
+
+      const module = pageVueServerRenderer.requireFromString(mockVueBundle);
+      const appFactory = module.appFactory();
+
+      // Assert that bundle contains expected properties
+      expect(module).toHaveProperty('MarkBindVue');
+      expect(module).toHaveProperty('appFactory');
+      expect(typeof module.MarkBindVue.plugin.install).toBe('function');
+      expect(typeof module.appFactory).toBe('function');
+      expect(appFactory).toBeDefined();
+    });
+
+    test('executes gracefully with invalid code', () => {
+      const invalidSrc = `
+     (defun hello-world ()
+        (format t "hello world"))
+
+      (hello-world) 
+      `;
+
+      // Act: Invalid src should execute and not throw exceptions
+      const module = pageVueServerRenderer.requireFromString(invalidSrc);
+
+      // Assert that module has no exports
+      // (logger should inform of error)
+      expect(module).toEqual({});
+    });
+  });
 });
