@@ -97,8 +97,12 @@ function requireFromString(src: string) {
   // object into the `src` code as parameters. The `src` code then uses these naturally
   // and populates the mod object, while using the require() from createRequire to
   // load dependencies.
-  // eslint-disable-next-line @typescript-eslint/no-implied-eval
-  new Function('require', 'module', 'exports', src)(require, mod, mod.exports);
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-implied-eval
+    new Function('require', 'module', 'exports', src)(require, mod, mod.exports);
+  } catch (e) {
+    logger.error(e);
+  }
 
   return mod.exports.default ?? mod.exports;
 }
@@ -167,4 +171,5 @@ export const pageVueServerRenderer = {
   renderVuePage,
   updateMarkBindVueBundle,
   savePageRenderFnForHotReload,
+  requireFromString,
 };
