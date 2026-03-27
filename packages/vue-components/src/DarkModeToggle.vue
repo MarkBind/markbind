@@ -39,34 +39,30 @@
 </template>
 
 <script>
-const THEME_STORAGE_KEY = 'markbind-theme';
-const DARK_THEME = 'dark';
-const LIGHT_THEME = 'light';
-
-function isStoredTheme(theme) {
-  return theme === DARK_THEME || theme === LIGHT_THEME;
-}
+const STORAGE_KEY = 'markbind-theme';
+const DARK = 'dark';
+const LIGHT = 'light';
 
 export default {
   data() {
     return {
-      resolvedTheme: LIGHT_THEME,
+      resolvedTheme: LIGHT,
       themePreference: null,
       mediaQueryList: null,
     };
   },
   computed: {
     buttonLabel() {
-      return this.resolvedTheme === DARK_THEME
+      return this.resolvedTheme === DARK
         ? 'Switch to light mode'
         : 'Switch to dark mode';
     },
   },
   mounted() {
-    this.themePreference = this.getStoredThemePreference();
+    this.themePreference = this.getStoredTheme();
     this.applyTheme(this.themePreference);
 
-    if (typeof window !== 'undefined' && window.matchMedia) {
+    if (window.matchMedia) {
       this.mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
       if (this.mediaQueryList.addEventListener) {
         this.mediaQueryList.addEventListener('change', this.handleSystemThemeChange);
@@ -87,52 +83,36 @@ export default {
     }
   },
   methods: {
-    getStoredThemePreference() {
+    getStoredTheme() {
       try {
-        const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-        return isStoredTheme(storedTheme) ? storedTheme : null;
-      } catch (error) {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        return stored === DARK || stored === LIGHT ? stored : null;
+      } catch (e) {
         return null;
       }
     },
     getSystemTheme() {
-      if (typeof window !== 'undefined' && window.matchMedia
-        && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return DARK_THEME;
-      }
-
-      return LIGHT_THEME;
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? DARK
+        : LIGHT;
     },
-    persistTheme(themePreference) {
-      try {
-        if (themePreference) {
-          localStorage.setItem(THEME_STORAGE_KEY, themePreference);
-        } else {
-          localStorage.removeItem(THEME_STORAGE_KEY);
-        }
-      } catch (error) {
-        // Ignore storage errors.
+    applyTheme(preference) {
+      const resolved = preference || this.getSystemTheme();
+      this.themePreference = preference;
+      this.resolvedTheme = resolved;
+      document.documentElement.setAttribute('data-bs-theme', resolved);
+      if (document.body) {
+        document.body.setAttribute('data-code-theme', resolved);
       }
+      this.updateCodeThemeStylesheets(resolved);
     },
     updateCodeThemeStylesheets(theme) {
-      const lightStylesheet = document.getElementById('markbind-highlight-light');
-      const darkStylesheet = document.getElementById('markbind-highlight-dark');
-
-      if (lightStylesheet && darkStylesheet) {
-        lightStylesheet.disabled = theme !== LIGHT_THEME;
-        darkStylesheet.disabled = theme !== DARK_THEME;
+      const lightSheet = document.getElementById('markbind-highlight-light');
+      const darkSheet = document.getElementById('markbind-highlight-dark');
+      if (lightSheet && darkSheet) {
+        lightSheet.disabled = theme !== LIGHT;
+        darkSheet.disabled = theme !== DARK;
       }
-    },
-    applyTheme(themePreference) {
-      const resolvedTheme = themePreference || this.getSystemTheme();
-
-      this.themePreference = themePreference;
-      this.resolvedTheme = resolvedTheme;
-      document.documentElement.setAttribute('data-bs-theme', resolvedTheme);
-      if (document.body) {
-        document.body.setAttribute('data-code-theme', resolvedTheme);
-      }
-      this.updateCodeThemeStylesheets(resolvedTheme);
     },
     handleSystemThemeChange() {
       if (!this.themePreference) {
@@ -140,8 +120,12 @@ export default {
       }
     },
     toggleTheme() {
-      const nextTheme = this.resolvedTheme === DARK_THEME ? LIGHT_THEME : DARK_THEME;
-      this.persistTheme(nextTheme);
+      const nextTheme = this.resolvedTheme === DARK ? LIGHT : DARK;
+      try {
+        localStorage.setItem(STORAGE_KEY, nextTheme);
+      } catch (e) {
+        // Ignore storage errors.
+      }
       this.applyTheme(nextTheme);
     },
   },

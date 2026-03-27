@@ -20,6 +20,8 @@ export interface PageAssets {
   pageNavCss: string;
   siteNavCss: string;
   bootstrapUtilityJs: string;
+  themeManagerJs: string;
+  codeThemeJs: string;
   polyfillJs: string;
   vue: string;
   pageVueRenderJs?: string;

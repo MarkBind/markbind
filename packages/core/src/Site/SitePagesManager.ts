@@ -141,6 +141,8 @@ export class SitePagesManager {
         pageNavCss: path.posix.join(baseAssetsPath, 'css', 'page-nav.css'),
         siteNavCss: path.posix.join(baseAssetsPath, 'css', 'site-nav.css'),
         bootstrapUtilityJs: path.posix.join(baseAssetsPath, 'js', 'bootstrap-utility.min.js'),
+        themeManagerJs: path.posix.join(baseAssetsPath, 'js', 'theme-manager.js'),
+        codeThemeJs: path.posix.join(baseAssetsPath, 'js', 'code-theme.js'),
         polyfillJs: path.posix.join(baseAssetsPath, 'js', 'polyfill.min.js'),
         // We use development Vue when MarkBind is served in 'dev' mode so that hydration issues are reported
         vue: this.isDevMode

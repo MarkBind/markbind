@@ -42,7 +42,7 @@ mark {
     background-color: #ff0;
     color: inherit;
     border-radius: 5px;
-    padding: 0px 3px;
+    padding: 0 3px;
 }
 
 [data-bs-theme="dark"] mark {
