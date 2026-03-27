@@ -39,10 +39,14 @@ blockquote {
 }
 
 mark {
-    background-color: var(--bs-highlight-bg, #ff0);
-    color: var(--bs-highlight-color, inherit);
+    background-color: #ff0;
+    color: inherit;
     border-radius: 5px;
-    padding: 0;
+    padding: 0px 3px;
+}
+
+[data-bs-theme="dark"] mark {
+    background-color: var(--bs-highlight-bg, #ff0);
 }
 
 code {
