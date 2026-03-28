@@ -1,5 +1,6 @@
 <script setup>
 /* eslint-disable import/no-extraneous-dependencies */
+import { formatPagefindResult } from '@markbind/core/src/Pagefind';
 import {
   ref, watch, onMounted, onUnmounted, nextTick,
 } from 'vue';
@@ -62,29 +63,7 @@ const performSearch = async (query) => {
         }
         return r;
       })
-      .flatMap((r) => {
-        const subResults = r.sub_results || [];
-        if (subResults.length === 0) {
-          return [
-            {
-              route: r.url,
-              meta: {
-                title: r.meta?.title || '',
-                description: r.excerpt || '',
-              },
-              result: r,
-            },
-          ];
-        }
-        return subResults.map(sub => ({
-          route: sub.url || r.url,
-          meta: {
-            title: sub.title || r.meta?.title || '',
-            description: sub.excerpt || r.excerpt || '',
-          },
-          result: r,
-        }));
-      });
+      .flatMap(r => formatPagefindResult(r));
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Search failed:', error);
@@ -234,6 +213,69 @@ onUnmounted(() => {
                 @click="handleResultClick(result)"
                 @mouseenter="handleResultMouseEnter(index)"
               >
+                <div class="result-icon">
+                  <!-- Main result: Document icon -->
+                  <svg
+                    v-if="!result.isSubResult"
+                    class="DocSearch-Hit-icon"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M17 6v12c0 .52-.2 1-1 1H4c-.7 0-1-.33-1-1V2
+                      c0-.55.42-1 1-1h8l5 5zM14 8h-3.13c-.51 0-.87-.34-.87-.87V4"
+                      stroke="currentColor"
+                      fill="none"
+                      fill-rule="evenodd"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <!-- Sub-result: Tree icon + Hash icon -->
+                  <svg
+                    v-else
+                    class="DocSearch-Hit-Tree"
+                    viewBox="0 0 24 54"
+                  >
+                    <g
+                      v-if="!result.isLastSubResult"
+                      stroke="currentColor"
+                      fill="none"
+                      fill-rule="evenodd"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M8 6v42M20 27H8.3" />
+                    </g>
+                    <g
+                      v-else
+                      stroke="currentColor"
+                      fill="none"
+                      fill-rule="evenodd"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M8 6v21M20 27H8.3" />
+                    </g>
+                  </svg>
+                  <!-- Hash icon for sub-results -->
+                  <svg
+                    v-if="result.isSubResult"
+                    class="DocSearch-Hit-Hash"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M13 13h4-4V8H7v5h6v4-4H7V8H3h4V3v5h6V3v5h4-4v5zm-6 0v4-4H3h4z"
+                      stroke="currentColor"
+                      fill="none"
+                      fill-rule="evenodd"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
                 <div class="link">
                   <!-- eslint-disable-next-line vue/no-v-html -->
                   <div class="result-title" v-html="result.meta.title"></div>

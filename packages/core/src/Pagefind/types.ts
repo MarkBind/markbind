@@ -131,4 +131,8 @@ export interface FormattedSearchResult {
   };
   /** Reference to the original raw Pagefind result */
   result: PagefindSearchFragment;
+  /** Whether this result is a sub-result (heading within a page) vs main result (full page) */
+  isSubResult: boolean;
+  /** Whether this is the last sub-result before a new main result (used for icon styling) */
+  isLastSubResult: boolean;
 }

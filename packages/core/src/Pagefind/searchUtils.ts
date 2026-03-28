@@ -33,51 +33,7 @@ function parseSubResult(
 ): FormattedSearchResult {
   const route = sub?.url || result?.url;
   const description = sub?.excerpt || result?.excerpt;
-
-  /**
-   * Find all anchors that appear before this sub-result.
-   * An anchor is "before" this sub-result if:
-   * - Its location is less than or equal to the sub-result's anchor location
-   * - Its element level is less than or equal (e.g., h1 <= h3)
-   */
-  const locationsAnchors = anchors?.filter((a: PagefindSearchAnchor) => {
-    if (!sub) {
-      return false;
-    }
-    try {
-      return a.location <= sub.anchor.location && a.element <= sub.anchor.element;
-    } catch {
-      return false;
-    }
-  }) || [];
-
-  /**
-   * Reverse to get anchors from outermost (h1) to innermost (e.g., h3)
-   * before filtering by unique element types.
-   */
-  locationsAnchors.reverse();
-
-  /**
-   * Filter to keep only one anchor per element type.
-   * For example, if there are multiple h2 elements, keep only the last one
-   * (closest to our sub-result position).
-   */
-  const filteredAnchors = locationsAnchors.reduce<PagefindSearchAnchor[]>((prev, curr) => {
-    const isHave = prev.some((p: PagefindSearchAnchor) => p.element === curr.element);
-    if (isHave) {
-      return prev;
-    }
-    prev.unshift(curr);
-    return prev;
-  }, []);
-
-  /**
-   * Construct hierarchical title by joining anchor texts with " > ".
-   * Falls back to page meta title if no anchors found.
-   */
-  const title = filteredAnchors.length
-    ? filteredAnchors.map((t: PagefindSearchAnchor) => t.text.trim()).filter((v: string) => !!v).join(' > ')
-    : (result.meta.title || '');
+  const title = sub.title || '';
 
   return {
     route,
@@ -87,6 +43,8 @@ function parseSubResult(
       description,
     },
     result,
+    isSubResult: true,
+    isLastSubResult: false,
   };
 }
 
@@ -126,9 +84,26 @@ function parseSubResult(
  */
 export function formatPagefindResult(
   result: PagefindSearchFragment,
-  count = 1,
+  count = 10,
 ): FormattedSearchResult[] {
   const { sub_results: subResults, anchors, weighted_locations: weightedLocations } = result;
+
+  // If no sub_results, return the main result as a non-sub-result
+  if (!subResults || subResults.length === 0) {
+    return [
+      {
+        route: result.url,
+        meta: {
+          ...result.meta,
+          title: result.meta.title || '',
+          description: result.excerpt || '',
+        },
+        result,
+        isSubResult: false,
+        isLastSubResult: false,
+      },
+    ];
+  }
 
   // Sort weighted_locations by weight (descending).
   const sortedLocations = [...weightedLocations].sort((a, b) => {
@@ -174,7 +149,8 @@ export function formatPagefindResult(
 
   // Remove duplicate entries that may occur from overlapping matches.
   const filterMap = new Map<string, FormattedSearchResult>();
-  return subs.map((sub: PagefindSubResult) => parseSubResult(sub, anchors, result))
+  const formattedSubResults = subs
+    .map((sub: PagefindSubResult) => parseSubResult(sub, anchors, result))
     .filter((v: FormattedSearchResult) => {
       if (filterMap.has(v.meta.title)) {
         return false;
@@ -182,4 +158,27 @@ export function formatPagefindResult(
       filterMap.set(v.meta.title, v);
       return true;
     });
+
+  // Mark the last sub-result
+  formattedSubResults.forEach((sub, index) => {
+    // eslint-disable-next-line no-param-reassign
+    sub.isLastSubResult = index === formattedSubResults.length - 1;
+  });
+
+  // Return main result first, then sub-results
+  const mainResult = [
+    {
+      route: result.url,
+      meta: {
+        ...result.meta,
+        title: result.meta.title || '',
+        description: result.excerpt || '',
+      },
+      result,
+      isSubResult: false,
+      isLastSubResult: false,
+    },
+  ];
+
+  return [...mainResult, ...formattedSubResults];
 }

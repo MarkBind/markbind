@@ -134,6 +134,38 @@ div [command-dialog-footer] {
   overflow: hidden;
 }
 
+/* Result icon container */
+.search-result-item .result-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-right: 12px;
+  color: var(--gray10);
+}
+
+/* Main result icon */
+.search-result-item .DocSearch-Hit-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Sub result tree icon */
+.search-result-item .DocSearch-Hit-Tree {
+  width: 24px;
+  height: 54px;
+  opacity: 0.5;
+  stroke-width: 1.5;
+}
+
+/* Active state icons */
+.search-result-item.active .result-icon,
+.search-result-item:hover .result-icon {
+  color: #fff;
+}
+
 .search-dialog .search-input {
   font-family: var(--font-sans);
   width: 100%;
@@ -157,10 +189,11 @@ div [command-dialog-footer] {
   transition-property: height;
 }
 .search-dialog .detail-list .search-result-item {
-  min-height: 56px;
+  min-height: 65px;
   max-height: 112px;
   padding: 10px 16px;
   height: auto;
+  margin-bottom: 5px;
 }
 .search-dialog .detail-list .search-result-item .result-excerpt {
   word-break: break-all;
