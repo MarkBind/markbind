@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="serve -d" type="NodeJSConfigurationType" application-parameters="serve -d" path-to-js-file="$PROJECT_DIR$/packages/cli/dist/index.js" working-dir="$PROJECT_DIR$/docs">
+    <EXTENSION ID="com.intellij.javascript.debugger.execution.StartBrowserRunConfigurationExtension">
+      <browser with-js-debugger="true" />
+    </EXTENSION>
+    <method v="2" />
+  </configuration>
+</component>

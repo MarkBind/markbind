@@ -35,6 +35,12 @@ This page explains how to set up your development environment to start contribut
 <box type="tip" seamless>
 
 We recommend the **WebStorm IDE** or **VS Code** for working with MarkBind code.
+
+**JetBrains users:** Run configurations are included in the repository under `.run/`. After cloning, WebStorm (and other JetBrains IDEs) will pick these up automatically. The configurations cover:
+- `root | test`, `cli | test`, `core | test` — run the test suites
+- `root | build_backend`, `root | build_docs` — build targets
+- `root | dev` — starts the dev watcher
+- `serve`, `serve -d` — serves the docs site, with and without debug mode
 </box>
 
 ## Setting up the dev environment

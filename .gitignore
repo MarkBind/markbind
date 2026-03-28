@@ -75,7 +75,6 @@ packages/cli/test/functional/test_site_templates/test_project/expected/diagrams/
 
 # JetBrains configurations
 .idea/
-.run/
 
 # Compiled files from TypeScript
 *.js.map
