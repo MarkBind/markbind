@@ -121,6 +121,7 @@ export function formatPagefindResult(
 
     // Find sub-results that contain this weighted location
     const filterData = subResults.filter((sub: PagefindSubResult) => {
+      if (sub.title === result.meta.title) return false; // Skip page-level match
       const { locations } = sub;
       const [min] = locations || [];
       if (!isNumber(min)) return false;

@@ -1,3 +1,6 @@
+/* ============================================
+   CSS Variables - Color Palette
+   ============================================ */
 :root {
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
     Droid Sans, Helvetica Neue, sans-serif;
@@ -45,6 +48,8 @@
   --blue11: hsl(211, 100%, 43.2%);
   --blue12: hsl(211, 100%, 15%);
 }
+
+/* Dark mode color palette */
 .dark {
   --app-bg: var(--gray1);
   --app-text: #ffffff;
@@ -88,6 +93,9 @@
   --blue12: hsl(206, 98%, 95.8%);
 }
 
+/* ============================================
+   Dialog Layout
+   ============================================ */
 div [command-dialog-mask] {
   background-color: rgba(0, 0, 0, 0.3);
   height: 100vh;
@@ -97,6 +105,7 @@ div [command-dialog-mask] {
   width: 100vw;
   z-index: 200;
 }
+
 div [command-dialog-wrapper] {
   position: relative;
   background: var(--gray2);
@@ -107,6 +116,7 @@ div [command-dialog-wrapper] {
   max-width: 560px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.51);
 }
+
 div [command-dialog-footer] {
   border-top: 1px solid var(--gray6);
   align-items: center;
@@ -127,45 +137,9 @@ div [command-dialog-footer] {
   font-size: 12px;
 }
 
-.search-result-item .link {
-  display: flex;
-  flex-direction: column;  /* Stack vertically */
-  width: 100%;
-  overflow: hidden;
-}
-
-/* Result icon container */
-.search-result-item .result-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-  margin-right: 12px;
-  color: var(--gray10);
-}
-
-/* Main result icon */
-.search-result-item .DocSearch-Hit-icon {
-  width: 20px;
-  height: 20px;
-}
-
-/* Sub result tree icon */
-.search-result-item .DocSearch-Hit-Tree {
-  width: 24px;
-  height: 54px;
-  opacity: 0.5;
-  stroke-width: 1.5;
-}
-
-/* Active state icons */
-.search-result-item.active .result-icon,
-.search-result-item:hover .result-icon {
-  color: #fff;
-}
-
+/* ============================================
+   Search Input
+   ============================================ */
 .search-dialog .search-input {
   font-family: var(--font-sans);
   width: 100%;
@@ -177,9 +151,18 @@ div [command-dialog-footer] {
   caret-color: var(--vcp-c-brand);
   margin: 0;
 }
+
 .search-dialog .search-input::placeholder {
   color: var(--gray9);
 }
+
+/* ============================================
+   Search Results Container
+   ============================================ */
+.search-dialog .search-results-container {
+  padding: 0 12px 12px;
+}
+
 .search-dialog .search-results {
   height: var(--command-list-height);
   max-height: 360px;
@@ -188,30 +171,29 @@ div [command-dialog-footer] {
   transition: 100ms ease;
   transition-property: height;
 }
-.search-dialog .detail-list .search-result-item {
-  min-height: 65px;
-  max-height: 112px;
-  padding: 10px 16px;
-  height: auto;
-  margin-bottom: 5px;
+
+.search-dialog .search-empty {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  white-space: pre-wrap;
+  color: var(--gray11);
 }
-.search-dialog .detail-list .search-result-item .result-excerpt {
-  word-break: break-all;
-  white-space: wrap;
-  margin-top: 6px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-}
+
+/* ============================================
+   Search Result Item - Container
+   ============================================ */
 .search-dialog .search-result-item {
   position: relative;
   content-visibility: auto;
   cursor: pointer;
-  height: 56px;
+  height: 66px;
   font-size: 14px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 5px;
   padding: 0px 16px;
   color: var(--gray12);
   user-select: none;
@@ -222,57 +204,197 @@ div [command-dialog-footer] {
   margin-top: 4px;
   background-color: var(--lowContrast);
 }
+
 .search-dialog .search-result-item:first-child {
   margin-top: 0px;
 }
+
 .search-dialog .search-result-item.active,
 .search-dialog .search-result-item:hover {
   background: var(--vcp-c-brand);
   color: #fff;
 }
-.search-dialog .search-result-item.active svg,
-.search-dialog .search-result-item:hover svg {
-  color: #fff;
+
+.search-dialog .search-result-item:active {
+  transition-property: background;
+  background: var(--gray4);
 }
+
+.search-dialog .detail-list .search-result-item {
+  min-height: 65px;
+  max-height: 112px;
+  padding: 10px 16px;
+  height: auto;
+  margin-bottom: 5px;
+}
+
+/* Result item - active/hover states */
 .search-dialog .search-result-item.active [command-linear-shortcuts],
 .search-dialog .search-result-item:hover [command-linear-shortcuts] {
   display: flex;
   margin-left: auto;
   gap: 8px;
+  height: 70px;
 }
+
 .search-dialog .search-result-item.active [command-linear-shortcuts] kbd,
 .search-dialog .search-result-item:hover [command-linear-shortcuts] kbd {
   font-family: var(--font-sans);
   font-size: 13px;
   color: var(--gray11);
 }
-.search-dialog .search-result-item:active {
-  transition-property: background;
-  background: var(--gray4);
+
+/* ============================================
+   Result Icons
+   ============================================ */
+.search-result-item .result-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  margin-right: 0;
+  color: var(--gray10);
 }
+
+.search-result-item .result-icon-sub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  margin-right: 0;
+  color: var(--gray10);
+}
+
+/* Main result icon */
+.search-result-item .DocSearch-Hit-icon {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+/* Sub result tree icon */
+.search-result-item .DocSearch-Hit-Tree {
+  width: 30px !important;
+  height: 30px !important;
+  opacity: 0.5;
+  stroke-width: 1.5;
+}
+
+/* Sub result hash icon */
+.search-result-item .DocSearch-Hit-Hash {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+/* SVG sizing override */
 .search-dialog .search-result-item svg {
   width: 16px;
   height: 16px;
   color: var(--gray10);
 }
-.search-dialog .search-empty {
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 64px;
-  white-space: pre-wrap;
-  color: var(--gray11);
+
+/* Active state icons */
+.search-result-item.active .result-icon,
+.search-result-item:hover .result-icon {
+  color: #fff;
 }
+
+.search-dialog .search-result-item.active svg,
+.search-dialog .search-result-item:hover svg {
+  color: #fff;
+}
+
+/* Spacing between two icons for sub-results */
+.search-result-item > .result-icon + .result-icon {
+  margin-left: 0;
+}
+
+/* ============================================
+   Result Content
+   ============================================ */
+.search-result-item .link {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  margin-left: 12px;
+}
+
+.search-dialog .search-result-item > div.link {
+  width: 100%;
+}
+
+.search-dialog .search-result-item .result-title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.search-dialog .search-result-item .result-title i.prefix {
+  color: var(--vp-c-brand-1);
+}
+
+.search-dialog .search-result-item:hover .result-title i.prefix,
+.search-dialog .search-result-item.active .result-title i.prefix {
+  color: #fff;
+}
+
+.search-dialog .detail-list .search-result-item .result-excerpt {
+  word-break: break-all;
+  white-space: wrap;
+  margin-top: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.search-dialog .search-result-item .result-excerpt {
+  font-size: 13px;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+
+.search-dialog .search-result-item .headings {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.search-dialog .search-result-item .date {
+  min-width: 86px;
+  text-align: right;
+}
+
+.search-dialog .search-result-item mark {
+  background: none;
+  color: var(--vp-c-brand-1);
+}
+
+.search-dialog .search-result-item.active mark,
+.search-dialog .search-result-item:hover mark {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* ============================================
+   Search Dialog Overrides
+   ============================================ */
 .search-dialog [command-dialog-mask] {
   background-color: rgba(75, 75, 75, 0.8);
 }
+
 .search-dialog [command-dialog-header] {
   padding: 12px;
 }
-.search-dialog .search-results-container {
-  padding: 0 12px 12px;
-}
+
 .search-dialog [command-dialog-footer] {
   align-items: center;
   border-radius: 0 0 8px 8px;
@@ -290,6 +412,7 @@ div [command-dialog-footer] {
   width: 100%;
   z-index: 300;
 }
+
 .search-dialog [command-group-heading] {
   color: var(--vcp-c-brand);
   font-size: 0.85em;
@@ -302,6 +425,9 @@ div [command-dialog-footer] {
   width: 100%;
 }
 
+/* ============================================
+   Command Palette Footer
+   ============================================ */
 .search-dialog .command-palette-commands {
   color: var(--docsearch-muted-color);
   display: flex;
@@ -309,41 +435,27 @@ div [command-dialog-footer] {
   margin: 0;
   padding: 0;
 }
-@media screen and (max-width: 560px) {
-  .search-dialog .command-palette-commands {
-    display: none;
-  }
 
-  div [command-dialog-wrapper] {
-    margin: 0;
-    height: 100vh;
-  }
-  .search-dialog [command-dialog-footer] {
-    justify-content: center;
-  }
-  .search-dialog .search-input {
-    padding: 6px 4px;
-  }
-  .search-dialog .search-results {
-    max-height: calc(100vh - 120px);
-  }
-}
 .search-dialog .command-palette-commands li {
   display: flex;
   align-items: center;
 }
+
 .search-dialog .command-palette-commands li:not(:last-of-type) {
   margin-right: 0.8em;
 }
+
 .search-dialog .command-palette-logo a {
   display: flex;
   align-items: center;
   gap: 8px;
 }
+
 .search-dialog .command-palette-logo svg {
   height: 24px;
   width: 24px;
 }
+
 .search-dialog .command-palette-commands-key {
   align-items: center;
   background: var(--gray3);
@@ -357,64 +469,44 @@ div [command-dialog-footer] {
   border: 0;
   width: 20px;
 }
-.dark .search-dialog [command-dialog-footer] {
-  box-shadow: none;
-}
+
+/* ============================================
+   Utilities
+   ============================================ */
 div[command-group] {
   display: block !important;
 }
+
 div[command-item] {
   display: flex !important;
 }
-.search-dialog .search-result-item > div.link {
-  width: 100%;
-}
-.search-dialog .search-result-item .result-title {
-  display: flex;
-  justify-content: space-between;
+
+.dark .search-dialog [command-dialog-footer] {
+  box-shadow: none;
 }
 
-.search-dialog .search-result-item .result-title {
-  font-size: 15px;
-  font-weight: 600;
-}
+/* ============================================
+   Media Queries
+   ============================================ */
+@media screen and (max-width: 560px) {
+  .search-dialog .command-palette-commands {
+    display: none;
+  }
 
-.search-dialog .search-result-item .result-excerpt {
-  font-size: 13px;
-  font-weight: 400;
-}
+  div [command-dialog-wrapper] {
+    margin: 0;
+    height: 100vh;
+  }
 
-.search-dialog .search-result-item .result-title i.prefix {
-  color: var(--vp-c-brand-1);
-}
-.search-dialog .search-result-item:hover .result-title i.prefix,
-.search-dialog .search-result-item.active .result-title i.prefix {
-  color: #fff;
-}
+  .search-dialog [command-dialog-footer] {
+    justify-content: center;
+  }
 
-.search-dialog .search-result-item .result-excerpt {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  word-break: keep-all;
-  white-space: nowrap;
-}
-.search-dialog .search-result-item .headings {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: inline-block;
-}
+  .search-dialog .search-input {
+    padding: 6px 4px;
+  }
 
-.search-dialog .search-result-item .date {
-  min-width: 86px;
-  text-align: right;
-}
-.search-dialog .search-result-item mark {
-  background: none;
-  color: var(--vp-c-brand-1);
-}
-.search-dialog .search-result-item.active mark,
-.search-dialog .search-result-item:hover mark {
-  color: inherit;
-  text-decoration: underline;
+  .search-dialog .search-results {
+    max-height: calc(100vh - 120px);
+  }
 }

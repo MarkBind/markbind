@@ -213,13 +213,10 @@ onUnmounted(() => {
                 @click="handleResultClick(result)"
                 @mouseenter="handleResultMouseEnter(index)"
               >
-                <div class="result-icon">
-                  <!-- Main result: Document icon -->
+                <!-- Main result: single icon -->
+                <div v-if="!result.isSubResult" class="result-icon">
                   <svg
-                    v-if="!result.isSubResult"
                     class="DocSearch-Hit-icon"
-                    width="20"
-                    height="20"
                     viewBox="0 0 20 20"
                   >
                     <path
@@ -231,51 +228,52 @@ onUnmounted(() => {
                       stroke-linejoin="round"
                     />
                   </svg>
-                  <!-- Sub-result: Tree icon + Hash icon -->
-                  <svg
-                    v-else
-                    class="DocSearch-Hit-Tree"
-                    viewBox="0 0 24 54"
-                  >
-                    <g
-                      v-if="!result.isLastSubResult"
-                      stroke="currentColor"
-                      fill="none"
-                      fill-rule="evenodd"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M8 6v42M20 27H8.3" />
-                    </g>
-                    <g
-                      v-else
-                      stroke="currentColor"
-                      fill="none"
-                      fill-rule="evenodd"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M8 6v21M20 27H8.3" />
-                    </g>
-                  </svg>
-                  <!-- Hash icon for sub-results -->
-                  <svg
-                    v-if="result.isSubResult"
-                    class="DocSearch-Hit-Hash"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M13 13h4-4V8H7v5h6v4-4H7V8H3h4V3v5h6V3v5h4-4v5zm-6 0v4-4H3h4z"
-                      stroke="currentColor"
-                      fill="none"
-                      fill-rule="evenodd"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
                 </div>
+                <!-- Sub-result: two icons for indentation -->
+                <template v-else>
+                  <div class="result-icon">
+                    <svg
+                      class="DocSearch-Hit-Tree"
+                      viewBox="0 0 24 54"
+                    >
+                      <g
+                        v-if="!result.isLastSubResult"
+                        stroke="currentColor"
+                        fill="none"
+                        fill-rule="evenodd"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M8 6v42M20 27H8.3" />
+                      </g>
+                      <g
+                        v-else
+                        stroke="currentColor"
+                        fill="none"
+                        fill-rule="evenodd"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M8 6v21M20 27H8.3" />
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="result-icon-sub">
+                    <svg
+                      class="DocSearch-Hit-Hash"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M13 13h4-4V8H7v5h6v4-4H7V8H3h4V3v5h6V3v5h4-4v5zm-6 0v4-4H3h4z"
+                        stroke="currentColor"
+                        fill="none"
+                        fill-rule="evenodd"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </template>
                 <div class="link">
                   <!-- eslint-disable-next-line vue/no-v-html -->
                   <div class="result-title" v-html="result.meta.title"></div>
