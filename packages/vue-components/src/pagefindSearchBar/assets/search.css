@@ -332,6 +332,7 @@ div [command-dialog-footer] {
   justify-content: space-between;
   font-size: 16px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .search-dialog .search-result-item .result-title i.prefix {
