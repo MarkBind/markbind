@@ -118,7 +118,16 @@ const handleKeyDown = (e) => {
   } else if (e.key === 'Enter' && selectedIndex.value >= 0) {
     e.preventDefault();
     selectResult(searchResults.value[selectedIndex.value]);
+    return;
   }
+
+  // Scroll active element into view
+  nextTick(() => {
+    const activeElement = document.querySelector('.search-result-item.active');
+    if (activeElement) {
+      activeElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  });
 };
 
 const handleGlobalKeydown = (e) => {
@@ -190,7 +199,7 @@ onUnmounted(() => {
 
     <div
       v-if="showModal"
-      class="algolia"
+      class="search-dialog"
     >
       <div
         command-dialog-mask
@@ -225,10 +234,12 @@ onUnmounted(() => {
                 @click="handleResultClick(result)"
                 @mouseenter="handleResultMouseEnter(index)"
               >
-                <!-- eslint-disable-next-line vue/no-v-html -->
-                <div class="result-title" v-html="result.meta.title"></div>
-                <!-- eslint-disable-next-line vue/no-v-html -->
-                <div class="result-excerpt" v-html="result.meta.description"></div>
+                <div class="link">
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <div class="result-title" v-html="result.meta.title"></div>
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <div class="result-excerpt" v-html="result.meta.description"></div>
+                </div>
               </div>
             </div>
             <div
@@ -354,80 +365,6 @@ onUnmounted(() => {
     border-radius: 4px;
     border: 1px solid var(--vcp-c-brand);
     width: 100%;
-}
-
-.search-input {
-    width: 100%;
-    border: none;
-    background: transparent;
-    font-size: 18px;
-    padding: 8px 12px;
-    outline: none;
-}
-
-.search-results-container {
-    max-height: 55vh;
-    overflow-y: auto;
-    padding: 0;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-.search-results-container::-webkit-scrollbar {
-    display: none;
-}
-
-.search-loading,
-.search-empty {
-    padding: 16px;
-    text-align: center;
-    color: #666;
-}
-
-.search-results {
-    padding: 0;
-}
-
-.search-result-item {
-    padding: 12px 16px;
-    cursor: pointer;
-    border-radius: 8px;
-    margin: 4px 8px;
-    transition: background-color 0.1s ease;
-}
-
-.search-result-item:hover,
-.search-result-item.active {
-    background-color: #5468ff;
-}
-
-.search-result-item.active .result-title,
-.search-result-item.active .result-excerpt,
-.search-result-item.active :deep(mark) {
-    color: #fff !important;
-}
-
-.search-result-item :deep(mark) {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: inherit;
-    padding: 0 2px;
-    border-radius: 2px;
-}
-
-.result-title {
-    font-weight: 600;
-    margin-bottom: 4px;
-    color: #212529;
-}
-
-.result-excerpt {
-    font-size: 14px;
-    color: #666;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
 }
 </style>
 
