@@ -51,25 +51,72 @@ That is, the DOM tree being processed during `processNode` and the content passe
 
 An example of a plugin is shown below. The plugin shows two ways of appending a paragraph of text to a specific `div` in the Markdown files:
 
-```js
-// myPlugin.js
+<tabs>
+  <tab header="CJS">
 
-const cheerio = module.parent.require('cheerio');
+  ```js
+  // myPlugin.js
 
-module.exports = {
-  processNode: (pluginContext, node) => {
-    if (node.attribs.id === 'my-div') {
-      cheerio(node).append(pluginContext.content);
-    }
-  },
-  postRender: (pluginContext, frontmatter, content) => {
-    const $ = cheerio.load(content, { xmlMode: false });
+  const cheerio = module.parent.require('cheerio');
+
+  module.exports = {
+    processNode: (pluginContext, node) => {
+      if (node.attribs.id === 'my-div') {
+        cheerio(node).append(pluginContext.content);
+      }
+    },
+    postRender: (pluginContext, frontmatter, content) => {
+      const $ = cheerio.load(content, { xmlMode: false });
+      // Modify the page...
+      $('#my-div').append(pluginContext.content);
+      return $.html();
+    },
+  };
+  ```
+  </tab>
+  <tab header="ESM">
+
+  ```js
+  // myESMPlugin.js
+
+  import { load } from 'cheerio';
+
+  function postRender(pluginContext, frontmatter, content) {
+    const $ = load(content);
     // Modify the page...
     $('#my-div').append(pluginContext.content);
     return $.html();
-  },
-};
-```
+  }
+
+  export { postRender }
+  ```
+  </tab>
+</tabs>
+
+<box type="info" header="ESM plugin compatibility">
+
+<panel header="Info" type="seamless" minimized>
+
+Both CJS and ESM plugins are supported. However, ESM plugins must meet the following requirements:
+
+1. The module is fully synchronous (contains no top-level await); and
+2. One of these conditions are met:
+   - The file has a **`.mjs` extension**, or
+   - The file has a **`.js` extension** and the closest `package.json` contains `"type": "module"`, or
+   - The file has a **`.js` extension** and the module source contains ES module syntax 
+
+Furthermore, **ESM plugins need to manage their own dependencies**, as `module.parent.require()` is not available in ESM. ESM Plugins should be bundled with their own dependencies (e.g. in a nearby `node_modules` folder.)
+
+</panel>
+</box>
+
+<box type="tip" header="Unsure if you're using CJS or ESM?">
+
+Generally, if your plugin has `require(...)` and `module.exports`, it is **CJS**.
+
+Alternatively, if your plugin has `import { ... }` and `export { ... }` it is **ESM**.
+</box>
+
 <box type="warning">
 
 Remember to update `dg-site.json`, `site.json`, and `ug-site.json` in the docs folder when updating the requirements for `site.json`.
