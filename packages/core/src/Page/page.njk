@@ -19,7 +19,6 @@
     {% if asset.bootstrapIcons %} <link rel="stylesheet" href="{{ asset.bootstrapIcons }}"> {%- endif -%}
     <link rel="stylesheet" href="{{ asset.highlight }}">
     {%- if not dev -%}<link rel="stylesheet" href="{{ asset.markBindCss }}">{%- endif -%}
-    {% if asset.pagefindCss %} <link rel="stylesheet" href="{{ asset.pagefindCss }}"> {%- endif -%}
     {%- if asset.pluginLinks -%}
     {%- for link in asset.pluginLinks -%}
         {{ link }}
@@ -59,7 +58,17 @@
 {%- endfor %}
 {%- endif %}
 {%- if asset.pagefindJs %}
-    <script src="{{ asset.pagefindJs }}"></script>
+    <script>
+      window.__pagefind__ = null;
+      window.loadPagefind = async () => {
+        if (!window.__pagefind__) {
+          const module = await import('{{ baseUrl }}/pagefind/pagefind.js');
+          window.__pagefind__ = module;
+          module.init();
+        }
+        return window.__pagefind__;
+      };
+    </script>
 {%- endif %}
 {%- if asset.scriptBottom %}
 {%- for scripts in asset.scriptBottom %}
