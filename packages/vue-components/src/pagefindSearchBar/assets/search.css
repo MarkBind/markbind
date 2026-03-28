@@ -330,7 +330,7 @@ div [command-dialog-footer] {
 .search-dialog .search-result-item .result-title {
   display: flex;
   justify-content: space-between;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
 }
 
@@ -375,13 +375,15 @@ div [command-dialog-footer] {
 
 .search-dialog .search-result-item mark {
   background: none;
-  color: var(--vp-c-brand-1);
+  color: var(--blue10);
 }
 
 .search-dialog .search-result-item.active mark,
 .search-dialog .search-result-item:hover mark {
   color: inherit;
-  text-decoration: underline;
+  background: rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  font-size: 15px;
 }
 
 /* ============================================
