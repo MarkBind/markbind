@@ -54,7 +54,7 @@
         <div
           ref="headerWrapper"
           :class="[{'header-wrapper-seamless': isSeamless}, 'header-wrapper card-title', cardType,
-                   {'text-white':!isLightBg && !isSeamless, 'header-transparent':!shouldShowHeader}]"
+                   {'text-body': !type && !isSeamless, 'header-transparent':!shouldShowHeader}]"
         >
           <slot name="header"></slot>
         </div>
@@ -63,14 +63,12 @@
             <panel-switch
               v-show="isExpandableCard && !noSwitchBool && !showCaret"
               :is-open="localExpanded"
-              :is-light-bg="isLightBg"
             />
             <button
               v-show="!noCloseBool"
               type="button"
               class="close-button btn"
-              :class="[isLightBg ? 'btn-outline-secondary' : 'btn-outline-light',
-                       { 'seamless-button': isSeamless }]"
+              :class="['btn-panel', { 'seamless-button': isSeamless }]"
               @click.stop="close()"
             >
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -79,8 +77,7 @@
               v-show="popupUrl"
               type="button"
               class="popup-button btn"
-              :class="[isLightBg ? 'btn-outline-secondary' : 'btn-outline-light',
-                       { 'seamless-button': isSeamless }]"
+              :class="['btn-panel', { 'seamless-button': isSeamless }]"
               @click.stop="openPopup()"
             >
               <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
@@ -170,10 +167,10 @@ export default {
       if (this.isSeamless) {
         return 'bg-transparent';
       }
-      return `bg-${this.type || 'light'}`;
-    },
-    isLightBg() {
-      return this.cardType === 'bg-light' || this.cardType === 'bg-warning';
+      if (!this.type) {
+        return 'bg-body-tertiary';
+      }
+      return `text-bg-${this.type}`;
     },
   },
 };
@@ -219,7 +216,7 @@ export default {
         width: 100%;
         bottom: 0;
         height: 125px;
-        background-image: linear-gradient(180deg, transparent, white 90%);
+        background-image: linear-gradient(180deg, transparent, var(--bs-body-bg) 90%);
     }
 
     .peek-read-more {
@@ -249,12 +246,19 @@ export default {
 </style>
 
 <style>
+    .header-wrapper {
+        display: inline-block;
+        width: calc(100% - 32px - 96px);
+        transition: 0.5s opacity;
+    }
+
     .card-heading {
         width: 100%;
     }
 
     .card-seamless {
         background-color: inherit;
+        color: inherit;
     }
 
     .card-title {
@@ -279,12 +283,6 @@ export default {
         display: inline-block;
         font-size: 13px;
         margin-right: 5px;
-    }
-
-    .header-wrapper {
-        display: inline-block;
-        width: calc(100% - 32px - 96px);
-        transition: 0.5s opacity;
     }
 
     .header-transparent {
@@ -360,6 +358,13 @@ export default {
 
     .morph-display-wrapper-seamless:hover {
         color: inherit;
+    }
+
+    [data-bs-theme="dark"] .card-container .card-header.text-bg-light,
+    [data-bs-theme="dark"] .card-container .header-wrapper.text-bg-light {
+        background-color: var(--bs-secondary-bg) !important;
+        color: var(--bs-emphasis-color) !important;
+        border-color: var(--bs-border-color) !important;
     }
 
     /* Bootstrap extra small(xs) responsive breakpoint */

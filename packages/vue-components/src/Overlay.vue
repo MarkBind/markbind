@@ -91,7 +91,7 @@ export default {
     .nav-menu-open {
         display: block !important;
         width: 100% !important;
-        background: #fff;
+        background: var(--bs-body-bg);
         clear: both;
     }
 </style>

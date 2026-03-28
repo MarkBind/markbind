@@ -13,12 +13,15 @@ export interface PageAssets {
   octicons?: string;
   materialIcons?: string;
   bootstrapIcons?: string;
-  highlight: string;
+  highlightLight: string;
+  highlightDark: string;
   markBindCss: string;
   markBindJs: string;
   pageNavCss: string;
   siteNavCss: string;
   bootstrapUtilityJs: string;
+  themeManagerJs: string;
+  codeThemeJs: string;
   polyfillJs: string;
   vue: string;
   pageVueRenderJs?: string;

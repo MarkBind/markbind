@@ -59,6 +59,9 @@ markdownIt.use(markdownItMark)
 markdownIt.renderer.rules.table_open = _.constant(
   '<div class="table-responsive"><table class="markbind-table table table-bordered table-striped">');
 markdownIt.renderer.rules.table_close = _.constant('</table></div>');
+// Bootstrap 5.3 removed the automatic darker bottom border on <thead>.
+// Adding table-group-divider to <tbody> restores that visual separation.
+markdownIt.renderer.rules.tbody_open = _.constant('<tbody class="table-group-divider">');
 
 function getAttribute(token: Token, attr: string, deleteAttribute: boolean = false) {
   const index = token.attrIndex(attr);

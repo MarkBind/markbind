@@ -84,6 +84,10 @@ export default {
         color: #6d757d;
     }
 
+    [data-bs-theme="dark"] .notlink {
+        color: #adb5bd;
+    }
+
     .breadcrumb-divider {
         --bs-breadcrumb-divider: '›';
     }

@@ -6,22 +6,22 @@
 
 #mb-page-nav a:link,
 #mb-page-nav a:visited {
-    color: #9b9b9b;
+    color: var(--bs-secondary-color);
     text-decoration: none;
 }
 
 #mb-page-nav a:hover {
-    color: black;
+    color: var(--bs-emphasis-color);
 }
 
 #mb-page-nav a.active {
     background-color: transparent;
-    color: black;
+    color: var(--bs-emphasis-color);
 }
 
 .page-nav-title {
     display: block;
-    color: black;
+    color: var(--bs-emphasis-color);
     white-space: inherit;
     padding-left: 0.5rem;
 }

@@ -385,19 +385,27 @@ export default {
     }
 
     .alert-border-left {
-        background-color: #f9f8f8;
+        background-color: var(--bs-tertiary-bg);
         border-left: solid;
         border-width: 0 0 0 5px;
     }
 
+    [data-bs-theme="dark"] .alert-default {
+        color: #e9ecef;
+        background-color: #2b3035;
+        border-color: #495057;
+    }
+
     .vertical-divider {
         width: 4px;
+        background-color: var(--bs-alert-border-color, currentcolor);
     }
 
     .horizontal-divider {
         margin: 0 auto;
         width: calc(100% - 2.5rem);
         height: 3px;
+        background-color: var(--bs-alert-border-color, currentcolor);
     }
 
     .no-background {

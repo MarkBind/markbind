@@ -14,9 +14,12 @@
           </ul>
         </div>
 
-        <ul v-if="slots.right" class="navbar-nav navbar-right">
-          <slot name="right"></slot>
-        </ul>
+        <div class="navbar-right">
+          <ul v-if="slots.right" class="navbar-nav">
+            <slot name="right"></slot>
+          </ul>
+          <dark-mode-toggle class="navbar-dark-mode-toggle" />
+        </div>
       </div>
     </nav>
     <div
@@ -38,11 +41,13 @@ import { toBoolean } from './utils/utils';
 import normalizeUrl from './utils/urls';
 import SiteNavButton from './SiteNavButton.vue';
 import PageNavButton from './PageNavButton.vue';
+import DarkModeToggle from './DarkModeToggle.vue';
 
 export default {
   components: {
     SiteNavButton,
     PageNavButton,
+    DarkModeToggle,
   },
   props: {
     type: {
@@ -318,6 +323,7 @@ export default {
             order: 1;
             max-width: 50%;
             padding: 0 16px;
+            justify-content: flex-end;
         }
 
         .navbar-default {
@@ -345,13 +351,13 @@ export default {
 
         /* Deep applies to slotted components and deep children */
         .navbar-default > ul > :deep(*) {
-            background: rgb(0 0 0 / 20%);
+            background: rgb(var(--bs-emphasis-color-rgb) / 20%);
             padding: 0.3125rem 0.625rem;
             flex-grow: 1;
         }
 
         .navbar-light .navbar-default > ul > :deep(*) {
-            background: rgb(0 0 0 / 5%);
+            background: rgb(var(--bs-emphasis-color-rgb) / 5%);
         }
 
         .navbar-default > ul > .current {
@@ -384,7 +390,14 @@ export default {
     }
 
     .navbar-right {
+        align-items: center;
+        display: flex;
+        gap: 0.5rem;
         padding-right: 1rem;
+    }
+
+    .navbar-dark-mode-toggle {
+        flex: 0 0 auto;
     }
 
     .navbar-left {
@@ -410,13 +423,13 @@ export default {
     }
 
     :deep(.dropdown-current) {
-        color: #fff !important;
-        background: #007bff;
+        color: var(--bs-white) !important;
+        background: var(--bs-primary);
     }
 
     .lower-navbar-container {
-        background-color: #fff;
-        border-bottom: 1px solid #c1c1c1;
+        background-color: var(--bs-body-bg);
+        border-bottom: 1px solid var(--bs-border-color);
         height: 50px;
         width: 100%;
         position: relative;
@@ -425,11 +438,11 @@ export default {
     /* Navbar link highlight for current page */
     .navbar.navbar-dark .navbar-nav :deep(.current:not(.dropdown) a),
     .navbar.navbar-dark .navbar-nav :deep(.dropdown.current > a) {
-        color: #fff;
+        color: var(--bs-white);
     }
 
     .navbar.navbar-light .navbar-nav :deep(.current:not(.dropdown)) a,
     .navbar.navbar-light .navbar-nav :deep(.dropdown.current > a) {
-        color: #000;
+        color: var(--bs-emphasis-color);
     }
 </style>

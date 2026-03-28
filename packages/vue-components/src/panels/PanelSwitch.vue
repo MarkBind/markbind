@@ -3,7 +3,7 @@
     type="button"
     :class="['collapse-button',
              'btn',
-             isSeamless ? 'btn-seamless' : isLightBg ? 'btn-outline-secondary' : 'btn-outline-light']"
+             isSeamless ? 'btn-seamless' : 'btn-panel']"
   >
     <span
       :class="['collapse-icon', 'glyphicon', 'glyphicon-menu-down', {'opened': isOpenBool}]"
@@ -20,10 +20,6 @@ export default {
     isOpen: {
       type: [Boolean, String],
       default: false,
-    },
-    isLightBg: {
-      type: Boolean,
-      default: true,
     },
     isSeamless: {
       type: Boolean,
@@ -47,6 +43,20 @@ export default {
     .btn-seamless:hover {
         color: inherit;
         background-color: inherit;
+    }
+
+    .btn-panel {
+        color: inherit;
+        border-color: currentcolor;
+        background-color: transparent;
+    }
+
+    .btn-panel:hover,
+    .btn-panel:focus,
+    .btn-panel:active {
+        color: inherit;
+        border-color: currentcolor;
+        background-color: color-mix(in srgb, currentcolor 15%, transparent);
     }
 
     .collapse-button {

@@ -64,6 +64,7 @@ export class SiteConfig {
 
   plantumlCheck: boolean;
 
+  darkMode: boolean;
   pagefind?: {
     exclude_selectors?: string[];
     glob?: string | string[];
@@ -109,6 +110,7 @@ export class SiteConfig {
     this.plantumlCheck = siteConfigJson.plantumlCheck !== undefined
       ? siteConfigJson.plantumlCheck : true; // check PlantUML's prerequisite by default
 
+    this.darkMode = siteConfigJson.darkMode === true;
     this.pagefind = siteConfigJson.pagefind;
   }
 

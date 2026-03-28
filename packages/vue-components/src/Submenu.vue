@@ -131,7 +131,7 @@ export default {
 
 <style scoped>
     .dropdown-submenu {
-        color: #212529 !important;
+        color: var(--bs-emphasis-color) !important;
         padding: 0 !important;
         position: relative;
     }

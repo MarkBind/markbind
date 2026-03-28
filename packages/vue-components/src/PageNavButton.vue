@@ -64,7 +64,7 @@ export default {
     }
 
     .toggle-page-nav-button span {
-        background-color: #000;
+        background-color: var(--bs-emphasis-color);
         border-radius: 50%;
         display: block;
         height: 5px;
