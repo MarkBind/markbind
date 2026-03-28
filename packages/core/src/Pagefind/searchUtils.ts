@@ -10,6 +10,53 @@ import type {
 } from './types.js';
 
 /**
+ * Truncates an excerpt to ensure the <mark> tags are visible.
+ * - Shows max 15 chars before <mark>
+ * - Shows all content after <mark> (no limit)
+ * - Adds ellipsis if prefix doesn't start at word boundary
+ * - Handles HTML entities in the prefix
+ *
+ * @param excerpt - The raw excerpt from Pagefind
+ * @returns Truncated excerpt with <mark> visible
+ */
+function truncateExcerptToShowMark(excerpt: string): string {
+  const markStart = excerpt.indexOf('<mark>');
+
+  // No mark found, return as is
+  if (markStart === -1) return excerpt;
+
+  // If mark is at position 0, return as is
+  if (markStart === 0) return excerpt;
+
+  // Get up to 15 chars before <mark>
+  const prefix = excerpt.substring(0, markStart);
+  const truncatedPrefix = prefix.slice(-15); // Last 15 chars
+
+  // Check if starts at word boundary:
+  // - Any whitespace (space, tab, newline)
+  // - Any non-alphanumeric character
+  const firstChar = truncatedPrefix[0];
+  const isWordBoundary = /[\s\d_\-.,;:'"()[\]{}|\\/@#$%^&*!~`]/.test(firstChar);
+
+  if (!isWordBoundary) {
+    // Find the first word boundary in the prefix (within 15 chars of end)
+    const searchArea = prefix.slice(-15);
+    const wordBoundaryMatch = searchArea.match(/[\s\d_\-.,;:'"()[\]{}|\\/@#$%^&*!~`]/);
+    if (wordBoundaryMatch) {
+      const lastBoundaryIndex = prefix.lastIndexOf(wordBoundaryMatch[0], markStart - 1);
+      if (lastBoundaryIndex !== -1 && lastBoundaryIndex < markStart) {
+        return `...${prefix.substring(lastBoundaryIndex + 1)}${excerpt.substring(markStart)}`;
+      }
+    }
+    // Fallback: use ellipsis + truncated
+    return `...${truncatedPrefix}${excerpt.substring(markStart)}`;
+  }
+
+  // Starts at word boundary, no ellipsis needed
+  return truncatedPrefix + excerpt.substring(markStart);
+}
+
+/**
  * Parses a single sub-result (heading/section) within a page into a display-ready format.
  *
  * This function constructs a hierarchical title (breadcrumb) by finding all anchor elements
@@ -32,7 +79,7 @@ function parseSubResult(
   result: PagefindSearchFragment,
 ): FormattedSearchResult {
   const route = sub?.url || result?.url;
-  const description = sub?.excerpt || result?.excerpt;
+  const description = truncateExcerptToShowMark(sub?.excerpt || result?.excerpt || '');
   const title = sub.title || '';
 
   return {
@@ -96,7 +143,7 @@ export function formatPagefindResult(
         meta: {
           ...result.meta,
           title: result.meta.title || '',
-          description: result.excerpt || '',
+          description: truncateExcerptToShowMark(result.excerpt || ''),
         },
         result,
         isSubResult: false,
@@ -173,7 +220,7 @@ export function formatPagefindResult(
       meta: {
         ...result.meta,
         title: result.meta.title || '',
-        description: result.excerpt || '',
+        description: truncateExcerptToShowMark(result.excerpt || ''),
       },
       result,
       isSubResult: false,
