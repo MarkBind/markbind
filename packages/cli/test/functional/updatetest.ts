@@ -13,7 +13,7 @@ import {
 } from './testSites.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const CLI_PATH = path.resolve(__dirname, '../../dist/index');
+const CLI_PATH = path.resolve(__dirname, '../../index');
 
 /* eslint-disable no-console */
 function printFailedMessage(err: string, siteName: string) {
