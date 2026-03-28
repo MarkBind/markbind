@@ -62,7 +62,7 @@
       window.__pagefind__ = null;
       window.loadPagefind = async () => {
         if (!window.__pagefind__) {
-          const module = await import('{{ baseUrl }}/pagefind/pagefind.js');
+          const module = await import('{{ baseUrl }}/markbind/pagefind/pagefind.js');
           window.__pagefind__ = module;
           module.init();
         }
