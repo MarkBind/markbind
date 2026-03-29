@@ -173,7 +173,11 @@ onUnmounted(() => {
         </svg>
       </span>
       <span class="search-tip">Search</span>
-      <span class="metaKey">{{ metaKey }} K</span>
+      <span class="metaKey">
+        <kbd class="command-palette-commands-key">{{ metaKey }}</kbd>
+        &nbsp;
+        <kbd class="command-palette-commands-key">K</kbd>
+      </span>
     </div>
 
     <div
@@ -192,7 +196,7 @@ onUnmounted(() => {
                 v-model="searchQuery"
                 type="text"
                 class="search-input"
-                placeholder="Search..."
+                placeholder="Search"
                 @keydown="handleKeyDown"
               />
             </div>
@@ -279,6 +283,27 @@ onUnmounted(() => {
                   <div class="result-title" v-html="result.meta.title"></div>
                   <!-- eslint-disable-next-line vue/no-v-html -->
                   <div class="result-excerpt" v-html="result.meta.description"></div>
+                </div>
+                <div
+                  v-if="index === selectedIndex"
+                >
+                  <div class="result-icon-sub">
+                    <svg
+                      class="DocSearch-Hit-Select-Icon"
+                      viewBox="0 0 20 20"
+                    >
+                      <g
+                        stroke="currentColor"
+                        fill="none"
+                        fill-rule="evenodd"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M18 3v4c0 2-2 4-4 4H2" />
+                        <path d="M8 17l-6-6 6-6" />
+                      </g>
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
@@ -376,17 +401,17 @@ onUnmounted(() => {
     background-color: var(--mb-bg-alt, #fff);
     color: #212529;
     border-radius: 8px;
-    border: 1px solid #ced4da;
+    border: 1px solid var(--mb-search-accent);
     transition: border 0.2s;
 }
 
 .nav-search-btn-wait:hover {
-    border: 1px solid var(--vcp-c-brand, #5468ff);
+    border: 1px solid var(--mb-search-brand, #5468ff);
 }
 
 .blog-search .nav-search-btn-wait .search-tip {
-    color: #909399;
-    font-size: 12px;
+    color: var(--mb-search-accent);
+    font-size: 1rem;
     padding-left: 8px;
     padding-right: 16px;
 }
@@ -394,16 +419,14 @@ onUnmounted(() => {
 .metaKey {
     margin-left: 10px;
     font-size: 12px;
-    border: 1px solid #e2e8f0;
-    border-radius: 4px;
-    padding: 0 6px;
+    padding: 0 2px;
 }
 
 .search-bar {
     cursor: text;
     align-items: center;
     border-radius: 4px;
-    border: 1px solid var(--vcp-c-brand);
+    border: 1px solid var(--mb-search-brand);
     width: 100%;
 }
 </style>

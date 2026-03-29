@@ -6,11 +6,17 @@
     Droid Sans, Helvetica Neue, sans-serif;
   --app-bg: var(--gray1);
   --app-text: #000000;
-  --command-shadow: 0 16px 70px rgb(0 0 0 / 20%);
+  --bg: var(--gray1);
+  --command-shadow: 0 2px 5px rgb(0 0 0 / 10%);
+  --command-list-height: auto;
   --lowContrast: #ffffff;
   --highContrast: #000000;
-  --vcp-c-brand: var(--blue11);
-  --vcp-c-accent: #35495e;
+  --mb-brand-primary: #00b0f0;
+  --mb-search-brand: var(--doc-search-blue);
+  --mb-search-accent: #35495e;
+  --mb-search-brand-1: var(--blue10);
+  --docsearch-muted-color: var(--gray10);
+  --doc-search-blue: #5468ff;
   --gray1: hsl(0, 0%, 98%);
   --gray2: hsl(0, 0%, 97.3%);
   --gray3: hsl(0, 0%, 95.1%);
@@ -40,7 +46,7 @@
   --blue3: hsl(209, 100%, 96.5%);
   --blue4: hsl(210, 98.8%, 94%);
   --blue5: hsl(209, 95%, 90.1%);
-  --blue6: hsl(209, 81.2%, 84.5%);
+  --blue6: hsl(209, 82%, 85%);
   --blue7: hsl(208, 77.5%, 76.9%);
   --blue8: hsl(206, 81.9%, 65.3%);
   --blue9: hsl(206, 100%, 50%);
@@ -108,13 +114,13 @@ div [command-dialog-mask] {
 
 div [command-dialog-wrapper] {
   position: relative;
-  background: var(--gray2);
+  background: #f5f6f7;
+  /* background: var(--gray2); */
   border-radius: 6px;
-  box-shadow: none;
   flex-direction: column;
   margin: 20vh auto auto;
   max-width: 700px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.51);
+  /* box-shadow: var(--command-shadow); */
 }
 
 div [command-dialog-footer] {
@@ -148,7 +154,7 @@ div [command-dialog-footer] {
   outline: none;
   background: var(--bg);
   color: var(--gray12);
-  caret-color: var(--vcp-c-brand);
+  caret-color: var(--mb-search-brand);
   margin: 0;
 }
 
@@ -203,7 +209,7 @@ div [command-dialog-footer] {
   border-radius: 4px;
   margin-top: 4px;
   background-color: var(--lowContrast);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--command-shadow);
 }
 
 .search-dialog .search-result-item:first-child {
@@ -212,7 +218,7 @@ div [command-dialog-footer] {
 
 .search-dialog .search-result-item.active,
 .search-dialog .search-result-item:hover {
-  background: var(--vcp-c-brand);
+  background: var(--mb-search-brand);
   color: #fff;
 }
 
@@ -337,7 +343,7 @@ div [command-dialog-footer] {
 }
 
 .search-dialog .search-result-item .result-title i.prefix {
-  color: var(--vp-c-brand-1);
+  color: var(--mb-search-brand-1);
 }
 
 .search-dialog .search-result-item:hover .result-title i.prefix,
@@ -392,7 +398,7 @@ div [command-dialog-footer] {
    Search Dialog Overrides
    ============================================ */
 .search-dialog [command-dialog-mask] {
-  background-color: rgba(75, 75, 75, 0.8);
+  background-color: rgba(101, 108, 133, 0.8);
 }
 
 .search-dialog [command-dialog-header] {
@@ -418,7 +424,7 @@ div [command-dialog-footer] {
 }
 
 .search-dialog [command-group-heading] {
-  color: var(--vcp-c-brand);
+  color: var(--mb-search-brand);
   font-size: 0.85em;
   font-weight: 600;
   line-height: 32px;
