@@ -64,7 +64,7 @@ export class Plugin {
     // For resolving plugin asset source paths later
     this.pluginAbsolutePath = path.dirname(pluginPath);
     this.pluginAssetOutputPath = path.join(siteOutputPath, PLUGIN_OUTPUT_SITE_ASSET_FOLDER_NAME,
-                                           path.basename(pluginPath, '.js'));
+                                           path.basename(pluginPath, path.extname(pluginPath)));
   }
 
   executeBeforeSiteGenerate() {
