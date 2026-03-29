@@ -88,7 +88,7 @@ An example of a plugin is shown below. The plugin shows two ways of appending a 
     return $.html();
   }
 
-  export { postRender }
+  export { postRender };
   ```
   </tab>
 </tabs>

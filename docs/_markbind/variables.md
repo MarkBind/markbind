@@ -11,7 +11,7 @@
 <variable name="icon_info">:fas-info-circle:</variable>
 <variable name="icon_ticked">:far-check-square:</variable>
 
-<variable name="node_version_number">22</variable>
+<variable name="node_version_number">22.12</variable>
 <variable name="node_dev_version_number">22.22.0</variable>
 <variable name="node_version"><tooltip content="MarkBind aims to support up to the last maintenance lts release as outlined [here](https://nodejs.org/en/about/releases/)">v{{ node_version_number }}</tooltip></variable>
 <variable name="node_dev_version"><tooltip content="MarkBind aims to support up to the last maintenance lts release as outlined [here](https://nodejs.org/en/about/releases/)">v{{ node_dev_version_number }}</tooltip></variable>
