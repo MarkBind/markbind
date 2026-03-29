@@ -164,16 +164,19 @@ export function formatPagefindResult(
     ];
   }
 
-  // Sort weighted_locations by weight (descending).
   const sortedLocations = [...weightedLocations].sort((a, b) => {
-    if (b.weight === a.weight) {
-      // If equal weight -> earlier position in document comes first.
-      return a.location - b.location;
+    if (b.balanced_score === a.balanced_score) {
+      // If equal balanced_score -> weight -> earlier position in document comes first.
+      if (a.weight === b.weight) {
+        return a.location - b.location;
+      }
+      return a.weight - b.weight;
     }
-    return b.weight - a.weight;
+    return b.balanced_score - a.balanced_score;
   });
 
-  // Pick top `count` sub-results based on weighted locations.
+  // For each location, find matching subresults,
+  // Then pick the subresult with the top `count` based on weighted locations.
   const subs: PagefindSubResult[] = [];
   sortedLocations.forEach(({ location }) => {
     if (subs.length >= count) return;
