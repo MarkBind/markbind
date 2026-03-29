@@ -57,6 +57,18 @@ function truncateExcerptToShowMark(excerpt: string): string {
 }
 
 /**
+ * Merges consecutive <mark> tags into a single <mark> tag.
+ * e.g., "<mark>making</mark> <mark>the</mark>" becomes "<mark>making the</mark>"
+ * This ensures that terms grouped together in the excerpt are displayed as a single highlighted segment.
+ *
+ * @param excerpt - The excerpt with potential consecutive <mark> tags
+ * @returns Excerpt with merged <mark> tags
+ */
+function mergeConsecutiveMarks(excerpt: string): string {
+  return excerpt.replace(/<\/mark>\s*<mark>/g, ' ');
+}
+
+/**
  * Parses a single sub-result (heading/section) within a page into a display-ready format.
  *
  * This function constructs a hierarchical title (breadcrumb) by finding all anchor elements
@@ -79,7 +91,7 @@ function parseSubResult(
   result: PagefindSearchFragment,
 ): FormattedSearchResult {
   const route = sub?.url || result?.url;
-  const description = truncateExcerptToShowMark(sub?.excerpt || result?.excerpt || '');
+  const description = mergeConsecutiveMarks(truncateExcerptToShowMark(sub?.excerpt || result?.excerpt || ''));
   const title = sub.title || '';
 
   return {
@@ -143,7 +155,7 @@ export function formatPagefindResult(
         meta: {
           ...result.meta,
           title: result.meta.title || '',
-          description: truncateExcerptToShowMark(result.excerpt || ''),
+          description: mergeConsecutiveMarks(truncateExcerptToShowMark(result.excerpt || '')),
         },
         result,
         isSubResult: false,
@@ -220,7 +232,7 @@ export function formatPagefindResult(
       meta: {
         ...result.meta,
         title: result.meta.title || '',
-        description: truncateExcerptToShowMark(result.excerpt || ''),
+        description: mergeConsecutiveMarks(truncateExcerptToShowMark(result.excerpt || '')),
       },
       result,
       isSubResult: false,
