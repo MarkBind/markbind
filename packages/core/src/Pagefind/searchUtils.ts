@@ -194,7 +194,10 @@ export function formatPagefindResult(
       return prev.locations.length > curr.locations.length ? prev : curr;
     }, null);
 
-    if (sub) subs.push(sub);
+    // Add only unique sub-results
+    if (sub && !subs.some(existing => existing.title === sub.title)) {
+      subs.push(sub);
+    }
   });
 
   // Re-sort by document order (position in page).
