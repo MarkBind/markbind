@@ -88,7 +88,7 @@ export class SiteConfig {
       : 'dark';
     this.style.codeLineNumbers = this.style.codeLineNumbers !== undefined
       ? this.style.codeLineNumbers : false;
-    this.style.darkMode = this.style.darkMode  === true;
+    this.style.darkMode = this.style.darkMode === true;
 
     this.pages = siteConfigJson.pages || [];
     this.pagesExclude = siteConfigJson.pagesExclude || [];

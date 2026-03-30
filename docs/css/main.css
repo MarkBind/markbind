@@ -67,7 +67,7 @@
 }
 
 #site-nav {
-    border-right: 1px solid lightgrey;
+    border-right: 1px solid var(--bs-border-color);
     padding-bottom: 20px;
     z-index: 999;
 }
@@ -82,7 +82,7 @@
 }
 
 #page-nav {
-    border-left: 1px solid lightgrey;
+    border-left: 1px solid var(--bs-border-color);
 }
 
 @media screen and (width <= 1299.98px) {

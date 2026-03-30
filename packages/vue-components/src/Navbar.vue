@@ -447,6 +447,6 @@ export default {
     }
 
     [data-bs-theme="dark"] .navbar {
-      border-bottom: 1px solid var(--bs-border-color);
+        border-bottom: 1px solid var(--bs-border-color);
     }
 </style>
