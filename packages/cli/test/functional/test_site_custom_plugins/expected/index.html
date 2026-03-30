@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="MarkBind 6.3.1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hello World</title>
+  <link rel="stylesheet" href="/markbind/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/markbind/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/markbind/css/codeblock-dark.min.css">
+  <link rel="stylesheet" href="/markbind/css/markbind.min.css">
+  <link rel="stylesheet" href="/markbind/pagefind/pagefind-ui.css">
+  <link rel="stylesheet" href="/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
+  <link rel="stylesheet" href="/plugins/markbind-plugin-tree/markbind-plugin-tree.css">
+</head>
+<script>
+  const baseUrl = ''
+</script>
+
+<body data-code-theme="dark">
+  <div id="app">
+    <header></header>
+    <div id="flex-body">
+      <div id="content-wrapper">
+        <div id="no_module_scope_cjs_plugin_without_cjs_ext">Should work! (CJS module without .cjs extension not in any module scope)</div>
+        <div id="no_module_scope_cjs_plugin_with_cjs_ext">Should work! (CJS module with .cjs extension not in any module scope)</div>
+        <div id="no_module_scope_esm_plugin_with_mjs_ext">Should work! (ESM module with .mjs extension not in any module scope)</div>
+        <div id="no_module_scope_esm_plugin_without_mjs_ext">Should work! (ESM module without .mjs extension not in any module scope)</div>
+        <br>
+        <div id="cjs_module_scope_cjs_plugin_without_cjs_ext">Should work! (CJS module without .cjs extension in CJS module scope)</div>
+        <div id="cjs_module_scope_cjs_plugin_with_cjs_ext">Should work! (CJS module with .cjs extension in CJS module scope)</div>
+        <div id="cjs_module_scope_esm_plugin_with_mjs_ext">Should work! (ESM module with .mjs extension in CJS module scope)</div>
+        <div id="cjs_module_scope_esm_plugin_without_mjs_ext"><b>This should not be altered</b> (ESM modules without .mjs extension should <u>not</u> work in CJS module scope)</div>
+        <br>
+        <div id="esm_module_scope_cjs_plugin_without_cjs_ext"><b>This should not be altered</b> (CJS modules without .cjs extension should <u>not</u> work in ESM module scope)</div>
+        <div id="esm_module_scope_cjs_plugin_with_cjs_ext">Should work! (CJS module with .cjs extension in ESM module scope)</div>
+        <div id="esm_module_scope_esm_plugin_with_mjs_ext">Should work! (ESM module with .mjs extension in ESM module scope)</div>
+        <div id="esm_module_scope_esm_plugin_without_mjs_ext">Should work! (ESM module without .mjs extension in ESM module scope)</div>
+      </div>
+      <scroll-top-button></scroll-top-button>
+    </div>
+    <footer></footer>
+  </div>
+</body>
+<script src="/markbind/js/bootstrap-utility.min.js"></script>
+<script src="/markbind/js/polyfill.min.js"></script>
+<script src="/markbind/js/vue.global.prod.min.js"></script>
+<script src="/markbind/js/markbind.min.js"></script>
+<script src="index.page-vue-render.js"></script>
+<script>
+  MarkBind.setupWithSearch()
+</script>
+<script src="/markbind/pagefind/pagefind-ui.js"></script>
+
+</html>

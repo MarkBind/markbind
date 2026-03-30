@@ -114,13 +114,23 @@ export class PluginManager {
    * @param pluginName name of the plugin
    */
   static _getPluginPath(projectRootPath: string, pluginName: string) {
-    // Check in project folder
-    const pluginPath = path.join(projectRootPath, PROJECT_PLUGIN_FOLDER_NAME, `${pluginName}.js`);
-    if (fs.existsSync(pluginPath)) {
-      return pluginPath;
+    // Check in project folder for custom plugins
+    // .cjs/.mjs are valid JavaScript extensions too, so check them
+    const possibleExts = ['.js', '.cjs', '.mjs'];
+    // eslint-disable-next-line no-restricted-syntax
+    for (const ext of possibleExts) {
+      const possiblePluginPath = path.join(
+        projectRootPath,
+        PROJECT_PLUGIN_FOLDER_NAME,
+        `${pluginName}${ext}`,
+      );
+      if (fs.existsSync(possiblePluginPath)) {
+        return possiblePluginPath;
+      }
     }
 
     // Check in current (__dirname) folder
+    // MarkBind plugins all have the .js extension - so we don't need to check for .cjs/.mjs files
     const markbindPluginPath = path.join(MARKBIND_PLUGIN_DIRECTORY, `${pluginName}.js`);
     if (fs.existsSync(markbindPluginPath)) {
       return markbindPluginPath;
