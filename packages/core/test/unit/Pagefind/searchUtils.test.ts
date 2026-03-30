@@ -4,7 +4,7 @@
  * These tests validate the transformation of raw Pagefind API responses
  * into display-ready format for the MarkBind search UI.
  */
-import { formatPagefindResult } from '../../../src/Pagefind/index';
+import { formatPagefindResult } from '../../../src/Pagefind/index.js';
 import type {
   PagefindSearchFragment,
   PagefindSubResult,
@@ -95,7 +95,8 @@ describe('formatPagefindResult', () => {
     it('should return main result plus single sub-result', () => {
       const subResult = createSubResult('Installation', '/page1#installation', [50], 'How to install');
       const weightedLocations = [createWordLocation(50, 5, 10)];
-      const pageResult = createPagefindResult('/page1', 'Page 1', 'Main excerpt', [subResult], weightedLocations);
+      const pageResult = createPagefindResult(
+        '/page1', 'Page 1', 'Main excerpt', [subResult], weightedLocations);
 
       const formatted = formatPagefindResult(pageResult);
 
@@ -118,7 +119,8 @@ describe('formatPagefindResult', () => {
         createWordLocation(70, 5, 4),
       ];
 
-      const pageResult = createPagefindResult('/page1', 'Page 1', 'Main', [sub1, sub2, sub3, sub4], weightedLocations);
+      const pageResult = createPagefindResult(
+        '/page1', 'Page 1', 'Main', [sub1, sub2, sub3, sub4], weightedLocations);
 
       const formatted = formatPagefindResult(pageResult, 2);
 
@@ -131,7 +133,8 @@ describe('formatPagefindResult', () => {
       const pageTitle = 'My Page';
       const subResult = createSubResult('My Page', '/page1#my-page', [50], 'Section content');
       const weightedLocations = [createWordLocation(50, 5, 10)];
-      const pageResult = createPagefindResult('/page1', pageTitle, 'Main excerpt', [subResult], weightedLocations);
+      const pageResult = createPagefindResult(
+        '/page1', pageTitle, 'Main excerpt', [subResult], weightedLocations);
 
       const formatted = formatPagefindResult(pageResult);
 
@@ -168,7 +171,8 @@ describe('formatPagefindResult', () => {
       const sub2 = createSubResult('Section B', '/page1#section-b', [20], 'Content B', weightedLocations);
       const sub3 = createSubResult('Section C', '/page1#section-c', [50], 'Content C', weightedLocations);
 
-      const pageResult = createPagefindResult('/page1', 'Page 1', 'Main', [sub1, sub2, sub3], weightedLocations);
+      const pageResult = createPagefindResult(
+        '/page1', 'Page 1', 'Main', [sub1, sub2, sub3], weightedLocations);
 
       const formatted = formatPagefindResult(pageResult, 10);
 
@@ -256,9 +260,11 @@ describe('formatPagefindResult', () => {
 
 describe('truncateExcerptToShowMark (via formatPagefindResult)', () => {
   it('should preserve mark tags in excerpt', () => {
-    const subResult = createSubResult('Section', '/page1#section', [10], 'This is <mark>highlighted</mark> content');
+    const subResult = createSubResult(
+      'Section', '/page1#section', [10], 'This is <mark>highlighted</mark> content');
     const weightedLocations = [createWordLocation(10, 5, 10)];
-    const pageResult = createPagefindResult('/page1', 'Page 1', 'Main <mark>highlight</mark>', [subResult], weightedLocations);
+    const pageResult = createPagefindResult(
+      '/page1', 'Page 1', 'Main <mark>highlight</mark>', [subResult], weightedLocations);
 
     const formatted = formatPagefindResult(pageResult);
 
@@ -276,7 +282,8 @@ describe('truncateExcerptToShowMark (via formatPagefindResult)', () => {
   it('should handle mark at the start of excerpt', () => {
     const subResult = createSubResult('Section', '/page1#section', [0], '<mark>Start</mark> of content');
     const weightedLocations = [createWordLocation(0, 5, 10)];
-    const pageResult = createPagefindResult('/page1', 'Page 1', '<mark>Main</mark> content', [subResult], weightedLocations);
+    const pageResult = createPagefindResult(
+      '/page1', 'Page 1', '<mark>Main</mark> content', [subResult], weightedLocations);
 
     const formatted = formatPagefindResult(pageResult);
 
@@ -286,9 +293,11 @@ describe('truncateExcerptToShowMark (via formatPagefindResult)', () => {
 
 describe('mergeConsecutiveMarks (via formatPagefindResult)', () => {
   it('should merge consecutive mark tags in excerpt', () => {
-    const subResult = createSubResult('Section', '/page1#section', [10], '<mark>making</mark> <mark>the</mark> search');
+    const subResult = createSubResult(
+      'Section', '/page1#section', [10], '<mark>making</mark> <mark>the</mark> search');
     const weightedLocations = [createWordLocation(10, 5, 10)];
-    const pageResult = createPagefindResult('/page1', 'Page 1', 'Main content', [subResult], weightedLocations);
+    const pageResult = createPagefindResult(
+      '/page1', 'Page 1', 'Main content', [subResult], weightedLocations);
 
     const formatted = formatPagefindResult(pageResult);
 
@@ -297,7 +306,8 @@ describe('mergeConsecutiveMarks (via formatPagefindResult)', () => {
   });
 
   it('should not merge non-adjacent mark tags', () => {
-    const subResult = createSubResult('Section', '/page1#section', [10], '<mark>first</mark> and <mark>second</mark>');
+    const subResult = createSubResult(
+      'Section', '/page1#section', [10], '<mark>first</mark> and <mark>second</mark>');
     const weightedLocations = [createWordLocation(10, 5, 10)];
     const pageResult = createPagefindResult('/page1', 'Page 1', 'Main', [subResult], weightedLocations);
 

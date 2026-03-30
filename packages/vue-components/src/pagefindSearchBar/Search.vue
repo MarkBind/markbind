@@ -385,50 +385,50 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.blog-search {
-    flex: 1;
-    display: flex;
-}
+    .blog-search {
+        flex: 1;
+        display: flex;
+    }
 
-.nav-search-btn-wait {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 10px 0 12px;
-    box-sizing: border-box;
-    height: 40px;
-    background-color: var(--mb-bg-alt, #fff);
-    color: #212529;
-    border-radius: 8px;
-    border: 1px solid var(--mb-search-accent);
-    transition: border 0.2s;
-}
+    .nav-search-btn-wait {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 10px 0 12px;
+        box-sizing: border-box;
+        height: 40px;
+        background-color: var(--mb-bg-alt, #fff);
+        color: #212529;
+        border-radius: 8px;
+        border: 1px solid var(--mb-search-accent);
+        transition: border 0.2s;
+    }
 
-.nav-search-btn-wait:hover {
-    border: 1px solid var(--mb-search-brand, #5468ff);
-}
+    .nav-search-btn-wait:hover {
+        border: 1px solid var(--mb-search-brand, #5468ff);
+    }
 
-.blog-search .nav-search-btn-wait .search-tip {
-    color: var(--mb-search-accent);
-    font-size: 1rem;
-    padding-left: 8px;
-    padding-right: 16px;
-}
+    .blog-search .nav-search-btn-wait .search-tip {
+        color: var(--mb-search-accent);
+        font-size: 1rem;
+        padding-left: 8px;
+        padding-right: 16px;
+    }
 
-.metaKey {
-    margin-left: 10px;
-    font-size: 12px;
-    padding: 0 2px;
-}
+    .metaKey {
+        margin-left: 10px;
+        font-size: 12px;
+        padding: 0 2px;
+    }
 
-.search-bar {
-    cursor: text;
-    align-items: center;
-    border-radius: 4px;
-    border: 1px solid var(--mb-search-brand);
-    width: 100%;
-}
+    .search-bar {
+        cursor: text;
+        align-items: center;
+        border-radius: 4px;
+        border: 1px solid var(--mb-search-brand);
+        width: 100%;
+    }
 </style>
 
 <style>
