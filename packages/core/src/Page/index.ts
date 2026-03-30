@@ -166,6 +166,7 @@ export class Page {
       title,
       enableSearch: this.siteConfig.enableSearch,
       codeTheme: this.siteConfig.style.codeTheme,
+      searchable: this.pageConfig.searchable,
     };
   }
 
