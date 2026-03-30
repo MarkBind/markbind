@@ -445,4 +445,8 @@ export default {
     .navbar.navbar-light .navbar-nav :deep(.dropdown.current > a) {
         color: var(--bs-emphasis-color);
     }
+
+    [data-bs-theme="dark"] .navbar {
+      border-bottom: 1px solid var(--bs-border-color);
+    }
 </style>
