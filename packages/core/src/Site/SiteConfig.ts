@@ -18,6 +18,7 @@ export type SiteConfigPage = {
 
 export type SiteConfigStyle = {
   bootstrapTheme?: string;
+  darkMode: boolean;
   codeTheme: 'dark' | 'light';
   codeLineNumbers: boolean; // Default hide display of line numbers for code blocks
 };
@@ -64,7 +65,6 @@ export class SiteConfig {
 
   plantumlCheck: boolean;
 
-  darkMode: boolean;
   pagefind?: {
     exclude_selectors?: string[];
     glob?: string | string[];
@@ -88,6 +88,7 @@ export class SiteConfig {
       : 'dark';
     this.style.codeLineNumbers = this.style.codeLineNumbers !== undefined
       ? this.style.codeLineNumbers : false;
+    this.style.darkMode = this.style.darkMode  === true;
 
     this.pages = siteConfigJson.pages || [];
     this.pagesExclude = siteConfigJson.pagesExclude || [];
@@ -110,7 +111,6 @@ export class SiteConfig {
     this.plantumlCheck = siteConfigJson.plantumlCheck !== undefined
       ? siteConfigJson.plantumlCheck : true; // check PlantUML's prerequisite by default
 
-    this.darkMode = siteConfigJson.darkMode === true;
     this.pagefind = siteConfigJson.pagefind;
   }
 
