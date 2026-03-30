@@ -965,7 +965,13 @@ export class SiteGenerationManager {
       if (index) {
         // Index all HTML files - pagefind will automatically filter based on
         // data-pagefind-body attribute (added to searchable pages in page.njk template)
-        const totalPageCount = await this.indexAllHtmlFiles(index);
+        const result = await index.addDirectory({ path: this.outputPath });
+        result.errors.forEach((error: string) => logger.error(error));
+
+        // Find the total page count that is searchable based on the site pages configuration
+        const totalPageCount = this.sitePages.addressablePages.filter(
+          page => page.searchable !== false && page.searchable !== 'no',
+        ).length;
 
         const endTime = new Date();
         const totalTime = (endTime.getTime() - startTime.getTime()) / 1000;
