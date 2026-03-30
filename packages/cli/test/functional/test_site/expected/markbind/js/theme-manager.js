@@ -22,4 +22,5 @@
   }
   document.documentElement.setAttribute('data-bs-theme', theme);
   window.__MARKBIND_THEME__ = theme;
+  window.__MARKBIND_DARK_MODE__ = true;
 }());

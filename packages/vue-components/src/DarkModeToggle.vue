@@ -1,5 +1,6 @@
 <template>
   <button
+    v-if="enabled"
     type="button"
     class="btn btn-sm btn-outline-secondary dark-mode-toggle"
     :aria-label="buttonLabel"
@@ -13,6 +14,7 @@
         viewBox="0 0 16 16"
         fill="currentColor"
       >
+        <!-- crescent moon shape -->
         <path d="M6 0a.75.75 0 0 1 .722.954 6.5 6.5 0 1 0 8.324 8.324A.75.75 0 0 1 16 10a8 8 0 1 1-10-10z" />
       </svg>
       <svg
@@ -21,6 +23,7 @@
         viewBox="0 0 16 16"
         fill="currentColor"
       >
+        <!-- svg for sun rays -->
         <path
           d="M8 1a.5.5 0 0 1 .5.5v1.5a.5.5 0 0 1-1 0V1.5A.5.5 0 0 1 8 1zm0 10
           a.5.5 0 0 1 .5.5V13a.5.5 0 0 1-1 0v-1.5A.5.5 0 0 1 8 11zm7-3a.5.5 0 0
@@ -32,6 +35,7 @@
           0 0 1 0 .707zM4.818 4.818a.5.5 0 0 1-.707 0L3.05 3.757a.5.5 0 0 1 .708
           -.707l1.06 1.06a.5.5 0 0 1 0 .708z"
         />
+        <!-- circle for sun core -->
         <path d="M8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" />
       </svg>
     </span>
@@ -46,6 +50,7 @@ const LIGHT = 'light';
 export default {
   data() {
     return {
+      enabled: typeof window !== 'undefined' && window.__MARKBIND_DARK_MODE__ === true,
       resolvedTheme: LIGHT,
       themePreference: null,
       mediaQueryList: null,
@@ -59,6 +64,9 @@ export default {
     },
   },
   mounted() {
+    if (!this.enabled) {
+      return;
+    }
     this.themePreference = this.getStoredTheme();
     this.applyTheme(this.themePreference);
 
