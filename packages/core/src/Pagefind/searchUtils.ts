@@ -112,9 +112,10 @@ function parseSubResult(
  *
  * This function performs four key transformations:
  *
- * 1. **Sort by Weight**: Sorts weighted_locations by their weight (descending),
- *    then by position (ascending) as a tie-breaker. This prioritizes matches
- *    in higher-weighted sections (e.g., headings) over body text.
+ * 1. **Sort by `balance_score`**: Sorts weighted_locations by their `balance_score` (descending),
+ *    then by `weight` (descending), then position (ascending) as a tie-breaker.
+ *    This prioritizes matches by their scores first, then
+ *    higher-weighted sections (e.g., headings) over body text, then finally their position on the page
  *
  * 2. **Pick Top Sub-Results**: Iterates through sorted locations and finds
  *    which sub-results (headings) contain those locations. If multiple
