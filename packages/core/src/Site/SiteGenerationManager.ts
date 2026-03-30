@@ -963,41 +963,9 @@ export class SiteGenerationManager {
 
       const { index } = await createIndex(createIndexOptions);
       if (index) {
-        // Handle glob patterns - support both single string and array of strings
-        const globValue = pagefindConfig.glob;
-        const value = globValue ?? [];
-        const globPatterns = Array.isArray(value) ? value : [value];
-
-        let totalPageCount = 0;
-
-        if (globPatterns.length > 0) {
-          const normalizedPatterns = globPatterns
-            .map(pattern => this.normalizeGlobPattern(pattern))
-            .filter(pattern => pattern !== '');
-
-          if (normalizedPatterns.length > 0) {
-            const results = await Promise.all(
-              normalizedPatterns.map(async (normalizedPattern) => {
-                logger.info(`Pagefind indexing with glob: ${normalizedPattern}`);
-                const result = await index.addDirectory({
-                  path: this.outputPath,
-                  glob: normalizedPattern,
-                });
-
-                result.errors.forEach((error: string) => logger.error(error));
-
-                return result.page_count;
-              }),
-            );
-
-            totalPageCount += results.reduce((acc, count) => acc + count, 0);
-          } else {
-            logger.warn('All glob patterns were invalid, falling back to indexing all HTML files');
-            totalPageCount = await this.indexAllHtmlFiles(index);
-          }
-        } else {
-          totalPageCount = await this.indexAllHtmlFiles(index);
-        }
+        // Index all HTML files - pagefind will automatically filter based on
+        // data-pagefind-body attribute (added to searchable pages in page.njk template)
+        const totalPageCount = await this.indexAllHtmlFiles(index);
 
         const endTime = new Date();
         const totalTime = (endTime.getTime() - startTime.getTime()) / 1000;
