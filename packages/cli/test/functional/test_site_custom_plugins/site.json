@@ -1,0 +1,41 @@
+{
+  "baseUrl": "",
+  "titlePrefix": "",
+  "titleSuffix": "",
+  "ignore": [
+    "_markbind/layouts/*",
+    "_markbind/logs/*",
+    "_site/*",
+    "site.json",
+    "*.md",
+    "expected/*",
+    "_markbind/plugins/package.json"
+  ],
+  "pagesExclude": ["node_modules/*"],
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "Hello World"
+    },
+    {
+      "glob": ["**/index.md", "**/*.md"]
+    }
+  ],
+  "deploy": {
+    "message": "Site Update."
+  },
+  "plugins": [
+    "no_module_scope/cjs_plugin_with_cjs_ext",
+    "no_module_scope/cjs_plugin_without_cjs_ext",
+    "no_module_scope/esm_plugin_with_mjs_ext",
+    "no_module_scope/esm_plugin_without_mjs_ext",
+    "cjs_module_scope/cjs_plugin_with_cjs_ext",
+    "cjs_module_scope/cjs_plugin_without_cjs_ext",
+    "cjs_module_scope/esm_plugin_with_mjs_ext",
+    "cjs_module_scope/esm_plugin_without_mjs_ext",
+    "esm_module_scope/cjs_plugin_with_cjs_ext",
+    "esm_module_scope/cjs_plugin_without_cjs_ext",
+    "esm_module_scope/esm_plugin_with_mjs_ext",
+    "esm_module_scope/esm_plugin_without_mjs_ext"
+  ]
+}

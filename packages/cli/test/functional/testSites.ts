@@ -8,6 +8,7 @@ const testSites = [
   'test_site_algolia_plugin',
   'test_site_special_tags',
   'test_site_table_plugin',
+  'test_site_custom_plugins',
 ];
 
 const testConvertSites = [
