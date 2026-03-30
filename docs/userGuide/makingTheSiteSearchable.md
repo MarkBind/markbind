@@ -101,34 +101,38 @@ In your `site.json`:
 
 This tells Pagefind to exclude any element with the `algolia-no-index` class (or containing it in a space-separated list) from the search index, similar to using `data-pagefind-ignore`.
 
+For more details, see the [Pagefind documentation on exclude selector configuration option](https://pagefind.app/docs/config-options/#exclude-selectors).
+
 #### Limiting Which Pages Are Searchable
 
-You can use the `glob` option to limit which pages are indexed by Pagefind. This is useful when you want search results to only show pages from specific sections of your site.
+Pagefind uses the existing `searchable` property in your `pages` configuration to determine which pages should be indexed. This provides a seamless way to control search indexing without additional configuration.
 
 In your `site.json`:
 
 ```json
 {
-  "pagefind": {
-    "glob": [
-      "devGuide",
-      "userGuide/*"
-    ]
-  }
+  "pages": [
+    {
+      "src": "index.md"
+    },
+    {
+      "src": "internal/notes.md",
+      "searchable": "no"
+    },
+    {
+      "glob": "devGuide/**/*.md",
+      "searchable": "no"
+    }
+  ]
 }
 ```
 
-MarkBind supports glob patterns and will automatically append `.html` to your patterns if not specified. For example:
-- `"devGuide"` becomes `"devGuide/**/*.html"`
-- `"devGuide/*"` becomes `"devGuide/*.html"`
-- `"**/devGuide/**"` becomes `"**/devGuide/**/*.html"`
-- `"*.html"` remains `"*.html"` (no change needed)
+- Pages with `searchable: "no"` (or `false`) will not appear in search results
+- By default, all pages are searchable (`searchable: "yes"`)
 
-Only pages matching these glob patterns will appear in search results. This can be particularly useful for:
-- Multi-site setups where you want to search only specific sections
-- Including only certain directories from search results
+This integrates with Pagefind's `data-pagefind-body` attribute. Pages with `searchable: false` will not have this attribute in their HTML, preventing them from being indexed by Pagefind.
 
-For more details on glob patterns, see the [Pagefind documentation](https://pagefind.app/docs/config-options/#glob).
+For more details on the `searchable` property, see [site.json file documentation](siteJsonFile.html#pages).
 
 <panel header="Potential Future Enhancements">
 
