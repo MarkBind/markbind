@@ -130,7 +130,7 @@ export class PluginManager {
     }
 
     // Check in current (__dirname) folder
-    // MarkBind plugins are all in JavaScript - so we don't need to check for .cjs/.mjs
+    // MarkBind plugins all have the .js extension - so we don't need to check for .cjs/.mjs files
     const markbindPluginPath = path.join(MARKBIND_PLUGIN_DIRECTORY, `${pluginName}.js`);
     if (fs.existsSync(markbindPluginPath)) {
       return markbindPluginPath;
