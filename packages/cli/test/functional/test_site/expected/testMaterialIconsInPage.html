@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="/test_site/markbind/material-icons/material-icons.css">
   <link rel="stylesheet" href="/test_site/markbind/css/codeblock-dark.min.css">
   <link rel="stylesheet" href="/test_site/markbind/css/markbind.min.css">
-  <link rel="stylesheet" href="/test_site/markbind/pagefind/pagefind-ui.css">
   <link rel="stylesheet" href="/test_site/plugins/testMarkbindPlugin/testMarkbindPluginStylesheet.css">
   <link rel="stylesheet" href="/test_site/plugins/web3Form/web-3-form.css">
   <link rel="stylesheet" href="/test_site/plugins/markbind-plugin-anchors/markbind-plugin-anchors.css">
@@ -196,6 +195,16 @@
     });
 
   </script>
-<script src="/test_site/markbind/pagefind/pagefind-ui.js"></script>
+<script>
+      window.__pagefind__ = null;
+      window.loadPagefind = async () => {
+        if (!window.__pagefind__) {
+          const module = await import('/test_site/markbind/pagefind/pagefind.js');
+          window.__pagefind__ = module;
+          module.init();
+        }
+        return window.__pagefind__;
+      };
+    </script>
 
 </html>
