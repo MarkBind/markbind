@@ -135,7 +135,7 @@ _(Optional)_ **The styling options to be applied to the site.** This includes:
 * **`globExclude`**: An array of file patterns to be excluded from rendering when using `glob`, also defined in the glob syntax.
 * **`title`**: The page `<title>` for the generated web page. Titles specified here take priority over titles specified in the [frontmatter](tweakingThePageStructure.html#frontmatter) of individual pages.
 * **`layout`**: The [layout](tweakingThePageStructure.html#layouts) to be used by the page. Default: `default`.
-* **`searchable`**: Specifies that the page(s) should be excluded from searching. Default: `yes`.
+* **`searchable`**: Specifies whether the page(s) should be included in search indexing. This applies to both the built-in search and Pagefind (if enabled). Set to `"no"` or `false` to exclude the page(s) from search results. Default: `yes`.
 * **`externalScripts`**: An array of external scripts to be referenced on the page. Scripts referenced will be run before the layout script.
 * **`frontmatter`**: Specifies properties to add to the frontmatter of a page or glob of pages. Overrides any existing properties if they have the same name, and overrides any frontmatter properties specified in `globalOverride`.
 * **`fileExtension`**: A string that specifies the output file extension (e.g., `".json"`, `".txt"`) for the generated file. If not specified, defaults to `".html"`. Note that non-HTML files do not support frontmatter or scripts.
