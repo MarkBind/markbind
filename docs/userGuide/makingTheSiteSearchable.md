@@ -130,9 +130,29 @@ In your `site.json`:
 - Pages with `searchable: "no"` (or `false`) will not appear in search results
 - By default, all pages are searchable (`searchable: "yes"`)
 
-This integrates with Pagefind's `data-pagefind-body` attribute. Pages with `searchable: false` will not have this attribute in their HTML, preventing them from being indexed by Pagefind.
-
 For more details on the `searchable` property, see [site.json file documentation](siteJsonFile.html#pages).
+
+<panel header="Interaction with Pagefind Attributes">
+
+MarkBind controls page indexing through the `searchable` property, which determines whether pages are passed to Pagefind for indexing. However, Pagefind also provides native attributes that can affect indexing:
+
+- [**`data-pagefind-body`**](https://pagefind.app/docs/indexing/#limiting-what-sections-of-a-page-are-indexed): Marks a specific element as the search content container. When this attribute exists on ANY page of your site, pages WITHOUT this attribute will not be indexed.
+- [**`data-pagefind-ignore`**](https://pagefind.app/docs/indexing/#removing-individual-elements-from-the-index): Excludes specific elements from the search index.
+
+**How MarkBind handles this:**
+
+1. Pages with `searchable: "no"` are NOT passed to Pagefind at all (they are never indexed).
+2. Pages with `searchable: "yes"` (default) ARE passed to Pagefind for indexing.
+
+**Interactions to be aware of:**
+
+- If you add `data-pagefind-body` to a searchable page, it works as expected - the page is indexed. However, only pages with this attribute will be searchable.
+- If you add `data-pagefind-body` to a non-searchable page, MarkBind will still NOT index it (because it's filtered before being passed to Pagefind).
+- Adding `data-pagefind-ignore` to a searchable page will NOT prevent it from being indexed - the page is still added via MarkBind's indexing, but the content within that element will be ignored by Pagefind.
+
+**Recommendation:** Use MarkBind's `searchable` property in site.json to control which pages are indexed & use `data-pagefind-body` attribute to exlcude specific elements within a page from being searchable. Avoid using `data-pagefind-body` as it is redundant and may lead to confusion.
+
+</panel>
 
 <panel header="Potential Future Enhancements">
 
