@@ -77,16 +77,5 @@
 <script>
   MarkBind.setupWithSearch()
 </script>
-<script>
-      window.__pagefind__ = null;
-      window.loadPagefind = async () => {
-        if (!window.__pagefind__) {
-          const module = await import('/markbind/pagefind/pagefind.js');
-          window.__pagefind__ = module;
-          module.init();
-        }
-        return window.__pagefind__;
-      };
-    </script>
 
 </html>

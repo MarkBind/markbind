@@ -151,6 +151,9 @@ export class SitePagesManager {
         pagefindJs: this.siteConfig.enableSearch && this.pagefindIndexingSucceeded
           ? path.posix.join(baseAssetsPath, 'pagefind', 'pagefind.js')
           : undefined,
+        pagefindLazyLoaderJs: this.siteConfig.enableSearch && this.pagefindIndexingSucceeded
+          ? path.posix.join(baseAssetsPath, 'js', 'pagefind-lazyloader.js')
+          : undefined,
       },
       baseUrlMap: this.baseUrlMap,
       dev: this.isDevMode,

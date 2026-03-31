@@ -138,16 +138,4 @@
     document.getElementsByTagName('head')[0].appendChild(style);
   </script>
 
-<script>
-      window.__pagefind__ = null;
-      window.loadPagefind = async () => {
-        if (!window.__pagefind__) {
-          const module = await import('/test_site_algolia_plugin/markbind/pagefind/pagefind.js');
-          window.__pagefind__ = module;
-          module.init();
-        }
-        return window.__pagefind__;
-      };
-    </script>
-
 </html>

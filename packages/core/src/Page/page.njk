@@ -57,18 +57,8 @@
     {{ script }}
 {%- endfor %}
 {%- endif %}
-{%- if asset.pagefindJs %}
-    <script>
-      window.__pagefind__ = null;
-      window.loadPagefind = async () => {
-        if (!window.__pagefind__) {
-          const module = await import('{{ baseUrl }}/markbind/pagefind/pagefind.js');
-          window.__pagefind__ = module;
-          module.init();
-        }
-        return window.__pagefind__;
-      };
-    </script>
+{%- if asset.pagefindLazyLoaderJs %}
+    <script src="{{ asset.pagefindLazyLoaderJs }}"></script>
 {%- endif %}
 {%- if asset.scriptBottom %}
 {%- for scripts in asset.scriptBottom %}
