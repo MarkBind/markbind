@@ -8,6 +8,7 @@ import LogoPagefind from './LogoPagefind.vue';
 
 const MARKBIND_PREFIX = 'markbind/';
 const MARKBIND_PREFIX_REGEX = /markbind\//g;
+const MAX_RESULTS = 10;
 
 const showModal = ref(false);
 const searchQuery = ref('');
@@ -15,6 +16,8 @@ const searchResults = ref([]);
 const isLoading = ref(false);
 const selectedIndex = ref(-1);
 const searchInputRef = ref(null);
+
+let lastSelectedIndex = -1;
 
 const selectResult = (result) => {
   if (result && result.route) {
@@ -44,6 +47,7 @@ const stripMarkbindPrefix = (url) => {
 const performSearch = async (query) => {
   if (!query.trim()) {
     searchResults.value = [];
+    isLoading.value = false;
     return;
   }
 
@@ -51,7 +55,8 @@ const performSearch = async (query) => {
   try {
     const pagefind = await window.loadPagefind();
     const search = await pagefind.search(query);
-    const rawResults = await Promise.all(search.results.map(r => r.data()));
+    const resultsToFetch = search.results.slice(0, MAX_RESULTS);
+    const rawResults = await Promise.all(resultsToFetch.map(r => r.data()));
 
     searchResults.value = rawResults
       .flatMap((r) => {
@@ -101,12 +106,15 @@ const handleKeyDown = (e) => {
   }
 
   // Scroll active element into view
-  nextTick(() => {
-    const activeElement = document.querySelector('.search-result-item.active');
-    if (activeElement) {
-      activeElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  });
+  if (selectedIndex.value !== lastSelectedIndex) {
+    lastSelectedIndex = selectedIndex.value;
+    nextTick(() => {
+      const activeElement = document.querySelector('.search-result-item.active');
+      if (activeElement) {
+        activeElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  }
 };
 
 const handleGlobalKeydown = (e) => {
@@ -147,6 +155,10 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  if (debounceTimer) {
+    clearTimeout(debounceTimer);
+    debounceTimer = null;
+  }
   window.removeEventListener('keydown', handleGlobalKeydown);
 });
 </script>
@@ -280,7 +292,9 @@ onUnmounted(() => {
                 </template>
                 <div class="link">
                   <!-- eslint-disable-next-line vue/no-v-html -->
-                  <div class="result-title" v-html="result.meta.title"></div>
+                  <div class="result-title">
+                    {{ result.meta.title }}
+                  </div>
                   <!-- eslint-disable-next-line vue/no-v-html -->
                   <div class="result-excerpt" v-html="result.meta.description"></div>
                 </div>
