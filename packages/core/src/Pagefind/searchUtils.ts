@@ -171,7 +171,7 @@ export function formatPagefindResult(
       if (a.weight === b.weight) {
         return a.location - b.location;
       }
-      return a.weight - b.weight;
+      return b.weight - a.weight;
     }
     return b.balanced_score - a.balanced_score;
   });
