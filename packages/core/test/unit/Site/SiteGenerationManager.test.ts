@@ -33,7 +33,9 @@ jest.mock('../../../src/Site/SitePagesManager', () => ({
   SitePagesManager: jest.fn().mockImplementation(function (this: any) {
     this.baseUrlMap = new Set();
     this.addressablePages = [];
-    this.collectAddressablePages = jest.fn();
+    this.collectAddressablePages = jest.fn().mockImplementation(() => {
+      // Do nothing - preserve the manually set addressablePages for testing
+    });
     this.setBaseUrlMap = jest.fn().mockImplementation((map) => {
       this.baseUrlMap = map;
     });
@@ -282,13 +284,13 @@ describe('SiteGenerationManager', () => {
       );
       const infoSpy = jest.spyOn(logger, 'info').mockImplementation();
 
-      sitePages.addressablePages = [
+      generationManager.siteConfig = { enableSearch: true, pages: [] } as any;
+      generationManager.sitePages.addressablePages = [
         { src: 'index.md', searchable: true },
         { src: 'page1.md', searchable: true },
         { src: 'page2.md', searchable: false },
       ];
 
-      await generationManager.readSiteConfig();
       await generationManager.indexSiteWithPagefind();
 
       expect(infoSpy).toHaveBeenCalledWith(expect.stringMatching(/Pagefind indexed 2 pages in/));
@@ -313,12 +315,12 @@ describe('SiteGenerationManager', () => {
       );
       const infoSpy = jest.spyOn(logger, 'info').mockImplementation();
 
-      sitePages.addressablePages = [
+      generationManager.siteConfig = { enableSearch: true } as any;
+      generationManager.sitePages.addressablePages = [
         { src: 'index.md', searchable: 'no' },
         { src: 'page1.md', searchable: true },
       ];
 
-      await generationManager.readSiteConfig();
       await generationManager.indexSiteWithPagefind();
 
       expect(infoSpy).toHaveBeenCalledWith(expect.stringMatching(/Pagefind indexed 1 pages in/));
@@ -342,9 +344,9 @@ describe('SiteGenerationManager', () => {
       );
       const infoSpy = jest.spyOn(logger, 'info').mockImplementation();
 
-      sitePages.addressablePages = [{ src: 'index.md', searchable: false }];
+      generationManager.siteConfig = { enableSearch: true } as any;
+      generationManager.sitePages.addressablePages = [{ src: 'index.md', searchable: false }];
 
-      await generationManager.readSiteConfig();
       await generationManager.indexSiteWithPagefind();
 
       expect(infoSpy).toHaveBeenCalledWith(expect.stringMatching(/Pagefind indexed 0 pages in/));

@@ -895,12 +895,15 @@ export class SiteGenerationManager {
 
       const { index } = await createIndex(createIndexOptions);
       if (index) {
-        // Index all HTML files - pagefind will automatically filter based on
-        // data-pagefind-body attribute (added to searchable pages in page.njk template)
+        // Index all HTML files in the output directory.
+        // Pagefind automatically excludes pages that don't have the 'data-pagefind-body' attribute.
+        // The page.njk template adds this attribute only to pages where searchable !== false/'no',
+        // effectively filtering out non-searchable pages from the search index.
         const result = await index.addDirectory({ path: this.outputPath });
         result.errors.forEach((error: string) => logger.error(error));
 
-        // Find the total page count that is searchable based on the site pages configuration
+        // Calculate the count of searchable pages from the site pages configuration.
+        // This is used for logging purposes to show how many pages were indexed.
         const totalPageCount = this.sitePages.addressablePages.filter(
           page => page.searchable !== false && page.searchable !== 'no',
         ).length;
