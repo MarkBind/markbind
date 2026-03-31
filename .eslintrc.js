@@ -2,7 +2,11 @@
 /* eslint quotes: ["error", "double"] */
 
 module.exports = {
-  "ignorePatterns": ["docs/_site/**", "**/dist/**", "**/node_modules/**"],
+  "ignorePatterns": [
+    "docs/_site/**",
+    "**/dist/**", "**/node_modules/**",
+    "packages/core-web/asset/js/pagefind-lazyloader.js",
+  ],
   "env": {
     "node": true,
     "es6": true,
