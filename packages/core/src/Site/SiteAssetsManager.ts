@@ -165,7 +165,6 @@ export class SiteAssetsManager {
     const dirsToCopy = ['fonts'];
     const filesToCopy = [
       'js/markbind.min.js',
-      'js/pagefind-lazyloader.js',
       'css/markbind.min.css',
     ];
 
