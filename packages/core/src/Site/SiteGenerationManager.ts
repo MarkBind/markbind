@@ -895,18 +895,44 @@ export class SiteGenerationManager {
 
       const { index } = await createIndex(createIndexOptions);
       if (index) {
-        // Index all HTML files in the output directory.
-        // Pagefind automatically excludes pages that don't have the 'data-pagefind-body' attribute.
-        // The page.njk template adds this attribute only to pages where searchable !== false/'no',
-        // effectively filtering out non-searchable pages from the search index.
-        const result = await index.addDirectory({ path: this.outputPath });
-        result.errors.forEach((error: string) => logger.error(error));
+        // Filter pages that should be indexed (searchable !== false)
+        const searchablePages = this.sitePages.pages.filter(
+          page => page.pageConfig.searchable,
+        );
 
-        // Calculate the count of searchable pages from the site pages configuration.
-        // This is used for logging purposes to show how many pages were indexed.
-        const totalPageCount = this.sitePages.addressablePages.filter(
-          page => page.searchable !== false && page.searchable !== 'no',
-        ).length;
+        let totalPageCount = 0;
+
+        if (searchablePages.length === 0) {
+          logger.info('No pages configured for search indexing');
+        } else {
+          // Add each searchable page to the index using addHTMLFile
+          const indexingResults = await Promise.all(
+            searchablePages.map(async (page) => {
+              try {
+                const content = await fs.readFile(page.pageConfig.resultPath, 'utf8');
+                const relativePath = path.relative(this.outputPath, page.pageConfig.resultPath);
+
+                return index.addHTMLFile({
+                  sourcePath: relativePath,
+                  content,
+                });
+              } catch (error) {
+                logger.error(`Failed to index ${page.pageConfig.resultPath}: ${error}`);
+                return null;
+              }
+            }),
+          );
+
+          // Count successful indexings
+          totalPageCount = indexingResults.filter(r => r !== null).length;
+
+          // Log any errors from indexing results
+          indexingResults.forEach((result) => {
+            if (result && result.errors) {
+              result.errors.forEach((error: string) => logger.error(error));
+            }
+          });
+        }
 
         const endTime = new Date();
         const totalTime = (endTime.getTime() - startTime.getTime()) / 1000;
