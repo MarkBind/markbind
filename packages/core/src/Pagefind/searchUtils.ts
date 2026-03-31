@@ -208,7 +208,7 @@ export function formatPagefindResult(
   subs.sort((a, b) => {
     const [minA] = a.locations || [];
     const [minB] = b.locations || [];
-    if (!minA || !minB) {
+    if (minA == null || minB == null) {
       return 0;
     }
     return minA - minB;

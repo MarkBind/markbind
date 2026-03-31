@@ -1,4 +1,4 @@
-export {
+export type{
   PagefindWordLocation,
   PagefindSearchAnchor,
   PagefindMeta,
