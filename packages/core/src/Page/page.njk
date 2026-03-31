@@ -19,7 +19,6 @@
     {% if asset.bootstrapIcons %} <link rel="stylesheet" href="{{ asset.bootstrapIcons }}"> {%- endif -%}
     <link rel="stylesheet" href="{{ asset.highlight }}">
     {%- if not dev -%}<link rel="stylesheet" href="{{ asset.markBindCss }}">{%- endif -%}
-    {% if asset.pagefindCss %} <link rel="stylesheet" href="{{ asset.pagefindCss }}"> {%- endif -%}
     {%- if asset.pluginLinks -%}
     {%- for link in asset.pluginLinks -%}
         {{ link }}
@@ -60,8 +59,8 @@
     {{ script }}
 {%- endfor %}
 {%- endif %}
-{%- if asset.pagefindJs %}
-    <script src="{{ asset.pagefindJs }}"></script>
+{%- if asset.pagefindLazyLoaderJs %}
+    <script src="{{ asset.pagefindLazyLoaderJs }}"></script>
 {%- endif %}
 {%- if asset.scriptBottom %}
 {%- for scripts in asset.scriptBottom %}
