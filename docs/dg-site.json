@@ -2,6 +2,7 @@
   "baseUrl": "/devdocs",
   "titlePrefix": "MarkBind",
   "style": {
+    "darkMode": true,
     "codeTheme": "light"
   },
   "pages": [
