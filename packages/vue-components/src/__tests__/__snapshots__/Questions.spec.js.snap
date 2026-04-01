@@ -44,7 +44,7 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
                Keywords:  
               
               <span
-                class="badge rounded-pill bg-light text-dark fw-normal"
+                class="badge rounded-pill fw-normal"
               >
                 key
               </span>
@@ -81,7 +81,7 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
                Keywords:  
               
               <span
-                class="badge rounded-pill bg-light text-dark fw-normal"
+                class="badge rounded-pill fw-normal"
               >
                 key
               </span>
@@ -118,7 +118,7 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
                Keywords:  
               
               <span
-                class="badge rounded-pill bg-light text-dark fw-normal"
+                class="badge rounded-pill fw-normal"
               >
                 key
               </span>
@@ -155,7 +155,7 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
                Keywords:  
               
               <span
-                class="badge rounded-pill bg-light text-dark fw-normal"
+                class="badge rounded-pill fw-normal"
               >
                 key
               </span>
@@ -171,7 +171,7 @@ exports[`Blank Questions and QOptions of answered correctly with unshown hint wi
       <!--v-if-->
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <i
         class="fa fa-check text-success border-success result-icon"
@@ -228,7 +228,7 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
     class="card question shake"
   >
     <div
-      class="card-header alert-light border-bottom border-light text-dark"
+      class="card-header alert-light border-bottom"
     >
       
       blanks question header
@@ -268,7 +268,7 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
                Keywords:  
               
               <span
-                class="badge rounded-pill bg-light text-dark fw-normal"
+                class="badge rounded-pill fw-normal"
               >
                 key
               </span>
@@ -305,7 +305,7 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
                Keywords:  
               
               <span
-                class="badge rounded-pill bg-light text-dark fw-normal"
+                class="badge rounded-pill fw-normal"
               >
                 key
               </span>
@@ -342,7 +342,7 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
                Keywords:  
               
               <span
-                class="badge rounded-pill bg-light text-dark fw-normal"
+                class="badge rounded-pill fw-normal"
               >
                 key
               </span>
@@ -379,7 +379,7 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
                Keywords:  
               
               <span
-                class="badge rounded-pill bg-light text-dark fw-normal"
+                class="badge rounded-pill fw-normal"
               >
                 key
               </span>
@@ -395,7 +395,7 @@ exports[`Blank Questions and QOptions of answered wrongly with header without hi
       <!--v-if-->
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
@@ -548,7 +548,7 @@ exports[`Blank Questions and QOptions of checked wrongly with shown hint without
       />
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
@@ -600,7 +600,7 @@ exports[`Blank Questions and QOptions of checked wrongly with unshown hint with 
     class="card question shake"
   >
     <div
-      class="card-header alert-light border-bottom border-light text-dark"
+      class="card-header alert-light border-bottom"
     >
       
       blanks question header
@@ -711,7 +711,7 @@ exports[`Blank Questions and QOptions of checked wrongly with unshown hint with 
       <!--v-if-->
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
@@ -768,7 +768,7 @@ exports[`Blank Questions and QOptions of unanswered with shown hint and header r
     class="card question"
   >
     <div
-      class="card-header alert-light border-bottom border-light text-dark"
+      class="card-header alert-light border-bottom"
     >
       
       unanswered blanks question header
@@ -875,7 +875,7 @@ exports[`Blank Questions and QOptions of unanswered with shown hint and header r
       />
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <!--v-if-->
       <transition-group-stub
@@ -1093,7 +1093,7 @@ exports[`Checkbox Questions and QOptions of answered correctly with unshown hint
       <!--v-if-->
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <i
         class="fa fa-check text-success border-success result-icon"
@@ -1150,7 +1150,7 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
     class="card question shake"
   >
     <div
-      class="card-header alert-light border-bottom border-light text-dark"
+      class="card-header alert-light border-bottom"
     >
       
       Checkbox question header
@@ -1319,7 +1319,7 @@ exports[`Checkbox Questions and QOptions of answered wrongly with header without
       <!--v-if-->
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
@@ -1380,7 +1380,7 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
       
       
       <div
-        class="form-control alert-light text-dark border border-secondary"
+        class="form-control alert-light border border-secondary"
       >
         <label
           class="row checkbox-label m-0"
@@ -1408,7 +1408,7 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
       
       
       <div
-        class="form-control alert-light text-dark border border-secondary"
+        class="form-control alert-light border border-secondary"
       >
         <label
           class="row checkbox-label m-0"
@@ -1436,7 +1436,7 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
       
       
       <div
-        class="form-control alert-light text-dark border border-secondary"
+        class="form-control alert-light border border-secondary"
       >
         <label
           class="row checkbox-label m-0"
@@ -1464,7 +1464,7 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
       
       
       <div
-        class="form-control alert-light text-dark border border-secondary"
+        class="form-control alert-light border border-secondary"
       >
         <label
           class="row checkbox-label m-0"
@@ -1508,7 +1508,7 @@ exports[`Checkbox Questions and QOptions of checked wrongly with shown hint with
       />
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
@@ -1560,7 +1560,7 @@ exports[`Checkbox Questions and QOptions of unanswered with header without hint 
     class="card question"
   >
     <div
-      class="card-header alert-light border-bottom border-light text-dark"
+      class="card-header alert-light border-bottom"
     >
       
       Checkbox question header
@@ -1575,7 +1575,7 @@ exports[`Checkbox Questions and QOptions of unanswered with header without hint 
       
       
       <div
-        class="form-control alert-light text-dark border border-secondary"
+        class="form-control alert-light border border-secondary"
       >
         <label
           class="row checkbox-label m-0"
@@ -1631,7 +1631,7 @@ exports[`Checkbox Questions and QOptions of unanswered with header without hint 
       
       
       <div
-        class="form-control alert-light text-dark border border-secondary"
+        class="form-control alert-light border border-secondary"
       >
         <label
           class="row checkbox-label m-0"
@@ -1691,7 +1691,7 @@ exports[`Checkbox Questions and QOptions of unanswered with header without hint 
       <!--v-if-->
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <!--v-if-->
       <transition-group-stub
@@ -1772,13 +1772,13 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style="display: none;"
               />
@@ -1823,13 +1823,13 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style="display: none;"
               />
@@ -1883,13 +1883,13 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style=""
               />
@@ -1934,13 +1934,13 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style="display: none;"
               />
@@ -1981,7 +1981,7 @@ exports[`Mcq Questions and QOptions of answered correctly with unshown hint with
       <!--v-if-->
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <i
         class="fa fa-check text-success border-success result-icon"
@@ -2038,7 +2038,7 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
     class="card question shake"
   >
     <div
-      class="card-header alert-light border-bottom border-light text-dark"
+      class="card-header alert-light border-bottom"
     >
       
       mcq question header
@@ -2070,13 +2070,13 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style="display: none;"
               />
@@ -2121,13 +2121,13 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style=""
               />
@@ -2181,13 +2181,13 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style="display: none;"
               />
@@ -2232,13 +2232,13 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style="display: none;"
               />
@@ -2279,7 +2279,7 @@ exports[`Mcq Questions and QOptions of answered wrongly with header without hint
       <!--v-if-->
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
@@ -2357,13 +2357,13 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style="display: none;"
               />
@@ -2387,7 +2387,7 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
       
       
       <div
-        class="form-control alert-light text-dark border border-secondary"
+        class="form-control alert-light border border-secondary"
       >
         <div
           class="row"
@@ -2404,13 +2404,13 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style=""
               />
@@ -2451,13 +2451,13 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style="display: none;"
               />
@@ -2498,13 +2498,13 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style="display: none;"
               />
@@ -2544,7 +2544,7 @@ exports[`Mcq Questions and QOptions of checked wrongly with shown hint without h
       />
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
@@ -2596,7 +2596,7 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
     class="card question shake"
   >
     <div
-      class="card-header alert-light border-bottom border-light text-dark"
+      class="card-header alert-light border-bottom"
     >
       
       unanswered mcq question header
@@ -2628,13 +2628,13 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style="display: none;"
               />
@@ -2675,13 +2675,13 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style="display: none;"
               />
@@ -2722,13 +2722,13 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style="display: none;"
               />
@@ -2769,13 +2769,13 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
                 cy="50"
                 fill="none"
                 r="47"
-                stroke="black"
+                stroke="var(--bs-secondary)"
                 stroke-width="4"
               />
               <circle
                 cx="50"
                 cy="50"
-                fill="dodgerblue"
+                fill="var(--bs-primary)"
                 r="25"
                 style="display: none;"
               />
@@ -2815,7 +2815,7 @@ exports[`Mcq Questions and QOptions of unanswered with shown hint and header ren
       />
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <!--v-if-->
       <transition-group-stub
@@ -2888,7 +2888,7 @@ exports[`Text Questions of answered correctly with answer without header, hint, 
       <!--v-if-->
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
@@ -2959,12 +2959,12 @@ exports[`Text Questions of answered correctly with answer, unshown hint without 
              Keywords:  
             
             <span
-              class="badge rounded-pill bg-light text-dark fw-normal"
+              class="badge rounded-pill fw-normal"
             >
               abc
             </span>
             <span
-              class="badge rounded-pill bg-light text-dark fw-normal"
+              class="badge rounded-pill fw-normal"
             >
               123
             </span>
@@ -2982,7 +2982,7 @@ exports[`Text Questions of answered correctly with answer, unshown hint without 
       <!--v-if-->
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <i
         class="fa fa-check text-success border-success result-icon"
@@ -3039,7 +3039,7 @@ exports[`Text Questions of answered wrongly with answer, header without hint ren
     class="card question shake"
   >
     <div
-      class="card-header alert-light border-bottom border-light text-dark"
+      class="card-header alert-light border-bottom"
     >
       
       Text question header
@@ -3064,12 +3064,12 @@ exports[`Text Questions of answered wrongly with answer, header without hint ren
              Keywords:  
             
             <span
-              class="badge rounded-pill bg-light text-dark fw-normal"
+              class="badge rounded-pill fw-normal"
             >
               abc
             </span>
             <span
-              class="badge rounded-pill bg-light text-dark fw-normal"
+              class="badge rounded-pill fw-normal"
             >
               123
             </span>
@@ -3087,7 +3087,7 @@ exports[`Text Questions of answered wrongly with answer, header without hint ren
       <!--v-if-->
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
@@ -3169,7 +3169,7 @@ exports[`Text Questions of checked wrongly with answer shown hint without header
       />
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <i
         class="fa fa-times text-danger border-danger result-icon"
@@ -3221,7 +3221,7 @@ exports[`Text Questions of unanswered with shown hint, header without answer ren
     class="card question"
   >
     <div
-      class="card-header alert-light border-bottom border-light text-dark"
+      class="card-header alert-light border-bottom"
     >
       
       Text question header
@@ -3257,7 +3257,7 @@ exports[`Text Questions of unanswered with shown hint, header without answer ren
       />
     </div>
     <div
-      class="card-footer alert-light border-top border-light text-dark"
+      class="card-footer alert-light border-top"
     >
       <!--v-if-->
       <transition-group-stub
