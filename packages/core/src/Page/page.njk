@@ -25,7 +25,6 @@
     <link rel="stylesheet" id="markbind-highlight-dark" href="{{ asset.highlightDark }}">
     <script src="{{ asset.codeThemeJs }}"></script>
     {%- if not dev -%}<link rel="stylesheet" href="{{ asset.markBindCss }}">{%- endif -%}
-    {% if asset.pagefindCss %} <link rel="stylesheet" href="{{ asset.pagefindCss }}"> {%- endif -%}
     {%- if asset.pluginLinks -%}
     {%- for link in asset.pluginLinks -%}
         {{ link }}
@@ -41,7 +40,9 @@
 <script>
   const baseUrl = '{{ baseUrl }}'
 </script>
-<body {% if hasPageNavHeadings %} data-bs-spy="scroll" data-bs-target="#mb-page-nav" data-bs-offset="100" {% endif %} data-code-theme="{{ codeTheme }}">
+<body 
+  {% if hasPageNavHeadings %} data-bs-spy="scroll" data-bs-target="#mb-page-nav" data-bs-offset="100" {% endif %} 
+  data-code-theme="{{ codeTheme }}">
 {{ content }}
 </body>
 {{- pageUserScriptsAndStyles -}}
@@ -64,8 +65,8 @@
     {{ script }}
 {%- endfor %}
 {%- endif %}
-{%- if asset.pagefindJs %}
-    <script src="{{ asset.pagefindJs }}"></script>
+{%- if asset.pagefindLazyLoaderJs %}
+    <script src="{{ asset.pagefindLazyLoaderJs }}"></script>
 {%- endif %}
 {%- if asset.scriptBottom %}
 {%- for scripts in asset.scriptBottom %}

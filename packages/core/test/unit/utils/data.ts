@@ -103,8 +103,14 @@ export interface MockAddDirectoryResult {
   errors?: string[];
 }
 
+export interface MockAddHTMLFileResult {
+  file?: { path: string };
+  errors?: string[];
+}
+
 export interface MockIndex {
   addDirectory: ReturnType<JestFn>;
+  addHTMLFile: ReturnType<JestFn>;
   writeFiles: ReturnType<JestFn>;
 }
 
@@ -116,12 +122,15 @@ export interface MockPagefind {
 /**
  * Creates a mock pagefind index
  * @param result - The result to return from addDirectory
+ * @param htmlFileResult - The result to return from addHTMLFile
  */
 export function createMockIndex(
   result: MockAddDirectoryResult = { page_count: 1, errors: [] },
+  htmlFileResult: MockAddHTMLFileResult = { errors: [] },
 ): MockIndex {
   return {
     addDirectory: jest.fn().mockResolvedValue(result),
+    addHTMLFile: jest.fn().mockResolvedValue(htmlFileResult),
     writeFiles: jest.fn().mockResolvedValue(undefined),
   };
 }

@@ -101,34 +101,58 @@ In your `site.json`:
 
 This tells Pagefind to exclude any element with the `algolia-no-index` class (or containing it in a space-separated list) from the search index, similar to using `data-pagefind-ignore`.
 
+For more details, see the [Pagefind documentation on exclude selector configuration option](https://pagefind.app/docs/config-options/#exclude-selectors).
+
 #### Limiting Which Pages Are Searchable
 
-You can use the `glob` option to limit which pages are indexed by Pagefind. This is useful when you want search results to only show pages from specific sections of your site.
+Pagefind uses the existing `searchable` property in your `pages` configuration to determine which pages should be indexed. This provides a seamless way to control search indexing without additional configuration.
 
 In your `site.json`:
 
 ```json
 {
-  "pagefind": {
-    "glob": [
-      "devGuide",
-      "userGuide/*"
-    ]
-  }
+  "pages": [
+    {
+      "src": "index.md"
+    },
+    {
+      "src": "internal/notes.md",
+      "searchable": "no"
+    },
+    {
+      "glob": "devGuide/**/*.md",
+      "searchable": "no"
+    }
+  ]
 }
 ```
 
-MarkBind supports glob patterns and will automatically append `.html` to your patterns if not specified. For example:
-- `"devGuide"` becomes `"devGuide/**/*.html"`
-- `"devGuide/*"` becomes `"devGuide/*.html"`
-- `"**/devGuide/**"` becomes `"**/devGuide/**/*.html"`
-- `"*.html"` remains `"*.html"` (no change needed)
+- Pages with `searchable: "no"` (or `false`) will not appear in search results
+- By default, all pages are searchable (`searchable: "yes"`)
 
-Only pages matching these glob patterns will appear in search results. This can be particularly useful for:
-- Multi-site setups where you want to search only specific sections
-- Including only certain directories from search results
+For more details on the `searchable` property, see [site.json file documentation](siteJsonFile.html#pages).
 
-For more details on glob patterns, see the [Pagefind documentation](https://pagefind.app/docs/config-options/#glob).
+<panel header="Interaction with Pagefind Attributes">
+
+MarkBind controls page indexing through the `searchable` property, which determines whether pages are passed to Pagefind for indexing. However, Pagefind also provides native attributes that can affect indexing:
+
+- [**`data-pagefind-body`**](https://pagefind.app/docs/indexing/#limiting-what-sections-of-a-page-are-indexed): Marks a specific element as the search content container. When this attribute exists on ANY page of your site, pages WITHOUT this attribute will not be indexed.
+- [**`data-pagefind-ignore`**](https://pagefind.app/docs/indexing/#removing-individual-elements-from-the-index): Excludes specific elements from the search index.
+
+**How MarkBind handles this:**
+
+1. Pages with `searchable: "no"` are NOT passed to Pagefind at all (they are never indexed).
+2. Pages with `searchable: "yes"` (default) ARE passed to Pagefind for indexing.
+
+**Interactions to be aware of:**
+
+- If you add `data-pagefind-body` to a searchable page, it works as expected - the page is indexed. However, only pages with this attribute will be searchable.
+- If you add `data-pagefind-body` to a non-searchable page, MarkBind will still NOT index it (because it's filtered before being passed to Pagefind).
+- Adding `data-pagefind-ignore` to a searchable page will NOT prevent it from being indexed - the page is still added via MarkBind's indexing, but the content within that element will be ignored by Pagefind.
+
+**Recommendation:** Use MarkBind's `searchable` property in site.json to control which pages are indexed & use `data-pagefind-body` attribute to exlcude specific elements within a page from being searchable. Avoid using `data-pagefind-body` as it is redundant and may lead to confusion.
+
+</panel>
 
 <panel header="Potential Future Enhancements">
 

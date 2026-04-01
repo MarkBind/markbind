@@ -1,13 +1,22 @@
+/* ============================================
+   CSS Variables - Color Palette
+   ============================================ */
 :root {
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
     Droid Sans, Helvetica Neue, sans-serif;
   --app-bg: var(--gray1);
   --app-text: #000000;
-  --command-shadow: 0 16px 70px rgb(0 0 0 / 20%);
+  --bg: var(--gray1);
+  --command-shadow: 0 2px 5px rgb(0 0 0 / 10%);
+  --command-list-height: auto;
   --lowContrast: #ffffff;
   --highContrast: #000000;
-  --vcp-c-brand: var(--vp-c-brand-2);
-  --vcp-c-accent: #35495e;
+  --mb-brand-primary: #00b0f0;
+  --mb-search-brand: var(--doc-search-blue);
+  --mb-search-accent: #35495e;
+  --mb-search-brand-1: var(--blue10);
+  --docsearch-muted-color: var(--gray10);
+  --doc-search-blue: #5468ff;
   --gray1: hsl(0, 0%, 98%);
   --gray2: hsl(0, 0%, 97.3%);
   --gray3: hsl(0, 0%, 95.1%);
@@ -37,7 +46,7 @@
   --blue3: hsl(209, 100%, 96.5%);
   --blue4: hsl(210, 98.8%, 94%);
   --blue5: hsl(209, 95%, 90.1%);
-  --blue6: hsl(209, 81.2%, 84.5%);
+  --blue6: hsl(209, 82%, 85%);
   --blue7: hsl(208, 77.5%, 76.9%);
   --blue8: hsl(206, 81.9%, 65.3%);
   --blue9: hsl(206, 100%, 50%);
@@ -45,6 +54,8 @@
   --blue11: hsl(211, 100%, 43.2%);
   --blue12: hsl(211, 100%, 15%);
 }
+
+/* Dark mode color palette */
 .dark {
   --app-bg: var(--gray1);
   --app-text: #ffffff;
@@ -88,6 +99,9 @@
   --blue12: hsl(206, 98%, 95.8%);
 }
 
+/* ============================================
+   Dialog Layout
+   ============================================ */
 div [command-dialog-mask] {
   background-color: rgba(0, 0, 0, 0.3);
   height: 100vh;
@@ -97,16 +111,18 @@ div [command-dialog-mask] {
   width: 100vw;
   z-index: 200;
 }
+
 div [command-dialog-wrapper] {
   position: relative;
-  background: var(--gray2);
+  background: #f5f6f7;
+  /* background: var(--gray2); */
   border-radius: 6px;
-  box-shadow: none;
   flex-direction: column;
   margin: 20vh auto auto;
-  max-width: 560px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.51);
+  max-width: 700px;
+  /* box-shadow: var(--command-shadow); */
 }
+
 div [command-dialog-footer] {
   border-top: 1px solid var(--gray6);
   align-items: center;
@@ -126,7 +142,11 @@ div [command-dialog-footer] {
   z-index: 300;
   font-size: 12px;
 }
-.algolia [command-input] {
+
+/* ============================================
+   Search Input
+   ============================================ */
+.search-dialog .search-input {
   font-family: var(--font-sans);
   width: 100%;
   font-size: 18px;
@@ -134,43 +154,52 @@ div [command-dialog-footer] {
   outline: none;
   background: var(--bg);
   color: var(--gray12);
-  caret-color: var(--vcp-c-brand);
+  caret-color: var(--mb-search-brand);
   margin: 0;
 }
-.algolia [command-input]::placeholder {
+
+.search-dialog .search-input::placeholder {
   color: var(--gray9);
 }
-.algolia [command-list] {
+
+/* ============================================
+   Search Results Container
+   ============================================ */
+.search-dialog .search-results-container {
+  padding: 0 12px 12px;
+}
+
+.search-dialog .search-results {
   height: var(--command-list-height);
-  max-height: 360px;
+  max-height: 500px;
   overflow: auto;
   overscroll-behavior: contain;
   transition: 100ms ease;
   transition-property: height;
 }
-.algolia .detail-list [command-item] {
-  min-height: 56px;
-  max-height: 112px;
-  padding: 10px 16px;
-  height: auto;
-}
-.algolia .detail-list [command-item] .des {
-  word-break: break-all;
-  white-space: wrap;
-  margin-top: 6px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-}
-.algolia [command-item] {
-  position: relative;
-  content-visibility: auto;
-  cursor: pointer;
-  height: 56px;
+
+.search-dialog .search-empty {
   font-size: 14px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  height: 64px;
+  white-space: pre-wrap;
+  color: var(--gray11);
+}
+
+/* ============================================
+   Search Result Item - Container
+   ============================================ */
+.search-dialog .search-result-item {
+  position: relative;
+  content-visibility: auto;
+  cursor: pointer;
+  height: 66px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   padding: 0px 16px;
   color: var(--gray12);
   user-select: none;
@@ -180,59 +209,203 @@ div [command-dialog-footer] {
   border-radius: 4px;
   margin-top: 4px;
   background-color: var(--lowContrast);
+  box-shadow: var(--command-shadow);
 }
-.algolia [command-item]:first-child {
+
+.search-dialog .search-result-item:first-child {
   margin-top: 0px;
 }
-.algolia [command-item][aria-selected="true"],
-.algolia [command-item]:hover {
-  background: var(--vcp-c-brand);
+
+.search-dialog .search-result-item.active,
+.search-dialog .search-result-item:hover {
+  background: var(--mb-search-brand);
   color: #fff;
 }
-.algolia [command-item][aria-selected="true"] svg,
-.algolia [command-item]:hover svg {
-  color: #fff;
+
+.search-dialog .search-result-item:active {
+  transition-property: background;
+  background: var(--gray4);
 }
-.algolia [command-item][aria-selected="true"] [command-linear-shortcuts],
-.algolia [command-item]:hover [command-linear-shortcuts] {
+
+.search-dialog .detail-list .search-result-item {
+  min-height: 65px;
+  max-height: 112px;
+  padding: 10px 16px;
+  height: auto;
+  margin-bottom: 5px;
+}
+
+/* Result item - active/hover states */
+.search-dialog .search-result-item.active [command-linear-shortcuts],
+.search-dialog .search-result-item:hover [command-linear-shortcuts] {
   display: flex;
   margin-left: auto;
   gap: 8px;
+  height: 70px;
 }
-.algolia [command-item][aria-selected="true"] [command-linear-shortcuts] kbd,
-.algolia [command-item]:hover [command-linear-shortcuts] kbd {
+
+.search-dialog .search-result-item.active [command-linear-shortcuts] kbd,
+.search-dialog .search-result-item:hover [command-linear-shortcuts] kbd {
   font-family: var(--font-sans);
   font-size: 13px;
   color: var(--gray11);
 }
-.algolia [command-item]:active {
-  transition-property: background;
-  background: var(--gray4);
+
+/* ============================================
+   Result Icons
+   ============================================ */
+.search-result-item .result-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  margin-right: 0;
+  color: var(--gray10);
 }
-.algolia [command-item] svg {
+
+.search-result-item .result-icon-sub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  margin-right: 0;
+  color: var(--gray10);
+}
+
+/* Main result icon */
+.search-result-item .DocSearch-Hit-icon {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+/* Sub result tree icon */
+.search-result-item .DocSearch-Hit-Tree {
+  width: 30px !important;
+  height: 30px !important;
+  opacity: 0.5;
+  stroke-width: 1.5;
+}
+
+/* Sub result hash icon */
+.search-result-item .DocSearch-Hit-Hash {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+/* SVG sizing override */
+.search-dialog .search-result-item svg {
   width: 16px;
   height: 16px;
   color: var(--gray10);
 }
-.algolia [command-empty=""] {
-  font-size: 14px;
+
+/* Active state icons */
+.search-result-item.active .result-icon,
+.search-result-item:hover .result-icon {
+  color: #fff;
+}
+
+.search-dialog .search-result-item.active svg,
+.search-dialog .search-result-item:hover svg {
+  color: #fff;
+}
+
+/* Spacing between two icons for sub-results */
+.search-result-item > .result-icon + .result-icon {
+  margin-left: 0;
+}
+
+/* ============================================
+   Result Content
+   ============================================ */
+.search-result-item .link {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 64px;
-  white-space: pre-wrap;
-  color: var(--gray11);
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  margin-left: 12px;
 }
-.algolia [command-dialog-mask] {
-  background-color: rgba(75, 75, 75, 0.8);
+
+.search-dialog .search-result-item > div.link {
+  width: 100%;
 }
-.algolia [command-dialog-header] {
+
+.search-dialog .search-result-item .result-title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.search-dialog .search-result-item .result-title i.prefix {
+  color: var(--mb-search-brand-1);
+}
+
+.search-dialog .search-result-item:hover .result-title i.prefix,
+.search-dialog .search-result-item.active .result-title i.prefix {
+  color: #fff;
+}
+
+.search-dialog .detail-list .search-result-item .result-excerpt {
+  word-break: break-all;
+  white-space: wrap;
+  margin-top: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.search-dialog .search-result-item .result-excerpt {
+  font-size: 13px;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+
+.search-dialog .search-result-item .headings {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.search-dialog .search-result-item .date {
+  min-width: 86px;
+  text-align: right;
+}
+
+.search-dialog .search-result-item mark {
+  background: none;
+  color: var(--blue10);
+}
+
+.search-dialog .search-result-item.active mark,
+.search-dialog .search-result-item:hover mark {
+  color: inherit;
+  background: rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  font-size: 15px;
+}
+
+/* ============================================
+   Search Dialog Overrides
+   ============================================ */
+.search-dialog [command-dialog-mask] {
+  background-color: rgba(101, 108, 133, 0.8);
+}
+
+.search-dialog [command-dialog-header] {
   padding: 12px;
 }
-.algolia [command-dialog-body] {
-  padding: 0 12px 12px;
-}
-.algolia [command-dialog-footer] {
+
+.search-dialog [command-dialog-footer] {
   align-items: center;
   border-radius: 0 0 8px 8px;
   box-shadow:
@@ -249,8 +422,9 @@ div [command-dialog-footer] {
   width: 100%;
   z-index: 300;
 }
-.algolia [command-group-heading] {
-  color: var(--vcp-c-brand);
+
+.search-dialog [command-group-heading] {
+  color: var(--mb-search-brand);
   font-size: 0.85em;
   font-weight: 600;
   line-height: 32px;
@@ -261,49 +435,38 @@ div [command-dialog-footer] {
   width: 100%;
 }
 
-.algolia .command-palette-commands {
+/* ============================================
+   Command Palette Footer
+   ============================================ */
+.search-dialog .command-palette-commands {
   color: var(--docsearch-muted-color);
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
 }
-@media screen and (max-width: 560px) {
-  .algolia .command-palette-commands {
-    display: none;
-  }
 
-  div [command-dialog-wrapper] {
-    margin: 0;
-    height: 100vh;
-  }
-  .algolia [command-dialog-footer] {
-    justify-content: center;
-  }
-  .algolia [command-input] {
-    padding: 6px 4px;
-  }
-  .algolia [command-list] {
-    max-height: calc(100vh - 120px);
-  }
-}
-.algolia .command-palette-commands li {
+.search-dialog .command-palette-commands li {
   display: flex;
   align-items: center;
 }
-.algolia .command-palette-commands li:not(:last-of-type) {
+
+.search-dialog .command-palette-commands li:not(:last-of-type) {
   margin-right: 0.8em;
 }
-.algolia .command-palette-logo a {
+
+.search-dialog .command-palette-logo a {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.algolia .command-palette-logo svg {
+
+.search-dialog .command-palette-logo svg {
   height: 24px;
   width: 24px;
 }
-.algolia .command-palette-commands-key {
+
+.search-dialog .command-palette-commands-key {
   align-items: center;
   background: var(--gray3);
   border-radius: 2px;
@@ -316,54 +479,57 @@ div [command-dialog-footer] {
   border: 0;
   width: 20px;
 }
-.dark .algolia [command-dialog-footer] {
-  box-shadow: none;
-}
+
+/* ============================================
+   Utilities
+   ============================================ */
 div[command-group] {
   display: block !important;
 }
+
 div[command-item] {
   display: flex !important;
 }
-.search-dialog div[command-item] > div.link {
-  width: 100%;
-}
-.search-dialog div[command-item] .title {
-  display: flex;
-  justify-content: space-between;
+
+.dark .search-dialog [command-dialog-footer] {
+  box-shadow: none;
 }
 
-.search-dialog div[command-item] .title i.prefix {
-  color: var(--vp-c-brand-1);
-}
-.search-dialog div[command-item]:hover .title i.prefix,
-.search-dialog div[command-item][aria-selected="true"] .title i.prefix {
-  color: #fff;
+/* ============================================
+   Media Queries
+   ============================================ */
+@media screen and (max-width: 768px) {
+  div [command-dialog-wrapper] {
+    margin: 0;
+    height: 100vh;
+    max-width: 100vw;
+    border-radius: 0;
+  }
+
+  .search-dialog .search-results {
+    max-height: calc(100vh - 150px);
+  }
 }
 
-.search-dialog div[command-item] .des {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  word-break: keep-all;
-  white-space: nowrap;
-}
-.search-dialog div[command-item] .headings {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: inline-block;
-}
+@media screen and (max-width: 560px) {
+  .search-dialog .command-palette-commands {
+    display: none;
+  }
 
-.search-dialog div[command-item] .date {
-  min-width: 86px;
-  text-align: right;
-}
-.search-dialog div[command-item] mark {
-  background: none;
-  color: var(--vp-c-brand-1);
-}
-.search-dialog div[command-item][aria-selected="true"] mark,
-.search-dialog div[command-item]:hover mark {
-  color: inherit;
-  text-decoration: underline;
+  div [command-dialog-wrapper] {
+    margin: 0;
+    height: 100vh;
+  }
+
+  .search-dialog [command-dialog-footer] {
+    justify-content: center;
+  }
+
+  .search-dialog .search-input {
+    padding: 6px 4px;
+  }
+
+  .search-dialog .search-results {
+    max-height: calc(100vh - 120px);
+  }
 }

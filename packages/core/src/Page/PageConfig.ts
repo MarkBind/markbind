@@ -30,6 +30,7 @@ export interface PageAssets {
   pluginLinks?: string[];
   pagefindCss?: string;
   pagefindJs?: string;
+  pagefindLazyLoaderJs?: string;
 }
 
 /**
