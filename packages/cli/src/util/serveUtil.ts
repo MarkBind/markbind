@@ -35,7 +35,8 @@ const addHandler = (site: any, onePagePath?: boolean) => (filePath: string): voi
   }
   Promise.resolve().then(async () => {
     if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
-      return site.rebuildSourceFiles();
+      await site.rebuildSourceFiles();
+      return await site.updatePagefindIndex(filePath);
     }
     return site.buildAsset(filePath);
   }).catch((err: Error) => {
@@ -59,7 +60,8 @@ const changeHandler = (site: any, onePagePath?: boolean) => (filePath: string): 
       return site.reloadSiteConfig();
     }
     if (site.isDependencyOfPage(filePath)) {
-      return site.rebuildAffectedSourceFiles(filePath);
+      await site.rebuildAffectedSourceFiles(filePath);
+      return await site.updatePagefindIndex(filePath);
     }
     return site.buildAsset(filePath);
   }).catch((err: Error) => {
@@ -80,7 +82,8 @@ const removeHandler = (site: any, onePagePath?: boolean) => (filePath: string): 
   }
   Promise.resolve().then(async () => {
     if (site.isFilepathAPage(filePath) || site.isDependencyOfPage(filePath)) {
-      return site.rebuildSourceFiles();
+      await site.rebuildSourceFiles();
+      return await site.indexSiteWithPagefind();
     }
     return site.removeAsset(filePath);
   }).catch((err: Error) => {

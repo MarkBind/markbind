@@ -86,6 +86,10 @@ export class Site {
     return this.generationManager.rebuildSourceFiles();
   }
 
+  async indexSiteWithPagefind(): Promise<boolean> {
+    return this.generationManager.indexSiteWithPagefind();
+  }
+
   async updatePagefindIndex(filePaths: string | string[]): Promise<boolean> {
     const paths = Array.isArray(filePaths) ? filePaths : [filePaths];
     const pages = this.generationManager.sitePages.pages.filter(page =>

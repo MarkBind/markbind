@@ -879,7 +879,7 @@ export class SiteGenerationManager {
 
   /**
   * Indexes all the pages of the site using pagefind.
-  * In dev mode (serve), keeps the index in memory for incremental updates.
+  * Performs a full rebuild of the search index.
   * @returns true if indexing succeeded and pagefind assets were written, false otherwise.
   */
   async indexSiteWithPagefind(): Promise<boolean> {
@@ -900,9 +900,16 @@ export class SiteGenerationManager {
         createIndexOptions.excludeSelectors = pagefindConfig.exclude_selectors;
       }
 
+      // Clean up existing in-memory index if it exists
+      if (this.pagefindIndex) {
+        await this.pagefindIndex.deleteIndex();
+        this.pagefindIndex = null;
+      }
+
       const { index } = await createIndex(createIndexOptions);
+
       if (index) {
-        // Store index in memory for incremental updates in dev mode
+        // Store index in memory for incremental updates in serve mode
         this.pagefindIndex = index;
 
         // Filter pages that should be indexed (searchable !== false)
@@ -949,14 +956,18 @@ export class SiteGenerationManager {
         logger.info(`Pagefind indexed ${totalPageCount} pages in ${totalTime}s`);
 
         const pagefindOutputPath = path.join(this.outputPath, TEMPLATE_SITE_ASSET_FOLDER_NAME, 'pagefind');
+        // Clear output directory before writing
+        await fs.emptyDir(pagefindOutputPath);
         await fs.ensureDir(pagefindOutputPath);
         await index.writeFiles({ outputPath: pagefindOutputPath });
         logger.info(`Pagefind assets written to ${pagefindOutputPath}`);
 
         // Only close the index in build/deploy mode; keep it in memory for serve mode
         // Detect serve mode by checking if postBackgroundBuildFunc has a name (named function = serve)
-        const isServeMode = this.postBackgroundBuildFunc.name !== ''; // Suggest a better fix if possible
-        if (!isServeMode) {
+        const isServeMode = this.postBackgroundBuildFunc.name !== '';
+        const shouldClose = !isServeMode;
+
+        if (shouldClose) {
           await close();
           this.pagefindIndex = null;
         }
