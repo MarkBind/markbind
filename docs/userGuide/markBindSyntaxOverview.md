@@ -118,7 +118,7 @@ MarkBind has Vue.js components built on the popular [BootStrap](https://getboots
 %%OUTPUT:%%
 <div class="indented">
 
-<box border-left-color="grey" background-color="white">
+<box border-left-color="grey">
 
 <ul>
 {% for item in [1, 2, 3, 4] %}
