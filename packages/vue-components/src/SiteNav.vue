@@ -50,13 +50,13 @@ export default {
         display: flex;
         padding: 0.5rem 0 0 2.8rem;
         transition: background-color 0.08s;
-        color: var(--bs-emphasis-color);
+        color: var(--bs-body-color);
         cursor: pointer;
     }
 
     .site-nav-custom-list-item {
         padding: 0.5rem 0 0 2.8rem;
-        color: var(--bs-emphasis-color);
+        color: var(--bs-body-color);
     }
 
     .site-nav-list-item-0 {
@@ -87,11 +87,11 @@ export default {
     .site-nav-default-list-item a {
         display: inline-block;
         height: 100%;
-        color: var(--bs-emphasis-color);
+        color: var(--bs-body-color);
     }
 
     .site-nav-default-list-item:hover a {
-        color: var(--bs-emphasis-color);
+        color: var(--bs-body-color);
         text-decoration: none;
     }
 
