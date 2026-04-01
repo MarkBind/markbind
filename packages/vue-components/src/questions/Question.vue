@@ -10,7 +10,7 @@
         addClass
       ]"
     >
-      <div v-if="$slots.header" class="card-header alert-light border-bottom border-light text-dark">
+      <div v-if="$slots.header" class="card-header alert-light border-bottom">
         <slot name="header"></slot>
       </div>
       <div class="card-body">
@@ -31,7 +31,7 @@
               <span
                 v-for="keyword in keywordsSplitTrimmed()"
                 :key="keyword"
-                class="badge rounded-pill bg-light text-dark fw-normal"
+                class="badge rounded-pill fw-normal"
               >
                 {{ keyword }}
               </span>
@@ -55,7 +55,7 @@
       <!-- This removes the footer for questions where both the hint and check button has been clicked -->
       <div
         v-if="showCardFooter"
-        class="card-footer alert-light border-top border-light text-dark"
+        class="card-footer alert-light border-top"
       >
         <i
           v-if="qState.state === 1"
