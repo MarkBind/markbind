@@ -21,6 +21,7 @@ Here is a typical `site.json` file:
   "titlePrefix": "FooBar Dev Docs",
   "titleSuffix": "FooBar",
   "style": {
+    darkMode: true,
     "bootstrapTheme": "bootswatch-cerulean",
     "codeTheme": "light",
     "codeLineNumbers": true
@@ -112,6 +113,10 @@ Note: `baseUrl` does not support [live preview](glossary.md#live-preview) as the
 #### **`style`**
 
 _(Optional)_ **The styling options to be applied to the site.** This includes:
+
+* `darkMode`
+  * [Optional. Default: `false`](/userGuide/darkMode.html#enabling-dark-mode)<br>
+  Toggles whether to enable dark mode for the site.
 
 * **`bootstrapTheme`**
  _(Optional)_ The theme for the generated site.<br>

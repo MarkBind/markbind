@@ -73,4 +73,4 @@ Currently, MarkBind supports all light themes from [Bootswatch](https://bootswat
 </div>
 
 {% from "njk/common.njk" import previous_next %}
-{{ previous_next('makingTheSiteSearchable', 'deployingTheSite') }}
+{{ previous_next('makingTheSiteSearchable', 'darkMode') }}

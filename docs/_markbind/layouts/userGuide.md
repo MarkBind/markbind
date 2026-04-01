@@ -31,6 +31,7 @@
   * [Using Plugins]({{baseUrl}}/userGuide/usingPlugins.html)
   * [Making the Site Searchable]({{baseUrl}}/userGuide/makingTheSiteSearchable.html)
   * [Applying Themes]({{baseUrl}}/userGuide/themes.html)
+  * [Dark Mode]({{baseUrl}}/userGuide/darkMode.html)
   * [Deploying the Site]({{baseUrl}}/userGuide/deployingTheSite.html)
   * [MarkBind in the Project Workflow]({{baseUrl}}/userGuide/markBindInTheProjectWorkflow.html)
   * [Redirecting to a Custom 404 Page]({{baseUrl}}/userGuide/redirectingToACustom404Page.html)
