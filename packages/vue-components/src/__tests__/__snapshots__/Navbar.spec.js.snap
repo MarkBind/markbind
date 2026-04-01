@@ -49,7 +49,12 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
           
         </ul>
       </div>
-      <!--v-if-->
+      <div
+        class="navbar-right"
+      >
+        <!--v-if-->
+        <!--v-if-->
+      </div>
     </div>
   </nav>
   <div
@@ -116,7 +121,12 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
           
         </ul>
       </div>
-      <!--v-if-->
+      <div
+        class="navbar-right"
+      >
+        <!--v-if-->
+        <!--v-if-->
+      </div>
     </div>
   </nav>
   <div
@@ -184,7 +194,12 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
           
         </ul>
       </div>
-      <!--v-if-->
+      <div
+        class="navbar-right"
+      >
+        <!--v-if-->
+        <!--v-if-->
+      </div>
     </div>
   </nav>
   <div
@@ -251,7 +266,12 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
           
         </ul>
       </div>
-      <!--v-if-->
+      <div
+        class="navbar-right"
+      >
+        <!--v-if-->
+        <!--v-if-->
+      </div>
     </div>
   </nav>
   <div

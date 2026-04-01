@@ -15,7 +15,7 @@
             cy="50"
             r="47"
             fill="none"
-            stroke="black"
+            stroke="var(--bs-secondary)"
             stroke-width="4"
           />
           <circle
@@ -23,7 +23,7 @@
             cx="50"
             cy="50"
             r="25"
-            fill="dodgerblue"
+            fill="var(--bs-primary)"
           />
         </svg>
       </div>
@@ -139,7 +139,7 @@
           <span
             v-for="keyword in keywordsSplitTrimmed()"
             :key="keyword"
-            class="badge rounded-pill bg-light text-dark fw-normal"
+            class="badge rounded-pill fw-normal"
           >
             {{ keyword }}
           </span>
@@ -199,7 +199,7 @@ export default {
         return this.correct ? 'success' : 'danger';
       }
 
-      return (this.selected || this.hover) ? 'alert-light text-dark border border-secondary' : '';
+      return (this.selected || this.hover) ? 'alert-light border border-secondary' : '';
     },
     answeredCorrectly() {
       return (this.correct && this.selected) || (!this.correct && !this.selected);

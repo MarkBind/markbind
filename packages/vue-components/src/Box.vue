@@ -379,25 +379,27 @@ export default {
     }
 
     .alert-default {
-        color: #24292e;
-        background-color: #f6f8fa;
-        border-color: #e8ebef;
+        color: var(--bs-body-color);
+        background-color: var(--bs-body-bg);
+        border-color: var(--bs-border-color);
     }
 
     .alert-border-left {
-        background-color: #f9f8f8;
+        background-color: var(--bs-tertiary-bg);
         border-left: solid;
         border-width: 0 0 0 5px;
     }
 
     .vertical-divider {
         width: 4px;
+        background-color: var(--bs-alert-border-color, currentcolor);
     }
 
     .horizontal-divider {
         margin: 0 auto;
         width: calc(100% - 2.5rem);
         height: 3px;
+        background-color: var(--bs-alert-border-color, currentcolor);
     }
 
     .no-background {

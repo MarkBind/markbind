@@ -125,8 +125,6 @@ export class SitePagesManager {
       this.siteConfig.baseUrl || '/', TEMPLATE_SITE_ASSET_FOLDER_NAME,
     );
 
-    const highlightAsset = HIGHLIGHT_ASSETS[this.siteConfig.style.codeTheme];
-
     const pageConfig = new PageConfig({
       asset: {
         bootstrap: path.posix.join(baseAssetsPath, 'css', 'bootstrap.min.css'),
@@ -136,12 +134,15 @@ export class SitePagesManager {
         octicons: path.posix.join(baseAssetsPath, 'css', 'octicons.css'),
         materialIcons: path.posix.join(baseAssetsPath, 'material-icons', 'material-icons.css'),
         bootstrapIcons: path.posix.join(baseAssetsPath, 'bootstrap-icons', 'font', 'bootstrap-icons.css'),
-        highlight: path.posix.join(baseAssetsPath, 'css', highlightAsset),
+        highlightLight: path.posix.join(baseAssetsPath, 'css', HIGHLIGHT_ASSETS.light),
+        highlightDark: path.posix.join(baseAssetsPath, 'css', HIGHLIGHT_ASSETS.dark),
         markBindCss: path.posix.join(baseAssetsPath, 'css', 'markbind.min.css'),
         markBindJs: path.posix.join(baseAssetsPath, 'js', 'markbind.min.js'),
         pageNavCss: path.posix.join(baseAssetsPath, 'css', 'page-nav.css'),
         siteNavCss: path.posix.join(baseAssetsPath, 'css', 'site-nav.css'),
         bootstrapUtilityJs: path.posix.join(baseAssetsPath, 'js', 'bootstrap-utility.min.js'),
+        themeManagerJs: path.posix.join(baseAssetsPath, 'js', 'theme-manager.js'),
+        codeThemeJs: path.posix.join(baseAssetsPath, 'js', 'code-theme.js'),
         polyfillJs: path.posix.join(baseAssetsPath, 'js', 'polyfill.min.js'),
         // We use development Vue when MarkBind is served in 'dev' mode so that hydration issues are reported
         vue: this.isDevMode

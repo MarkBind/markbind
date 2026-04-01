@@ -180,12 +180,12 @@ export default {
         width: 100%;
         bottom: 0;
         height: 125px;
-        background-image: linear-gradient(180deg, transparent, white 90%);
+        background-image: linear-gradient(180deg, transparent, var(--bs-body-bg) 90%);
     }
 
     .morph-title {
         padding: 0 0.3em;
-        border-color: black;
+        border-color: var(--bs-emphasis-color);
         background-color: transparent;
         vertical-align: top;
     }
@@ -193,9 +193,9 @@ export default {
     .morph-title:hover,
     .morph-title:active,
     .morph-title:focus {
-        color: white;
-        border-color: #343a40;
-        background-color: #343a40;
+        color: var(--bs-body-bg);
+        border-color: var(--bs-emphasis-color);
+        background-color: var(--bs-emphasis-color);
     }
 
     .card-collapse {
@@ -233,7 +233,7 @@ export default {
     .header-wrapper {
         width: 100%;
         display: inline-block;
-        background-color: white;
+        background-color: var(--bs-body-bg);
     }
 
     .header-wrapper-bottom {
@@ -251,7 +251,7 @@ export default {
     .button-wrapper {
         padding-left: 2px;
         border-width: 0 0 0 1px;
-        border-color: rgb(150 150 150 / 20%);
+        border-color: rgb(var(--bs-emphasis-color-rgb) / 20%);
         border-style: solid;
         margin-left: 2px;
         width: auto;
@@ -283,7 +283,7 @@ export default {
     .minimal-button {
         padding: 0 3px;
         border: 0;
-        color: rgb(150 150 150);
+        color: var(--bs-secondary-color);
         background-color: transparent;
         cursor: pointer;
     }
@@ -291,7 +291,7 @@ export default {
     .minimal-button:hover,
     .minimal-button:active,
     .minimal-button:focus {
-        color: rgb(30 30 30);
+        color: var(--bs-emphasis-color);
     }
 
     .minimal-popup-button {

@@ -13,7 +13,8 @@ const PAGE_NJK_LITERAL = `
     <link rel="stylesheet" href="{{ asset.bootstrap }}">
     <link rel="stylesheet" href="{{ asset.fontAwesome }}">
     <link rel="stylesheet" href="{{ asset.glyphicons }}">
-    <link rel="stylesheet" href="{{ asset.highlight }}">
+    <link rel="stylesheet" id="markbind-highlight-light" href="{{ asset.highlightLight }}">
+    <link rel="stylesheet" id="markbind-highlight-dark" href="{{ asset.highlightDark }}">
     <link rel="stylesheet" href="{{ asset.markbind }}">
     <link rel="stylesheet" href="{{ asset.layoutStyle }}">
     {% if siteNav %}

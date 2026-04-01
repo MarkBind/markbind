@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html data-dark-mode="{{ darkMode }}" data-code-theme="{{ codeTheme }}">
 <head>
+    <script src="{{ asset.themeManagerJs }}"></script>
     {%- if asset.headTop %}
     {%- for headContent in asset.headTop %}
     {{ headContent }}
@@ -17,7 +18,12 @@
     {% if asset.octicons %} <link rel="stylesheet" href="{{ asset.octicons }}"> {%- endif -%}
     {% if asset.materialIcons %} <link rel="stylesheet" href="{{ asset.materialIcons }}"> {%- endif -%}
     {% if asset.bootstrapIcons %} <link rel="stylesheet" href="{{ asset.bootstrapIcons }}"> {%- endif -%}
-    <link rel="stylesheet" href="{{ asset.highlight }}">
+    {# Loads both light and dark stylesheets upfront to avoid visual lag #}
+    {# when the user first toggles themes. Dynamically loading only the #}
+    {# correct sheet causes code theme to lag behind other UI elements. #}
+    <link rel="stylesheet" id="markbind-highlight-light" href="{{ asset.highlightLight }}">
+    <link rel="stylesheet" id="markbind-highlight-dark" href="{{ asset.highlightDark }}">
+    <script src="{{ asset.codeThemeJs }}"></script>
     {%- if not dev -%}<link rel="stylesheet" href="{{ asset.markBindCss }}">{%- endif -%}
     {%- if asset.pluginLinks -%}
     {%- for link in asset.pluginLinks -%}
