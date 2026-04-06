@@ -278,6 +278,53 @@ describe('SiteGenerationManager', () => {
       errorSpy.mockRestore();
     });
 
+    test('should skip missing pages in onePage mode without error', async () => {
+      const generationManagerOnePage = new SiteGenerationManager(
+        rootPath,
+        outputPath,
+        'index.md',
+        false,
+        undefined,
+        false,
+        false,
+        () => {},
+      );
+      generationManagerOnePage.configure(siteAssets, sitePages);
+
+      const json = {
+        ...PAGE_NJK,
+        'site.json': SITE_JSON_DEFAULT,
+        '_site/index.html': '<html><body>Existing page</body></html>',
+      };
+      mockFs.vol.fromJSON(json, rootPath);
+
+      const mockIndex = createMockIndex({ page_count: 1, errors: [] }, { errors: [] });
+      const mockPagefindInstance = createMockPagefind(mockIndex, true);
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
+      const errorSpy = jest.spyOn(logger, 'error').mockImplementation();
+
+      generationManagerOnePage.siteConfig = { enableSearch: true, pages: [] } as any;
+      generationManagerOnePage.sitePages.pages = [
+        { pageConfig: { resultPath: path.join(outputPath, 'index.html'), searchable: true } },
+        { pageConfig: { resultPath: path.join(outputPath, 'page2.html'), searchable: true } },
+      ] as any;
+
+      await generationManagerOnePage.indexSiteWithPagefind();
+
+      expect(mockIndex.addHTMLFile).toHaveBeenCalledTimes(1);
+      expect(mockIndex.addHTMLFile).toHaveBeenCalledWith({
+        sourcePath: 'index.html',
+        content: '<html><body>Existing page</body></html>',
+      });
+
+      expect(errorSpy).not.toHaveBeenCalled();
+
+      pagefindSpy.mockRestore();
+      errorSpy.mockRestore();
+    });
+
     test('should calculate searchable page count from addressablePages', async () => {
       const json = {
         ...PAGE_NJK,
