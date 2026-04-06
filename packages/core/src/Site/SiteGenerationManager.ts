@@ -908,6 +908,10 @@ export class SiteGenerationManager {
           // Add each searchable page to the index using addHTMLFile
           const indexingResults = await Promise.all(
             searchablePages.map(async (page) => {
+              const fileExists = await fs.pathExists(page.pageConfig.resultPath);
+              if (!fileExists) {
+                return null;
+              }
               try {
                 const content = await fs.readFile(page.pageConfig.resultPath, 'utf8');
                 const relativePath = path.relative(this.outputPath, page.pageConfig.resultPath);
