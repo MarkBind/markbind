@@ -909,7 +909,7 @@ export class SiteGenerationManager {
           const indexingResults = await Promise.all(
             searchablePages.map(async (page) => {
               const fileExists = await fs.pathExists(page.pageConfig.resultPath);
-              if (!fileExists) {
+              if (!fileExists && this.onePagePath) {
                 return null;
               }
               try {
