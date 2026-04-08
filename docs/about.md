@@ -192,10 +192,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 * [**Phang Chun Rong**](https://www.github.com/crphang): _Member_ for Aug 2019 - Jun 2020
 * [**Rachael Sim Hwee Ling**](https://github.com/rachx): _Member_ for Jan - Dec 2018
 * [**Ryo Chandra Putra Aramanda**](https://www.github.com/ryoarmanda): **_Team Lead_** for Jun 2022 - Dec 2022, _Member_ for Aug 2020 - May 2022
-* [**Tan Zhen Yong**](https://www.github.com/Xenonym): _Member_ for Jan - Aug 2019
 * [**Tan Wang Leng**](https://github.com/yamgent): **_Team Lead_** for Jul 2018 - Apr 2019, _Member_ for May 2018 - Jun 2018
-* [**Tejas Bhuwania**](https://www.github.com/Tejas2805): _Contributor_ for Jan - April 2020
 * [**Tan Yuanhong**](https://www.github.com/le0tan): _Member_: Jan 2020 - Apr 2021
+* [**Tan Zhen Yong**](https://www.github.com/Xenonym): _Member_ for Jan - Aug 2019
+* [**Tejas Bhuwania**](https://www.github.com/Tejas2805): _Contributor_ for Jan - April 2020
 * [**Xu Shuyao**](https://www.github.com/Tim-Siu): _Senior Dev_ for May 2024 - May 2025, _Member_ for Jan 2024 - Apr 2024
 * [**Yash Chowdhary**](https://www.github.com/yash-chowdhary): _Member_ Jan - Apr 2020
 * [**Yip Seng Yeun**](https://www.github.com/alyip98): _Member_ May 2019 - Apr 2020
