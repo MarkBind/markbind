@@ -6,7 +6,7 @@
 
 <span class="lead">MarkBind is a project **based in [National University of Singapore, School of Computing](http://www.comp.nus.edu.sg/)**, and is funded by an education grant from [NUS Center for Development of Teaching and Learning](https://nus.edu.sg/cdtl).</span>
 
-:glyphicon-send: You can **email us** at `markbind` at `comp.nus.edu.sg`
+:glyphicon-send: You can **email us** at `nusoss` at `nus.edu.sg`
 
 :glyphicon-console: Interested in **contributing to MarkBind**? Visit the [MarkBind project on GitHub](https://github.com/MarkBind/markbind).
 
@@ -14,17 +14,14 @@
 
 **Mentors**:
 * [**Damith C. Rajapakse**](https://www.comp.nus.edu.sg/~damithch/): _Project Mentor_ since Aug 2016
-* [**Ang Ze Yu**](https://www.github.com/ang-zeyu): _Project Mentor_ since Jun 2022, _Team Lead_ for Sep 2020 - May 2022
 
 **Dev Team**:
-* [**Jonah Tan Jun Zi**](https://www.github.com/jonahtanjz): **_Team Lead_** since Jun 2022, _Member_ for Jan 2021 - May 2022
-* [**Ryo Chandra Putra Aramanda**](https://www.github.com/ryoarmanda): **_Team Lead_** since Jun 2022, _Member_ for Aug 2020 - May 2022
-* [**Koh Rayson**](https://www.github.com/raysonkoh): _Senior Dev_ since Apr 2021, _Member_ since Jan 2021
-* [**Ong Wei Xiang**](https://www.github.com/wxwxwxwx9): _Senior Dev_ since Apr 2021, _Member_ since Aug 2020
-* [**Hannah Chia Kai Xin**](https://www.github.com/kaixin-hc): _Senior Dev_ since Apr 2022, _Member_ since Jan 2022
-* [**Jovyn Tan Li Shyan**](https://www.github.com/jovyntls): _Senior Dev_ since Apr 2022, _Member_ since Jan 2022
-* [**Liu Yongliang**](https://www.github.com/tlylt): _Senior Dev_ since Apr 2022, _Member_ since Aug 2021
-* [**Ong Jun Xiong**](https://www.github.com/ong6): _Senior Dev_ since Apr 2022, _Member_ since Aug 2021
+
+* [**Chan Ger Teck**](https://www.github.com/gerteck): **_Team Lead_** since May 2025, _Member_ for Jun 2024 - May 2025
+* [**Arjun Harvinder**](https://www.github.com/Harjun751): _Senior Dev_ since Apr 2026, _Member_ for Jan 2026 - Apr 2026
+* [**Hon Yi Hao**](https://www.github.com/yihao03): _Senior Dev_ since Apr 2026,  _Member_ for Jan 2026 - Apr 2026
+* [**Thaddaeus Chua**](https://github.com/MoshiMoshiMochi): _Senior Dev_ since Apr 2026, _Member_ for Jan 2026 - Apr 2026
+* [**Javier Tan Meng Wee**](https://github.com/Incogdino): _Senior Dev_ since May 2025, _Member_ for Jan 2025 - May 2025
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -162,29 +159,45 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 ---
 
 **%%Past Members:%%**
-* [**Aaron Chong Jun Hao**](https://github.com/acjh): _Project Mentor_ for Jul 2018 - Dec 2020, _Team Lead_ for Aug 2017 - Jun 2018
+* [**Aaron Chong Jun Hao**](https://github.com/acjh): **_Project Mentor_** for Jul 2018 - Dec 2020, **_Team Lead_** for Aug 2017 - Jun 2018
+* [**Adrian Leonardo Liang**](https://github.com/AgentHagu): _Senior Dev_ May 2025 - Jul 2025, _Member_ for Jan 2025 - May 2025
 * [**Ahmed Bahajjaj**](https://www.github.com/madanalogy): _Contributor_ for Jan-April 2020
+* [**Ang Ze Yu**](https://www.github.com/ang-zeyu): **_Project Mentor_** for Jun 2022 - Dec 2023, **_Team Lead_** for Sep 2020 - May 2022
+* [**Cheah Gee Nung, Ian**](https://www.github.com/IanCheah): _Senior Dev_ May 2025 - Jul 2025, _Member_ for Jan 2025 - May 2025
 * [**Chng Zhi Xuan**](https://github.com/Chng-Zhi-Xuan): _Member_ for May 2018 - Jul 2019
 * [**Chua Yun Zhi Nicholas**](https://github.com/nicholaschuayunzhi): _Member_ for Jan 2018 - May 2019
 * [**Daniel Berzin Chua Yuan Siang**](https://github.com/danielbrzn): _Member_ for Jan 2018 - Aug 2018
 * [**Daryl Chan**](https://www.github.com/dvrylc): _Contributor_ for Jan-April 2020
 * [**Daryl Tan**](https://www.github.com/openorclose): _Member_ for May 2019 - May 2020
+* [**Elton Goh Jun Hao**](https://github.com/EltonGohJH): _Senior Dev_ for Jan 2024 - May 2025, _Member_ for Jun 2022 - Dec 2023
+* [**Hannah Chia Kai Xin**](https://www.github.com/kaixin-hc): _Senior Dev_ for Apr 2022 - June 2024, _Member_ for Jan 2022 - Mar 2022
 * [**Jamos Tay**](https://github.com/jamos-tay): _Member_ for Aug 2018 - Apr 2019
 * [**Jeremy Tan Jie Rui**](https://www.github.com/Parcly-Taxel): _Contributor_ for Jan-April 2020
 * [**Jia Zhixin**](https://github.com/nusjzx): _Member_ for May 2018 - Aug 2018
-* [**Jiang Sheng**](https://github.com/Gisonrg): _Founding Member_ and _Team Lead_ for Aug 2016 - Jul 2017
+* [**Jiang Sheng**](https://github.com/Gisonrg): **_Founding Member_** and **_Team Lead_** for Aug 2016 - Jul 2017
+* [**Jonah Tan Jun Zi**](https://www.github.com/jonahtanjz): **_Team Lead_** for Jun 2022 - Dec 2022, _Member_ for Jan 2021 - May 2022
 * [**Joshua Wong**](https://www.github.com/hcwong): _Contributor_ for Jan-April 2020
+* [**Jovyn Tan Li Shyan**](https://www.github.com/jovyntls): _Senior Dev_ for Apr 2022 - Jun 2023, _Member_ since Jan 2022
 * [**Kimberly Ong Ong Hui Qin**](https://www.github.com/kimberlyohq): _Contributor_ for Jun-Jul 2021
+* [**Koh Rayson**](https://www.github.com/raysonkoh): _Senior Dev_ for Apr 2021 - Feb 2023, _Member_ for Jan 2021 - Mar 2021
 * [**Labayna Neil Brian Narido**](https://www.github.com/nbriannl): _Member_ for Jan - Apr 2020
-* [**Marvin Chin Kun Song**](https://www.github.com/marvinchin): _Project Lead_ for Jan - Aug 2020, _Member_ for Jan 2019 - Aug 2019
+* [**Lee Hyung Woon**](https://www.github.com/lhw-1): **_Team Lead_** for May 2024 - May 2025, _Senior Dev_ for May 2023 - Apr 2024, _Member_ for Jan 2023 - May 2023
 * [**Lin Si Jie**](https://www.github.com/sijie123): _Member_ for Jan - Aug 2019
 * [**Lu Yang Kenneth**](https://github.com/luyangkenneth): _Member_ for Jan - Aug 2019
+* [**Liu Yongliang**](https://www.github.com/tlylt): **_Project Mentor_** for May 2024 - May 2025, **_Team Lead_** for Apr 2023 - Apr 2024, _Senior Dev_ for Apr 2022 - Mar 2023, _Member_ for Aug 2021 - Mar 2022
+* [**Marvin Chin Kun Song**](https://www.github.com/marvinchin): **_Project Lead_** for Jan - Aug 2020, _Member_ for Jan 2019 - Aug 2019
 * [**Maddi Aadyaa**](https://www.github.com/amad-person): _Member_ for Jan - Aug 2019
+* [**Ong Jun Xiong**](https://www.github.com/ong6): _Senior Dev_ for Apr 2022 - Feb 2023, _Member_ for Aug 2021 - Mar 2022
+* [**Ong Wei Xiang**](https://www.github.com/wxwxwxwx9): _Senior Dev_ for Apr 2021 - Jun 2021, _Member_ for Aug 2020 - Mar 2021
 * [**Phang Chun Rong**](https://www.github.com/crphang): _Member_ for Aug 2019 - Jun 2020
 * [**Rachael Sim Hwee Ling**](https://github.com/rachx): _Member_ for Jan - Dec 2018
+* [**Ryo Chandra Putra Aramanda**](https://www.github.com/ryoarmanda): **_Team Lead_** for Jun 2022 - Dec 2022, _Member_ for Aug 2020 - May 2022
 * [**Tan Zhen Yong**](https://www.github.com/Xenonym): _Member_ for Jan - Aug 2019
-* [**Tan Wang Leng**](https://github.com/yamgent): _Team Lead_ for Jul 2018 - Apr 2019, _Member_ for May 2018 - Jun 2018
+* [**Tan Wang Leng**](https://github.com/yamgent): **_Team Lead_** for Jul 2018 - Apr 2019, _Member_ for May 2018 - Jun 2018
 * [**Tejas Bhuwania**](https://www.github.com/Tejas2805): _Contributor_ for Jan - April 2020
 * [**Tan Yuanhong**](https://www.github.com/le0tan): _Member_: Jan 2020 - Apr 2021
+* [**Xu Shuyao**](https://www.github.com/Tim-Siu): _Senior Dev_ for May 2024 - May 2025, _Member_ for Jan 2024 - Apr 2024
 * [**Yash Chowdhary**](https://www.github.com/yash-chowdhary): _Member_ Jan - Apr 2020
 * [**Yip Seng Yeun**](https://www.github.com/alyip98): _Member_ May 2019 - Apr 2020
+* [**Yu Chenbo**](https://www.github.com/JunHongTan): _Member_ for Jan 2025 - May 2025
+
