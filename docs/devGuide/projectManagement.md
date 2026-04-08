@@ -478,6 +478,7 @@ To ensure the team structure remains effective and secure, **MarkBind organizati
 1.  **Review Activity**: Identify members who have become inactive or whose contribution level has changed.
 1.  **Promote Members**: Move eligible members up the hierarchy (e.g., from `active-contributors` to `junior-developers`) based on the Contributor Journey.
 1.  **Audit Team Membership**: Ensure there are no "floating" members (members in parent teams like `developers` but not in any child team).
+1.  **Update the [About]({{baseUrl}}/about.html) page** to reflect the current team structure and roles. Shift inactive members to the `Past Members` section, and assign appropriate roles to the active members (e.g. Project Mentor, Team Lead, Senior Dev, Member, Contributor). This is to easily communicate the team structure and roles to potential contributors.
 
 ## Other Notes
 
