@@ -199,5 +199,5 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 * [**Xu Shuyao**](https://www.github.com/Tim-Siu): _Senior Dev_ for May 2024 - May 2025, _Member_ for Jan 2024 - Apr 2024
 * [**Yash Chowdhary**](https://www.github.com/yash-chowdhary): _Member_ Jan - Apr 2020
 * [**Yip Seng Yeun**](https://www.github.com/alyip98): _Member_ May 2019 - Apr 2020
-* [**Yu Chenbo**](https://www.github.com/JunHongTan): _Member_ for Jan 2025 - May 2025
+* [**Yu Chenbo**](https://www.github.com/yyccbb): _Member_ for Jan 2025 - May 2025
 
