@@ -183,10 +183,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 * [**Labayna Neil Brian Narido**](https://www.github.com/nbriannl): _Member_ for Jan - Apr 2020
 * [**Lee Hyung Woon**](https://www.github.com/lhw-1): **_Team Lead_** for May 2024 - May 2025, _Senior Dev_ for May 2023 - Apr 2024, _Member_ for Jan 2023 - May 2023
 * [**Lin Si Jie**](https://www.github.com/sijie123): _Member_ for Jan - Aug 2019
-* [**Lu Yang Kenneth**](https://github.com/luyangkenneth): _Member_ for Jan - Aug 2019
 * [**Liu Yongliang**](https://www.github.com/tlylt): **_Project Mentor_** for May 2024 - May 2025, **_Team Lead_** for Apr 2023 - Apr 2024, _Senior Dev_ for Apr 2022 - Mar 2023, _Member_ for Aug 2021 - Mar 2022
-* [**Marvin Chin Kun Song**](https://www.github.com/marvinchin): **_Project Lead_** for Jan - Aug 2020, _Member_ for Jan 2019 - Aug 2019
+* [**Lu Yang Kenneth**](https://github.com/luyangkenneth): _Member_ for Jan - Aug 2019
 * [**Maddi Aadyaa**](https://www.github.com/amad-person): _Member_ for Jan - Aug 2019
+* [**Marvin Chin Kun Song**](https://www.github.com/marvinchin): **_Project Lead_** for Jan - Aug 2020, _Member_ for Jan 2019 - Aug 2019
 * [**Ong Jun Xiong**](https://www.github.com/ong6): _Senior Dev_ for Apr 2022 - Feb 2023, _Member_ for Aug 2021 - Mar 2022
 * [**Ong Wei Xiang**](https://www.github.com/wxwxwxwx9): _Senior Dev_ for Apr 2021 - Jun 2021, _Member_ for Aug 2020 - Mar 2021
 * [**Phang Chun Rong**](https://www.github.com/crphang): _Member_ for Aug 2019 - Jun 2020
