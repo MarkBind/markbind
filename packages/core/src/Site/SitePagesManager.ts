@@ -149,10 +149,10 @@ export class SitePagesManager {
           ? 'https://cdn.jsdelivr.net/npm/vue@3.3.11/dist/vue.global.min.js'
           : path.posix.join(baseAssetsPath, 'js', 'vue.global.prod.min.js'),
         layoutUserScriptsAndStyles: [],
-        pagefindJs: this.siteConfig.enableSearch && this.pagefindIndexingSucceeded
+        pagefindJs: this.siteConfig.pagefind?.enablePagefind && this.pagefindIndexingSucceeded
           ? path.posix.join(baseAssetsPath, 'pagefind', 'pagefind.js')
           : undefined,
-        pagefindLazyLoaderJs: this.siteConfig.enableSearch && this.pagefindIndexingSucceeded
+        pagefindLazyLoaderJs: this.siteConfig.pagefind?.enablePagefind && this.pagefindIndexingSucceeded
           ? path.posix.join(baseAssetsPath, 'js', 'pagefind-lazyloader.js')
           : undefined,
       },

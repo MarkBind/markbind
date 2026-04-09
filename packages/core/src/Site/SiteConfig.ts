@@ -66,6 +66,7 @@ export class SiteConfig {
   plantumlCheck: boolean;
 
   pagefind?: {
+    enablePagefind?: boolean;
     exclude_selectors?: string[];
   };
 

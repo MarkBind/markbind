@@ -316,7 +316,7 @@ export class SiteGenerationManager {
       await this.siteAssets.copyOcticonsAsset();
       await this.siteAssets.copyMaterialIconsAsset();
       await this.writeSiteData();
-      if (this.siteConfig.enableSearch) {
+      if (this.siteConfig.pagefind?.enablePagefind) {
         const indexingSucceeded = await this.indexSiteWithPagefind();
         this.sitePages.pagefindIndexingSucceeded = indexingSucceeded;
       }

@@ -188,7 +188,7 @@ describe('SiteGenerationManager', () => {
         mockPagefindInstance.createIndex({}) as any,
       );
 
-      generationManager.siteConfig = { enableSearch: true, pages: [] } as any;
+      generationManager.siteConfig = { pagefind: { enablePagefind: true }, pages: [] } as any;
       const pageConfig = { resultPath: path.join(outputPath, 'index.html'), searchable: true };
       generationManager.sitePages.pages = [{ pageConfig }] as any;
 
@@ -220,7 +220,7 @@ describe('SiteGenerationManager', () => {
       );
       const errorSpy = jest.spyOn(logger, 'error').mockImplementation();
 
-      generationManager.siteConfig = { enableSearch: true, pages: [] } as any;
+      generationManager.siteConfig = { pagefind: { enablePagefind: true }, pages: [] } as any;
       const pageConfig2 = { resultPath: path.join(outputPath, 'index.html'), searchable: true };
       generationManager.sitePages.pages = [{ pageConfig: pageConfig2 }] as any;
 
@@ -305,7 +305,7 @@ describe('SiteGenerationManager', () => {
       );
       const errorSpy = jest.spyOn(logger, 'error').mockImplementation();
 
-      generationManagerOnePage.siteConfig = { enableSearch: true, pages: [] } as any;
+      generationManagerOnePage.siteConfig = { pagefind: { enablePagefind: true }, pages: [] } as any;
       generationManagerOnePage.sitePages.pages = [
         { pageConfig: { resultPath: path.join(outputPath, 'index.html'), searchable: true } },
         { pageConfig: { resultPath: path.join(outputPath, 'page2.html'), searchable: true } },
@@ -342,7 +342,7 @@ describe('SiteGenerationManager', () => {
       );
       const infoSpy = jest.spyOn(logger, 'info').mockImplementation();
 
-      generationManager.siteConfig = { enableSearch: true, pages: [] } as any;
+      generationManager.siteConfig = { pagefind: { enablePagefind: true }, pages: [] } as any;
       generationManager.sitePages.pages = [
         { pageConfig: { resultPath: path.join(outputPath, 'index.html'), searchable: true } },
         { pageConfig: { resultPath: path.join(outputPath, 'page1.html'), searchable: true } },
@@ -373,7 +373,7 @@ describe('SiteGenerationManager', () => {
       );
       const infoSpy = jest.spyOn(logger, 'info').mockImplementation();
 
-      generationManager.siteConfig = { enableSearch: true, pages: [] } as any;
+      generationManager.siteConfig = { pagefind: { enablePagefind: true }, pages: [] } as any;
       generationManager.sitePages.pages = [
         { pageConfig: { resultPath: path.join(outputPath, 'index.html'), searchable: false } },
         { pageConfig: { resultPath: path.join(outputPath, 'page1.html'), searchable: true } },
@@ -402,7 +402,7 @@ describe('SiteGenerationManager', () => {
       );
       const infoSpy = jest.spyOn(logger, 'info').mockImplementation();
 
-      generationManager.siteConfig = { enableSearch: true } as any;
+      generationManager.siteConfig = { pagefind: { enablePagefind: true } } as any;
       generationManager.sitePages.addressablePages = [{ src: 'index.md', searchable: false }];
 
       await generationManager.indexSiteWithPagefind();
