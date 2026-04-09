@@ -1,7 +1,6 @@
 ---
 name: markbind-authoring
-description: Refer to this skill MarkBind-specific features and formatting to
-make beautiful MarkBind pages.
+description: Refer to this skill for MarkBind-specific authoring features and formatting when writing MarkBind pages.
 paths: *.md,*.html
 ---
 
@@ -11,7 +10,7 @@ paths: *.md,*.html
 
 Use this skill for MarkBind-specific authoring behavior and syntax extensions.
 
-## Processing Order
+## Essential Rules
 
 MarkBind pages are not plain Markdown. The processing order matters:
 
@@ -19,49 +18,18 @@ MarkBind pages are not plain Markdown. The processing order matters:
 2. **MarkBind syntax** (components, include/variable tags, extensions)
 3. **Markdown rendering**
 
-This affects escaping and why some expressions need `{% raw %}`.
+- Escape literal template syntax with `{% raw %}...{% endraw %}` when needed.
+- Use MarkBind text extensions only where they improve readability; avoid stacking too many styles.
+- Use search/indexing annotations (`.always-index`, `.no-index`, `.keyword`) intentionally.
 
-## MarkBind Text Extensions
+## Authoring References
 
-Use these MarkBind-specific inline styles:
+- [reference/textStyles.md](reference/textStyles.md) - MarkBind inline style extensions (`==`, `!!`, `%%`, `++`, `--`, color syntax) and when to use them.
+- [reference/codeBlocks.md](reference/codeBlocks.md) - MarkBind code block attributes (`.line-numbers`, `start-from`, `highlight-lines`, `heading`) and inline code language classes.
+- [reference/headings.md](reference/headings.md) - heading anchors and search-indexing controls (`.always-index`, `.no-index`).
+- [reference/paragraphs.md](reference/paragraphs.md) - MarkBind-safe line break and paragraph patterns.
 
-- `****text****` (super bold)
-- `!!text!!` (underline)
-- `==text==` (highlight)
-- `%%text%%` (dim)
-- `++text++` (large)
-- `--text--` (small)
-- `text^sup^` and `text~sub~`
-- `->centered<-`
-- `#r#text##` color syntax (`r/g/b/c/m/y/k/w`)
+## User Guide Entries
 
-## Code Block Features (MarkBind)
-
-MarkBind supports additional code block attributes beyond language tagging:
-
-- Line numbers: ```` ```js {.line-numbers} ````
-- Custom first line: `start-from=10`
-- Highlight lines: `highlight-lines="1,3-5"`
-- Heading label: `heading="example.js"`
-- Inline code language class: `` `const x = 1`{.js} ``
-
-## Search/Indexing Annotations
-
-Use MarkBind search annotations while authoring content:
-
-- `## Heading {.always-index}` to force indexing
-- `## Heading {.no-index}` to exclude from indexing
-- `<span class="keyword">term</span>` to add indexed keywords
-- `<span class="keyword d-none">synonym</span>` for hidden keyword aliases
-
-## Escaping and Literal Syntax
-
-- Use `{% raw %}{{ literal_expression }}{% endraw %}` to show literal Nunjucks syntax.
-- Because Nunjucks runs first, unresolved `{{ ... }}` is treated as a template expression, not plain text.
-
-## Focused References
-
-- [reference/textStyles.md](reference/textStyles.md)
-- [reference/codeBlocks.md](reference/codeBlocks.md)
-- [reference/headings.md](reference/headings.md)
-- [reference/paragraphs.md](reference/paragraphs.md)
+- <https://markbind.org/userGuide/authoringContents.html>
+- <https://markbind.org/userGuide/markBindSyntaxOverview.html>

@@ -10,6 +10,13 @@ paths: *.md,*.html,*.json
 
 MarkBind is a static site generator optimized for content-heavy instructional websites (courses, tutorials, documentation). It converts Markdown-like syntax into rich, interactive HTML websites.
 
+## Essential Rules
+
+- Pick one installation mode and use it consistently in the project (`global`, local `devDependency`, or `npx`).
+- Keep `site.json` at project root; it is required for build/serve/deploy workflows.
+- Use `markbind serve` during authoring; use `markbind build` for publish output.
+- Set `baseUrl` correctly before deployment to avoid broken deployed links.
+
 ## Quick Start
 
 ### 1. Serve Locally
@@ -47,12 +54,18 @@ my-site/
 
 ### Installation & Setup
 
-- [reference/templates.md](reference/templates.md) - Template comparison
+- [reference/templates.md](reference/templates.md) - template keys (`default`, `minimal`, `project`, `portfolio`) and how to choose a starter.
 
 ### Commands
 
-- [reference/cli.md](reference/cli.md) - Full CLI reference
-- [reference/serve.md](reference/serve.md) - Serve command options
+- [reference/cli.md](reference/cli.md) - command overview for `init`, `serve`, `build`, `deploy`, and shared options.
+- [reference/serve.md](reference/serve.md) - detailed serve workflow (`--one-page`, `--background-build`, host/port/site-config options).
+
+## User Guide Entries
+
+- <https://markbind.org/userGuide/gettingStarted.html>
+- <https://markbind.org/userGuide/templates.html>
+- <https://markbind.org/userGuide/cliCommands.html>
 
 ### Next Steps
 
@@ -61,4 +74,3 @@ my-site/
 - **Configuration**: Use `markbind-site-config` skill
 - **Content Reuse**: Use `markbind-reuse` skill
 - **Deployment**: Use `markbind-deploy` skill
-

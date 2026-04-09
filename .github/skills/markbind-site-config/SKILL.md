@@ -10,6 +10,14 @@ paths: site.json,*.md,*.html
 
 MarkBind site behavior is configured through `site.json`, frontmatter, and layout files in `_markbind/layouts/`.
 
+## Essential Rules
+
+- Treat `site.json` as the source of truth for site-wide defaults and generation behavior.
+- Use page frontmatter for page-local metadata; use `globalOverride` for cross-page overrides.
+- Confirm `baseUrl` before deployment, especially for GitHub Pages project sites.
+- Keep layout files in `_markbind/layouts/` and ensure each layout renders `{{ content }}`.
+- Prefer explicit `pages`/`glob` configuration to avoid accidentally publishing draft or fragment files.
+
 ## Configuration References
 
 - [reference/site-json.md](reference/site-json.md) - explains the main `site.json` structure, what each top-level property controls, and how property precedence works when multiple config sources set the same value.
