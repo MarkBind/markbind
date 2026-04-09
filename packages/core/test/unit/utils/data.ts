@@ -112,6 +112,8 @@ export interface MockIndex {
   addDirectory: ReturnType<JestFn>;
   addHTMLFile: ReturnType<JestFn>;
   writeFiles: ReturnType<JestFn>;
+  deleteIndex?: ReturnType<JestFn>;
+  getFiles?: ReturnType<JestFn>;
 }
 
 export interface MockPagefind {
@@ -132,6 +134,8 @@ export function createMockIndex(
     addDirectory: jest.fn().mockResolvedValue(result),
     addHTMLFile: jest.fn().mockResolvedValue(htmlFileResult),
     writeFiles: jest.fn().mockResolvedValue(undefined),
+    deleteIndex: jest.fn().mockResolvedValue(undefined),
+    getFiles: jest.fn().mockResolvedValue({ files: [] }),
   };
 }
 

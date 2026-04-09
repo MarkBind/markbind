@@ -367,6 +367,82 @@ describe('SiteGenerationManager', () => {
     });
   });
 
+  describe('updatePagefindIndex', () => {
+    beforeEach(() => {
+      const json = {
+        ...PAGE_NJK,
+        'site.json': SITE_JSON_DEFAULT,
+        '_site/index.html': '<html><body>Test page</body></html>',
+        '_site/page1.html': '<html><body>Page 1</body></html>',
+      };
+      mockFs.vol.fromJSON(json, rootPath);
+    });
+
+    test('should return false when pagefindIndex is null', async () => {
+      generationManager.pagefindIndex = null;
+
+      const result = await generationManager.updatePagefindIndex([]);
+      expect(result).toBe(false);
+    });
+
+    test('should call addHTMLFile for each searchable page', async () => {
+      const mockIndex = createMockIndex({ page_count: 1, errors: [] }, { errors: [] });
+      generationManager.pagefindIndex = mockIndex;
+
+      const pages = [
+        { pageConfig: { resultPath: path.join(outputPath, 'index.html'), searchable: true } },
+        { pageConfig: { resultPath: path.join(outputPath, 'page1.html'), searchable: true } },
+      ] as any;
+
+      await generationManager.updatePagefindIndex(pages);
+
+      expect(mockIndex.addHTMLFile).toHaveBeenCalledTimes(2);
+      expect(mockIndex.addHTMLFile).toHaveBeenCalledWith({
+        sourcePath: 'index.html',
+        content: '<html><body>Test page</body></html>',
+      });
+      expect(mockIndex.addHTMLFile).toHaveBeenCalledWith({
+        sourcePath: 'page1.html',
+        content: '<html><body>Page 1</body></html>',
+      });
+    });
+
+    test('should skip non-searchable pages', async () => {
+      const mockIndex = createMockIndex({ page_count: 1, errors: [] }, { errors: [] });
+      generationManager.pagefindIndex = mockIndex;
+
+      const pages = [
+        { pageConfig: { resultPath: path.join(outputPath, 'index.html'), searchable: false } },
+        { pageConfig: { resultPath: path.join(outputPath, 'page1.html'), searchable: true } },
+      ] as any;
+
+      await generationManager.updatePagefindIndex(pages);
+
+      expect(mockIndex.addHTMLFile).toHaveBeenCalledTimes(1);
+      expect(mockIndex.addHTMLFile).toHaveBeenCalledWith({
+        sourcePath: 'page1.html',
+        content: '<html><body>Page 1</body></html>',
+      });
+    });
+
+    test('should log error and return false on failure', async () => {
+      const mockIndex = createMockIndex({ page_count: 1, errors: [] }, { errors: [] });
+      (mockIndex.addHTMLFile as jest.Mock).mockRejectedValue(new Error('Index error'));
+      generationManager.pagefindIndex = mockIndex;
+      const errorSpy = jest.spyOn(logger, 'error').mockImplementation();
+
+      const failData = { resultPath: path.join(outputPath, 'index.html'), searchable: true };
+      const failPages = [{ pageConfig: failData }] as any;
+
+      const result = await generationManager.updatePagefindIndex(failPages);
+
+      expect(result).toBe(false);
+      expect(errorSpy).toHaveBeenCalledWith('Failed to update Pagefind index: Error: Index error');
+
+      errorSpy.mockRestore();
+    });
+  });
+
   test('collectBaseUrl should collect baseurls correctly for sub nested subsites', async () => {
     const json = {
       ...PAGE_NJK,
