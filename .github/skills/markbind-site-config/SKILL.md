@@ -12,6 +12,7 @@ MarkBind site behavior is configured through `site.json`, frontmatter, and layou
 
 ## Essential Rules
 
+- Unless explicitly requested, DO NOT modify `main.css`
 - Treat `site.json` as the source of truth for site-wide defaults and generation behavior.
 - Use page frontmatter for page-local metadata; use `globalOverride` for cross-page overrides.
 - Confirm `baseUrl` before deployment, especially for GitHub Pages project sites.
