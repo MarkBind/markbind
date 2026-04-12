@@ -1,7 +1,7 @@
 ---
 name: markbind-macros
 description: Use when creating Nunjucks macros, advanced templating patterns, dynamic content generation, loops, conditionals, custom macros for repeated component patterns, or when users ask about automating content, creating reusable component templates, or advanced Nunjucks features in MarkBind
-paths: *.md,*.html,*.njk
+paths: "*.md,*.html,*.njk"
 ---
 
 # MarkBind Macros & Advanced Templating

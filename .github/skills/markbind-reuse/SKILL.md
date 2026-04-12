@@ -1,7 +1,7 @@
 ---
 name: markbind-reuse
 description: Use when reusing content across pages with includes, defining variables, creating boilerplate templates, sharing content between sites, creating content variations, or when users ask about content reuse, DRY patterns, includes, variables, or templates in MarkBind
-paths: *.md,*.html
+paths: "*.md,*.html"
 ---
 
 # MarkBind Content Reuse

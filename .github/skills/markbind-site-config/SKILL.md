@@ -1,7 +1,7 @@
 ---
 name: markbind-site-config
 description: Use when configuring site.json, setting up layouts, frontmatter, site properties, themes, dark mode, plugins, page navigation, headers, footers, custom CSS/JS, or when users ask about site structure, site-wide settings, or page configuration
-paths: site.json,*.md,*.html
+paths: "site.json,*.md,*.html"
 ---
 
 # MarkBind Site Configuration

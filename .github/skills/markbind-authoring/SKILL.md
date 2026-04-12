@@ -1,7 +1,7 @@
 ---
 name: markbind-authoring
 description: Refer to this skill for MarkBind-specific authoring features and formatting when writing MarkBind pages.
-paths: *.md,*.html
+paths: "*.md,*.html"
 ---
 
 # MarkBind Content Authoring

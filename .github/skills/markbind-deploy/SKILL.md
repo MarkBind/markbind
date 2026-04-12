@@ -1,7 +1,7 @@
 ---
 name: markbind-deploy
 description: Use when deploying MarkBind sites to GitHub Pages, Netlify, or CI platforms, configuring deploy settings in site.json, setting up GitHub Actions workflows, PR previews, or when users ask about publishing, hosting, or deploying their MarkBind site
-paths: *.yml,*.yaml,site.json,*.md
+paths: "*.yml,*.yaml,site.json,*.md"
 ---
 
 # MarkBind Deployment

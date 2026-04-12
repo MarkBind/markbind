@@ -1,7 +1,7 @@
 ---
 name: markbind-getting-started
 description: Use when initializing a new MarkBind site, choosing templates, installing MarkBind, serving locally, or when a user asks how to get started with MarkBind, create a new documentation site, or scaffold a project
-paths: *.md,*.html,*.json
+paths: "*.md,*.html,*.json"
 ---
 
 # MarkBind Getting Started

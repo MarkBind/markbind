@@ -1,7 +1,7 @@
 ---
 name: markbind-components
 description: Use when adding MarkBind components like boxes, panels, tabs, modals, tooltips, popovers, dropdowns, navbars, search bars, cards, badges, questions, quizzes, trees, thumbnails, annotations, scroll-to-top buttons, dark mode toggles, breadcrumbs, site-nav, or page-nav to MarkBind pages
-paths: *.md,*.html
+paths: "*.md,*.html"
 ---
 
 # MarkBind Components
