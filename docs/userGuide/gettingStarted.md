@@ -100,6 +100,12 @@ The `init` command populates the project with the [default project template](htt
 </span>
 </include>
 
+<include src="tip.md" boilerplate >
+<span id="tip_body">
+If you use AI coding assistants, you can install project-level skills using `markbind skills install`. See [CLI Commands: `skills`](cliCommands.html#markbind-skills).
+</span>
+</include>
+
   </tab>
   <tab header="Starting with an existing project">
 
