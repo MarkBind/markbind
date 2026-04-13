@@ -12,16 +12,14 @@ const execFileAsync = promisify(execFile);
 
 const METADATA_FILE = '.markbind-skills.json';
 const SKILLS_REPO = 'https://github.com/MarkBind/skills.git';
-// TODO: Make this configurable to allow installing to other locations
-// also scan the list of locations for skills to ensure we can update them
-// seamlessly
-const SKILLS_TARGET = path.join('.claude', 'skills');
+const SKILLS_TARGET = path.join('.agents', 'skills');
 const SKILL_MARKER = 'SKILL.md';
 const CLONE_TIMEOUT_MS = 30000;
 
 interface SkillsInstallOptions {
   ref?: string;
   force?: boolean;
+  agents?: string[];
 }
 
 interface SkillsMetadata {
@@ -153,6 +151,20 @@ async function install(options: SkillsInstallOptions) {
     await writeMetadata(targetDir, ref, skillNames);
 
     logger.info(`Installed ${skillNames.length} skill(s) to ${SKILLS_TARGET}/`);
+
+    if (options.agents) {
+      Promise.all(options.agents.map(async (agent) => {
+        const agentSkillsDir = path.join(process.cwd(), agent, "skills");
+        if (await fs.pathExists(agentSkillsDir)) {
+          logger.warn('Agent skills directory already exist. Skipping symlink creation.');
+          logger.warn(`Please manually symlink ${targetDir} to ${agentSkillsDir} if you want to use the skills with ${options.agents}.`);
+        } else {
+          await fs.ensureSymlink(targetDir, agentSkillsDir, 'dir')
+          logger.info(`Symlinked skills to ${agent}/skills/`);
+        }
+      }));
+    }
+
   } catch (error) {
     if (_.isError(error)) {
       const msg = error.message;

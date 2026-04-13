@@ -34,6 +34,7 @@
     "dev": "tsc --watch"
   },
   "dependencies": {
+    "@inquirer/prompts": "^8.4.1",
     "@markbind/core": "7.0.0",
     "@markbind/core-web": "7.0.0",
     "chalk": "^3.0.0",

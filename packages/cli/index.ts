@@ -10,6 +10,7 @@ import { init } from './src/cmd/init.js';
 import { serve } from './src/cmd/serve.js';
 import { install as installSkills } from './src/cmd/skills.js';
 import packageJson from './package.json' with { type: 'json' };
+import { checkbox } from '@inquirer/prompts';
 
 const CLI_VERSION = packageJson.version;
 
@@ -129,14 +130,68 @@ const skillsCmd = program
   .summary('Manage AI coding skills for this project')
   .description('Download and manage AI coding skills from the MarkBind skills repository');
 
+const agentChoices =
+  [
+    { name: "Augment", value: ".augment" },
+    { name: "IBM Bob", value: ".bob" },
+    { name: "Claude Code", value: ".claude" },
+    { name: "OpenClaw", value: "." },
+    { name: "CodeBuddy", value: ".codebuddy" },
+    { name: "Command Code", value: ".commandcode" },
+    { name: "Continue", value: ".continue" },
+    { name: "Cortex Code", value: ".cortex" },
+    { name: "Crush", value: ".crush" },
+    { name: "Droid", value: ".factory" },
+    { name: "Goose", value: ".goose" },
+    { name: "Junie", value: ".junie" },
+    { name: "iFlow CLI", value: ".iflow" },
+    { name: "Kilo Code", value: ".kilocode" },
+    { name: "Kiro CLI", value: ".kiro" },
+    { name: "Kode", value: ".kode" },
+    { name: "MCPJam", value: ".mcpjam" },
+    { name: "Mistral Vibe", value: ".vibe" },
+    { name: "Mux", value: ".mux" },
+    { name: "OpenHands", value: ".openhands" },
+    { name: "Pi", value: ".pi" },
+    { name: "Qoder", value: ".qoder" },
+    { name: "Qwen Code", value: ".qwen" },
+    { name: "Roo Code", value: ".roo" },
+    { name: "Trae", value: ".trae" },
+    { name: "Trae CN", value: ".trae" },
+    { name: "Windsurf", value: ".windsurf" },
+    { name: "Zencoder", value: ".zencoder" },
+    { name: "Neovate", value: ".neovate" },
+    { name: "Pochi", value: ".pochi" },
+    { name: "AdaL", value: ".adal" }
+  ];
+
 skillsCmd
   .command('install')
   .option('--ref <ref>', 'specify a git ref (tag or branch) instead of auto-resolving from MarkBind version')
   .option('--force', 'overwrite existing skills')
   .summary('Install AI coding skills into .claude/skills/')
   .description('Download skills from MarkBind/markbind-skills and install into .claude/skills/')
-  .action((options) => {
-    installSkills(options);
+  .action(async (options) => {
+    const agent = await checkbox({
+      message: `
+── Universal (.agents/skills) ── always included ────────────
+  • Amp
+  • Antigravity
+  • Cline
+  • Codex
+  • Cursor
+  • Deep Agents
+  • Firebender
+  • Gemini CLI
+  • GitHub Copilot
+  • Kimi Code CLI
+  • OpenCode
+  • Warp
+
+── Additional agents ─────────────────────────────`,
+      choices: agentChoices,
+    })
+    installSkills({ ...options, agents: agent });
   });
 
 skillsCmd
@@ -145,7 +200,7 @@ skillsCmd
   .summary('Update installed skills to match current MarkBind version')
   .description('Re-download skills matching the current MarkBind CLI version,'
     + 'overwriting any existing installation')
-  .action((options) => {
+  .action(async (options) => {
     installSkills({ ...options, force: true });
   });
 
