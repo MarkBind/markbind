@@ -441,6 +441,105 @@ describe('SiteGenerationManager', () => {
 
       errorSpy.mockRestore();
     });
+
+    test('should skip pages that do not exist when updating index', async () => {
+      const mockIndex = createMockIndex({ page_count: 1, errors: [] }, { errors: [] });
+      generationManager.pagefindIndex = mockIndex;
+      generationManager.siteConfig = { enableSearch: true } as any;
+
+      const missingPageConfig = { resultPath: path.join(outputPath, 'nonexistent.html'), searchable: true };
+      const pages = [{ pageConfig: missingPageConfig }] as any;
+
+      const warnSpy = jest.spyOn(logger, 'warn').mockImplementation();
+
+      await generationManager.updatePagefindIndex(pages);
+
+      expect(warnSpy).toHaveBeenCalled();
+      warnSpy.mockRestore();
+    });
+  });
+
+  describe('Lazy serve pagefind indexing', () => {
+    beforeEach(() => {
+      const json = {
+        ...PAGE_NJK,
+        'site.json': SITE_JSON_DEFAULT,
+        '_site/index.html': '<html><body>Test page</body></html>',
+      };
+      mockFs.vol.fromJSON(json, rootPath);
+    });
+
+    test('_rebuildPagesBeingViewed should NOT update index when enableSearch is false', async () => {
+      generationManager.siteConfig = { enableSearch: false } as any;
+      const resultPath = path.join(outputPath, 'index.html');
+      const pageConfig = { sourcePath: 'index.md', resultPath, searchable: true };
+      generationManager.sitePages.pages = [{ pageConfig }] as any;
+
+      const runTaskSpy = jest.spyOn(generationManager, 'runPageGenerationTasks')
+        .mockResolvedValue(undefined as any);
+      const writeDataSpy = jest.spyOn(generationManager, 'writeSiteData')
+        .mockResolvedValue(undefined as any);
+      const updateIndexSpy = jest.spyOn(generationManager, 'updatePagefindIndex');
+
+      await generationManager._rebuildPagesBeingViewed(['index']);
+
+      expect(updateIndexSpy).not.toHaveBeenCalled();
+      runTaskSpy.mockRestore();
+      writeDataSpy.mockRestore();
+      updateIndexSpy.mockRestore();
+    });
+
+    test('_rebuildPagesBeingViewed should NOT update index when pagefindIndex is null', async () => {
+      generationManager.siteConfig = { enableSearch: true } as any;
+      generationManager.pagefindIndex = null;
+      const resultPath = path.join(outputPath, 'index.html');
+      const pageConfig = { sourcePath: 'index.md', resultPath, searchable: true };
+      generationManager.sitePages.pages = [{ pageConfig }] as any;
+
+      const runTaskSpy = jest.spyOn(generationManager, 'runPageGenerationTasks')
+        .mockResolvedValue(undefined as any);
+      const writeDataSpy = jest.spyOn(generationManager, 'writeSiteData')
+        .mockResolvedValue(undefined as any);
+      const updateIndexSpy = jest.spyOn(generationManager, 'updatePagefindIndex');
+
+      await generationManager._rebuildPagesBeingViewed(['index']);
+
+      expect(updateIndexSpy).not.toHaveBeenCalled();
+      runTaskSpy.mockRestore();
+      writeDataSpy.mockRestore();
+      updateIndexSpy.mockRestore();
+    });
+
+    test('_backgroundBuild should call indexSiteWithPagefind when enableSearch is true', async () => {
+      generationManager.siteConfig = { enableSearch: true } as any;
+      generationManager.toRebuild = new Set(['page1', 'page2']);
+
+      const genPagesSpy = jest.spyOn(generationManager, 'generatePagesMarkedToRebuild')
+        .mockResolvedValue(true);
+      const indexSpy = jest.spyOn(generationManager, 'indexSiteWithPagefind')
+        .mockResolvedValue(true);
+
+      await generationManager._backgroundBuildNotViewedFiles();
+
+      expect(indexSpy).toHaveBeenCalled();
+      genPagesSpy.mockRestore();
+      indexSpy.mockRestore();
+    });
+
+    test('_backgroundBuild should NOT call indexSiteWithPagefind when enableSearch is false', async () => {
+      generationManager.siteConfig = { enableSearch: false } as any;
+      generationManager.toRebuild = new Set(['page1', 'page2']);
+
+      const genPagesSpy = jest.spyOn(generationManager, 'generatePagesMarkedToRebuild')
+        .mockResolvedValue(true);
+      const indexSpy = jest.spyOn(generationManager, 'indexSiteWithPagefind');
+
+      await generationManager._backgroundBuildNotViewedFiles();
+
+      expect(indexSpy).not.toHaveBeenCalled();
+      genPagesSpy.mockRestore();
+      indexSpy.mockRestore();
+    });
   });
 
   test('collectBaseUrl should collect baseurls correctly for sub nested subsites', async () => {
