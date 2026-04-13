@@ -203,22 +203,16 @@ describe('writeMetadata and readMetadata', () => {
     expect(new Date(metadata!.installedAt).toISOString()).toBe(metadata!.installedAt);
   });
 
-  test('returns null and logs info when metadata file is missing', async () => {
-    await expect(readMetadata('/missing')).resolves.toBeNull();
-    expect(mockedLogger.info).toHaveBeenCalledWith(
-      'Metadata file does not exist. Will attempt to proceed without it.',
-    );
+  test('throws when metadata file is missing', async () => {
+    await expect(readMetadata('/missing')).rejects.toThrow('Metadata file not found');
   });
 
-  test('returns null and logs warn for corrupted metadata', async () => {
+  test('throws when metadata file is corrupted', async () => {
     vol.fromJSON({
       '/skills/.markbind-skills.json': '{not-json',
     }, '/');
 
-    await expect(readMetadata('/skills')).resolves.toBeNull();
-    expect(mockedLogger.warn).toHaveBeenCalledWith(
-      'Failed to read metadata file. It may be corrupted. Will attempt to proceed without it.',
-    );
+    await expect(readMetadata('/skills')).rejects.toThrow('Failed to read metadata file:');
   });
 });
 

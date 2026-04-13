@@ -51,18 +51,16 @@ async function writeMetadata(targetDir: string, skillsRef: string, skillNames: s
   await fs.writeJson(metadataPath, metadata, { spaces: 2 });
 }
 
-async function readMetadata(targetDir: string): Promise<SkillsMetadata | null> {
+async function readMetadata(targetDir: string): Promise<SkillsMetadata> {
   const metadataPath = path.join(targetDir, METADATA_FILE);
   if (await fs.pathExists(metadataPath)) {
     try {
       return await fs.readJson(metadataPath);
-    } catch {
-      logger.warn('Failed to read metadata file. It may be corrupted. Will attempt to proceed without it.');
-      return null;
+    } catch (e) {
+      throw new Error(`Failed to read metadata file: ${(e as Error).message}`);
     }
   } else {
-    logger.info('Metadata file does not exist. Will attempt to proceed without it.');
-    return null;
+    throw new Error('Metadata file not found');
   }
 }
 
@@ -101,17 +99,25 @@ async function install(options: SkillsInstallOptions) {
 
   // Check if already installed
   if (await fs.pathExists(targetDir) && !options.force) {
-    const metadata = await readMetadata(targetDir);
-    if (metadata) {
-      // If the existing ref is not a semver tag (e.g. master) we require force
-      // flag to update, otherwise we allow updating if the new ref is a semver
-      // tag that is newer than the existing one
-      if (!isSemverTag(metadata.ref) || (isSemverTag(ref) && compareSemver(metadata.ref, ref) >= 0)) {
-        logger.info(`Skills already installed (ref ${metadata.ref}). Use --force to reinstall.`);
-        return;
+    const metadata = await readMetadata(targetDir).catch(
+      (e) => {
+        logger.warn(`Failed to read existing skills metadata: ${(e as Error).message}`);
+        return null;
       }
-      logger.info(`Upgrading skills from version ${metadata.ref} to ${ref}`);
+    );
+    if (!metadata) {
+      logger.info('Skills already installed. Use --force to reinstall.');
+      return;
     }
+
+    // If the existing ref is not a semver tag (e.g. master) we require force
+    // flag to update, otherwise we allow updating if the new ref is a semver
+    // tag that is newer than the existing one
+    if (!isSemverTag(metadata.ref) || (isSemverTag(ref) && compareSemver(metadata.ref, ref) >= 0)) {
+      logger.info(`Skills already installed (ref ${metadata.ref}). Use --force to reinstall.`);
+      return;
+    }
+    logger.info(`Upgrading skills from version ${metadata.ref} to ${ref}`);
   }
 
   const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'markbind-skills-'));
