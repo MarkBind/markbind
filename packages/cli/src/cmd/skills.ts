@@ -38,7 +38,9 @@ async function findSkillDirs(baseDir: string): Promise<string[]> {
       return null;
     }),
   );
-  return results.filter((name): name is string => name !== null);
+  return results
+    .filter((name): name is string => name !== null)
+    .sort((a, b) => a.localeCompare(b));
 }
 
 async function writeMetadata(targetDir: string, skillsRef: string, skillNames: string[]) {
@@ -103,7 +105,7 @@ async function install(options: SkillsInstallOptions) {
       (e) => {
         logger.warn(`Failed to read existing skills metadata: ${(e as Error).message}`);
         return null;
-      }
+      },
     );
     if (!metadata) {
       logger.info('Skills already installed. Use --force to reinstall.');
@@ -159,12 +161,12 @@ async function install(options: SkillsInstallOptions) {
     logger.info(`Installed ${skillNames.length} skill(s) to ${SKILLS_TARGET}/`);
 
     if (options.agents) {
-      Promise.all(options.agents.map(async (agent) => {
+      await Promise.all(options.agents.map(async (agent) => {
         const agentSkillsDir = path.join(process.cwd(), agent, 'skills');
         if (await fs.pathExists(agentSkillsDir)) {
           logger.warn('Agent skills directory already exist. Skipping symlink creation.');
-          logger.warn(`Please manually symlink ${targetDir} to ${agentSkillsDir}" + 
-              " if you want to use the skills with ${options.agents}.`);
+          logger.warn(`Please manually symlink ${targetDir} to ${agentSkillsDir}`
+            + ` if you want to use the skills with ${options.agents}.`);
         } else {
           await fs.ensureSymlink(targetDir, agentSkillsDir, 'dir');
           logger.info(`Symlinked skills to ${agent}/skills/`);
