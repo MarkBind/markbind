@@ -446,6 +446,11 @@ export class SiteGenerationManager {
       this._setTimestampVariable();
       await this.runPageGenerationTasks([pageGenerationTask]);
       await this.writeSiteData();
+
+      if (this.siteConfig.enableSearch && this.pagefindIndex) {
+        await this.updatePagefindIndex(pagesToRebuild);
+      }
+
       SiteGenerationManager.calculateBuildTimeForRebuildPagesBeingViewed(startTime);
     } catch (err) {
       await SiteGenerationManager.rejectHandler(err, [this.tempPath, this.outputPath]);
@@ -472,6 +477,11 @@ export class SiteGenerationManager {
     const isCompleted = await this.generatePagesMarkedToRebuild();
     if (isCompleted) {
       logger.info('Background building completed!');
+
+      if (this.siteConfig.enableSearch) {
+        await this.indexSiteWithPagefind();
+      }
+
       this.postBackgroundBuildFunc();
     }
   }
@@ -1001,13 +1011,19 @@ export class SiteGenerationManager {
       const searchablePages = pages.filter(page => page.pageConfig.searchable);
 
       await Promise.all(searchablePages.map(async (page) => {
-        const content = await fs.readFile(page.pageConfig.resultPath, 'utf8');
-        const relativePath = path.relative(this.outputPath, page.pageConfig.resultPath);
+        try {
+          const content = await fs.readFile(page.pageConfig.resultPath, 'utf8');
+          const relativePath = path.relative(this.outputPath, page.pageConfig.resultPath);
 
-        return this.pagefindIndex.addHTMLFile({
-          sourcePath: relativePath,
-          content,
-        });
+          return this.pagefindIndex.addHTMLFile({
+            sourcePath: relativePath,
+            content,
+          });
+        } catch (err) {
+          const pageResultPath = page.pageConfig.resultPath;
+          logger.warn(`Skipping index update for ${pageResultPath}: file not built yet`);
+          return null;
+        }
       }));
 
       const { files } = await this.pagefindIndex.getFiles();
