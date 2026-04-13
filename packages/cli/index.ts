@@ -3,6 +3,7 @@
 // Entry file for MarkBind project
 import { program, Option } from 'commander';
 import chalk from 'chalk';
+import { checkbox } from '@inquirer/prompts';
 import * as logger from './src/util/logger.js';
 import { build } from './src/cmd/build.js';
 import { deploy } from './src/cmd/deploy.js';
@@ -10,7 +11,6 @@ import { init } from './src/cmd/init.js';
 import { serve } from './src/cmd/serve.js';
 import { install as installSkills } from './src/cmd/skills.js';
 import packageJson from './package.json' with { type: 'json' };
-import { checkbox } from '@inquirer/prompts';
 
 const CLI_VERSION = packageJson.version;
 
@@ -130,39 +130,39 @@ const skillsCmd = program
   .summary('Manage AI coding skills for this project')
   .description('Download and manage AI coding skills from the MarkBind skills repository');
 
-const agentChoices =
-  [
-    { name: "Augment", value: ".augment" },
-    { name: "IBM Bob", value: ".bob" },
-    { name: "Claude Code", value: ".claude" },
-    { name: "OpenClaw", value: "." },
-    { name: "CodeBuddy", value: ".codebuddy" },
-    { name: "Command Code", value: ".commandcode" },
-    { name: "Continue", value: ".continue" },
-    { name: "Cortex Code", value: ".cortex" },
-    { name: "Crush", value: ".crush" },
-    { name: "Droid", value: ".factory" },
-    { name: "Goose", value: ".goose" },
-    { name: "Junie", value: ".junie" },
-    { name: "iFlow CLI", value: ".iflow" },
-    { name: "Kilo Code", value: ".kilocode" },
-    { name: "Kiro CLI", value: ".kiro" },
-    { name: "Kode", value: ".kode" },
-    { name: "MCPJam", value: ".mcpjam" },
-    { name: "Mistral Vibe", value: ".vibe" },
-    { name: "Mux", value: ".mux" },
-    { name: "OpenHands", value: ".openhands" },
-    { name: "Pi", value: ".pi" },
-    { name: "Qoder", value: ".qoder" },
-    { name: "Qwen Code", value: ".qwen" },
-    { name: "Roo Code", value: ".roo" },
-    { name: "Trae", value: ".trae" },
-    { name: "Trae CN", value: ".trae" },
-    { name: "Windsurf", value: ".windsurf" },
-    { name: "Zencoder", value: ".zencoder" },
-    { name: "Neovate", value: ".neovate" },
-    { name: "Pochi", value: ".pochi" },
-    { name: "AdaL", value: ".adal" }
+const agentChoices
+  = [
+    { name: 'Augment', value: '.augment' },
+    { name: 'IBM Bob', value: '.bob' },
+    { name: 'Claude Code', value: '.claude' },
+    { name: 'OpenClaw', value: '.' },
+    { name: 'CodeBuddy', value: '.codebuddy' },
+    { name: 'Command Code', value: '.commandcode' },
+    { name: 'Continue', value: '.continue' },
+    { name: 'Cortex Code', value: '.cortex' },
+    { name: 'Crush', value: '.crush' },
+    { name: 'Droid', value: '.factory' },
+    { name: 'Goose', value: '.goose' },
+    { name: 'Junie', value: '.junie' },
+    { name: 'iFlow CLI', value: '.iflow' },
+    { name: 'Kilo Code', value: '.kilocode' },
+    { name: 'Kiro CLI', value: '.kiro' },
+    { name: 'Kode', value: '.kode' },
+    { name: 'MCPJam', value: '.mcpjam' },
+    { name: 'Mistral Vibe', value: '.vibe' },
+    { name: 'Mux', value: '.mux' },
+    { name: 'OpenHands', value: '.openhands' },
+    { name: 'Pi', value: '.pi' },
+    { name: 'Qoder', value: '.qoder' },
+    { name: 'Qwen Code', value: '.qwen' },
+    { name: 'Roo Code', value: '.roo' },
+    { name: 'Trae', value: '.trae' },
+    { name: 'Trae CN', value: '.trae' },
+    { name: 'Windsurf', value: '.windsurf' },
+    { name: 'Zencoder', value: '.zencoder' },
+    { name: 'Neovate', value: '.neovate' },
+    { name: 'Pochi', value: '.pochi' },
+    { name: 'AdaL', value: '.adal' },
   ];
 
 skillsCmd
@@ -190,7 +190,7 @@ skillsCmd
 
 ── Additional agents ─────────────────────────────`,
       choices: agentChoices,
-    })
+    });
     installSkills({ ...options, agents: agent });
   });
 

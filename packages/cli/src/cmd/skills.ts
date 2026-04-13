@@ -154,17 +154,17 @@ async function install(options: SkillsInstallOptions) {
 
     if (options.agents) {
       Promise.all(options.agents.map(async (agent) => {
-        const agentSkillsDir = path.join(process.cwd(), agent, "skills");
+        const agentSkillsDir = path.join(process.cwd(), agent, 'skills');
         if (await fs.pathExists(agentSkillsDir)) {
           logger.warn('Agent skills directory already exist. Skipping symlink creation.');
-          logger.warn(`Please manually symlink ${targetDir} to ${agentSkillsDir} if you want to use the skills with ${options.agents}.`);
+          logger.warn(`Please manually symlink ${targetDir} to ${agentSkillsDir}" + 
+              " if you want to use the skills with ${options.agents}.`);
         } else {
-          await fs.ensureSymlink(targetDir, agentSkillsDir, 'dir')
+          await fs.ensureSymlink(targetDir, agentSkillsDir, 'dir');
           logger.info(`Symlinked skills to ${agent}/skills/`);
         }
       }));
     }
-
   } catch (error) {
     if (_.isError(error)) {
       const msg = error.message;
@@ -187,4 +187,6 @@ async function install(options: SkillsInstallOptions) {
   }
 }
 
-export { install };
+export {
+  install, findSkillDirs, writeMetadata, readMetadata, isSemverTag, compareSemver,
+};
