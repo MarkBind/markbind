@@ -378,16 +378,24 @@ describe('SiteGenerationManager', () => {
       mockFs.vol.fromJSON(json, rootPath);
     });
 
-    test('should return false when pagefindIndex is null', async () => {
+    test('should auto-create index when pagefindIndex is null', async () => {
       generationManager.pagefindIndex = null;
+      generationManager.siteConfig = { pagefind: undefined } as any;
+      const mockIndex = createMockIndex({ page_count: 0, errors: [] });
+      const createIndexSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        { index: mockIndex } as any,
+      );
 
-      const result = await generationManager.updatePagefindIndex([]);
-      expect(result).toBe(false);
+      await generationManager.updatePagefindIndex([]);
+
+      expect(createIndexSpy).toHaveBeenCalled();
+      createIndexSpy.mockRestore();
     });
 
     test('should call addHTMLFile for each searchable page', async () => {
       const mockIndex = createMockIndex({ page_count: 1, errors: [] }, { errors: [] });
       generationManager.pagefindIndex = mockIndex;
+      generationManager.siteConfig = { pagefind: undefined } as any;
 
       const pages = [
         { pageConfig: { resultPath: path.join(outputPath, 'index.html'), searchable: true } },
@@ -410,6 +418,7 @@ describe('SiteGenerationManager', () => {
     test('should skip non-searchable pages', async () => {
       const mockIndex = createMockIndex({ page_count: 1, errors: [] }, { errors: [] });
       generationManager.pagefindIndex = mockIndex;
+      generationManager.siteConfig = { pagefind: undefined } as any;
 
       const pages = [
         { pageConfig: { resultPath: path.join(outputPath, 'index.html'), searchable: false } },
@@ -429,6 +438,7 @@ describe('SiteGenerationManager', () => {
       const mockIndex = createMockIndex({ page_count: 1, errors: [] }, { errors: [] });
       (mockIndex.addHTMLFile as jest.Mock).mockRejectedValue(new Error('Index error'));
       generationManager.pagefindIndex = mockIndex;
+      generationManager.siteConfig = { pagefind: undefined } as any;
       const errorSpy = jest.spyOn(logger, 'error').mockImplementation();
 
       const failData = { resultPath: path.join(outputPath, 'index.html'), searchable: true };
@@ -445,7 +455,7 @@ describe('SiteGenerationManager', () => {
     test('should skip pages that do not exist when updating index', async () => {
       const mockIndex = createMockIndex({ page_count: 1, errors: [] }, { errors: [] });
       generationManager.pagefindIndex = mockIndex;
-      generationManager.siteConfig = { enableSearch: true } as any;
+      generationManager.siteConfig = { enableSearch: true, pagefind: undefined } as any;
 
       const missingPageConfig = { resultPath: path.join(outputPath, 'nonexistent.html'), searchable: true };
       const pages = [{ pageConfig: missingPageConfig }] as any;
