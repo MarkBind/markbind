@@ -489,7 +489,7 @@ describe('install', () => {
     const cursorLink = path.join(WORKDIR, '.cursor/skills');
     expect(memfs.lstatSync(claudeLink).isSymbolicLink()).toBe(true);
     expect(memfs.lstatSync(cursorLink).isSymbolicLink()).toBe(true);
-    expect(memfs.readlinkSync(claudeLink).toString()).toBe(path.join(WORKDIR, '.agents/skills'));
+    expect(memfs.readlinkSync(claudeLink).toString()).toBe(path.resolve(WORKDIR, '.agents/skills'));
   });
 
   test('warns when agent skills directory already exists', async () => {
