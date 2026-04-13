@@ -170,9 +170,10 @@ skillsCmd
   .option('--ref <ref>', 'specify a git ref (tag or branch) instead of auto-resolving from MarkBind version')
   .option('--force', 'overwrite existing skills')
   .summary('Install AI coding skills into .agents/skills with optional agent symlinks')
-  .description('Download skills from https://github.com/MarkBind/skills.git, install them into .agents/skills, and optionally create symlinks for selected additional agents')
-  .action(async (options) => {
-    const agent = await checkbox({
+  .description('Download skills from https://github.com/MarkBind/skills.git,'
+    + ' install them into .agents/skills, and optionally create symlinks for selected additional agents')
+  .action((options) => {
+    checkbox({
       message: `
 ── Universal (.agents/skills) ── always included ────────────
   • Amp
@@ -190,8 +191,9 @@ skillsCmd
 
 ── Additional agents ─────────────────────────────`,
       choices: agentChoices,
-    });
-    installSkills({ ...options, agents: agent });
+    }).then(agent =>
+      installSkills({ ...options, agents: agent }),
+    );
   });
 
 skillsCmd
@@ -200,7 +202,7 @@ skillsCmd
   .summary('Update installed skills to match current MarkBind version')
   .description('Re-download skills matching the current MarkBind CLI version,'
     + 'overwriting any existing installation')
-  .action(async (options) => {
+  .action((options) => {
     installSkills({ ...options, force: true });
   });
 
