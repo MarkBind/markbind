@@ -8,6 +8,7 @@ import { build } from './src/cmd/build.js';
 import { deploy } from './src/cmd/deploy.js';
 import { init } from './src/cmd/init.js';
 import { serve } from './src/cmd/serve.js';
+import { install as installSkills } from './src/cmd/skills.js';
 import packageJson from './package.json' with { type: 'json' };
 
 const CLI_VERSION = packageJson.version;
@@ -68,14 +69,14 @@ program
   .addOption(
     program.createOption('-o, --one-page [file]',
                          'build and serve only a single page in the site initially, '
-                         + 'building more pages when they are navigated to. Also lazily rebuilds only '
-                         + 'the page being viewed when there are changes to the source files (if needed), '
-                         + 'building others when navigated to'))
+      + 'building more pages when they are navigated to. Also lazily rebuilds only '
+      + 'the page being viewed when there are changes to the source files (if needed), '
+      + 'building others when navigated to'))
 
   .addOption(
     program.createOption('-b, --background-build',
                          'when --one-page is specified, enhances one-page serve by building '
-                         + 'remaining pages in the background'))
+      + 'remaining pages in the background'))
 
   .optionsGroup('Server Options')
   .addOption(
@@ -120,6 +121,32 @@ program
   .description('Deploy the latest build of the site to the repo\'s GitHub Pages')
   .action((userSpecifiedRoot, options) => {
     deploy(userSpecifiedRoot, options);
+  });
+
+const skillsCmd = program
+  .commandsGroup('Setup Commands')
+  .command('skills')
+  .summary('Manage AI coding skills for this project')
+  .description('Download and manage AI coding skills from the MarkBind skills repository');
+
+skillsCmd
+  .command('install')
+  .option('--ref <ref>', 'specify a git ref (tag or branch) instead of auto-resolving from MarkBind version')
+  .option('--force', 'overwrite existing skills')
+  .summary('Install AI coding skills into .claude/skills/')
+  .description('Download skills from MarkBind/markbind-skills and install into .claude/skills/')
+  .action((options) => {
+    installSkills(options);
+  });
+
+skillsCmd
+  .command('update')
+  .option('--ref <ref>', 'specify a git ref (tag or branch) instead of auto-resolving from MarkBind version')
+  .summary('Update installed skills to match current MarkBind version')
+  .description('Re-download skills matching the current MarkBind CLI version,'
+    + 'overwriting any existing installation')
+  .action((options) => {
+    installSkills({ ...options, force: true });
   });
 
 program.parse(process.argv);

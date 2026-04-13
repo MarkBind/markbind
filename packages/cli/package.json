@@ -3,6 +3,7 @@
   "version": "7.0.0",
   "type": "module",
   "description": "Command line interface for MarkBind",
+  "aiSkillsVersion": "0.1.0",
   "keywords": [
     "mark",
     "markdown",
