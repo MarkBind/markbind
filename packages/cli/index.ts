@@ -135,7 +135,7 @@ const agentChoices
     { name: 'Augment', value: '.augment' },
     { name: 'IBM Bob', value: '.bob' },
     { name: 'Claude Code', value: '.claude' },
-    { name: 'OpenClaw', value: '.' },
+    { name: 'OpenClaw', value: '.openclaw' },
     { name: 'CodeBuddy', value: '.codebuddy' },
     { name: 'Command Code', value: '.commandcode' },
     { name: 'Continue', value: '.continue' },
@@ -169,8 +169,8 @@ skillsCmd
   .command('install')
   .option('--ref <ref>', 'specify a git ref (tag or branch) instead of auto-resolving from MarkBind version')
   .option('--force', 'overwrite existing skills')
-  .summary('Install AI coding skills into .claude/skills/')
-  .description('Download skills from MarkBind/markbind-skills and install into .claude/skills/')
+  .summary('Install AI coding skills into .agents/skills with optional agent symlinks')
+  .description('Download skills from https://github.com/MarkBind/skills.git, install them into .agents/skills, and optionally create symlinks for selected additional agents')
   .action(async (options) => {
     const agent = await checkbox({
       message: `
