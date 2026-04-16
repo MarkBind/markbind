@@ -22,6 +22,10 @@ function checkNode() {
   }
 }
 
+/**
+ * Performs pre-usage checks to ensure the application will run as expected.
+ * This method may exit the process if checks fail.
+ */
 export function preFlightChecks() {
   checkNode();
 }
