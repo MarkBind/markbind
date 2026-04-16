@@ -47,7 +47,19 @@ You can add a search bar component to your website to allow users to search the 
 MarkBind now supports [Pagefind](https://pagefind.app/), a static low-bandwidth search library, as a built-in feature. This provides full-text search capabilities without external services.
 
 <box type="info">
-This is a <strong>beta</strong> feature and will be refined in future updates. To use it, you must have <code>enableSearch: true</code> in your <code>site.json</code> (this is the default).
+This is a <strong>beta</strong> feature and will be refined in future updates. To use it, you explicitly enable it in your <code>site.json</code>. Add the <code>pagefind</code> configuration with <code>enablePagefind: true</code>.
+
+<panel header="Example of `site.json`">
+
+```json
+{
+  "pagefind": {
+    "enablePagefind": true
+  }
+}
+```
+</panel>
+
 </box>
 
 <box type="warning">
@@ -94,6 +106,7 @@ In your `site.json`:
 ```json
 {
   "pagefind": {
+    "enablePagefind": true,
     "exclude_selectors": [".algolia-no-index", "[class*='algolia-no-index']"]
   }
 }

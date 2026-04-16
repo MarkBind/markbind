@@ -188,7 +188,7 @@ describe('SiteGenerationManager', () => {
         mockPagefindInstance.createIndex({}) as any,
       );
 
-      generationManager.siteConfig = { enableSearch: true, pages: [] } as any;
+      generationManager.siteConfig = { pagefind: { enablePagefind: true }, pages: [] } as any;
       const pageConfig = { resultPath: path.join(outputPath, 'index.html'), searchable: true };
       generationManager.sitePages.pages = [{ pageConfig }] as any;
 
@@ -220,7 +220,7 @@ describe('SiteGenerationManager', () => {
       );
       const errorSpy = jest.spyOn(logger, 'error').mockImplementation();
 
-      generationManager.siteConfig = { enableSearch: true, pages: [] } as any;
+      generationManager.siteConfig = { pagefind: { enablePagefind: true }, pages: [] } as any;
       const pageConfig2 = { resultPath: path.join(outputPath, 'index.html'), searchable: true };
       generationManager.sitePages.pages = [{ pageConfig: pageConfig2 }] as any;
 
@@ -278,6 +278,53 @@ describe('SiteGenerationManager', () => {
       errorSpy.mockRestore();
     });
 
+    test('should skip missing pages in onePage mode without error', async () => {
+      const generationManagerOnePage = new SiteGenerationManager(
+        rootPath,
+        outputPath,
+        'index.md',
+        false,
+        undefined,
+        false,
+        false,
+        () => {},
+      );
+      generationManagerOnePage.configure(siteAssets, sitePages);
+
+      const json = {
+        ...PAGE_NJK,
+        'site.json': SITE_JSON_DEFAULT,
+        '_site/index.html': '<html><body>Existing page</body></html>',
+      };
+      mockFs.vol.fromJSON(json, rootPath);
+
+      const mockIndex = createMockIndex({ page_count: 1, errors: [] }, { errors: [] });
+      const mockPagefindInstance = createMockPagefind(mockIndex, true);
+      const pagefindSpy = jest.spyOn(pagefind, 'createIndex').mockResolvedValue(
+        mockPagefindInstance.createIndex({}) as any,
+      );
+      const errorSpy = jest.spyOn(logger, 'error').mockImplementation();
+
+      generationManagerOnePage.siteConfig = { pagefind: { enablePagefind: true }, pages: [] } as any;
+      generationManagerOnePage.sitePages.pages = [
+        { pageConfig: { resultPath: path.join(outputPath, 'index.html'), searchable: true } },
+        { pageConfig: { resultPath: path.join(outputPath, 'page2.html'), searchable: true } },
+      ] as any;
+
+      await generationManagerOnePage.indexSiteWithPagefind();
+
+      expect(mockIndex.addHTMLFile).toHaveBeenCalledTimes(1);
+      expect(mockIndex.addHTMLFile).toHaveBeenCalledWith({
+        sourcePath: 'index.html',
+        content: '<html><body>Existing page</body></html>',
+      });
+
+      expect(errorSpy).not.toHaveBeenCalled();
+
+      pagefindSpy.mockRestore();
+      errorSpy.mockRestore();
+    });
+
     test('should calculate searchable page count from addressablePages', async () => {
       const json = {
         ...PAGE_NJK,
@@ -295,7 +342,7 @@ describe('SiteGenerationManager', () => {
       );
       const infoSpy = jest.spyOn(logger, 'info').mockImplementation();
 
-      generationManager.siteConfig = { enableSearch: true, pages: [] } as any;
+      generationManager.siteConfig = { pagefind: { enablePagefind: true }, pages: [] } as any;
       generationManager.sitePages.pages = [
         { pageConfig: { resultPath: path.join(outputPath, 'index.html'), searchable: true } },
         { pageConfig: { resultPath: path.join(outputPath, 'page1.html'), searchable: true } },
@@ -326,7 +373,7 @@ describe('SiteGenerationManager', () => {
       );
       const infoSpy = jest.spyOn(logger, 'info').mockImplementation();
 
-      generationManager.siteConfig = { enableSearch: true, pages: [] } as any;
+      generationManager.siteConfig = { pagefind: { enablePagefind: true }, pages: [] } as any;
       generationManager.sitePages.pages = [
         { pageConfig: { resultPath: path.join(outputPath, 'index.html'), searchable: false } },
         { pageConfig: { resultPath: path.join(outputPath, 'page1.html'), searchable: true } },
@@ -355,7 +402,7 @@ describe('SiteGenerationManager', () => {
       );
       const infoSpy = jest.spyOn(logger, 'info').mockImplementation();
 
-      generationManager.siteConfig = { enableSearch: true } as any;
+      generationManager.siteConfig = { pagefind: { enablePagefind: true } } as any;
       generationManager.sitePages.addressablePages = [{ src: 'index.md', searchable: false }];
 
       await generationManager.indexSiteWithPagefind();

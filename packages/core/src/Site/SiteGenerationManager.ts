@@ -316,7 +316,7 @@ export class SiteGenerationManager {
       await this.siteAssets.copyOcticonsAsset();
       await this.siteAssets.copyMaterialIconsAsset();
       await this.writeSiteData();
-      if (this.siteConfig.enableSearch) {
+      if (this.siteConfig.pagefind?.enablePagefind) {
         const indexingSucceeded = await this.indexSiteWithPagefind();
         this.sitePages.pagefindIndexingSucceeded = indexingSucceeded;
       }
@@ -908,6 +908,10 @@ export class SiteGenerationManager {
           // Add each searchable page to the index using addHTMLFile
           const indexingResults = await Promise.all(
             searchablePages.map(async (page) => {
+              const fileExists = await fs.pathExists(page.pageConfig.resultPath);
+              if (!fileExists && this.onePagePath) {
+                return null;
+              }
               try {
                 const content = await fs.readFile(page.pageConfig.resultPath, 'utf8');
                 const relativePath = path.relative(this.outputPath, page.pageConfig.resultPath);
