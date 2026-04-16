@@ -28,6 +28,7 @@ Options:
 
 Setup Commands
   init|i [options] [root]            init a markbind site
+  skills                             Manage AI coding skills for this project
 
 Site Commands
   serve|s [options] [root]           Build then serve a website from a directory
@@ -71,6 +72,50 @@ Commands:
 
 </panel>
 </div>
+<hr><!-- ========================================================================== -->
+
+<div id="markbind-skills">
+
+### `skills` Command
+<br>
+
+**Format:** `markbind skills [command] [options]`
+
+**Description:** Manages AI coding skills for the current project.
+
+Use `markbind skills --help` to view all available subcommands.
+
+<panel header="**Subcommands** :fas-cogs:" type="minimal" expanded>
+
+**Subcommands** :fas-cogs:
+
+* `install`<br>
+  Downloads skills from the MarkBind skills repository and installs them into `.agents/skills`.
+  During installation, MarkBind prompts you to choose additional agent directories for optional symlinks.
+
+  * **Format:** `markbind skills install [options]`
+  * **Options:**
+    * `--ref <ref>`: Uses a specific git tag or branch instead of the MarkBind-version-matched ref.
+    * `--force`: Overwrites existing installed skills.
+  * **{{ icon_examples }}**
+    * `markbind skills install` : Installs skills using the default ref for your MarkBind version.
+    * `markbind skills install --ref v7.0.0` : Installs skills from the `v7.0.0` ref.
+    * `markbind skills install --force` : Reinstalls skills and overwrites existing installed skills.
+
+* `update`<br>
+  Re-downloads skills for the current MarkBind version and overwrites the existing installation.
+
+  * **Format:** `markbind skills update [options]`
+  * **Options:**
+    * `--ref <ref>`: Uses a specific git tag or branch instead of the MarkBind-version-matched ref.
+  * **{{ icon_examples }}**
+    * `markbind skills update` : Updates installed skills using the default ref for your MarkBind version.
+    * `markbind skills update --ref v7.0.0` : Updates installed skills from the `v7.0.0` ref.
+
+</panel>
+
+</div>
+
 <hr><!-- ========================================================================== -->
 
 ### `serve` Command
