@@ -84,6 +84,9 @@ export class SiteGenerationManager {
   currentOpenedPages: string[];
   toRebuild: Set<string>;
 
+  // Pagefind index state (kept in memory for serve mode for incremental updates)
+  pagefindIndex: any;
+
   constructor(rootPath: string, outputPath: string, onePagePath: string, forceReload = false,
               siteConfigPath = SITE_CONFIG_NAME, isDevMode: any, backgroundBuildMode: boolean,
               postBackgroundBuildFunc: () => void) {
@@ -105,6 +108,9 @@ export class SiteGenerationManager {
       : '';
     this.currentOpenedPages = [];
     this.toRebuild = new Set();
+
+    // Pagefind index state (kept in memory for serve mode for incremental updates)
+    this.pagefindIndex = null;
   }
 
   configure(siteAssets: SiteAssetsManager, sitePages: SitePagesManager) {
@@ -317,7 +323,15 @@ export class SiteGenerationManager {
       await this.siteAssets.copyMaterialIconsAsset();
       await this.writeSiteData();
       if (this.siteConfig.enableSearch) {
-        const indexingSucceeded = await this.indexSiteWithPagefind();
+        let indexingSucceeded: boolean;
+        if (this.onePagePath) {
+          const builtPages = this.sitePages.pages.filter(page =>
+            fs.existsSync(page.pageConfig.resultPath),
+          );
+          indexingSucceeded = await this.updatePagefindIndex(builtPages);
+        } else {
+          indexingSucceeded = await this.indexSiteWithPagefind();
+        }
         this.sitePages.pagefindIndexingSucceeded = indexingSucceeded;
       }
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
@@ -440,6 +454,11 @@ export class SiteGenerationManager {
       this._setTimestampVariable();
       await this.runPageGenerationTasks([pageGenerationTask]);
       await this.writeSiteData();
+
+      if (this.siteConfig.enableSearch && this.pagefindIndex) {
+        await this.updatePagefindIndex(pagesToRebuild);
+      }
+
       SiteGenerationManager.calculateBuildTimeForRebuildPagesBeingViewed(startTime);
     } catch (err) {
       await SiteGenerationManager.rejectHandler(err, [this.tempPath, this.outputPath]);
@@ -466,6 +485,11 @@ export class SiteGenerationManager {
     const isCompleted = await this.generatePagesMarkedToRebuild();
     if (isCompleted) {
       logger.info('Background building completed!');
+
+      if (this.siteConfig.enableSearch) {
+        await this.indexSiteWithPagefind();
+      }
+
       this.postBackgroundBuildFunc();
     }
   }
@@ -872,29 +896,49 @@ export class SiteGenerationManager {
   );
 
   /**
- * Indexes all the pages of the site using pagefind.
- * @returns true if indexing succeeded and pagefind assets were written, false otherwise.
- */
+   * Initializes a new Pagefind index with proper configuration.
+   * @returns The created index object
+   */
+  private async initializePagefindIndex(): Promise<any> {
+    const { createIndex } = pagefind;
+    const pagefindConfig = this.siteConfig.pagefind || {};
+
+    const createIndexOptions: Record<string, unknown> = {
+      keepIndexUrl: true,
+      verbose: true,
+      logfile: 'debug.log',
+    };
+
+    if (pagefindConfig.exclude_selectors) {
+      createIndexOptions.excludeSelectors = pagefindConfig.exclude_selectors;
+    }
+
+    const { index } = await createIndex(createIndexOptions);
+    return index;
+  }
+
+  /**
+  * Indexes all the pages of the site using pagefind.
+  * Performs a full rebuild of the search index.
+  * @returns true if indexing succeeded and pagefind assets were written, false otherwise.
+  */
   async indexSiteWithPagefind(): Promise<boolean> {
     const startTime = new Date();
     logger.info('Creating Pagefind Search Index...');
     try {
-      const { createIndex, close } = pagefind;
-
-      const pagefindConfig = this.siteConfig.pagefind || {};
-
-      const createIndexOptions: Record<string, unknown> = {
-        keepIndexUrl: true,
-        verbose: true,
-        logfile: 'debug.log',
-      };
-
-      if (pagefindConfig.exclude_selectors) {
-        createIndexOptions.excludeSelectors = pagefindConfig.exclude_selectors;
+      // Clean up existing in-memory index if it exists
+      if (this.pagefindIndex) {
+        await this.pagefindIndex.deleteIndex();
+        this.pagefindIndex = null;
       }
 
-      const { index } = await createIndex(createIndexOptions);
+      const index = await this.initializePagefindIndex();
+      const { close } = pagefind;
+
       if (index) {
+        // Store index in memory for incremental updates in serve mode
+        this.pagefindIndex = index;
+
         // Filter pages that should be indexed (searchable !== false)
         const searchablePages = this.sitePages.pages.filter(
           page => page.pageConfig.searchable,
@@ -939,10 +983,22 @@ export class SiteGenerationManager {
         logger.info(`Pagefind indexed ${totalPageCount} pages in ${totalTime}s`);
 
         const pagefindOutputPath = path.join(this.outputPath, TEMPLATE_SITE_ASSET_FOLDER_NAME, 'pagefind');
+        // Clear output directory before writing
+        await fs.emptyDir(pagefindOutputPath);
         await fs.ensureDir(pagefindOutputPath);
         await index.writeFiles({ outputPath: pagefindOutputPath });
         logger.info(`Pagefind assets written to ${pagefindOutputPath}`);
-        await close();
+
+        // Only close the index in build/deploy mode; keep it in memory for serve mode
+        // Detect serve mode by checking if postBackgroundBuildFunc has a name (named function = serve)
+        const isServeMode = this.postBackgroundBuildFunc.name !== '';
+        const shouldClose = !isServeMode;
+
+        if (shouldClose) {
+          await close();
+          this.pagefindIndex = null;
+        }
+
         return true;
       }
       logger.error('Pagefind failed to create index');
@@ -950,6 +1006,57 @@ export class SiteGenerationManager {
       return false;
     } catch (error) {
       logger.warn(`Pagefind indexing skipped: ${error}`);
+      return false;
+    }
+  }
+
+  /**
+   * Updates the search index for changed pages only (incremental update).
+   * Requires the index to be kept in memory from a prior indexSiteWithPagefind() call.
+   * @param pages Array of pages that were modified/added
+   * @returns true if update succeeded, false otherwise
+   */
+  async updatePagefindIndex(pages: Page[]): Promise<boolean> {
+    if (!this.pagefindIndex) {
+      logger.info('Pagefind index not in memory, auto-creating...');
+      this.pagefindIndex = await this.initializePagefindIndex();
+    }
+
+    const pagefindOutputPath = path.join(this.outputPath, TEMPLATE_SITE_ASSET_FOLDER_NAME, 'pagefind');
+
+    try {
+      const searchablePages = pages.filter(page => page.pageConfig.searchable);
+
+      await Promise.all(searchablePages.map(async (page) => {
+        try {
+          const content = await fs.readFile(page.pageConfig.resultPath, 'utf8');
+          const relativePath = path.relative(this.outputPath, page.pageConfig.resultPath);
+
+          return this.pagefindIndex.addHTMLFile({
+            sourcePath: relativePath,
+            content,
+          });
+        } catch (err) {
+          const pageResultPath = page.pageConfig.resultPath;
+          logger.warn(`Skipping index update for ${pageResultPath}: file not built yet`);
+          return null;
+        }
+      }));
+
+      const { files } = await this.pagefindIndex.getFiles();
+      await fs.emptyDir(pagefindOutputPath);
+
+      const pagefindFiles: { path: string; content: Uint8Array }[] = files;
+      await Promise.all(pagefindFiles.map(async (file) => {
+        const filePath = path.join(pagefindOutputPath, file.path);
+        await fs.ensureDir(path.dirname(filePath));
+        return fs.writeFile(filePath, Buffer.from(file.content));
+      }));
+
+      logger.info(`Updated Pagefind index for ${searchablePages.length} page(s)`);
+      return true;
+    } catch (error) {
+      logger.error(`Failed to update Pagefind index: ${error}`);
       return false;
     }
   }

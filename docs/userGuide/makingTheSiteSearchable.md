@@ -50,10 +50,6 @@ MarkBind now supports [Pagefind](https://pagefind.app/), a static low-bandwidth 
 This is a <strong>beta</strong> feature and will be refined in future updates. To use it, you must have <code>enableSearch: true</code> in your <code>site.json</code> (this is the default).
 </box>
 
-<box type="warning">
-The Pagefind index is currently only generated during a full site build (e.g., <code>markbind build</code>). It will <strong>not</strong> repeatedly update during live reload (<code>markbind serve</code>) when you modify pages. You must restart the server (re-run <code>markbind serve</code>) or rebuild to refresh the search index.
-</box>
-
 To add the Pagefind search bar to your page, simply insert the following element where you want it to appear:
 
 ```md

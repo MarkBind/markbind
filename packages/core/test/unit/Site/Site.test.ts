@@ -37,6 +37,9 @@ jest.mock('../../../src/Site/SiteGenerationManager', () => ({
     buildSourceFiles: jest.fn(),
     rebuildSourceFiles: jest.fn(),
     reloadSiteConfig: jest.fn(),
+    updatePagefindIndex: jest.fn().mockResolvedValue(true),
+    indexSiteWithPagefind: jest.fn().mockResolvedValue(true),
+    sitePages: { pages: [] },
   })),
 }));
 
@@ -118,6 +121,23 @@ test('Site rebuildSourceFiles delegates to SiteGenerationManager', () => {
   const site = new Site(...siteArguments);
   site.rebuildSourceFiles();
   expect(site.generationManager.rebuildSourceFiles).toHaveBeenCalled();
+});
+
+test('Site updatePagefindIndex delegates to SiteGenerationManager', async () => {
+  const site = new Site(...siteArguments);
+  const mockPage = { pageConfig: { sourcePath: 'test.md', resultPath: '_site/test.html', searchable: true } };
+  const mockPages = [mockPage];
+  site.generationManager.sitePages = { pages: mockPages } as any;
+
+  await site.updatePagefindIndex('test.md');
+  expect(site.generationManager.updatePagefindIndex).toHaveBeenCalledWith(mockPages);
+});
+
+test('Site indexSiteWithPagefind delegates to SiteGenerationManager', async () => {
+  const site = new Site(...siteArguments);
+
+  await site.indexSiteWithPagefind();
+  expect(site.generationManager.indexSiteWithPagefind).toHaveBeenCalled();
 });
 
 test('Site reloadSiteConfig delegates to SiteGenerationManager', async () => {
