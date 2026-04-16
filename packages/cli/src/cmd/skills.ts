@@ -7,6 +7,7 @@ import _ from 'lodash';
 
 import * as logger from '../util/logger.js';
 import packageJson from '../../package.json' with { type: 'json' };
+import { findRootFolder } from '../util/cliUtil.js';
 
 const execFileAsync = promisify(execFile);
 
@@ -87,8 +88,25 @@ function compareSemver(v1: string, v2: string): number {
 }
 
 async function install(options: SkillsInstallOptions) {
+  let rootFolder;
+  try {
+    rootFolder = findRootFolder('');
+  } catch (error) {
+    if (_.isError(error)) {
+      logger.error(error.message);
+      logger.error('This directory does not appear to contain a valid MarkBind site. '
+        + 'Check that you are running the command in the correct directory!\n'
+        + '\n'
+        + 'To create a new MarkBind site, run:\n'
+        + '   markbind init');
+    } else {
+      logger.error(`Unknown error occurred: ${error}`);
+    }
+    process.exitCode = 1;
+    process.exit();
+  }
   const ref = options.ref || `v${packageJson.aiSkillsVersion}`;
-  const targetDir = path.resolve(process.cwd(), SKILLS_TARGET);
+  const targetDir = path.resolve(rootFolder, SKILLS_TARGET);
 
   // Check git is available
   try {
@@ -162,7 +180,7 @@ async function install(options: SkillsInstallOptions) {
 
     if (options.agents) {
       await Promise.all(options.agents.map(async (agent) => {
-        const agentSkillsDir = path.join(process.cwd(), agent, 'skills');
+        const agentSkillsDir = path.join(rootFolder, agent, 'skills');
         if (await fs.pathExists(agentSkillsDir)) {
           logger.warn('Agent skills directory already exist. Skipping symlink creation.');
           logger.warn(`Please manually symlink ${targetDir} to ${agentSkillsDir}`
