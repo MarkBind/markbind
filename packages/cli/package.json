@@ -1,6 +1,6 @@
 {
   "name": "markbind-cli",
-  "version": "7.0.1",
+  "version": "7.1.0",
   "type": "module",
   "description": "Command line interface for MarkBind",
   "aiSkillsVersion": "0.1.0",
@@ -35,8 +35,8 @@
   },
   "dependencies": {
     "@inquirer/prompts": "^8.4.1",
-    "@markbind/core": "7.0.1",
-    "@markbind/core-web": "7.0.1",
+    "@markbind/core": "7.1.0",
+    "@markbind/core-web": "7.1.0",
     "chalk": "^3.0.0",
     "cheerio": "^0.22.0",
     "chokidar": "^3.3.0",
