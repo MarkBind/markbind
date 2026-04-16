@@ -8,6 +8,7 @@ import { build } from './src/cmd/build.js';
 import { deploy } from './src/cmd/deploy.js';
 import { init } from './src/cmd/init.js';
 import { serve } from './src/cmd/serve.js';
+import { preFlightChecks } from './src/util/preFlightChecks.js';
 import packageJson from './package.json' with { type: 'json' };
 
 const CLI_VERSION = packageJson.version;
@@ -22,6 +23,9 @@ function printHeader() {
   logger.log(` v${CLI_VERSION}`);
   return '';
 }
+
+program
+  .hook('preAction', () => preFlightChecks());
 
 program
   .addHelpText('beforeAll', printHeader())
