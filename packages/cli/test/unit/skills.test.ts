@@ -5,6 +5,7 @@ import { vol, fs as memfs } from 'memfs';
 import { execFile } from 'child_process';
 import _ from 'lodash';
 import * as logger from '../../src/util/logger.js';
+import * as cliUtil from '../../src/util/cliUtil.js';
 import {
   install,
   findSkillDirs,
@@ -67,11 +68,16 @@ jest.mock('../../src/util/logger.js', () => ({
   info: jest.fn(),
 }));
 
+jest.mock('../../src/util/cliUtil.js', () => ({
+  findRootFolder: jest.fn(),
+}));
+
 type ExecCallback = (error: Error | null, stdout?: string, stderr?: string) => void;
 
 const mockExecFile = execFile as unknown as jest.Mock;
 
 const mockedLogger = logger as jest.Mocked<typeof logger>;
+const mockedCliUtil = cliUtil as jest.Mocked<typeof cliUtil>;
 
 const WORKDIR = '/workspace/project';
 const TMPDIR = '/tmp';
@@ -114,6 +120,7 @@ beforeEach(() => {
   jest.resetAllMocks();
   jest.spyOn(os, 'tmpdir').mockReturnValue(TMPDIR);
   jest.spyOn(process, 'cwd').mockReturnValue(WORKDIR);
+  mockedCliUtil.findRootFolder.mockReturnValue(WORKDIR);
   process.exitCode = undefined;
 });
 
@@ -217,6 +224,32 @@ describe('writeMetadata and readMetadata', () => {
 });
 
 describe('install', () => {
+  test('fails when current directory is not inside a MarkBind site', async () => {
+    mockedCliUtil.findRootFolder.mockImplementation(() => {
+      throw new Error(`No config file found in parent directories of ${WORKDIR}`);
+    });
+
+    const exitSpy = jest.spyOn(process, 'exit').mockImplementation((() => {
+      throw new Error('process.exit called');
+    }) as never);
+
+    await expect(install({})).rejects.toThrow('process.exit called');
+
+    expect(mockedLogger.error).toHaveBeenCalledWith(
+      `No config file found in parent directories of ${WORKDIR}`,
+    );
+    expect(mockedLogger.error).toHaveBeenCalledWith(
+      'This directory does not appear to contain a valid MarkBind site. '
+      + 'Check that you are running the command in the correct directory!\n'
+      + '\n'
+      + 'To create a new MarkBind site, run:\n'
+      + '   markbind init',
+    );
+    expect(process.exitCode).toBe(1);
+    expect(exitSpy).toHaveBeenCalled();
+    expect(mockExecFile).not.toHaveBeenCalled();
+  });
+
   test('installs with default ref from packageJson aiSkillsVersion', async () => {
     setExecFileMock((file, args, cb) => {
       if (args[0] === '--version') {
@@ -236,6 +269,27 @@ describe('install', () => {
     expect(memfs.existsSync(path.join(WORKDIR, '.agents/skills/skill-b/SKILL.md'))).toBe(true);
     expect(memfs.existsSync(path.join(WORKDIR, '.agents/skills/.markbind-skills.json'))).toBe(true);
     expect(process.exitCode).toBeUndefined();
+  });
+
+  test('installs into detected root folder when cwd is a nested directory', async () => {
+    const rootFolder = '/workspace/site-root';
+    const nestedCwd = path.join(rootFolder, 'docs', 'chapter-1');
+    mockedCliUtil.findRootFolder.mockReturnValue(rootFolder);
+    jest.spyOn(process, 'cwd').mockReturnValue(nestedCwd);
+
+    setExecFileMock((file, args, cb) => {
+      if (args[0] === '--version') {
+        cb(null, 'git version 2.43.0', '');
+        return;
+      }
+      seedClonedSkills(args[args.length - 1], ['nested-root-skill']);
+      cb(null, '', '');
+    });
+
+    await install({});
+
+    expect(memfs.existsSync(path.join(rootFolder, '.agents/skills/nested-root-skill/SKILL.md'))).toBe(true);
+    expect(memfs.existsSync(path.join(nestedCwd, '.agents/skills/nested-root-skill/SKILL.md'))).toBe(false);
   });
 
   test('installs with custom ref', async () => {
