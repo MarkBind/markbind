@@ -881,12 +881,14 @@ export class SiteGenerationManager {
     try {
       const { createIndex, close } = pagefind;
 
+      const logsPath = path.join(this.rootPath, '_markbind', 'logs');
+      await fs.ensureDir(logsPath);
       const pagefindConfig = this.siteConfig.pagefind || {};
 
       const createIndexOptions: Record<string, unknown> = {
         keepIndexUrl: true,
         verbose: true,
-        logfile: 'debug.log',
+        logfile: path.join(logsPath, 'pagefind.log'),
       };
 
       if (pagefindConfig.exclude_selectors) {

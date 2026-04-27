@@ -138,7 +138,7 @@ describe('SiteGenerationManager', () => {
       expect(pagefindSpy).toHaveBeenCalledWith({
         keepIndexUrl: true,
         verbose: true,
-        logfile: 'debug.log',
+        logfile: path.join(rootPath, '_markbind', 'logs', 'pagefind.log'),
       });
 
       pagefindSpy.mockRestore();
@@ -167,7 +167,7 @@ describe('SiteGenerationManager', () => {
       expect(pagefindSpy).toHaveBeenCalledWith({
         keepIndexUrl: true,
         verbose: true,
-        logfile: 'debug.log',
+        logfile: path.join(rootPath, '_markbind', 'logs', 'pagefind.log'),
         excludeSelectors: ['.no-index', '#sidebar'],
       });
 
