@@ -32,11 +32,10 @@ function build(userSpecifiedRoot: string, output: string, options: any) {
   }
 
   const defaultOutputRoot = path.join(rootFolder, '_site');
-  const logsFolder = path.join(rootFolder, '_markbind/logs');
   const outputFolder = output ? path.resolve(process.cwd(), output) : defaultOutputRoot;
   new Site(rootFolder, outputFolder, '', undefined, options.siteConfig,
            false, false, () => {})
-    .generate(logsFolder, baseUrl)
+    .generate(baseUrl)
     .then(() => {
       logger.info('Build success!');
     })

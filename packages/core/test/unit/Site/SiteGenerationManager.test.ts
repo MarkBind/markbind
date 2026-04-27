@@ -133,12 +133,12 @@ describe('SiteGenerationManager', () => {
       );
 
       await generationManager.readSiteConfig();
-      await generationManager.indexSiteWithPagefind('/tmp/test/_markbind/logs');
+      await generationManager.indexSiteWithPagefind();
 
       expect(pagefindSpy).toHaveBeenCalledWith({
         keepIndexUrl: true,
         verbose: true,
-        logfile: path.join('/tmp/test/_markbind/logs', 'pagefind-debug.log'),
+        logfile: path.join('/tmp/test', '_markbind', 'logs', 'pagefind.log'),
       });
 
       pagefindSpy.mockRestore();
@@ -162,12 +162,12 @@ describe('SiteGenerationManager', () => {
       );
 
       await generationManager.readSiteConfig();
-      await generationManager.indexSiteWithPagefind('/tmp/test/_markbind/logs');
+      await generationManager.indexSiteWithPagefind();
 
       expect(pagefindSpy).toHaveBeenCalledWith({
         keepIndexUrl: true,
         verbose: true,
-        logfile: path.join('/tmp/test/_markbind/logs', 'pagefind-debug.log'),
+        logfile: path.join('/tmp/test', '_markbind', 'logs', 'pagefind.log'),
         excludeSelectors: ['.no-index', '#sidebar'],
       });
 
@@ -192,7 +192,7 @@ describe('SiteGenerationManager', () => {
       const pageConfig = { resultPath: path.join(outputPath, 'index.html'), searchable: true };
       generationManager.sitePages.pages = [{ pageConfig }] as any;
 
-      await generationManager.indexSiteWithPagefind('/tmp/test/_markbind/logs');
+      await generationManager.indexSiteWithPagefind();
 
       expect(mockIndex.addHTMLFile).toHaveBeenCalledWith({
         sourcePath: 'index.html',
@@ -224,7 +224,7 @@ describe('SiteGenerationManager', () => {
       const pageConfig2 = { resultPath: path.join(outputPath, 'index.html'), searchable: true };
       generationManager.sitePages.pages = [{ pageConfig: pageConfig2 }] as any;
 
-      await generationManager.indexSiteWithPagefind('/tmp/test/_markbind/logs');
+      await generationManager.indexSiteWithPagefind();
 
       expect(errorSpy).toHaveBeenCalledWith('Error 1');
       expect(errorSpy).toHaveBeenCalledWith('Error 2');
@@ -247,7 +247,7 @@ describe('SiteGenerationManager', () => {
       const warnSpy = jest.spyOn(logger, 'warn').mockImplementation();
 
       await generationManager.readSiteConfig();
-      await generationManager.indexSiteWithPagefind('/tmp/test/_markbind/logs');
+      await generationManager.indexSiteWithPagefind();
 
       expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('Pagefind indexing skipped'));
 
@@ -270,7 +270,7 @@ describe('SiteGenerationManager', () => {
       const errorSpy = jest.spyOn(logger, 'error').mockImplementation();
 
       await generationManager.readSiteConfig();
-      await generationManager.indexSiteWithPagefind('/tmp/test/_markbind/logs');
+      await generationManager.indexSiteWithPagefind();
 
       expect(errorSpy).toHaveBeenCalledWith('Pagefind failed to create index');
 
@@ -349,7 +349,7 @@ describe('SiteGenerationManager', () => {
         { pageConfig: { resultPath: path.join(outputPath, 'page2.html'), searchable: false } },
       ] as any;
 
-      await generationManager.indexSiteWithPagefind('/tmp/test/_markbind/logs');
+      await generationManager.indexSiteWithPagefind();
 
       expect(infoSpy).toHaveBeenCalledWith(expect.stringMatching(/Pagefind indexed 2 pages in/));
 
@@ -379,7 +379,7 @@ describe('SiteGenerationManager', () => {
         { pageConfig: { resultPath: path.join(outputPath, 'page1.html'), searchable: true } },
       ] as any;
 
-      await generationManager.indexSiteWithPagefind('/tmp/test/_markbind/logs');
+      await generationManager.indexSiteWithPagefind();
 
       expect(infoSpy).toHaveBeenCalledWith(expect.stringMatching(/Pagefind indexed 1 pages in/));
 
@@ -405,7 +405,7 @@ describe('SiteGenerationManager', () => {
       generationManager.siteConfig = { pagefind: { enablePagefind: true } } as any;
       generationManager.sitePages.addressablePages = [{ src: 'index.md', searchable: false }];
 
-      await generationManager.indexSiteWithPagefind('/tmp/test/_markbind/logs');
+      await generationManager.indexSiteWithPagefind();
 
       expect(infoSpy).toHaveBeenCalledWith(expect.stringMatching(/Pagefind indexed 0 pages in/));
 

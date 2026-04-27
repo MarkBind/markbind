@@ -38,14 +38,13 @@ function deploy(userSpecifiedRoot: string, options: any) {
     process.exit();
   }
   const outputFolder = path.join(rootFolder, '_site');
-  const logsFolder = path.join(rootFolder, '_markbind/logs');
 
   // Choose to build or not build depending on --no-build flag
   // We cannot chain generate and deploy while calling generate conditionally, so we split with if-else
   const site = new Site(rootFolder, outputFolder, '', undefined, options.siteConfig,
                         false, false, () => {});
   if (options.build) {
-    site.generate(logsFolder, undefined)
+    site.generate(undefined)
       .then(() => {
         logger.info('Build success!');
         site.deploy(options.ci)
