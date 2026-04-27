@@ -104,8 +104,8 @@ test('Site readSiteConfig delegates to SiteGenerationManager', async () => {
 
 test('Site generate delegates to SiteGenerationManager', async () => {
   const site = new Site(...siteArguments);
-  await site.generate('baseUrl');
-  expect(site.generationManager.generate).toHaveBeenCalledWith('baseUrl');
+  await site.generate('/tmp/test/_markbind/logs', 'baseUrl');
+  expect(site.generationManager.generate).toHaveBeenCalledWith('/tmp/test/_markbind/logs', 'baseUrl');
 });
 
 test('Site buildSourceFiles delegates to SiteGenerationManager', async () => {
