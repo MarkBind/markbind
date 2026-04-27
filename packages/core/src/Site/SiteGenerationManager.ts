@@ -886,7 +886,7 @@ export class SiteGenerationManager {
       const createIndexOptions: Record<string, unknown> = {
         keepIndexUrl: true,
         verbose: true,
-        logfile: path.join(logsFolder, 'debug.log'),
+        logfile: path.join(logsFolder, 'pagefind-debug.log'),
       };
 
       if (pagefindConfig.exclude_selectors) {
