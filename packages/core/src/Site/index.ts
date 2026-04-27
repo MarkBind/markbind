@@ -70,8 +70,8 @@ export class Site {
       + 'Check https://markbind.org/userGuide/siteConfiguration.html for more information.');
   }
 
-  async generate(baseUrl: string | undefined): Promise<any> {
-    return this.generationManager.generate(baseUrl);
+  async generate(logsFolder: string, baseUrl: string | undefined): Promise<any> {
+    return this.generationManager.generate(logsFolder, baseUrl);
   }
 
   async buildSourceFiles() {

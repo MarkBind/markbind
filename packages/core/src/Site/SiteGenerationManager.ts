@@ -292,7 +292,7 @@ export class SiteGenerationManager {
    * Generate the website.
    * @param baseUrl user defined base URL (if exists)
    */
-  async generate(baseUrl: string | undefined): Promise<any> {
+  async generate(logsFolder: string, baseUrl: string | undefined): Promise<any> {
     const startTime = new Date();
     // Create the .tmp folder for storing intermediate results.
     fs.emptydirSync(this.tempPath);
@@ -317,7 +317,7 @@ export class SiteGenerationManager {
       await this.siteAssets.copyMaterialIconsAsset();
       await this.writeSiteData();
       if (this.siteConfig.pagefind?.enablePagefind) {
-        const indexingSucceeded = await this.indexSiteWithPagefind();
+        const indexingSucceeded = await this.indexSiteWithPagefind(logsFolder);
         this.sitePages.pagefindIndexingSucceeded = indexingSucceeded;
       }
       this.calculateBuildTimeForGenerate(startTime, lazyWebsiteGenerationString);
@@ -875,7 +875,7 @@ export class SiteGenerationManager {
  * Indexes all the pages of the site using pagefind.
  * @returns true if indexing succeeded and pagefind assets were written, false otherwise.
  */
-  async indexSiteWithPagefind(): Promise<boolean> {
+  async indexSiteWithPagefind(logsFolder: string): Promise<boolean> {
     const startTime = new Date();
     logger.info('Creating Pagefind Search Index...');
     try {
@@ -886,7 +886,7 @@ export class SiteGenerationManager {
       const createIndexOptions: Record<string, unknown> = {
         keepIndexUrl: true,
         verbose: true,
-        logfile: 'debug.log',
+        logfile: path.join(logsFolder, 'debug.log'),
       };
 
       if (pagefindConfig.exclude_selectors) {
