@@ -138,7 +138,7 @@ describe('SiteGenerationManager', () => {
       expect(pagefindSpy).toHaveBeenCalledWith({
         keepIndexUrl: true,
         verbose: true,
-        logfile: path.join('/tmp/test', '_markbind', 'logs', 'pagefind.log'),
+        logfile: path.join(rootPath, '_markbind', 'logs', 'pagefind.log'),
       });
 
       pagefindSpy.mockRestore();
@@ -167,7 +167,7 @@ describe('SiteGenerationManager', () => {
       expect(pagefindSpy).toHaveBeenCalledWith({
         keepIndexUrl: true,
         verbose: true,
-        logfile: path.join('/tmp/test', '_markbind', 'logs', 'pagefind.log'),
+        logfile: path.join(rootPath, '_markbind', 'logs', 'pagefind.log'),
         excludeSelectors: ['.no-index', '#sidebar'],
       });
 
@@ -311,7 +311,7 @@ describe('SiteGenerationManager', () => {
         { pageConfig: { resultPath: path.join(outputPath, 'page2.html'), searchable: true } },
       ] as any;
 
-      await generationManagerOnePage.indexSiteWithPagefind('/tmp/test/_markbind/logs');
+      await generationManagerOnePage.indexSiteWithPagefind();
 
       expect(mockIndex.addHTMLFile).toHaveBeenCalledTimes(1);
       expect(mockIndex.addHTMLFile).toHaveBeenCalledWith({
