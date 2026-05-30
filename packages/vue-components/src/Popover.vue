@@ -29,7 +29,7 @@
         <slot></slot>
       </span>
       <template #popper>
-        <div class="popover-container">
+        <div class="popover-container popover">
           <h3 v-if="hasHeader" class="popover-header">
             <slot name="header"></slot>
           </h3>
@@ -86,6 +86,10 @@ export default {
 </script>
 
 <style>
+    [data-bs-theme="dark"] .popover {
+      --bs-popover-header-color: var(--bs-body-color);
+    }
+
     .popover-container {
         overflow: auto;
         max-height: 50vh;
