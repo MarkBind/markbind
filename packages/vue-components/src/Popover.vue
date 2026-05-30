@@ -86,8 +86,17 @@ export default {
 </script>
 
 <style>
-    [data-bs-theme="dark"] .popover {
-      --bs-popover-header-color: var(--bs-body-color);
+    [data-bs-theme="dark"] {
+      /* Bootstrap by default inherits the header color - override with intended dark theme font color */
+      .popover {
+        --bs-popover-header-color: var(--bs-body-color);
+      }
+
+      /* Floating-vue retains a white border in dark mode - override */
+      .v-popper__inner {
+        background: var(--bs-popover-bg);
+        border: 1px solid var(--bs-secondary-bg);
+      }
     }
 
     .popover-container {
