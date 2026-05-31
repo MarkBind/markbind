@@ -29,7 +29,7 @@
         <slot></slot>
       </span>
       <template #popper>
-        <div class="popover-container">
+        <div class="popover-container popover">
           <h3 v-if="hasHeader" class="popover-header">
             <slot name="header"></slot>
           </h3>
@@ -86,6 +86,20 @@ export default {
 </script>
 
 <style>
+    [data-bs-theme="dark"] {
+        /* Bootstrap by default inherits the header color - override with intended dark theme font color */
+        .popover {
+            --bs-popover-header-color: var(--bs-body-color);
+        }
+
+        /* Floating-vue retains a white border in dark mode - override */
+        /* stylelint-disable selector-class-pattern */
+        .v-popper__inner {
+            background: var(--bs-popover-bg);
+            border: 1px solid var(--bs-secondary-bg);
+        }
+    }
+
     .popover-container {
         overflow: auto;
         max-height: 50vh;
