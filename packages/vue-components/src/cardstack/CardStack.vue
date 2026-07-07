@@ -119,7 +119,8 @@ function createCardStackRef(props) {
         const rawTags = child.computeTags;
         const keywords = child.computeKeywords;
         const header = child.headerText;
-        const searchTarget = rawTags.join(' ') + keywords + header;
+        const body = child.bodyText || '';
+        const searchTarget = rawTags.join(' ') + keywords + header + body;
 
         primitiveMap.set(searchTarget, child);
       });
@@ -186,7 +187,7 @@ export default {
         if (child.disabled) return;
         const searchTerms = this.cardStackRef.searchTerms || [];
         const searchTarget = (child.computeTags.join(' ')
-          + child.keywords + child.headerText).toLowerCase();
+          + child.keywords + child.headerText + (child.bodyText || '')).toLowerCase();
         const matchesSearch = searchTerms.length === 0
           || searchTerms.every(term => searchTarget.includes(term.toLowerCase()));
         if (matchesSearch) {
