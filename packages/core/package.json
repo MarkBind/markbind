@@ -80,7 +80,7 @@
     "katex": "^0.15.6",
     "lodash": "^4.17.15",
     "markdown-it": "^12.3.2",
-    "markdown-it-attrs": "^4.1.3",
+    "markdown-it-attrs": "^5.0.1",
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-linkify-images": "^3.0.0",
     "markdown-it-mark": "^3.0.0",
