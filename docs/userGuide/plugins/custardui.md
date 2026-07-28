@@ -44,6 +44,12 @@ By default, the plugin sets the `data-base-url` attribute for CustardUI to `/`. 
 
 After enabling the plugin, create a `custardui.config.json` file in your site's root directory. This tells CustardUI what options and features to expose to your readers.
 
+<box type="tip">
+
+Make sure your `site.json` ignore list does not exclude JSON files, or MarkBind will not copy `custardui.config.json` into the generated site and the plugin will not work.
+
+</box>
+
 Here is a sample configuration with the settings panel enabled:
 
 ```json {heading="custardui.config.json"}
