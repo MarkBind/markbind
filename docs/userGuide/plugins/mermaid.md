@@ -47,6 +47,24 @@ By default, the plugin loads the Mermaid code from a CDN URL. However, you can o
 
 To create a Mermaid diagram, use the `<mermaid>` tag and provide the diagram definition within the tag. Usage of standard Mermaid syntax using the `<pre class="mermaid">` block directly in Markdown files is also supported for users who prefer to do so.
 
+<box type="tip">
+
+Some Mermaid syntax, such as initialization directives, can conflict with MarkBind's Nunjucks processing. Wrap the conflicting line in a Nunjucks string expression so that MarkBind emits it unchanged:
+
+{% raw %}
+```html
+<mermaid>
+{{ "%%{init: { 'logLevel': 'debug', 'theme': 'base' } }%%" }}
+gitGraph
+    commit id: "feat(api): ..."
+</mermaid>
+```
+{% endraw %}
+
+See [Using raw-endraw to display content](../tipsAndTricks.html#using-raw-endraw-to-display-content) for more ways to escape Nunjucks syntax.
+
+</box>
+
 {{ icon_example }} Pie Chart:
 
 <include src="codeAndOutput.md" boilerplate >
