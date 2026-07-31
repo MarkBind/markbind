@@ -276,6 +276,25 @@ describe('CardStack', () => {
     expect(tagMapping[1][1].badgeColor).toBe('#dc3545');
   });
 
+  test('should outline the selection indicator for white tags', async () => {
+    const tagConfigs = JSON.stringify([{ name: 'Success', color: '#ffffff' }]);
+    const wrapper = mount(CardStack, {
+      propsData: {
+        dataTagConfigs: tagConfigs.replace(/"/g, '&quot;'),
+      },
+      slots: { default: CARDS_WITH_CUSTOM_TAGS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    const [tagName, tagConfig] = wrapper.vm.cardStackRef.tagMapping[0];
+    expect(tagName).toBe('Success');
+    expect(tagConfig.badgeColor).toBe('#ffffff');
+
+    const indicator = wrapper.find('.tag-badge .tag-indicator');
+    expect(indicator.classes()).toEqual(expect.arrayContaining(['border', 'border-secondary']));
+  });
+
   test('should convert Bootstrap color names to classes', async () => {
     const tagConfigs = JSON.stringify([
       { name: 'Success', color: 'success' },

@@ -114,7 +114,7 @@ exports[`CardStack should not hide cards when no filter is provided 1`] = `
         1
       </span>
       <span
-        class="badge bg-light text-dark tag-indicator"
+        class="badge bg-light text-dark tag-indicator border border-secondary"
       >
         <span>
           ✓
