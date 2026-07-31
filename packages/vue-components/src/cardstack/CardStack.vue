@@ -6,7 +6,7 @@
           <input
             v-model="value"
             type="text"
-            class="form-control search-bar"
+            class="form-control"
             :placeholder="placeholder"
             @input="update"
           />
@@ -283,7 +283,7 @@ export default {
         justify-content: center;
         align-items: center;
         margin: 0;
-        padding: 5px;
+        padding: 0;
     }
 
     .row {
