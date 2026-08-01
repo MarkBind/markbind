@@ -330,6 +330,7 @@ export default {
         margin: 1px;
         width: 18px;
         height: 100%;
+        padding-inline: 0;
     }
 
     .badge.tag-badge.select-all-toggle {
