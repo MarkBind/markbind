@@ -49,6 +49,19 @@ const CARDS_WITH_CUSTOM_TAGS = `
 `;
 
 describe('CardStack', () => {
+  test('search input should not reuse the wrapper spacing class', () => {
+    const wrapper = mount(CardStack, {
+      propsData: {
+        searchable: true,
+      },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+
+    const searchBar = wrapper.find('.search-bar');
+    expect(searchBar.element.tagName).toBe('SPAN');
+    expect(searchBar.find('input').classes()).not.toContain('search-bar');
+  });
+
   test('should not hide cards when no filter is provided', async () => {
     const wrapper = mount(CardStack, {
       propsData: {
@@ -527,7 +540,7 @@ describe('CardStack', () => {
     expect(wrapper.vm.tagCounts.get('Tag2')).toBe(2);
 
     // Simulate a search for "alpha" which only matches the first card (Tag1)
-    const searchInput = wrapper.find('input.search-bar');
+    const searchInput = wrapper.find('.search-bar input');
     await searchInput.setValue('alpha');
     await searchInput.trigger('input');
     await wrapper.vm.$nextTick();
@@ -710,7 +723,7 @@ describe('CardStack', () => {
     expect(wrapper.vm.matchingCardsCount).toBe(3);
 
     // Search for "alpha beta" - should match only first card
-    const searchInput = wrapper.find('input.search-bar');
+    const searchInput = wrapper.find('.search-bar input');
     await searchInput.setValue('alpha beta');
     await searchInput.trigger('input');
     await wrapper.vm.$nextTick();
