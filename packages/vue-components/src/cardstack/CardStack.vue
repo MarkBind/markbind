@@ -37,7 +37,7 @@
         <span v-if="!disableTagCount" class="badge tag-count bg-light text-dark">
           {{ tagCounts.get(key[0]) || 0 }}
         </span>
-        <span class="badge bg-light text-dark tag-indicator">
+        <span class="badge bg-light text-dark tag-indicator border border-secondary">
           <span v-if="computeShowTag(key[0])">✓</span>
           <span v-else>&nbsp;&nbsp;&nbsp;</span>
         </span>
@@ -330,6 +330,7 @@ export default {
         margin: 1px;
         width: 18px;
         height: 100%;
+        padding-inline: 0;
     }
 
     .badge.tag-badge.select-all-toggle {
