@@ -8,17 +8,34 @@
         <div class="navbar-left">
           <slot name="brand"></slot>
         </div>
-        <div ref="navbarDefault" class="navbar-default">
-          <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-            <slot></slot>
-          </ul>
-        </div>
 
         <div class="navbar-right">
           <ul v-if="slots.right" class="navbar-nav">
             <slot name="right"></slot>
           </ul>
           <dark-mode-toggle class="navbar-dark-mode-toggle" />
+          <button
+            type="button"
+            class="navbar-toggler"
+            :class="{ 'navbar-toggler-open': isMobileNavOpen }"
+            aria-controls="navbar-primary-nav"
+            :aria-expanded="isMobileNavOpen ? 'true' : 'false'"
+            aria-label="Toggle navigation"
+            @click="toggleMobileNav"
+          >
+            <span class="navbar-toggler-bar"></span>
+            <span class="navbar-toggler-bar"></span>
+            <span class="navbar-toggler-bar"></span>
+          </button>
+        </div>
+        <div
+          id="navbar-primary-nav"
+          ref="navbarDefault"
+          :class="['navbar-default', { 'navbar-default-open': isMobileNavOpen }]"
+        >
+          <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+            <slot></slot>
+          </ul>
         </div>
       </div>
     </nav>
@@ -78,6 +95,7 @@ export default {
       id: 'bs-example-navbar-collapse-1',
       styles: {},
       isLowerNavbarShowing: false,
+      isMobileNavOpen: false,
     };
   },
   computed: {
@@ -240,6 +258,24 @@ export default {
         this.isLowerNavbarShowing = false;
       }
     },
+    toggleMobileNav() {
+      this.isMobileNavOpen = !this.isMobileNavOpen;
+    },
+    closeMobileNav() {
+      this.isMobileNavOpen = false;
+    },
+    handleWindowResize() {
+      this.toggleLowerNavbar();
+      if (window.innerWidth >= 768) {
+        this.closeMobileNav();
+      }
+    },
+    bindMobileNavCloseOnNavigate() {
+      this.$refs.navbarDefault.querySelectorAll('a.nav-link:not(.dropdown-toggle), a.dropdown-item')
+        .forEach((link) => {
+          link.addEventListener('click', this.closeMobileNav);
+        });
+    },
   },
   created() {
     this._navbar = true;
@@ -264,55 +300,70 @@ export default {
     // highlight current nav link
     this.highlightLink(window.location.href);
 
-    // scroll default navbar horizontally to current link if it is beyond the current scroll
-    const currentNavlink = $(this.$refs.navbarDefault).find('.current')[0];
-    if (currentNavlink && window.innerWidth < 768
-        && currentNavlink.offsetLeft + currentNavlink.offsetWidth > window.innerWidth) {
-      this.$refs.navbarDefault.scrollLeft = currentNavlink.offsetLeft + currentNavlink.offsetWidth
-        - window.innerWidth;
-    }
-
     this.toggleLowerNavbar();
-    $(window).on('resize', this.toggleLowerNavbar);
-
-    // scroll default navbar horizontally when mousewheel is scrolled
-    $(this.$refs.navbarDefault).on('wheel', (e) => {
-      const isDropdown = (nodes) => {
-        for (let i = 0; i < nodes.length; i += 1) {
-          if (nodes[i].classList && nodes[i].classList.contains('dropdown-menu')) {
-            return true;
-          }
-        }
-        return false;
-      };
-
-      // prevent horizontal scrolling if the scroll is on dropdown menu
-      if (window.innerWidth < 768 && !isDropdown(e.path)) {
-        e.preventDefault();
-        this.$refs.navbarDefault.scrollLeft += e.deltaY;
-      }
-    });
+    this.bindMobileNavCloseOnNavigate();
+    $(window).on('resize', this.handleWindowResize);
   },
   beforeUnmount() {
     $('.dropdown', this.$el).off('click').offBlur();
-    $(window).off('resize', this.toggleLowerNavbar);
-    $(this.$refs.navbarDefault).off('wheel');
+    $(window).off('resize', this.handleWindowResize);
+    if (this.$refs.navbarDefault) {
+      this.$refs.navbarDefault.querySelectorAll('a.nav-link:not(.dropdown-toggle), a.dropdown-item')
+        .forEach((link) => {
+          link.removeEventListener('click', this.closeMobileNav);
+        });
+    }
   },
 };
 </script>
 
 <style scoped>
-    @media (width <= 767px) {
-        .navbar {
-            padding-left: 0;
-            padding-right: 0;
-            padding-bottom: 0;
+    .container-fluid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    @media (width >= 768px) {
+        .container-fluid {
+            flex-wrap: nowrap;
         }
 
         .navbar-left {
-            max-width: 50%;
             order: 1;
-            padding-left: 1rem;
+        }
+
+        .navbar-default {
+            order: 2;
+            display: flex !important;
+        }
+
+        .navbar-right {
+            order: 3;
+        }
+
+        .navbar-toggler {
+            display: none;
+        }
+    }
+
+    @media (width <= 767px) {
+        .navbar {
+            padding: 0;
+        }
+
+        .container-fluid {
+            padding: 0.625rem 1rem 0;
+            align-items: center;
+        }
+
+        .navbar-left {
+            order: 1;
+            flex: 0 0 auto;
+            min-width: 0;
+            max-width: none;
+            padding: 0;
+            align-self: center;
         }
 
         .navbar-left :deep(*) {
@@ -320,63 +371,140 @@ export default {
         }
 
         .navbar-right {
-            order: 1;
-            max-width: 50%;
-            padding: 0 16px;
+            order: 2;
+            flex: 1 1 0%;
+            min-width: 0;
+            max-width: none;
+            padding: 0;
+            gap: 0.5rem;
             justify-content: flex-end;
+            align-items: center;
+            flex-wrap: nowrap;
+        }
+
+        .navbar-right :deep(.navbar-nav) {
+            flex: 1 1 auto;
+            flex-direction: row;
+            align-items: center;
+            min-width: 0;
+            margin: 0;
+            padding: 0;
+            width: auto;
+        }
+
+        .navbar-right :deep(.navbar-nav > li) {
+            display: flex;
+            align-items: center;
+            align-self: center;
+            flex: 1 1 auto;
+            min-width: 0;
+            width: auto;
+            position: relative;
+        }
+
+        .navbar-right :deep(.navbar-form) {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        .navbar-right :deep(.dropdown) {
+            width: 100%;
+            min-width: 0;
+        }
+
+        .navbar-right :deep(.search-dropdown-menu) {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 0.25rem;
+        }
+
+        .navbar-right :deep(.form-control) {
+            min-width: 0 !important;
+            width: 100%;
+            max-width: none;
+            height: 2.5rem;
+            padding-top: 0.375rem;
+            padding-bottom: 0.375rem;
+        }
+
+        .navbar-right :deep(.placeholder-div-hidden) {
+            display: none !important;
+        }
+
+        .navbar-right .navbar-dark-mode-toggle :deep(.dark-mode-toggle) {
+            align-self: center;
+            height: 2.5rem;
+            width: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .navbar-toggler {
+            display: flex;
+            flex-shrink: 0;
+            align-self: center;
         }
 
         .navbar-default {
-            display: block;
-            margin-top: 0.3125rem;
-            width: 100%;
-            order: 2;
-            overflow-x: scroll;
-
-            /* Hide overflow scroll bar */
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            order: 3;
+            flex: 0 0 100%;
+            display: none !important;
+            width: auto;
+            margin: 0.625rem -1rem 0;
+            padding: 0.5rem 1rem 0.75rem;
+            border-top: 1px solid rgb(var(--bs-emphasis-color-rgb) / 15%);
+            max-height: min(60vh, calc(100vh - 8rem));
+            overflow-y: auto;
+            overscroll-behavior: contain;
         }
 
-        /* Hide overflow scroll bar for Chrome and Safari */
-        .navbar-default::-webkit-scrollbar {
-            display: none;
+        .navbar-dark .navbar-default {
+            border-top-color: rgb(255 255 255 / 15%);
         }
 
-        .navbar-default ul {
-            flex-direction: row;
-            margin-top: 0 !important;
-            width: 100%;
+        .navbar-default-open {
+            display: block !important;
         }
 
-        /* Deep applies to slotted components and deep children */
-        .navbar-default > ul > :deep(*) {
-            background: rgb(var(--bs-emphasis-color-rgb) / 20%);
-            padding: 0.3125rem 0.625rem;
-            flex-grow: 1;
-        }
-
-        .navbar-light .navbar-default > ul > :deep(*) {
-            background: rgb(var(--bs-emphasis-color-rgb) / 5%);
-        }
-
-        .navbar-default > ul > .current {
-            background: transparent;
-        }
-
-        .navbar-default a,
-        :deep(.dropdown-toggle) {
-            margin: 0 auto;
-            width: max-content;
-        }
-
-        :deep(.dropdown) {
-            display: flex;
-            align-items: center;
-        }
-
-        .container-fluid {
+        .navbar-default :deep(.navbar-nav) {
+            flex-direction: column;
+            gap: 0.125rem;
+            margin: 0 !important;
             padding: 0;
+            width: 100%;
+        }
+
+        .navbar-default :deep(.navbar-nav > *) {
+            background: transparent;
+            flex-grow: 0;
+            width: 100%;
+        }
+
+        .navbar-default :deep(.navbar-nav > .current) {
+            background: rgb(var(--bs-emphasis-color-rgb) / 10%);
+            border-radius: 0.375rem;
+        }
+
+        .navbar-dark .navbar-default :deep(.navbar-nav > .current) {
+            background: rgb(255 255 255 / 10%);
+        }
+
+        .navbar-default :deep(.nav-link),
+        .navbar-default :deep(.dropdown-toggle) {
+            display: block;
+            margin: 0;
+            width: 100%;
+            padding: 0.875rem 0.5rem;
+            text-align: left;
+            line-height: 1.25;
+            border-radius: 0.375rem;
+        }
+
+        .navbar-default :deep(.dropdown) {
+            display: block;
+            width: 100%;
         }
     }
 
@@ -393,11 +521,59 @@ export default {
         align-items: center;
         display: flex;
         gap: 0.5rem;
-        padding-right: 1rem;
+        padding-right: 0;
+    }
+
+    @media (width >= 768px) {
+        .navbar-right {
+            padding-right: 1rem;
+        }
     }
 
     .navbar-dark-mode-toggle {
         flex: 0 0 auto;
+    }
+
+    .navbar-toggler {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0;
+        border: 1px solid rgb(var(--bs-emphasis-color-rgb) / 25%);
+        border-radius: 0.375rem;
+        background: transparent;
+        cursor: pointer;
+    }
+
+    .navbar-dark .navbar-toggler {
+        border-color: rgb(255 255 255 / 35%);
+    }
+
+    .navbar-toggler-bar {
+        display: block;
+        width: 1.125rem;
+        height: 2px;
+        background-color: var(--bs-emphasis-color);
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .navbar-dark .navbar-toggler-bar {
+        background-color: rgb(255 255 255 / 85%);
+    }
+
+    .navbar-toggler-open .navbar-toggler-bar:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+    }
+
+    .navbar-toggler-open .navbar-toggler-bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .navbar-toggler-open .navbar-toggler-bar:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
     }
 
     .navbar-left {
@@ -405,8 +581,14 @@ export default {
         display: flex;
         font-size: 1.25rem;
         line-height: inherit;
-        padding: 0.3125rem 1rem;
+        padding: 0.3125rem 0;
         white-space: nowrap;
+    }
+
+    @media (width >= 768px) {
+        .navbar-left {
+            padding: 0.3125rem 1rem;
+        }
     }
 
     .navbar-fixed {
@@ -416,7 +598,6 @@ export default {
     }
 
     .navbar-default {
-        display: flex;
         flex-basis: auto;
         flex-grow: 1;
         align-items: center;

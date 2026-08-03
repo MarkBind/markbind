@@ -247,11 +247,27 @@ export default {
         }
 
         .navbar-default .dropdown-menu {
-            position: absolute;
+            position: static;
+            float: none;
             max-width: 100%;
-            max-height: 75vh;
-            overflow-y: auto;
-            overscroll-behavior: contain;
+            max-height: none;
+            overflow-y: visible;
+            overscroll-behavior: auto;
+            border: 0;
+            border-radius: 0.375rem;
+            box-shadow: none;
+            margin: 0.125rem 0 0.25rem;
+            padding: 0.25rem 0 0.25rem 0.75rem;
+            background: rgb(var(--bs-emphasis-color-rgb) / 5%);
+        }
+
+        .navbar-dark .navbar-default .dropdown-menu {
+            background: rgb(255 255 255 / 5%);
+        }
+
+        .navbar-default .dropdown-menu > li > a,
+        .navbar-default .dropdown-menu > .dropdown-submenu > a {
+            padding: 0.625rem 0.5rem;
         }
 
         .navbar-default .dropdown-menu-end {
