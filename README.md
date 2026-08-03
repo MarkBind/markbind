@@ -147,6 +147,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/lntutor"><img src="https://avatars.githubusercontent.com/u/1948922?v=4?s=100" width="100px;" alt="Loi Nguyen"/><br /><sub><b>Loi Nguyen</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/issues?q=author%3Alntutor" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Guflly"><img src="https://avatars.githubusercontent.com/u/145608489?v=4?s=100" width="100px;" alt="Guflly"/><br /><sub><b>Guflly</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/issues?q=author%3AGuflly" title="Bug reports">🐛</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/nightcityblade"><img src="https://avatars.githubusercontent.com/u/260356847?v=4?s=100" width="100px;" alt="nightcityblade"/><br /><sub><b>nightcityblade</b></sub></a><br /><a href="https://github.com/MarkBind/markbind/commits?author=nightcityblade" title="Documentation">📖</a></td>
+    </tr>
   </tbody>
 </table>
 
