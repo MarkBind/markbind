@@ -51,7 +51,7 @@ module.exports = {
 
     const content = document.createElement('div');
     content.classList.add('content');
-    Array.from(el.children).forEach(child => content.append(child));
+    Array.from(el.childNodes).forEach(child => content.append(child));
     el.replaceChildren();
     el.append(content);
     el.classList.add('closeable-wrapper');
