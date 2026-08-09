@@ -49,6 +49,19 @@ const CARDS_WITH_CUSTOM_TAGS = `
 `;
 
 describe('CardStack', () => {
+  test('search input should not reuse the wrapper spacing class', () => {
+    const wrapper = mount(CardStack, {
+      propsData: {
+        searchable: true,
+      },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+
+    const searchBar = wrapper.find('.search-bar');
+    expect(searchBar.element.tagName).toBe('SPAN');
+    expect(searchBar.find('input').classes()).not.toContain('search-bar');
+  });
+
   test('should not hide cards when no filter is provided', async () => {
     const wrapper = mount(CardStack, {
       propsData: {
@@ -274,6 +287,25 @@ describe('CardStack', () => {
     const { tagMapping } = wrapper.vm.cardStackRef;
     expect(tagMapping[0][1].badgeColor).toBe('#28a745');
     expect(tagMapping[1][1].badgeColor).toBe('#dc3545');
+  });
+
+  test('should outline the selection indicator for white tags', async () => {
+    const tagConfigs = JSON.stringify([{ name: 'Success', color: '#ffffff' }]);
+    const wrapper = mount(CardStack, {
+      propsData: {
+        dataTagConfigs: tagConfigs.replace(/"/g, '&quot;'),
+      },
+      slots: { default: CARDS_WITH_CUSTOM_TAGS },
+      global: DEFAULT_GLOBAL_MOUNT_OPTIONS,
+    });
+    await wrapper.vm.$nextTick();
+
+    const [tagName, tagConfig] = wrapper.vm.cardStackRef.tagMapping[0];
+    expect(tagName).toBe('Success');
+    expect(tagConfig.badgeColor).toBe('#ffffff');
+
+    const indicator = wrapper.find('.tag-badge .tag-indicator');
+    expect(indicator.classes()).toEqual(expect.arrayContaining(['border', 'border-secondary']));
   });
 
   test('should convert Bootstrap color names to classes', async () => {
@@ -527,7 +559,7 @@ describe('CardStack', () => {
     expect(wrapper.vm.tagCounts.get('Tag2')).toBe(2);
 
     // Simulate a search for "alpha" which only matches the first card (Tag1)
-    const searchInput = wrapper.find('input.search-bar');
+    const searchInput = wrapper.find('.search-bar input');
     await searchInput.setValue('alpha');
     await searchInput.trigger('input');
     await wrapper.vm.$nextTick();
@@ -710,7 +742,7 @@ describe('CardStack', () => {
     expect(wrapper.vm.matchingCardsCount).toBe(3);
 
     // Search for "alpha beta" - should match only first card
-    const searchInput = wrapper.find('input.search-bar');
+    const searchInput = wrapper.find('.search-bar input');
     await searchInput.setValue('alpha beta');
     await searchInput.trigger('input');
     await wrapper.vm.$nextTick();
