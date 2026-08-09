@@ -34,7 +34,7 @@ function useVerboseConsole(): void {
   consoleTransport.level = 'verbose';
 }
 
-const dailyRotateFileTransport = new DailyRotateFile({
+const dailyRotateFileTransportOptions: DailyRotateFile.DailyRotateFileTransportOptions = {
   format: fileFormat,
   datePattern: 'YYYY-MM-DD',
   dirname: '_markbind/logs',
@@ -43,15 +43,24 @@ const dailyRotateFileTransport = new DailyRotateFile({
   level: 'debug',
   maxFiles: 5,
   auditFile: '_markbind/logs/audit.json',
-});
+};
 
-// Reconfigure the default instance logger winston provides with DailyRotateFile for markbind-cli
+let isFileLoggingInitialized = false;
+
+function initializeFileLogging(): void {
+  if (isFileLoggingInitialized) {
+    return;
+  }
+
+  winston.add(new DailyRotateFile(dailyRotateFileTransportOptions));
+  isFileLoggingInitialized = true;
+}
+
+// Reconfigure the default instance logger winston provides for markbind-cli.
+// File logging is added only when a command is about to run.
 winston.configure({
   exitOnError: false,
-  transports: [
-    consoleTransport,
-    dailyRotateFileTransport,
-  ],
+  transports: [consoleTransport],
 });
 
 export {
@@ -65,6 +74,7 @@ export {
 export {
   useDebugConsole,
   useVerboseConsole,
+  initializeFileLogging,
 };
 
 // eslint-disable-next-line no-console
