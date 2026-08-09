@@ -830,6 +830,33 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "lntutor",
+      "name": "Loi Nguyen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1948922?v=4",
+      "profile": "https://github.com/lntutor",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "Guflly",
+      "name": "Guflly",
+      "avatar_url": "https://avatars.githubusercontent.com/u/145608489?v=4",
+      "profile": "https://github.com/Guflly",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "nightcityblade",
+      "name": "nightcityblade",
+      "avatar_url": "https://avatars.githubusercontent.com/u/260356847?v=4",
+      "profile": "https://github.com/nightcityblade",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
