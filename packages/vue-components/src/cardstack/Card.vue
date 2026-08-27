@@ -11,7 +11,7 @@
             <slot name="header"></slot>
           </h6>
         </div>
-        <div class="card-text">
+        <div ref="content" class="card-text">
           <slot></slot>
         </div>
         <br />
@@ -61,6 +61,7 @@ export default {
       exposedTags: [],
       headerText: '',
       hasHeader: true,
+      bodyText: '',
       cardStack: null,
     };
   },
@@ -125,7 +126,8 @@ export default {
       const matchesTags = this.computeTags.some(tag => selectedTags.includes(tag));
 
       // Check if the card mateches the search terms
-      const searchTarget = (this.computeTags.join(' ') + this.keywords + this.headerText).toLowerCase();
+      const searchTarget = (this.computeTags.join(' ')
+        + this.keywords + this.headerText + this.bodyText).toLowerCase();
       const matchesSearch = searchTerms.length === 0
         || searchTerms.every(term => searchTarget.toLowerCase().includes(term.toLowerCase()));
 
@@ -141,6 +143,7 @@ export default {
     this.isMounted = true;
     this.headerText = this.computeHeaders;
     this.hasHeader = this.headerText !== '';
+    this.bodyText = this.$refs.content?.innerText || '';
 
     this.cardStack.updateRawTags(this.computeTags);
     this.cardStack.updateTagMapping();
