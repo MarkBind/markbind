@@ -27,7 +27,10 @@ function printHeader() {
 }
 
 program
-  .hook('preAction', () => preFlightChecks());
+  .hook('preAction', () => {
+    logger.initializeFileLogging();
+    preFlightChecks();
+  });
 
 program
   .addHelpText('beforeAll', printHeader())
