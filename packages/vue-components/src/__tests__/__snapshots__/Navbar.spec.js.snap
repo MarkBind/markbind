@@ -22,7 +22,31 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
         
       </div>
       <div
+        class="navbar-right"
+      >
+        <!--v-if-->
+        <!--v-if-->
+        <button
+          aria-controls="navbar-primary-nav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="navbar-toggler"
+          type="button"
+        >
+          <span
+            class="navbar-toggler-bar"
+          />
+          <span
+            class="navbar-toggler-bar"
+          />
+          <span
+            class="navbar-toggler-bar"
+          />
+        </button>
+      </div>
+      <div
         class="navbar-default"
+        id="navbar-primary-nav"
       >
         <ul
           class="navbar-nav me-auto mt-2 mt-lg-0"
@@ -48,12 +72,6 @@ exports[`Navbar and secondary navbar navbar with page nav button 1`] = `
           </li>
           
         </ul>
-      </div>
-      <div
-        class="navbar-right"
-      >
-        <!--v-if-->
-        <!--v-if-->
       </div>
     </div>
   </nav>
@@ -94,7 +112,31 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
         
       </div>
       <div
+        class="navbar-right"
+      >
+        <!--v-if-->
+        <!--v-if-->
+        <button
+          aria-controls="navbar-primary-nav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="navbar-toggler"
+          type="button"
+        >
+          <span
+            class="navbar-toggler-bar"
+          />
+          <span
+            class="navbar-toggler-bar"
+          />
+          <span
+            class="navbar-toggler-bar"
+          />
+        </button>
+      </div>
+      <div
         class="navbar-default"
+        id="navbar-primary-nav"
       >
         <ul
           class="navbar-nav me-auto mt-2 mt-lg-0"
@@ -120,12 +162,6 @@ exports[`Navbar and secondary navbar navbar with site and page nav buttons 1`] =
           </li>
           
         </ul>
-      </div>
-      <div
-        class="navbar-right"
-      >
-        <!--v-if-->
-        <!--v-if-->
       </div>
     </div>
   </nav>
@@ -167,7 +203,31 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
         
       </div>
       <div
+        class="navbar-right"
+      >
+        <!--v-if-->
+        <!--v-if-->
+        <button
+          aria-controls="navbar-primary-nav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="navbar-toggler"
+          type="button"
+        >
+          <span
+            class="navbar-toggler-bar"
+          />
+          <span
+            class="navbar-toggler-bar"
+          />
+          <span
+            class="navbar-toggler-bar"
+          />
+        </button>
+      </div>
+      <div
         class="navbar-default"
+        id="navbar-primary-nav"
       >
         <ul
           class="navbar-nav me-auto mt-2 mt-lg-0"
@@ -193,12 +253,6 @@ exports[`Navbar and secondary navbar navbar with site nav button 1`] = `
           </li>
           
         </ul>
-      </div>
-      <div
-        class="navbar-right"
-      >
-        <!--v-if-->
-        <!--v-if-->
       </div>
     </div>
   </nav>
@@ -239,7 +293,31 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
         
       </div>
       <div
+        class="navbar-right"
+      >
+        <!--v-if-->
+        <!--v-if-->
+        <button
+          aria-controls="navbar-primary-nav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="navbar-toggler"
+          type="button"
+        >
+          <span
+            class="navbar-toggler-bar"
+          />
+          <span
+            class="navbar-toggler-bar"
+          />
+          <span
+            class="navbar-toggler-bar"
+          />
+        </button>
+      </div>
+      <div
         class="navbar-default"
+        id="navbar-primary-nav"
       >
         <ul
           class="navbar-nav me-auto mt-2 mt-lg-0"
@@ -265,12 +343,6 @@ exports[`Navbar and secondary navbar navbar without site and page nav buttons 1`
           </li>
           
         </ul>
-      </div>
-      <div
-        class="navbar-right"
-      >
-        <!--v-if-->
-        <!--v-if-->
       </div>
     </div>
   </nav>
