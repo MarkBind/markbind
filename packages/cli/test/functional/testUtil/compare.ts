@@ -27,12 +27,12 @@ function _readFileSync(...paths: string[]) {
 }
 
 /**
- * Filters out .page-vue-render.js files from the list of file paths.
+ * Filters out .page-vue-render.js and .DS_Store files from the list of file paths.
  * @param {string[]} filePaths - List of file paths
- * @returns {string[]} Filtered list without *.page-vue-render.js files
+ * @returns {string[]} Filtered list without generated render files and macOS metadata
  */
-function filterPageVueRenderFiles(filePaths: string[]) {
-  return filePaths.filter(p => !p.endsWith('.page-vue-render.js'));
+function filterIgnoredFiles(filePaths: string[]) {
+  return filePaths.filter(p => !p.endsWith('.page-vue-render.js') && !p.endsWith('.DS_Store'));
 }
 
 /**
@@ -87,8 +87,8 @@ function compare(root: string, expectedSiteRelativePath = 'expected', siteRelati
   // Vue render JS files (*.page-vue-render.js) are not committed to version control,
   // so we exclude them from the comparison to avoid false positive diffs.
   // Note: Every non-includes .html file has a corresponding js render binary file
-  actualPaths = filterPageVueRenderFiles(actualPaths);
-  expectedPaths = filterPageVueRenderFiles(expectedPaths);
+  actualPaths = filterIgnoredFiles(actualPaths);
+  expectedPaths = filterIgnoredFiles(expectedPaths);
 
   // Check for file existence of ignoredPaths and that they are present in actualPaths
   if (ignoredPaths.length !== 0 && !_.isEqual(_.intersection(ignoredPaths, actualPaths), ignoredPaths)) {
@@ -100,19 +100,18 @@ function compare(root: string, expectedSiteRelativePath = 'expected', siteRelati
   expectedPaths = expectedPaths.filter(p => !ignoredPaths.includes(p));
 
   let error = false;
-  if (expectedPaths.length !== actualPaths.length) {
-    throw new Error('Unequal number of files! '
-      + `Expected: ${expectedPaths.length}, Actual: ${actualPaths.length}`);
+  const missingPaths = _.difference(expectedPaths, actualPaths);
+  const unexpectedPaths = _.difference(actualPaths, expectedPaths);
+  if (missingPaths.length || unexpectedPaths.length) {
+    throw new Error('Different files built!'
+      + `\nMissing files: ${JSON.stringify(missingPaths)}`
+      + `\nUnexpected files: ${JSON.stringify(unexpectedPaths)}`);
   }
 
   /* eslint-disable no-continue */
   for (let i = 0; i < expectedPaths.length; i += 1) {
     const expectedFilePath = expectedPaths[i];
     const actualFilePath = actualPaths[i];
-
-    if (expectedFilePath !== actualFilePath) {
-      throw new Error(`Different files built! Expected: ${expectedFilePath}, Actual: ${actualFilePath}`);
-    }
 
     if (isBinary(expectedFilePath) || TEST_BLACKLIST.ignores(expectedFilePath)) {
       continue;
