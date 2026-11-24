@@ -392,6 +392,29 @@ Here are the steps to set up Netlify:
 
 Now your site will be deployed on Netlify at the given address specified after deployment. It will be updated automatically when the default branch of your repo is updated.
 
+## Deploying to deed.page
+
+**If you just need a shareable link, you can upload the generated site to [deed.page](https://deed.page) from the command line**, without creating an account or connecting a Git repository.
+
+1. Build the site with an empty `baseUrl`, since it will be served from the root of its own `*.deed.page` address:
+
+   ```
+   markbind build --baseUrl
+   ```
+1. Download deed.page's upload script and run it on the `_site` folder. It only needs Node.js, which MarkBind already requires. Save the script outside your site's root directory (here, in your home directory); otherwise the next `markbind build` copies it into `_site`. Replace `my-markbind-site` with a name of your choice:
+
+   ```
+   curl -fsSL https://deed.page/cli/publish-large.mjs -o ~/publish-large.mjs
+   node ~/publish-large.mjs _site --slug my-markbind-site
+   ```
+
+The last line printed is the address of your site, e.g. `https://my-markbind-site.deed.page/`. On the first upload, the script saves an owner token to `~/.config/deed-page/token` (it is not printed). To update the site, run `markbind build --baseUrl` and the same `node` command again; the saved token is reused.
+
+<box type="info" light>
+
+The site produced by `markbind init` is about 7 MB (4.4 MB compressed), mostly bundled fonts and scripts. That is over deed.page's 4 MB limit for a single upload request, so use the script above rather than a one-line `curl` upload; it sends the files individually. See the [deed.page docs](https://deed.page/docs) for plan limits. Sites on the free plan show a small "Published with deed.page" badge.
+</box>
+
 ## Previewing Pull Requests for MarkBind sites
 
 **If you are hosting your MarkBind project on GitHub, you can setup <tooltip content="Pull Request previews">PR previews</tooltip> in order to automatically build and deploy the modified MarkBind site based on the changes in the PR.**
